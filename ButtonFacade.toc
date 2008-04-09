@@ -6,7 +6,7 @@
 ## OptionalDeps: Ace3, LibFuBarPlugin-3.0
 ## SavedVariables: ButtonFacadeDB
 ## X-Category: Action Bars
-## X-Embeds: 
+## X-Embeds: Ace3
 ## X-eMail: sheets.jeff@gmail.com
 
 LibButtonFacade\lib.xml
