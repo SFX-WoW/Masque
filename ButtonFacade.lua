@@ -204,7 +204,6 @@ bf:SetDefaultModulePrototype({
 local elements_args = bf.options.args.elements.args
 
 function bf:ElementListUpdate(Addon,Group)
-	DEFAULT_CHAT_FRAME:AddMessage(tostring(Addon)..", "..tostring(Group))
 	if not Addon then
 		local list = lbf:ListAddons()
 		for k in pairs(elements_args) do
