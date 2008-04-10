@@ -1,6 +1,4 @@
 
-DEFAULT_CHAT_FRAME:AddMessage("DKSLJFHSKDJF")
-
 local LibButtonFacade = LibStub("LibButtonFacade",true)
 if not LibButtonFacade then
 	return
