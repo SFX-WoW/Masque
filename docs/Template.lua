@@ -63,23 +63,43 @@
 
 	When specifying paths, enclose them in double brackets (like in the examples below) to eliminate the need for escapes/quotes.
 	
-	To use this file as a template for a new skin, simply remove all of the comments.
+	To use this file as a template for a new skin, simply remove all of the comments in this section.
 ]]
 
--- get the library, and wuit without error if it doesn't exist.
+-- Get the library and quit without error if it doesn't exist.
 local LibButtonFacade = LibStub("LibButtonFacade",true)
 if not LibButtonFacade then
 	return
 end
 
--- The following is the actual skin data. The "layers" are listed in order from bottom (first) to top (last).
-local SkinData = {
+--[[
+	Title...: SkinName
+	Author..: Author
+	Version.: 2.4.0
+]]
+
+-- Replace "SkinName" with your skin's name.
+LibButtonFacade:AddSkin("SkinName",{
+
+	-- Skin data start. (Data copied from DreamLayout as an example.)
 	Backdrop = {
-		Hide = true
-	},
-	Icon = {
 		Width = 36,
 		Height = 36,
+		Texture = [[Interface\Tooltips\UI-Tooltip-Background]],
+		Red = 0,
+		Green = 0,
+		Blue = 0,
+		Alpha = 0.6,
+	},
+	Icon = {
+		Width = 30,
+		Height = 30,
+		TexCoords = {0.07,0.93,0.07,0.93},
+	},
+	Flash = {
+		Width = 36,
+		Height = 36,
+		Texture = [[Interface\Buttons\UI-QuickslotRed]],
 	},
 	Cooldown = {
 		Width = 36,
@@ -95,28 +115,13 @@ local SkinData = {
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 	},
 	Normal = {
-		Width = 66,
-		Height = 66,
-		Texture = [[Interface\Buttons\UI-Quickslot2]],
-		OffsetY = -1,
+		Hide = true,
 	},
 	Pushed = {
-		Width = 36,
-		Height = 36,
-		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
+		Hide = true,
 	},
 	Disabled = {
-		Width = 66,
-		Height = 66,
-		Texture = [[Interface\Buttons\UI-Quickslot2]],
-		-- OffsetX defaults to 0, so it is unnecessary here.
-		OffsetY = -1,
-	},
-	Border = {
-		Width = 62,
-		Height = 62,
-		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
-		BlendMode = "ADD",
+		Hide = true,
 	},
 	Highlight = {
 		Width = 36,
@@ -128,6 +133,12 @@ local SkinData = {
 		Width = 36,
 		Height = 36,
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
+		BlendMode = "ADD",
+	},
+	Border = {
+		Width = 62,
+		Height = 62,
+		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 		BlendMode = "ADD",
 	},
 	Gloss = {
@@ -150,7 +161,6 @@ local SkinData = {
 		Height = 10,
 		OffsetY = -11,
 	},
-}
+	-- Skin data end.
 
--- Be sure to replace "SkinName" with the name of your skin.
-LibButtonFacade:AddSkin("SkinName", SkinData)
+},true)
