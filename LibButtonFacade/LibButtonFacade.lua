@@ -159,15 +159,15 @@ local layerTypes = {
 
 local defaultTexCoords = {0,1,0,1}
 
-local function SkinLayer(skin,button,btndata,layer,btnlayer)
+local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 	local skinlayer = assert(skin[layer],"Missing layer in skin definition: "..layer)
 	if not btnlayer then return end
 	if skinlayer.Hide then
 		btnlayer:Hide()
 		return
 	end
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1))
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1))
+	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	local layerType = layerTypes[layer]
@@ -198,7 +198,7 @@ local function Catch_SetNormalTexture(button,texture)
 	end
 end
 
-local function SkinNormalLayer(skin,button,btndata)
+local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Normal
 	local btnlayer = btndata.Normal or button:GetNormalTexture()
 	if not btnlayer then return end
@@ -219,14 +219,14 @@ local function SkinNormalLayer(skin,button,btndata)
 	button.__bf_skinlayer = skinlayer
 	btnlayer:Show()
 	btnlayer:SetDrawLayer("BORDER")
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1))
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1))
+	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 end
 
-local function SkinHighlightLayer(skin,button,btndata)
+local function SkinHighlightLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Highlight
 	local btnlayer = btndata.Highlight or button:GetHighlightTexture()
 	if not btnlayer then return end
@@ -236,15 +236,15 @@ local function SkinHighlightLayer(skin,button,btndata)
 		return
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1))
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1))
+	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 	btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
 end
 
-local function SkinPushedLayer(skin,button,btndata)
+local function SkinPushedLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Pushed
 	local btnlayer = btndata.Pushed or button:GetPushedTexture()
 	if not btnlayer then return end
@@ -255,14 +255,14 @@ local function SkinPushedLayer(skin,button,btndata)
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer("BORDER")
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1))
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1))
+	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 end
 
-local function SkinDisabledLayer(skin,button,btndata)
+local function SkinDisabledLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Disabled
 	local btnlayer = btndata.Disabled or button:GetDisabledTexture()
 	if not btnlayer then return end
@@ -273,14 +273,14 @@ local function SkinDisabledLayer(skin,button,btndata)
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer("BORDER")
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1))
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1))
+	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 end
 
-local function SkinCheckedLayer(skin,button,btndata)
+local function SkinCheckedLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Checked
 	local btnlayer = btndata.Checked or button:GetCheckedTexture()
 	if not btnlayer then return end
@@ -290,8 +290,8 @@ local function SkinCheckedLayer(skin,button,btndata)
 		return
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1))
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1))
+	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
@@ -308,7 +308,7 @@ local function RemoveGlossLayer(button)
 	end
 end
 
-local function SkinGlossLayer(skin,button,btndata)
+local function SkinGlossLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Gloss
 	local btnlayer
 	local freeglossn = #freegloss
@@ -323,8 +323,8 @@ local function SkinGlossLayer(skin,button,btndata)
 	end
 	gloss[button] = btnlayer
 	btnlayer:Show()
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1))
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1))
+	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetTexture(skinlayer.Texture)
@@ -344,7 +344,7 @@ local function RemoveBackdropLayer(button)
 	end
 end
 
-local function SkinBackdropLayer(skin,button,btndata)
+local function SkinBackdropLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Backdrop
 	local btnlayer
 	local freebackdropn = #freebackdrop
@@ -358,16 +358,14 @@ local function SkinBackdropLayer(skin,button,btndata)
 		local frame = CreateFrame("Frame",nil,button)
 		btnlayer = frame:CreateTexture(nil,"BACKGROUND")
 		btnlayer.frame = frame
-		btnlayer:ClearAllPoints()
-		btnlayer:SetAllPoints(button)
 	end
 	backdrop[button] = btnlayer
 	--btnlayer.frame:SetFrameStrata("PARENT")
 	btnlayer.frame:SetFrameLevel(0)
 	btnlayer.frame:Show()
 	btnlayer:Show()
-	btnlayer.frame:SetWidth(skinlayer.Width * (skinlayer.Scale or 1))
-	btnlayer.frame:SetHeight(skinlayer.Height * (skinlayer.Scale or 1))
+	btnlayer.frame:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
+	btnlayer.frame:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer.frame:ClearAllPoints()
 	btnlayer.frame:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetTexture(skinlayer.Texture)
@@ -375,10 +373,14 @@ local function SkinBackdropLayer(skin,button,btndata)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 	btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
 	btnlayer:SetDrawLayer("BACKGROUND")
+	btnlayer:ClearAllPoints()
+	btnlayer:SetAllPoints(btnlayer.frame)
 end
 
 local function ApplySkin(SkinID,Gloss,Backdrop,button,btndata)
 	if not button then return end
+	local xscale = (button:GetWidth() or 36) / 36
+	local yscale = (button:GetHeight() or 36) / 36
 	local skin = skins[SkinID or "Blizzard"] or skins["Blizzard"]
 	-- Cycle through the normal layers and skin as needed.
 	for i = 1, #layers do local layer = layers[i]
@@ -387,25 +389,25 @@ local function ApplySkin(SkinID,Gloss,Backdrop,button,btndata)
 		end
 		btnlayer = btndata[layer]
 		if btnlayer then
-			SkinLayer(skin,button,btndata,layer,btnlayer)
+			SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		end
 	end
 	if Gloss and not skin.Gloss.Hide then
-		SkinGlossLayer(skin,button,btndata)
+		SkinGlossLayer(skin,button,btndata,xscale,yscale)
 	elseif gloss[button] then
 		RemoveGlossLayer(button)
 	end
 	if Backdrop and not skin.Backdrop.Hide then
-		SkinBackdropLayer(skin,button,btndata)
+		SkinBackdropLayer(skin,button,btndata,xscale,yscale)
 	elseif backdrop[button] then
 		RemoveBackdropLayer(button)
 	end
-	SkinNormalLayer(skin,button,btndata) -- Uses the Border Layer info.
-	SkinHighlightLayer(skin,button,btndata)
-	SkinPushedLayer(skin,button,btndata)
-	SkinDisabledLayer(skin,button,btndata)
+	SkinNormalLayer(skin,button,btndata,xscale,yscale) -- Uses the Border Layer info.
+	SkinHighlightLayer(skin,button,btndata,xscale,yscale)
+	SkinPushedLayer(skin,button,btndata,xscale,yscale)
+	SkinDisabledLayer(skin,button,btndata,xscale,yscale)
 	if button:GetFrameType() == "CheckButton" then
-		SkinCheckedLayer(skin,button,btndata)
+		SkinCheckedLayer(skin,button,btndata,xscale,yscale)
 	end
 end
 
