@@ -103,6 +103,8 @@ function btntest:OnDisable()
 		group:RemoveButton(buttons[i])
 		buttons[i]:Hide()
 	end
+	buttons[1]:ClearAllPoints()
+	buttons[1]:SetPoint("TOPLEFT",UIParent,"BOTTOMRIGHT",100)
 	group:Delete()
 	db.profile.enabled = nil
 end
