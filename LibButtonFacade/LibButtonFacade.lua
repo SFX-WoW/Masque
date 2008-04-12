@@ -531,7 +531,8 @@ group_mt = {
 				ApplySkin("Blizzard",false,false,k,data[k])
 			end
 			-- finally, remove ourselves from our parent group.
-			Parent:RemoveSubGroup(self)
+			self.Parent:RemoveSubGroup(self)
+			group[self.RegID] = nil
 		end,
 	}
 }
