@@ -186,25 +186,31 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 	end
 end
 
+local baselayer = {}
 local normalhooked = {}
 local function Catch_SetNormalTexture(button,texture)
-	local btnlayer = button:GetNormalTexture()
+	local btnlayer = button.__bf_normaltexture
+	local nrmlayer = button:GetNormalTexture()
 	if texture == "Interface\\Buttons\\UI-Quickslot2" then
+		if nrmlayer ~= btnlayer then nrmlayer:Hide() end
 		btnlayer:SetTexture(button.__bf_skinlayer.Texture or "")
 		btnlayer.__bf_useEmpty = nil
 	elseif texture == "Interface\\Buttons\\UI-Quickslot" then
+		if nrmlayer ~= btnlayer then nrmlayer:Hide() end
 		btnlayer:SetTexture(button.__bf_skinlayer.EmptyTexture or "")
 		btnlayer.__bf_useEmpty = true
 	end
 end
 
-local baselayer = {}
 local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Normal
 	local btnlayer
 	if skinlayer.UseAsBase and btndata.Normal ~= false then
 		btnlayer = btndata.Normal or button:GetNormalTexture()
-		if btnlayer then btnlayer:Hide() end
+		if btnlayer then
+			btnlayer:SetTexture("")
+			btnlayer:Hide()
+		end
 		btnlayer = baselayer[button] or button:CreateTexture()
 		baselayer[button] = btnlayer
 	else
@@ -217,6 +223,7 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
+	button.__bf_normaltexture = btnlayer
 	if btnlayer:GetTexture() == "Interface\\Buttons\\UI-Quickslot" or btnlayer.__bf_useEmpty then
 		btnlayer:SetTexture(skinlayer.EmptyTexture)
 	else
