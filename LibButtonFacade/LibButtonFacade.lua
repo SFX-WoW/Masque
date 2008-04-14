@@ -198,9 +198,19 @@ local function Catch_SetNormalTexture(button,texture)
 	end
 end
 
+local baselayer = {}
 local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Normal
-	local btnlayer = btndata.Normal or button:GetNormalTexture()
+	local btnlayer
+	if skinlayer.UseAsBase and btndata.Normal ~= false then
+		btnlayer = btndata.Normal or button:GetNormalTexture()
+		if btnlayer then btnlayer:Hide() end
+		btnlayer = baselayer[button] or button:CreateTexture()
+		baselayer[button] = btnlayer
+	else
+		btnlayer = btndata.Normal or button:GetNormalTexture()
+		if baselayer[button] then baselayer[button]:Hide()
+	end
 	if not btnlayer then return end
 	if skinlayer.Hide or btndata.Normal == false then
 		btnlayer:SetTexture("")
