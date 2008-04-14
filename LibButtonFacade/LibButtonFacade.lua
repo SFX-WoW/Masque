@@ -151,6 +151,7 @@ local layerTypes = {
 	Disabled = "Special",
 	Highlight = "Special",
 	Checked = "Special",
+	Border = "Texture",
 	Gloss = "Texture",
 	HotKey = "Text",
 	Count = "Text",
@@ -163,6 +164,7 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 	local skinlayer = assert(skin[layer],"Missing layer in skin definition: "..layer)
 	if not btnlayer then return end
 	if skinlayer.Hide then
+		btnlayer:SetTexture("")
 		btnlayer:Hide()
 		return
 	end
@@ -192,12 +194,18 @@ local function Catch_SetNormalTexture(button,texture)
 	local btnlayer = button.__bf_normaltexture
 	local nrmlayer = button:GetNormalTexture()
 	if texture == "Interface\\Buttons\\UI-Quickslot2" then
-		if nrmlayer ~= btnlayer then nrmlayer:Hide() end
+		if nrmlayer ~= btnlayer then
+			nrmlayer:SetTexture("")
+			nrmlayer:Hide()
+		end
 		btnlayer:SetTexture(button.__bf_skinlayer.Texture or "")
 		btnlayer.__bf_useEmpty = nil
 	elseif texture == "Interface\\Buttons\\UI-Quickslot" then
-		if nrmlayer ~= btnlayer then nrmlayer:Hide() end
-		btnlayer:SetTexture(button.__bf_skinlayer.EmptyTexture or "")
+		if nrmlayer ~= btnlayer then
+			nrmlayer:SetTexture("")
+			nrmlayer:Hide()
+		end
+		btnlayer:SetTexture(button.__bf_skinlayer.EmptyTexture or button.__bf_skinlayer.Texture or "")
 		btnlayer.__bf_useEmpty = true
 	end
 end
@@ -205,7 +213,7 @@ end
 local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Normal
 	local btnlayer
-	if skinlayer.UseAsBase and btndata.Normal ~= false then
+	if skinlayer.Static and btndata.Normal ~= false then
 		btnlayer = btndata.Normal or button:GetNormalTexture()
 		if btnlayer then
 			btnlayer:SetTexture("")
@@ -225,7 +233,7 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	end
 	button.__bf_normaltexture = btnlayer
 	if btnlayer:GetTexture() == "Interface\\Buttons\\UI-Quickslot" or btnlayer.__bf_useEmpty then
-		btnlayer:SetTexture(skinlayer.EmptyTexture)
+		btnlayer:SetTexture(skinlayer.EmptyTexture or skinlayer.Texture)
 	else
 		btnlayer:SetTexture(skinlayer.Texture)
 	end
@@ -234,6 +242,7 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 		hooksecurefunc(button,"SetNormalTexture",Catch_SetNormalTexture)
 	end
 	button.__bf_skinlayer = skinlayer
+	btnlayer.__bf_skinlayer = skinlayer
 	btnlayer:Show()
 	btnlayer:SetDrawLayer("BORDER")
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
