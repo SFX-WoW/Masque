@@ -93,6 +93,8 @@ function btntest:OnEnable()
 		group:AddButton(buttons[i])
 		buttons[i]:Show()
 	end
+	buttons[1]:ClearAllPoints()
+	buttons[1]:SetPoint("TOPLEFT",UIParent,"TOPLEFT",100,-200)
 	db.profile.enabled = true
 end
 
@@ -104,7 +106,7 @@ function btntest:OnDisable()
 		buttons[i]:Hide()
 	end
 	buttons[1]:ClearAllPoints()
-	buttons[1]:SetPoint("TOPLEFT",UIParent,"BOTTOMRIGHT",100)
+	buttons[1]:SetPoint("TOPLEFT",UIParent,"BOTTOMRIGHT",100,-200)
 	group:Delete()
 	db.profile.enabled = nil
 end

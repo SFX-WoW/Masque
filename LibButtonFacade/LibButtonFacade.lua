@@ -209,7 +209,7 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 		baselayer[button] = btnlayer
 	else
 		btnlayer = btndata.Normal or button:GetNormalTexture()
-		if baselayer[button] then baselayer[button]:Hide()
+		if baselayer[button] then baselayer[button]:Hide() end
 	end
 	if not btnlayer then return end
 	if skinlayer.Hide or btndata.Normal == false then
