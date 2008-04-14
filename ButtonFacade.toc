@@ -1,6 +1,7 @@
-## Interface: 20400
+﻿## Interface: 20400
 ## Title: ButtonFacade
 ## Notes: Dynamic Modern Button Skinning
+## Notes-zhCN: 按钮皮肤更换插件
 ## Author: jjsheets
 ## Version: 0.1Alpha
 ## OptionalDeps: Ace3, LibFuBarPlugin-3.0
@@ -15,6 +16,7 @@ Skins.xml
 embeds.xml
 
 Localization\enUS.lua
+Localization\zhCN.lua
 
 ButtonFacade.lua
 
