@@ -10,6 +10,7 @@ local L = AceLocale:NewLocale( "ButtonFacade", "enUS", true )
 if L then
 	L["Button Test"] = true
 	L["Enable Module"] = true
+	L["Drag"] = true
 	L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."] = true
 end
 
@@ -41,10 +42,23 @@ local module_Options = {
 					end
 				end,
 				width = "full",
+				order = 2,
+			},
+			drag = {
+				type = 'toggle',
+				name = L["Drag"],
+				get = function() return db.profile.Unlocked end,
+				set = function(info,s)
+					db.profile.Unlocked = s
+					btntest:SetDrag()
+				end,
+				width = "full",
+				order = 3,
 			},
 			info = {
 				type = 'description',
-				name = L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."]
+				name = L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."],
+				order = 1,
 			},
 		},
 	},
@@ -58,35 +72,102 @@ function btntest:OnInitialize()
 end
 
 local buttons = {}
+local dragbar
+
+function btntest:SkinCallback(SkinID,Gloss,Backdrop,Group,Button)
+	db.profile.Skin = SkinID
+	db.profile.Gloss = Gloss
+	db.profile.Backdrop = Backdrop
+end
+
+local function startDrag()
+	buttons[1]:StartMoving()
+end
+
+local function stopDrag()
+	local frame = buttons[1]
+	local p ,rel ,rp ,X ,Y = frame:GetPoint()
+	frame:StopMovingOrSizing()
+	db.profile.x = X
+	db.profile.y = Y
+end
+
+function btntest:SetDrag()
+	if db.profile.Unlocked then
+		if not dragbar then
+			dragbar = CreateFrame("Frame","BF_ButtonTestDragbar",UIParent)
+			dragbar:EnableMouse(true)
+			dragbar:RegisterForDrag("LeftButton")
+			dragbar:SetBackdrop({
+				bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+				tile = true,
+				tileSize = 16,
+				edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+				edgeSize = 16,
+				insets = {left = 0, right = 0, top = 0, bottom = 0}
+			})
+			dragbar:SetBackdropColor(0, 0.5, 0, 0.9)
+			dragbar:SetBackdropBorderColor(0, 0, 0, 0)
+			dragbar:ClearAllPoints()
+			dragbar:SetPoint("TOPLEFT",buttons[1],"TOPLEFT")
+			dragbar:SetPoint("BOTTOMRIGHT",buttons[5],"BOTTOMRIGHT")
+		end
+		buttons[1]:SetMovable(true)
+		dragbar:SetFrameLevel(100)
+		dragbar:Show()
+		dragbar:SetScript("OnDragStart",startDrag)
+		dragbar:SetScript("OnDragStop",stopDrag)
+	elseif dragbar then
+		buttons[1]:SetMovable(false)
+		dragbar:Hide()
+		dragbar:SetScript("OnDragStart",nil)
+		dragbar:SetScript("OnDragStop",nil)
+	end
+end
 
 function btntest:OnEnable()
+	lbf:RegisterSkinCallback(btntest.SkinCallback,btntest)
 	local group = lbf:Group("ButtonTest")
+	group:Skin(db.profile.Skin or "Blizzard", db.profile.Gloss, db.profile.Backdrop)
 	if #buttons == 0 then
 		local btn
 		btn = CreateFrame("CheckButton","BF_ButtonTest1",UIParent,"ActionBarButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT",UIParent,"TOPLEFT",100,-200)
+		btn:SetPoint("TOPLEFT",UIParent,"TOPLEFT",db.profile.x or 100,db.profile.y or -200)
+		BF_ButtonTest1HotKey:SetText("H")
+		BF_ButtonTest1Count:SetText("C")
+		BF_ButtonTest1Name:SetText("Name")
 		buttons[1] = btn
 		btn = CreateFrame("CheckButton","BF_ButtonTest2",UIParent,"BonusActionButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
 		btn:SetPoint("TOPLEFT",buttons[1],"TOPRIGHT",4,0)
+		BF_ButtonTest2HotKey:SetText("H")
+		BF_ButtonTest2Count:SetText("C")
+		BF_ButtonTest2Name:SetText("Name")
 		buttons[2] = btn
 		btn = CreateFrame("CheckButton","BF_ButtonTest3",UIParent,"ShapeshiftButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
 		btn:SetPoint("TOPLEFT",buttons[2],"TOPRIGHT",4,0)
+		BF_ButtonTest3HotKey:SetText("H")
+		BF_ButtonTest3Count:SetText("C")
+		BF_ButtonTest3Name:SetText("Name")
 		buttons[3] = btn
 		btn = CreateFrame("CheckButton","BF_ButtonTest4",UIParent,"ItemButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
 		btn:SetPoint("TOPLEFT",buttons[3],"TOPRIGHT",4,0)
+		BF_ButtonTest4Count:SetText("C")
 		buttons[4] = btn
 		btn = CreateFrame("CheckButton","BF_ButtonTest5",UIParent,"PetActionButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
 		btn:SetPoint("TOPLEFT",buttons[4],"TOPRIGHT",4,0)
+		BF_ButtonTest5HotKey:SetText("H")
+		BF_ButtonTest5Count:SetText("C")
+		BF_ButtonTest5Name:SetText("Name")
 		buttons[5] = btn
 	end
 	for i = 1, #buttons do
@@ -94,7 +175,8 @@ function btntest:OnEnable()
 		buttons[i]:Show()
 	end
 	buttons[1]:ClearAllPoints()
-	buttons[1]:SetPoint("TOPLEFT",UIParent,"TOPLEFT",100,-200)
+	buttons[1]:SetPoint("TOPLEFT",UIParent,"TOPLEFT",db.profile.x or 100,db.profile.y or -200)
+	self:SetDrag()
 	db.profile.enabled = true
 end
 
