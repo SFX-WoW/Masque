@@ -37,6 +37,7 @@ function bf:OnEnable()
 	if bf.IsFuBarMinimapAttached then
 		if db.profile.FuBar_HideMinimapButton then
 			self:Hide()
+			return
 		end
 		if bf:IsFuBarMinimapAttached() == db.profile.FuBar_AttachMinimap then
 			bf:ToggleFuBarMinimapAttached()
