@@ -14,6 +14,12 @@ LibButtonFacade:AddSkin("Zoomed",{
 		Height = 36,
 		TexCoords = {0.07,0.93,0.07,0.93},
 	},
+	Border = {
+		Width = 62,
+		Height = 62,
+		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
+		BlendMode = "ADD",
+	},
 	Flash = {
 		Width = 36,
 		Height = 36,
@@ -41,26 +47,20 @@ LibButtonFacade:AddSkin("Zoomed",{
 	Disabled = {
 		Hide = true,
 	},
-	Highlight = {
-		Width = 36,
-		Height = 36,
-		Texture = [[Interface\Buttons\ButtonHilight-Square]],
-		BlendMode = "ADD",
-	},
 	Checked = {
 		Width = 36,
 		Height = 36,
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 		BlendMode = "ADD",
 	},
-	Border = {
-		Width = 62,
-		Height = 62,
-		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
-		BlendMode = "ADD",
-	},
 	Gloss = {
 		Hide = true
+	},
+	Highlight = {
+		Width = 36,
+		Height = 36,
+		Texture = [[Interface\Buttons\ButtonHilight-Square]],
+		BlendMode = "ADD",
 	},
 	HotKey = {
 		Width = 36,
