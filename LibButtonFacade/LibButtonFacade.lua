@@ -381,7 +381,7 @@ local function RemoveGlossLayer(button)
 	end
 end
 
-local function SkinGlossLayer(skin,button,btndata,xscale,yscale)
+local function SkinGlossLayer(skin,button,btndata,xscale,yscale,GlossAlpha)
 	local skinlayer = skin.Gloss
 	local btnlayer
 	local freeglossn = #freegloss
@@ -406,7 +406,7 @@ local function SkinGlossLayer(skin,button,btndata,xscale,yscale)
 	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 	local r, g, b, a = btnlayer:GetVertexColor()
-	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,GlossAlpha)
 	btnlayer:SetDrawLayer(DrawLayers.Gloss)
 end
 
@@ -488,8 +488,8 @@ local function ApplySkin(SkinID,Gloss,Backdrop,button,btndata)
 			SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		end
 	end
-	if Gloss and not skin.Gloss.Hide then
-		SkinGlossLayer(skin,button,btndata,xscale,yscale)
+	if Gloss > 0 and not skin.Gloss.Hide then
+		SkinGlossLayer(skin,button,btndata,xscale,yscale,Gloss)
 	elseif gloss[button] then
 		RemoveGlossLayer(button)
 	end
@@ -579,6 +579,9 @@ group_mt = {
 				ApplySkin(SkinID,Gloss,Backdrop,k,data[k])
 			end
 			self.SkinID = SkinID
+			if type(Gloss) ~= "number" then
+				Gloss = Gloss and 1 or 0
+			end
 			self.Gloss = Gloss
 			self.Backdrop = Backdrop
 			fireSkinCB(SkinID,Gloss,Backdrop,self.Addon,self.Group,self.Button)
