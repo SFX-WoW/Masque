@@ -105,8 +105,13 @@ function lib:AddSkin(SkinID,data,overwrite)
 	if not overwrite and skins[SkinID] then
 		return
 	end
-	if data.Template and skins[data.Template] then
-		setmetatable(data,{__index=skins[data.Template]})
+	if data.Template then
+		if skins[data.Template] then
+			setmetatable(data,{__index=skins[data.Template]})
+		else
+			DEFAULT_CHAT_FRAME:AddMessage("|cffccccffButtonFacade: |r|cffff8080ERROR!|r "..SkinID.." is attempting to use "..data.Template.." as a template, but "..data.Template.." doesn't exist!")
+			return
+		end
 	end
 	skins[SkinID] = data
 	skinlist[SkinID] = SkinID
