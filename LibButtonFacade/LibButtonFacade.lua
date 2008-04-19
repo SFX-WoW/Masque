@@ -105,6 +105,9 @@ function lib:AddSkin(SkinID,data,overwrite)
 	if not overwrite and skins[SkinID] then
 		return
 	end
+	if data.Template and skins[data.Template] then
+		setmetatable(data,{__index=skins[data.Template]})
+	end
 	skins[SkinID] = data
 	skinlist[SkinID] = SkinID
 	--table_sort(skinlist)
@@ -134,15 +137,15 @@ local layerTypes = {        -- Draw Layer and frame level.
 	Cooldown = "Model",				--            2
 	AutoCast = "Model",				--            3
 	AutoCastable = "Texture",	-- BACKGROUND 3
-	Normal = "Special",				-- BORDER     3
-	Pushed = "Special",				-- ARTWORK    3
-	Disabled = "Special",			-- OVERLAY    3
-	Checked = "Special",			-- BACKGROUND 4
-	Gloss = "Texture",				-- BORDER     4
+	Normal = "Special",				-- ARTWORK    4
+	Pushed = "Special",				-- ARTWORK    4
+	Disabled = "Special",			-- OVERLAY    4
+	Checked = "Special",			-- OVERLAY    4
+	Gloss = "Texture",				-- BORDER     5
 	Highlight = "Special",		-- ARTWORK    4
-	HotKey = "Text",					-- OVERLAY    4
-	Count = "Text",						-- OVERLAY    4
-	Name = "Text",						-- OVERLAY    4
+	HotKey = "Text",					-- OVERLAY    5
+	Count = "Text",						-- OVERLAY    5
+	Name = "Text",						-- OVERLAY    5
 }
 local DrawLayers = {
 	Backdrop = "BACKGROUND",
@@ -153,9 +156,9 @@ local DrawLayers = {
 	Normal = "BORDER",
 	Pushed = "ARTWORK",
 	Disabled = "OVERLAY",
-	Checked = "BACKGROUND",
-	Gloss = "OVERLAY",
+	Checked = "OVERLAY",
 	Highlight = "HIGHLIGHT",
+	Gloss = "OVERLAY",
 	HotKey = "OVERLAY",
 	Count = "OVERLAY",
 	Name = "OVERLAY",
@@ -168,15 +171,15 @@ local FrameLevels = {
 	Cooldown = 2,
 	AutoCast = 3,
 	AutoCastable = 3,
-	Normal = 3,
-	Pushed = 3,
-	Disabled = 3,
+	Normal = 4,
+	Pushed = 4,
+	Disabled = 4,
 	Checked = 4,
-	Gloss = 4,
 	Highlight = 4,
-	HotKey = 4,
-	Count = 4,
-	Name = 4,
+	Gloss = 5,
+	HotKey = 5,
+	Count = 5,
+	Name = 5,
 }
 
 local defaultTexCoords = {0,1,0,1}
@@ -201,7 +204,8 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 		btnlayer:SetDrawLayer(DrawLayers[layer])
 		btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-		btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
+		local r, g, b, a = btnlayer:GetVertexColor()
+		btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
 	elseif layerType == "Icon" then
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
@@ -211,7 +215,8 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
 		btnlayer:SetDrawLayer(DrawLayers[layer])
-		btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
+		local r, g, b, a = btnlayer:GetTextColor()
+		btnlayer:SetTextColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
 	elseif layerType == "Model" then
 		btnlayer:SetFrameLevel(FrameLevels[layer])
 	end
@@ -272,8 +277,8 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	end
 	button.__bf_skinlayer = skinlayer
 	btnlayer.__bf_skinlayer = skinlayer
-	local parent = button.__bf_framelevel[FrameLevels.Normal]
-	btnlayer:SetParent(parent or button)
+	--local parent = button.__bf_framelevel[FrameLevels.Normal]
+	--btnlayer:SetParent(parent or button)
 	btnlayer:Show()
 	btnlayer:SetDrawLayer(DrawLayers.Normal)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
@@ -292,15 +297,16 @@ local function SkinHighlightLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	local parent = button.__bf_framelevel[FrameLevels.Highlight]
-	btnlayer:SetParent(parent or button)
+	--local parent = button.__bf_framelevel[FrameLevels.Highlight]
+	--btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
+	local r, g, b, a = btnlayer:GetVertexColor()
+	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
 	btnlayer:SetDrawLayer(DrawLayers.Highlight)
 end
 
@@ -313,8 +319,8 @@ local function SkinPushedLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	local parent = button.__bf_framelevel[FrameLevels.Pushed]
-	btnlayer:SetParent(parent or button)
+	--local parent = button.__bf_framelevel[FrameLevels.Pushed]
+	--btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Pushed)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
@@ -333,8 +339,8 @@ local function SkinDisabledLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	local parent = button.__bf_framelevel[FrameLevels.Disabled]
-	btnlayer:SetParent(parent or button)
+	--local parent = button.__bf_framelevel[FrameLevels.Disabled]
+	--btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Disabled)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
@@ -353,16 +359,17 @@ local function SkinCheckedLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	local parent = button.__bf_framelevel[FrameLevels.Checked]
-	btnlayer:SetParent(parent or button)
+	--local parent = button.__bf_framelevel[FrameLevels.Checked]
+	--btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
-	btnlayer:SetDrawLayer(DrawLayers.Checked)
+	local r, g, b, a = btnlayer:GetVertexColor()
+	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+	--btnlayer:SetDrawLayer(DrawLayers.Checked)
 end
 
 local function RemoveGlossLayer(button)
@@ -398,7 +405,8 @@ local function SkinGlossLayer(skin,button,btndata,xscale,yscale)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
+	local r, g, b, a = btnlayer:GetVertexColor()
+	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
 	btnlayer:SetDrawLayer(DrawLayers.Gloss)
 end
 
@@ -431,7 +439,8 @@ local function SkinBackdropLayer(skin,button,btndata,xscale,yscale)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
+	local r, g, b, a = btnlayer:GetVertexColor()
+	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
 	btnlayer:SetDrawLayer(DrawLayers.Backdrop)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
@@ -460,6 +469,11 @@ local function ApplySkin(SkinID,Gloss,Backdrop,button,btndata)
 		local frame1 = CreateFrame("Frame",nil,button)
 		button.__bf_framelevel[1] = frame1
 		frame1:SetFrameLevel(1)
+	end
+	if not button.__bf_framelevel[5] then
+		local frame5 = CreateFrame("Frame",nil,button)
+		button.__bf_framelevel[5] = frame5
+		frame5:SetFrameLevel(5)
 	end
 	local xscale = (button:GetWidth() or 36) / 36
 	local yscale = (button:GetHeight() or 36) / 36
