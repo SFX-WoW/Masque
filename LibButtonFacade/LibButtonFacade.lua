@@ -186,6 +186,10 @@ local FrameLevels = {
 	Count = 5,
 	Name = 5,
 }
+local noColor = {
+	"Border",
+	"HotKey",
+}
 
 local defaultTexCoords = {0,1,0,1}
 
@@ -209,8 +213,10 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 		btnlayer:SetDrawLayer(DrawLayers[layer])
 		btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-		local r, g, b, a = btnlayer:GetVertexColor()
-		btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+		if not noColor[layer] then
+			local r, g, b, a = btnlayer:GetVertexColor()
+			btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+		end
 	elseif layerType == "Icon" then
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
@@ -220,8 +226,10 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
 		btnlayer:SetDrawLayer(DrawLayers[layer])
-		local r, g, b, a = btnlayer:GetTextColor()
-		btnlayer:SetTextColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+		if not noColor[layer] then
+			local r, g, b, a = btnlayer:GetTextColor()
+			btnlayer:SetTextColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+		end
 	elseif layerType == "Model" then
 		btnlayer:SetFrameLevel(FrameLevels[layer])
 	end
