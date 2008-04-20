@@ -463,6 +463,9 @@ end
 
 local function ApplySkin(SkinID,Gloss,Backdrop,button,btndata)
 	if not button then return end
+	if type(Gloss) ~= "number" then
+		Gloss = Gloss and 1 or 0
+	end
 	button:SetFrameLevel(4)
 	button.__bf_framelevel = button.__bf_framelevel or {}
 	button.__bf_framelevel[4] = button
@@ -575,26 +578,24 @@ group_mt = {
 			-- store the new group of the button.
 			reverse[btn] = self
 			-- add the button to our list.
-			self.Buttons[btn] = true
-			data[btn] = btndata
+			self.Buttons[btn] = btndata
 			ApplySkin(self.SkinID,self.Gloss,self.Backdrop,btn,btndata)
 		end,
 		RemoveButton = function(self,btn,noReskin)
 			reverse[btn] = nil
-			self.Buttons[btn] = nil
 			if not noReskin then -- damn that sounds redneck...
-				ApplySkin("Blizzard",false,false,btn,data[btn])
-				data[btn] = nil
+				ApplySkin("Blizzard",false,false,btn,self.Buttons[btn])
 			end
+			self.Buttons[btn] = nil
 		end,
 		Skin = function(self,SkinID,Gloss,Backdrop)
-			for k in pairs(self.Buttons) do
-				ApplySkin(SkinID,Gloss,Backdrop,k,data[k])
-			end
-			self.SkinID = SkinID
 			if type(Gloss) ~= "number" then
 				Gloss = Gloss and 1 or 0
 			end
+			for k in pairs(self.Buttons) do
+				ApplySkin(SkinID,Gloss,Backdrop,k,self.Buttons[k])
+			end
+			self.SkinID = SkinID
 			self.Gloss = Gloss
 			self.Backdrop = Backdrop
 			fireSkinCB(SkinID,Gloss,Backdrop,self.Addon,self.Group,self.Button)
@@ -630,7 +631,7 @@ group_mt = {
 		
 		Also, use group_obj.SubList as the list in a select/choice control.
 		--]]
-		Delete = function(self)
+		Delete = function(self,noReskin)
 			-- first, Delete all subgroups.
 			local sl = self.SubList
 			if sl then
@@ -641,8 +642,10 @@ group_mt = {
 			-- next, Remove all Buttons
 			for k in pairs(self.Buttons) do
 				reverse[k] = nil
+				if not noReskin then
+					ApplySkin("Blizzard",false,false,k,self.Buttons[k])
+				end
 				self.Buttons[k] = nil
-				ApplySkin("Blizzard",false,false,k,data[k])
 			end
 			-- finally, remove ourselves from our parent group.
 			self.Parent:RemoveSubGroup(self)
