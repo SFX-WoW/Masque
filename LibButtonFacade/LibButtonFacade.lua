@@ -661,6 +661,10 @@ lib:AddSkin("Blizzard",{
 		Texture = [[Interface\Buttons\UI-EmptySlot]],
 		OffsetY = -0.5,
 		TexCoords = {0.2,0.8,0.2,0.8},
+		Red = 1,
+		Green = 1,
+		Blue = 1,
+		Alpha = 1,
 	},
 	Icon = {
 		Width = 36,
