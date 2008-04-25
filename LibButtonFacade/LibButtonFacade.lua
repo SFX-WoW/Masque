@@ -656,7 +656,11 @@ group_mt = {
 
 lib:AddSkin("Blizzard",{
 	Backdrop = {
-		Hide = true
+		Width = 34,
+		Height = 35,
+		Texture = [[Interface\Buttons\UI-EmptySlot]],
+		OffsetY = -0.5,
+		TexCoords = {0.2,0.8,0.2,0.8},
 	},
 	Icon = {
 		Width = 36,
