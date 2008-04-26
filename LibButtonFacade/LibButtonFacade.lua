@@ -582,9 +582,10 @@ group_mt = {
 			ApplySkin(self.SkinID,self.Gloss,self.Backdrop,btn,btndata)
 		end,
 		RemoveButton = function(self,btn,noReskin)
+			local btndata = self.Buttons[btn]
 			reverse[btn] = nil
-			if not noReskin then -- damn that sounds redneck...
-				ApplySkin("Blizzard",false,false,btn,self.Buttons[btn])
+			if btndata and not noReskin then
+				ApplySkin("Blizzard",false,false,btn,btndata)
 			end
 			self.Buttons[btn] = nil
 		end,
