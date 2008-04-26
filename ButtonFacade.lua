@@ -11,7 +11,7 @@ local reg = LibStub("AceConfigRegistry-3.0")
 local dialog = LibStub("AceConfigDialog-3.0")
 
 local AceLocale = LibStub("AceLocale-3.0")
-L = AceLocale:GetLocale("ButtonFacade")
+local L = AceLocale:GetLocale("ButtonFacade")
 
 if bf.IsFuBarMinimapAttached then
 	bf:SetFuBarOption("iconPath",[[Interface\Addons\ButtonFacade\icon]])
