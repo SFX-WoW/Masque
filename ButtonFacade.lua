@@ -19,6 +19,43 @@ if bf.IsFuBarMinimapAttached then
 	bf:SetFuBarOption("hideWithoutStandby",true)
 end
 
+local harbor = LibStub("AceAddon-3.0"):GetAddon("Harbor",true)
+if harbor then
+	function bf:GetCurrentSideDock()
+		local harbordb = harbor:GetDockButtonDB("ButtonFacade")
+		return harbordb.curdock
+	end
+
+	function bf:SetCurrentSideDock(dock)
+		local harbordb = harbor:GetDockButtonDB("ButtonFacade")
+		harbordb.curdock = dock
+	end
+
+	function bf:GetSideDockPriority()
+		return 100
+	end
+
+	function bf:GetSideDockWidth()
+		return 1
+	end
+
+	function bf:GetSideDockIcon()
+		return [[Interface\AddOns\ButtonFacade\icon]]
+	end
+
+	function bf:OnSideDockClick()
+		dialog:Open("ButtonFacade")
+	end
+
+	function bf:OnSideDockEnter()
+		-- show Tooltip
+	end
+
+	function bf:OnSideDockLeave()
+		-- hide tooltip
+	end
+end
+
 function bf:OnInitialize()
 	db = AceDB:New("ButtonFacadeDB")
 	--db:RegisterDefaults({
@@ -34,6 +71,10 @@ function bf:OnEnable()
 	lbf:ElementListCallback(self.ElementListUpdate,self)
 	dialog:AddToBlizOptions("ButtonFacade","ButtonFacade")
 	-- only do the following if the FuBar plugin library embedded correctly.
+	if harbor then
+		local harbordb = harbor:GetDockButtonDB("ButtonFacade")
+		harbor:AddDockButton(self,harbordb.curdock)
+	end
 	if bf.IsFuBarMinimapAttached then
 		if db.profile.FuBar_HideMinimapButton then
 			self:Hide()
@@ -214,9 +255,10 @@ function bf:ElementListUpdate(Addon,Group)
 			if not list[k] and k:sub(1,5) ~= "__bf_" then elements_args[k] = nil end
 		end
 		for k,v in pairs(list) do
-			if not elements_args[v] then
+			local cleanv = v:gsub("%s","_")
+			if not elements_args[cleanv] then
 				local g = lbf:Group(v)
-				elements_args[v] = {
+				elements_args[cleanv] = {
 					type = 'group',
 					name = v,
 					args = {
@@ -266,9 +308,10 @@ function bf:ElementListUpdate(Addon,Group)
 			if not list[k] and k:sub(1,5) ~= "__bf_" then args[k] = nil end
 		end
 		for k,v in pairs(list) do
-			if not args[v] then
+			local cleanv = v:gsub("%s","_")
+			if not args[cleanv] then
 				local g = lbf:Group(Addon,v)
-				args[v] = {
+				args[cleanv] = {
 					type = 'group',
 					name = v,
 					args = {
@@ -318,9 +361,10 @@ function bf:ElementListUpdate(Addon,Group)
 			if not list[k] and k:sub(1,5) ~= "__bf_" then args[k] = nil end
 		end
 		for k,v in pairs(list) do
-			if not args[v] then
+			local cleanv = v:gsub("%s","_")
+			if not args[cleanv] then
 				local g = lbf:Group(Addon,Group,v)
-				args[v] = {
+				args[cleanv] = {
 					type = 'group',
 					name = v,
 					args = {

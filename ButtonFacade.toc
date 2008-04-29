@@ -4,7 +4,7 @@
 ## Notes-zhCN: 按钮皮肤更换插件
 ## Author: jjsheets
 ## Version: 0.1Alpha
-## OptionalDeps: Ace3, LibFuBarPlugin-3.0
+## OptionalDeps: Ace3, LibFuBarPlugin-3.0, Harbor
 ## SavedVariables: ButtonFacadeDB
 ## X-Category: Action Bars
 ## X-Embeds: Ace3
