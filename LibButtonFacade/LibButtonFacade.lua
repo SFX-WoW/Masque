@@ -299,6 +299,9 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+	if skinlayer.Static then
+		btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
+	end
 end
 
 local function SkinHighlightLayer(skin,button,btndata,xscale,yscale)
