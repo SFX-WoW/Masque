@@ -256,8 +256,31 @@ local function Catch_SetNormalTexture(button,texture)
 		btnlayer.__bf_useEmpty = true
 	end
 end
+
 function lib:GetNormalTexture(button)
 	return button.__bf_normaltexture or button:GetNormalTexture()
+end
+
+function lib:SetNormalVertexColor(button,r,g,b,a)
+	local t = button.__bf_normaltexture
+	local t2 = button:GetNormalTexture()
+	local skinlayer = button.__bf_skinlayer
+	if t ~= t2 then
+		local mr, mg, mb, ma = skinlayer.__r, skinlayer.__g, skinlayer.__b, skinlayer.__a
+		return t:SetVertexColor(r*mr,g*mg,b*mb,a*ma)
+	end
+	return t2:SetVertexColor(r,g,b,a)
+end
+
+function lib:GetNormalVertexColor(button)
+	local t = button.__bf_normaltexture
+	local t2 = button:GetNormalTexture()
+	if t ~= t2 then
+		local mr, mg, mb, ma = skinlayer.__ir, skinlayer.__ig, skinlayer.__ib, skinlayer.__ia
+		local r, g, b, a = t:GetVertexColor(r*mr,g*mg,b*mb,a*ma)
+		return r*mr, g*mg, b*mb, a*ma
+	end
+	return t2:GetVertexColor()
 end
 
 local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
@@ -302,9 +325,19 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+	local r, g, b, a = 1,1,1,1
 	if skinlayer.Static then
-		btnlayer:SetVertexColor(skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1)
+		r, g, b, a = skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1
 	end
+	skinlayer.__r = r
+	skinlayer.__ir = 1/r
+	skinlayer.__g = g
+	skinlayer.__ig = 1/g
+	skinlayer.__b = b
+	skinlayer.__ib = 1/b
+	skinlayer.__a = a
+	skinlayer.__ia = 1/a
+	btnlayer:SetVertexColor(r,g,b,a)
 end
 
 local function SkinHighlightLayer(skin,button,btndata,xscale,yscale)
