@@ -256,6 +256,9 @@ local function Catch_SetNormalTexture(button,texture)
 		btnlayer.__bf_useEmpty = true
 	end
 end
+function lib:GetNormalTexture(button)
+	return button.__bf_normaltexture or button:GetNormalTexture()
+end
 
 local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	local skinlayer = skin.Normal
