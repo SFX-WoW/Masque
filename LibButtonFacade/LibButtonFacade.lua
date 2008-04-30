@@ -265,7 +265,7 @@ function lib:SetNormalVertexColor(button,r,g,b,a)
 	local t = button.__bf_normaltexture
 	local t2 = button:GetNormalTexture()
 	local skinlayer = button.__bf_skinlayer
-	if t ~= t2 then
+	if skinlayer and t ~= t2 then
 		local mr, mg, mb, ma = skinlayer.__r, skinlayer.__g, skinlayer.__b, skinlayer.__a
 		return t:SetVertexColor(r*mr,g*mg,b*mb,a*ma)
 	end
@@ -275,9 +275,10 @@ end
 function lib:GetNormalVertexColor(button)
 	local t = button.__bf_normaltexture
 	local t2 = button:GetNormalTexture()
-	if t ~= t2 then
+	local skinlayer = button.__bf_skinlayer
+	if skinlayer and t ~= t2 then
 		local mr, mg, mb, ma = skinlayer.__ir, skinlayer.__ig, skinlayer.__ib, skinlayer.__ia
-		local r, g, b, a = t:GetVertexColor(r*mr,g*mg,b*mb,a*ma)
+		local r, g, b, a = t:GetVertexColor()
 		return r*mr, g*mg, b*mb, a*ma
 	end
 	return t2:GetVertexColor()
