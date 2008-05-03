@@ -434,6 +434,10 @@ local function RemoveGlossLayer(button)
 	end
 end
 
+function lib:GetGlossLayer(button)
+	return gloss[button]
+end
+
 local function SkinGlossLayer(skin,button,btndata,xscale,yscale,GlossAlpha)
 	local skinlayer = skin.Gloss
 	local btnlayer
@@ -470,6 +474,10 @@ local function RemoveBackdropLayer(button)
 		layer:Hide()
 		freebackdrop[#freebackdrop+1] = layer
 	end
+end
+
+function lib:GetBackdropLayer(button)
+	return backdrop[button]
 end
 
 local function SkinBackdropLayer(skin,button,btndata,xscale,yscale)
