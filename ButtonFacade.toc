@@ -17,6 +17,7 @@ embeds.xml
 
 Localization\enUS.lua
 Localization\zhCN.lua
+Localization\koKR.lua
 
 ButtonFacade.lua
 
