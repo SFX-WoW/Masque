@@ -11,7 +11,7 @@
 ## X-eMail: sheets.jeff@gmail.com
 
 LibButtonFacade\lib.xml
-Skins.xml
+Skins\Skins.lua
 
 embeds.xml
 

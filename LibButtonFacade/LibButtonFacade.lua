@@ -232,6 +232,12 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		end
 	elseif layerType == "Model" then
 		btnlayer:SetFrameLevel(FrameLevels[layer])
+		if skinlayer.ModelX or skinlayer.ModelY then
+			btnlayer:SetPosition(skinlayer.ModelX or 0, skinlayer.ModelY or 0,0)
+		end
+		if skinlayer.ModelScale then
+			btnlaye:SetModelScale(skinlayer.ModelScale)
+		end
 	end
 end
 

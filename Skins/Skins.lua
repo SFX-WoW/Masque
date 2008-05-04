@@ -1,17 +1,22 @@
 
-local LibButtonFacade = LibStub("LibButtonFacade")
+local LibButtonFacade = LibStub("LibButtonFacade",true)
 if not LibButtonFacade then
 	return
 end
 
-
-LibButtonFacade:AddSkin("Zoomed",{
+LibButtonFacade:AddSkin("DreamLayout",{
 	Backdrop = {
-		Hide = true,
-	},
-	Icon = {
 		Width = 36,
 		Height = 36,
+		Texture = [[Interface\Tooltips\UI-Tooltip-Background]],
+		Red = 0,
+		Green = 0,
+		Blue = 0,
+		Alpha = 0.6,
+	},
+	Icon = {
+		Width = 30,
+		Height = 30,
 		TexCoords = {0.07,0.93,0.07,0.93},
 	},
 	Border = {
@@ -32,6 +37,8 @@ LibButtonFacade:AddSkin("Zoomed",{
 	AutoCast = {
 		Width = 36,
 		Height = 36,
+		ModelX = 0.002,
+		ModelY = 0.002,
 	},
 	AutoCastable = {
 		Width = 58,
@@ -78,5 +85,17 @@ LibButtonFacade:AddSkin("Zoomed",{
 		Width = 36,
 		Height = 10,
 		OffsetY = -11,
+	},
+},true)
+
+LibButtonFacade:AddSkin("Zoomed",{
+	Template = "DreamLayout",
+	Backdrop = {
+		Hide = true,
+	},
+	Icon = {
+		Width = 36,
+		Height = 36,
+		TexCoords = {0.07,0.93,0.07,0.93},
 	},
 },true)
