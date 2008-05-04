@@ -251,8 +251,9 @@ local elements_args = bf.options.args.elements.args
 function bf:ElementListUpdate(Addon,Group)
 	if not Addon then
 		local list = lbf:ListAddons()
-		for k in pairs(elements_args) do
-			if not list[k] and k:sub(1,5) ~= "__bf_" then elements_args[k] = nil end
+		local args = elements_args
+		for k in pairs(args) do
+			if (not list[k]) and (k:sub(1,5) ~= "__bf_") then args[k].hidden = true end
 		end
 		for k,v in pairs(list) do
 			local cleanv = v:gsub("%s","_")
@@ -299,13 +300,15 @@ function bf:ElementListUpdate(Addon,Group)
 						},
 					},
 				}
+			else
+				elements_args[cleanv].hidden = false
 			end
 		end
 	elseif not Group then
 		local list = lbf:ListGroups(Addon)
 		local args = elements_args[Addon].args
 		for k in pairs(args) do
-			if not list[k] and k:sub(1,5) ~= "__bf_" then args[k] = nil end
+			if (not list[k]) and (k:sub(1,5) ~= "__bf_") then args[k].hidden = true end
 		end
 		for k,v in pairs(list) do
 			local cleanv = v:gsub("%s","_")
@@ -352,13 +355,15 @@ function bf:ElementListUpdate(Addon,Group)
 						},
 					},
 				}
+			else
+				args[cleanv].hidden = false
 			end
 		end
 	else
 		local list = lbf:ListButtons(Addon,Group)
 		local args = elements_args[Addon].args[Group].args
 		for k in pairs(args) do
-			if not list[k] and k:sub(1,5) ~= "__bf_" then args[k] = nil end
+			if (not list[k]) and (k:sub(1,5) ~= "__bf_") then args[k].hidden = true end
 		end
 		for k,v in pairs(list) do
 			local cleanv = v:gsub("%s","_")
@@ -405,6 +410,8 @@ function bf:ElementListUpdate(Addon,Group)
 						},
 					},
 				}
+			else
+				args[cleanv].hidden = false
 			end
 		end
 	end
