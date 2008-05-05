@@ -326,8 +326,6 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	end
 	button.__bf_skinlayer = skinlayer
 	btnlayer.__bf_skinlayer = skinlayer
-	local parent = skinlayer.BelowAutoCast and button.__bf_framelevel[2] or button.__bf_framelevel[FrameLevels.Normal]
-	btnlayer:SetParent(parent or button)
 	btnlayer:Show()
 	btnlayer:SetDrawLayer(DrawLayers.Normal)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
@@ -381,8 +379,6 @@ local function SkinPushedLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	local parent = skinlayer.BelowAutoCast and button.__bf_framelevel[2] or button.__bf_framelevel[FrameLevels.Normal]
-	btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Pushed)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
@@ -401,8 +397,6 @@ local function SkinDisabledLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	local parent = skinlayer.BelowAutoCast and button.__bf_framelevel[2] or button.__bf_framelevel[FrameLevels.Normal]
-	btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Disabled)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
