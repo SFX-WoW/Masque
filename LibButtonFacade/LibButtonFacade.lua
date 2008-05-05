@@ -196,8 +196,11 @@ local defaultTexCoords = {0,1,0,1}
 local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 	local skinlayer = assert(skin[layer],"Missing layer in skin definition: "..layer)
 	if not btnlayer then return end
+	local layerType = layerTypes[layer]
 	if skinlayer.Hide then
-		btnlayer:SetTexture("")
+		if layerType == "Texture" then
+			btnlayer:SetTexture("")
+		end
 		btnlayer:Hide()
 		return
 	end
@@ -205,7 +208,6 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
-	local layerType = layerTypes[layer]
 	if layerType == "Texture" then
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
