@@ -157,7 +157,7 @@ local DrawLayers = {
 	Icon = "BORDER",
 	Border = "ARTWORK",
 	Flash = "OVERLAY",
-	AutoCastable = "BACKGROUND",
+	AutoCastable = "OVERLAY",
 	Normal = "BORDER",
 	Pushed = "ARTWORK",
 	Disabled = "OVERLAY",
@@ -175,16 +175,16 @@ local FrameLevels = {
 	Flash = 1,
 	Cooldown = 2,
 	AutoCast = 3,
-	AutoCastable = 3,
+	AutoCastable = 4,
 	Normal = 4,
 	Pushed = 4,
 	Disabled = 4,
 	Checked = 4,
 	Highlight = 4,
-	Gloss = 5,
-	HotKey = 5,
-	Count = 5,
-	Name = 5,
+	Gloss = 6,
+	HotKey = 6,
+	Count = 6,
+	Name = 6,
 }
 local noColor = {
 	"Border",
@@ -233,12 +233,13 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 			btnlayer:SetTextColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
 		end
 	elseif layerType == "Model" then
-		btnlayer:SetFrameLevel(FrameLevels[layer])
+		local FrameLevel = skinlayer.AboveNormal and 5 or FrameLevels[layer]
+		btnlayer:SetFrameLevel(FrameLevel)
 		if skinlayer.ModelX or skinlayer.ModelY then
 			btnlayer:SetPosition(skinlayer.ModelX or 0, skinlayer.ModelY or 0,0)
 		end
 		if skinlayer.ModelScale then
-			btnlaye:SetModelScale(skinlayer.ModelScale)
+			btnlayer:SetModelScale(skinlayer.ModelScale)
 		end
 	end
 end
@@ -325,8 +326,8 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	end
 	button.__bf_skinlayer = skinlayer
 	btnlayer.__bf_skinlayer = skinlayer
-	--local parent = button.__bf_framelevel[FrameLevels.Normal]
-	--btnlayer:SetParent(parent or button)
+	local parent = skinlayer.BelowAutoCast and button.__bf_framelevel[2] or button.__bf_framelevel[FrameLevels.Normal]
+	btnlayer:SetParent(parent or button)
 	btnlayer:Show()
 	btnlayer:SetDrawLayer(DrawLayers.Normal)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
@@ -380,8 +381,8 @@ local function SkinPushedLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	--local parent = button.__bf_framelevel[FrameLevels.Pushed]
-	--btnlayer:SetParent(parent or button)
+	local parent = skinlayer.BelowAutoCast and button.__bf_framelevel[2] or button.__bf_framelevel[FrameLevels.Normal]
+	btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Pushed)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
@@ -400,8 +401,8 @@ local function SkinDisabledLayer(skin,button,btndata,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	--local parent = button.__bf_framelevel[FrameLevels.Disabled]
-	--btnlayer:SetParent(parent or button)
+	local parent = skinlayer.BelowAutoCast and button.__bf_framelevel[2] or button.__bf_framelevel[FrameLevels.Normal]
+	btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Disabled)
 	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
