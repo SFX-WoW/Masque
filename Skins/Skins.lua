@@ -49,7 +49,9 @@ LibButtonFacade:AddSkin("DreamLayout",{
 		Hide = true,
 	},
 	Pushed = {
-		Hide = true,
+		Width = 36,
+		Height = 36,
+		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 	},
 	Disabled = {
 		Hide = true,
