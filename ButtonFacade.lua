@@ -305,8 +305,9 @@ function bf:ElementListUpdate(Addon,Group)
 			end
 		end
 	elseif not Group then
+		local cleanaddon = Addon:gsub("%s","_")
 		local list = lbf:ListGroups(Addon)
-		local args = elements_args[Addon].args
+		local args = elements_args[cleanaddon].args
 		for k in pairs(args) do
 			if (not list[k]) and (k:sub(1,5) ~= "__bf_") then args[k].hidden = true end
 		end
@@ -360,8 +361,10 @@ function bf:ElementListUpdate(Addon,Group)
 			end
 		end
 	else
+		local cleanaddon = Addon:gsub("%s", "_")
+		local cleangroup = Group:gsub("%s", "_")
 		local list = lbf:ListButtons(Addon,Group)
-		local args = elements_args[Addon].args[Group].args
+		local args = elements_args[cleanaddon].args[cleangroup].args
 		for k in pairs(args) do
 			if (not list[k]) and (k:sub(1,5) ~= "__bf_") then args[k].hidden = true end
 		end
