@@ -249,6 +249,11 @@ local normalhooked = {}
 local function Catch_SetNormalTexture(button,texture)
 	local btnlayer = button.__bf_normaltexture
 	local nrmlayer = button:GetNormalTexture()
+	if button.__bf_nonormaltexture then
+			nrmlayer:SetTexture("")
+			nrmlayer:Hide()
+		return
+	end
 	if texture == "Interface\\Buttons\\UI-Quickslot2" then
 		if nrmlayer ~= btnlayer then
 			nrmlayer:SetTexture("")
@@ -301,6 +306,7 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 		if btnlayer then
 			btnlayer:SetTexture("")
 			btnlayer:Hide()
+			button.__bf_nonormaltexture = true
 		end
 		btnlayer = baselayer[button] or button:CreateTexture()
 		baselayer[button] = btnlayer
