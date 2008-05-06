@@ -2,6 +2,7 @@
 ## Title: ButtonFacade
 ## Notes: Dynamic Modern Button Skinning
 ## Notes-zhCN: 按钮皮肤更换插件
+## Notes-zhTW: 動態的摩登按鈕美化插件
 ## Author: jjsheets
 ## Version: 0.1Alpha
 ## OptionalDeps: Ace3, LibFuBarPlugin-3.0, Harbor
@@ -16,8 +17,9 @@ Skins\Skins.lua
 embeds.xml
 
 Localization\enUS.lua
-Localization\zhCN.lua
 Localization\koKR.lua
+Localization\zhCN.lua
+Localization\zhTW.lua
 
 ButtonFacade.lua
 
