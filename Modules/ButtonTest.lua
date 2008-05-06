@@ -169,6 +169,16 @@ function btntest:OnEnable()
 		BF_ButtonTest5Count:SetText("C")
 		BF_ButtonTest5Name:SetText("Name")
 		buttons[5] = btn
+		btn = CreateFrame("CheckButton","BF_ButtonTest6",UIParent,"ActionButtonTemplate, SecureActionButtonTemplate")
+		btn:ClearAllPoints()
+		btn:SetPoint("TOPLEFT",buttons[5],"TOPRIGHT",4,0)
+		BF_ButtonTest6HotKey:SetText("H")
+		BF_ButtonTest6Count:SetText("C")
+		BF_ButtonTest6Name:SetText("Name")
+		local spellFirstAidIcon
+		_, _, spellFirstAidIcon = GetSpellInfo(27028)
+		BF_ButtonTest6Icon:SetTexture(spellFirstAidIcon)
+		buttons[6] = btn
 	end
 	for i = 1, #buttons do
 		group:AddButton(buttons[i])
