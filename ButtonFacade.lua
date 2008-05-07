@@ -69,13 +69,6 @@ function bf:OnEnable()
 	reg:RegisterOptionsTable("ButtonFacade", bf.options)
 	self:RegisterChatCommand("bf", function() dialog:Open("ButtonFacade") end)
 	lbf:ElementListCallback(self.ElementListUpdate,self)
-	self:ElementListUpdate()
-	for _, Addon in pairs(lbf:ListAddons()) do
-		self:ElementListUpdate(Addon)
-		for _, Group in pairs(lbf:ListGroups(Addon)) do
-			self:ElementListUpdate(Addon, Group)
-		end
-	end
 	dialog:AddToBlizOptions("ButtonFacade","ButtonFacade")
 	-- only do the following if the FuBar plugin library embedded correctly.
 	if harbor then
