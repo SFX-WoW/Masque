@@ -758,6 +758,7 @@ function lib:DeleteGroup(Addon,Group,Button)
 end
 
 function lib:ListAddons()
+	lib:Group()
 	return group[""].SubList
 end
 
