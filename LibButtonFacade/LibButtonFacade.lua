@@ -186,12 +186,77 @@ local FrameLevels = {
 	Count = 6,
 	Name = 6,
 }
-local noColor = {
-	"Border",
-	"HotKey",
-}
 
 local defaultTexCoords = {0,1,0,1}
+
+local loopcheck = {}
+local function HookSetVertexColor(region,r,g,b,a)
+	if loopcheck[region] then loopcheck[region] = nil return end
+	loopcheck[region] = true
+	local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
+	if R then
+		region:SetVertexColor(R*r,G*g,B*b,A*(a or 1))
+	end
+end
+
+local old_GetVertexColor
+local function HookGetVertexColor(region)
+	local R, G, B, A = region.__bf_iR, region.__bf_iG, region.__bf_iB, region.__bf_iA
+	local r,g,b,a = old_GetVertexColor(region)
+	if R then
+		r = r * R
+		g = g * G
+		b = b * B
+		a = a * A
+	end
+	return r,g,b,a
+end
+
+local function HookSetTextColor(region,r,g,b,a)
+	if loopcheck[region] then loopcheck[region] = nil return end
+	loopcheck[region] = true
+	local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
+	if R then
+		region:SetTextColor(R*r,G*g,B*b,A*(a or 1))
+	end
+end
+
+local old_GetTextColor
+local function HookGetTextColor(region,r,g,b,a)
+	local R, G, B, A = region.__bf_iR, region.__bf_iG, region.__bf_iB, region.__bf_iA
+	local r,g,b,a = old_GetTextColor(region)
+	if R then
+		r = r * R
+		g = g * G
+		b = b * B
+		a = a * A
+	end
+	return r,g,b,a
+end
+
+local hookedregion = {}
+local function SetTextureColor(region,r,g,b,a)
+	if not old_GetVertexColor then old_GetVertexColor = region.GetVertexColor end
+	if not hookedregion[region] then
+		hooksecurefunc(region,"SetVertexColor",HookSetVertexColor)
+		region.GetVertexColor = HookGetVertexColor
+		hookedregion[region] = true
+	end
+	region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A = r, g, b, a
+	region.__bf_iR, region.__bf_iG, region.__bf_iB, region.__bf_iA = 1/r, 1/g, 1/b, 1/a
+	region:SetVertexColor(1,1,1,1)
+end
+
+local function SetTextColor(region,r,g,b,a)
+	if not old_GetTextColor then old_GetTextColor = region.GetTextColor end
+	if not hookedregion[region] then
+		hooksecurefunc(region,"SetTextColor",HookSetTextColor)
+		region.GetTextColor = HookGetTextColor
+		hookedregion[region] = true
+	end
+	region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A = r, g, b, a
+	region.__bf_iR, region.__bf_iG, region.__bf_iB, region.__bf_iA = 1/r, 1/g, 1/b, 1/a
+end
 
 local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 	local skinlayer = assert(skin[layer],"Missing layer in skin definition: "..layer)
@@ -204,8 +269,8 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		btnlayer:Hide()
 		return
 	end
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	if layerType == "Texture" then
@@ -215,10 +280,19 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 		btnlayer:SetDrawLayer(DrawLayers[layer])
 		btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-		if not noColor[layer] then
-			local r, g, b, a = btnlayer:GetVertexColor()
-			btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+		local r, g, b, a
+		if skinlayer.Color then
+			r = skinlayer.Color[1] or skinlayer.Red or 1
+			g = skinlayer.Color[2] or skinlayer.Green or 1
+			b = skinlayer.Color[3] or skinlayer.Blue or 1
+			a = skinlayer.Color[4] or skinlayer.Alpha or 1
+		else
+			r = skinlayer.Red or 1
+			g = skinlayer.Green or 1
+			b = skinlayer.Blue or 1
+			a = skinlayer.Alpha or 1
 		end
+		SetTextureColor(btnlayer,r,g,b,a)
 	elseif layerType == "Icon" then
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
@@ -228,10 +302,19 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
 		btnlayer:SetDrawLayer(DrawLayers[layer])
-		if not noColor[layer] then
-			local r, g, b, a = btnlayer:GetTextColor()
-			btnlayer:SetTextColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+		local r, g, b, a
+		if skinlayer.Color then
+			r = skinlayer.Color[1] or skinlayer.Red or 1
+			g = skinlayer.Color[2] or skinlayer.Green or 1
+			b = skinlayer.Color[3] or skinlayer.Blue or 1
+			a = skinlayer.Color[4] or skinlayer.Alpha or 1
+		else
+			r = skinlayer.Red or 1
+			g = skinlayer.Green or 1
+			b = skinlayer.Blue or 1
+			a = skinlayer.Alpha or 1
 		end
+		SetTextColor(btnlayer,r,g,b,a)
 	elseif layerType == "Model" then
 		local FrameLevel = skinlayer.AboveNormal and 5 or FrameLevels[layer]
 		btnlayer:SetFrameLevel(FrameLevel)
@@ -276,26 +359,13 @@ function lib:GetNormalTexture(button)
 end
 
 function lib:SetNormalVertexColor(button,r,g,b,a)
-	local t = button.__bf_normaltexture
-	local t2 = button:GetNormalTexture()
-	local skinlayer = button.__bf_skinlayer
-	if skinlayer and t ~= t2 then
-		local mr, mg, mb, ma = skinlayer.__r, skinlayer.__g, skinlayer.__b, skinlayer.__a
-		return t:SetVertexColor(r*mr,g*mg,b*mb,a*ma)
-	end
-	return t2:SetVertexColor(r,g,b,a)
+	local t = button.__bf_normaltexture or button:GetNormalTexture()
+	return t:SetVertexColor(r,g,b,a)
 end
 
 function lib:GetNormalVertexColor(button)
-	local t = button.__bf_normaltexture
-	local t2 = button:GetNormalTexture()
-	local skinlayer = button.__bf_skinlayer
-	if skinlayer and t ~= t2 then
-		local mr, mg, mb, ma = skinlayer.__ir, skinlayer.__ig, skinlayer.__ib, skinlayer.__ia
-		local r, g, b, a = t:GetVertexColor()
-		return r*mr, g*mg, b*mb, a*ma
-	end
-	return t2:GetVertexColor()
+	local t = button.__bf_normaltexture or button:GetNormalTexture()
+	return t:GetVertexColor()
 end
 
 local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
@@ -334,24 +404,32 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale)
 	btnlayer.__bf_skinlayer = skinlayer
 	btnlayer:Show()
 	btnlayer:SetDrawLayer(DrawLayers.Normal)
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	local r, g, b, a = 1,1,1,1
-	if skinlayer.Static then
-		r, g, b, a = skinlayer.Red or 1,skinlayer.Green or 1,skinlayer.Blue or 1,skinlayer.Alpha or 1
+	local r, g, b, a
+	if skinlayer.Color then
+		r = skinlayer.Color[1] or skinlayer.Red or 1
+		g = skinlayer.Color[2] or skinlayer.Green or 1
+		b = skinlayer.Color[3] or skinlayer.Blue or 1
+		a = skinlayer.Color[4] or skinlayer.Alpha or 1
+	else
+		r = skinlayer.Red or 1
+		g = skinlayer.Green or 1
+		b = skinlayer.Blue or 1
+		a = skinlayer.Alpha or 1
 	end
-	skinlayer.__r = r
+	--[[skinlayer.__r = r
 	skinlayer.__ir = 1/r
 	skinlayer.__g = g
 	skinlayer.__ig = 1/g
 	skinlayer.__b = b
 	skinlayer.__ib = 1/b
 	skinlayer.__a = a
-	skinlayer.__ia = 1/a
-	btnlayer:SetVertexColor(r,g,b,a)
+	skinlayer.__ia = 1/a--]]
+	SetTextureColor(btnlayer,r,g,b,a)
 end
 
 local function SkinHighlightLayer(skin,button,btndata,xscale,yscale)
@@ -366,13 +444,24 @@ local function SkinHighlightLayer(skin,button,btndata,xscale,yscale)
 	--local parent = button.__bf_framelevel[FrameLevels.Highlight]
 	--btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	local r, g, b, a = btnlayer:GetVertexColor()
-	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+	local r, g, b, a
+	if skinlayer.Color then
+		r = skinlayer.Color[1] or skinlayer.Red or 1
+		g = skinlayer.Color[2] or skinlayer.Green or 1
+		b = skinlayer.Color[3] or skinlayer.Blue or 1
+		a = skinlayer.Color[4] or skinlayer.Alpha or 1
+	else
+		r = skinlayer.Red or 1
+		g = skinlayer.Green or 1
+		b = skinlayer.Blue or 1
+		a = skinlayer.Alpha or 1
+	end
+	SetTextureColor(btnlayer,r,g,b,a)
 	btnlayer:SetDrawLayer(DrawLayers.Highlight)
 end
 
@@ -387,11 +476,24 @@ local function SkinPushedLayer(skin,button,btndata,xscale,yscale)
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Pushed)
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+	local r, g, b, a
+	if skinlayer.Color then
+		r = skinlayer.Color[1] or skinlayer.Red or 1
+		g = skinlayer.Color[2] or skinlayer.Green or 1
+		b = skinlayer.Color[3] or skinlayer.Blue or 1
+		a = skinlayer.Color[4] or skinlayer.Alpha or 1
+	else
+		r = skinlayer.Red or 1
+		g = skinlayer.Green or 1
+		b = skinlayer.Blue or 1
+		a = skinlayer.Alpha or 1
+	end
+	SetTextureColor(btnlayer,r,g,b,a)
 end
 
 local function SkinDisabledLayer(skin,button,btndata,xscale,yscale)
@@ -405,11 +507,24 @@ local function SkinDisabledLayer(skin,button,btndata,xscale,yscale)
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Disabled)
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+	local r, g, b, a
+	if skinlayer.Color then
+		r = skinlayer.Color[1] or skinlayer.Red or 1
+		g = skinlayer.Color[2] or skinlayer.Green or 1
+		b = skinlayer.Color[3] or skinlayer.Blue or 1
+		a = skinlayer.Color[4] or skinlayer.Alpha or 1
+	else
+		r = skinlayer.Red or 1
+		g = skinlayer.Green or 1
+		b = skinlayer.Blue or 1
+		a = skinlayer.Alpha or 1
+	end
+	SetTextureColor(btnlayer,r,g,b,a)
 end
 
 local function SkinCheckedLayer(skin,button,btndata,xscale,yscale)
@@ -424,13 +539,24 @@ local function SkinCheckedLayer(skin,button,btndata,xscale,yscale)
 	--local parent = button.__bf_framelevel[FrameLevels.Checked]
 	--btnlayer:SetParent(parent or button)
 	btnlayer:SetTexture(skinlayer.Texture)
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	local r, g, b, a = btnlayer:GetVertexColor()
-	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+	local r, g, b, a
+	if skinlayer.Color then
+		r = skinlayer.Color[1] or skinlayer.Red or 1
+		g = skinlayer.Color[2] or skinlayer.Green or 1
+		b = skinlayer.Color[3] or skinlayer.Blue or 1
+		a = skinlayer.Color[4] or skinlayer.Alpha or 1
+	else
+		r = skinlayer.Red or 1
+		g = skinlayer.Green or 1
+		b = skinlayer.Blue or 1
+		a = skinlayer.Alpha or 1
+	end
+	SetTextureColor(btnlayer,r,g,b,a)
 	--btnlayer:SetDrawLayer(DrawLayers.Checked)
 end
 
@@ -464,15 +590,26 @@ local function SkinGlossLayer(skin,button,btndata,xscale,yscale,GlossAlpha)
 	local parent = button.__bf_framelevel[FrameLevels.Gloss]
 	btnlayer:SetParent(parent or button)
 	btnlayer:Show()
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	local r, g, b, a = btnlayer:GetVertexColor()
-	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,GlossAlpha)
+	local r, g, b, a
+	if skinlayer.Color then
+		r = skinlayer.Color[1] or skinlayer.Red or 1
+		g = skinlayer.Color[2] or skinlayer.Green or 1
+		b = skinlayer.Color[3] or skinlayer.Blue or 1
+		a = skinlayer.Color[4] or skinlayer.Alpha or 1
+	else
+		r = skinlayer.Red or 1
+		g = skinlayer.Green or 1
+		b = skinlayer.Blue or 1
+		a = skinlayer.Alpha or 1
+	end
+	SetTextureColor(btnlayer,r,g,b,a)
 	btnlayer:SetDrawLayer(DrawLayers.Gloss)
 end
 
@@ -509,11 +646,22 @@ local function SkinBackdropLayer(skin,button,btndata,xscale,yscale)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	local r, g, b, a = btnlayer:GetVertexColor()
-	btnlayer:SetVertexColor(skinlayer.Red or r or 1,skinlayer.Green or g or 1,skinlayer.Blue or b or 1,skinlayer.Alpha or a or 1)
+	local r, g, b, a
+	if skinlayer.Color then
+		r = skinlayer.Color[1] or skinlayer.Red or 1
+		g = skinlayer.Color[2] or skinlayer.Green or 1
+		b = skinlayer.Color[3] or skinlayer.Blue or 1
+		a = skinlayer.Color[4] or skinlayer.Alpha or 1
+	else
+		r = skinlayer.Red or 1
+		g = skinlayer.Green or 1
+		b = skinlayer.Blue or 1
+		a = skinlayer.Alpha or 1
+	end
+	SetTextureColor(btnlayer,r,g,b,a)
 	btnlayer:SetDrawLayer(DrawLayers.Backdrop)
-	btnlayer:SetWidth(skinlayer.Width * (skinlayer.Scale or 1) * xscale)
-	btnlayer:SetHeight(skinlayer.Height * (skinlayer.Scale or 1) * yscale)
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 end
