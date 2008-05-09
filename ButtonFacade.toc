@@ -1,6 +1,7 @@
 ﻿## Interface: 20400
 ## Title: ButtonFacade
 ## Notes: Dynamic Modern Button Skinning
+## Notes-esES: Aplica Pieles Modernas Dinamicas a Botones
 ## Notes-zhCN: 按钮皮肤更换插件
 ## Notes-zhTW: 動態的摩登按鈕美化插件
 ## Author: jjsheets
@@ -20,6 +21,7 @@ Localization\enUS.lua
 Localization\koKR.lua
 Localization\zhCN.lua
 Localization\zhTW.lua
+Localization\esES.lua
 
 ButtonFacade.lua
 

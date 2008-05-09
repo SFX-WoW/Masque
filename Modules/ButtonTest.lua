@@ -1,4 +1,4 @@
-
+﻿
 local bf = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
 local lbf = LibStub("LibButtonFacade")
 
@@ -12,6 +12,14 @@ if L then
 	L["Enable Module"] = true
 	L["Drag"] = true
 	L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."] = true
+end
+
+local L = AceLocale:NewLocale( "ButtonFacade", "esES", false )
+if L then
+	L["Button Test"] = "Probar Botón"
+	L["Enable Module"] = "Activar Módulo"
+	L["Drag"] = "Arrastar"
+	L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."] = "Muestra una serie de botones que pueden ser utilizados para verificar la funcionalidad de una piel. En orden de izquierda a derecha, los botones heredan las siguientes plantillas: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."
 end
 
 -- Get the proper Locale for the client.
