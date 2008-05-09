@@ -201,13 +201,13 @@ end
 
 local old_GetVertexColor
 local function HookGetVertexColor(region)
-	local R, G, B, A = region.__bf_iR, region.__bf_iG, region.__bf_iB, region.__bf_iA
+	local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
 	local r,g,b,a = old_GetVertexColor(region)
 	if R then
-		r = r * R
-		g = g * G
-		b = b * B
-		a = a * A
+		r = r / R
+		g = g / G
+		b = b / B
+		a = a / A
 	end
 	return r,g,b,a
 end
@@ -223,13 +223,13 @@ end
 
 local old_GetTextColor
 local function HookGetTextColor(region,r,g,b,a)
-	local R, G, B, A = region.__bf_iR, region.__bf_iG, region.__bf_iB, region.__bf_iA
+	local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
 	local r,g,b,a = old_GetTextColor(region)
 	if R then
-		r = r * R
-		g = g * G
-		b = b * B
-		a = a * A
+		r = r / R
+		g = g / G
+		b = b / B
+		a = a / A
 	end
 	return r,g,b,a
 end
@@ -237,14 +237,14 @@ end
 local hookedregion = {}
 local function SetTextureColor(region,r,g,b,a)
 	if not old_GetVertexColor then old_GetVertexColor = region.GetVertexColor end
-	if not hookedregion[region] then
+	if region.GetVertexColor ~= HookGetVertexColor then
 		hooksecurefunc(region,"SetVertexColor",HookSetVertexColor)
 		region.GetVertexColor = HookGetVertexColor
 		hookedregion[region] = true
 	end
 	region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A = r, g, b, a
-	region.__bf_iR, region.__bf_iG, region.__bf_iB, region.__bf_iA = 1/r, 1/g, 1/b, 1/a
-	region:SetVertexColor(1,1,1,1)
+	loopcheck[region] = true
+	region:SetVertexColor(r,g,b,a)
 end
 
 local function SetTextColor(region,r,g,b,a)
@@ -255,7 +255,8 @@ local function SetTextColor(region,r,g,b,a)
 		hookedregion[region] = true
 	end
 	region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A = r, g, b, a
-	region.__bf_iR, region.__bf_iG, region.__bf_iB, region.__bf_iA = 1/r, 1/g, 1/b, 1/a
+	loopcheck[region] = true
+	region:SetTextColor(r,g,b,a)
 end
 
 local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale)
@@ -597,19 +598,17 @@ local function SkinGlossLayer(skin,button,btndata,xscale,yscale,GlossAlpha)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	local r, g, b, a
+	local r, g, b
 	if skinlayer.Color then
 		r = skinlayer.Color[1] or skinlayer.Red or 1
 		g = skinlayer.Color[2] or skinlayer.Green or 1
 		b = skinlayer.Color[3] or skinlayer.Blue or 1
-		a = skinlayer.Color[4] or skinlayer.Alpha or 1
 	else
 		r = skinlayer.Red or 1
 		g = skinlayer.Green or 1
 		b = skinlayer.Blue or 1
-		a = skinlayer.Alpha or 1
 	end
-	SetTextureColor(btnlayer,r,g,b,a)
+	SetTextureColor(btnlayer,r,g,b,GlossAlpha)
 	btnlayer:SetDrawLayer(DrawLayers.Gloss)
 end
 
