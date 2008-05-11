@@ -118,6 +118,10 @@ function lib:AddSkin(SkinID,data,overwrite)
 	--table_sort(skinlist)
 end
 
+function lib:GetSkins()
+	return skins
+end
+
 function lib:ListSkins()
 	return skinlist
 end
