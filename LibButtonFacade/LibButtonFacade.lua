@@ -85,6 +85,23 @@ local freegloss = {}
 local freebackdrop = {}
 
 local callbacks = {}
+
+local function fireSkinCB(SkinID,Gloss,Backdrop,Addon,Group,Button)
+	local args = callbacks[Addon]
+	if args then
+		for arg, callback in pairs(args) do
+			callback(arg and arg,SkinID,Gloss,Backdrop,Group,Button)
+		end
+	end
+end
+
+function lib:RegisterSkinCallback(AddonID,callback,arg)
+	local arg = callback and arg or false
+	callbacks[AddonID] = callbacks[AddonID] or {}
+	callbacks[AddonID][arg] = callback
+end
+
+--[[local callbacks = {}
 local callbackArgs = {}
 
 local function fireSkinCB(SkinID,Gloss,Backdrop,Addon,Group,Button)
@@ -96,7 +113,7 @@ end
 function lib:RegisterSkinCallback(AddonID,callback,arg)
 	callbacks[AddonID] = callback
 	callbackArgs[AddonID] = callback and arg or nil
-end
+end--]]
 
 local skins = {}
 local skinlist = {}
