@@ -706,7 +706,9 @@ group_mt = {
 			if type(Gloss) ~= "number" then
 				Gloss = Gloss and 1 or 0
 			end
-			if ColorLayer then
+			if type(ColorLayer) == "table" then
+				self.Colors = ColorLayer
+			elseif ColorLayer then
 				self:SetLayerColor(ColorLayer,r,g,b,a)
 			end
 			self.SkinID = SkinID or self.SkinID
