@@ -101,29 +101,6 @@ function bf:OpenMenu()
 	dialog:Open("ButtonFacade")
 end
 
-function bf:SkinSkin(s)
-	for k,v in pairs(lbf:ListAddons()) do
-		local group = lbf:Group(v)
-		group:Skin(s,group.Gloss,group.Backdrop)
-	end
-end
-
-function bf:SkinGloss(g)
-	for k,v in pairs(lbf:ListAddons()) do
-		local group = lbf:Group(v)
-		group:Skin(group.SkinID,g,group.Backdrop)
-	end
-end
-
-function bf:SkinBackdrop(b)
-	for k,v in pairs(lbf:ListAddons()) do
-		local group = lbf:Group(v)
-		group:Skin(group.SkinID,group.Gloss,b)
-	end
-end
-
-local global_gloss, global_back, lastSkin
-
 bf.options = {
 	type = 'group',
 	name = L["ButtonFacade"],
@@ -132,44 +109,7 @@ bf.options = {
 		elements = {
 			type = 'group',
 			name = L["Elements"],
-			args = {
-				__bf_header = {
-					type = 'description',
-					name = L["Apply skin to all registered buttons."],
-					order = 1,
-				},
-				__bf_skin = {
-					type = 'select',
-					values = function() return lbf:ListSkins() end,
-					name = L["Skin"],
-					get = function() return lastSkin end,
-					set = function(info,c) lastSkin = c bf:SkinSkin(c) end,
-					style = "dropdown",
-					order = 2,
-					width = "full",
-				},
-				__bf_gloss = {
-					type = 'range',
-					name = L["Gloss"],
-					min = 0,
-					max = 1,
-					isPercent = true,
-					step = 0.01,
-					get = function() return global_gloss or 0 end,
-					set = function(info,c) bf:SkinGloss(c) global_gloss = c end,
-					order = 3,
-					width = "full",
-				},
-				__bf_backdrop = {
-					type = 'toggle',
-					name = L["Backdrop"],
-					tristate = true,
-					get = function() return global_back end,
-					set = function(info,c) bf:SkinBackdrop(c) global_back = c and true or false end,
-					order = 4,
-					width = "half",
-				},
-			}
+			args = {}
 		},
 		fubar = {
 			type = "group",
@@ -246,175 +186,618 @@ bf:SetDefaultModulePrototype({
 	end,
 })
 
-local elements_args = bf.options.args.elements.args
-
-function bf:ElementListUpdate(Addon,Group)
-	if not Addon then
-		local list = lbf:ListAddons()
-		local args = elements_args
-		for k in pairs(args) do
-			if (not list[k]) and (k:sub(1,5) ~= "__bf_") then args[k].hidden = true end
-		end
-		for k,v in pairs(list) do
-			local cleanv = v:gsub("%s","_")
-			if not elements_args[cleanv] then
-				local g = lbf:Group(v)
-				elements_args[cleanv] = {
-					type = 'group',
-					name = v,
-					args = {
-						__bf_header = {
-							type = 'description',
-							name = L["Apply skin to all buttons registered with %s."]:format(v),
-							order = 1,
-						},
-						__bf_skin = {
-							type = 'select',
-							values = function() return lbf:ListSkins() end,
-							name = L["Skin"],
-							get = function() return g.SkinID end,
-							set = function(info,c) g:Skin(c,g.Gloss,g.Backdrop) end,
-							style = "dropdown",
-							order = 2,
-							width = "full",
-						},
-						__bf_gloss = {
-							type = 'range',
-							name = L["Gloss"],
-							min = 0,
-							max = 1,
-							isPercent = true,
-							step = 0.01,
-							get = function() return g.Gloss or 0 end,
-							set = function(info,c) g:Skin(g.SkinID,c,g.Backdrop) end,
-							order = 3,
-							width = "full",
-						},
-						__bf_backdrop = {
-							type = 'toggle',
-							name = L["Backdrop"],
-							get = function() return g.Backdrop end,
-							set = function(info,c) g:Skin(g.SkinID,g.Gloss,c) global_back = nil end,
-							order = 4,
-							width = "half",
-						},
-					},
-				}
-			else
-				elements_args[cleanv].hidden = false
+do
+	local function getSkin(info)
+		return info.arg.SkinID
+	end
+	local function setSkin(info, value)
+		local lbfGroup = info.arg
+		lbfGroup:Skin(value, lbfGroup.Gloss, lbfGroup.Backdrop)
+	end
+	local function getGloss(info)
+		return info.arg.Gloss or 0
+	end
+	local function setGloss(info, value)
+		local lbfGroup = info.arg
+		lbfGroup:Skin(lbfGroup.SkinID, value, lbfGroup.Backdrop)
+	end
+	local function getBackdrop(info)
+		return info.arg.Backdrop
+	end
+	local function setBackdrop(info, value)
+		local lbfGroup = info.arg
+		lbfGroup:Skin(lbfGroup.SkinID, lbfGroup.Gloss, value)
+	end
+	local function getLayerColor(info)
+		local lbfGroup, layer = info.arg[1], info.arg[2]
+		return lbfGroup:GetLayerColor(layer)
+	end
+	local function setLayerColor(info, r,g,b,a)
+		local lbfGroup, layer = info.arg[1], info.arg[2]
+		lbfGroup:Skin(lbfGroup.SkinID, lbfGroup.Gloss, lbfGroup.Backdrop,layer,r,g,b,a)
+	end
+	local function resetColors(info)
+		info.arg:ResetColors()
+	end
+	local args
+	do
+		local lbfGroup = lbf:Group() -- get the root group, since this is easier...
+		bf.options.args.elements = {
+			type = 'group',
+			name = bf.name,
+			args = {
+				__bf_header = {
+					name = L["Apply skin to all registered buttons."],
+					type = 'description',
+					order = 1,
+				},
+				__bf_skin = {
+					name = L["Skin"],
+					type = 'select',
+					get = getSkin,
+					set = setSkin,
+					values = lbf.ListSkins,
+					arg = lbfGroup,
+					order = 2,
+					style = "dropdown",
+					width = "full",
+				},
+				__bf_gloss = {
+					name = L["Gloss"],
+					type = 'range',
+					get = getGloss,
+					set = setGloss,
+					arg = lbfGroup,
+					min = 0,
+					max = 1,
+					isPercent = true,
+					step = 0.01,
+					order = 3,
+					width = "full",
+				},
+				__bf_backdrop = {
+					type = 'toggle',
+					name = L["Backdrop"],
+					get = getBackdrop,
+					set = setBackdrop,
+					arg = lbfGroup,
+					order = 4,
+					width = "half",
+				},
+				__bf_ColorHeading = {
+					type = 'header',
+					name = L["Color Options"],
+					order = 5,
+				},
+				__bf_ColorBackdrop = {
+					type = 'color',
+					name = L["Backdrop"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Backdrop"},
+					order = 6,
+				},
+				__bf_ColorFlash = {
+					type = 'color',
+					name = L["Flash"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Flash"},
+					order = 7,
+				},
+				__bf_ColorNormal = {
+					type = 'color',
+					name = L["Normal Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Normal"},
+					order = 8,
+				},
+				__bf_ColorPushed = {
+					type = 'color',
+					name = L["Pushed Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Pushed"},
+					order = 9,
+				},
+				__bf_ColorDisabled = {
+					type = 'color',
+					name = L["Disabled Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Disabled"},
+					order = 10,
+				},
+				__bf_ColorChecked = {
+					type = 'color',
+					name = L["Checked"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Checked"},
+					order = 11,
+				},
+				__bf_ColorBorder = {
+					type = 'color',
+					name = L["Equipped"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Border"},
+					order = 12,
+				},
+				__bf_ColorHighlight = {
+					type = 'color',
+					name = L["Highlight"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Highlight"},
+					order = 13,
+				},
+				__bf_ColorGloss = {
+					type = 'color',
+					name = L["Gloss"],
+					get = getLayerColor,
+					set = setLayerColor,
+					arg = {lbfGroup,"Gloss"},
+					order = 14,
+				},
+				__bf_ResetColors = {
+					type = 'execute',
+					name = L["Reset Colors"],
+					func = resetColors,
+					arg = lbfGroup,
+					order = 15,
+				},
+			},
+		}
+		args = bf.options.args.elements.args
+	end
+	local function CreateAddonOptions(addon)
+		local lbfGroup = lbf:Group(addon)
+		return {
+			type = 'group',
+			name = addon,
+			args = {
+				__bf_header = {
+					name = L["Apply skin to all buttons registered with %s."]:format(addon),
+					type = 'description',
+					order = 1,
+				},
+				__bf_skin = {
+					name = L["Skin"],
+					type = 'select',
+					get = getSkin,
+					set = setSkin,
+					values = lbf.ListSkins,
+					arg = lbfGroup,
+					order = 2,
+					style = "dropdown",
+					width = "full",
+				},
+				__bf_gloss = {
+					name = L["Gloss"],
+					type = 'range',
+					get = getGloss,
+					set = setGloss,
+					arg = lbfGroup,
+					min = 0,
+					max = 1,
+					isPercent = true,
+					step = 0.01,
+					order = 3,
+					width = "full",
+				},
+				__bf_backdrop = {
+					type = 'toggle',
+					name = L["Backdrop"],
+					get = getBackdrop,
+					set = setBackdrop,
+					arg = lbfGroup,
+					order = 4,
+					width = "half",
+				},
+				__bf_ColorHeading = {
+					type = 'header',
+					name = L["Color Options"],
+					order = 5,
+				},
+				__bf_ColorBackdrop = {
+					type = 'color',
+					name = L["Backdrop"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Backdrop"},
+					order = 6,
+				},
+				__bf_ColorFlash = {
+					type = 'color',
+					name = L["Flash"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Flash"},
+					order = 7,
+				},
+				__bf_ColorNormal = {
+					type = 'color',
+					name = L["Normal Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Normal"},
+					order = 8,
+				},
+				__bf_ColorPushed = {
+					type = 'color',
+					name = L["Pushed Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Pushed"},
+					order = 9,
+				},
+				__bf_ColorDisabled = {
+					type = 'color',
+					name = L["Disabled Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Disabled"},
+					order = 10,
+				},
+				__bf_ColorChecked = {
+					type = 'color',
+					name = L["Checked"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Checked"},
+					order = 11,
+				},
+				__bf_ColorBorder = {
+					type = 'color',
+					name = L["Equipped"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Border"},
+					order = 12,
+				},
+				__bf_ColorHighlight = {
+					type = 'color',
+					name = L["Highlight"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Highlight"},
+					order = 13,
+				},
+				__bf_ColorGloss = {
+					type = 'color',
+					name = L["Gloss"],
+					get = getLayerColor,
+					set = setLayerColor,
+					arg = {lbfGroup,"Gloss"},
+					order = 14,
+				},
+				__bf_ResetColors = {
+					type = 'execute',
+					name = L["Reset Colors"],
+					func = resetColors,
+					arg = lbfGroup,
+					order = 15,
+				},
+			},
+		}
+	end
+	local function CreateGroupOptions(addon, group)
+		local lbfGroup = lbf:Group(addon, group)
+		return {
+			type = 'group',
+			name = group,
+			args = {
+				__bf_header = {
+					type = 'description',
+					name = L["Apply skin to all buttons registered with %s/%s."]:format(addon, group),
+					order = 1,
+				},
+				__bf_skin = {
+					name = L["Skin"],
+					type = 'select',
+					get = getSkin,
+					set = setSkin,
+					values = lbf.ListSkins,
+					arg = lbfGroup,
+					order = 2,
+					style = "dropdown",
+					width = "full",
+				},
+				__bf_gloss = {
+					name = L["Gloss"],
+					type = 'range',
+					get = getGloss,
+					set = setGloss,
+					arg = lbfGroup,
+					min = 0,
+					max = 1,
+					isPercent = true,
+					step = 0.01,
+					order = 3,
+					width = "full",
+				},
+				__bf_backdrop = {
+					type = 'toggle',
+					name = L["Backdrop"],
+					get = getBackdrop,
+					set = setBackdrop,
+					arg = lbfGroup,
+					order = 4,
+					width = "half",
+				},
+				__bf_ColorHeading = {
+					type = 'header',
+					name = L["Color Options"],
+					order = 5,
+				},
+				__bf_ColorBackdrop = {
+					type = 'color',
+					name = L["Backdrop"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Backdrop"},
+					order = 6,
+				},
+				__bf_ColorFlash = {
+					type = 'color',
+					name = L["Flash"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Flash"},
+					order = 7,
+				},
+				__bf_ColorNormal = {
+					type = 'color',
+					name = L["Normal Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Normal"},
+					order = 8,
+				},
+				__bf_ColorPushed = {
+					type = 'color',
+					name = L["Pushed Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Pushed"},
+					order = 9,
+				},
+				__bf_ColorDisabled = {
+					type = 'color',
+					name = L["Disabled Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Disabled"},
+					order = 10,
+				},
+				__bf_ColorChecked = {
+					type = 'color',
+					name = L["Checked"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Checked"},
+					order = 11,
+				},
+				__bf_ColorBorder = {
+					type = 'color',
+					name = L["Equipped"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Border"},
+					order = 12,
+				},
+				__bf_ColorHighlight = {
+					type = 'color',
+					name = L["Highlight"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Highlight"},
+					order = 13,
+				},
+				__bf_ColorGloss = {
+					type = 'color',
+					name = L["Gloss"],
+					get = getLayerColor,
+					set = setLayerColor,
+					arg = {lbfGroup,"Gloss"},
+					order = 14,
+				},
+				__bf_ResetColors = {
+					type = 'execute',
+					name = L["Reset Colors"],
+					func = resetColors,
+					arg = lbfGroup,
+					order = 15,
+				},
+			},
+		}
+	end
+	local function CreateButtonOptions(addon, group, button)
+		local lbfGroup = lbf:Group(addon, group, button)
+		return {
+			type = 'group',
+			name = button,
+			args = {
+				__bf_header = {
+					name = L["Apply skin to all buttons registered with %s/%s/%s."]:format(addon, group, button),
+					type = 'description',
+					order = 1,
+				},
+				__bf_skin = {
+					name = L["Skin"],
+					type = 'select',
+					get = getSkin,
+					set = setSkin,
+					values = lbf.ListSkins,
+					arg = lbfGroup,
+					order = 2,
+					style = "dropdown",
+					width = "full",
+				},
+				__bf_gloss = {
+					name = L["Gloss"],
+					type = 'range',
+					get = getGloss,
+					set = setGloss,
+					arg = lbfGroup,
+					min = 0,
+					max = 1,
+					isPercent = true,
+					step = 0.01,
+					order = 3,
+					width = "full",
+				},
+				__bf_backdrop = {
+					type = 'toggle',
+					name = L["Backdrop"],
+					get = getBackdrop,
+					set = setBackdrop,
+					arg = lbfGroup,
+					order = 4,
+					width = "half",
+				},
+				__bf_ColorHeading = {
+					type = 'header',
+					name = L["Color Options"],
+					order = 5,
+				},
+				__bf_ColorBackdrop = {
+					type = 'color',
+					name = L["Backdrop"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Backdrop"},
+					order = 6,
+				},
+				__bf_ColorFlash = {
+					type = 'color',
+					name = L["Flash"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Flash"},
+					order = 7,
+				},
+				__bf_ColorNormal = {
+					type = 'color',
+					name = L["Normal Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Normal"},
+					order = 8,
+				},
+				__bf_ColorPushed = {
+					type = 'color',
+					name = L["Pushed Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Pushed"},
+					order = 9,
+				},
+				__bf_ColorDisabled = {
+					type = 'color',
+					name = L["Disabled Border"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Disabled"},
+					order = 10,
+				},
+				__bf_ColorChecked = {
+					type = 'color',
+					name = L["Checked"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Checked"},
+					order = 11,
+				},
+				__bf_ColorBorder = {
+					type = 'color',
+					name = L["Equipped"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Border"},
+					order = 12,
+				},
+				__bf_ColorHighlight = {
+					type = 'color',
+					name = L["Highlight"],
+					get = getLayerColor,
+					set = setLayerColor,
+					hasAlpha = true,
+					arg = {lbfGroup,"Highlight"},
+					order = 13,
+				},
+				__bf_ColorGloss = {
+					type = 'color',
+					name = L["Gloss"],
+					get = getLayerColor,
+					set = setLayerColor,
+					arg = {lbfGroup,"Gloss"},
+					order = 14,
+				},
+				__bf_ResetColors = {
+					type = 'execute',
+					name = L["Reset Colors"],
+					func = resetColors,
+					arg = lbfGroup,
+					order = 15,
+				},
+			},
+		}
+	end
+	function bf:ElementListUpdate(addon, group)
+		if not addon then
+			for _, addon in pairs(lbf:ListAddons()) do
+				local cAddon = addon:gsub("%s","_")
+				args[cAddon] = args[cAddon] or CreateAddonOptions(addon)
+				args[cAddon].hidden = false
 			end
-		end
-	elseif not Group then
-		local cleanaddon = Addon:gsub("%s","_")
-		local list = lbf:ListGroups(Addon)
-		local args = elements_args[cleanaddon].args
-		for k in pairs(args) do
-			if (not list[k]) and (k:sub(1,5) ~= "__bf_") then args[k].hidden = true end
-		end
-		for k,v in pairs(list) do
-			local cleanv = v:gsub("%s","_")
-			if not args[cleanv] then
-				local g = lbf:Group(Addon,v)
-				args[cleanv] = {
-					type = 'group',
-					name = v,
-					args = {
-						__bf_header = {
-							type = 'description',
-							name = L["Apply skin to all buttons registered with %s/%s."]:format(Addon,v),
-							order = 1,
-						},
-						__bf_skin = {
-							type = 'select',
-							values = function() return lbf:ListSkins() end,
-							name = L["Skin"],
-							get = function() return g.SkinID end,
-							set = function(info,c) g:Skin(c,g.Gloss,g.Backdrop) end,
-							style = "dropdown",
-							order = 2,
-							width = "full",
-						},
-						__bf_gloss = {
-							type = 'range',
-							name = L["Gloss"],
-							min = 0,
-							max = 1,
-							isPercent = true,
-							step = 0.01,
-							get = function() return g.Gloss or 0 end,
-							set = function(info,c) g:Skin(g.SkinID,c,g.Backdrop) end,
-							order = 3,
-							width = "full",
-						},
-						__bf_backdrop = {
-							type = 'toggle',
-							name = L["Backdrop"],
-							get = function() return g.Backdrop end,
-							set = function(info,c) g:Skin(g.SkinID,g.Gloss,c) global_back = nil end,
-							order = 4,
-							width = "half",
-						},
-					},
-				}
-			else
-				args[cleanv].hidden = false
+		elseif not group then
+			local cAddon = addon:gsub("%s","_")
+			for _, group in pairs(lbf:ListGroups(addon)) do
+				local cGroup = group:gsub("%s","_")
+				local addonArgs = args[cAddon].args
+				addonArgs[cGroup] = addonArgs[cGroup] or CreateGroupOptions(addon, group)
 			end
-		end
-	else
-		local cleanaddon = Addon:gsub("%s", "_")
-		local cleangroup = Group:gsub("%s", "_")
-		local list = lbf:ListButtons(Addon,Group)
-		local args = elements_args[cleanaddon].args[cleangroup].args
-		for k in pairs(args) do
-			if (not list[k]) and (k:sub(1,5) ~= "__bf_") then args[k].hidden = true end
-		end
-		for k,v in pairs(list) do
-			local cleanv = v:gsub("%s","_")
-			if not args[cleanv] then
-				local g = lbf:Group(Addon,Group,v)
-				args[cleanv] = {
-					type = 'group',
-					name = v,
-					args = {
-						__bf_header = {
-							type = 'description',
-							name = L["Apply skin to all buttons registered with %s/%s/%s."]:format(Addon,Group,v),
-							order = 1,
-						},
-						__bf_skin = {
-							type = 'select',
-							values = function() return lbf:ListSkins() end,
-							name = L["Skin"],
-							get = function() return g.SkinID end,
-							set = function(info,c) g:Skin(c,g.Gloss,g.Backdrop) end,
-							style = "dropdown",
-							order = 2,
-							width = "full",
-						},
-						__bf_gloss = {
-							type = 'range',
-							name = L["Gloss"],
-							min = 0,
-							max = 1,
-							isPercent = true,
-							step = 0.01,
-							get = function() return g.Gloss or 0 end,
-							set = function(info,c) g:Skin(g.SkinID,c,g.Backdrop) end,
-							order = 3,
-							width = "full",
-						},
-						__bf_backdrop = {
-							type = 'toggle',
-							name = L["Backdrop"],
-							get = function() return g.Backdrop end,
-							set = function(info,c) g:Skin(g.SkinID,g.Gloss,c) global_back = nil end,
-							order = 4,
-							width = "half",
-						},
-					},
-				}
-			else
-				args[cleanv].hidden = false
+		else
+			local cAddon = addon:gsub("%s","_")
+			local cGroup = group:gsub("%s","_")
+			for _, button in pairs(lbf:ListButtons(addon, group)) do
+				local cButton = button:gsub("%s","_")
+				local groupArgs = args[cAddon].args[cGroup].args
+				groupArgs[cButton] = groupArgs[cButton] or CreateButtonOptions(addon, group, button)
 			end
 		end
 	end

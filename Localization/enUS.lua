@@ -23,4 +23,15 @@ if L then
 	L["Left"] = true
 	L["Center"] = true
 	L["Right"] = true
+	L["Color Options"] = true
+	L["Backdrop"] = true
+	L["Flash"] = true
+	L["Normal Border"] = true
+	L["Pushed Border"] = true
+	L["Disabled Border"] = true
+	L["Checked"] = true
+	L["Equipped"] = true
+	L["Highlight"] = true
+	L["Gloss"] = true
+	L["Reset Colors"] = true
 end
