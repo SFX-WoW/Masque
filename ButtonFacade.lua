@@ -206,7 +206,7 @@ do
 	end
 	local function setBackdrop(info, value)
 		local lbfGroup = info.arg
-		lbfGroup:Skin(lbfGroup.SkinID, lbfGroup.Gloss, value)
+		lbfGroup:Skin(lbfGroup.SkinID, lbfGroup.Gloss, value and true or false)
 	end
 	local function getLayerColor(info)
 		local lbfGroup, layer = info.arg[1], info.arg[2]

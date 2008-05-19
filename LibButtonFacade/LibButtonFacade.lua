@@ -713,7 +713,9 @@ group_mt = {
 			end
 			self.SkinID = SkinID or self.SkinID
 			self.Gloss = Gloss or self.Gloss
-			self.Backdrop = Backdrop or self.Backdrop
+			if type(Backdrop) == "boolean" then
+				self.Backdrop = Backdrop
+			end
 			for k in pairs(self.Buttons) do
 				ApplySkin(self.SkinID,self.Gloss,self.Backdrop,self.Colors,k,self.Buttons[k])
 			end
