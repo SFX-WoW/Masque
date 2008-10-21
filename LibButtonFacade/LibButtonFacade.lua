@@ -401,6 +401,7 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale,Color)
 	-- the following catches when Blizzard changes the texture to the Empty texture.
 	if not normalhooked[button] then
 		hooksecurefunc(button,"SetNormalTexture",Catch_SetNormalTexture)
+    normalhooked[button] = true
 	end
 	button.__bf_skinlayer = skinlayer
 	btnlayer.__bf_skinlayer = skinlayer
