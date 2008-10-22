@@ -9,7 +9,7 @@ Dependencies: LibStub
 License: LGPL v2.1
 ]]
 
-local MAJOR, MINOR = "LibButtonFacade", "1"
+local MAJOR, MINOR = "LibButtonFacade", "3"
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
@@ -589,7 +589,7 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 	end
 	if btndata.AutoCast then
 		button.__bf_framelevel[3] = btndata.AutoCast
-	else
+	elseif not button.__bf_framelevel[3] then
 		local frame3 = CreateFrame("Frame",nil,button)
 		frame3:SetAllPoints(button)
 		button.__bf_framelevel[3] = frame3
