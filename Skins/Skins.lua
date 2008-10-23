@@ -31,7 +31,7 @@ LibButtonFacade:AddSkin("Dream Layout",{
 		Height = 30,
 		OffsetX = 0.5,
 		OffsetY = -0.5,
-		ModelScale = 0.975,
+		-- ModelScale = 0.975,
 	},
 	Normal = {
 		Hide = true,
@@ -119,7 +119,7 @@ LibButtonFacade:AddSkin("Zoomed",{
 		Width = 36,
 		Height = 36,
 		OffsetX = 0.5,
-		ModelScale = 1.15,
+		-- ModelScale = 1.15,
 	},
 	Normal = {
 		Hide = true,

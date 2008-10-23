@@ -323,9 +323,10 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale,Color)
 		if skinlayer.ModelX or skinlayer.ModelY then
 			btnlayer:SetPosition(skinlayer.ModelX or 0, skinlayer.ModelY or 0,0)
 		end
-		if skinlayer.ModelScale then
-			btnlayer:SetModelScale(skinlayer.ModelScale)
-		end
+		-- HotFix-3.0.2: Disable ModelScale to fix AutoCast (It's not a model anymore).
+		-- if skinlayer.ModelScale then
+			-- btnlayer:SetModelScale(skinlayer.ModelScale)
+		-- end
 	end
 end
 
@@ -583,7 +584,8 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 	button.__bf_framelevel = button.__bf_framelevel or {}
 	button.__bf_framelevel[4] = button
 	btndata.Cooldown = btndata.Cooldown or _G[button:GetName().."Cooldown"]
-	btndata.AutoCast = btndata.AutoCast or _G[button:GetName().."AutoCast"]
+	-- HotFix-3.0.2: "AutoCast" is now "Shine".
+	btndata.AutoCast = btndata.AutoCast or _G[button:GetName().."Shine"]
 	if btndata.Cooldown then
 		button.__bf_framelevel[2] = btndata.Cooldown
 	end
