@@ -22,6 +22,22 @@ if L then
 	L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."] = "Muestra una serie de botones que pueden ser utilizados para verificar la funcionalidad de una piel. En orden de izquierda a derecha, los botones heredan las siguientes plantillas: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."
 end
 
+local L = AceLocale:NewLocale( "ButtonFacade", "zhCN", false )
+if L then
+	L["Button Test"] = "按钮测试"
+	L["Enable Module"] = "启用模块"
+	L["Drag"] = "拖动"
+	L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."] = "显示设置的按钮，可以用来验证功能的皮肤。从左至右，继承的按钮依次为以下模板：技能栏按钮模板，附加技能栏按钮模板，形态改变按钮模板，物品按钮模板，宠物技能栏按钮模板。"
+end
+
+local L = AceLocale:NewLocale( "ButtonFacade", "zhTW", false )
+if L then
+	L["Button Test"] = "按鈕測試"
+	L["Enable Module"] = "啟用模塊"
+	L["Drag"] = "拖動"
+	L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."] = "顯示設置的按鈕，可以用來驗證功能的皮膚。從左至右，繼承的按鈕依次為以下模板：技能欄按鈕模板，附加技能欄按鈕模板，形態改變按鈕模板，物品按鈕模板，寵物技能欄按鈕模板。"
+end
+
 -- Get the proper Locale for the client.
 L = AceLocale:GetLocale("ButtonFacade")
 
