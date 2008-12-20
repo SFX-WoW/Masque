@@ -1,1 +1,0 @@
-For information on skinning, please visit the wiki at http://www.wowace.com/wiki/ButtonFacade/Skins. You can also find a skin template on the SVN called "ButtonFacade_Template".
