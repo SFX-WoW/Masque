@@ -9,10 +9,9 @@
 ## OptionalDeps: Ace3, LibDataBroker-1.1, LibDBIcon-1.0
 ## SavedVariables: ButtonFacadeDB
 
+Embeds.xml
 Libs\LibButtonFacade\LibButtonFacade.xml
 Skins\Skins.lua
-
-Embeds.xml
 Locales.xml
 ButtonFacade.lua
 Modules\Modules.xml
