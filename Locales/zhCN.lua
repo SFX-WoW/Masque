@@ -3,38 +3,38 @@
 if L then
 	-- Main Info
 	L["ButtonFacade"] = "ButtonFacade"
-	L["BF_INFO"] = "ButtonFacade is a small add-on that allows the dynamic skinning of button-based add-ons."
+	L["BF_INFO"] = "ButtonFacade 是基于按钮的动态皮肤小型插件。"
 
 	-- Broker Tool Tip
-	L["Right-Click to open the options window."] = "Right-Click to open the options window."
+	L["Right-Click to open the options window."] = "右击打开选项窗口。"
 
 	-- Minimap Options
-	L["Minimap Icon"] = "Minimap Icon"
-	L["Show the minimap icon."] = "Show the minimap icon."
-	L["LibDBIcon-1.0 is not installed."] = "LibDBIcon-1.0 is not installed."
+	L["Minimap Icon"] = "小地图图标"
+	L["Show the minimap icon."] = "显示小地图图标。"
+	L["LibDBIcon-1.0 is not installed."] = "没有安装 LibDBIcon-1.0 库。"
 	
 	-- Skin Settings
-	L["Skins"] = "Skins"
+	L["Skins"] = "皮肤"
 
 	-- Global Settings
-	L["Global Settings"] = "Global Settings"
-	L["GLOBAL_INFO"] = "This section allows you adjust the skin settings globally. Any changes here will affect all registered elements. Please note that this section will not update itself after a reload."
+	L["Global Settings"] = "全局设置"
+	L["GLOBAL_INFO"] = "这部分可以调整皮肤全局设置。这部分的任何更改将影响所有已注册的插件部分。请注意：这部分重新加载插件后将不会更新。"
 
 	-- Add-on Settings
-	L["Addon Settings"] = "Addon Settings"
-	L["ADDON_INFO"] = "This section allows you adjust skin settings on a per-add-on basis. You can also adjust the settings of individual groups, bars and buttons in the add-on if the add-on allows it."
+	L["Addon Settings"] = "插件设置"
+	L["ADDON_INFO"] = "这部分可以调整每个插件的皮肤设置。也可以调整插件的设置单独分组，动作条和按钮。"
 
 	-- Plug-ins
-	L["Plugins"] = "Plugins"
-	L["PLUGIN_INFO"] = "This section allows you adjust the settings of individual plug-ins."
+	L["Plugins"] = "插件"
+	L["PLUGIN_INFO"] = "这部分可以整设置的单独插件。"
 
 	-- Profiles
-	L["Profiles"] = "Profiles"
+	L["Profiles"] = "用户资料"
 
 	-- Elements
 	L["Apply skin to all buttons registered with %s."] = "将皮肤应用到所有注册给%s的按钮上。"
-	L["Apply skin to all buttons registered with %s: %s."] = "将皮肤应用到所有注册给%s: %s的按钮上。"
-	L["Apply skin to all buttons registered with %s: %s/%s."] = "将皮肤应用到所有注册给%s: %s/%s的按钮上。"
+	L["Apply skin to all buttons registered with %s: %s."] = "将皮肤应用到所有注册给%s：%s的按钮上。"
+	L["Apply skin to all buttons registered with %s: %s/%s."] = "将皮肤应用到所有注册给%s：%s/%s的按钮上。"
 
 	-- Settings
 	L["Skin"] = "皮肤"
