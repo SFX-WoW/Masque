@@ -1,17 +1,13 @@
 ﻿## Interface: 30000
 ## Title: ButtonFacade
-## Notes: Dynamic Modern Button Skinning
-## Notes-esES: Aplica Pieles Modernas Dinamicas a Botones
-## Notes-zhCN: 按钮皮肤更换插件
-## Notes-zhTW: 動態的摩登按鈕美化插件
-## Notes-ruRU: Динамический усовершенствованный модернизатор кнопок
-## Author: jjsheets
-## Version: 0.5Alpha
+## Version: 3.0.3.2
+## Notes: Allows the dynamic skinning of button-based addons.
+## Author: JJSheets, StormFX
+## X-eMail: stormfx@gmail.com
+## X-Website: http://www.wowace.com/projects/buttonfacade/
+## X-Category: Action Bars
 ## OptionalDeps: Ace3, LibDataBroker-1.1, LibDBIcon-1.0
 ## SavedVariables: ButtonFacadeDB
-## X-Category: Action Bars
-## X-Embeds: Ace3
-## X-eMail: sheets.jeff@gmail.com
 
 Libs\LibButtonFacade\LibButtonFacade.xml
 Skins\Skins.lua

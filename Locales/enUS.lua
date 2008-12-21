@@ -1,35 +1,38 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("ButtonFacade", "enUS", true)
 
 if L then
-	-- Main Info
+	-- Addon Title
 	L["ButtonFacade"] = true
-	L["BF_INFO"] = "ButtonFacade is a small add-on that allows the dynamic skinning of button-based add-ons."
 
 	-- Broker Tool Tip
 	L["Right-Click to open the options window."] = true
 
-	-- Minimap Options
-	L["Minimap Icon"] = true
-	L["Show the minimap icon."] = true
-	L["LibDBIcon-1.0 is not installed."] = true
-	
-	-- Skin Settings
-	L["Skins"] = true
-
 	-- Global Settings
-	L["Global Settings"] = true
+	L["Global"] = true
 	L["GLOBAL_INFO"] = "This section allows you adjust the skin settings globally. Any changes here will affect all registered elements. Please note that this section will not update itself after a reload."
 
-	-- Add-on Settings
-	L["Addon Settings"] = true
-	L["ADDON_INFO"] = "This section allows you adjust skin settings on a per-add-on basis. You can also adjust the settings of individual groups, bars and buttons in the add-on if the add-on allows it."
+	-- Addon Settings
+	L["Addons"] = true
+	L["ADDON_INFO"] = "This section allows you adjust skin settings on a per-addon basis. You can also adjust the settings of individual groups, bars and buttons of the addon if available."
 
-	-- Plug-ins
+	-- General Options
+	L["Options"] = true
+	L["OPTION_INFO"] = "This section allows you to adjust any options that are available for ButtonFacade."
+	L["Minimap Icon"] = true
+	L["Show the minimap icon."] = true
+	L["OPTWIN_ISSUE"] = "If you're having trouble accessing some of the options due to the window size, you may want to download and install |cffffcc00BetterBlizzOptions|r. Alternatively, you can use the button below or the |cffffcc00/bfo|r chat command to open a standalone options window."
+	L["Standalone Options"] = true
+	L["Open a standalone options window."] = true
+
+	-- Plugins
 	L["Plugins"] = true
-	L["PLUGIN_INFO"] = "This section allows you adjust the settings of individual plug-ins."
+	L["PLUGIN_INFO"] = "This section allows you adjust the options of individual plugins."
 
 	-- Profiles
 	L["Profiles"] = true
+
+	-- About
+	L["BF_INFO"] = "ButtonFacade is a small addon that allows the dynamic skinning of button-based addons."
 
 	-- Elements
 	L["Apply skin to all buttons registered with %s."] = true

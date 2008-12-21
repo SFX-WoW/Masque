@@ -34,11 +34,6 @@ local module_Options = {
 	type = "group",
 	name = L["Button Test"],
 	args = {
-		header = {
-			type = "description",
-			name = "|cffffcc00"..L["Button Test"].."|r\n",
-			order = 1,
-		},
 		info = {
 			type = "description",
 			name = L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."].."\n",

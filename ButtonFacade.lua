@@ -1,14 +1,17 @@
 --[[ ButtonFacade ]]
 
 -- Create the add-on.
-local BF = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0")
+ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0")
+local BF = ButtonFacade
 
 --Locals
-local db, pairs, gsub = nil, pairs, gsub
+local mdb, db
+local pairs, gsub =  pairs, gsub
 
 -- Set up libraries.
 local LBF = LibStub("LibButtonFacade")
 local L = LibStub("AceLocale-3.0"):GetLocale("ButtonFacade")
+local ACD = LibStub("AceConfigDialog-3.0")
 local LDB = LibStub("LibDataBroker-1.1", true)
 local Icon = LibStub("LibDBIcon-1.0", true)
 
@@ -32,7 +35,9 @@ function BF:OnInitialize()
 	}
 
 	-- Set up the DB.
-	self.db = LibStub("AceDB-3.0"):New("ButtonFacadeDB", defaults, "Default")
+	mdb = LibStub("AceDB-3.0"):New("ButtonFacadeDB") -- Set aside for module creation.
+	self.db = mdb
+	self.db:RegisterDefaults(defaults, "Default")
 	self.db.RegisterCallback(self, "OnProfileChanged", "Reload")
 	self.db.RegisterCallback(self, "OnProfileCopied", "Reload")
 	self.db.RegisterCallback(self, "OnProfileReset", "Reload")
@@ -45,18 +50,22 @@ function BF:OnEnable()
 	LBF:ElementListCallback(self.ElementListUpdate, self)
 
 	-- Set up options.
-	local ACR, ACD = LibStub("AceConfigRegistry-3.0"), LibStub("AceConfigDialog-3.0")
+	local ACR = LibStub("AceConfigRegistry-3.0")
 	self.options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
+	self.options.args.profiles.order = 4
 	ACR:RegisterOptionsTable("ButtonFacade", self.options)
 
 	-- Set up options panels.
-	self.OptionsPanel = ACD:AddToBlizOptions("ButtonFacade", L["ButtonFacade"], nil, "general")
-	self.OptionsPanel.Skins = ACD:AddToBlizOptions("ButtonFacade", L["Skins"], "ButtonFacade", "skins")
-	self.OptionsPanel.Plugins = ACD:AddToBlizOptions("ButtonFacade", L["Plugins"], "ButtonFacade", "plugins")
-	self.OptionsPanel.Profiles = ACD:AddToBlizOptions("ButtonFacade", L["Profiles"], "ButtonFacade", "profiles")
+	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "global")
+	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addons"], self.name, "addons")
+	self.OptionsPanel.Options = ACD:AddToBlizOptions(self.name, L["Options"], self.name, "general")
+	self.OptionsPanel.Plugins = ACD:AddToBlizOptions(self.name, L["Plugins"], self.name, "plugins")
+	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(self.name, L["Profiles"], self.name, "profiles")
+	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, "About", self.name, "about")
 
 	-- Register chat commands.
 	self:RegisterChatCommand("bf", function() self:OpenOptions() end)
+	self:RegisterChatCommand("bfo", function() self:OpenOptions(true) end)
 	self:RegisterChatCommand("buttonfacade", function() self:OpenOptions() end)
 
 	-- Register with Broker.
@@ -85,9 +94,14 @@ function BF:OnEnable()
 end
 
 -- :OpenOptions(): Opens the options window.
-function BF:OpenOptions()
-	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Profiles)
-	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
+function BF:OpenOptions(bfo)
+	if bfo then
+		InterfaceOptionsFrame:Hide()
+		ACD:Open(BF.name)
+	else
+		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Profiles)
+		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
+	end
 end
 
 -- :Reload(): Reloads settings on profile activity.
@@ -105,16 +119,11 @@ do
 		db.mapicon.hide = not db.mapicon.hide
 		if Icon then
 			if db.mapicon.hide then
-				Icon:Hide("ButtonFacade")
+				Icon:Hide(BF.name)
 			else
-				Icon:Show("ButtonFacade")
+				Icon:Show(BF.name)
 			end
 		end
-	end
-
-	-- Make sure we have LibDBIcon.
-	if not Icon then
-		L["Show the minimap icon."] = L["Show the minimap icon."].."\n|cff999999"..L["LibDBIcon-1.0 is not installed."].."|r"
 	end
 
 	-- Core Options
@@ -122,15 +131,28 @@ do
 		type = "group",
 		name = BF.name,
 		args = {
-			general = {
+			global = {}, -- Default options panel.
+			addons = {
 				type = "group",
-				name = "General",
-				order = 1,
+				name = L["Addons"],
+				order = 2,
 				args = {
 					desc = {
 						type = "description",
-						name = L["BF_INFO"].."\n",
-						order = 1,
+						name = L["ADDON_INFO"].."\n",
+						order = 1
+					},
+				},
+			},
+			general = {
+				type = "group",
+				name = L["Options"],
+				order = 3,
+				args = {
+					desc = {
+						type = "description",
+						name = L["OPTION_INFO"].."\n",
+						order = 1
 					},
 					mapicon = {
 						type = "toggle",
@@ -138,50 +160,56 @@ do
 						desc = L["Show the minimap icon."],
 						get = function() return not db.mapicon.hide end,
 						set = function() ToggleIcon() end,
-						order = 3,
-						disabled = function() 
+						order = 2,
+						disabled = function()
 							if not Icon then
 								return true
+							else
+								return false
 							end
-							return false
 						end,
 					},
-				},
-			},
-			skins = {
-				type = "group",
-				name = "Skins",
-				childGroups = "tab",
-				order = 2,
-				args = {
-					global = {},
-					addons = {
-						type = "group",
-						name = L["Addon Settings"],
-						order = 2,
-						args = {
-							header = {
-								type = "description",
-								name = "|cffffcc00"..L["Addon Settings"].."|r\n",
-								order = 1,
-							},
-							desc = {
-								type = "description",
-								name = L["ADDON_INFO"].."\n",
-								order = 2,
-							},
-						},
+					optissue = {
+						type = "description",
+						name = "\n"..L["OPTWIN_ISSUE"].."\n",
+						order = 1000,
+					},
+					optbutton = {
+						type = "execute",
+						name = L["Standalone Options"],
+						desc = L["Open a standalone options window."],
+						order = 1001,
+						disabled = function()
+							if ACD.OpenFrames[BF.name] then
+								return true
+							else
+								return false
+							end
+						end,
+						func = function() BF:OpenOptions(true) end,
 					},
 				},
 			},
 			plugins = {
 				type = "group",
-				name = "Plugins",
+				name = L["Plugins"],
 				order = 3,
 				args = {
 					desc = {
 						type = "description",
 						name = L["PLUGIN_INFO"].."\n",
+					},
+				},
+			},
+			about = {
+				type = "group",
+				name = "About",
+				order = 5,
+				args = {
+					desc = {
+						type = "description",
+						name = L["BF_INFO"].."\n",
+						order = 1,
 					},
 				},
 			},
@@ -191,7 +219,7 @@ end
 
 BF:SetDefaultModulePrototype({
 	RegisterNamespace = function(self, name, defaults)
-		return BF.db:RegisterNamespace(name, defaults)
+		return mdb:RegisterNamespace(name, defaults)
 	end,
 	RegisterModuleOptions = function(self, name, options)
 		BF.options.args.plugins.args = BF.options.args.plugins.args or {}
@@ -235,20 +263,15 @@ do
 	local args
 	do
 		local LBFGroup = LBF:Group() -- get the root group, since this is easier...
-		BF.options.args.skins.args.global = {
+		BF.options.args.global = {
 			type = "group",
-			name = "Global Settings",
+			name = "Global",
 			order = 1,
 			args = {
 				__bf_header = {
 					type = "description",
-					name = "|cffffcc00"..L["Global Settings"].."|r\n",
-					order = 1,
-				},
-				__bf_desc = {
-					type = "description",
 					name = L["GLOBAL_INFO"].."\n",
-					order = 1.5
+					order = 1
 				},
 				__bf_skin = {
 					type = "select",
@@ -377,7 +400,7 @@ do
 				},
 			},
 		}
-		args = BF.options.args.skins.args.addons.args
+		args = BF.options.args.addons.args
 	end
 	local function CreateAddonOptions(addon)
 		local LBFGroup = LBF:Group(addon)
