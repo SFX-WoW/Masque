@@ -8,22 +8,22 @@ if L then
 	L["Right-Click to open the options window."] = "右击打开选项窗口。"
 
 	-- Global Settings
-	L["Global"] = "Global"
+	L["Global"] = "全局"
 	L["GLOBAL_INFO"] = "这部分可以调整皮肤全局设置。这部分的任何更改将影响所有已注册的插件部分。请注意：这部分重新加载插件后将不会更新。"
 
 	-- Addon Settings
-	L["Addons"] = "Addon"
+	L["Addons"] = "插件"
 	L["ADDON_INFO"] = "这部分可以调整每个插件的皮肤设置。也可以调整插件的设置单独分组，动作条和按钮。"
 
 	-- General Options
-	L["Options"] = "Options"
-	L["OPTION_INFO"] = "This section allows you to adjust any options that are available for ButtonFacade."
+	L["Options"] = "选项"
+	L["OPTION_INFO"] = "这部分可以调整可用于 ButtonFacade 的任何选项。"
 	L["Minimap Icon"] = "小地图图标"
 	L["Show the minimap icon."] = "显示小地图图标。"
-	L["OPTWIN_ISSUE"] = "If you're having trouble accessing some of the options due to the window size, you may want to download and install |cffffcc00BetterBlizzOptions|r. Alternatively, you can use the button below or the |cffffcc00/bfo|r chat command to open a standalone options window."
-	L["Standalone Options"] = "Standalone Options"
-	L["Open a standalone options window."] = "Open a standalone options window."
-	
+	L["OPTWIN_ISSUE"] = "如果无法访问一些选择适当窗口大小的选项，你需要下载并安装 |cffffcc00BetterBlizzOptions|r。或者，你可以使用下面的按钮或 |cffffcc00/bfo| 聊天命令打开一个独立的选项窗口。"
+	L["Standalone Options"] = "独立选项"
+	L["Open a standalone options window."] = "打开独立选项窗口。"
+
 	-- Plugins
 	L["Plugins"] = "插件"
 	L["PLUGIN_INFO"] = "这部分可以整设置的单独插件。"
@@ -36,8 +36,8 @@ if L then
 
 	-- Elements
 	L["Apply skin to all buttons registered with %s."] = "将皮肤应用到所有注册给%s的按钮上。"
-	L["Apply skin to all buttons registered with %s: %s."] = "将皮肤应用到所有注册给%s: %s的按钮上。"
-	L["Apply skin to all buttons registered with %s: %s/%s."] = "将皮肤应用到所有注册给%s: %s/%s的按钮上。"
+	L["Apply skin to all buttons registered with %s: %s."] = "将皮肤应用到所有注册给%s：%s的按钮上。"
+	L["Apply skin to all buttons registered with %s: %s/%s."] = "将皮肤应用到所有注册给%s：%s/%s的按钮上。"
 
 	-- Settings
 	L["Skin"] = "皮肤"
