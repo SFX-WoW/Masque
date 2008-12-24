@@ -15,25 +15,6 @@ if L then
 	L["Addons"] = "插件"
 	L["ADDON_INFO"] = "这部分可以调整每个插件的皮肤设置。也可以调整插件的设置单独分组，动作条和按钮。"
 
-	-- General Options
-	L["Options"] = "选项"
-	L["OPTION_INFO"] = "这部分可以调整可用于 ButtonFacade 的任何选项。"
-	L["Minimap Icon"] = "小地图图标"
-	L["Show the minimap icon."] = "显示小地图图标。"
-	L["OPTWIN_ISSUE"] = "如果无法访问一些选择适当窗口大小的选项，你需要下载并安装 |cffffcc00BetterBlizzOptions|r。或者，你可以使用下面的按钮或 |cffffcc00/bfo| 聊天命令打开一个独立的选项窗口。"
-	L["Standalone Options"] = "独立选项"
-	L["Open a standalone options window."] = "打开独立选项窗口。"
-
-	-- Plugins
-	L["Plugins"] = "插件"
-	L["PLUGIN_INFO"] = "这部分可以整设置的单独插件。"
-
-	-- Profiles
-	L["Profiles"] = "用户资料"
-
-	-- About
-	L["BF_INFO"] = "ButtonFacade 是基于按钮的动态皮肤小型插件。"
-
 	-- Elements
 	L["Apply skin to all buttons registered with %s."] = "将皮肤应用到所有注册给%s的按钮上。"
 	L["Apply skin to all buttons registered with %s: %s."] = "将皮肤应用到所有注册给%s：%s的按钮上。"
@@ -53,4 +34,31 @@ if L then
 	L["Highlight"] = "高亮"
 	L["Gloss"] = "光泽"
 	L["Reset Colors"] = "重置颜色"
+
+	-- General Options
+	L["Options"] = "选项"
+	L["OPTION_INFO"] = "这部分可以调整可用于 ButtonFacade 的任何选项。"
+	L["Minimap Icon"] = "小地图图标"
+	L["Show the minimap icon."] = "显示小地图图标。"
+	L["OPTWIN_ISSUE"] = "如果无法访问一些选择适当窗口大小的选项，你需要下载并安装 |cffffcc00BetterBlizzOptions|r。或者，你可以使用下面的按钮或 |cffffcc00/bfo| 聊天命令打开一个独立的选项窗口。"
+	L["Standalone Options"] = "独立选项"
+	L["Open a standalone options window."] = "打开独立选项窗口。"
+
+	-- Plugins
+	L["Plugins"] = "插件"
+	L["PLUGIN_INFO"] = "这部分可以整设置的单独插件。"
+
+	-- Profiles
+	L["Profiles"] = "用户资料"
+
+	-- About
+	L["About"] = "About"
+	L["BF_INFO"] = "ButtonFacade 是基于按钮的动态皮肤小型插件。"
+	L["Version"] = "Version"
+	L["Authors"] = "Authors"
+	L["Web Site"] = "Web Site"
+	L["Feedback"] = "Feedback"
+	L["FB_TEXT"] = "If you have questions or comments or would like to submit a bug, please visit the project page and submit a ticket. You will also find a list of frequently asked questions covering the most common issues."
+	L["Translations"] = "Translations"
+	L["TRANS_TEXT"] = "If you would like to help translate ButtonFacade, please visit the project page and follow the directions for submitting translations."
 end

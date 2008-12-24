@@ -61,7 +61,7 @@ function BF:OnEnable()
 	self.OptionsPanel.Options = ACD:AddToBlizOptions(self.name, L["Options"], self.name, "general")
 	self.OptionsPanel.Plugins = ACD:AddToBlizOptions(self.name, L["Plugins"], self.name, "plugins")
 	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(self.name, L["Profiles"], self.name, "profiles")
-	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, "About", self.name, "about")
+	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, L["About"], self.name, "about")
 
 	-- Register chat commands.
 	self:RegisterChatCommand("bf", function() self:OpenOptions() end)
@@ -203,13 +203,63 @@ do
 			},
 			about = {
 				type = "group",
-				name = "About",
+				name = L["About"],
 				order = 5,
 				args = {
-					desc = {
+					desc_text = {
 						type = "description",
 						name = L["BF_INFO"].."\n",
 						order = 1,
+					},
+					vers_head = {
+						type = "description",
+						name = "|cffffcc00"..L["Version"].."|r",
+						order = 2,
+					},
+					vers_text = {
+						type = "description",
+						name = GetAddOnMetadata(BF.name, "Version").."\n",
+						order = 3,
+					},
+					auth_head = {
+						type = "description",
+						name = "|cffffcc00"..L["Authors"].."|r",
+						order = 4,
+					},
+					auth_text = {
+						type = "description",
+						name = "|cff999999JJ Sheets|r\nStormFX\n",
+						order = 5,
+					},
+					url_head = {
+						type = "description",
+						name = "|cffffcc00"..L["Web Site"].."|r",
+						order = 6,
+					},
+					url_text = {
+						type = "description",
+						name = GetAddOnMetadata(BF.name, "X-WebSite").."\n",
+						order = 7,
+					},
+					fb_head = {
+						type = "description",
+						name = "|cffffcc00"..L["Feedback"].."|r",
+						order = 8,
+					},
+					fb_text = {
+						type = "description",
+						name = L["FB_TEXT"].."\n",
+						order = 9,
+					},
+					trans_head = {
+						type = "description",
+						name = "|cffffcc00"..L["Translations"].."|r",
+						order = 10,
+					},
+					trans_text = {
+						type = "description",
+						name = L["TRANS_TEXT"].."\n",
+						order = 11,
 					},
 				},
 			},
