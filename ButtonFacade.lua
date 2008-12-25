@@ -18,9 +18,9 @@ local Icon = LibStub("LibDBIcon-1.0", true)
 -- :OnInitialize(): Initialize the add-on.
 function BF:OnInitialize()
 	-- Check the DB and reset it if it's old.
-	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 1) then
+	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 3) then
 		ButtonFacadeDB = {}
-		ButtonFacadeDB.version = 1
+		ButtonFacadeDB.version = 3
 	end
 
 	-- Set up defaults.
@@ -35,9 +35,9 @@ function BF:OnInitialize()
 	}
 
 	-- Set up the DB.
-	mdb = LibStub("AceDB-3.0"):New("ButtonFacadeDB") -- Set aside for module creation.
+	mdb = LibStub("AceDB-3.0"):New("ButtonFacadeDB", nil, "Default") -- Set aside for module creation.
 	self.db = mdb
-	self.db:RegisterDefaults(defaults, "Default")
+	self.db:RegisterDefaults(defaults)
 	self.db.RegisterCallback(self, "OnProfileChanged", "Reload")
 	self.db.RegisterCallback(self, "OnProfileCopied", "Reload")
 	self.db.RegisterCallback(self, "OnProfileReset", "Reload")
