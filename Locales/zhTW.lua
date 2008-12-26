@@ -52,13 +52,13 @@ if L then
 	L["Profiles"] = "用戶資料"
 
 	-- About
-	L["About"] = "About"
+	L["About"] = "關於"
 	L["BF_INFO"] = "ButtonFacade 是基於按鈕的動態皮膚小型插件。"
-	L["Version"] = "Version"
-	L["Authors"] = "Authors"
-	L["Web Site"] = "Web Site"
-	L["Feedback"] = "Feedback"
-	L["FB_TEXT"] = "If you have questions or comments or would like to submit a bug, please visit the project page and submit a ticket. You will also find a list of frequently asked questions covering the most common issues."
-	L["Translations"] = "Translations"
-	L["TRANS_TEXT"] = "If you would like to help translate ButtonFacade, please visit the project page and follow the directions for submitting translations."
+	L["Version"] = "版本"
+	L["Authors"] = "作者"
+	L["Web Site"] = "網站"
+	L["Feedback"] = "反饋"
+	L["FB_TEXT"] = "如果您有問題或意見，或想提出一個 Bug ，請訪問該項目網頁，並提交 Ticket。您還將找到常見問題列表，包括最常見的問題。"
+	L["Translations"] = "翻譯"
+	L["TRANS_TEXT"] = "如果您想幫助翻譯 ButtonFacade，請訪問該項目網頁，然後按照指示提交翻譯。"
 end
