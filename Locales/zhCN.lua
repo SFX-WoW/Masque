@@ -32,7 +32,6 @@ if L then
 	L["Checked"] = "选中"
 	L["Equipped"] = "已装备"
 	L["Highlight"] = "高亮"
-	L["Gloss"] = "光泽"
 	L["Reset Colors"] = "重置颜色"
 
 	-- General Options

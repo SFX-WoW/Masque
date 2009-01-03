@@ -32,7 +32,6 @@ if L then
 	L["Checked"] = "Marcado"
 	L["Equipped"] = "Equipado"
 	L["Highlight"] = "Resaltado"
-	L["Gloss"] = "Tinte"
 	L["Reset Colors"] = "Restablecer Colores"
 
 	-- General Options

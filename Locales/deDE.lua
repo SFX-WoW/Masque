@@ -32,7 +32,6 @@ if L then
 	L["Checked"] = "Checked"
 	L["Equipped"] = "Equipped"
 	L["Highlight"] = "Highlight"
-	L["Gloss"] = "Gloss"
 	L["Reset Colors"] = "Reset Colors"
 
 	-- General Options

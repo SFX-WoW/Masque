@@ -32,7 +32,6 @@ if L then
 	L["Checked"] = true
 	L["Equipped"] = true
 	L["Highlight"] = true
-	L["Gloss"] = true
 	L["Reset Colors"] = true
 
 	-- General Options

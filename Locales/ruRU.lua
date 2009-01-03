@@ -33,7 +33,6 @@ if L then
 	L["Checked"] = "Проверенный"
 	L["Equipped"] = "Задействованный"
 	L["Highlight"] = "Выделение"
-	L["Gloss"] = "Глянец"
 	L["Reset Colors"] = "Сбросить цвета"
 
 	-- General Options

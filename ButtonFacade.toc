@@ -1,6 +1,6 @@
 ﻿## Interface: 30000
 ## Title: ButtonFacade
-## Version: 3.0.3.5
+## Version: 3.0.@project-revision@
 ## Notes: Allows the dynamic skinning of button-based addons.
 ## Author: JJSheets, StormFX
 ## X-eMail: stormfx@gmail.com
@@ -10,7 +10,6 @@
 ## SavedVariables: ButtonFacadeDB
 
 Embeds.xml
-Libs\LibButtonFacade\LibButtonFacade.xml
 Skins\Skins.lua
 Locales.xml
 ButtonFacade.lua

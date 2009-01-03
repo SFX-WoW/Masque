@@ -32,7 +32,6 @@ if L then
 	L["Checked"] = "선택"
 	L["Equipped"] = "착용"
 	L["Highlight"] = "강조"
-	L["Gloss"] = "Gloss"
 	L["Reset Colors"] = "색상 초기화"
 
 	-- General Options
