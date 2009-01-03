@@ -1,4 +1,4 @@
---[[ ButtonFacade 3.0.@project-revision@]]
+--[[ ButtonFacade @project-version@ ]]
 
 -- Create the add-on.
 ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0")
