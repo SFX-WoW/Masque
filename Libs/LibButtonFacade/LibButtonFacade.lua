@@ -388,11 +388,6 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale,Color)
 		if baselayer[button] then baselayer[button]:Hide() end
 	end
 	if not btnlayer then return end
-	if skinlayer.Hide or btndata.Normal == false then
-		btnlayer:SetTexture("")
-		btnlayer:Hide()
-		return
-	end
 	button.__bf_normaltexture = btnlayer
 	if btnlayer:GetTexture() == "Interface\\Buttons\\UI-Quickslot" or btnlayer.__bf_useEmpty then
 		btnlayer:SetTexture(skinlayer.EmptyTexture or skinlayer.Texture)
@@ -407,6 +402,11 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale,Color)
 	button.__bf_skinlayer = skinlayer
 	btnlayer.__bf_skinlayer = skinlayer
 	btnlayer:Show()
+	if skinlayer.Hide or btndata.Normal == false then
+		btnlayer:SetTexture("")
+		btnlayer:Hide()
+		return
+	end
 	btnlayer:SetDrawLayer(DrawLayers.Normal)
 	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
