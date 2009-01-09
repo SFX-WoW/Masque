@@ -45,7 +45,7 @@ if L then
 
 	-- Plugins
 	L["Plugins"] = "插件"
-	L["PLUGIN_INFO"] = "这里可以对每个独立的组件进行设置"
+	L["PLUGIN_INFO"] = "这里可以对每个独立的组件进行设置。"
 
 	-- Profiles
 	L["Profiles"] = "配置文件"
@@ -57,7 +57,7 @@ if L then
 	L["Authors"] = "作者"
 	L["Web Site"] = "主页"
 	L["Feedback"] = "反馈"
-	L["FB_TEXT"] = "如果您有任何建议或希望提交一个错误，请前往BF的项目页面提交ticket。你可以在那里找到一份包含常见问题的FAQ列表"
-	L["Translations"] = "翻译"
-	L["TRANS_TEXT"] = "如果您希望帮助ButtonFacade进行本地化，请访问项目页面使用Translation功能"
+	L["FB_TEXT"] = "如果您有任何建议或希望提交一个错误，请访问项目页面提交一个 Ticket。你可以在那里找到一份包含常见问题的 FAQ 列表。"
+	L["Translations"] = "本地化"
+	L["TRANS_TEXT"] = "如果您希望帮助 ButtonFacade 进行本地化，请访问项目页面使用 Translation 功能。"
 end
