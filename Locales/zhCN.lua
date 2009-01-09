@@ -9,7 +9,7 @@ if L then
 
 	-- Global Settings
 	L["Global"] = "全局"
-	L["GLOBAL_INFO"] = "这部分可以调整皮肤全局设置。这部分的任何更改将影响所有已注册的插件部分。请注意：这部分重新加载插件后将不会更新。"
+	L["GLOBAL_INFO"] = "这里可以调整全局皮肤设置。这部分的任何更改将影响所有已注册的插件部分。请注意：这部分重新加载插件后将不会更新。"
 
 	-- Addon Settings
 	L["Addons"] = "插件"
@@ -39,25 +39,25 @@ if L then
 	L["OPTION_INFO"] = "这部分可以调整可用于 ButtonFacade 的任何选项。"
 	L["Minimap Icon"] = "小地图图标"
 	L["Show the minimap icon."] = "显示小地图图标。"
-	L["OPTWIN_ISSUE"] = "如果无法访问一些选择适当窗口大小的选项，你需要下载并安装 |cffffcc00BetterBlizzOptions|r。或者，你可以使用下面的按钮或 |cffffcc00/bfo| 聊天命令打开一个独立的选项窗口。"
+	L["OPTWIN_ISSUE"] = "如果因为窗口大小的原因无法查看某些选项，你需要下载并安装 |cffffcc00BetterBlizzOptions|r。或者，你可以使用下面的按钮或 |cffffcc00/bfo| 聊天命令打开一个独立的选项窗口。"
 	L["Standalone Options"] = "独立选项"
 	L["Open a standalone options window."] = "打开独立选项窗口。"
 
 	-- Plugins
 	L["Plugins"] = "插件"
-	L["PLUGIN_INFO"] = "这部分可以整设置的单独插件。"
+	L["PLUGIN_INFO"] = "这里可以对每个独立的组件进行设置"
 
 	-- Profiles
-	L["Profiles"] = "用户资料"
+	L["Profiles"] = "配置文件"
 
 	-- About
 	L["About"] = "关于"
 	L["BF_INFO"] = "ButtonFacade 是基于按钮的动态皮肤小型插件。"
 	L["Version"] = "版本"
 	L["Authors"] = "作者"
-	L["Web Site"] = "网站"
+	L["Web Site"] = "主页"
 	L["Feedback"] = "反馈"
-	L["FB_TEXT"] = "如果您有问题或意见，或想提出一个 Bug ，请访问该项目网页，并提交 Ticket。您还将找到常见问题列表，包括最常见的问题。"
+	L["FB_TEXT"] = "如果您有任何建议或希望提交一个错误，请前往BF的项目页面提交ticket。你可以在那里找到一份包含常见问题的FAQ列表"
 	L["Translations"] = "翻译"
-	L["TRANS_TEXT"] = "如果您想帮助翻译 ButtonFacade，请访问该项目网页，然后按照指示提交翻译。 "
+	L["TRANS_TEXT"] = "如果您希望帮助ButtonFacade进行本地化，请访问项目页面使用Translation功能"
 end

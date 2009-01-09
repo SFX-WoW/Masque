@@ -45,19 +45,19 @@ if L then
 
 	-- Plugins
 	L["Plugins"] = "插件"
-	L["PLUGIN_INFO"] = "這部分可以整設置的單獨插件。"
+	L["PLUGIN_INFO"] = "這里可以對單獨的組件進行設定"
 
 	-- Profiles
 	L["Profiles"] = "用戶資料"
 
 	-- About
-	L["About"] = "關於"
+	L["About"] = "關于"
 	L["BF_INFO"] = "ButtonFacade 是基於按鈕的動態皮膚小型插件。"
 	L["Version"] = "版本"
 	L["Authors"] = "作者"
-	L["Web Site"] = "網站"
+	L["Web Site"] = "主頁"
 	L["Feedback"] = "反饋"
-	L["FB_TEXT"] = "如果您有問題或意見，或想提出一個 Bug ，請訪問該項目網頁，並提交 Ticket。您還將找到常見問題列表，包括最常見的問題。"
-	L["Translations"] = "翻譯"
-	L["TRANS_TEXT"] = "如果您想幫助翻譯 ButtonFacade，請訪問該項目網頁，然後按照指示提交翻譯。"
+	L["FB_TEXT"] = "如果您有任何建議或希望提交錯誤，請訪問項目頁面并提交一個ticket。你還可以在那里查看包含了一些常見問題的FAQ列表"
+	L["Translations"] = "本地化"
+	L["TRANS_TEXT"] = "如果你想幫助ButtonFacade進行本地化，請訪問項目頁面按照說明使用Localization系統進行。"
 end
