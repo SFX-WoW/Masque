@@ -5,59 +5,59 @@ if L then
 	L["ButtonFacade"] = "ButtonFacade"
 
 	-- Broker Tool Tip
-	L["Right-Click to open the options window."] = "Right-Click to open the options window."
+	L["Right-Click to open the options window."] = "Clic droit pour ouvrir la fenêtre des options."
 
 	-- Global Settings
 	L["Global"] = "Global"
-	L["GLOBAL_INFO"] = "This section allows you adjust the skin settings globally. Any changes here will affect all registered elements. Please note that this section will not update itself after a reload."
+	L["GLOBAL_INFO"] = "Cette section vous permet de modifier globalement les paramètres du skin. Tout changement effectué ici affectera tous les éléments enregistrés. Veuillez noter que cette section ne sera pas mise à jour elle-même après un rechargement."
 
 	-- Addon Settings
 	L["Addons"] = "Addon"
-	L["ADDON_INFO"] = "This section allows you adjust skin settings on a per-addon basis. You can also adjust the settings of individual groups, bars and buttons of the addon if available."
+	L["ADDON_INFO"] = "Cette section vous permet de modifier les paramètres du skin addon par addon. Vous pouvez également modifier les paramètres des groupes individuels, des barres et des boutons de l'addon si disponibles."
 
 	-- Elements
-	L["Apply skin to all buttons registered with %s."] = "Apply skin to all buttons registered with %s."
-	L["Apply skin to all buttons registered with %s: %s."] = "Apply skin to all buttons registered with %s: %s."
-	L["Apply skin to all buttons registered with %s: %s/%s."] = "Apply skin to all buttons registered with %s: %s/%s."
+	L["Apply skin to all buttons registered with %s."] = "Applique le skin à tous les boutons enregistrés avec %s."
+	L["Apply skin to all buttons registered with %s: %s."] = "Applique le skin à tous les boutons enregistrés avec %s : %s."
+	L["Apply skin to all buttons registered with %s: %s/%s."] = "Applique le skin à tous les boutons enregistrés avec %s : %s/%s."
 
 	-- Settings
 	L["Skin"] = "Skin"
-	L["Gloss"] = "Gloss"
-	L["Backdrop"] = "Backdrop"
-	L["Color Options"] = "Color Options"
+	L["Gloss"] = "Verni"
+	L["Backdrop"] = "Fond"
+	L["Color Options"] = "Options des couleurs"
 	L["Flash"] = "Flash"
-	L["Normal Border"] = "Normal Border"
-	L["Pushed Border"] = "Pushed Border"
-	L["Disabled Border"] = "Disabled Border"
-	L["Checked"] = "Checked"
-	L["Equipped"] = "Equipped"
-	L["Highlight"] = "Highlight"
-	L["Reset Colors"] = "Reset Colors"
+	L["Normal Border"] = "Bordure normale"
+	L["Pushed Border"] = "Bordure enfoncée"
+	L["Disabled Border"] = "Bordure désactivée"
+	L["Checked"] = "Coché"
+	L["Equipped"] = "Équipé"
+	L["Highlight"] = "Surbrillance"
+	L["Reset Colors"] = "ràz des couleurs"
 
 	-- General Options
 	L["Options"] = "Options"
-	L["OPTION_INFO"] = "This section allows you to adjust any options that are available for ButtonFacade."
-	L["Minimap Icon"] = "Minimap Icon"
-	L["Show the minimap icon."] = "Show the minimap icon."
-	L["OPTWIN_ISSUE"] = "If you're having trouble accessing some of the options due to the window size, you may want to download and install |cffffcc00BetterBlizzOptions|r. Alternatively, you can use the button below or the |cffffcc00/bfo|r chat command to open a standalone options window."
-	L["Standalone Options"] = "Standalone Options"
-	L["Open a standalone options window."] = "Open a standalone options window."
+	L["OPTION_INFO"] = "Cette section vous permet de modifier toutes les options disponibles pour ButtonFacade."
+	L["Minimap Icon"] = "Icône de la minicarte"
+	L["Show the minimap icon."] = "Affiche l'icône sur la minicarte."
+	L["OPTWIN_ISSUE"] = "Si vous avez du mal à accéder à certaines des options à cause de la taille de la fenêtre, nous vous conseillons de télécharger et d'installer |cffffcc00BetterBlizzOptions|r. Vous pouvez également utiliser le bouton ci-dessous ou la commande |cffffcc00/bfo|r pour ouvrir une fenêtre des options indépendante."
+	L["Standalone Options"] = "Ouvrir la fenêtre"
+	L["Open a standalone options window."] = "Ouvre une fenêtre des options indépendante."
 	
 	-- Plugins
 	L["Plugins"] = "Plugins"
-	L["PLUGIN_INFO"] = "This section allows you adjust the settings of individual plugins."
+	L["PLUGIN_INFO"] = "Cette section vous permet de modifier les paramètres des plugins individuels."
 
 	-- Profiles
-	L["Profiles"] = "Profiles"
+	L["Profiles"] = "Profils"
 
 	-- About
-	L["About"] = "About"
-	L["BF_INFO"] = "ButtonFacade is a small addon that allows the dynamic skinning of button-based addons."
+	L["About"] = "À propos"
+	L["BF_INFO"] = "ButtonFacade est un petit addon qui permet de skinner dynamiquement les addons basés sur des boutons."
 	L["Version"] = "Version"
-	L["Authors"] = "Authors"
-	L["Web Site"] = "Web Site"
+	L["Authors"] = "Auteurs"
+	L["Web Site"] = "Site web"
 	L["Feedback"] = "Feedback"
-	L["FB_TEXT"] = "If you have questions or comments or would like to submit a bug, please visit the project page and submit a ticket. You will also find a list of frequently asked questions covering the most common issues."
-	L["Translations"] = "Translations"
-	L["TRANS_TEXT"] = "If you would like to help translate ButtonFacade, please visit the project page and follow the directions for submitting translations."
+	L["FB_TEXT"] = "Si vous avez des questions ou des commentaires à faire, ou si vous souhaitez signaler un bogue, veuillez visiter la page web du projet et ouvrir un ticket. Vous y trouverez également une liste des questions les plus fréquemment posées qui couvrent la pluparts des questions les plus communes."
+	L["Translations"] = "Traductions"
+	L["TRANS_TEXT"] = "Si vous souhaitez aider à traduire ButtonFacade, visitez la page web du projet et suivez les instructions de soumission des traductions."
 end
