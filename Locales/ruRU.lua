@@ -1,43 +1,9 @@
-﻿local L = LibStub("AceLocale-3.0"):NewLocale( "ButtonFacade", "ruRU")
+﻿-- ButtonFacade Locale (ruRU)
+-- Please use the localization application on WoWAce.com to submit translations.
+-- http://www.wowace.com/projects/buttonfacade/localization/
+
+local L = LibStub("AceLocale-3.0"):NewLocale( "ButtonFacade", "ruRU")
 if not L then return end
 
-L["About"] = "Об аддоне"
-L["ADDON_INFO"] = "Эта секция позволяет вам настроить скин для каждого аддона отдельно. Вы также можете настроить скин для отдельных групп, баров и кнопок."
-L["Addons"] = "Аддоны"
-L["Apply skin to all buttons registered with %s: %s."] = "Применить шкурку ко всем кнопкам зарегистрированным с %s: %s."
-L["Apply skin to all buttons registered with %s: %s/%s."] = "Применить шкурку ко всем кнопкам зарегистрированным с %s: %s/%s."
-L["Apply skin to all buttons registered with %s."] = "Применить шкурку ко всем кнопкам зарегистрированным с %s."
-L["Authors"] = "Авторы"
-L["Backdrop"] = "Фон"
-L["BF_INFO"] = "ButtonFacade - это небольшой аддон, позволяющий динамически изменять вид различных кнопок." -- Needs review
-L["ButtonFacade"] = "ButtonFacade"
-L["Checked"] = "Проверенный"
-L["Color Options"] = "Опции цвета"
-L["Disabled Border"] = "Отключить края"
-L["Equipped"] = "Задействованный"
-L["FB_TEXT"] = "Если у вас есть вопросы или комментарии, или если вы нашли ошибку, пожалуйста, зайдите на страницу проекта и создайте тикет. Там же вы найдёте список самых задаваемых вопросов, покрывающих основные проблемы."
-L["Feedback"] = "Обратная связь"
-L["Flash"] = "Сверкание"
-L["Global"] = "Общие настройки"
-L["GLOBAL_INFO"] = "Эта секция позволяет вам настроить скин для всего сразу. Любые изменения повлияют на все зарегистрированные элементы."
-L["Gloss"] = "Глянец"
-L["Highlight"] = "Выделение"
-L["Minimap Icon"] = "Иконка у миникарты"
-L["Normal Border"] = "Нормальные края"
-L["Open a standalone options window."] = "Открывает отдельное окно настроек."
-L["OPTION_INFO"] = "Эта секция позволяет вам настроить ButtonFacade."
-L["Options"] = "Настройки"
-L["OPTWIN_ISSUE"] = "Если у вас возникают проблемы с отображением настроек, установите аддон |cffffcc00BetterBlizzOptions|r. Также, вы можете воспользоваться командой |cffffcc00/bfo|r, которая откроет отдельное окно настроек."
-L["PLUGIN_INFO"] = "Эта секция позволяет вам управлять настройками отдельных плагинов."
-L["Plugins"] = "Плагины"
-L["Profiles"] = "Профили"
-L["Pushed Border"] = "Вдавленные края"
-L["Reset Colors"] = "Сбросить цвета"
-L["Right-Click to open the options window."] = "Правый клик - настройки."
-L["Show the minimap icon."] = "Отображение иконки у миникарты."
-L["Skin"] = "Шкурки"
-L["Standalone Options"] = "Отдельные настройки" -- Needs review
-L["TRANS_TEXT"] = "Если вы хотите помочь с переводом ButtonFacade, пожалуйста, посетите страницу проекта и выберите раздел переводов."
-L["Translations"] = "Переводы"
-L["Version"] = "Версия"
-L["Web Site"] = "Веб-сайт"
+-- Localization Data (Auto-Injected)
+--@localization(locale="ruRU", format="lua_additive_table", handle-unlocalized="comment")@

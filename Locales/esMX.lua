@@ -1,43 +1,9 @@
-﻿local L = LibStub("AceLocale-3.0"):NewLocale("ButtonFacade", "esES")
+﻿-- ButtonFacade Locale (esMX)
+-- Please use the localization application on WoWAce.com to submit translations.
+-- http://www.wowace.com/projects/buttonfacade/localization/
+
+local L = LibStub("AceLocale-3.0"):NewLocale("ButtonFacade", "esMX")
 if not L then return end
 
-L["About"] = "About" -- Requires localization
-L["ADDON_INFO"] = "This section allows you adjust skin settings on a per-addon basis. You can also adjust the settings of individual groups, bars and buttons of the addon if available." -- Needs review
-L["Addons"] = "Addons" -- Needs review
-L["Apply skin to all buttons registered with %s: %s."] = "Apply skin to all buttons registered with %s: %s." -- Needs review
-L["Apply skin to all buttons registered with %s: %s/%s."] = "Apply skin to all buttons registered with %s: %s/%s." -- Needs review
-L["Apply skin to all buttons registered with %s."] = "Apply skin to all buttons registered with %s." -- Needs review
-L["Authors"] = "Authors" -- Requires localization
-L["Backdrop"] = "Backdrop" -- Requires localization
-L["BF_INFO"] = "ButtonFacade is a small addon that allows the dynamic skinning of button-based addons." -- Requires localization
-L["ButtonFacade"] = "ButtonFacade" -- Needs review
-L["Checked"] = "Checked" -- Requires localization
-L["Color Options"] = "Color Options" -- Requires localization
-L["Disabled Border"] = "Disabled Border" -- Requires localization
-L["Equipped"] = "Equipped" -- Requires localization
-L["FB_TEXT"] = "If you have questions or comments or would like to submit a bug, please visit the project page and submit a ticket. You will also find a list of frequently asked questions covering the most common issues." -- Requires localization
-L["Feedback"] = "Feedback" -- Requires localization
-L["Flash"] = "Flash" -- Requires localization
-L["Global"] = "Global" -- Needs review
-L["GLOBAL_INFO"] = "This section allows you adjust the skin settings globally. Any changes here will affect all registered elements. Please note that this section will not update itself after a reload." -- Needs review
-L["Gloss"] = "Gloss" -- Requires localization
-L["Highlight"] = "Highlight" -- Requires localization
-L["Minimap Icon"] = "Minimap Icon" -- Requires localization
-L["Normal Border"] = "Normal Border" -- Requires localization
-L["Open a standalone options window."] = "Open a standalone options window." -- Requires localization
-L["OPTION_INFO"] = "This section allows you to adjust any options that are available for ButtonFacade." -- Requires localization
-L["Options"] = "Options" -- Requires localization
-L["OPTWIN_ISSUE"] = "If you're having trouble accessing some of the options due to the window size, you may want to download and install |cffffcc00BetterBlizzOptions|r. Alternatively, you can use the button below or the |cffffcc00/bfo|r chat command to open a standalone options window." -- Requires localization
-L["PLUGIN_INFO"] = "This section allows you adjust the options of individual plugins." -- Requires localization
-L["Plugins"] = "Plugins" -- Requires localization
-L["Profiles"] = "Profiles" -- Requires localization
-L["Pushed Border"] = "Pushed Border" -- Requires localization
-L["Reset Colors"] = "Reset Colors" -- Requires localization
-L["Right-Click to open the options window."] = "Right-Click to open the options window." -- Needs review
-L["Show the minimap icon."] = "Show the minimap icon." -- Requires localization
-L["Skin"] = "Skin" -- Needs review
-L["Standalone Options"] = "Standalone Options" -- Requires localization
-L["TRANS_TEXT"] = "If you would like to help translate ButtonFacade, please visit the project page and follow the directions for submitting translations." -- Requires localization
-L["Translations"] = "Translations" -- Requires localization
-L["Version"] = "Version" -- Requires localization
-L["Web Site"] = "Web Site" -- Requires localization
+-- Localization Data (Auto-Injected)
+--@localization(locale="esMX", format="lua_additive_table", handle-unlocalized="comment")@

@@ -1,43 +1,9 @@
-﻿local L = LibStub("AceLocale-3.0"):NewLocale("ButtonFacade", "zhTW")
+﻿-- ButtonFacade Locale (zhTW)
+-- Please use the localization application on WoWAce.com to submit translations.
+-- http://www.wowace.com/projects/buttonfacade/localization/
+
+local L = LibStub("AceLocale-3.0"):NewLocale("ButtonFacade", "zhTW")
 if not L then return end
 
-L["About"] = "關于"
-L["ADDON_INFO"] = "這部分可以調整每個插件的皮膚設置。也可以調整插件的設置單獨分組，動作條和按鈕。"
-L["Addons"] = "插件"
-L["Apply skin to all buttons registered with %s: %s."] = "將皮膚套用到所有註冊給%s：%s的按鈕上。"
-L["Apply skin to all buttons registered with %s: %s/%s."] = "將皮膚套用到所有註冊給%s：%s/%s的按鈕上。"
-L["Apply skin to all buttons registered with %s."] = "將皮膚套用到所有註冊給%s的按鈕上。"
-L["Authors"] = "作者"
-L["Backdrop"] = "背景"
-L["BF_INFO"] = "ButtonFacade 是基於按鈕的動態皮膚小型插件。"
-L["ButtonFacade"] = "ButtonFacade"
-L["Checked"] = "選中"
-L["Color Options"] = "顏色選項"
-L["Disabled Border"] = "無邊框"
-L["Equipped"] = "已裝備"
-L["FB_TEXT"] = "如果您有任何建議或希望提交錯誤，請訪問項目頁面并提交一個ticket。你還可以在那里查看包含了一些常見問題的FAQ列表"
-L["Feedback"] = "反饋"
-L["Flash"] = "閃光"
-L["Global"] = "全局"
-L["GLOBAL_INFO"] = "這部分可以調整皮膚全局設置。這部分的任何更改將影響所有已註冊的插件部分。請注意：這部分重新加載插件後將不會更新。"
-L["Gloss"] = "光澤"
-L["Highlight"] = "高亮"
-L["Minimap Icon"] = "小地圖圖示"
-L["Normal Border"] = "正常邊框"
-L["Open a standalone options window."] = "打開獨立選項窗口。"
-L["OPTION_INFO"] = "這部分可以調整可用於 ButtonFacade 的任何選項。"
-L["Options"] = "選項"
-L["OPTWIN_ISSUE"] = "如果無法訪問一些選擇適當窗口大小的選項，你需要下載並安裝 |cffffcc00BetterBlizzOptions|r。或者，你可以使用下面的按鈕或 |cffffcc00/bfo| 聊天命令打開一個獨立的選項窗口。"
-L["PLUGIN_INFO"] = "這部分可以整設置的單獨插件。"
-L["Plugins"] = "插件"
-L["Profiles"] = "用戶資料"
-L["Pushed Border"] = "加粗邊框"
-L["Reset Colors"] = "重置顏色"
-L["Right-Click to open the options window."] = "右擊打開選項視窗。"
-L["Show the minimap icon."] = "顯示小地圖圖示。"
-L["Skin"] = "皮膚"
-L["Standalone Options"] = "獨立選項"
-L["TRANS_TEXT"] = "如果你想幫助ButtonFacade進行本地化，請訪問項目頁面按照說明使用Localization系統進行。"
-L["Translations"] = "本地化"
-L["Version"] = "版本"
-L["Web Site"] = "主頁"
+-- Localization Data (Auto-Injected)
+--@localization(locale="zhTW", format="lua_additive_table", handle-unlocalized="comment")@
