@@ -1,27 +1,39 @@
 ﻿local bf = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
 local lbf = LibStub("LibButtonFacade")
-local AceLocale = LibStub("AceLocale-3.0")
 
--- Localization for each module should be in its own separate locale object.
-local L = AceLocale:NewLocale("ButtonFacade", "enUS", true)
-if L then
-	L["Button Test"] = true
-	L["Enable Module"] = true
-	L["Drag"] = true
-	L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."] = true
+-- [[ Locales ]]
+
+-- Hard-code enUS/enGB.
+local L = {
+	["BT_DESC"] = "Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate.",
+	["Button Test"] = "Button Test",
+	["Drag"] = "Drag",
+	["Enable Module"] = "Enable Module",
+}
+
+-- Automatically inject all other locales. Please use the localization application on WoWAce.com to update these.
+-- http://www.wowace.com/projects/buttonfacade/localization/namespaces/buttontest/
+do
+	local LOC = GetLocale()
+	if LOC == "deDE" then
+--@localization(locale="deDE", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+	elseif LOC == "esES" or LOC == "esMX" then
+-- Use esES until we have a solid esMX localization.
+--@localization(locale="esES", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+	elseif LOC == "frFR" then
+--@localization(locale="frFR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+	elseif LOC == "koKR" then
+--@localization(locale="koKR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+	elseif LOC == "ruRU" then
+--@localization(locale="ruRU", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+	elseif LOC == "zhCN" then
+--@localization(locale="zhCN", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+	elseif LOC == "zhTW" then
+--@localization(locale="zhTW", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+	end
 end
 
-local L = AceLocale:NewLocale("ButtonFacade", "esES")
-if L then
-	L["Button Test"] = "Probar Botón"
-	L["Enable Module"] = "Activar Módulo"
-	L["Drag"] = "Arrastar"
-	L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."] = "Muestra una serie de botones que pueden ser utilizados para verificar la funcionalidad de una piel. En orden de izquierda a derecha, los botones heredan las siguientes plantillas: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."
-end
-
--- Get the proper Locale for the client.
-L = AceLocale:GetLocale("ButtonFacade")
-
+-- Create the module.
 local btntest = bf:NewModule("ButtonTest")
 local db
 
@@ -36,7 +48,7 @@ local module_Options = {
 	args = {
 		info = {
 			type = "description",
-			name = L["Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate."].."\n",
+			name = L["BT_DESC"].."\n",
 			order = 2,
 		},
 		enable_mod = {
