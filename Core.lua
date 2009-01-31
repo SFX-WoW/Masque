@@ -1,4 +1,4 @@
---[[ ButtonFacade @project-version@ ]]
+-- ButtonFacade/Core
 
 -- Create the add-on.
 ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0")
@@ -6,7 +6,7 @@ local BF = ButtonFacade
 
 --Locals
 local mdb, db
-local pairs, gsub =  pairs, gsub
+local pairs, gsub = pairs, gsub
 
 -- Set up libraries.
 local LBF = LibStub("LibButtonFacade")
