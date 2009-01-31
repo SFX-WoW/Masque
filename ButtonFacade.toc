@@ -2,6 +2,7 @@
 ## Title: ButtonFacade
 ## Version: 3.0.@project-revision@
 ## Notes: Allows the dynamic skinning of button-based addons.
+## Notes-frFR: Permet de skinner dynamiquement les addons basés sur des boutons.
 ## Author: JJSheets, StormFX
 ## X-eMail: stormfx@gmail.com
 ## X-Website: http://www.wowace.com/projects/buttonfacade/
@@ -31,6 +32,6 @@ Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 Locales.lua
 
 # Core
-Skins\Skins.lua
+Skins.lua
 Core.lua
 Modules\Modules.xml
