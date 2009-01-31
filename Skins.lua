@@ -1,10 +1,11 @@
--- [[ ButtonFacade/Skins ]]
--- Default Skins
+-- [[ ButtonFacade/Skins.lua : Rev. @file-revision@ ]]
 
 local LBF = LibStub("LibButtonFacade",true)
 if not LBF then
 	return
 end
+
+-- [ Default Skins] --
 
 -- Dream Layout
 LBF:AddSkin("Dream Layout", {

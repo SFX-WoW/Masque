@@ -1,4 +1,5 @@
--- ButtonFacade/Locales
+-- [[ ButtonFacade/Core.lua : Rev. @file-revision@ ]]
+
 -- This contents of this file are automatically generated.
 -- Please use the localization application on WoWAce.com to submit translations.
 -- http://www.wowace.com/projects/buttonfacade/localization/

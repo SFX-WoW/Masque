@@ -1,7 +1,11 @@
-﻿local bf = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
-local lbf = LibStub("LibButtonFacade")
+﻿-- [[ ButtonFacade/Modules/ButtonTest.lua : Rev. @file-revision@ ]]
 
--- [[ Locales ]]
+-- Set up dependencies.
+local BF = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
+local LBF = LibStub("LibButtonFacade")
+if not LBF then return end
+
+-- [ Localization ] --
 
 -- Hard-code enUS/enGB.
 local L = {
@@ -10,7 +14,6 @@ local L = {
 	["Drag"] = "Drag",
 	["Enable Module"] = "Enable Module",
 }
-
 -- Automatically inject all other locales. Please use the localization application on WoWAce.com to update these.
 -- http://www.wowace.com/projects/buttonfacade/localization/namespaces/buttontest/
 do
@@ -33,15 +36,17 @@ do
 	end
 end
 
--- Create the module.
-local btntest = bf:NewModule("ButtonTest")
-local db
+-- [ Set Up ] --
 
+-- Create the module.
+local ButtonTest = BF:NewModule("ButtonTest")
+
+-- Defaults
+local db
 local ns_Defaults = {
 	global = {
 	},
 }
-
 local module_Options = {
 	type = "group",
 	name = L["Button Test"],
@@ -54,12 +59,12 @@ local module_Options = {
 		enable_mod = {
 			type = "toggle",
 			name = L["Enable Module"],
-			get = function() return btntest:IsEnabled() end,
+			get = function() return ButtonTest:IsEnabled() end,
 			set = function(info,s)
 				if s then
-					bf:EnableModule("ButtonTest")
+					BF:EnableModule("ButtonTest")
 				else
-					bf:DisableModule("ButtonTest")
+					BF:DisableModule("ButtonTest")
 				end
 			end,
 			width = "full",
@@ -71,7 +76,7 @@ local module_Options = {
 			get = function() return db.profile.Unlocked end,
 			set = function(info,s)
 				db.profile.Unlocked = s
-				btntest:SetDrag()
+				ButtonTest:SetDrag()
 			end,
 			width = "full",
 			order = 4,
@@ -79,17 +84,17 @@ local module_Options = {
 	},
 }
 
-function btntest:OnInitialize()
-	db = self:RegisterNamespace("ButtonTest",ns_Defaults)
+function ButtonTest:OnInitialize()
+	db = self:RegisterNamespace("ButtonTest", ns_Defaults)
 	self.db = db
-	self:RegisterModuleOptions("ButtonTest",module_Options)
+	self:RegisterModuleOptions("ButtonTest", module_Options)
 	self:SetEnabledState(db.profile.enabled)
 end
 
 local buttons = {}
 local dragbar
 
-function btntest:SkinCallback(SkinID,Gloss,Backdrop,Group,Button)
+function ButtonTest:SkinCallback(SkinID, Gloss, Backdrop, Group, Button)
 	db.profile.Skin = SkinID
 	db.profile.Gloss = Gloss
 	db.profile.Backdrop = Backdrop
@@ -107,10 +112,10 @@ local function stopDrag()
 	db.profile.y = Y
 end
 
-function btntest:SetDrag()
+function ButtonTest:SetDrag()
 	if db.profile.Unlocked then
 		if not dragbar then
-			dragbar = CreateFrame("Frame","BF_ButtonTestDragbar",UIParent)
+			dragbar = CreateFrame("Frame", "BF_ButtonTestDragbar", UIParent)
 			dragbar:EnableMouse(true)
 			dragbar:RegisterForDrag("LeftButton")
 			dragbar:SetBackdrop({
@@ -124,69 +129,69 @@ function btntest:SetDrag()
 			dragbar:SetBackdropColor(0, 0.5, 0, 0.9)
 			dragbar:SetBackdropBorderColor(0, 0, 0, 0)
 			dragbar:ClearAllPoints()
-			dragbar:SetPoint("TOPLEFT",buttons[1],"TOPLEFT")
-			dragbar:SetPoint("BOTTOMRIGHT",buttons[5],"BOTTOMRIGHT")
+			dragbar:SetPoint("TOPLEFT", buttons[1], "TOPLEFT")
+			dragbar:SetPoint("BOTTOMRIGHT", buttons[5], "BOTTOMRIGHT")
 		end
 		buttons[1]:SetMovable(true)
 		dragbar:SetFrameLevel(100)
 		dragbar:Show()
-		dragbar:SetScript("OnDragStart",startDrag)
-		dragbar:SetScript("OnDragStop",stopDrag)
+		dragbar:SetScript("OnDragStart", startDrag)
+		dragbar:SetScript("OnDragStop", stopDrag)
 	elseif dragbar then
 		buttons[1]:SetMovable(false)
 		dragbar:Hide()
-		dragbar:SetScript("OnDragStart",nil)
-		dragbar:SetScript("OnDragStop",nil)
+		dragbar:SetScript("OnDragStart", nil)
+		dragbar:SetScript("OnDragStop", nil)
 	end
 end
 
-function btntest:OnEnable()
-	lbf:RegisterSkinCallback(btntest.SkinCallback,btntest)
-	local group = lbf:Group("ButtonTest")
+function ButtonTest:OnEnable()
+	LBF:RegisterSkinCallback(ButtonTest.SkinCallback, ButtonTest)
+	local group = LBF:Group("ButtonTest")
 	group:Skin(db.profile.Skin or "Blizzard", db.profile.Gloss, db.profile.Backdrop)
 	if #buttons == 0 then
 		local btn
-		btn = CreateFrame("CheckButton","BF_ButtonTest1",UIParent,"ActionBarButtonTemplate")
+		btn = CreateFrame("CheckButton", "BF_ButtonTest1", UIParent, "ActionBarButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT",UIParent,"TOPLEFT",db.profile.x or 100,db.profile.y or -200)
+		btn:SetPoint("TOPLEFT", UIParent, "TOPLEFT", db.profile.x or 100, db.profile.y or -200)
 		BF_ButtonTest1HotKey:SetText("H")
 		BF_ButtonTest1Count:SetText("C")
 		BF_ButtonTest1Name:SetText("Name")
 		buttons[1] = btn
-		btn = CreateFrame("CheckButton","BF_ButtonTest2",UIParent,"BonusActionButtonTemplate")
+		btn = CreateFrame("CheckButton", "BF_ButtonTest2", UIParent, "BonusActionButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT",buttons[1],"TOPRIGHT",4,0)
+		btn:SetPoint("TOPLEFT", buttons[1], "TOPRIGHT", 4, 0)
 		BF_ButtonTest2HotKey:SetText("H")
 		BF_ButtonTest2Count:SetText("C")
 		BF_ButtonTest2Name:SetText("Name")
 		buttons[2] = btn
-		btn = CreateFrame("CheckButton","BF_ButtonTest3",UIParent,"ShapeshiftButtonTemplate")
+		btn = CreateFrame("CheckButton", "BF_ButtonTest3", UIParent, "ShapeshiftButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT",buttons[2],"TOPRIGHT",4,0)
+		btn:SetPoint("TOPLEFT", buttons[2], "TOPRIGHT", 4, 0)
 		BF_ButtonTest3HotKey:SetText("H")
 		BF_ButtonTest3Count:SetText("C")
 		BF_ButtonTest3Name:SetText("Name")
 		buttons[3] = btn
-		btn = CreateFrame("CheckButton","BF_ButtonTest4",UIParent,"ItemButtonTemplate")
+		btn = CreateFrame("CheckButton", "BF_ButtonTest4", UIParent, "ItemButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT",buttons[3],"TOPRIGHT",4,0)
+		btn:SetPoint("TOPLEFT", buttons[3], "TOPRIGHT", 4, 0)
 		BF_ButtonTest4Count:SetText("C")
 		buttons[4] = btn
-		btn = CreateFrame("CheckButton","BF_ButtonTest5",UIParent,"PetActionButtonTemplate")
+		btn = CreateFrame("CheckButton", "BF_ButtonTest5", UIParent, "PetActionButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT",buttons[4],"TOPRIGHT",4,0)
+		btn:SetPoint("TOPLEFT",buttons[4], "TOPRIGHT", 4, 0)
 		BF_ButtonTest5HotKey:SetText("H")
 		BF_ButtonTest5Count:SetText("C")
 		BF_ButtonTest5Name:SetText("Name")
 		buttons[5] = btn
-		btn = CreateFrame("CheckButton","BF_ButtonTest6",UIParent,"ActionButtonTemplate, SecureActionButtonTemplate")
+		btn = CreateFrame("CheckButton", "BF_ButtonTest6", UIParent, "ActionButtonTemplate, SecureActionButtonTemplate")
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT",buttons[5],"TOPRIGHT",4,0)
+		btn:SetPoint("TOPLEFT", buttons[5], "TOPRIGHT", 4, 0)
 		BF_ButtonTest6HotKey:SetText("H")
 		BF_ButtonTest6Count:SetText("C")
 		BF_ButtonTest6Name:SetText("Name")
@@ -200,20 +205,20 @@ function btntest:OnEnable()
 		buttons[i]:Show()
 	end
 	buttons[1]:ClearAllPoints()
-	buttons[1]:SetPoint("TOPLEFT",UIParent,"TOPLEFT",db.profile.x or 100,db.profile.y or -200)
+	buttons[1]:SetPoint("TOPLEFT", UIParent, "TOPLEFT", db.profile.x or 100, db.profile.y or -200)
 	self:SetDrag()
 	db.profile.enabled = true
 end
 
-function btntest:OnDisable()
-	local group = lbf:Group("ButtonTest")
-	-- hide all buttons, after removing the group from lbf
+function ButtonTest:OnDisable()
+	local group = LBF:Group("ButtonTest")
+	-- hide all buttons, after removing the group from LBF
 	for i = 1, #buttons do
 		group:RemoveButton(buttons[i])
 		buttons[i]:Hide()
 	end
 	buttons[1]:ClearAllPoints()
-	buttons[1]:SetPoint("TOPLEFT",UIParent,"BOTTOMRIGHT",100,-200)
+	buttons[1]:SetPoint("TOPLEFT", UIParent, "BOTTOMRIGHT", 100, -200)
 	group:Delete()
 	db.profile.enabled = nil
 end
