@@ -19,20 +19,20 @@ local L = {
 do
 	local LOC = GetLocale()
 	if LOC == "deDE" then
---@localization(locale="deDE", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+--@localization(locale="deDE", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
 	elseif LOC == "esES" or LOC == "esMX" then
 -- Use esES until we have a solid esMX localization.
---@localization(locale="esES", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+--@localization(locale="esES", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
 	elseif LOC == "frFR" then
---@localization(locale="frFR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+--@localization(locale="frFR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
 	elseif LOC == "koKR" then
---@localization(locale="koKR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+--@localization(locale="koKR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
 	elseif LOC == "ruRU" then
---@localization(locale="ruRU", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+--@localization(locale="ruRU", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
 	elseif LOC == "zhCN" then
---@localization(locale="zhCN", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+--@localization(locale="zhCN", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
 	elseif LOC == "zhTW" then
---@localization(locale="zhTW", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
+--@localization(locale="zhTW", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
 	end
 end
 

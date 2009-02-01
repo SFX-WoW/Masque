@@ -12,48 +12,48 @@ debug = true
 
 local L = AL3:NewLocale("ButtonFacade", "enUS", true, debug)
 if L then
---@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, table-name="L")@
-if GetLocale() == "enUS" or GetLocale() == "enGB" then return end
+--@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, table-name="L", namespace="Core")@
+if GetLocale() == "enUS" then return end
 end
 
 local L = AL3:NewLocale("ButtonFacade", "deDE")
 if L then
---@localization(locale="deDE", format="lua_additive_table", table-name="L", handle-unlocalized="comment")@
+--@localization(locale="deDE", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
 return
 end
 
 local L = AL3:NewLocale("ButtonFacade", "esES") or AL3:NewLocale("ButtonFacade", "esMX")
 if L then
---@localization(locale="esES", format="lua_additive_table", table-name="L", handle-unlocalized="comment")@
+--@localization(locale="esES", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
 return
 end
 
 local L = AL3:NewLocale("ButtonFacade", "frFR")
 if L then
---@localization(locale="frFR", format="lua_additive_table", table-name="L", handle-unlocalized="comment")@
+--@localization(locale="frFR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
 return
 end
 
 local L = AL3:NewLocale("ButtonFacade", "koKR")
 if L then
---@localization(locale="koKR", format="lua_additive_table", table-name="L", handle-unlocalized="comment")@
+--@localization(locale="koKR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
 return
 end
 
 local L = AL3:NewLocale("ButtonFacade", "ruRU")
 if L then
---@localization(locale="ruRU", format="lua_additive_table", table-name="L", handle-unlocalized="comment")@
+--@localization(locale="ruRU", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
 return
 end
 
 local L = AL3:NewLocale("ButtonFacade", "zhCN")
 if L then
---@localization(locale="zhCN", format="lua_additive_table", table-name="L", handle-unlocalized="comment")@
+--@localization(locale="zhCN", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
 return
 end
 
 local L = AL3:NewLocale("ButtonFacade", "zhTW")
 if L then
---@localization(locale="zhTW", format="lua_additive_table", table-name="L", handle-unlocalized="comment")@
+--@localization(locale="zhTW", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
 return
 end
