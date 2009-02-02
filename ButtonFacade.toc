@@ -3,6 +3,8 @@
 ## Version: 3.0.@project-revision@
 ## Notes: Allows the dynamic skinning of button-based addons.
 ## Notes-frFR: Permet de skinner dynamiquement les addons basés sur des boutons.
+## Notes-zhCN: 允许动态按钮皮肤插件。
+## Notes-zhTW: 允許動態按鈕皮膚插件。
 ## Author: JJSheets, StormFX
 ## X-eMail: stormfx@gmail.com
 ## X-Website: http://www.wowace.com/projects/buttonfacade/
