@@ -1,6 +1,5 @@
 -- [[ ButtonFacade/Core.lua : Rev. @file-revision@ ]]
 
--- Create the add-on.
 ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0")
 local BF = ButtonFacade
 
@@ -8,7 +7,7 @@ local BF = ButtonFacade
 local mdb, db
 local pairs, gsub = pairs, gsub
 
--- Set up libraries.
+-- Libraries
 local LBF = LibStub("LibButtonFacade")
 local L = LibStub("AceLocale-3.0"):GetLocale("ButtonFacade")
 local ACD = LibStub("AceConfigDialog-3.0")
