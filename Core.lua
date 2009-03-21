@@ -325,7 +325,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
-					get = getSkin,
+					get = nil,
 					set = setSkin,
 					arg = LBFGroup,
 					style = "dropdown",
@@ -465,7 +465,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
-					get = getSkin,
+					get = nil,
 					set = setSkin,
 					arg = LBFGroup,
 					style = "dropdown",
