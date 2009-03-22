@@ -50,16 +50,15 @@ function BF:OnEnable()
 
 	-- Set up options.
 	local ACR = LibStub("AceConfigRegistry-3.0")
-	self.options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-	self.options.args.profiles.order = 4
+	self.options.args.general.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
+	self.options.args.general.args.profiles.order = 10
 	ACR:RegisterOptionsTable("ButtonFacade", self.options)
 
 	-- Set up options panels.
 	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "global")
 	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addons"], self.name, "addons")
+	self.OptionsPanel.Modules = ACD:AddToBlizOptions(self.name, L["Modules"], self.name, "modules")
 	self.OptionsPanel.Options = ACD:AddToBlizOptions(self.name, L["Options"], self.name, "general")
-	self.OptionsPanel.Plugins = ACD:AddToBlizOptions(self.name, L["Plugins"], self.name, "plugins")
-	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(self.name, L["Profiles"], self.name, "profiles")
 	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, L["About"], self.name, "about")
 
 	-- Register chat commands.
@@ -98,7 +97,7 @@ function BF:OpenOptions(bfo)
 		InterfaceOptionsFrame:Hide()
 		ACD:Open(BF.name)
 	else
-		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Profiles)
+		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Options)
 		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
 	end
 end
@@ -143,60 +142,68 @@ do
 					},
 				},
 			},
+			modules = {
+				type = "group",
+				name = L["Modules"],
+				order = 3,
+				args = {
+					desc = {
+						type = "description",
+						name = L["MOD_INFO"].."\n",
+					},
+				},
+			},
 			general = {
 				type = "group",
 				name = L["Options"],
-				order = 3,
+				order = 4,
+				childGroups = "tab",
 				args = {
 					desc = {
 						type = "description",
 						name = L["OPTION_INFO"].."\n",
 						order = 1
 					},
-					mapicon = {
-						type = "toggle",
-						name = L["Minimap Icon"],
-						desc = L["Show the minimap icon."],
-						get = function() return not db.mapicon.hide end,
-						set = function() ToggleIcon() end,
+					options = {
+						type = "group",
+						name = L["Options"],
 						order = 2,
-						disabled = function()
-							if not Icon then
-								return true
-							else
-								return false
-							end
-						end,
-					},
-					optissue = {
-						type = "description",
-						name = "\n"..L["OPTWIN_ISSUE"].."\n",
-						order = 1000,
-					},
-					optbutton = {
-						type = "execute",
-						name = L["Standalone Options"],
-						desc = L["Open a standalone options window."],
-						order = 1001,
-						disabled = function()
-							if ACD.OpenFrames[BF.name] then
-								return true
-							else
-								return false
-							end
-						end,
-						func = function() BF:OpenOptions(true) end,
-					},
-				},
-			},
-			plugins = {
-				type = "group",
-				name = L["Plugins"],
-				order = 3,
-				args = {
-					desc = {
-						type = "description",
-						name = L["PLUGIN_INFO"].."\n",
+						args = {
+							mapicon = {
+								type = "toggle",
+								name = L["Minimap Icon"],
+								desc = L["Show the minimap icon."],
+								get = function() return not db.mapicon.hide end,
+								set = function() ToggleIcon() end,
+								order = 2,
+								disabled = function()
+									if not Icon then
+										return true
+									else
+										return false
+									end
+								end,
+							},
+							optissue = {
+								type = "description",
+								name = "\n"..L["OPTWIN_ISSUE"].."\n",
+								order = 1000,
+							},
+							optbutton = {
+								type = "execute",
+								name = L["Standalone Options"],
+								desc = L["Open a standalone options window."],
+								order = 1001,
+								disabled = function()
+									if ACD.OpenFrames[BF.name] then
+										return true
+									else
+										return false
+									end
+								end,
+								func = function() BF:OpenOptions(true) end,
+							},
+						},
 					},
 				},
 			},
@@ -271,8 +278,8 @@ BF:SetDefaultModulePrototype({
 		return mdb:RegisterNamespace(name, defaults)
 	end,
 	RegisterModuleOptions = function(self, name, options)
-		BF.options.args.plugins.args = BF.options.args.plugins.args or {}
-		BF.options.args.plugins.args[name] = options
+		BF.options.args.modules.args = BF.options.args.modules.args or {}
+		BF.options.args.modules.args[name] = options
 	end,
 })
 
