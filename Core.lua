@@ -17,9 +17,9 @@ local Icon = LibStub("LibDBIcon-1.0", true)
 -- :OnInitialize(): Initialize the add-on.
 function BF:OnInitialize()
 	-- Check the DB and reset it if it's old.
-	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 3) then
+	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 5) then
 		ButtonFacadeDB = {}
-		ButtonFacadeDB.version = 3
+		ButtonFacadeDB.version = 5
 	end
 
 	-- Set up defaults.
@@ -50,16 +50,13 @@ function BF:OnEnable()
 
 	-- Set up options.
 	local ACR = LibStub("AceConfigRegistry-3.0")
-	self.options.args.general.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-	self.options.args.general.args.profiles.order = 10
 	ACR:RegisterOptionsTable("ButtonFacade", self.options)
 
 	-- Set up options panels.
-	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "global")
-	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addons"], self.name, "addons")
-	self.OptionsPanel.Modules = ACD:AddToBlizOptions(self.name, L["Modules"], self.name, "modules")
-	self.OptionsPanel.Options = ACD:AddToBlizOptions(self.name, L["Options"], self.name, "general")
-	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, L["About"], self.name, "about")
+	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "general")
+	self.OptionsPanel.Global = ACD:AddToBlizOptions(self.name, L["Global Settings"], self.name, "global")
+	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addon Settings"], self.name, "addons")
+	self.OptionsPanel.Modules = ACD:AddToBlizOptions(self.name, L["Module Options"], self.name, "modules")
 
 	-- Register chat commands.
 	self:RegisterChatCommand("bf", function() self:OpenOptions() end)
@@ -74,14 +71,14 @@ function BF:OnEnable()
 			label = L["ButtonFacade"],
 			icon  = "Interface\\Addons\\ButtonFacade\\icon",
 			OnClick = function(self, button)
-				if button == "RightButton" then
+				if button == "LeftButton" then
 					BF:OpenOptions()
 				end
 			end,
 			OnTooltipShow = function(tip)
 				if not tip or not tip.AddLine then return end
 				tip:AddLine(L["ButtonFacade"])
-				tip:AddLine(L["Right-Click to open the options window."], 1, 1, 1)
+				tip:AddLine(L["Click to open the options window."], 1, 1, 1)
 			end,
 		})
 		-- LDBIcon
@@ -97,8 +94,8 @@ function BF:OpenOptions(bfo)
 		InterfaceOptionsFrame:Hide()
 		ACD:Open(BF.name)
 	else
-		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Options)
-		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
+		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Global)
+		--InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
 	end
 end
 
@@ -129,40 +126,16 @@ do
 		type = "group",
 		name = BF.name,
 		args = {
-			global = {}, -- Default options panel.
-			addons = {
-				type = "group",
-				name = L["Addons"],
-				order = 2,
-				args = {
-					desc = {
-						type = "description",
-						name = L["ADDON_INFO"].."\n",
-						order = 1
-					},
-				},
-			},
-			modules = {
-				type = "group",
-				name = L["Modules"],
-				order = 3,
-				args = {
-					desc = {
-						type = "description",
-						name = L["MOD_INFO"].."\n",
-					},
-				},
-			},
 			general = {
 				type = "group",
-				name = L["Options"],
-				order = 4,
+				name = L["ButtonFacade"],
+				order = 1,
 				childGroups = "tab",
 				args = {
 					desc = {
 						type = "description",
-						name = L["OPTION_INFO"].."\n",
-						order = 1
+						name = L["BF_INFO"].."\n",
+						order = 1,
 					},
 					options = {
 						type = "group",
@@ -175,7 +148,7 @@ do
 								desc = L["Show the minimap icon."],
 								get = function() return not db.mapicon.hide end,
 								set = function() ToggleIcon() end,
-								order = 2,
+								order = 3,
 								disabled = function()
 									if not Icon then
 										return true
@@ -205,67 +178,71 @@ do
 							},
 						},
 					},
+					about = {
+						type = "group",
+						name = L["About"],
+						order = 10,
+						args = {
+							vers_head = {
+								type = "description",
+								name = "|cffffcc00"..L["Version"]..":|r "..GetAddOnMetadata(BF.name, "Version"),
+								order = 2,
+							},
+							auth_head = {
+								type = "description",
+								name = "|cffffcc00"..L["Authors"]..":|r |cff999999JJ Sheets|r, StormFX",
+								order = 4,
+							},
+							url_head = {
+								type = "description",
+								name = "|cffffcc00"..L["Web Site"]..":|r "..GetAddOnMetadata(BF.name, "X-WebSite").."\n",
+								order = 6,
+							},
+							fb_head = {
+								type = "description",
+								name = "|cffffcc00"..L["Feedback"].."|r",
+								order = 8,
+							},
+							fb_text = {
+								type = "description",
+								name = L["FB_TEXT"].."\n",
+								order = 9,
+							},
+							trans_head = {
+								type = "description",
+								name = "|cffffcc00"..L["Translations"].."|r",
+								order = 10,
+							},
+							trans_text = {
+								type = "description",
+								name = L["TRANS_TEXT"].."\n",
+								order = 11,
+							},
+						},
+					},
 				},
 			},
-			about = {
+			global = {},
+			addons = {
 				type = "group",
-				name = L["About"],
-				order = 5,
+				name = L["Addon Settings"],
+				order = 3,
 				args = {
-					desc_text = {
+					desc = {
 						type = "description",
-						name = L["BF_INFO"].."\n",
-						order = 1,
+						name = L["ADDON_INFO"].."\n",
+						order = 1
 					},
-					vers_head = {
+				},
+			},
+			modules = {
+				type = "group",
+				name = L["Module Options"],
+				order = 4,
+				args = {
+					desc = {
 						type = "description",
-						name = "|cffffcc00"..L["Version"].."|r",
-						order = 2,
-					},
-					vers_text = {
-						type = "description",
-						name = GetAddOnMetadata(BF.name, "Version").."\n",
-						order = 3,
-					},
-					auth_head = {
-						type = "description",
-						name = "|cffffcc00"..L["Authors"].."|r",
-						order = 4,
-					},
-					auth_text = {
-						type = "description",
-						name = "|cff999999JJ Sheets|r\nStormFX\n",
-						order = 5,
-					},
-					url_head = {
-						type = "description",
-						name = "|cffffcc00"..L["Web Site"].."|r",
-						order = 6,
-					},
-					url_text = {
-						type = "description",
-						name = GetAddOnMetadata(BF.name, "X-WebSite").."\n",
-						order = 7,
-					},
-					fb_head = {
-						type = "description",
-						name = "|cffffcc00"..L["Feedback"].."|r",
-						order = 8,
-					},
-					fb_text = {
-						type = "description",
-						name = L["FB_TEXT"].."\n",
-						order = 9,
-					},
-					trans_head = {
-						type = "description",
-						name = "|cffffcc00"..L["Translations"].."|r",
-						order = 10,
-					},
-					trans_text = {
-						type = "description",
-						name = L["TRANS_TEXT"].."\n",
-						order = 11,
+						name = L["MOD_INFO"].."\n",
 					},
 				},
 			},
@@ -321,8 +298,8 @@ do
 		local LBFGroup = LBF:Group() -- get the root group, since this is easier...
 		BF.options.args.global = {
 			type = "group",
-			name = "Global",
-			order = 1,
+			name = L["Global Settings"],
+			order = 2,
 			args = {
 				__bf_header = {
 					type = "description",
