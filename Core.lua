@@ -95,7 +95,6 @@ function BF:OpenOptions(bfo)
 		ACD:Open(BF.name)
 	else
 		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Global)
-		--InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
 	end
 end
 
