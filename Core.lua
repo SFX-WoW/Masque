@@ -71,7 +71,7 @@ function BF:OnEnable()
 			label = L["ButtonFacade"],
 			icon  = "Interface\\Addons\\ButtonFacade\\icon",
 			OnClick = function(self, button)
-				if button == "LeftButton" then
+				if button == "LeftButton" or button == "RightButton" then
 					BF:OpenOptions()
 				end
 			end,
