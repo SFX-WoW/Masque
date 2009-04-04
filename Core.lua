@@ -53,10 +53,10 @@ function BF:OnEnable()
 	ACR:RegisterOptionsTable("ButtonFacade", self.options)
 
 	-- Set up options panels.
-	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "general")
-	self.OptionsPanel.Global = ACD:AddToBlizOptions(self.name, L["Global Settings"], self.name, "global")
+	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "global")
 	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addon Settings"], self.name, "addons")
 	self.OptionsPanel.Modules = ACD:AddToBlizOptions(self.name, L["Module Options"], self.name, "modules")
+	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, L["About"], self.name, "general")
 
 	-- Register chat commands.
 	self:RegisterChatCommand("bf", function() self:OpenOptions() end)
@@ -94,7 +94,8 @@ function BF:OpenOptions(bfo)
 		InterfaceOptionsFrame:Hide()
 		ACD:Open(BF.name)
 	else
-		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Global)
+		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.About)
+		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
 	end
 end
 
@@ -125,10 +126,34 @@ do
 		type = "group",
 		name = BF.name,
 		args = {
+			global = {},
+			addons = {
+				type = "group",
+				name = L["Addon Settings"],
+				order = 3,
+				args = {
+					desc = {
+						type = "description",
+						name = L["ADDON_INFO"].."\n",
+						order = 1
+					},
+				},
+			},
+			modules = {
+				type = "group",
+				name = L["Module Options"],
+				order = 4,
+				args = {
+					desc = {
+						type = "description",
+						name = L["MOD_INFO"].."\n",
+					},
+				},
+			},
 			general = {
 				type = "group",
-				name = L["ButtonFacade"],
-				order = 1,
+				name = L["About"],
+				order = 10,
 				childGroups = "tab",
 				args = {
 					desc = {
@@ -136,51 +161,10 @@ do
 						name = L["BF_INFO"].."\n",
 						order = 1,
 					},
-					options = {
-						type = "group",
-						name = L["Options"],
-						order = 2,
-						args = {
-							mapicon = {
-								type = "toggle",
-								name = L["Minimap Icon"],
-								desc = L["Show the minimap icon."],
-								get = function() return not db.mapicon.hide end,
-								set = function() ToggleIcon() end,
-								order = 3,
-								disabled = function()
-									if not Icon then
-										return true
-									else
-										return false
-									end
-								end,
-							},
-							optissue = {
-								type = "description",
-								name = "\n"..L["OPTWIN_ISSUE"].."\n",
-								order = 1000,
-							},
-							optbutton = {
-								type = "execute",
-								name = L["Standalone Options"],
-								desc = L["Open a standalone options window."],
-								order = 1001,
-								disabled = function()
-									if ACD.OpenFrames[BF.name] then
-										return true
-									else
-										return false
-									end
-								end,
-								func = function() BF:OpenOptions(true) end,
-							},
-						},
-					},
 					about = {
 						type = "group",
 						name = L["About"],
-						order = 10,
+						order = 2,
 						args = {
 							vers_head = {
 								type = "description",
@@ -219,29 +203,39 @@ do
 							},
 						},
 					},
-				},
-			},
-			global = {},
-			addons = {
-				type = "group",
-				name = L["Addon Settings"],
-				order = 3,
-				args = {
-					desc = {
-						type = "description",
-						name = L["ADDON_INFO"].."\n",
-						order = 1
-					},
-				},
-			},
-			modules = {
-				type = "group",
-				name = L["Module Options"],
-				order = 4,
-				args = {
-					desc = {
-						type = "description",
-						name = L["MOD_INFO"].."\n",
+					options = {
+						type = "group",
+						name = L["Options"],
+						order = 3,
+						args = {
+							mapicon = {
+								type = "toggle",
+								name = L["Minimap Icon"],
+								desc = L["Show the minimap icon."],
+								get = function() return not db.mapicon.hide end,
+								set = function() ToggleIcon() end,
+								order = 1,
+							},
+							optissue = {
+								type = "description",
+								name = "\n"..L["OPTWIN_ISSUE"].."\n",
+								order = 100,
+							},
+							optbutton = {
+								type = "execute",
+								name = L["Standalone Options"],
+								desc = L["Open a standalone options window."],
+								order = 101,
+								func = function() BF:OpenOptions(true) end,
+								disabled = function()
+									if ACD.OpenFrames[BF.name] then
+										return true
+									else
+										return false
+									end
+								end,
+							},
+						},
 					},
 				},
 			},
@@ -303,7 +297,7 @@ do
 				__bf_header = {
 					type = "description",
 					name = L["GLOBAL_INFO"].."\n",
-					order = 1
+					order = 1,
 				},
 				__bf_skin = {
 					type = "select",
