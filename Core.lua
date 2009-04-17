@@ -161,10 +161,44 @@ do
 						name = L["BF_INFO"].."\n",
 						order = 1,
 					},
+					options = {
+						type = "group",
+						name = L["Options"],
+						order = 2,
+						args = {
+							mapicon = {
+								type = "toggle",
+								name = L["Minimap Icon"],
+								desc = L["Show the minimap icon."],
+								get = function() return not db.mapicon.hide end,
+								set = function() ToggleIcon() end,
+								order = 1,
+							},
+							optissue = {
+								type = "description",
+								name = "\n"..L["OPTWIN_ISSUE"].."\n",
+								order = 100,
+							},
+							optbutton = {
+								type = "execute",
+								name = L["Standalone Options"],
+								desc = L["Open a standalone options window."],
+								order = 101,
+								func = function() BF:OpenOptions(true) end,
+								disabled = function()
+									if ACD.OpenFrames[BF.name] then
+										return true
+									else
+										return false
+									end
+								end,
+							},
+						},
+					},
 					about = {
 						type = "group",
 						name = L["About"],
-						order = 2,
+						order = 3,
 						args = {
 							vers_head = {
 								type = "description",
@@ -200,40 +234,6 @@ do
 								type = "description",
 								name = L["TRANS_TEXT"].."\n",
 								order = 11,
-							},
-						},
-					},
-					options = {
-						type = "group",
-						name = L["Options"],
-						order = 3,
-						args = {
-							mapicon = {
-								type = "toggle",
-								name = L["Minimap Icon"],
-								desc = L["Show the minimap icon."],
-								get = function() return not db.mapicon.hide end,
-								set = function() ToggleIcon() end,
-								order = 1,
-							},
-							optissue = {
-								type = "description",
-								name = "\n"..L["OPTWIN_ISSUE"].."\n",
-								order = 100,
-							},
-							optbutton = {
-								type = "execute",
-								name = L["Standalone Options"],
-								desc = L["Open a standalone options window."],
-								order = 101,
-								func = function() BF:OpenOptions(true) end,
-								disabled = function()
-									if ACD.OpenFrames[BF.name] then
-										return true
-									else
-										return false
-									end
-								end,
 							},
 						},
 					},
