@@ -60,7 +60,6 @@ function BF:OnEnable()
 
 	-- Register chat commands.
 	self:RegisterChatCommand("bf", function() self:OpenOptions() end)
-	self:RegisterChatCommand("bfo", function() self:OpenOptions(true) end)
 	self:RegisterChatCommand("buttonfacade", function() self:OpenOptions() end)
 
 	-- Register with Broker.
@@ -89,14 +88,9 @@ function BF:OnEnable()
 end
 
 -- :OpenOptions(): Opens the options window.
-function BF:OpenOptions(bfo)
-	if bfo then
-		InterfaceOptionsFrame:Hide()
-		ACD:Open(BF.name)
-	else
-		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.About)
-		InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
-	end
+function BF:OpenOptions()
+	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.About)
+	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
 end
 
 -- :Reload(): Reloads settings on profile activity.
@@ -161,56 +155,30 @@ do
 						name = L["BF_INFO"].."\n",
 						order = 1,
 					},
-					options = {
-						type = "group",
-						name = L["Options"],
-						order = 2,
-						args = {
-							mapicon = {
-								type = "toggle",
-								name = L["Minimap Icon"],
-								desc = L["Show the minimap icon."],
-								get = function() return not db.mapicon.hide end,
-								set = function() ToggleIcon() end,
-								order = 1,
-							},
-							optissue = {
-								type = "description",
-								name = "\n"..L["OPTWIN_ISSUE"].."\n",
-								order = 100,
-							},
-							optbutton = {
-								type = "execute",
-								name = L["Standalone Options"],
-								desc = L["Open a standalone options window."],
-								order = 101,
-								func = function() BF:OpenOptions(true) end,
-								disabled = function()
-									if ACD.OpenFrames[BF.name] then
-										return true
-									else
-										return false
-									end
-								end,
-							},
-						},
+					mapicon = {
+						type = "toggle",
+						name = L["Minimap Icon"],
+						desc = L["Show the minimap icon."],
+						get = function() return not db.mapicon.hide end,
+						set = function() ToggleIcon() end,
+						order = 1,
 					},
 					about = {
 						type = "group",
 						name = L["About"],
 						order = 3,
 						args = {
-							vers_head = {
+							vers = {
 								type = "description",
 								name = "|cffffcc00"..L["Version"]..":|r "..GetAddOnMetadata(BF.name, "Version"),
 								order = 2,
 							},
-							auth_head = {
+							auth = {
 								type = "description",
 								name = "|cffffcc00"..L["Authors"]..":|r |cff999999JJ Sheets|r, StormFX",
 								order = 4,
 							},
-							url_head = {
+							url = {
 								type = "description",
 								name = "|cffffcc00"..L["Web Site"]..":|r "..GetAddOnMetadata(BF.name, "X-WebSite").."\n",
 								order = 6,
