@@ -841,7 +841,7 @@ lib:AddSkin("Blizzard",{
 		Width = 66,
 		Height = 66,
 		Texture = [[Interface\Buttons\UI-Quickslot2]],
-		EmptyTexture = [[Interface\Buttons\UI=Quickslot]],
+		EmptyTexture = [[Interface\Buttons\UI-Quickslot]],
 		OffsetY = -1,
 	},
 	Pushed = {
