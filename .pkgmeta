@@ -1,13 +1,35 @@
 package-as: ButtonFacade
 
 externals:
-   Libs/AceAddon-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
-   Libs/AceConfig-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
-   Libs/AceConsole-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConsole-3.0
-   Libs/AceDB-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDB-3.0
-   Libs/AceDBOptions-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDBOptions-3.0
-   Libs/AceLocale-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
-   Libs/CallbackHandler-1.0: svn://svn.wowace.com/wow/callbackhandler/mainline/tags/1.0.3/CallbackHandler-1.0
-   Libs/AceGUI-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceGUI-3.0
-   Libs/LibDBIcon-1.0: svn://svn.wowace.com/wow/libdbicon-1-0/mainline/trunk/LibDBIcon-1.0
-   Libs/LibStub: svn://svn.wowace.com/wow/libstub/mainline/tags/1.0
+   Libs/LibStub:
+      url: svn://svn.wowace.com/wow/libstub/mainline/trunk
+      tag: latest
+   Libs/CallbackHandler-1.0:
+      url: svn://svn.wowace.com/wow/callbackhandler/mainline/trunk/CallbackHandler-1.0
+      tag: latest
+   Libs/AceAddon-3.0:
+      url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
+      tag: latest
+   Libs/AceConfig-3.0:
+      url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
+      tag: latest
+   Libs/AceConsole-3.0:
+      url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConsole-3.0
+      tag: latest
+   Libs/AceDB-3.0:
+      url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDB-3.0
+      tag: latest
+   Libs/AceDBOptions-3.0:
+      url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDBOptions-3.0
+      tag: latest
+   Libs/AceLocale-3.0:
+      url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
+      tag: latest
+   Libs/AceGUI-3.0:
+      url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceGUI-3.0
+      tag: latest
+   Libs/LibDBIcon-1.0:
+      url: svn://svn.wowace.com/wow/libdbicon-1-0/mainline/trunk/LibDBIcon-1.0
+      tag: latest
+
+license-output: License.txt
