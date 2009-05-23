@@ -747,6 +747,22 @@ group_mt = {
 				end
 			end
 		end,
+		SkinGroup = function(self,SkinID,Gloss,Backdrop,ColorLayer,r,g,b,a) -- Added to just change the root group's skin
+			if type(Gloss) ~= "number" then
+				Gloss = Gloss and 1 or 0
+			end
+			if type(ColorLayer) == "table" then
+				self.Colors = ColorLayer
+			elseif ColorLayer then
+				self:SetLayerColor(ColorLayer,r,g,b,a)
+			end
+			self.SkinID = SkinID or self.SkinID
+			self.Gloss = Gloss or self.Gloss
+			if type(Backdrop) == "boolean" then
+				self.Backdrop = Backdrop
+			end
+			fireSkinCB(self.SkinID,self.Gloss,self.Backdrop,self.Addon,self.Group,self.Button,self.Colors)
+		end,
 		SetLayerColor = function(self,Layer,r,g,b,a)
 			self.Colors = self.Colors or {}
 			if r then

@@ -59,10 +59,10 @@ end
 -- :OnEnable():
 function BF:OnEnable()
 	-- Register the skin callback function.
-	LBF:RegisterSkinCallback("ButtonFacade", self.SkinCallback, self) -- Edit: 5/21
+	LBF:RegisterSkinCallback("ButtonFacade", self.SkinCallback, self)
 
 	-- Apply the global skin.
-	LBF:Group():Skin(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors) -- Edit: 5/21
+	LBF:Group():Skin(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors)
 
 	-- Update the elements.
 	LBF:ElementListCallback(self.ElementListUpdate, self)
@@ -116,15 +116,14 @@ end
 -- :Reload(): Reloads settings on profile activity.
 function BF:Refresh()
 	db = self.db.profile
-	-- Reskin everything.
-	LBF:Group():Skin(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors) -- Edit: 5/21
+	LBF:Group():SkinGroup(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors)
 	if Icon then
 		Icon:Refresh(self.name, db.mapicon)
 	end
 end
 
 -- :SkinCallBack(): Callback function to store settings.
-function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors) -- Edit: 5/21
+function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
 	if Group == "ButtonFacade" then
 		db.skin.ID = SkinID
 		db.skin.Gloss = Gloss
@@ -134,7 +133,7 @@ function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors) -- Edit
 end
 
 -- :RemoveModuleOptions(): Removes a module's skinning option group.
-function BF:RemoveModuleOptions(module) -- Edit: 5/21
+function BF:RemoveModuleOptions(module)
 	if self.options.args.addons.args[module] then
 		self.options.args.addons.args[module] = nil
 	end
@@ -302,7 +301,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
-					get = getSkin, -- Edit: 5/21
+					get = getSkin,
 					set = setSkin,
 					arg = LBFGroup,
 					style = "dropdown",
@@ -442,7 +441,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
-					get = getSkin, -- Edit: 5/21
+					get = getSkin,
 					set = setSkin,
 					arg = LBFGroup,
 					style = "dropdown",
