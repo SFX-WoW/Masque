@@ -1,4 +1,9 @@
--- [[ ButtonFacade/Locales.lua : Rev. @file-revision@ ]]
+--[[
+	Project.: ButtonFacade
+	File....: Locales.lua
+	Version.: @file-revision@
+	Author..: StormFX
+]]
 
 -- This contents of this file are automatically generated.
 -- Please use the localization application on WoWAce.com to submit translations.

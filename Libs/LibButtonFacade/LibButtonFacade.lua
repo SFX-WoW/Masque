@@ -1,20 +1,14 @@
 --[[
-Name: LibButtonFacade
-Revision: $Revision: 1 $
-Author: JJSheets (sheets.jeff@gmail.com)
-Documentation: http://
-SVN: http://
-Description: Button Skinning Tool.
-Dependencies: LibStub
-License: LGPL v2.1
+	Project.: LibButtonFacade
+	File....: LibButtonFacade.lua
+	Version.: @file-revision@
+	Author..: JJ Sheets, StormFX
 ]]
 
 local MAJOR, MINOR = "LibButtonFacade", "3"
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
-
-local table_sort = table.sort
 
 local regcb = {}
 
@@ -29,13 +23,21 @@ function lib:ElementListCallback(callback,arg)
 end
 
 local function regID(Addon,Group,Button)
-	local r = ""
+-- Edit: 5/21
+-- 	local r = ""
+	local r = "ButtonFacade"
 	if Addon then
-		r = r.."|"..Addon
+-- Edit: 5/21
+-- 		r = r.."|"..Addon
+		r = Addon
 		if Group then
-			r = r.."|"..Group
+-- Edit: 5/21
+-- 			r = r.."|"..Group
+			r = r.."_"..Group
 			if Button then
-				r = r.."|"..Button
+-- Edit: 5/21
+-- 				r = r.."|"..Button
+				r = r.."_"..Button
 			end
 		end
 	end
@@ -63,16 +65,22 @@ local function newGroup(Addon,Group,Button)
 	setmetatable(o,group_mt)
 	group[o.RegID] = o
 	if Addon then
-		local a = group[""] or newGroup()
+-- Edit: 5/21
+-- 		local a = group[""] or newGroup()
+		local a = group["ButtonFacade"] or newGroup()
 		o.Parent = a
 		a:AddSubGroup(Addon)
 	end
 	if Group then
-		local a = group["|"..Addon] or newGroup(Addon)
+-- Edit: 5/21
+-- 		local a = group["|"..Addon] or newGroup(Addon)
+		local a = group[Addon] or newGroup(Addon)
 		o.Parent = a
 		a:AddSubGroup(Group)
 		if Button then
-			local ag = group["|"..Addon.."|"..Group] or newGroup(Addon,Group)
+-- Edit: 5/21
+-- 			local ag = group["|"..Addon.."|"..Group] or newGroup(Addon,Group)
+			local ag = group[Addon.."_"..Group] or newGroup(Addon,Group)
 			o.Parent = ag
 			ag:AddSubGroup(Button)
 		end
@@ -88,10 +96,14 @@ local freebackdrop = {}
 local callbacks = {}
 
 local function fireSkinCB(SkinID,Gloss,Backdrop,Addon,Group,Button,Colors)
+-- Edit: 5/21
+	Addon = Addon or "ButtonFacade"
 	local args = callbacks[Addon]
 	if args then
 		for arg, callback in pairs(args) do
-			callback(arg and arg,SkinID,Gloss,Backdrop,Group,Button,Colors)
+-- Edit: 5/21
+-- 			callback(arg and arg,SkinID,Gloss,Backdrop,Group,Button,Colors)
+			callback(arg and arg,SkinID,Gloss,Backdrop,Group or Addon,Button,Colors)
 		end
 	end
 end
@@ -119,7 +131,6 @@ function lib:AddSkin(SkinID,data,overwrite)
 	end
 	skins[SkinID] = data
 	skinlist[SkinID] = SkinID
-	--table_sort(skinlist)
 end
 
 function lib:GetSkins()
@@ -669,15 +680,21 @@ end
 
 function lib:ListAddons()
 	lib:Group()
-	return group[""].SubList
+-- Edit: 5/21
+-- 	return group[""].SubList
+	return group["ButtonFacade"].SubList
 end
 
 function lib:ListGroups(Addon)
-	return group["|"..Addon].SubList
+-- Edit: 5/21
+-- 	return group["|"..Addon].SubList
+	return group[Addon].SubList
 end
 
 function lib:ListButtons(Addon,Group)
-	return group["|"..Addon.."|"..Group].SubList
+-- Edit: 5/21
+-- 	return group["|"..Addon.."|"..Group].SubList
+	return group[Addon.."_"..Group].SubList
 end
 
 local reverse = {}
@@ -756,15 +773,19 @@ group_mt = {
 			end
 		end,
 		AddSubGroup = function(self,SubGroup)
-			local r = self.RegID.."|"..SubGroup
-			self.SubList[r] = SubGroup
-			--group[r].Parent = self
+			local r = self.RegID.."_"..SubGroup
+			if self.RegID == "ButtonFacade" then -- Edit: 5/21
+				self.SubList[SubGroup] = SubGroup
+			else
+				self.SubList[r] = SubGroup
+			end
+			-- group[r].Parent = self
 			fireRegCB(self.Addon,self.Group,self.Button)
 		end,
 		RemoveSubGroup = function(self,SubGroup)
 			local r = SubGroup.RegID
 			self.SubList[r] = nil
-			--group[r].Parent = nil
+			-- group[r].Parent = nil
 			fireRegCB(self.Addon,self.Group,self.Button)
 		end,
 		--[[ Note, instead of the following, just access the data directly, using group_obj.SkinID, etc.

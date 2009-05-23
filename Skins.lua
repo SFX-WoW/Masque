@@ -1,4 +1,9 @@
--- [[ ButtonFacade/Skins.lua : Rev. @file-revision@ ]]
+--[[
+	Project.: ButtonFacade
+	File....: Skins.lua
+	Version.: @file-revision@
+	Author..: JJ Sheets, StormFX
+]]
 
 local LBF = LibStub("LibButtonFacade",true)
 if not LBF then

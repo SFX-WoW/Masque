@@ -1,6 +1,11 @@
-﻿-- [[ ButtonFacade/Modules/ButtonTest.lua : Rev. @file-revision@ ]]
+﻿--[[
+	Project.: ButtonFacade
+	File....: Modules/ButtonTest.lua
+	Version.: @file-revision@
+	Author..: JJ Sheets, StormFX
+]]
 
--- Set up dependencies.
+-- Dependencies
 local BF = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
 local LBF = LibStub("LibButtonFacade")
 if not LBF then return end
@@ -9,152 +14,165 @@ if not LBF then return end
 
 -- Hard-code enUS/enGB.
 local L = {
-	["BT_DESC"] = "Displays a set of buttons that can be used to verify the functionality of a skin.  In order from left to right, the buttons inherit from the following templates: ActionBarButtonTemplate, BonusActionButtonTemplate, ShapeshiftButtonTemplate, ItemButtonTemplate, PetActionButtonTemplate.",
 	["Button Test"] = "Button Test",
-	["Drag"] = "Drag",
+	["BTEST_Desc"] = "Displays a set of buttons that can be used to verify the functionality of a skin.",
 	["Enable Module"] = "Enable Module",
+	["Enable this module."]	= "Enable this module.",
+	["Enable Drag"] = "Enable Drag",
+	["Enable dragging of the buttons."] = "Enable dragging of the buttons.",
+	["Button Information"] = "Button Information",
+	["BTEST_Info1"] = "In order from left to right, the buttons inherit from the following templates:",
+	["BTEST_Info2"] = "* ActionBarButtonTemplate\n* BonusActionButtonTemplate\n* ShapeshiftButtonTemplate\n* ItemButtonTemplate\n* PetActionButtonTemplate\n* SecureActionButtonTemplate",
 }
 -- Automatically inject all other locales. Please use the localization application on WoWAce.com to update these.
 -- http://www.wowace.com/projects/buttonfacade/localization/namespaces/buttontest/
 do
 	local LOC = GetLocale()
 	if LOC == "deDE" then
---@localization(locale="deDE", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
+--@localization(locale="deDE", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
 	elseif LOC == "esES" or LOC == "esMX" then
 -- Use esES until we have a solid esMX localization.
---@localization(locale="esES", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
+--@localization(locale="esES", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
 	elseif LOC == "frFR" then
---@localization(locale="frFR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
+--@localization(locale="frFR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
 	elseif LOC == "koKR" then
---@localization(locale="koKR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
+--@localization(locale="koKR", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
 	elseif LOC == "ruRU" then
---@localization(locale="ruRU", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
+--@localization(locale="ruRU", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
 	elseif LOC == "zhCN" then
---@localization(locale="zhCN", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
+--@localization(locale="zhCN", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
 	elseif LOC == "zhTW" then
---@localization(locale="zhTW", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ModBT")@
+--@localization(locale="zhTW", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="ButtonTest")@
 	end
 end
 
 -- [ Set Up ] --
 
 -- Create the module.
-local ButtonTest = BF:NewModule("ButtonTest")
+local mod = BF:NewModule("ButtonTest")
 
--- Defaults
+-- Locals
 local db
-local ns_Defaults = {
-	global = {
-	},
-}
-local module_Options = {
+local buttons = {}
+local dragbar
+
+-- Options
+local options = {
 	type = "group",
 	name = L["Button Test"],
 	args = {
-		info = {
+		title = {
 			type = "description",
-			name = L["BT_DESC"].."\n",
+			name = "|cffffcc00"..L["Button Test"].."|r\n",
+			order = 1,
+		},
+		desc = {
+			type = "description",
+			name = L["BTEST_Desc"].."\n",
 			order = 2,
 		},
-		enable_mod = {
+		enable = {
 			type = "toggle",
 			name = L["Enable Module"],
-			get = function() return ButtonTest:IsEnabled() end,
-			set = function(info,s)
+			desc = L["Enable this module."],
+			get = function() return mod:IsEnabled() end,
+			set = function(info, s)
 				if s then
 					BF:EnableModule("ButtonTest")
 				else
 					BF:DisableModule("ButtonTest")
 				end
 			end,
-			width = "full",
 			order = 3,
 		},
 		drag = {
 			type = "toggle",
-			name = L["Drag"],
-			get = function() return db.profile.Unlocked end,
-			set = function(info,s)
-				db.profile.Unlocked = s
-				ButtonTest:SetDrag()
+			name = L["Enable Drag"],
+			desc = L["Enable dragging of the buttons."],
+			get = function() return db.drag end,
+			set = function(info, s)
+				db.drag = s
+				mod:SetDrag()
 			end,
-			width = "full",
 			order = 4,
+			disabled = function() return not db.enabled end
+		},
+		info = {
+			type = "description",
+			name = "\n|cffffcc00"..L["Button Information"].."|r\n",
+			order = 5,
+		},
+		info1 = {
+			type = "description",
+			name = L["BTEST_Info1"].."\n",
+			order = 6,
+		},
+		info2 = {
+			type = "description",
+			name = "|cffffcc00"..L["BTEST_Info2"].."|r",
+			order = 7,
 		},
 	},
 }
+-- [ Local Functions ] --
 
-function ButtonTest:OnInitialize()
-	db = self:RegisterNamespace("ButtonTest", ns_Defaults)
-	self.db = db
-	self:RegisterModuleOptions("ButtonTest", module_Options)
-	self:SetEnabledState(db.profile.enabled)
-end
-
-local buttons = {}
-local dragbar
-
-function ButtonTest:SkinCallback(SkinID, Gloss, Backdrop, Group, Button)
-	db.profile.Skin = SkinID
-	db.profile.Gloss = Gloss
-	db.profile.Backdrop = Backdrop
-end
-
+-- startDrag(): Enables dragging of the buttons.
 local function startDrag()
 	buttons[1]:StartMoving()
 end
 
+-- stopDrag(): Disables dragging of the buttons.
 local function stopDrag()
 	local frame = buttons[1]
 	local p ,rel ,rp ,X ,Y = frame:GetPoint()
 	frame:StopMovingOrSizing()
-	db.profile.x = X
-	db.profile.y = Y
+	db.x = X
+	db.y = Y
 end
 
-function ButtonTest:SetDrag()
-	if db.profile.Unlocked then
-		if not dragbar then
-			dragbar = CreateFrame("Frame", "BF_ButtonTestDragbar", UIParent)
-			dragbar:EnableMouse(true)
-			dragbar:RegisterForDrag("LeftButton")
-			dragbar:SetBackdrop({
-				bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-				tile = true,
-				tileSize = 16,
-				edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-				edgeSize = 16,
-				insets = {left = 0, right = 0, top = 0, bottom = 0}
-			})
-			dragbar:SetBackdropColor(0, 0.5, 0, 0.9)
-			dragbar:SetBackdropBorderColor(0, 0, 0, 0)
-			dragbar:ClearAllPoints()
-			dragbar:SetPoint("TOPLEFT", buttons[1], "TOPLEFT")
-			dragbar:SetPoint("BOTTOMRIGHT", buttons[5], "BOTTOMRIGHT")
-		end
-		buttons[1]:SetMovable(true)
-		dragbar:SetFrameLevel(100)
-		dragbar:Show()
-		dragbar:SetScript("OnDragStart", startDrag)
-		dragbar:SetScript("OnDragStop", stopDrag)
-	elseif dragbar then
-		buttons[1]:SetMovable(false)
-		dragbar:Hide()
-		dragbar:SetScript("OnDragStart", nil)
-		dragbar:SetScript("OnDragStop", nil)
-	end
+-- [ Core Methods ] --
+
+-- :OnInitialize(): Initialize the module.
+function mod:OnInitialize()
+	-- Set up defaults.
+	local defaults = {
+		profile = {
+			enabled = false,
+			drag = false,
+			skin = {
+				ID = "Blizzard",
+				Gloss = false,
+				Backdrop = false,
+				Colors = {},
+			},
+		},
+	}
+
+	-- Set up the DB.
+	self.db = self:RegisterNamespace("ButtonTest", defaults)
+	db = self.db.profile
+	self:SetEnabledState(db.enabled)
+
+	-- Hook into the root events.
+	BF.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
+	BF.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
+	BF.db.RegisterCallback(self, "OnProfileReset", "Refresh")
+
+	-- Set up options.
+	self:RegisterModuleOptions("ButtonTest", options)
 end
 
-function ButtonTest:OnEnable()
-	LBF:RegisterSkinCallback(ButtonTest.SkinCallback, ButtonTest)
+-- :OnEnable(): Enable function.
+function mod:OnEnable()
+	LBF:RegisterSkinCallback("ButtonTest", self.SkinCallback, self)
 	local group = LBF:Group("ButtonTest")
-	group:Skin(db.profile.Skin or "Blizzard", db.profile.Gloss, db.profile.Backdrop)
+	group:Skin(db.skin.ID or "Blizzard", db.skin.Gloss, db.skin.Backdrop, db.skin.Backdrop)
 	if #buttons == 0 then
 		local btn
 		btn = CreateFrame("CheckButton", "BF_ButtonTest1", UIParent, "ActionBarButtonTemplate")
 		btn:SetID(1)
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT", UIParent, "TOPLEFT", db.profile.x or 100, db.profile.y or -200)
+		btn:SetPoint("TOPLEFT", UIParent, "TOPLEFT", db.x or 100, db.y or -200)
 		BF_ButtonTest1HotKey:SetText("H")
 		BF_ButtonTest1Count:SetText("C")
 		BF_ButtonTest1Name:SetText("Name")
@@ -205,14 +223,14 @@ function ButtonTest:OnEnable()
 		buttons[i]:Show()
 	end
 	buttons[1]:ClearAllPoints()
-	buttons[1]:SetPoint("TOPLEFT", UIParent, "TOPLEFT", db.profile.x or 100, db.profile.y or -200)
+	buttons[1]:SetPoint("TOPLEFT", UIParent, "TOPLEFT", db.x or 100, db.y or -200)
 	self:SetDrag()
-	db.profile.enabled = true
+	db.enabled = true
 end
 
-function ButtonTest:OnDisable()
+-- :OnEnable(): Disable function.
+function mod:OnDisable()
 	local group = LBF:Group("ButtonTest")
-	-- hide all buttons, after removing the group from LBF
 	for i = 1, #buttons do
 		group:RemoveButton(buttons[i])
 		buttons[i]:Hide()
@@ -220,5 +238,61 @@ function ButtonTest:OnDisable()
 	buttons[1]:ClearAllPoints()
 	buttons[1]:SetPoint("TOPLEFT", UIParent, "BOTTOMRIGHT", 100, -200)
 	group:Delete()
-	db.profile.enabled = nil
+	BF:RemoveModuleOptions("ButtonTest")
+	db.enabled = false
+end
+
+-- :Refresh(): Refreshes the module's state.
+function mod:Refresh()
+	db = self.db.profile
+	if db.enabled then
+		self:Disable()
+		self:Enable()
+	else
+		self:Disable()
+	end
+end
+
+-- setDrag(): Sets the drag state.
+function mod:SetDrag()
+	if db.drag then
+		if not dragbar then
+			dragbar = CreateFrame("Frame", "BF_ButtonTestDragbar", UIParent)
+			dragbar:EnableMouse(true)
+			dragbar:RegisterForDrag("LeftButton")
+			dragbar:SetBackdrop({
+				bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+				tile = true,
+				tileSize = 16,
+				edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+				edgeSize = 16,
+				insets = {left = 0, right = 0, top = 0, bottom = 0}
+			})
+			dragbar:SetBackdropColor(0, 0.5, 0, 0.9)
+			dragbar:SetBackdropBorderColor(0, 0, 0, 0)
+			dragbar:ClearAllPoints()
+			dragbar:SetPoint("TOPLEFT", buttons[1], "TOPLEFT")
+			dragbar:SetPoint("BOTTOMRIGHT", buttons[5], "BOTTOMRIGHT")
+		end
+		buttons[1]:SetMovable(true)
+		dragbar:SetFrameLevel(100)
+		dragbar:Show()
+		dragbar:SetScript("OnDragStart", startDrag)
+		dragbar:SetScript("OnDragStop", stopDrag)
+	elseif dragbar then
+		buttons[1]:SetMovable(false)
+		dragbar:Hide()
+		dragbar:SetScript("OnDragStart", nil)
+		dragbar:SetScript("OnDragStop", nil)
+	end
+end
+
+-- :SkinCallBack(): Callback function to store settings.
+function mod:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
+	if Group == "ButtonTest" then
+		db.skin.ID = SkinID
+		db.skin.Gloss = Gloss
+		db.skin.Backdrop = Backdrop
+		db.skin.Colors = Colors
+	end
 end

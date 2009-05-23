@@ -1,4 +1,9 @@
--- [[ ButtonFacade/Core.lua : Rev. @file-revision@ ]]
+--[[
+	Project.: ButtonFacade
+	File....: Core.lua
+	Version.: @file-revision@
+	Author..: JJ Sheets, StormFX
+]]
 
 ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0")
 local BF = ButtonFacade
@@ -17,34 +22,48 @@ local Icon = LibStub("LibDBIcon-1.0", true)
 -- :OnInitialize(): Initialize the add-on.
 function BF:OnInitialize()
 	-- Check the DB and reset it if it's old.
-	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 5) then
+	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 7) then
 		ButtonFacadeDB = {}
-		ButtonFacadeDB.version = 5
+		ButtonFacadeDB.version = 7
 	end
 
 	-- Set up defaults.
 	local defaults = {
 		profile = {
+			skin = {
+				ID = "Blizzard",
+				Gloss = false,
+				Backdrop = false,
+				Colors = {},
+			},
 			mapicon = {
 				hide = false,
 				radius = 80,
 				minimapPos = 220,
 			},
-		}
+		},
 	}
 
 	-- Set up the DB.
-	mdb = LibStub("AceDB-3.0"):New("ButtonFacadeDB", nil, "Default") -- Set aside for module creation.
+	mdb = LibStub("AceDB-3.0"):New("ButtonFacadeDB", nil, true) -- Set aside for module creation.
 	self.db = mdb
 	self.db:RegisterDefaults(defaults)
-	self.db.RegisterCallback(self, "OnProfileChanged", "Reload")
-	self.db.RegisterCallback(self, "OnProfileCopied", "Reload")
-	self.db.RegisterCallback(self, "OnProfileReset", "Reload")
+	self.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
+	self.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
+	self.db.RegisterCallback(self, "OnProfileReset", "Refresh")
+	self.options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
+	self.options.args.profiles.order = 4
 	db = self.db.profile
 end
 
 -- :OnEnable():
 function BF:OnEnable()
+	-- Register the skin callback function.
+	LBF:RegisterSkinCallback("ButtonFacade", self.SkinCallback, self) -- Edit: 5/21
+
+	-- Apply the global skin.
+	LBF:Group():Skin(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors) -- Edit: 5/21
+
 	-- Update the elements.
 	LBF:ElementListCallback(self.ElementListUpdate, self)
 
@@ -54,8 +73,9 @@ function BF:OnEnable()
 
 	-- Set up options panels.
 	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "global")
-	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addon Settings"], self.name, "addons")
-	self.OptionsPanel.Modules = ACD:AddToBlizOptions(self.name, L["Module Options"], self.name, "modules")
+	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addons"], self.name, "addons")
+	self.OptionsPanel.Modules = ACD:AddToBlizOptions(self.name, L["Modules"], self.name, "modules")
+	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(self.name, L["Profiles"], self.name, "profiles")
 	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, L["About"], self.name, "general")
 
 	-- Register chat commands.
@@ -94,12 +114,32 @@ function BF:OpenOptions()
 end
 
 -- :Reload(): Reloads settings on profile activity.
-function BF:Reload()
+function BF:Refresh()
 	db = self.db.profile
+	-- Reskin everything.
+	LBF:Group():Skin(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors) -- Edit: 5/21
 	if Icon then
 		Icon:Refresh(self.name, db.mapicon)
 	end
 end
+
+-- :SkinCallBack(): Callback function to store settings.
+function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors) -- Edit: 5/21
+	if Group == "ButtonFacade" then
+		db.skin.ID = SkinID
+		db.skin.Gloss = Gloss
+		db.skin.Backdrop = Backdrop
+		db.skin.Colors = Colors
+	end
+end
+
+-- :RemoveModuleOptions(): Removes a module's skinning option group.
+function BF:RemoveModuleOptions(module) -- Edit: 5/21
+	if self.options.args.addons.args[module] then
+		self.options.args.addons.args[module] = nil
+	end
+end
+
 
 -- Set up the core options table.
 do
@@ -123,8 +163,8 @@ do
 			global = {},
 			addons = {
 				type = "group",
-				name = L["Addon Settings"],
-				order = 3,
+				name = L["Addons"],
+				order = 2,
 				args = {
 					desc = {
 						type = "description",
@@ -135,8 +175,8 @@ do
 			},
 			modules = {
 				type = "group",
-				name = L["Module Options"],
-				order = 4,
+				name = L["Modules"],
+				order = 3,
 				args = {
 					desc = {
 						type = "description",
@@ -148,12 +188,46 @@ do
 				type = "group",
 				name = L["About"],
 				order = 10,
-				childGroups = "tab",
 				args = {
 					desc = {
 						type = "description",
 						name = L["BF_INFO"].."\n",
 						order = 1,
+					},
+					vers = {
+						type = "description",
+						name = "|cffffcc00"..L["Version"]..":|r "..GetAddOnMetadata(BF.name, "Version"),
+						order = 2,
+					},
+					auth = {
+						type = "description",
+						name = "|cffffcc00"..L["Authors"]..":|r |cff999999JJ Sheets|r, StormFX",
+						order = 3,
+					},
+					url = {
+						type = "description",
+						name = "|cffffcc00"..L["Web Site"]..":|r "..GetAddOnMetadata(BF.name, "X-WebSite").."\n",
+						order = 4,
+					},
+					fb_head = {
+						type = "description",
+						name = "|cffffcc00"..L["Feedback"].."|r",
+						order = 5,
+					},
+					fb_text = {
+						type = "description",
+						name = L["FB_TEXT"].."\n",
+						order = 6,
+					},
+					trans_head = {
+						type = "description",
+						name = "|cffffcc00"..L["Translations"].."|r",
+						order = 7,
+					},
+					trans_text = {
+						type = "description",
+						name = L["TRANS_TEXT"].."\n\n",
+						order = 8,
 					},
 					mapicon = {
 						type = "toggle",
@@ -161,49 +235,7 @@ do
 						desc = L["Show the minimap icon."],
 						get = function() return not db.mapicon.hide end,
 						set = function() ToggleIcon() end,
-						order = 1,
-					},
-					about = {
-						type = "group",
-						name = L["About"],
-						order = 3,
-						args = {
-							vers = {
-								type = "description",
-								name = "|cffffcc00"..L["Version"]..":|r "..GetAddOnMetadata(BF.name, "Version"),
-								order = 2,
-							},
-							auth = {
-								type = "description",
-								name = "|cffffcc00"..L["Authors"]..":|r |cff999999JJ Sheets|r, StormFX",
-								order = 4,
-							},
-							url = {
-								type = "description",
-								name = "|cffffcc00"..L["Web Site"]..":|r "..GetAddOnMetadata(BF.name, "X-WebSite").."\n",
-								order = 6,
-							},
-							fb_head = {
-								type = "description",
-								name = "|cffffcc00"..L["Feedback"].."|r",
-								order = 8,
-							},
-							fb_text = {
-								type = "description",
-								name = L["FB_TEXT"].."\n",
-								order = 9,
-							},
-							trans_head = {
-								type = "description",
-								name = "|cffffcc00"..L["Translations"].."|r",
-								order = 10,
-							},
-							trans_text = {
-								type = "description",
-								name = L["TRANS_TEXT"].."\n",
-								order = 11,
-							},
-						},
+						order = 9,
 					},
 				},
 			},
@@ -260,7 +292,7 @@ do
 		BF.options.args.global = {
 			type = "group",
 			name = L["Global Settings"],
-			order = 2,
+			order = 1,
 			args = {
 				__bf_header = {
 					type = "description",
@@ -270,7 +302,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
-					get = nil,
+					get = getSkin, -- Edit: 5/21
 					set = setSkin,
 					arg = LBFGroup,
 					style = "dropdown",
@@ -410,7 +442,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
-					get = nil,
+					get = getSkin, -- Edit: 5/21
 					set = setSkin,
 					arg = LBFGroup,
 					style = "dropdown",
