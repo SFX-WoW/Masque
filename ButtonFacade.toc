@@ -27,7 +27,7 @@ Libs\AceGUI-3.0\AceGUI-3.0.xml
 Libs\AceConfig-3.0\AceConfig-3.0.xml
 Libs\AceLocale-3.0\AceLocale-3.0.xml
 #@end-no-lib-strip@
-Libs\LibButtonFacade\LibButtonFacade-1.0.xml
+Libs\LibButtonFacade-1.0\LibButtonFacade-1.0.xml
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 #@no-lib-strip@
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
