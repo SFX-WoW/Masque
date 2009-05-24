@@ -49,7 +49,7 @@ local mod = BF:NewModule("BlizzardBuffs")
 -- Locals
 local pairs, insert = pairs, table.insert
 local db
-local buffList = {}
+local buffs = {}
 local colors = { 
 	none = {0.8, 0, 0, 1},
 	Magic = {0.2, 0.6, 1, 1},
@@ -133,20 +133,15 @@ function mod:OnEnable()
 	-- Hook the buff frame.
 	hooksecurefunc("BuffFrame_Update", self.Update)
 	self:Update()
-
 	db.enabled = true
 end
 
 -- :OnDisable(): Disable function.
 function mod:OnDisable()
-	local group = LBF:Group("BlizzardBuffs")
-	for _, buff in pairs(buffList) do
-		group:RemoveButton(buff)
-	end
-	group:Delete()
+	LBF:Group("BlizzardBuffs"):Delete()
 	BF:RemoveModuleOptions("BlizzardBuffs")
-	wipe(buffList)
 	db.enabled = false
+	wipe(buffs)
 end
 
 -- :Refresh(): Refreshes the module's state.
@@ -167,11 +162,11 @@ function mod:Update()
 	for i=1, BUFF_ACTUAL_DISPLAY do
 		local btn = "BuffButton"..i
 		if _G[btn] then
-			buffList[btn] = btn
+			buffs[btn] = btn
 			group:AddButton(_G[btn])
 		else
-			if buffList[btn] then
-				buffList[btn] = nil
+			if buffs[btn] then
+				buffs[btn] = nil
 				group:RemoveButton(_G[btn])
 			end
 		end
@@ -182,13 +177,13 @@ function mod:Update()
 		if not t then t = "none" end
 		local btn = "DebuffButton"..i
 		if _G[btn] then
-			buffList[btn] = btn
+			buffs[btn] = btn
 			local border = btn.."Border"
 			group:AddButton(_G[btn])
 			_G[border]:SetVertexColor(unpack(colors[t]))
 		else
-			if buffList[btn] then
-				buffList[btn] = nil
+			if buffs[btn] then
+				buffs[btn] = nil
 				group:RemoveButton(_G[btn])
 			end
 		end
@@ -197,13 +192,13 @@ function mod:Update()
 	for i=1, 2 do
 		local btn = "TempEnchant"..i
 		if _G[btn] then
-			buffList[btn] = btn
+			buffs[btn] = btn
 			local border = btn.."Border"
 			group:AddButton(_G[btn])
 			_G[border]:SetVertexColor(unpack(colors["Enchant"]))
 		else
-			if buffList[btn] then
-				buffList[btn] = nil
+			if buffs[btn] then
+				buffs[btn] = nil
 				group:RemoveButton(_G[btn])
 			end
 		end
@@ -212,7 +207,7 @@ end
 
 -- :SkinCallBack(): Callback function to store settings.
 function mod:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
-	if Group == "BlizzardBuffs" then
+	if not Group then
 		db.skin.ID = SkinID
 		db.skin.Gloss = Gloss
 		db.skin.Backdrop = Backdrop

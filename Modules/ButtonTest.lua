@@ -289,7 +289,7 @@ end
 
 -- :SkinCallBack(): Callback function to store settings.
 function mod:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
-	if Group == "ButtonTest" then
+	if not Group then
 		db.skin.ID = SkinID
 		db.skin.Gloss = Gloss
 		db.skin.Backdrop = Backdrop

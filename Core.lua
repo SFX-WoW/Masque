@@ -124,7 +124,7 @@ end
 
 -- :SkinCallBack(): Callback function to store settings.
 function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
-	if Group == "ButtonFacade" then
+	if not Group then
 		db.skin.ID = SkinID
 		db.skin.Gloss = Gloss
 		db.skin.Backdrop = Backdrop

@@ -101,9 +101,7 @@ local function fireSkinCB(SkinID,Gloss,Backdrop,Addon,Group,Button,Colors)
 	local args = callbacks[Addon]
 	if args then
 		for arg, callback in pairs(args) do
--- Edit: 5/21
--- 			callback(arg and arg,SkinID,Gloss,Backdrop,Group,Button,Colors)
-			callback(arg and arg,SkinID,Gloss,Backdrop,Group or Addon,Button,Colors)
+			callback(arg and arg,SkinID,Gloss,Backdrop,Group,Button,Colors)
 		end
 	end
 end

@@ -47,47 +47,20 @@ end
 local mod = BF:NewModule("BlizzardButtons")
 
 -- Locals
-local _G, pairs, strsub, insert, tostring = _G, pairs, strsub, table.insert, tostring
+local _G, pairs, strsub, tostring = _G, pairs, strsub, tostring
 local db
 
--- Button Groups
-local bars = {
-	ActionButtons = {
-		count = 12,
-		buttons = {},
-	},
-	BonusActionButtons = {
-		count = 12,
-		buttons = {},
-	},
-	MultiBarBottomLeftButtons = {
-		count = 12,
-		buttons = {},
-	},
-	MultiBarBottomRightButtons = {
-		count = 12,
-		buttons = {},
-	},
-	MultiBarLeftButtons = {
-		count = 12,
-		buttons = {},
-	},
-	MultiBarRightButtons = {
-		count = 12,
-		buttons = {},
-	},
-	ShapeshiftButtons = {
-		count = 10,
-		buttons = {},
-	},
-	PetActionButtons = {
-		count = 10,
-		buttons = {},
-	},
-	PossessButtons = {
-		count = 2,
-		buttons = {},
-	},
+-- Buttons
+local buttons = {
+	ActionButtons = 12,
+	BonusActionButtons = 12,
+	MultiBarBottomLeftButtons = 12,
+	MultiBarBottomRightButtons = 12,
+	MultiBarLeftButtons = 12,
+	MultiBarRightButtons = 12,
+	ShapeshiftButtons = 10,
+	PetActionButtons = 10,
+	PossessButtons = 2,
 }
 
 -- Options
@@ -130,6 +103,12 @@ function mod:OnInitialize()
 	local defaults = {
 		profile = {
 			enabled = false,
+			skin = {
+				ID = "Blizzard",
+				Gloss = false,
+				Backdrop = false,
+				Colors = {},
+			},
 			["*"] = {
 				skin = {
 					ID = "Blizzard",
@@ -161,14 +140,13 @@ function mod:OnEnable()
 	LBF:RegisterSkinCallback("BlizzardButtons", self.SkinCallback, self)
 
 	-- Apply the global skin.
-	LBF:Group("BlizzardButtons"):Skin(db["BlizzardButtons"].skin.ID, db["BlizzardButtons"].skin.Gloss, db["BlizzardButtons"].skin.Backdrop, db["BlizzardButtons"].skin.Colors)
+	LBF:Group("BlizzardButtons"):Skin(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors)
 
 	-- Apply the group skins.
-	for group, data in pairs(bars) do
+	for group, count in pairs(buttons) do
 		LBF:Group("BlizzardButtons", group):Skin(db[group].skin.ID, db[group].skin.Gloss, db[group].skin.Backdrop, db[group].skin.Colors)
-		for i=1, data.count do
+		for i=1, count do
 			local button = strsub(group, 1, -2)..tostring(i)
-			insert(bars[group].buttons, button)
 			LBF:Group("BlizzardButtons", group):AddButton(_G[button])
 			-- Change the frame strata on the ActionButtons group so that the icons are visible.
 			if group == "ActionButtons" then
@@ -181,14 +159,7 @@ end
 
 -- :OnDisable(): Disable function.
 function mod:OnDisable()
-	local LBFG = LBF:Group("BlizzardButtons")
-	for group, data in pairs(bars) do
-		for _, button in pairs(data.buttons) do
-			LBFG:RemoveButton(button)
-		end
-		LBFG:Delete()
-		bars[group].buttons = {}
-	end
+	LBF:Group("BlizzardButtons"):Delete()
 	BF:RemoveModuleOptions("BlizzardButtons")
 	db.enabled = false
 end
@@ -206,7 +177,12 @@ end
 
 -- :SkinCallBack(): Callback function to store settings.
 function mod:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
-	if Group then
+	if not Group then
+		db.skin.ID = SkinID
+		db.skin.Gloss = Gloss
+		db.skin.Backdrop = Backdrop
+		db.skin.Colors = Colors
+	else
 		db[Group].skin.ID = SkinID
 		db[Group].skin.Gloss = Gloss
 		db[Group].skin.Backdrop = Backdrop
