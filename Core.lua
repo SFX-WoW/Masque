@@ -5,6 +5,8 @@
 	Author..: JJ Sheets, StormFX
 ]]
 
+-- [ Set Up ] --
+
 ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0")
 local BF = ButtonFacade
 
@@ -12,22 +14,25 @@ local BF = ButtonFacade
 local mdb, db
 local pairs, gsub = pairs, gsub
 
--- Libraries
+-- [ Libraries ] --
+
 local LBF = LibStub("LibButtonFacade")
 local L = LibStub("AceLocale-3.0"):GetLocale("ButtonFacade")
 local ACD = LibStub("AceConfigDialog-3.0")
 local LDB = LibStub("LibDataBroker-1.1", true)
 local Icon = LibStub("LibDBIcon-1.0", true)
 
+-- [ Core Methods ] --
+
 -- :OnInitialize(): Initialize the add-on.
 function BF:OnInitialize()
-	-- Check the DB and reset it if it's old.
+	-- Reset the DB if it's old.
 	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 7) then
 		ButtonFacadeDB = {}
 		ButtonFacadeDB.version = 7
 	end
 
-	-- Set up defaults.
+	-- Set up the profile defaults.
 	local defaults = {
 		profile = {
 			skin = {
@@ -41,6 +46,9 @@ function BF:OnInitialize()
 				radius = 80,
 				minimapPos = 220,
 			},
+			modules = {
+				["*"] = false,
+			}
 		},
 	}
 
@@ -54,22 +62,24 @@ function BF:OnInitialize()
 	self.options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	self.options.args.profiles.order = 4
 	db = self.db.profile
+
+	-- Load enabled modules.
+	for name, module in self:IterateModules() do 
+		module:SetEnabledState(db.modules[name])
+	end
 end
 
 -- :OnEnable():
 function BF:OnEnable()
-	-- Register the skin callback function.
+	-- Set up the global skin
 	LBF:RegisterSkinCallback("ButtonFacade", self.SkinCallback, self)
-
-	-- Apply the global skin.
 	LBF:Group():Skin(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors)
 
 	-- Update the elements.
 	LBF:ElementListCallback(self.ElementListUpdate, self)
 
 	-- Set up options.
-	local ACR = LibStub("AceConfigRegistry-3.0")
-	ACR:RegisterOptionsTable("ButtonFacade", self.options)
+	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable("ButtonFacade", self.options)
 
 	-- Set up options panels.
 	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "global")
@@ -83,6 +93,7 @@ function BF:OnEnable()
 	self:RegisterChatCommand("buttonfacade", function() self:OpenOptions() end)
 
 	-- Register with Broker.
+	-- Remove this!
 	if LDB then
 		-- LDB display object
 		self.obj = LDB:NewDataObject(self.name, {
@@ -117,6 +128,16 @@ end
 function BF:Refresh()
 	db = self.db.profile
 	LBF:Group():SkinGroup(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors)
+	for name, module in self:IterateModules() do 
+		if type(module.Refresh) == "function" then
+			module:Refresh()
+		end
+		if db.modules[name] then
+			module:Enable()
+		else
+			module:Disable()
+		end
+	end
 	if Icon then
 		Icon:Refresh(self.name, db.mapicon)
 	end
@@ -132,6 +153,18 @@ function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
 	end
 end
 
+-- [ Module Functions ] --
+
+-- :ToggleModule(): Toggles a module.
+function BF:ToggleModule(name, state)
+	db.modules[name] = state or false
+	if state then
+		BF:EnableModule(name)
+	else
+		BF:DisableModule(name)
+	end
+end
+
 -- :RemoveModuleOptions(): Removes a module's skinning option group.
 function BF:RemoveModuleOptions(module)
 	if self.options.args.addons.args[module] then
@@ -139,8 +172,8 @@ function BF:RemoveModuleOptions(module)
 	end
 end
 
+-- [ Core GUI Options ]] --
 
--- Set up the core options table.
 do
 	-- ToggleIcon(): Toggles the minimap icon.
 	local function ToggleIcon()

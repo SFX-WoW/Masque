@@ -5,17 +5,12 @@
 	Author..: JJ Sheets, StormFX
 ]]
 
--- Dependencies
-local BF = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
-local LBF = LibStub("LibButtonFacade")
-if not LBF then return end
-
 -- [ Localization ] --
 
 -- Hard-code enUS/enGB.
 local L = {
 	["Button Test"] = "Button Test",
-	["BTEST_Desc"] = "Displays a set of buttons that can be used to verify the functionality of a skin.",
+	["Displays a set of buttons that can be used to verify the functionality of a skin."] = "Displays a set of buttons that can be used to verify the functionality of a skin.",
 	["Enable Module"] = "Enable Module",
 	["Enable this module."]	= "Enable this module.",
 	["Enable Drag"] = "Enable Drag",
@@ -46,17 +41,22 @@ do
 	end
 end
 
+-- Dependencies
+local BF = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
+local LBF = LibStub("LibButtonFacade")
+if not LBF then return end
+
 -- [ Set Up ] --
 
 -- Create the module.
 local mod = BF:NewModule("ButtonTest")
 
 -- Locals
-local db
+local db, dragbar
 local buttons = {}
-local dragbar
 
--- Options
+-- [ Options ] --
+
 local options = {
 	type = "group",
 	name = L["Button Test"],
@@ -68,7 +68,7 @@ local options = {
 		},
 		desc = {
 			type = "description",
-			name = L["BTEST_Desc"].."\n",
+			name = L["Displays a set of buttons that can be used to verify the functionality of a skin."].."\n",
 			order = 2,
 		},
 		enable = {
@@ -76,13 +76,7 @@ local options = {
 			name = L["Enable Module"],
 			desc = L["Enable this module."],
 			get = function() return mod:IsEnabled() end,
-			set = function(info, s)
-				if s then
-					BF:EnableModule("ButtonTest")
-				else
-					BF:DisableModule("ButtonTest")
-				end
-			end,
+			set = function(info, s)	BF:ToggleModule("ButtonTest", s) end,
 			order = 3,
 		},
 		drag = {
@@ -95,7 +89,7 @@ local options = {
 				mod:SetDrag()
 			end,
 			order = 4,
-			disabled = function() return not db.enabled end
+			disabled = function() return not mod:IsEnabled() end
 		},
 		info = {
 			type = "description",
@@ -151,12 +145,6 @@ function mod:OnInitialize()
 	-- Set up the DB.
 	self.db = self:RegisterNamespace("ButtonTest", defaults)
 	db = self.db.profile
-	self:SetEnabledState(db.enabled)
-
-	-- Hook into the root events.
-	BF.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
-	BF.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
-	BF.db.RegisterCallback(self, "OnProfileReset", "Refresh")
 
 	-- Set up options.
 	self:RegisterModuleOptions("ButtonTest", options)
@@ -225,7 +213,6 @@ function mod:OnEnable()
 	buttons[1]:ClearAllPoints()
 	buttons[1]:SetPoint("TOPLEFT", UIParent, "TOPLEFT", db.x or 100, db.y or -200)
 	self:SetDrag()
-	db.enabled = true
 end
 
 -- :OnEnable(): Disable function.
@@ -239,18 +226,11 @@ function mod:OnDisable()
 	buttons[1]:SetPoint("TOPLEFT", UIParent, "BOTTOMRIGHT", 100, -200)
 	group:Delete()
 	BF:RemoveModuleOptions("ButtonTest")
-	db.enabled = false
 end
 
 -- :Refresh(): Refreshes the module's state.
 function mod:Refresh()
 	db = self.db.profile
-	if db.enabled then
-		self:Disable()
-		self:Enable()
-	else
-		self:Disable()
-	end
 end
 
 -- setDrag(): Sets the drag state.

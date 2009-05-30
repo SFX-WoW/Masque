@@ -5,19 +5,16 @@
 	Author..: StormFX
 ]]
 
--- Dependencies
-local BF = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
-local LBF = LibStub("LibButtonFacade")
-if not LBF then return end
-
 -- [ Localization ] --
 
 -- Hard-code enUS/enGB.
 local L = {
 	["Blizzard Buttons"] = "Blizzard Buttons",
-	["BBTN_Desc"] = "Allows the default Blizzard buttons to be skinned by ButtonFacade.",
+	["Allows the default Blizzard buttons to be skinned by ButtonFacade."] = "Allows the default Blizzard buttons to be skinned by ButtonFacade.",
 	["Enable Module"] = "Enable Module",
 	["Enable this module."]	= "Enable this module.",
+	["Skin Main Bar"] = "Skin Main Bar",
+	["Skin the buttons of the main action bar."] = "Skin the buttons of the main action bar.",
 }
 -- Automatically inject all other locales. Please use the localization application on WoWAce.com to update these.
 -- http://www.wowace.com/projects/buttonfacade/localization/namespaces/buttontest/
@@ -41,18 +38,20 @@ do
 	end
 end
 
+-- Dependencies
+local BF = LibStub("AceAddon-3.0"):GetAddon("ButtonFacade")
+local LBF = LibStub("LibButtonFacade")
+if not LBF then return end
+
 -- [ Set Up ] --
 
 -- Create the module.
 local mod = BF:NewModule("BlizzardButtons")
 
 -- Locals
-local _G, pairs, strsub, tostring = _G, pairs, strsub, tostring
+local _G, pairs, strsub, format = _G, pairs, strsub, format
 local db
-
--- Buttons
 local buttons = {
-	ActionButtons = 12,
 	BonusActionButtons = 12,
 	MultiBarBottomLeftButtons = 12,
 	MultiBarBottomRightButtons = 12,
@@ -63,7 +62,8 @@ local buttons = {
 	PossessButtons = 2,
 }
 
--- Options
+-- [ Options ] --
+
 local options = {
 	type = "group",
 	name = L["Blizzard Buttons"],
@@ -75,7 +75,7 @@ local options = {
 		},
 		info = {
 			type = "description",
-			name = L["BBTN_Desc"].."\n",
+			name = L["Allows the default Blizzard buttons to be skinned by ButtonFacade."].."\n",
 			order = 2,
 		},
 		enable = {
@@ -83,14 +83,20 @@ local options = {
 			name = L["Enable Module"],
 			desc = L["Enable this module."],
 			get = function() return mod:IsEnabled() end,
-			set = function(info, s)
-				if s then
-					BF:EnableModule("BlizzardButtons")
-				else
-					BF:DisableModule("BlizzardButtons")
-				end
-			end,
+			set = function(info, s) BF:ToggleModule("BlizzardButtons", s) end,
 			order = 3,
+		},
+		mainbar = {
+			type = "toggle",
+			name = L["Skin Main Bar"],
+			desc = L["Skin the buttons of the main action bar."],
+			get = function() return db.mainbar end,
+			set = function(info, s)
+				db.mainbar = s
+				mod:UpdateMainBar()
+			end,
+			disabled = function() return not mod:IsEnabled() end,
+			order = 4,
 		},
 	},
 }
@@ -103,6 +109,7 @@ function mod:OnInitialize()
 	local defaults = {
 		profile = {
 			enabled = false,
+			mainbar = true,
 			skin = {
 				ID = "Blizzard",
 				Gloss = false,
@@ -123,14 +130,8 @@ function mod:OnInitialize()
 	-- Set up the DB.
 	self.db = self:RegisterNamespace("BlizzardButtons", defaults)
 	db = self.db.profile
-	self:SetEnabledState(db.enabled)
 
-	-- Hook into the root events.
-	BF.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
-	BF.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
-	BF.db.RegisterCallback(self, "OnProfileReset", "Refresh")
-
--- Set up options.
+	-- Set up options.
 	self:RegisterModuleOptions("BlizzardButtons", options)
 end
 
@@ -146,32 +147,40 @@ function mod:OnEnable()
 	for group, count in pairs(buttons) do
 		LBF:Group("BlizzardButtons", group):Skin(db[group].skin.ID, db[group].skin.Gloss, db[group].skin.Backdrop, db[group].skin.Colors)
 		for i=1, count do
-			local button = strsub(group, 1, -2)..tostring(i)
+			local button = strsub(group, 1, -2).."%d"
+			button = button:format(i)
 			LBF:Group("BlizzardButtons", group):AddButton(_G[button])
-			-- Change the frame strata on the ActionButtons group so that the icons are visible.
-			if group == "ActionButtons" then
-				_G[button]:SetFrameStrata("HIGH")
-			end
 		end
 	end
-	db.enabled = true
+	self:UpdateMainBar()
 end
 
 -- :OnDisable(): Disable function.
 function mod:OnDisable()
 	LBF:Group("BlizzardButtons"):Delete()
 	BF:RemoveModuleOptions("BlizzardButtons")
-	db.enabled = false
 end
 
--- :Refresh(): Refreshes the module's state.
+-- :Refresh(): Refreshes the module's profile.
 function mod:Refresh()
 	db = self.db.profile
-	if db.enabled then
-		self:Disable()
-		self:Enable()
+end
+
+-- :UpdateMainBar(): Skins the main menu bar buttons if enabled.
+function mod:UpdateMainBar()
+	local g = "ActionButtons"
+	local group = LBF:Group("BlizzardButtons", g)
+	if db.mainbar then
+		group:Skin(db[g].skin.ID, db[g].skin.Gloss, db[g].skin.Backdrop, db[g].skin.Colors)
+		for i=1, 12 do
+			local button = "ActionButton%d"
+			button = button:format(i)
+			group:AddButton(_G[button])
+			-- Change the frame strata on the ActionButtons group so that the icons are visible.
+			_G[button]:SetFrameStrata("HIGH")
+		end
 	else
-		self:Disable()
+		group:Delete()
 	end
 end
 
