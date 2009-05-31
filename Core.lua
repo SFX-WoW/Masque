@@ -12,7 +12,7 @@ local BF = ButtonFacade
 
 -- Locals
 local mdb, db
-local pairs, gsub = pairs, gsub
+local pairs, gsub, format = pairs, gsub, format
 
 -- [ Libraries ] --
 
@@ -334,6 +334,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
+					desc = L["Set the skin."],
 					get = getSkin,
 					set = setSkin,
 					arg = LBFGroup,
@@ -345,6 +346,7 @@ do
 				__bf_gloss = {
 					type = "range",
 					name = L["Gloss"],
+					desc = L["Set the intensity of the gloss."],
 					get = getGloss,
 					set = setGloss,
 					arg = LBFGroup,
@@ -358,6 +360,7 @@ do
 				__bf_backdrop = {
 					type = "toggle",
 					name = L["Backdrop"],
+					desc = L["Toggle the backdrop."],
 					get = getBackdrop,
 					set = setBackdrop,
 					arg = LBFGroup,
@@ -372,6 +375,7 @@ do
 				__bf_ColorBackdrop = {
 					type = "color",
 					name = L["Backdrop"],
+					desc = L["Set the %s color."]:format(L["Backdrop"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Backdrop"},
@@ -381,6 +385,7 @@ do
 				__bf_ColorFlash = {
 					type = "color",
 					name = L["Flash"],
+					desc = L["Set the %s color."]:format(L["Flash"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Flash"},
@@ -389,7 +394,8 @@ do
 				},
 				__bf_ColorNormal = {
 					type = "color",
-					name = L["Normal Border"],
+					name = L["Normal"],
+					desc = L["Set the %s color."]:format(L["Normal"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Normal"},
@@ -398,7 +404,8 @@ do
 				},
 				__bf_ColorPushed = {
 					type = "color",
-					name = L["Pushed Border"],
+					name = L["Pushed"],
+					desc = L["Set the %s color."]:format(L["Pushed"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Pushed"},
@@ -407,7 +414,8 @@ do
 				},
 				__bf_ColorDisabled = {
 					type = "color",
-					name = L["Disabled Border"],
+					name = L["Disabled"],
+					desc = L["Set the %s color."]:format(L["Disabled"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Disabled"},
@@ -417,6 +425,7 @@ do
 				__bf_ColorChecked = {
 					type = "color",
 					name = L["Checked"],
+					desc = L["Set the %s color."]:format(L["Checked"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Checked"},
@@ -426,6 +435,7 @@ do
 				__bf_ColorBorder = {
 					type = "color",
 					name = L["Equipped"],
+					desc = L["Set the %s color."]:format(L["Equipped"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Border"},
@@ -435,6 +445,7 @@ do
 				__bf_ColorHighlight = {
 					type = "color",
 					name = L["Highlight"],
+					desc = L["Set the %s color."]:format(L["Highlight"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Highlight"},
@@ -444,6 +455,7 @@ do
 				__bf_ColorGloss = {
 					type = "color",
 					name = L["Gloss"],
+					desc = L["Set the %s color."]:format(L["Flash"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup,"Gloss"},
@@ -452,6 +464,7 @@ do
 				__bf_ResetColors = {
 					type = "execute",
 					name = L["Reset Colors"],
+					desc = L["Reset all colors."],
 					func = resetColors,
 					arg = LBFGroup,
 					order = 15,
@@ -474,6 +487,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
+					desc = L["Set the skin."],
 					get = getSkin,
 					set = setSkin,
 					arg = LBFGroup,
@@ -485,6 +499,7 @@ do
 				__bf_gloss = {
 					type = "range",
 					name = L["Gloss"],
+					desc = L["Set the intensity of the gloss."],
 					get = getGloss,
 					set = setGloss,
 					arg = LBFGroup,
@@ -498,6 +513,7 @@ do
 				__bf_backdrop = {
 					type = "toggle",
 					name = L["Backdrop"],
+					desc = L["Toggle the backdrop."],
 					get = getBackdrop,
 					set = setBackdrop,
 					arg = LBFGroup,
@@ -512,6 +528,7 @@ do
 				__bf_ColorBackdrop = {
 					type = "color",
 					name = L["Backdrop"],
+					desc = L["Set the %s color."]:format(L["Backdrop"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Backdrop"},
@@ -521,6 +538,7 @@ do
 				__bf_ColorFlash = {
 					type = "color",
 					name = L["Flash"],
+					desc = L["Set the %s color."]:format(L["Flash"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Flash"},
@@ -529,7 +547,8 @@ do
 				},
 				__bf_ColorNormal = {
 					type = "color",
-					name = L["Normal Border"],
+					name = L["Normal"],
+					desc = L["Set the %s color."]:format(L["Normal"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Normal"},
@@ -538,7 +557,8 @@ do
 				},
 				__bf_ColorPushed = {
 					type = "color",
-					name = L["Pushed Border"],
+					name = L["Pushed"],
+					desc = L["Set the %s color."]:format(L["Pushed"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Pushed"},
@@ -547,7 +567,8 @@ do
 				},
 				__bf_ColorDisabled = {
 					type = "color",
-					name = L["Disabled Border"],
+					name = L["Disabled"],
+					desc = L["Set the %s color."]:format(L["Disabled"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Disabled"},
@@ -557,6 +578,7 @@ do
 				__bf_ColorChecked = {
 					type = "color",
 					name = L["Checked"],
+					desc = L["Set the %s color."]:format(L["Checked"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Checked"},
@@ -566,6 +588,7 @@ do
 				__bf_ColorBorder = {
 					type = "color",
 					name = L["Equipped"],
+					desc = L["Set the %s color."]:format(L["Equipped"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Border"},
@@ -575,6 +598,7 @@ do
 				__bf_ColorHighlight = {
 					type = "color",
 					name = L["Highlight"],
+					desc = L["Set the %s color."]:format(L["Highlight"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Highlight"},
@@ -584,6 +608,7 @@ do
 				__bf_ColorGloss = {
 					type = "color",
 					name = L["Gloss"],
+					desc = L["Set the %s color."]:format(L["Flash"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Gloss"},
@@ -592,6 +617,7 @@ do
 				__bf_ResetColors = {
 					type = "execute",
 					name = L["Reset Colors"],
+					desc = L["Reset all colors."],
 					func = resetColors,
 					arg = LBFGroup,
 					order = 15,
@@ -613,6 +639,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
+					desc = L["Set the skin."],
 					get = getSkin,
 					set = setSkin,
 					arg = LBFGroup,
@@ -624,6 +651,7 @@ do
 				__bf_gloss = {
 					type = "range",
 					name = L["Gloss"],
+					desc = L["Set the intensity of the gloss."],
 					get = getGloss,
 					set = setGloss,
 					arg = LBFGroup,
@@ -637,6 +665,7 @@ do
 				__bf_backdrop = {
 					type = "toggle",
 					name = L["Backdrop"],
+					desc = L["Toggle the backdrop."],
 					get = getBackdrop,
 					set = setBackdrop,
 					arg = LBFGroup,
@@ -651,6 +680,7 @@ do
 				__bf_ColorBackdrop = {
 					type = "color",
 					name = L["Backdrop"],
+					desc = L["Set the %s color."]:format(L["Backdrop"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					hasAlpha = true,
@@ -660,6 +690,7 @@ do
 				__bf_ColorFlash = {
 					type = "color",
 					name = L["Flash"],
+					desc = L["Set the %s color."]:format(L["Flash"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Flash"},
@@ -668,7 +699,8 @@ do
 				},
 				__bf_ColorNormal = {
 					type = "color",
-					name = L["Normal Border"],
+					name = L["Normal"],
+					desc = L["Set the %s color."]:format(L["Normal"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Normal"},
@@ -677,7 +709,8 @@ do
 				},
 				__bf_ColorPushed = {
 					type = "color",
-					name = L["Pushed Border"],
+					name = L["Pushed"],
+					desc = L["Set the %s color."]:format(L["Pushed"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Pushed"},
@@ -686,7 +719,8 @@ do
 				},
 				__bf_ColorDisabled = {
 					type = "color",
-					name = L["Disabled Border"],
+					name = L["Disabled"],
+					desc = L["Set the %s color."]:format(L["Disabled"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Disabled"},
@@ -696,6 +730,7 @@ do
 				__bf_ColorChecked = {
 					type = "color",
 					name = L["Checked"],
+					desc = L["Set the %s color."]:format(L["Checked"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Checked"},
@@ -705,6 +740,7 @@ do
 				__bf_ColorBorder = {
 					type = "color",
 					name = L["Equipped"],
+					desc = L["Set the %s color."]:format(L["Equipped"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Border"},
@@ -714,6 +750,7 @@ do
 				__bf_ColorHighlight = {
 					type = "color",
 					name = L["Highlight"],
+					desc = L["Set the %s color."]:format(L["Highlight"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Highlight"},
@@ -723,6 +760,7 @@ do
 				__bf_ColorGloss = {
 					type = "color",
 					name = L["Gloss"],
+					desc = L["Set the %s color."]:format(L["Flash"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Gloss"},
@@ -731,6 +769,7 @@ do
 				__bf_ResetColors = {
 					type = "execute",
 					name = L["Reset Colors"],
+					desc = L["Reset all colors."],
 					func = resetColors,
 					arg = LBFGroup,
 					order = 15,
@@ -752,6 +791,7 @@ do
 				__bf_skin = {
 					type = "select",
 					name = L["Skin"],
+					desc = L["Set the skin."],
 					get = getSkin,
 					set = setSkin,
 					arg = LBFGroup,
@@ -763,6 +803,7 @@ do
 				__bf_gloss = {
 					type = "range",
 					name = L["Gloss"],
+					desc = L["Set the intensity of the gloss."],
 					get = getGloss,
 					set = setGloss,
 					arg = LBFGroup,
@@ -776,6 +817,7 @@ do
 				__bf_backdrop = {
 					type = "toggle",
 					name = L["Backdrop"],
+					desc = L["Toggle the backdrop."],
 					get = getBackdrop,
 					set = setBackdrop,
 					arg = LBFGroup,
@@ -790,6 +832,7 @@ do
 				__bf_ColorBackdrop = {
 					type = "color",
 					name = L["Backdrop"],
+					desc = L["Set the %s color."]:format(L["Backdrop"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Backdrop"},
@@ -799,6 +842,7 @@ do
 				__bf_ColorFlash = {
 					type = "color",
 					name = L["Flash"],
+					desc = L["Set the %s color."]:format(L["Flash"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Flash"},
@@ -807,7 +851,8 @@ do
 				},
 				__bf_ColorNormal = {
 					type = "color",
-					name = L["Normal Border"],
+					name = L["Normal"],
+					desc = L["Set the %s color."]:format(L["Normal"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Normal"},
@@ -816,7 +861,8 @@ do
 				},
 				__bf_ColorPushed = {
 					type = "color",
-					name = L["Pushed Border"],
+					name = L["Pushed"],
+					desc = L["Set the %s color."]:format(L["Pushed"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Pushed"},
@@ -825,7 +871,8 @@ do
 				},
 				__bf_ColorDisabled = {
 					type = "color",
-					name = L["Disabled Border"],
+					name = L["Disabled"],
+					desc = L["Set the %s color."]:format(L["Disabled"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Disabled"},
@@ -835,6 +882,7 @@ do
 				__bf_ColorChecked = {
 					type = "color",
 					name = L["Checked"],
+					desc = L["Set the %s color."]:format(L["Checked"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Checked"},
@@ -844,6 +892,7 @@ do
 				__bf_ColorBorder = {
 					type = "color",
 					name = L["Equipped"],
+					desc = L["Set the %s color."]:format(L["Equipped"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Border"},
@@ -853,6 +902,7 @@ do
 				__bf_ColorHighlight = {
 					type = "color",
 					name = L["Highlight"],
+					desc = L["Set the %s color."]:format(L["Highlight"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Highlight"},
@@ -862,6 +912,7 @@ do
 				__bf_ColorGloss = {
 					type = "color",
 					name = L["Gloss"],
+					desc = L["Set the %s color."]:format(L["Flash"]),
 					get = getLayerColor,
 					set = setLayerColor,
 					arg = {LBFGroup, "Gloss"},
@@ -870,6 +921,7 @@ do
 				__bf_ResetColors = {
 					type = "execute",
 					name = L["Reset Colors"],
+					desc = L["Reset all colors."],
 					func = resetColors,
 					arg = LBFGroup,
 					order = 15,
