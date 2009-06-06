@@ -25,14 +25,8 @@ externals:
    Libs/AceGUI-3.0:
       url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceGUI-3.0
       tag: latest
-   Libs/AceHook-3.0:
-      url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceHook-3.0
-      tag: latest
    Libs/AceLocale-3.0:
       url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
-      tag: latest
-   Libs/LibDBIcon-1.0:
-      url: svn://svn.wowace.com/wow/libdbicon-1-0/mainline/trunk/LibDBIcon-1.0
       tag: latest
 
 license-output: License.txt

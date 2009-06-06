@@ -11,8 +11,8 @@
 ## Author: JJSheets, StormFX
 ## X-eMail: stormfx@gmail.com
 ## X-Website: http://www.wowace.com/projects/buttonfacade/
-## X-Category: Action Bars
-## OptionalDeps: Ace3, LibDataBroker-1.1, LibDBIcon-1.0
+## X-Category: Interface Enhancements
+## OptionalDeps: Ace3
 ## SavedVariables: ButtonFacadeDB
 
 # Embeds
@@ -23,16 +23,11 @@ Libs\AceAddon-3.0\AceAddon-3.0.xml
 Libs\AceConsole-3.0\AceConsole-3.0.xml
 Libs\AceDB-3.0\AceDB-3.0.xml
 Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
-Libs\AceHook-3.0\AceHook-3.0.xml
 Libs\AceGUI-3.0\AceGUI-3.0.xml
 Libs\AceConfig-3.0\AceConfig-3.0.xml
 Libs\AceLocale-3.0\AceLocale-3.0.xml
 #@end-no-lib-strip@
 Libs\LibButtonFacade-1.0\LibButtonFacade-1.0.xml
-Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
-#@no-lib-strip@
-Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
-#@end-no-lib-strip@
 
 # Locales
 Locales.lua

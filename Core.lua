@@ -19,33 +19,24 @@ local pairs, gsub, format = pairs, gsub, format
 local LBF = LibStub("LibButtonFacade")
 local L = LibStub("AceLocale-3.0"):GetLocale("ButtonFacade")
 local ACD = LibStub("AceConfigDialog-3.0")
-local LDB = LibStub("LibDataBroker-1.1", true)
-local Icon = LibStub("LibDBIcon-1.0", true)
 
 -- [ Core Methods ] --
 
 -- :OnInitialize(): Initialize the add-on.
 function BF:OnInitialize()
 	-- Reset the DB if it's old.
-	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 7) then
+	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 10) then
 		ButtonFacadeDB = {}
-		ButtonFacadeDB.version = 7
+		ButtonFacadeDB.version = 10
 	end
 
 	-- Set up the profile defaults.
 	local defaults = {
 		profile = {
-			skin = {
-				ID = "Blizzard",
-				Gloss = false,
-				Backdrop = false,
-				Colors = {},
-			},
-			mapicon = {
-				hide = false,
-				radius = 80,
-				minimapPos = 220,
-			},
+			SkinID = "Blizzard",
+			Gloss = false,
+			Backdrop = false,
+			Colors = {},
 			modules = {
 				["*"] = false,
 			}
@@ -60,12 +51,12 @@ function BF:OnInitialize()
 	self.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
 	self.db.RegisterCallback(self, "OnProfileReset", "Refresh")
 	self.options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-	self.options.args.profiles.order = 4
+	self.options.args.profiles.order = 10
 	db = self.db.profile
 
 	-- Load enabled modules.
 	for name, module in self:IterateModules() do 
-		module:SetEnabledState(db.modules[name])
+		module:SetEnabledState(self.db.profile.modules[name])
 	end
 end
 
@@ -73,7 +64,7 @@ end
 function BF:OnEnable()
 	-- Set up the global skin
 	LBF:RegisterSkinCallback("ButtonFacade", self.SkinCallback, self)
-	LBF:Group():Skin(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors)
+	LBF:Group():Skin(self.db.profile.SkinID, self.db.profile.Gloss, self.db.profile.Backdrop, self.db.profile.Colors)
 
 	-- Update the elements.
 	LBF:ElementListCallback(self.ElementListUpdate, self)
@@ -91,31 +82,6 @@ function BF:OnEnable()
 	-- Register chat commands.
 	self:RegisterChatCommand("bf", function() self:OpenOptions() end)
 	self:RegisterChatCommand("buttonfacade", function() self:OpenOptions() end)
-
-	-- Register with Broker.
-	-- Remove this!
-	if LDB then
-		-- LDB display object
-		self.obj = LDB:NewDataObject(self.name, {
-			type  = "launcher",
-			label = L["ButtonFacade"],
-			icon  = "Interface\\Addons\\ButtonFacade\\icon",
-			OnClick = function(self, button)
-				if button == "LeftButton" or button == "RightButton" then
-					BF:OpenOptions()
-				end
-			end,
-			OnTooltipShow = function(tip)
-				if not tip or not tip.AddLine then return end
-				tip:AddLine(L["ButtonFacade"])
-				tip:AddLine(L["Click to open the options window."], 1, 1, 1)
-			end,
-		})
-		-- LDBIcon
-		if Icon then
-			Icon:Register(self.name, self.obj, db.mapicon)
-		end
-	end
 end
 
 -- :OpenOptions(): Opens the options window.
@@ -126,39 +92,35 @@ end
 
 -- :Reload(): Reloads settings on profile activity.
 function BF:Refresh()
-	db = self.db.profile
-	LBF:Group():SkinGroup(db.skin.ID, db.skin.Gloss, db.skin.Backdrop, db.skin.Colors)
+	LBF:Group():SkinGroup(self.db.profile.SkinID, self.db.profile.Gloss, self.db.profile.Backdrop, self.db.profile.Colors)
 	for name, module in self:IterateModules() do 
 		if type(module.Refresh) == "function" then
 			module:Refresh()
 		end
-		if db.modules[name] then
+		if self.db.profile.modules[name] then
 			module:Enable()
 		else
 			module:Disable()
 		end
-	end
-	if Icon then
-		Icon:Refresh(self.name, db.mapicon)
 	end
 end
 
 -- :SkinCallBack(): Callback function to store settings.
 function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
 	if not Group then
-		db.skin.ID = SkinID
-		db.skin.Gloss = Gloss
-		db.skin.Backdrop = Backdrop
-		db.skin.Colors = Colors
+		self.db.profile.SkinID = SkinID
+		self.db.profile.Gloss = Gloss
+		self.db.profile.Backdrop = Backdrop
+		self.db.profile.Colors = Colors
 	end
 end
 
 -- [ Module Functions ] --
 
 -- :ToggleModule(): Toggles a module.
-function BF:ToggleModule(name, state)
-	db.modules[name] = state or false
-	if state then
+function BF:ToggleModule(name, enabled)
+	self.db.profile.modules[name] = enabled or false
+	if enabled then
 		BF:EnableModule(name)
 	else
 		BF:DisableModule(name)
@@ -175,18 +137,6 @@ end
 -- [ Core GUI Options ]] --
 
 do
-	-- ToggleIcon(): Toggles the minimap icon.
-	local function ToggleIcon()
-		db.mapicon.hide = not db.mapicon.hide
-		if Icon then
-			if db.mapicon.hide then
-				Icon:Hide(BF.name)
-			else
-				Icon:Show(BF.name)
-			end
-		end
-	end
-
 	-- Core Options
 	BF.options = {
 		type = "group",
@@ -260,14 +210,6 @@ do
 						type = "description",
 						name = L["TRANS_TEXT"].."\n\n",
 						order = 8,
-					},
-					mapicon = {
-						type = "toggle",
-						name = L["Minimap Icon"],
-						desc = L["Show the minimap icon."],
-						get = function() return not db.mapicon.hide end,
-						set = function() ToggleIcon() end,
-						order = 9,
 					},
 				},
 			},
