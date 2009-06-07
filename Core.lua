@@ -73,7 +73,7 @@ function BF:OnEnable()
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable("ButtonFacade", self.options)
 
 	-- Set up options panels.
-	self.OptionsPanel = ACD:AddToBlizOptions(self.name, L["ButtonFacade"], nil, "global")
+	self.OptionsPanel = ACD:AddToBlizOptions(self.name, self.name, nil, "global")
 	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addons"], self.name, "addons")
 	self.OptionsPanel.Modules = ACD:AddToBlizOptions(self.name, L["Modules"], self.name, "modules")
 	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(self.name, L["Profiles"], self.name, "profiles")

@@ -18,7 +18,6 @@ debug = true
 local L = AL3:NewLocale("ButtonFacade", "enUS", true, debug)
 if L then
 --@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, table-name="L", namespace="Core")@
--- Gonna hard-code enUS...
 if GetLocale() == "enUS" then return end
 end
 
