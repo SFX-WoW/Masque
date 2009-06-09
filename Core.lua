@@ -11,23 +11,21 @@ ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0"
 local BF = ButtonFacade
 
 -- Locals
-local mdb, db
 local pairs, gsub, format = pairs, gsub, format
 
 -- [ Libraries ] --
 
 local LBF = LibStub("LibButtonFacade")
 local L = LibStub("AceLocale-3.0"):GetLocale("ButtonFacade")
-local ACD = LibStub("AceConfigDialog-3.0")
 
 -- [ Core Methods ] --
 
 -- :OnInitialize(): Initialize the add-on.
 function BF:OnInitialize()
-	-- Reset the DB if it's old.
-	if (not ButtonFacadeDB) or (ButtonFacadeDB.version ~= 10) then
+	-- Clean up old SV stuff.
+	if not ButtonFacadeDB or not ButtonFacadeDB.clean then
 		ButtonFacadeDB = {}
-		ButtonFacadeDB.version = 10
+		ButtonFacadeDB.clean = true
 	end
 
 	-- Set up the profile defaults.
@@ -37,27 +35,16 @@ function BF:OnInitialize()
 			Gloss = false,
 			Backdrop = false,
 			Colors = {},
-			modules = {
-				["*"] = false,
-			}
 		},
 	}
 
 	-- Set up the DB.
-	mdb = LibStub("AceDB-3.0"):New("ButtonFacadeDB", nil, true) -- Set aside for module creation.
-	self.db = mdb
-	self.db:RegisterDefaults(defaults)
+	self.db = LibStub("AceDB-3.0"):New("ButtonFacadeDB", nil, true)
 	self.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
 	self.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
 	self.db.RegisterCallback(self, "OnProfileReset", "Refresh")
 	self.options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-	self.options.args.profiles.order = 10
-	db = self.db.profile
-
-	-- Load enabled modules.
-	for name, module in self:IterateModules() do 
-		module:SetEnabledState(self.db.profile.modules[name])
-	end
+	self.options.args.profiles.order = 100
 end
 
 -- :OnEnable():
@@ -73,11 +60,11 @@ function BF:OnEnable()
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable("ButtonFacade", self.options)
 
 	-- Set up options panels.
+	local ACD = LibStub("AceConfigDialog-3.0")
 	self.OptionsPanel = ACD:AddToBlizOptions(self.name, self.name, nil, "global")
 	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addons"], self.name, "addons")
-	self.OptionsPanel.Modules = ACD:AddToBlizOptions(self.name, L["Modules"], self.name, "modules")
+	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, L["About"], self.name, "about")
 	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(self.name, L["Profiles"], self.name, "profiles")
-	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, L["About"], self.name, "general")
 
 	-- Register chat commands.
 	self:RegisterChatCommand("bf", function() self:OpenOptions() end)
@@ -86,23 +73,13 @@ end
 
 -- :OpenOptions(): Opens the options window.
 function BF:OpenOptions()
-	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.About)
+	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.Profiles)
 	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
 end
 
 -- :Reload(): Reloads settings on profile activity.
 function BF:Refresh()
 	LBF:Group():SkinGroup(self.db.profile.SkinID, self.db.profile.Gloss, self.db.profile.Backdrop, self.db.profile.Colors)
-	for name, module in self:IterateModules() do 
-		if type(module.Refresh) == "function" then
-			module:Refresh()
-		end
-		if self.db.profile.modules[name] then
-			module:Enable()
-		else
-			module:Disable()
-		end
-	end
 end
 
 -- :SkinCallBack(): Callback function to store settings.
@@ -112,25 +89,6 @@ function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
 		self.db.profile.Gloss = Gloss
 		self.db.profile.Backdrop = Backdrop
 		self.db.profile.Colors = Colors
-	end
-end
-
--- [ Module Functions ] --
-
--- :ToggleModule(): Toggles a module.
-function BF:ToggleModule(name, enabled)
-	self.db.profile.modules[name] = enabled or false
-	if enabled then
-		BF:EnableModule(name)
-	else
-		BF:DisableModule(name)
-	end
-end
-
--- :RemoveModuleOptions(): Removes a module's skinning option group.
-function BF:RemoveModuleOptions(module)
-	if self.options.args.addons.args[module] then
-		self.options.args.addons.args[module] = nil
 	end
 end
 
@@ -155,18 +113,7 @@ do
 					},
 				},
 			},
-			modules = {
-				type = "group",
-				name = L["Modules"],
-				order = 3,
-				args = {
-					desc = {
-						type = "description",
-						name = L["MOD_INFO"].."\n",
-					},
-				},
-			},
-			general = {
+			about = {
 				type = "group",
 				name = L["About"],
 				order = 10,
@@ -216,16 +163,6 @@ do
 		}
 	}
 end
-
-BF:SetDefaultModulePrototype({
-	RegisterNamespace = function(self, name, defaults)
-		return mdb:RegisterNamespace(name, defaults)
-	end,
-	RegisterModuleOptions = function(self, name, options)
-		BF.options.args.modules.args = BF.options.args.modules.args or {}
-		BF.options.args.modules.args[name] = options
-	end,
-})
 
 do
 	local function getSkin(info)
