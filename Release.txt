@@ -1,0 +1,6 @@
+Release Notes:
+
+* Localization bump.
+* Added "About" file.
+* Packager tweaks.
+
