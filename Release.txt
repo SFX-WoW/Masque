@@ -1,4 +1,4 @@
-==== Release Notes =====
+==== Release Notes ====
 * Removed the "About" panel.
 * Added "About" file.
 * Localization bump.
