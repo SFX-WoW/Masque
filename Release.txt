@@ -1,6 +1,6 @@
 Release Notes:
-
-* Localization bump.
-* Added "About" file.
-* Packager tweaks.
+- Removed the "About" panel.
+- Added "About" file.
+- Localization bump.
+- Packager tweaks.
 

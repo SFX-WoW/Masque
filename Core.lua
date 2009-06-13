@@ -63,7 +63,6 @@ function BF:OnEnable()
 	local ACD = LibStub("AceConfigDialog-3.0")
 	self.OptionsPanel = ACD:AddToBlizOptions(self.name, self.name, nil, "global")
 	self.OptionsPanel.Addons = ACD:AddToBlizOptions(self.name, L["Addons"], self.name, "addons")
-	self.OptionsPanel.About = ACD:AddToBlizOptions(self.name, L["About"], self.name, "about")
 	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(self.name, L["Profiles"], self.name, "profiles")
 
 	-- Register chat commands.
@@ -93,76 +92,25 @@ function BF:SkinCallback(SkinID, Gloss, Backdrop, Group, Button, Colors)
 end
 
 -- [ Core GUI Options ]] --
-
-do
-	-- Core Options
-	BF.options = {
-		type = "group",
-		name = BF.name,
-		args = {
-			global = {},
-			addons = {
-				type = "group",
-				name = L["Addons"],
-				order = 2,
-				args = {
-					desc = {
-						type = "description",
-						name = L["ADDON_INFO"].."\n",
-						order = 1
-					},
+BF.options = {
+	type = "group",
+	name = BF.name,
+	args = {
+		global = {},
+		addons = {
+			type = "group",
+			name = L["Addons"],
+			order = 2,
+			args = {
+				desc = {
+					type = "description",
+					name = L["ADDON_INFO"].."\n",
+					order = 1
 				},
 			},
-			about = {
-				type = "group",
-				name = L["About"],
-				order = 10,
-				args = {
-					desc = {
-						type = "description",
-						name = L["BF_INFO"].."\n",
-						order = 1,
-					},
-					vers = {
-						type = "description",
-						name = "|cffffcc00"..L["Version"]..":|r "..GetAddOnMetadata(BF.name, "Version"),
-						order = 2,
-					},
-					auth = {
-						type = "description",
-						name = "|cffffcc00"..L["Authors"]..":|r |cff999999JJ Sheets|r, StormFX",
-						order = 3,
-					},
-					url = {
-						type = "description",
-						name = "|cffffcc00"..L["Web Site"]..":|r "..GetAddOnMetadata(BF.name, "X-WebSite").."\n",
-						order = 4,
-					},
-					fb_head = {
-						type = "description",
-						name = "|cffffcc00"..L["Feedback"].."|r",
-						order = 5,
-					},
-					fb_text = {
-						type = "description",
-						name = L["FB_TEXT"].."\n",
-						order = 6,
-					},
-					trans_head = {
-						type = "description",
-						name = "|cffffcc00"..L["Translations"].."|r",
-						order = 7,
-					},
-					trans_text = {
-						type = "description",
-						name = L["TRANS_TEXT"].."\n\n",
-						order = 8,
-					},
-				},
-			},
-		}
-	}
-end
+		},
+	},
+}
 
 do
 	local function getSkin(info)
