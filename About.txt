@@ -13,6 +13,13 @@ ButtonFacade, with its associated library, is a small add-on that allows for the
 
   * Access the options panel via the /bf chat command or the Interface Options Window.
 
+- Installation -
+
+  1. Download the package.
+  2. Extract the package to your "World of Warcraft\Interface\AddOns" directory.
+
+  Note: You must have ButtonFacade installed to use this add-on.
+
 - Feedback -
 
 Please post all comments in the ButtonFacade thread listed above. For bug reports and suggestions, please post a ticket on the project page.

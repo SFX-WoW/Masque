@@ -22,12 +22,6 @@ local L = LibStub("AceLocale-3.0"):GetLocale("ButtonFacade")
 
 -- :OnInitialize(): Initialize the add-on.
 function BF:OnInitialize()
-	-- Clean up old SV stuff.
-	if not ButtonFacadeDB or not ButtonFacadeDB.clean then
-		ButtonFacadeDB = {}
-		ButtonFacadeDB.clean = true
-	end
-
 	-- Set up the profile defaults.
 	local defaults = {
 		profile = {
