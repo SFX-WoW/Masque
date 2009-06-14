@@ -1,7 +1,7 @@
 package-as: ButtonFacade
 
 externals:
-   Libs/LibStub: svn://svn.wowace.com/wow/libstub/mainline/trunk
+   Libs/LibStub: svn://svn.wowace.com/wow/libstub/mainline/tags/1.0
    Libs/CallbackHandler-1.0: svn://svn.wowace.com/wow/callbackhandler/mainline/trunk/CallbackHandler-1.0
    Libs/AceAddon-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
    Libs/AceConfig-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
