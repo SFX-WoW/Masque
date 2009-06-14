@@ -7,16 +7,13 @@
 
 -- [ Set Up ] --
 
+local LBF = LibStub("LibButtonFacade")
 ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade", "AceConsole-3.0")
 local BF = ButtonFacade
 
 -- Locals
-local pairs, gsub, format = pairs, gsub, format
-
--- [ Libraries ] --
-
-local LBF = LibStub("LibButtonFacade")
 local L = LibStub("AceLocale-3.0"):GetLocale("ButtonFacade")
+local pairs, gsub, format = pairs, gsub, format
 
 -- [ Core Methods ] --
 
