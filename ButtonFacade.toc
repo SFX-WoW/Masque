@@ -1,6 +1,6 @@
-﻿## Interface: 30100
+﻿## Interface: 30200
 ## Title: ButtonFacade
-## Version: 3.1.@project-revision@
+## Version: 3.2.@project-revision@
 ## Notes: Allows the dynamic skinning of button-based addons.
 ## Notes-esES: Permite el texturizado dinámico de los botones base de los addons.
 ## Notes-frFR: Permet de skinner dynamiquement les addons basés sur des boutons.
