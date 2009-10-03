@@ -623,7 +623,7 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 		if btndata[layer] == nil then
 			btndata[layer] = _G[button:GetName()..layer]
 		end
-		btnlayer = btndata[layer]
+		local btnlayer = btndata[layer]
 		if btnlayer then
 			SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale,Color)
 		end
