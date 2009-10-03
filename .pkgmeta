@@ -23,7 +23,4 @@ externals:
     svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
 
 license-output: License.txt
-
-manual-changelog:
-  filename: History.txt
-  markup-type: creole
+manual-changelog: History.txt

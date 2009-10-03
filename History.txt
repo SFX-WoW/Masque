@@ -1,28 +1,28 @@
-__3.2.85__
+3.2.85
 
 - Fixed a library typo.
 - Adjusted the format and file name of the change log.
 - Localization update.
 
-__3.2.275__
+3.2.275
 
 - Fixed an erroneous library reference.
 - Fixed a core entry.
 - Updated ToC for 3.2.
 - Localization update.
 
-__3.1.270__
+3.1.270
 
 - Removed the "About" panel.
 - Added an "About" file.
 - Localization clean up and update.
 - Packager tweaks.
 
-__3.1.260__
+3.1.260
 
 - Module support removed. If you run into issues with an add-on you're using, ask the author to fix their add-on.
 
-__3.1.255__
+3.1.255
 
 - ButtonFacade GUI
   - ButtonFacade will now attempt to remember the global skin settings. To be clear, it will only remember the *global* setting. It is still up to add-on authors to save the skin settings for their own add-on's root group.
@@ -38,27 +38,27 @@ __3.1.255__
 Miscellaneous
   - Added WoWI's minion tag.
 
-__3.1.240__
+3.1.240
 
 - More tweaks to the "About" panel.
 - Fixed a type in the default skin. (Thanks, FlickerStreak)
 - Misc. clean up and tweaks.
 - Localization bump.
 
-__3.1.335__
+3.1.335
 
 - Updated for 3.1.
 - Updated locales.
 - GUI Adjustments.
 
-__3.1.225__
+3.1.225
 
 - Localization Updates
 - Updated to the WoWAce localization system.
 - Restructured the directories and files a bit.
 - New Icon.
 
-__3.0.208__
+3.0.208
 
 - frFR update. (Pettigrow)
 
