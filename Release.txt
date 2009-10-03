@@ -1,5 +1,0 @@
-Release Notes:
-- Fixed an erroneous library reference.
-- Fixed a core entry.
-- Updated ToC for 3.2.
-- Localization update.
