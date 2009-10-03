@@ -1,24 +1,22 @@
 ButtonFacade, with its associated library, is a small add-on that allows for the dynamic skinning of button-based add-ons. It is composed of two individual components:
 
-  * LibButtonFacade:
-    A small library which provides addon authors with the tools needed to skin their add-ons.
+- LibButtonFacade
+  A small library that provides addon authors with the tools needed to skin their add-ons.
 
-  * ButtonFacade
-    A GUI for the LibButtonFacade library that allows users to adjust their settings on a per-add-on, per-group and per-button basis.
+- ButtonFacade
+  A GUI for the LibButtonFacade library that allows users to adjust their settings on a per-add-on, per-group and per-button basis.
 
-  Project Page: http://www.wowace.com/projects/buttonfacade
-  Forum Thread: http://forums.wowace.com/showthread.php?t=11851
+Project Page: http://www.wowace.com/projects/buttonfacade
+Forum Thread: http://forums.wowace.com/showthread.php?t=1185
 
 - Options -
 
-  * Access the options panel via the /bf chat command or the Interface Options Window.
+Access the options panel via the /bf chat command or the Interface Options Window.
 
 - Installation -
 
-  1. Download the package.
-  2. Extract the package to your "World of Warcraft\Interface\AddOns" directory.
-
-  Note: You must have ButtonFacade installed to use this add-on.
+1. Download the package.
+2. Extract the package to your "World of Warcraft\Interface\AddOns" directory.
 
 - Feedback -
 
@@ -26,4 +24,4 @@ Please post all comments in the ButtonFacade thread listed above. For bug report
 
 - Translations -
 
-If you would like to help translate ButtonFacade, please use the localization system on the project page. Special thanks to those that have helped thus far.
+If you would like to help translate ButtonFacade, please use the localization system on the project page. Special thanks to those that have helped.

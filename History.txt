@@ -1,3 +1,5 @@
+Release History
+
 3.2.85
 
 - Fixed a library typo.
@@ -24,19 +26,19 @@
 
 3.1.255
 
-- ButtonFacade GUI
-  - ButtonFacade will now attempt to remember the global skin settings. To be clear, it will only remember the *global* setting. It is still up to add-on authors to save the skin settings for their own add-on's root group.
-  - Due to the GUI saving the settings and additional modules, the profile selection panel has been enabled once again.
-  - Tons of GUI tweaks and added some missing features (tool tips, etc), so the localizations will need to be updated.
+ButtonFacade GUI:
+- ButtonFacade will now attempt to remember the global skin settings. To be clear, it will only remember the *global* setting. It is still up to add-on authors to save the skin settings for their own add-on's root group.
+- Due to the GUI saving the settings and additional modules, the profile selection panel has been enabled once again.
+- Tons of GUI tweaks and added some missing features (tool tips, etc), so the localizations will need to be updated.
 
-- LibButtonFacade
-  - The "root" group is now called "ButtonFacade" instead of an empty string.
-  - The separator for RegIDs is now an underscore instead of a "pipe". Additionally, all root addon groups will have a RegID matching the name that they're registered with. IE, instead of Bartender4 having a RegID of "|Bartender4", it will have a RegID of "Bartender4". All subgroups will have RegIDs that follow the "Addon_Group_Button" format.
-  - The skin callback firing function will now return the addon's root group data if a group is not specified. This means that addon authors can call LBF:Group("Addon"):Skin(self.db.profile["Addon"].SkinID, ...) prior to calling it for their individual groups to ensure that ButtonFacade's GUI displays the current settings for the addon's root group correctly. Feel free to contact me if you're unsure how to implement this correctly or if it gives you problems/errors.
-  - Any author attempting to write a LBF GUI will need to register their addon with LBF via the skin callback function. The addon *MUST* be registered as "ButtonFacade".
+LibButtonFacade:
+- The "root" group is now called "ButtonFacade" instead of an empty string.
+- The separator for RegIDs is now an underscore instead of a "pipe". Additionally, all root addon groups will have a RegID matching the name that they're registered with. IE, instead of Bartender4 having a RegID of "|Bartender4", it will have a RegID of "Bartender4". All subgroups will have RegIDs that follow the "Addon_Group_Button" format.
+- The skin callback firing function will now return the addon's root group data if a group is not specified. This means that addon authors can call LBF:Group("Addon"):Skin(self.db.profile["Addon"].SkinID, ...) prior to calling it for their individual groups to ensure that ButtonFacade's GUI displays the current settings for the addon's root group correctly. Feel free to contact me if you're unsure how to implement this correctly or if it gives you problems/errors.
+- Any author attempting to write a LBF GUI will need to register their addon with LBF via the skin callback function. The addon *MUST* be registered as "ButtonFacade".
 
-Miscellaneous
-  - Added WoWI's minion tag.
+Miscellaneous:
+- Added WoWI's minion tag.
 
 3.1.240
 
@@ -62,12 +64,12 @@ Miscellaneous
 
 - frFR update. (Pettigrow)
 
-__3.0.205__
+3.0.205
 
 - Update zhTW/zhCN. (ananhaid/digmouse)
 - Fix for borderless skins (Dreamlayout, Blizzard, etc). (flickerstreak)
 
-__3.0.200__
+3.0.200
 
 - Removed FuBar/Harbor support.
 - Rebuilt the options window.
