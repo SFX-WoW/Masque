@@ -23,20 +23,12 @@ function lib:ElementListCallback(callback,arg)
 end
 
 local function regID(Addon,Group,Button)
--- Edit: 5/21
--- 	local r = ""
 	local r = "ButtonFacade"
 	if Addon then
--- Edit: 5/21
--- 		r = r.."|"..Addon
 		r = Addon
 		if Group then
--- Edit: 5/21
--- 			r = r.."|"..Group
 			r = r.."_"..Group
 			if Button then
--- Edit: 5/21
--- 				r = r.."|"..Button
 				r = r.."_"..Button
 			end
 		end
@@ -65,21 +57,15 @@ local function newGroup(Addon,Group,Button)
 	setmetatable(o,group_mt)
 	group[o.RegID] = o
 	if Addon then
--- Edit: 5/21
--- 		local a = group[""] or newGroup()
 		local a = group["ButtonFacade"] or newGroup()
 		o.Parent = a
 		a:AddSubGroup(Addon)
 	end
 	if Group then
--- Edit: 5/21
--- 		local a = group["|"..Addon] or newGroup(Addon)
 		local a = group[Addon] or newGroup(Addon)
 		o.Parent = a
 		a:AddSubGroup(Group)
 		if Button then
--- Edit: 5/21
--- 			local ag = group["|"..Addon.."|"..Group] or newGroup(Addon,Group)
 			local ag = group[Addon.."_"..Group] or newGroup(Addon,Group)
 			o.Parent = ag
 			ag:AddSubGroup(Button)
@@ -96,7 +82,6 @@ local freebackdrop = {}
 local callbacks = {}
 
 local function fireSkinCB(SkinID,Gloss,Backdrop,Addon,Group,Button,Colors)
--- Edit: 5/21
 	Addon = Addon or "ButtonFacade"
 	local args = callbacks[Addon]
 	if args then
@@ -678,20 +663,14 @@ end
 
 function lib:ListAddons()
 	lib:Group()
--- Edit: 5/21
--- 	return group[""].SubList
 	return group["ButtonFacade"].SubList
 end
 
 function lib:ListGroups(Addon)
--- Edit: 5/21
--- 	return group["|"..Addon].SubList
 	return group[Addon].SubList
 end
 
 function lib:ListButtons(Addon,Group)
--- Edit: 5/21
--- 	return group["|"..Addon.."|"..Group].SubList
 	return group[Addon.."_"..Group].SubList
 end
 
