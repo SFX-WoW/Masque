@@ -1,4 +1,4 @@
-﻿## Interface: 30300
+﻿## Interface: 30200
 ## Title: ButtonFacade
 ## Version: 3.3.@project-revision@
 ## Notes: Allows the dynamic skinning of button-based addons.
