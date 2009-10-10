@@ -1,5 +1,10 @@
 Release History
 
+3.3-Beta
+
+- Update ToC to 3.3.
+- Switch to GetObjectType since GetFrameType was removed.
+
 3.2.85
 
 - Fixed a library typo.

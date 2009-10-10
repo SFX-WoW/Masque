@@ -627,7 +627,7 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 	SkinHighlightLayer(skin,button,btndata,xscale,yscale,Color)
 	SkinPushedLayer(skin,button,btndata,xscale,yscale,Color)
 	SkinDisabledLayer(skin,button,btndata,xscale,yscale,Color)
-	if button:GetFrameType() == "CheckButton" then
+	if button:GetObjectType() == "CheckButton" then
 		SkinCheckedLayer(skin,button,btndata,xscale,yscale,Color)
 	end
 end
