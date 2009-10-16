@@ -82,7 +82,7 @@ LBF:AddSkin("Dream Layout", {
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
 	Gloss = {
-		Hide = true
+		Hide = true,
 	},
 	HotKey = {
 		Width = 36,
@@ -169,7 +169,7 @@ LBF:AddSkin("Zoomed", {
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
 	Gloss = {
-		Hide = true
+		Hide = true,
 	},
 	HotKey = {
 		Width = 36,

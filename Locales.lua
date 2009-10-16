@@ -27,9 +27,15 @@ if L then
 return
 end
 
-local L = AL3:NewLocale("ButtonFacade", "esES") or AL3:NewLocale("ButtonFacade", "esMX")
+local L = AL3:NewLocale("ButtonFacade", "esES")
 if L then
 --@localization(locale="esES", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
+return
+end
+
+local L = AL3:NewLocale("ButtonFacade", "esMX")
+if L then
+--@localization(locale="esMX", format="lua_additive_table", table-name="L", handle-unlocalized="comment", namespace="Core")@
 return
 end
 

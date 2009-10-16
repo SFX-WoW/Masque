@@ -1,9 +1,10 @@
 Release History
 
-3.3-Beta
+3.3.300
 
 - Update ToC to 3.3.
 - Switch to GetObjectType since GetFrameType was removed.
+- Copy esES to esMX localization to eliminate the hard-coded force use of esES for esMX.
 
 3.2.85
 
