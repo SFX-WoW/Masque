@@ -2,13 +2,11 @@
 	Project.: ButtonFacade
 	File....: Skins.lua
 	Version.: @file-revision@
-	Author..: JJ Sheets, StormFX
+	Author..: StormFX, JJ Sheets
 ]]
 
 local LBF = LibStub("LibButtonFacade",true)
-if not LBF then
-	return
-end
+if not LBF then return end
 
 -- [ Default Skins] --
 
@@ -25,6 +23,12 @@ LBF:AddSkin("Dream Layout", {
 		Height = 30,
 		TexCoords = {0.07,0.93,0.07,0.93},
 	},
+	Pushed = {
+		Width = 32,
+		Height = 32,
+		Color = {1, 1, 1, 1},
+		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
+	},
 	Flash = {
 		Width = 32,
 		Height = 32,
@@ -35,27 +39,8 @@ LBF:AddSkin("Dream Layout", {
 		Width = 32,
 		Height = 32,
 	},
-	AutoCast = {
-		Width = 30,
-		Height = 30,
-		OffsetX = 0.5,
-		OffsetY = -0.5,
-	},
 	Normal = {
 		Hide = true,
-	},
-	Pushed = {
-		Width = 32,
-		Height = 32,
-		Color = {1, 1, 1, 1},
-		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
-	},
-	Border = {
-		Width = 56,
-		Height = 56,
-		BlendMode = "ADD",
-		Color = {1, 1, 1, 1},
-		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Disabled = {
 		Hide = true,
@@ -67,12 +52,12 @@ LBF:AddSkin("Dream Layout", {
 		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
-	AutoCastable = {
-		Width = 54,
-		Height = 54,
-		OffsetX = 0.5,
-		OffsetY = -0.5,
-		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
+	Border = {
+		Width = 56,
+		Height = 56,
+		BlendMode = "ADD",
+		Color = {0, 1, 0, 0.35},
+		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Highlight = {
 		Width = 32,
@@ -80,6 +65,19 @@ LBF:AddSkin("Dream Layout", {
 		BlendMode = "ADD",
 		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
+	},
+	AutoCast = {
+		Width = 30,
+		Height = 30,
+		OffsetX = 0.5,
+		OffsetY = -0.5,
+	},
+	AutoCastable = {
+		Width = 54,
+		Height = 54,
+		OffsetX = 0.5,
+		OffsetY = -0.5,
+		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 	},
 	Gloss = {
 		Hide = true,
@@ -113,6 +111,12 @@ LBF:AddSkin("Zoomed", {
 		Height = 36,
 		TexCoords = {0.07,0.93,0.07,0.93},
 	},
+	Pushed = {
+		Width = 36,
+		Height = 36,
+		Color = {1, 1, 1, 1},
+		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
+	},
 	Flash = {
 		Width = 36,
 		Height = 36,
@@ -123,26 +127,8 @@ LBF:AddSkin("Zoomed", {
 		Width = 36,
 		Height = 36,
 	},
-	AutoCast = {
-		Width = 36,
-		Height = 36,
-		OffsetX = 0.5,
-	},
 	Normal = {
 		Hide = true,
-	},
-	Pushed = {
-		Width = 36,
-		Height = 36,
-		Color = {1, 1, 1, 1},
-		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
-	},
-	Border = {
-		Width = 64,
-		Height = 64,
-		BlendMode = "ADD",
-		Color = {1, 1, 1, 1},
-		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Disabled = {
 		Hide = true,
@@ -154,12 +140,12 @@ LBF:AddSkin("Zoomed", {
 		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
-	AutoCastable = {
-		Width = 66,
-		Height = 66,
-		OffsetX = 0.5,
-		OffsetY = -0.5,
-		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
+	Border = {
+		Width = 64,
+		Height = 64,
+		BlendMode = "ADD",
+		Color = {0, 1, 0, 0.35},
+		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Highlight = {
 		Width = 36,
@@ -167,6 +153,18 @@ LBF:AddSkin("Zoomed", {
 		BlendMode = "ADD",
 		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
+	},
+	AutoCast = {
+		Width = 36,
+		Height = 36,
+		OffsetX = 0.5,
+	},
+	AutoCastable = {
+		Width = 66,
+		Height = 66,
+		OffsetX = 0.5,
+		OffsetY = -0.5,
+		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 	},
 	Gloss = {
 		Hide = true,

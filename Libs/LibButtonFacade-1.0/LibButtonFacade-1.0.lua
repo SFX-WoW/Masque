@@ -2,26 +2,39 @@
 	Project.: LibButtonFacade
 	File....: LibButtonFacade.lua
 	Version.: @file-revision@
-	Author..: JJ Sheets, StormFX
+	Author..: StormFX, JJ Sheets
 ]]
 
-local MAJOR, MINOR = "LibButtonFacade", "3"
-local lib = LibStub:NewLibrary(MAJOR, MINOR)
+-- [ LibStub ] --
 
-if not lib then return end
+local MAJOR, MINOR = "LibButtonFacade", "4"
+local LBF = LibStub:NewLibrary(MAJOR, MINOR)
+if not LBF then return end
 
-local regcb = {}
+-- [ Locals ] --
 
-local function fireRegCB(Addon,Group,Button)
-	for i = 1, #regcb do local v = regcb[i]
+local assert, setmetatable, AddMessage = assert, setmetatable, DEFAULT_CHAT_FRAME.AddMessage
+
+-- [ GUI Callbacks ] --
+
+-- Table for the GUI callbacks.
+local guicb = {}
+
+-- Fires all registered GUI callbacks.
+local function fireGuiCB(Addon,Group,Button)
+	for i = 1, #guicb do local v = guicb[i]
 		v.cb(v.arg,Addon,Group,Button)
 	end
 end
 
-function lib:ElementListCallback(callback,arg)
-	regcb[#regcb+1] = {cb = callback, arg = arg}
+-- Registers a GUI callback.
+function LBF:RegisterGuiCallback(callback,arg)
+	guicb[#guicb+1] = {cb = callback, arg = arg}
 end
 
+-- [ Group Set Up ] --
+
+-- Returns a group ID. IE: Addon, Addon_Group or Addon_Group_Button.
 local function regID(Addon,Group,Button)
 	local r = "ButtonFacade"
 	if Addon then
@@ -37,9 +50,9 @@ local function regID(Addon,Group,Button)
 end
 
 local group_mt
-
 local group = {}
 
+-- Creates and returns a group.
 local function newGroup(Addon,Group,Button)
 	if not Group then Button = nil end
 	local o = {
@@ -74,16 +87,14 @@ local function newGroup(Addon,Group,Button)
 	return o
 end
 
-local gloss = {}
-local backdrop = {}
-local freegloss = {}
-local freebackdrop = {}
+-- [ Skin Callbacks ] --
 
-local callbacks = {}
+local skincb = {}
 
-local function fireSkinCB(SkinID,Gloss,Backdrop,Addon,Group,Button,Colors)
+-- Fires all callbacks registered for the specified add-on.
+local function fireSkinCB(Addon,SkinID,Gloss,Backdrop,Group,Button,Colors)
 	Addon = Addon or "ButtonFacade"
-	local args = callbacks[Addon]
+	local args = skincb[Addon]
 	if args then
 		for arg, callback in pairs(args) do
 			callback(arg and arg,SkinID,Gloss,Backdrop,Group,Button,Colors)
@@ -91,24 +102,28 @@ local function fireSkinCB(SkinID,Gloss,Backdrop,Addon,Group,Button,Colors)
 	end
 end
 
-function lib:RegisterSkinCallback(AddonID,callback,arg)
+-- Registers a skin callback for the specified add-on.
+function LBF:RegisterSkinCallback(Addon,callback,arg)
 	local arg = callback and arg or false
-	callbacks[AddonID] = callbacks[AddonID] or {}
-	callbacks[AddonID][arg] = callback
+	skincb[Addon] = skincb[Addon] or {}
+	skincb[Addon][arg] = callback
 end
+
+-- [ Skin Lists ] --
 
 local skins = {}
 local skinlist = {}
-function lib:AddSkin(SkinID,data,overwrite)
-	if overwrite == nil then overwrite = true end
-	if not overwrite and skins[SkinID] then
+
+-- Adds a skin to the skin tables.
+function LBF:AddSkin(SkinID,data,overwrite)
+	if skins[SkinID] and not overwrite then
 		return
 	end
 	if data.Template then
 		if skins[data.Template] then
 			setmetatable(data,{__index=skins[data.Template]})
 		else
-			DEFAULT_CHAT_FRAME:AddMessage("|cffccccffButtonFacade: |r|cffff8080ERROR!|r "..SkinID.." is attempting to use "..data.Template.." as a template, but "..data.Template.." doesn't exist!")
+			AddMessage("|cffccccffButtonFacade: |r|cffff8080ERROR!|r "..SkinID.." is attempting to use "..data.Template.." as a template, but "..data.Template.." doesn't exist!")
 			return
 		end
 	end
@@ -116,82 +131,133 @@ function lib:AddSkin(SkinID,data,overwrite)
 	skinlist[SkinID] = SkinID
 end
 
-function lib:GetSkins()
+-- Returns the skin data table.
+function LBF:GetSkins()
 	return skins
 end
 
-function lib:ListSkins()
+-- Returns the skin list.
+function LBF:ListSkins()
 	return skinlist
 end
 
--- The list of non-special case Layers.
-local layers = {
+-- [ Layer Settings ] --
+
+--[[
+
+	The following is a list of all available layers followed by the frame level they're assigned to, their draw layer where applicable
+	and any notes. Keep in mind that the layers are listed in order from bottom to top.
+
+	Name          Level          Layer          Notes
+	----          -----          -----          -----
+	Backdrop        1            BACKGROUND     Custom layer that puts a background image behind the button.
+	Icon            1            BORDER         The default spell/skill icon.
+	Pushed          4            ARTWORK        The texture displayed when a button is pushed.
+	Flash           1            OVERLAY        The blinking texture that appears when an auto attack ability is active.
+	Cooldown        2            n/a            The cool down spiral animation frame.
+	Normal          4            BORDER         The "normal" or "border" texture that overlays the icon.
+	Disabled        4            OVERLAY        The texture used when a button is disabled.
+	Checked         4            OVERLAY        The texture used when a button is "checked" or active.
+	Border          4            OVERLAY        The equipped color border showed when an item is on an action button.
+	Highlight       4            HIGHLIGHT      The the texture shown when the mouse is over the button.
+	Autocast        3            n/a            The "on" "sparkle" border animation that is shown on abilities that can be toggled.
+	Autocastable    4            OVERLAY        The "off" texture that is shown on abilities that can be toggled.
+	Gloss           6            OVERLAY        Custom layer that allows skin to put a gloss or shine on the buttons.
+	Hotkey          6            OVERLAY        The hot key text.
+	Count           6            OVERLAY        The item count text.
+	Name            6            OVERLAY        The macro name text.
+
+--]]
+
+--[[
+
+	List of standard, non-special-case layers that are provided by the default interface. These layers can have various
+	attributes modifed, but most importantly their parent or frame level CAN be adjusted.
+
+]]
+
+local Layers = {
 	"Icon",
 	"Flash",
 	"Cooldown",
+	"Border",
 	"AutoCast",
 	"AutoCastable",
-	"Border",
 	"HotKey",
 	"Count",
 	"Name",
 }
-local layerTypes = {        -- Draw Layer and frame level.
-	Backdrop = "Texture",			-- BACKGROUND 1
-	Icon = "Icon",						-- BORDER     1
-	Flash = "Texture",				-- OVERLAY    1
-	Cooldown = "Model",				--            2
-	AutoCast = "Model",				--            3
-	Normal = "Special",				-- BORDER     4
-	Pushed = "Special",				-- ARTWORK    4
-	AutoCastable = "Texture",	-- OVERLAY    4
-	Border = "Texture",				-- OVERLAY    4
-	Disabled = "Special",			-- OVERLAY    4
-	Checked = "Special",			-- OVERLAY    4
-	Highlight = "Special",		-- HIGHLIGHT  4
-	Gloss = "Texture",				-- OVERLAY    6
-	HotKey = "Text",					-- OVERLAY    6
-	Count = "Text",						-- OVERLAY    6
-	Name = "Text",						-- OVERLAY    6
+
+--[[
+
+	List of layer types used to decide what to do with a particular layer. The type "Frame" used to be "Model" but were changed due to
+	them no longer being models but animation frames instead. "Special" layers are layers that CAN NOT have their parent or frame level
+	adjusted without causing issues.
+
+]]
+
+local LayerTypes = {
+	Backdrop = "Texture",
+	Icon = "Icon",
+	Pushed = "Special",
+	Flash = "Texture",
+	Cooldown = "Frame",
+	Normal = "Special",
+	Disabled = "Special",
+	Checked = "Special",
+	Border = "Special",
+	Highlight = "Special",
+	AutoCast = "Frame",
+	AutoCastable = "Texture",
+	Gloss = "Texture",
+	HotKey = "Text",
+	Count = "Text",
+	Name = "Text",
 }
+
+-- List of draw layers for textures and text.
 local DrawLayers = {
 	Backdrop = "BACKGROUND",
 	Icon = "BORDER",
-	Border = "OVERLAY",
+	Pushed = "BACKGROUND",
 	Flash = "OVERLAY",
-	AutoCastable = "OVERLAY",
 	Normal = "BORDER",
-	Pushed = "ARTWORK",
-	Disabled = "OVERLAY",
-	Checked = "OVERLAY",
+	Disabled = "ARTWORK",
+	Checked = "ARTWORK",
+	Border = "OVERLAY",
 	Highlight = "HIGHLIGHT",
+	AutoCastable = "BORDER",
 	Gloss = "OVERLAY",
 	HotKey = "OVERLAY",
 	Count = "OVERLAY",
 	Name = "OVERLAY",
 }
+
+-- List of frame levels for all layers.
 local FrameLevels = {
 	Backdrop = 1,
 	Icon = 1,
-	Border = 4,
+	Pushed = 4,
 	Flash = 1,
 	Cooldown = 2,
-	AutoCast = 3,
-	AutoCastable = 4,
 	Normal = 4,
-	Pushed = 4,
 	Disabled = 4,
 	Checked = 4,
+	Border = 4,
 	Highlight = 4,
+	AutoCast = 5,
+	AutoCastable = 6,
 	Gloss = 6,
 	HotKey = 6,
 	Count = 6,
 	Name = 6,
 }
 
-local defaultTexCoords = {0,1,0,1}
+-- [ Texture Post-Hooks ] --
 
 local loopcheck = {}
+
+-- SetVertexColor post-hook.
 local function HookSetVertexColor(region,r,g,b,a)
 	if loopcheck[region] then loopcheck[region] = nil return end
 	loopcheck[region] = true
@@ -202,6 +268,8 @@ local function HookSetVertexColor(region,r,g,b,a)
 end
 
 local old_GetVertexColor
+
+-- GetVertexColor post-hook.
 local function HookGetVertexColor(region)
 	local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
 	local r,g,b,a = old_GetVertexColor(region)
@@ -214,6 +282,9 @@ local function HookGetVertexColor(region)
 	return r,g,b,a
 end
 
+-- [ Text Post-Hooks ] --
+
+-- SetTextColor post-hook.
 local function HookSetTextColor(region,r,g,b,a)
 	if loopcheck[region] then loopcheck[region] = nil return end
 	loopcheck[region] = true
@@ -224,6 +295,8 @@ local function HookSetTextColor(region,r,g,b,a)
 end
 
 local old_GetTextColor
+
+-- GetTextColor post-hook.
 local function HookGetTextColor(region,r,g,b,a)
 	local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
 	local r,g,b,a = old_GetTextColor(region)
@@ -236,7 +309,11 @@ local function HookGetTextColor(region,r,g,b,a)
 	return r,g,b,a
 end
 
+-- [ Primary Color-Setting Functions ] --
+
 local hookedregion = {}
+
+-- Sets the texture color.
 local function SetTextureColor(region,r,g,b,a)
 	if not old_GetVertexColor then old_GetVertexColor = region.GetVertexColor end
 	if region.GetVertexColor ~= HookGetVertexColor then
@@ -249,6 +326,7 @@ local function SetTextureColor(region,r,g,b,a)
 	region:SetVertexColor(r,g,b,a)
 end
 
+-- Sets the text color.
 local function SetTextColor(region,r,g,b,a)
 	if not old_GetTextColor then old_GetTextColor = region.GetTextColor end
 	if not hookedregion[region] then
@@ -261,9 +339,10 @@ local function SetTextColor(region,r,g,b,a)
 	region:SetTextColor(r,g,b,a)
 end
 
+-- Returns the layer's color table.
 local function GetLayerColor(skinlayer,Color,layer,Alpha)
 	if Color[layer] then
-		return Color[layer][1], Color[layer][2], Color[layer][3], Alpha or Color[layer][4]
+		return Color[layer][1] or 1, Color[layer][2] or 1, Color[layer][3] or 1, Alpha or Color[layer][4] or 1
 	end
 	local skincolor = skinlayer.Color
 	if skincolor then
@@ -278,12 +357,17 @@ local function GetLayerColor(skinlayer,Color,layer,Alpha)
 		Alpha or skinlayer.Alpha or 1
 end
 
+-- [ Layer Skinning Function ] --
+
+local defaultTexCoords = {0,1,0,1}
+
+-- Skins a non-special-case layer.
 local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale,Color)
-	local skinlayer = assert(skin[layer],"Missing layer in skin definition: "..layer)
+	local skinlayer = assert(skin[layer],"Missing layer '"..layer.."' in skin definition.")
 	if not btnlayer then return end
-	local layerType = layerTypes[layer]
+	local layertype = LayerTypes[layer]
 	if skinlayer.Hide then
-		if layerType == "Texture" then
+		if layertype == "Texture" then
 			btnlayer:SetTexture("")
 		end
 		btnlayer:Hide()
@@ -293,39 +377,37 @@ local function SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale,Color)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
-	if layerType == "Texture" then
+	if layertype == "Texture" then
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
 		btnlayer:SetTexture(skinlayer.Texture)
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
-		btnlayer:SetDrawLayer(DrawLayers[layer])
 		btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+		btnlayer:SetDrawLayer(DrawLayers[layer])
 		SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,layer))
-	elseif layerType == "Icon" then
+	elseif layertype == "Icon" then
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 		btnlayer:SetDrawLayer(DrawLayers[layer])
-	elseif layerType == "Text" then
+	elseif layertype == "Text" then
 		local parent = button.__bf_framelevel[FrameLevels[layer]]
 		btnlayer:SetParent(parent or button)
 		btnlayer:SetDrawLayer(DrawLayers[layer])
 		SetTextColor(btnlayer,GetLayerColor(skinlayer,Color,layer))
-	elseif layerType == "Model" then
-		local FrameLevel = skinlayer.AboveNormal and 5 or FrameLevels[layer]
-		btnlayer:SetFrameLevel(FrameLevel)
-		if skinlayer.ModelX or skinlayer.ModelY then
-			btnlayer:SetPosition(skinlayer.ModelX or 0, skinlayer.ModelY or 0,0)
-		end
-		-- HotFix-3.0.2: Disable ModelScale to fix AutoCast (It's not a model anymore).
-		-- if skinlayer.ModelScale then
-			-- btnlayer:SetModelScale(skinlayer.ModelScale)
-		-- end
+	elseif layertype == "Frame" then
+		btnlayer:SetFrameLevel(FrameLevels[layer])
 	end
 end
 
+-- [ Special Case Layers ] --
+
+-- [ Normal Layer ] --
+
 local baselayer = {}
 local normalhooked = {}
+
+-- Catch changes to the normal texture.
 local function Catch_SetNormalTexture(button,texture)
 	local btnlayer = button.__bf_normaltexture
 	local nrmlayer = button:GetNormalTexture()
@@ -351,20 +433,24 @@ local function Catch_SetNormalTexture(button,texture)
 	end
 end
 
-function lib:GetNormalTexture(button)
+-- Gets the normal texture.
+function LBF:GetNormalTexture(button)
 	return button.__bf_normaltexture or button:GetNormalTexture()
 end
 
-function lib:SetNormalVertexColor(button,r,g,b,a)
+-- Sets the normal vertex color.
+function LBF:SetNormalVertexColor(button,r,g,b,a)
 	local t = button.__bf_normaltexture or button:GetNormalTexture()
 	return t:SetVertexColor(r,g,b,a)
 end
 
-function lib:GetNormalVertexColor(button)
+-- Gets the normal vertex color.
+function LBF:GetNormalVertexColor(button)
 	local t = button.__bf_normaltexture or button:GetNormalTexture()
 	return t:GetVertexColor()
 end
 
+-- Skins the normal layer.
 local function SkinNormalLayer(skin,button,btndata,xscale,yscale,Color)
 	local skinlayer = skin.Normal
 	local btnlayer
@@ -388,10 +474,9 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale,Color)
 	else
 		btnlayer:SetTexture(skinlayer.Texture)
 	end
-	-- the following catches when Blizzard changes the texture to the Empty texture.
 	if not normalhooked[button] then
 		hooksecurefunc(button,"SetNormalTexture",Catch_SetNormalTexture)
-    normalhooked[button] = true
+		normalhooked[button] = true
 	end
 	button.__bf_skinlayer = skinlayer
 	btnlayer.__bf_skinlayer = skinlayer
@@ -401,15 +486,18 @@ local function SkinNormalLayer(skin,button,btndata,xscale,yscale,Color)
 		btnlayer:Hide()
 		return
 	end
+	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 	btnlayer:SetDrawLayer(DrawLayers.Normal)
+	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Normal"))
 	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
-	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Normal"))
 end
 
+-- [ Highlight Layer ] --
+
+-- Skins the highlight layer.
 local function SkinHighlightLayer(skin,button,btndata,xscale,yscale,Color)
 	local skinlayer = skin.Highlight
 	local btnlayer = btndata.Highlight or button:GetHighlightTexture()
@@ -420,15 +508,18 @@ local function SkinHighlightLayer(skin,button,btndata,xscale,yscale,Color)
 		return
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
+	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+	btnlayer:SetDrawLayer(DrawLayers.Highlight)
+	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Highlight"))
 	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
-	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Highlight"))
-	btnlayer:SetDrawLayer(DrawLayers.Highlight)
 end
 
+-- [ Pushed Layer ] --
+
+-- Skins the pushed layer.
 local function SkinPushedLayer(skin,button,btndata,xscale,yscale,Color)
 	local skinlayer = skin.Pushed
 	local btnlayer = btndata.Pushed or button:GetPushedTexture()
@@ -440,14 +531,17 @@ local function SkinPushedLayer(skin,button,btndata,xscale,yscale,Color)
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetDrawLayer(DrawLayers.Pushed)
+	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Pushed"))
 	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Pushed"))
 end
 
+-- [ Disabled Layer ] --
+
+-- Skins the disabled layer.
 local function SkinDisabledLayer(skin,button,btndata,xscale,yscale,Color)
 	local skinlayer = skin.Disabled
 	local btnlayer = btndata.Disabled or button:GetDisabledTexture()
@@ -458,15 +552,18 @@ local function SkinDisabledLayer(skin,button,btndata,xscale,yscale,Color)
 		return
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
+	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 	btnlayer:SetDrawLayer(DrawLayers.Disabled)
+	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Disabled"))
 	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
-	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Disabled"))
 end
 
+-- [ Checked Layer ] --
+
+-- Skins the checked layer.
 local function SkinCheckedLayer(skin,button,btndata,xscale,yscale,Color)
 	local skinlayer = skin.Checked
 	local btnlayer = btndata.Checked or button:GetCheckedTexture()
@@ -477,14 +574,95 @@ local function SkinCheckedLayer(skin,button,btndata,xscale,yscale,Color)
 		return
 	end
 	btnlayer:SetTexture(skinlayer.Texture)
+	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Checked"))
 	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
-	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Checked"))
 end
 
+-- [ Border Layer ] --
+
+local border = {}
+local borderhooked = {}
+
+-- Sets the border's visibility.
+local function SetBorderState(button)
+	local btnlayer = border[button]
+	if button.action and IsEquippedAction(button.action) then
+		btnlayer:Show()
+	elseif button.filter and button.filter == "HARMFUL" then
+		btnlayer:Show()
+	elseif button:GetParent():GetName() == "TemporaryEnchantFrame" then
+		btnlayer:Show()
+	else
+		btnlayer:Hide()
+	end
+end
+
+-- Hook to update the border texture.
+local function Hook_BorderUpdate(button)
+	if button.__bf_noborder then return end
+	SetBorderState(button)
+end
+
+-- Gets the custom border layer.
+function LBF:GetBorderLayer(button)
+	return border[button]
+end
+
+-- Set the normal vertex color.
+function LBF:SetBorderColor(button,r,g,b,a)
+	SetTextureColor(border[button],r,g,b,a)
+end
+
+-- Gets the normal vertex color.
+function LBF:GetBorderColor(button)
+	local t = border[button]
+	return t:GetVertexColor()
+end
+
+-- Skins the custom border layer.
+local function SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
+	local oldlayer = _G[button:GetName().."Border"]
+	if not oldlayer then return end
+	oldlayer:SetTexture("")
+	oldlayer:Hide()
+	local skinlayer = skin.Border
+	local btnlayer = border[button] or button:CreateTexture(nil,"OVERLAY")
+	if skinlayer.Hide then
+		btnlayer:SetTexture("")
+		btnlayer:Hide()
+		button.__bf_noborder = true
+		return
+	end
+	border[button] = btnlayer
+	local parent = button.__bf_framelevel[FrameLevels.Border]
+	btnlayer:SetParent(parent or button)
+	if not borderhooked[button] then
+		button:HookScript("OnUpdate",Hook_BorderUpdate)
+		borderhooked[button] = true
+	end
+	btnlayer:Show()
+	btnlayer:SetTexture(skinlayer.Texture)
+	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
+	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+	btnlayer:SetDrawLayer(DrawLayers.Gloss)
+	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Border"))
+	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
+	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
+	btnlayer:ClearAllPoints()
+	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
+	SetBorderState(button)
+end
+
+-- [ Gloss Layer ] --
+
+local gloss = {}
+local freegloss = {}
+
+-- Removes the gloss layer.
 local function RemoveGlossLayer(button)
 	local layer = gloss[button]
 	gloss[button] = nil
@@ -494,10 +672,12 @@ local function RemoveGlossLayer(button)
 	end
 end
 
-function lib:GetGlossLayer(button)
+-- Gets the gloss layer.
+function LBF:GetGlossLayer(button)
 	return gloss[button]
 end
 
+-- Skins the gloss layer.
 local function SkinGlossLayer(skin,button,btndata,xscale,yscale,GlossAlpha,Color)
 	local skinlayer = skin.Gloss
 	local btnlayer
@@ -515,17 +695,23 @@ local function SkinGlossLayer(skin,button,btndata,xscale,yscale,GlossAlpha,Color
 	local parent = button.__bf_framelevel[FrameLevels.Gloss]
 	btnlayer:SetParent(parent or button)
 	btnlayer:Show()
+	btnlayer:SetTexture(skinlayer.Texture)
+	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
+	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
+	btnlayer:SetDrawLayer(DrawLayers.Gloss)
+	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Gloss",GlossAlpha))
 	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
-	btnlayer:SetTexture(skinlayer.Texture)
-	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
-	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Gloss",GlossAlpha))
-	btnlayer:SetDrawLayer(DrawLayers.Gloss)
 end
 
+-- [ Backdrop Layer ] --
+
+local backdrop = {}
+local freebackdrop = {}
+
+-- Removes the backdrop layer.
 local function RemoveBackdropLayer(button)
 	local layer = backdrop[button]
 	backdrop[button] = nil
@@ -535,10 +721,12 @@ local function RemoveBackdropLayer(button)
 	end
 end
 
-function lib:GetBackdropLayer(button)
+-- Gets the backdrop layer.
+function LBF:GetBackdropLayer(button)
 	return backdrop[button]
 end
 
+-- Skins the backdrop layer.
 local function SkinBackdropLayer(skin,button,btndata,xscale,yscale,Color)
 	local skinlayer = skin.Backdrop
 	local btnlayer
@@ -559,52 +747,61 @@ local function SkinBackdropLayer(skin,button,btndata,xscale,yscale,Color)
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
-	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Backdrop"))
 	btnlayer:SetDrawLayer(DrawLayers.Backdrop)
+	SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Backdrop"))
 	btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 	btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 	btnlayer:ClearAllPoints()
 	btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
 end
 
-local emptyColor = {} -- this should be left empty.
+-- [ Final Skinning Function ] --
+
+local emptyColor = {}
+
+-- Applies a skin to a button.
 local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 	if not button then return end
 	if type(Gloss) ~= "number" then
 		Gloss = Gloss and 1 or 0
 	end
 	Color = Color or emptyColor
+	-- Set the frame level.
 	button:SetFrameLevel(4)
 	button.__bf_framelevel = button.__bf_framelevel or {}
+	-- Assign the button's frame to this level so we can parent textures to it.
 	button.__bf_framelevel[4] = button
 	btndata.Cooldown = btndata.Cooldown or _G[button:GetName().."Cooldown"]
-	-- HotFix-3.0.2: "AutoCast" is now "Shine".
 	btndata.AutoCast = btndata.AutoCast or _G[button:GetName().."Shine"]
-	if btndata.Cooldown then
-		button.__bf_framelevel[2] = btndata.Cooldown
-	end
-	if btndata.AutoCast then
-		button.__bf_framelevel[3] = btndata.AutoCast
-	elseif not button.__bf_framelevel[3] then
-		local frame3 = CreateFrame("Frame",nil,button)
-		frame3:SetAllPoints(button)
-		button.__bf_framelevel[3] = frame3
-	end
 	if not button.__bf_framelevel[1] then
+		-- Create a new frame to parent textures to for level 1 (background), with its parent being the button.
 		local frame1 = CreateFrame("Frame",nil,button)
 		button.__bf_framelevel[1] = frame1
 		frame1:SetFrameLevel(1)
 	end
-	if not button.__bf_framelevel[5] then
+	if btndata.Cooldown then
+		-- Adjust the level of the cooldown frame.
+		button.__bf_framelevel[2] = btndata.Cooldown
+	end
+	if btndata.AutoCast then
+		-- Adjust the level of the cooldown frames.
+		button.__bf_framelevel[5] = btndata.AutoCast
+	elseif not button.__bf_framelevel[5] then
 		local frame5 = CreateFrame("Frame",nil,button)
+		frame5:SetAllPoints(button)
 		button.__bf_framelevel[5] = frame5
-		frame5:SetFrameLevel(5)
+	end
+	if not button.__bf_framelevel[6] then
+		-- Create a new frame to parent the top-most textures and text to.
+		local frame6 = CreateFrame("Frame",nil,button)
+		button.__bf_framelevel[6] = frame6
+		frame6:SetFrameLevel(6)
 	end
 	local xscale = (button:GetWidth() or 36) / 36
 	local yscale = (button:GetHeight() or 36) / 36
 	local skin = skins[SkinID or "Blizzard"] or skins["Blizzard"]
 	-- Cycle through the normal layers and skin as needed.
-	for i = 1, #layers do local layer = layers[i]
+	for i = 1, #Layers do local layer = Layers[i]
 		if btndata[layer] == nil then
 			btndata[layer] = _G[button:GetName()..layer]
 		end
@@ -613,17 +810,21 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 			SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale,Color)
 		end
 	end
+	-- Skin the gloss layer.
 	if Gloss > 0 and not skin.Gloss.Hide then
 		SkinGlossLayer(skin,button,btndata,xscale,yscale,Gloss,Color)
 	elseif gloss[button] then
 		RemoveGlossLayer(button)
 	end
+	-- Skin the backdrop layer.
 	if Backdrop and not skin.Backdrop.Hide then
 		SkinBackdropLayer(skin,button,btndata,xscale,yscale,Color)
 	elseif backdrop[button] then
 		RemoveBackdropLayer(button)
 	end
+	-- Skin the "special" layers.
 	SkinNormalLayer(skin,button,btndata,xscale,yscale,Color)
+	SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
 	SkinHighlightLayer(skin,button,btndata,xscale,yscale,Color)
 	SkinPushedLayer(skin,button,btndata,xscale,yscale,Color)
 	SkinDisabledLayer(skin,button,btndata,xscale,yscale,Color)
@@ -632,65 +833,70 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 	end
 end
 
---[[ The format of btndata is as follows:
+--[[
 
-{
-	-- any of the following can be omitted or set to nil to have LBF find it from the name of Button.
-	-- set any of the following to false to force LBF to not skin that layer.
-	Icon = <defaults to _G[Button:GetName().."Icon"]>,
-	Cooldown = <defaults to _G[Button:GetName().."Cooldown"]>,
-	AutoCast = <defaults to _G[Button:GetName().."Autocast"]>,
-	AutoCastable = <defaults to _G[Button:GetName().."AutoCastable"]>,
-	HotKey = <defaults to _G[Button:GetName().."HotKey"]>,
-	Count = <defaults to _G[Button:GetName().."Count"]>,
-	Name = <defaults to _G[Button:GetName().."Name"]>,
-}	
+	"btndata" is the layer attribute table for a button. In most cases, the data is provided by the skin. The layers listed below are the exception.
+	They can be set to nil to have LBF find it from the name of the button or to false to force them to not be skinned.
 
---]]
+	Icon: Defaults to _G[Button:GetName().."Icon"]
+	Cooldown: Defaults to _G[Button:GetName().."Cooldown"]
+	AutoCast: Ddefaults to _G[Button:GetName().."Autocast"]
+	AutoCastable: Defaults to _G[Button:GetName().."AutoCastable"]
+	HotKey: Ddefaults to _G[Button:GetName().."HotKey"]
+	Count: Ddefaults to _G[Button:GetName().."Count"]
+	Name: Defaults to _G[Button:GetName().."Name"]
 
--- the following will create the group if it doesn't exist.
-function lib:Group(Addon,Group,Button)
+]]
+
+-- [ Group Methods ] --
+
+-- Returns a group.
+function LBF:Group(Addon,Group,Button)
 	local g = group[regID(Addon,Group,Button)] or newGroup(Addon,Group,Button)
 	return g
 end
 
-function lib:DeleteGroup(Addon,Group,Button)
+-- Removes a group.
+function LBF:DeleteGroup(Addon,Group,Button)
 	local g = group[regID(Addon,Group,Button)]
 	if g then
 		g:Delete()
 	end
 end
 
-function lib:ListAddons()
-	lib:Group()
+-- Returns a list of add-ons.
+function LBF:ListAddons()
+	LBF:Group()
 	return group["ButtonFacade"].SubList
 end
 
-function lib:ListGroups(Addon)
+-- Returns a list of groups registered to an add-on.
+function LBF:ListGroups(Addon)
 	return group[Addon].SubList
 end
 
-function lib:ListButtons(Addon,Group)
+-- Returns a list of buttons registered to a group.
+function LBF:ListButtons(Addon,Group)
 	return group[Addon.."_"..Group].SubList
 end
 
+-- [ Group Metatable ] --
+
+-- Reverse look-up table.
 local reverse = {}
-local data = {}
 
 group_mt = {
 	__index = {
+		-- Adds a button to the group. If the button already exists, it gets reassigned to this group.
 		AddButton = function(self,btn,btndata)
 			btndata = btndata or {}
-			-- return if we're adding a button we already have.
 			if reverse[btn] == self.RegID then return end
-			-- remove a button from its current group if necessary
 			if reverse[btn] then reverse[btn]:RemoveButton(btn,true) end
-			-- store the new group of the button.
 			reverse[btn] = self
-			-- add the button to our list.
 			self.Buttons[btn] = btndata
 			ApplySkin(self.SkinID,self.Gloss,self.Backdrop,self.Colors,btn,btndata)
 		end,
+		-- Removes and optionally reskins a button.
 		RemoveButton = function(self,btn,noReskin)
 			local btndata = self.Buttons[btn]
 			reverse[btn] = nil
@@ -699,6 +905,7 @@ group_mt = {
 			end
 			self.Buttons[btn] = nil
 		end,
+		-- Updates the groups's skin with the new data and then applies then new skin.
 		Skin = function(self,SkinID,Gloss,Backdrop,ColorLayer,r,g,b,a)
 			if type(Gloss) ~= "number" then
 				Gloss = Gloss and 1 or 0
@@ -716,7 +923,7 @@ group_mt = {
 			for k in pairs(self.Buttons) do
 				ApplySkin(self.SkinID,self.Gloss,self.Backdrop,self.Colors,k,self.Buttons[k])
 			end
-			fireSkinCB(self.SkinID,self.Gloss,self.Backdrop,self.Addon,self.Group,self.Button,self.Colors)
+			fireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,self.Button,self.Colors)
 			local sl = self.SubList
 			if sl then
 				for k in pairs(sl) do
@@ -724,7 +931,8 @@ group_mt = {
 				end
 			end
 		end,
-		SkinGroup = function(self,SkinID,Gloss,Backdrop,ColorLayer,r,g,b,a) -- Added to just change the root group's skin
+		-- Updates the group's skin data without applying the new skin.
+		SetSkin = function(self,SkinID,Gloss,Backdrop,ColorLayer,r,g,b,a)
 			if type(Gloss) ~= "number" then
 				Gloss = Gloss and 1 or 0
 			end
@@ -738,9 +946,10 @@ group_mt = {
 			if type(Backdrop) == "boolean" then
 				self.Backdrop = Backdrop
 			end
-			fireSkinCB(self.SkinID,self.Gloss,self.Backdrop,self.Addon,self.Group,self.Button,self.Colors)
+			fireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,self.Button,self.Colors)
 		end,
-		SetLayerColor = function(self,Layer,r,g,b,a)
+		-- Sets a layer's color but doesn't apply it.
+		SetLayerColor = function(self,Layer,r,g,b,a,apply)
 			self.Colors = self.Colors or {}
 			if r then
 				self.Colors[Layer] = {r,g,b,a}
@@ -748,10 +957,12 @@ group_mt = {
 				self.Colors[Layer] = nil
 			end
 		end,
+		-- Returns a layer's color.
 		GetLayerColor = function(self,Layer)
 			local skin = skins[self.SkinID or "Blizzard"] or skins["Blizzard"]
 			return GetLayerColor(skin[Layer],self.Colors,Layer)
 		end,
+		-- Resets a layer's colors.
 		ResetColors = function(self,noReskin)
 			local c = self.Colors
 			for k in pairs(c) do c[k] = nil end
@@ -765,44 +976,30 @@ group_mt = {
 				self:Skin()
 			end
 		end,
+		-- Adds a sub-group to a group.
 		AddSubGroup = function(self,SubGroup)
 			local r = self.RegID.."_"..SubGroup
-			if self.RegID == "ButtonFacade" then -- Edit: 5/21
+			if self.RegID == "ButtonFacade" then
 				self.SubList[SubGroup] = SubGroup
 			else
 				self.SubList[r] = SubGroup
 			end
-			-- group[r].Parent = self
-			fireRegCB(self.Addon,self.Group,self.Button)
+			fireGuiCB(self.Addon,self.Group,self.Button)
 		end,
+		-- Removes a sub-group from a group.
 		RemoveSubGroup = function(self,SubGroup)
 			local r = SubGroup.RegID
 			self.SubList[r] = nil
-			-- group[r].Parent = nil
-			fireRegCB(self.Addon,self.Group,self.Button)
+			fireGuiCB(self.Addon,self.Group,self.Button)
 		end,
-		--[[ Note, instead of the following, just access the data directly, using group_obj.SkinID, etc.
-		GetSkin = function(self)
-			return self.SkinID
-		end,
-		GetGloss = function(self)
-			return self.Gloss
-		end,
-		GetBackdrop = function(self)
-			return self.Backdrop
-		end,
-		
-		Also, use group_obj.SubList as the list in a select/choice control.
-		--]]
+		-- Deletes the self group.
 		Delete = function(self,noReskin)
-			-- first, Delete all subgroups.
 			local sl = self.SubList
 			if sl then
 				for k in pairs(sl) do
 					group[k]:Delete()
 				end
 			end
-			-- next, Remove all Buttons
 			for k in pairs(self.Buttons) do
 				reverse[k] = nil
 				if not noReskin then
@@ -810,14 +1007,15 @@ group_mt = {
 				end
 				self.Buttons[k] = nil
 			end
-			-- finally, remove ourselves from our parent group.
 			self.Parent:RemoveSubGroup(self)
 			group[self.RegID] = nil
 		end,
 	}
 }
 
-lib:AddSkin("Blizzard",{
+-- [ Default Skin ] --
+
+LBF:AddSkin("Blizzard",{
 	Backdrop = {
 		Width = 34,
 		Height = 35,
@@ -833,6 +1031,11 @@ lib:AddSkin("Blizzard",{
 		Width = 36,
 		Height = 36,
 	},
+	Pushed = {
+		Width = 36,
+		Height = 36,
+		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
+	},
 	Flash = {
 		Width = 36,
 		Height = 36,
@@ -842,15 +1045,6 @@ lib:AddSkin("Blizzard",{
 		Width = 36,
 		Height = 36,
 	},
-	AutoCast = {
-		Width = 36,
-		Height = 36,
-	},
-	AutoCastable = {
-		Width = 58,
-		Height = 58,
-		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-	},
 	Normal = {
 		Width = 66,
 		Height = 66,
@@ -858,22 +1052,11 @@ lib:AddSkin("Blizzard",{
 		EmptyTexture = [[Interface\Buttons\UI-Quickslot]],
 		OffsetY = -1,
 	},
-	Pushed = {
-		Width = 36,
-		Height = 36,
-		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
-	},
 	Disabled = {
 		Width = 66,
 		Height = 66,
 		Texture = [[Interface\Buttons\UI-Quickslot2]],
 		OffsetY = -1,
-	},
-	Highlight = {
-		Width = 36,
-		Height = 36,
-		Texture = [[Interface\Buttons\ButtonHilight-Square]],
-		BlendMode = "ADD",
 	},
 	Checked = {
 		Width = 36,
@@ -886,6 +1069,22 @@ lib:AddSkin("Blizzard",{
 		Height = 62,
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 		BlendMode = "ADD",
+		Color = {0, 1, 0, 0.35},
+	},
+	Highlight = {
+		Width = 36,
+		Height = 36,
+		Texture = [[Interface\Buttons\ButtonHilight-Square]],
+		BlendMode = "ADD",
+	},
+	AutoCast = {
+		Width = 36,
+		Height = 36,
+	},
+	AutoCastable = {
+		Width = 58,
+		Height = 58,
+		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 	},
 	Gloss = {
 		Hide = true
