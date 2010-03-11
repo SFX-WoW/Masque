@@ -590,14 +590,16 @@ local borderhooked = {}
 -- Sets the border's visibility.
 local function SetBorderState(button)
 	local btnlayer = border[button]
-	if button.action and IsEquippedAction(button.action) then
-		btnlayer:Show()
-	elseif button.filter and button.filter == "HARMFUL" then
-		btnlayer:Show()
-	elseif button:GetParent():GetName() == "TemporaryEnchantFrame" then
-		btnlayer:Show()
-	else
+	if button:GetObjectType() == "CheckButton" then
 		btnlayer:Hide()
+		if button.action and IsEquippedAction(button.action) then
+			btnlayer:Show()
+		end
+	else
+		btnlayer:Show()
+		if button.filter and button.filter == "HELPFUL" then
+			btnlayer:Hide()
+		end
 	end
 end
 
@@ -626,9 +628,10 @@ end
 -- Skins the custom border layer.
 local function SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
 	local oldlayer = _G[button:GetName().."Border"]
-	if not oldlayer then return end
-	oldlayer:SetTexture("")
-	oldlayer:Hide()
+	if oldlayer then
+		oldlayer:SetTexture("")
+		oldlayer:Hide()
+	end
 	local skinlayer = skin.Border
 	local btnlayer = border[button] or button:CreateTexture(nil,"OVERLAY")
 	if skinlayer.Hide then
