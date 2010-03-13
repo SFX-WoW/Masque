@@ -587,31 +587,38 @@ end
 local border = {}
 local borderhooked = {}
 
--- Sets the border's visibility.
+-- Hook to set the border's visibility.
 local function SetBorderState(button)
 	local btnlayer = border[button]
-	if button:GetObjectType() == "CheckButton" then
-		btnlayer:Hide()
-		if button.action and IsEquippedAction(button.action) then
-			btnlayer:Show()
-		end
-	else
-		btnlayer:Show()
-		if button.filter and button.filter == "HELPFUL" then
-			btnlayer:Hide()
-		end
-	end
-end
-
--- Hook to update the border texture.
-local function Hook_BorderUpdate(button)
 	if button.__bf_noborder then return end
-	SetBorderState(button)
+	if button.__bf_showborder then
+		btnlayer:Show()
+		return
+	end
+	if button:GetObjectType() == "CheckButton" and button.action and IsEquippedAction(button.action) then
+		btnlayer:Show()
+	else
+		btnlayer:Hide()
+	end
 end
 
 -- Gets the custom border layer.
 function LBF:GetBorderLayer(button)
 	return border[button]
+end
+
+-- Forces the custom border layer to be shown.
+function LBF:ShowBorder(button)
+	if border[button] then
+		button.__bf_showborder = true
+	end
+end
+
+-- Forces the custom border layer to be hidden.
+function LBF:HideBorder(button)
+	if border[button] then
+		button.__bf_showborder = false
+	end
 end
 
 -- Set the normal vertex color.
@@ -635,7 +642,6 @@ local function SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
 	local skinlayer = skin.Border
 	local btnlayer = border[button] or button:CreateTexture(nil,"OVERLAY")
 	if skinlayer.Hide then
-		btnlayer:SetTexture("")
 		btnlayer:Hide()
 		button.__bf_noborder = true
 		return
@@ -644,10 +650,9 @@ local function SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
 	local parent = button.__bf_framelevel[FrameLevels.Border]
 	btnlayer:SetParent(parent or button)
 	if not borderhooked[button] then
-		button:HookScript("OnUpdate",Hook_BorderUpdate)
+		button:HookScript("OnUpdate",SetBorderState)
 		borderhooked[button] = true
 	end
-	btnlayer:Show()
 	btnlayer:SetTexture(skinlayer.Texture)
 	btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or defaultTexCoords))
 	btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
@@ -952,7 +957,7 @@ group_mt = {
 			fireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,self.Button,self.Colors)
 		end,
 		-- Sets a layer's color but doesn't apply it.
-		SetLayerColor = function(self,Layer,r,g,b,a,apply)
+		SetLayerColor = function(self,Layer,r,g,b,a)
 			self.Colors = self.Colors or {}
 			if r then
 				self.Colors[Layer] = {r,g,b,a}
