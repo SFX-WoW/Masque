@@ -180,7 +180,6 @@ local Layers = {
 	"Icon",
 	"Flash",
 	"Cooldown",
-	"Border",
 	"AutoCast",
 	"AutoCastable",
 	"HotKey",
@@ -640,12 +639,11 @@ local function SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
 		oldlayer:Hide()
 	end
 	local skinlayer = skin.Border
-	local btnlayer = border[button] or button:CreateTexture(nil,"OVERLAY")
 	if skinlayer.Hide then
-		btnlayer:Hide()
 		button.__bf_noborder = true
 		return
 	end
+	local btnlayer = border[button] or button:CreateTexture(nil,"OVERLAY")
 	border[button] = btnlayer
 	local parent = button.__bf_framelevel[FrameLevels.Border]
 	btnlayer:SetParent(parent or button)
@@ -774,25 +772,20 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 		Gloss = Gloss and 1 or 0
 	end
 	Color = Color or emptyColor
-	-- Set the frame level.
 	button:SetFrameLevel(4)
 	button.__bf_framelevel = button.__bf_framelevel or {}
-	-- Assign the button's frame to this level so we can parent textures to it.
 	button.__bf_framelevel[4] = button
 	btndata.Cooldown = btndata.Cooldown or _G[button:GetName().."Cooldown"]
 	btndata.AutoCast = btndata.AutoCast or _G[button:GetName().."Shine"]
 	if not button.__bf_framelevel[1] then
-		-- Create a new frame to parent textures to for level 1 (background), with its parent being the button.
 		local frame1 = CreateFrame("Frame",nil,button)
 		button.__bf_framelevel[1] = frame1
 		frame1:SetFrameLevel(1)
 	end
 	if btndata.Cooldown then
-		-- Adjust the level of the cooldown frame.
 		button.__bf_framelevel[2] = btndata.Cooldown
 	end
 	if btndata.AutoCast then
-		-- Adjust the level of the cooldown frames.
 		button.__bf_framelevel[5] = btndata.AutoCast
 	elseif not button.__bf_framelevel[5] then
 		local frame5 = CreateFrame("Frame",nil,button)
@@ -800,7 +793,6 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 		button.__bf_framelevel[5] = frame5
 	end
 	if not button.__bf_framelevel[6] then
-		-- Create a new frame to parent the top-most textures and text to.
 		local frame6 = CreateFrame("Frame",nil,button)
 		button.__bf_framelevel[6] = frame6
 		frame6:SetFrameLevel(6)
@@ -808,7 +800,6 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 	local xscale = (button:GetWidth() or 36) / 36
 	local yscale = (button:GetHeight() or 36) / 36
 	local skin = skins[SkinID or "Blizzard"] or skins["Blizzard"]
-	-- Cycle through the normal layers and skin as needed.
 	for i = 1, #Layers do local layer = Layers[i]
 		if btndata[layer] == nil then
 			btndata[layer] = _G[button:GetName()..layer]
@@ -818,19 +809,16 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 			SkinLayer(skin,button,btndata,layer,btnlayer,xscale,yscale,Color)
 		end
 	end
-	-- Skin the gloss layer.
 	if Gloss > 0 and not skin.Gloss.Hide then
 		SkinGlossLayer(skin,button,btndata,xscale,yscale,Gloss,Color)
 	elseif gloss[button] then
 		RemoveGlossLayer(button)
 	end
-	-- Skin the backdrop layer.
 	if Backdrop and not skin.Backdrop.Hide then
 		SkinBackdropLayer(skin,button,btndata,xscale,yscale,Color)
 	elseif backdrop[button] then
 		RemoveBackdropLayer(button)
 	end
-	-- Skin the "special" layers.
 	SkinNormalLayer(skin,button,btndata,xscale,yscale,Color)
 	SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
 	SkinHighlightLayer(skin,button,btndata,xscale,yscale,Color)
@@ -840,21 +828,6 @@ local function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 		SkinCheckedLayer(skin,button,btndata,xscale,yscale,Color)
 	end
 end
-
---[[
-
-	"btndata" is the layer attribute table for a button. In most cases, the data is provided by the skin. The layers listed below are the exception.
-	They can be set to nil to have LBF find it from the name of the button or to false to force them to not be skinned.
-
-	Icon: Defaults to _G[Button:GetName().."Icon"]
-	Cooldown: Defaults to _G[Button:GetName().."Cooldown"]
-	AutoCast: Ddefaults to _G[Button:GetName().."Autocast"]
-	AutoCastable: Defaults to _G[Button:GetName().."AutoCastable"]
-	HotKey: Ddefaults to _G[Button:GetName().."HotKey"]
-	Count: Ddefaults to _G[Button:GetName().."Count"]
-	Name: Defaults to _G[Button:GetName().."Name"]
-
-]]
 
 -- [ Group Methods ] --
 
