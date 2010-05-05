@@ -524,7 +524,7 @@ do
 		end
 	end
 	-- Skins the gloss layer.
-	function SkinGlossLayer(skin,button,xscale,yscale,Gloss,Color)
+	function SkinGlossLayer(skin,button,xscale,yscale,Alpha,Color)
 		local skinlayer = skin.Gloss
 		local btnlayer
 		local index = #cache
@@ -545,7 +545,7 @@ do
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or DEFAULT_COORDS))
 		btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 		btnlayer:SetDrawLayer(DRAWLAYERS.Gloss)
-		SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Gloss",GlossAlpha))
+		SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Gloss",Alpha))
 		btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 		btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 		btnlayer:ClearAllPoints()
