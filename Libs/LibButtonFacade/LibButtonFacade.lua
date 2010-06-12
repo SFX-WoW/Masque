@@ -438,10 +438,6 @@ do
 	local function Hook_ActionButton_Update(button)
 		local btnlayer = border[button]
 		if not btnlayer then return end
-		if button.__bf_showborder then
-			btnlayer:Show()
-			return
-		end
 		if button.action and IsEquippedAction(button.action) then
 			btnlayer:Show()
 		else
@@ -483,18 +479,6 @@ do
 	-- Get the border layer.
 	function LBF:GetBorderLayer(button)
 		return border[button]
-	end
-	-- Forces the border layer to be shown.
-	function LBF:ShowBorder(button)
-		if border[button] then
-			button.__bf_showborder = true
-		end
-	end
-	-- Disables the forced showing of the border layer.
-	function LBF:HideBorder(button)
-		if border[button] then
-			button.__bf_showborder = false
-		end
 	end
 	-- Gets the border vertex color.
 	function LBF:GetBorderColor(button)

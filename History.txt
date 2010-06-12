@@ -1,16 +1,14 @@
 Release History
 
-3.3.306
+3.3.309
 
 - LibButtonFacade:
   - Fixed an issue with borders not being able to be recolored correctly.
   - The method "ElementListCallback" has been renamed to "RegisterGuiCallback".
-  - Added five new methods for those authors that like to customized borders on non-action buttons:
+  - Added three new methods for accessing the custom border layer:
     - LBF:GetBorderLayer(button) - Returns the border layer object for the button object passed.
     - LBF:GetBorderColor(button) - Returns the vertex color of the button object passed.
     - LBF:SetBorderColor(button,r,g,b,a) - Sets the border color for the button object passed.
-    - LBF:ShowBorder(button) - Forces the border to be shown.
-    - LBF:HideBorder(button) - Forces the border to be hidden.
   - A button's additional frame layers will now automatically update their levels when button:SetFrameLevel() is called.
   - More code optimization. (Scope: It's not just for bad breath.)
 - ButtonFacade GUI:
