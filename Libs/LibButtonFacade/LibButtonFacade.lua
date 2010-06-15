@@ -446,8 +446,8 @@ do
 	end
 	hooksecurefunc("ActionButton_Update",Hook_ActionButton_Update)
 	-- Skins the custom border layer.
-	function SkinBorderLayer(skin,button,xscale,yscale,Color)
-		local oldlayer = _G[button:GetName().."Border"]
+	function SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
+		local oldlayer = _G[button:GetName().."Border"] or btndata.Border
 		if not oldlayer then return end
 		oldlayer:SetTexture("")
 		oldlayer:Hide()
@@ -718,7 +718,7 @@ do
 		SkinHighlightLayer(skin,button,btndata,xscale,yscale,Color)
 		SkinPushedLayer(skin,button,btndata,xscale,yscale,Color)
 		SkinDisabledLayer(skin,button,btndata,xscale,yscale,Color)
-		SkinBorderLayer(skin,button,xscale,yscale,Color)
+		SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
 		if button:GetObjectType() == "CheckButton" then
 			SkinCheckedLayer(skin,button,btndata,xscale,yscale,Color)
 		end
