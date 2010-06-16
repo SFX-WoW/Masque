@@ -447,7 +447,8 @@ do
 	hooksecurefunc("ActionButton_Update",Hook_ActionButton_Update)
 	-- Skins the custom border layer.
 	function SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
-		local oldlayer = _G[button:GetName().."Border"] or btndata.Border
+		local btnname = button:GetName()
+		local oldlayer = btndata.Border or btnname and _G[btnname.."Border"]
 		if not oldlayer then return end
 		oldlayer:SetTexture("")
 		oldlayer:Hide()
@@ -666,17 +667,18 @@ do
 	-- Applies a skin to a button.
 	function ApplySkin(SkinID,Gloss,Backdrop,Color,button,btndata)
 		if not button then return end
+		local btnname = button:GetName()
 		button.__bf_level = button.__bf_level or {}
 		if not button.__bf_level[1] then
 			local frame1 = CreateFrame("Frame",nil,button)
 			button.__bf_level[1] = frame1
 		end
-		btndata.Cooldown = btndata.Cooldown or _G[button:GetName().."Cooldown"]
+		btndata.Cooldown = btndata.Cooldown or btnname and _G[btnname.."Cooldown"]
 		if btndata.Cooldown then
 			button.__bf_level[2] = btndata.Cooldown
 		end
 		button.__bf_level[3] = button
-		btndata.AutoCast = btndata.AutoCast or _G[button:GetName().."Shine"]
+		btndata.AutoCast = btndata.AutoCast or btnname and _G[btnname.."Shine"]
 		if btndata.AutoCast then
 			button.__bf_level[4] = btndata.AutoCast
 		elseif not button.__bf_level[4] then
@@ -707,7 +709,7 @@ do
 		for i = 1, #layers do
 			local layer = layers[i]
 			if btndata[layer] == nil then
-				btndata[layer] = _G[button:GetName()..layer]
+				btndata[layer] = btnname and _G[btnname..layer]
 			end
 			local btnlayer = btndata[layer]
 			if btnlayer then
