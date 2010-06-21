@@ -259,12 +259,12 @@ do
 	-- Gets the Normal vertex color.
 	function LBF:GetNormalVertexColor(button)
 		local t = button.__bf_normaltexture or button:GetNormalTexture()
-		return t:GetVertexColor()
+		if t then return t:GetVertexColor() end
 	end
 	-- Sets the Normal vertex color.
 	function LBF:SetNormalVertexColor(button,r,g,b,a)
 		local t = button.__bf_normaltexture or button:GetNormalTexture()
-		return t:SetVertexColor(r,g,b,a)
+		if t then return t:SetVertexColor(r,g,b,a) end
 	end
 end
 
@@ -484,11 +484,11 @@ do
 	-- Gets the border vertex color.
 	function LBF:GetBorderColor(button)
 		local t = border[button]
-		return t:GetVertexColor()
+		if t then return t:GetVertexColor() end
 	end
 	-- Set the border vertex color.
 	function LBF:SetBorderColor(button,r,g,b,a)
-		SetTextureColor(border[button],r,g,b,a)
+		if border[button] then SetTextureColor(border[button],r,g,b,a) end
 	end
 end
 
