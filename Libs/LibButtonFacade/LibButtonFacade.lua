@@ -450,6 +450,7 @@ do
 		local btnname = button:GetName()
 		local oldlayer = btndata.Border or btnname and _G[btnname.."Border"]
 		if not oldlayer then return end
+		local visible = oldlayer:IsShown()
 		oldlayer:SetTexture("")
 		oldlayer:Hide()
 		local skinlayer = skin.Border
@@ -465,7 +466,11 @@ do
 				btnlayer:Hide()
 			end
 		else
-			btnlayer:Show()
+			if visible then
+				btnlayer:Show()
+			else
+				btnlayer:Hide()
+			end
 		end
 		btnlayer:SetTexture(skinlayer.Texture)
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or DEFAULT_COORDS))
