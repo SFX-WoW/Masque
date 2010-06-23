@@ -1,6 +1,6 @@
 Release History
 
-3.3.315
+3.3.317
 
 - LibButtonFacade:
   - Fixed an issue with borders not being able to be recolored correctly.
