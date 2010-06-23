@@ -434,38 +434,39 @@ local SkinBorderLayer
 
 do
 	local border = {}
+	local hooked = {}
 	-- Hook to set the border's visibility.
-	local function Hook_ActionButton_Update(button)
+	local function Hook_BorderUpdate(button)
 		local btnlayer = border[button]
 		if not btnlayer then return end
+		local oldlayer = button.__bf_oldborder
 		if button.action and IsEquippedAction(button.action) then
+			btnlayer:Show()
+		elseif oldlayer and oldlayer:IsShown() then
 			btnlayer:Show()
 		else
 			btnlayer:Hide()
 		end
 	end
-	hooksecurefunc("ActionButton_Update",Hook_ActionButton_Update)
 	-- Skins the custom border layer.
 	function SkinBorderLayer(skin,button,btndata,xscale,yscale,Color)
 		local btnname = button:GetName()
 		local oldlayer = btndata.Border or btnname and _G[btnname.."Border"]
 		if not oldlayer then return end
+		button.__bf_oldborder = oldlayer
 		oldlayer:SetTexture("")
-		oldlayer:Hide()
 		local skinlayer = skin.Border
 		if skinlayer.Hide then return end
 		local btnlayer = border[button] or button:CreateTexture(nil,"OVERLAY")
 		border[button] = btnlayer
 		local parent = button.__bf_level[LEVELS.Border]
 		btnlayer:SetParent(parent or button)
-		if button:GetObjectType() == "CheckButton" then
-			if button.action and IsEquippedAction(button.action) then
-				btnlayer:Show()
-			else
-				btnlayer:Hide()
-			end
-		else
+		if button.action and IsEquippedAction(button.action) then
 			btnlayer:Show()
+		elseif oldlayer:IsShown() then
+			btnlayer:Show()
+		else
+			btnlayer:Hide()
 		end
 		btnlayer:SetTexture(skinlayer.Texture)
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or DEFAULT_COORDS))
@@ -476,6 +477,10 @@ do
 		btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 		btnlayer:ClearAllPoints()
 		btnlayer:SetPoint("CENTER",button,"CENTER",skinlayer.OffsetX or 0,skinlayer.OffsetY or 0)
+		if not hooked[button] then
+			button:HookScript("OnUpdate",Hook_BorderUpdate)
+			hooked[button] = true
+		end
 	end
 	-- Get the border layer.
 	function LBF:GetBorderLayer(button)
