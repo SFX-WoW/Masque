@@ -89,7 +89,6 @@ do
 		if region.GetVertexColor ~= HookGetVertexColor then
 			hooksecurefunc(region,"SetVertexColor",HookSetVertexColor)
 			region.GetVertexColor = HookGetVertexColor
-			hooked[region] = true
 		end
 		region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A = r, g, b, a
 		loopcheck[region] = true
