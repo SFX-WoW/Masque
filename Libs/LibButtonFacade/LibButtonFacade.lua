@@ -60,7 +60,6 @@ end
 local SetTextureColor
 
 do
-	local hooked = {}
 	local loopcheck = {}
 	local old_GetVertexColor
 	-- GetVertexColor post-hook.
@@ -493,7 +492,7 @@ do
 	end
 	-- Set the border vertex color.
 	function LBF:SetBorderColor(button,r,g,b,a)
-		if border[button] then SetTextureColor(border[button],r,g,b,a) end
+		if border[button] then SetTextureColor(border[button],r,g,b,a or 1) end
 	end
 end
 
