@@ -7,13 +7,13 @@
 
 -- [ LibStub ] --
 
-local MAJOR, MINOR = "LibButtonFacade", 7
+local MAJOR, MINOR = "LibButtonFacade", 8
 local LBF = LibStub:NewLibrary(MAJOR, MINOR)
 if not LBF then return end
 
 -- [ Locals ] --
 
-local assert,pairs,setmetatable,type,unpack = assert,pairs,setmetatable,type,unpack
+local assert, pairs, setmetatable, type, unpack = assert, pairs, setmetatable, type, unpack
 
 -- [ Call-Backs ] --
 
@@ -65,14 +65,14 @@ do
 	-- GetVertexColor post-hook.
 	local function HookGetVertexColor(region)
 		local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
-		local r,g,b,a = old_GetVertexColor(region)
+		local r, g, b, a = old_GetVertexColor(region)
 		if R then
 			r = r / R
 			g = g / G
 			b = b / B
 			a = a / A
 		end
-		return r,g,b,a
+		return r, g, b, a
 	end
 	-- SetVertexColor post-hook.
 	local function HookSetVertexColor(region,r,g,b,a)
@@ -96,63 +96,17 @@ do
 	end
 end
 
-local SetTextColor
-
-do
-	local hooked = {}
-	local loopcheck = {}
-	local old_GetTextColor
-	-- GetTextColor post-hook.
-	local function HookGetTextColor(region,r,g,b,a)
-		local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
-		local r,g,b,a = old_GetTextColor(region)
-		if R then
-			r = r / R
-			g = g / G
-			b = b / B
-			a = a / A
-		end
-		return r,g,b,a
-	end
-	-- SetTextColor post-hook.
-	local function HookSetTextColor(region,r,g,b,a)
-		if loopcheck[region] then loopcheck[region] = nil return end
-		loopcheck[region] = true
-		local R, G, B, A = region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A
-		if R then
-			region:SetTextColor(R*r,G*g,B*b,A*(a or 1))
-		end
-	end
-	-- Sets the text color.
-	function SetTextColor(region,r,g,b,a)
-		if not old_GetTextColor then old_GetTextColor = region.GetTextColor end
-		if not hooked[region] then
-			hooksecurefunc(region,"SetTextColor",HookSetTextColor)
-			region.GetTextColor = HookGetTextColor
-			hooked[region] = true
-		end
-		region.__bf_R, region.__bf_G, region.__bf_B, region.__bf_A = r, g, b, a
-		loopcheck[region] = true
-		region:SetTextColor(r,g,b,a)
-	end
-end
-
 -- Returns the layer's color table.
 local function GetLayerColor(SkinLayer,Color,Layer,Alpha)
-	if Color[Layer] then
-		return Color[Layer][1] or 1, Color[Layer][2] or 1, Color[Layer][3] or 1, Alpha or Color[Layer][4] or 1
+	local color = Color[Layer] or SkinLayer.Color
+	if color and type(color) == "table" then
+		return color[1] or 1, color[2] or 1, color[3] or 1, Alpha or color[4] or 1
+	else
+		return SkinLayer.Red or 1,
+			SkinLayer.Green or 1,
+			SkinLayer.Blue or 1,
+			Alpha or SkinLayer.Alpha or 1
 	end
-	local skincolor = SkinLayer.Color
-	if skincolor then
-		return skincolor[1] or SkinLayer.Red or 1,
-			skincolor[2] or SkinLayer.Green or 1,
-			skincolor[3] or SkinLayer.Blue or 1,
-			Alpha or skincolor[4] or SkinLayer.Alpha or 1
-	end
-	return SkinLayer.Red or 1,
-		SkinLayer.Green or 1,
-		SkinLayer.Blue or 1,
-		Alpha or SkinLayer.Alpha or 1
 end
 
 -- [ Layers ] --
@@ -433,6 +387,15 @@ local SkinBorderLayer
 do
 	local border = {}
 	local hooked = {}
+	-- Returns the border's color table.
+	local function GetBorderColor(oldlayer,Color)
+		local color = Color.Border
+		if color and type(color) == "table" then
+			return color[1] or 1, color[2] or 1, color[3] or 1, Alpha or color[4] or 1
+		else
+			return oldlayer:GetVertexColor()
+		end
+	end
 	-- Hook to set the border's visibility.
 	local function Hook_BorderUpdate(button)
 		local btnlayer = border[button]
@@ -470,7 +433,7 @@ do
 		btnlayer:SetTexCoord(unpack(skinlayer.TexCoords or DEFAULT_COORDS))
 		btnlayer:SetBlendMode(skinlayer.BlendMode or "BLEND")
 		btnlayer:SetDrawLayer(DRAWLAYERS.Gloss)
-		SetTextureColor(btnlayer,GetLayerColor(skinlayer,Color,"Border"))
+		SetTextureColor(btnlayer,GetBorderColor(oldlayer,Color))
 		btnlayer:SetWidth((skinlayer.Width or 36) * (skinlayer.Scale or 1) * xscale)
 		btnlayer:SetHeight((skinlayer.Height or 36) * (skinlayer.Scale or 1) * yscale)
 		btnlayer:ClearAllPoints()
@@ -599,7 +562,7 @@ do
 			local parent = button.__bf_level[LEVELS[layer]]
 			btnlayer:SetParent(parent or button)
 			btnlayer:SetDrawLayer(DRAWLAYERS[layer])
-			SetTextColor(btnlayer,GetLayerColor(skinlayer,Color,layer))
+			btnlayer:SetTextColor(GetLayerColor(skinlayer,Color,layer))
 		elseif layertype == "Frame" then
 		local level = button:GetFrameLevel()
 		btnlayer:SetFrameLevel(level + OFFSETS[LEVELS[layer]])
