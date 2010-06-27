@@ -1,20 +1,22 @@
 Release History
 
-3.3.321
+3.3.322
 
 - LibButtonFacade:
   - Fixed an issue with borders not being able to be recolored correctly.
+    - This was achieved by creating a new border texture for each button that has a border.
+      - Authors can use the following new methods to manipulate this new layer:
+        - LBF:GetBorderLayer(button) - Returns the border layer object for the button object passed.
+        - LBF:GetBorderColor(button) - Returns the vertex color of the button object passed.
+        - LBF:SetBorderColor(button,r,g,b,a) - Sets the border color for the button object passed.
   - The method "ElementListCallback" has been renamed to "RegisterGuiCallback".
-  - Added three new methods for accessing the custom border layer:
-    - LBF:GetBorderLayer(button) - Returns the border layer object for the button object passed.
-    - LBF:GetBorderColor(button) - Returns the vertex color of the button object passed.
-    - LBF:SetBorderColor(button,r,g,b,a) - Sets the border color for the button object passed.
-  - A button's additional frame layers will now automatically update their levels when button:SetFrameLevel() is called.
+  - A button's additional frame layers will now automatically update their levels when Button:SetFrameLevel() is called.
+  - Removed the redundant code for SetTextColor() since SetTextColor works like it should.
   - More code optimization. (Scope: It's not just for bad breath.)
 - ButtonFacade GUI:
   - Layers that are disabled in the skin definition will now show their respective options as disabled in the GUI.
 - Miscellaneous:
-  - ButtonFacade will no longer be registered in the global namespace. Authors will have to use AceAddOn or IsAddOnLoaded() check for it.
+  - ButtonFacade will no longer be registered in the global namespace. Authors will have to use AceAddOn or IsAddOnLoaded() to check for it.
   - Removed the need for AceLocale.
 
 3.3.300
