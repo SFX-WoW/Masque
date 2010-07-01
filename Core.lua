@@ -10,7 +10,7 @@ local AddOn, ns = ...
 
 -- [ Set Up ] --
 
-local LBF = LibStub("LibButtonFacade")
+local LBF = LibStub("LibButtonFacade", true)
 if not LBF then return end
 local BF = LibStub("AceAddon-3.0"):NewAddon(AddOn, "AceConsole-3.0")
 
@@ -31,7 +31,7 @@ function BF:OnInitialize()
 			Colors = {},
 		},
 	}
-	self.db = LibStub("AceDB-3.0"):New("ButtonFacadeDB", nil, true)
+	self.db = LibStub("AceDB-3.0"):New("ButtonFacadeDB", defaults, true)
 	self.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
 	self.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
 	self.db.RegisterCallback(self, "OnProfileReset", "Refresh")
@@ -261,17 +261,6 @@ do
 					disabled = getState,
 					order = 11,
 				},
-				__bf_ColorBorder = {
-					type = "color",
-					name = L["Equipped"],
-					desc = L["Set the %s color."]:format(L["Equipped"]),
-					get = getLayerColor,
-					set = setLayerColor,
-					arg = {LBFGroup, "Border"},
-					hasAlpha = true,
-					disabled = getState,
-					order = 12,
-				},
 				__bf_ColorHighlight = {
 					type = "color",
 					name = L["Highlight"],
@@ -425,17 +414,6 @@ do
 					disabled = getState,
 					order = 11,
 				},
-				__bf_ColorBorder = {
-					type = "color",
-					name = L["Equipped"],
-					desc = L["Set the %s color."]:format(L["Equipped"]),
-					get = getLayerColor,
-					set = setLayerColor,
-					arg = {LBFGroup, "Border"},
-					hasAlpha = true,
-					disabled = getState,
-					order = 12,
-				},
 				__bf_ColorHighlight = {
 					type = "color",
 					name = L["Highlight"],
@@ -588,17 +566,6 @@ do
 					disabled = getState,
 					order = 11,
 				},
-				__bf_ColorBorder = {
-					type = "color",
-					name = L["Equipped"],
-					desc = L["Set the %s color."]:format(L["Equipped"]),
-					get = getLayerColor,
-					set = setLayerColor,
-					arg = {LBFGroup, "Border"},
-					hasAlpha = true,
-					disabled = getState,
-					order = 12,
-				},
 				__bf_ColorHighlight = {
 					type = "color",
 					name = L["Highlight"],
@@ -750,17 +717,6 @@ do
 					hasAlpha = true,
 					disabled = getState,
 					order = 11,
-				},
-				__bf_ColorBorder = {
-					type = "color",
-					name = L["Equipped"],
-					desc = L["Set the %s color."]:format(L["Equipped"]),
-					get = getLayerColor,
-					set = setLayerColor,
-					arg = {LBFGroup, "Border"},
-					hasAlpha = true,
-					disabled = getState,
-					order = 12,
 				},
 				__bf_ColorHighlight = {
 					type = "color",
