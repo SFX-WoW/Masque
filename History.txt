@@ -1,6 +1,6 @@
 Release History
 
-3.3.324
+3.3.325
 
 - LibButtonFacade:
   - Fixed an issue with borders not being able to be recolored correctly.
@@ -15,6 +15,7 @@ Release History
   - More code optimization. (Scope: It's not just for bad breath.)
 - ButtonFacade GUI:
   - Layers that are disabled in the skin definition will now show their respective options as disabled in the GUI.
+  - The GUI should now be lighter-weight and a bit more user-friendly.
 - Miscellaneous:
   - ButtonFacade will no longer be registered in the global namespace. Authors will have to use AceAddOn or IsAddOnLoaded() to check for it.
   - Removed the need for AceLocale.
