@@ -7,7 +7,7 @@
 
 -- This contents of this file are automatically generated.
 -- Please use the localization application on WoWAce.com to submit translations.
--- http://www.wowace.com/projects/blizzfacade/localization/
+-- http://www.wowace.com/projects/buttonfacade/localization/
 
 -- Get the private table.
 local _, ns = ...
@@ -15,37 +15,56 @@ local _, ns = ...
 -- Hard-code enUS/enGB.
 ns.L = {
 	["ADDON_INFO"] = "This section allows you adjust skin settings on a per-add-on basis. You can also adjust the settings of individual groups, bars and buttons of the add-on if available. Note that changes here only affect the selected elements and are saved by the add-on itself.",
-	["Add-Ons"] = "Add-Ons",
+	["AddOns"] = "AddOns",
 	["Apply skin to all buttons registered with %s."] = "Apply skin to all buttons registered with %s.",
 	["Apply skin to all buttons registered with %s: %s."] = "Apply skin to all buttons registered with %s: %s.",
 	["Apply skin to all buttons registered with %s: %s/%s."] = "Apply skin to all buttons registered with %s: %s/%s.",
-	["Backdrop"] = "Backdrop",
 	["Backdrop Settings"] = "Backdrop Settings",
 	["BF_INFO"] = "ButtonFacade, with its associated library, is a small add-on that allows for the dynamic skinning of button-based add-ons.",
+	["Border Colors"] = "Border Colors",
 	["Checked"] = "Checked",
 	["Color"] = "Color",
-	["Color Options"] = "Color Options",
+	["Curse"] = "Curse",
+	["Debuff"] = "Debuff",
 	["Disabled"] = "Disabled",
+	["Disease"] = "Disease",
 	["Enable"] = "Enable",
 	["Enable the backdrop."] = "Enable the backdrop.",
+	["Enchant"] = "Enchant",
 	["Equipped"] = "Equipped",
 	["Flash"] = "Flash",
 	["GLOBAL_INFO"] = "This section allows you adjust the skin settings globally. Note that while changes here will affect all registered elements, ButtonFacade only saves changes made at the global level.",
 	["Global Settings"] = "Global Settings",
-	["Gloss"] = "Gloss",
 	["Gloss Settings"] = "Gloss Settings",
 	["Highlight"] = "Highlight",
+	["Magic"] = "Magic",
 	["Normal"] = "Normal",
 	["Opacity"] = "Opacity",
-	["Options"] = "Options",
+	["Poison"] = "Poison",
 	["Profiles"] = "Profiles",
 	["Pushed"] = "Pushed",
-	["Reset all colors."] = "Reset all colors.",
 	["Reset All Colors"] = "Reset All Colors",
+	["Reset all colors to their defaults."] = "Reset all colors to their defaults.",
+	["Set the backdrop color."] = "Set the backdrop color.",
+	["Set the border color for curses."] = "Set the border color for curses.",
+	["Set the border color for debuffs that cannot be removed."] = "Set the border color for debuffs that cannot be removed.",
+	["Set the border color for diseases."] = "Set the border color for diseases.",
+	["Set the border color for equipped items."] = "Set the border color for equipped items.",
+	["Set the border color for magic."] = "Set the border color for magic.",
+	["Set the border color for poisons."] = "Set the border color for poisons.",
+	["Set the border color for special types."] = "Set the border color for special types.",
+	["Set the border color for weapon enchants."] = "Set the border color for weapon enchants.",
+	["Set the color of the checked texture."] = "Set the color of the checked texture.",
+	["Set the color of the disabled texture."] = "Set the color of the gloss texture.",
+	["Set the color of the flash texture."] = "Set the color of the flash texture.",
+	["Set the color of the gloss texture."] = "Set the color of the gloss texture.",
+	["Set the color of the highlight texture."] = "Set the color of the highlight texture.",
+	["Set the color of the normal texture."] = "Set the color of the normal texture.",
+	["Set the color of the pushed texture."] = "Set the color of the pushed texture.",
 	["Set the intensity of the gloss."] = "Set the intensity of the gloss.",
-	["Set the %s color."] = "Set the %s color.",
 	["Set the skin."] = "Set the skin.",
 	["Skin"] = "Skin",
+	["Special"] = "Special",
 	["State Colors"] = "State Colors",
 }
 

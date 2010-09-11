@@ -26,13 +26,11 @@ LBF:AddSkin("Dream Layout", {
 	Pushed = {
 		Width = 32,
 		Height = 32,
-		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 	},
 	Flash = {
 		Width = 32,
 		Height = 32,
-		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\UI-QuickslotRed]],
 	},
 	Cooldown = {
@@ -49,21 +47,18 @@ LBF:AddSkin("Dream Layout", {
 		Width = 32,
 		Height = 32,
 		BlendMode = "ADD",
-		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
 	Border = {
 		Width = 56,
 		Height = 56,
 		BlendMode = "ADD",
-		Color = {0, 1, 0, 0.35},
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Highlight = {
 		Width = 32,
 		Height = 32,
 		BlendMode = "ADD",
-		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
 	AutoCast = {
@@ -114,13 +109,11 @@ LBF:AddSkin("Zoomed", {
 	Pushed = {
 		Width = 36,
 		Height = 36,
-		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 	},
 	Flash = {
 		Width = 36,
 		Height = 36,
-		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\UI-QuickslotRed]],
 	},
 	Cooldown = {
@@ -137,21 +130,18 @@ LBF:AddSkin("Zoomed", {
 		Width = 36,
 		Height = 36,
 		BlendMode = "ADD",
-		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
 	Border = {
 		Width = 64,
 		Height = 64,
 		BlendMode = "ADD",
-		Color = {0, 1, 0, 0.35},
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Highlight = {
 		Width = 36,
 		Height = 36,
 		BlendMode = "ADD",
-		Color = {1, 1, 1, 1},
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
 	AutoCast = {
