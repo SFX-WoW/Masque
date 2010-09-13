@@ -1,27 +1,27 @@
 Release History
 
-3.3.326
+3.3.327
 
 - LibButtonFacade:
   - Border color support is now available.
-    - A new border texture will created for buttons that have borders to ensure that they can be colored correctly by the skinning engine.
-      - This new texture can be accessed by the LBF:GetBorder(Button) method.
-      - For implementation details and caveats, please see the project documentation.
     - The Group:AddButton() method now how has a third parameter, "Type". This new string parameter will allow authors to specify the type of button that's being passed so that the borders may be colored correctly. These types are:
-      - "Action" (Default)(Green)
       - "None" (Unremovable Debuff)(Red)
       - "Curse" (Purple)
+      - "Disease" (Brown)
       - "Magic" (Light Blue)
       - "Poison" (Light Green)
-      - "Disease" (Brown)
+      - "Action" (Default)(Green)
       - "Enchant" (Purple)
       - "Special" (A special type that allows for custom coloring.)(Blue)
   - The Group:AddButton() method will now throw an error if a button object is not passed as the first parameter.
   - The Group:AddButton() method will now correctly return if attempting to add a button to a group that already has that button assigned to it.
-  - [Internal] The Group:Skin() method now only supports a table of the layers and their respective colors. The single layer specification used by the ButtonFacade GUI has been removed.
-  - [Internal] The Group:SetLayerColor() method used by the ButtonFacade GUI will now correctly update the skin with new color.
+  - A new Group method, :SetButtonType(Button,Type) is available. This will update the button's type and reskin it on the fly.
+  - A new method, LBF:SetBorderColor(Button,r,g,b,a) is available. This will override the color of the border but requires the button's type to be set to "Special". Note that this method will NOT update the options window.
+  - The Group:Skin() method now only supports a table of the layers and their respective colors. The single layer specification used by the ButtonFacade GUI has been removed.
+  - The Group:SetLayerColor() method used by the ButtonFacade GUI will now correctly update the skin with new color.
   - A button's additional frame layers will now automatically update their levels when Button:SetFrameLevel() is called.
   - Removed the redundant code for SetTextColor() since SetTextColor works like it should.
+  - Removed the out-dated hooks for SetVertexColor since it apparently works correctly.
   - More code optimization. (Scope: It's not just for bad breath.)
 - Skin API
   - The "Border" layer no longer supports the "Color" attribute. Instead, a new attribute, "Colors", is available that allows the skin author to specify a border color for each type of button. (See the notes above on button types)
