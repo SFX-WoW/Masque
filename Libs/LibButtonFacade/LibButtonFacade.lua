@@ -20,6 +20,21 @@ if not LBF then return end
 
 local error, pairs, print, setmetatable, type, unpack = error, pairs, print, setmetatable, type, unpack
 
+-- Error Handling -- 
+
+local E_PRE = "|cffffff99<LBF Debug>|r "
+local E_ARG = "Bad argument to method '%s'. '%s' must be a %s."
+local E_TPL = "Invalid template reference by skin '%s'. Skin '%s' does not exist."
+
+LBF.Debug = true
+-- Throws an error if debug mode is enabled.
+local function Debug(e,...)
+	if LBF.Debug == true then
+		local msg = (E_PRE..e):format(...)
+		error(msg,3)
+	end
+end
+
 -- [ Call Backs ] --
 
 local FireGuiCB
@@ -133,10 +148,46 @@ local Borders = {
 	Poison = {0,0.6,0,0.8},
 	Disease = {0.6,0.4,0,0.8},
 	Enchant = {0.6,0.4,0.8,0.8},
-	Special = {0,0,1,0.8},
+	Custom = {0,0,1,0.8},
 }
 
+-- [ Validation ] -- 
+
+local function IsType(Type)
+	if Type and Borders[Type] then
+		return true
+	end
+end
+
 -- [ Coloring ] --
+
+local SetBorderColor
+
+do
+	local hooked = {}
+	local loopcheck = {}
+	-- Hook to catch changes to the border color in the default UI.
+	local function Hook_SetVertexColor(Region,r,g,b,a)
+		if Region.__LBF_Disabled then return end
+		if loopcheck[Region] then loopcheck[Region] = nil return end
+		loopcheck[Region] = true
+		r = Region.__LBF_R or r
+		g = Region.__LBF_G or g
+		b = Region.__LBF_B or b
+		a = Region.__LBF_A or a or 1
+		Region:SetVertexColor(r,g,b,a)
+	end
+	-- Sets the border color.
+	function SetBorderColor(Region,r,g,b,a)
+		Region.__LBF_Disabled = nil
+		Region.__LBF_R, Region.__LBF_G, Region.__LBF_B, Region.__LBF_A = r, g, b, a
+		if not hooked[Region] then
+			hooksecurefunc(Region,"SetVertexColor",Hook_SetVertexColor)
+			hooked[Region] = true
+		end
+		Region:SetVertexColor(r,g,b,a)
+	end
+end
 
 -- Returns the layer's color table.
 local function GetLayerColor(SkinLayer,Colors,Layer,Alpha)
@@ -150,9 +201,6 @@ end
 
 -- Returns the border's color table.
 local function GetBorderColor(Type,Colors,SkinLayer)
-	if not Type or not Borders[Type] then
-		Type = "Action"
-	end
 	local r, g, b, a = unpack(Borders[Type])
 	if type(SkinLayer.Colors) == "table" then
 		local c = SkinLayer.Colors[Type]
@@ -173,32 +221,6 @@ local function GetBorderColor(Type,Colors,SkinLayer)
 		end
 	end
 	return r, g, b, a
-end
-
-local SetBorderColor
-
-do
-	local hooked = {}
-	local loopcheck = {}
-	-- Hook to catch changes to the border color in the default UI.
-	local function Hook_SetVertexColor(Region,r,g,b,a)
-		if loopcheck[Region] then loopcheck[Region] = nil return end
-		loopcheck[Region] = true
-		r = Region.__LBF_R or r
-		g = Region.__LBF_G or g
-		b = Region.__LBF_B or b
-		a = Region.__LBF_A or a or 1
-		Region:SetVertexColor(r,g,b,a)
-	end
-	-- Sets the border color. We use this to prevent unwanted color changes.
-	function SetBorderColor(Region,r,g,b,a)
-		Region.__LBF_R, Region.__LBF_G, Region.__LBF_B, Region.__LBF_A = r, g, b, a
-		if not hooked[Region] then
-			hooksecurefunc(Region,"SetVertexColor",Hook_SetVertexColor)
-			hooked[Region] = true
-		end
-		Region:SetVertexColor(r,g,b,a)
-	end
 end
 
 -- [ Default Layers ] --
@@ -322,11 +344,16 @@ do
 		region:SetHeight((skin.Height or 36) * (skin.Scale or 1) * yScale)
 		region:ClearAllPoints()
 		region:SetPoint("CENTER",Button,"CENTER",skin.OffsetX or 0,skin.OffsetY or 0)
-		SetBorderColor(region,GetBorderColor(Button.__LBF_Type,Colors,skin))
+		local type = Button.__LBF_Type
+		if IsType(type) then
+			SetBorderColor(region,GetBorderColor(type,Colors,skin))
+		else
+			region.__LBF_Disabled = true
+		end
 	end
 	function LBF:SetBorderColor(Button,r,g,b,a)
 		local region = border[Button]
-		if region and Button.__LBF_Type == "Special" then
+		if region and Button.__LBF_Type == "Custom" then
 			SetBorderColor(region,r,g,b,a)
 		end
 	end
@@ -508,11 +535,11 @@ do
 		region:SetTexCoord(unpack(skin.TexCoords or TexCoords))
 		region:SetBlendMode(skin.BlendMode or "BLEND")
 		region:SetDrawLayer(DrawLayers.Gloss)
+		region:SetVertexColor(GetLayerColor(skin,Colors,"Gloss",Alpha))
 		region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
 		region:SetHeight((skin.Height or 36) * (skin.Scale or 1) * yScale)
 		region:ClearAllPoints()
 		region:SetPoint("CENTER",Button,"CENTER",skin.OffsetX or 0,skin.OffsetY or 0)
-		region:SetVertexColor(GetLayerColor(skin,Colors,"Gloss",Alpha))
 	end
 	-- Gets the gloss layer.
 	function LBF:GetGlossLayer(Button)
@@ -572,15 +599,22 @@ local SkinList = {}
 do
 	-- Adds a skin to the skin tables.
 	function LBF:AddSkin(SkinID,SkinData,Replace)
-		if type(SkinID) ~= "string" or type(SkinData) ~= "table" then return end
+		if type(SkinID) ~= "string" then
+			Debug(E_ARG,"AddSkin","SkinID","string")
+			return
+		end
 		if Skins[SkinID] and not Replace then
+			return
+		end
+		if type(SkinData) ~= "table" then
+			Debug(E_ARG,"AddSkin","SkinData","table")
 			return
 		end
 		if SkinData.Template then
 			if Skins[SkinData.Template] then
 				setmetatable(SkinData,{__index=Skins[SkinData.Template]})
 			else
-				print("|cff8000LBF Warning:|r Invalid template reference by skin '"..SkinID.."'.")
+				Debug(E_TPL,SkinID,SkinData.Template)
 				return
 			end
 		end
@@ -720,6 +754,7 @@ local function NewGroup(Addon,Group,Button)
 		SkinID = "Blizzard",
 		Gloss = false,
 		Backdrop = false,
+		Borders = false,
 		Colors = {},
 		Buttons = {},
 		SubList = not Button and {} or nil,
@@ -765,16 +800,17 @@ end
 function LBF:ListButtons(Addon,Group)
 	return Groups[Addon.."_"..Group].SubList
 end
-
 do
 	local reverse = {}
 	-- Group Metatable
 	GroupMT = {
 		__index = {
-			-- Adds a button to a group. If the button already exists in this group, the method returns. If it exists in another group, it gets reassigned to this group.
+			-- [ Button ] --
+			-- Adds a button to the group.
 			AddButton = function(self,Button,ButtonData,Type)
 				if type(Button) ~= "table" then
-					error("Bad argument to LBF Group method 'AddButton'. 'Button' must be a table.",2)
+					Debug(E_ARG,"AddButton","Button","table")
+					return
 				end
 				if reverse[Button] == self then return end
 				if reverse[Button] then
@@ -783,17 +819,32 @@ do
 				reverse[Button] = self
 				ButtonData = ButtonData or {}
 				self.Buttons[Button] = ButtonData
-				Button.__LBF_Type = Type
+				self:SetButtonType(Button,Type,true)
 				ApplySkin(self.SkinID,self.Gloss,self.Backdrop,self.Colors,Button,ButtonData)
 			end,
-			-- Removes and optionally reskins a button.
+			-- Removes a button from the group and optionally reskins it.
 			RemoveButton = function(self,Button,noReskin)
+				if not Button then return end
 				local btndata = self.Buttons[Button]
 				reverse[Button] = nil
 				if btndata and not noReskin then
 					ApplySkin("Blizzard",false,false,nil,Button,btndata)
 				end
 				self.Buttons[Button] = nil
+			end,
+			-- Sets a button's type and optionally reskins it.
+			SetButtonType = function(self,Button,Type,noReskin)
+				if not Button then return end
+				if IsType(Type) then
+					Button.__LBF_Type = Type
+					self.Borders = true
+				else
+					Button.__LBF_Type = nil
+				end
+				local btndata = self.Buttons[Button]
+				if btndata and not noReskin then
+					ApplySkin(self.SkinID,self.Gloss,self.Backdrop,self.Colors,Button,self.Buttons[Button])
+				end
 			end,
 			-- Deletes the current group.
 			Delete = function(self,noReskin)
@@ -813,6 +864,7 @@ do
 				self.Parent:RemoveSubGroup(self)
 				Groups[self.RegID] = nil
 			end,
+			-- [ Skin ] --
 			-- Updates the groups's skin with the new data and then applies it.
 			Skin = function(self,SkinID,Gloss,Backdrop,Colors)
 				self.SkinID = SkinID and SkinList[SkinID] or self.SkinID
@@ -827,7 +879,7 @@ do
 				for k in pairs(self.Buttons) do
 					ApplySkin(self.SkinID,self.Gloss,self.Backdrop,self.Colors,k,self.Buttons[k])
 				end
-				FireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,self.Button,self.Colors)
+				FireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,nil,self.Colors)
 				local sl = self.SubList
 				if sl then
 					for k in pairs(sl) do
@@ -835,21 +887,24 @@ do
 					end
 				end
 			end,
+			-- Updates the group's skin data without applying the new skin.
+			SetSkin = function(self,SkinID,Gloss,Backdrop,Colors)
+				self.SkinID = SkinID and SkinList[SkinID] or self.SkinID
+				if type(Gloss) ~= "number" then
+					Gloss = Gloss and 1 or 0
+				end
+				self.Gloss = Gloss
+				self.Backdrop = Backdrop and true or false
+				if type(Colors) == "table" then
+					self.Colors = Colors
+				end
+				FireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,self.Button,self.Colors)
+			end,
 			-- Reskins the group.
 			ReSkin = function(self)
 				self:Skin(self.SkinID,self.Gloss,self.Backdrop,self.Colors)
 			end,
-			-- Sets a border type's color and optionally reskins the group.
-			SetButtonType = function(self,Button,Type,noReskin)
-				local btndata = self.Buttons[Button]
-				if btndata then
-					Button.__LBF_Type = Type
-					if not noReskin then
-						ApplySkin(self.SkinID,self.Gloss,self.Backdrop,self.Colors,Button,self.Buttons[Button])
-					end
-				end
-				if not noReskin then self:ReSkin() end
-			end,
+			-- [ Internal ] --
 			-- Adds a sub-group to a group.
 			AddSubGroup = function(self,SubGroup)
 				if self.RegID == "ButtonFacade" then
@@ -865,19 +920,7 @@ do
 				self.SubList[r] = nil
 				FireGuiCB(self.Addon,self.Group,self.Button)
 			end,
-			-- Updates the group's skin data without applying the new skin.
-			SetSkin = function(self,SkinID,Gloss,Backdrop,Colors)
-				self.SkinID = SkinID and SkinList[SkinID] or self.SkinID
-				if type(Gloss) ~= "number" then
-					Gloss = Gloss and 1 or 0
-				end
-				self.Gloss = Gloss
-				self.Backdrop = Backdrop and true or false
-				if type(Colors) == "table" then
-					self.Colors = Colors
-				end
-				FireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,self.Button,self.Colors)
-			end,
+			-- [ GUI ] --
 			-- Returns a layer's color.
 			GetLayerColor = function(self,Layer)
 				local skin = Skins[self.SkinID or "Blizzard"] or Skins["Blizzard"]
@@ -1012,3 +1055,4 @@ LBF:AddSkin("Blizzard",{
 		OffsetY = -11,
 	},
 })
+LBFG = Groups

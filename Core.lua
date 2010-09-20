@@ -5,7 +5,8 @@
 	Author..: StormFX, JJ Sheets
 ]]
 
--- Get the private table.
+-- [ Private Table ] --
+
 local AddOn, ns = ...
 
 -- [ Set Up ] --
@@ -17,8 +18,7 @@ local BF = LibStub("AceAddon-3.0"):NewAddon(AddOn, "AceConsole-3.0")
 
 -- [ Locals ] --
 
-local pairs = pairs
-local L = ns.L
+local L, pairs = ns.L, pairs
 
 -- [ Core Options ] --
 
@@ -31,7 +31,7 @@ BF.Options = {
 			name = AddOn,
 			order = 1,
 			args = {
-				desc = {
+				Info = {
 					type = "description",
 					name = L["BF_INFO"].."\n",
 					order = 1,
@@ -43,7 +43,7 @@ BF.Options = {
 			name = L["AddOns"],
 			order = 2,
 			args = {
-				desc = {
+				Info = {
 					type = "description",
 					name = L["ADDON_INFO"].."\n",
 					order = 1,
@@ -76,18 +76,14 @@ end
 
 -- Enable function.
 function BF:OnEnable()
-	-- Set up the global skin.
 	LBF:RegisterSkinCallback(AddOn, self.SkinCallback, self)
 	LBF:Group():Skin(self.db.profile.SkinID, self.db.profile.Gloss, self.db.profile.Backdrop, self.db.profile.Colors)
-	-- Register the GUI callback.
 	LBF:RegisterGuiCallback(self.GuiUpdate, self)
-	-- Set up options panels.
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(AddOn, self.Options)
 	local ACD = LibStub("AceConfigDialog-3.0")
 	self.OptionsPanel = ACD:AddToBlizOptions(AddOn, AddOn, nil, "General")
 	self.OptionsPanel.Addons = ACD:AddToBlizOptions(AddOn, L["AddOns"], AddOn, "Addons")
 	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(AddOn, L["Profiles"], AddOn, "Profiles")
-	-- Register the chat commands.
 	self:RegisterChatCommand("bf", function() self:OpenOptions() end)
 	self:RegisterChatCommand("buttonfacade", function() self:OpenOptions() end)
 end
@@ -113,7 +109,8 @@ function BF:OpenOptions()
 	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
 end
 
--- [ GUI Updater ] --
+-- [ Skin Options ] --
+
 do
 	-- Gets the skin.
 	local function GetSkin(info)
@@ -177,19 +174,19 @@ do
 	end
 	local function CreateOptions(addon, group, button)
 		local LBFGroup = LBF:Group(addon, group, button)
-		local name, desc
+		local name, info
 		if button then
 			name = button
-			desc = L["Apply skin to all buttons registered with %s: %s/%s."]:format(addon, group, button)
+			info = L["Apply skin to all buttons registered with %s: %s/%s."]:format(addon, group, button)
 		elseif group then
 			name = group
-			desc = L["Apply skin to all buttons registered with %s: %s."]:format(addon, group)
+			info = L["Apply skin to all buttons registered with %s: %s."]:format(addon, group)
 		elseif addon then
 			name = addon
-			desc = L["Apply skin to all buttons registered with %s."]:format(addon)
+			info = L["Apply skin to all buttons registered with %s."]:format(addon)
 		else
 			name = L["Global Settings"]
-			desc = L["GLOBAL_INFO"]
+			info = L["GLOBAL_INFO"]
 		end
 		return {
 			type = "group",
@@ -197,7 +194,7 @@ do
 			args = {
 				Info = {
 					type = "description",
-					name = desc.."\n",
+					name = info.."\n",
 					order = 1,
 				},
 				Skin = {
@@ -249,10 +246,40 @@ do
 						},
 					},
 				},
+				Backdrop = {
+					type = "group",
+					name = L["Backdrop Settings"],
+					order = 5,
+					inline = true,
+					args = {
+						Color = {
+							type = "color",
+							name = L["Color"],
+							desc = L["Set the backdrop color."],
+							get = GetLayerColor,
+							set = SetLayerColor,
+							arg = {LBFGroup, "Backdrop"},
+							hasAlpha = true,
+							disabled = GetBackdropState,
+							order = 1,
+						},
+						Enable = {
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Enable the backdrop."],
+							get = GetBackdrop,
+							set = SetBackdrop,
+							arg = {LBFGroup, "Backdrop"},
+							--width = "half",
+							disabled = GetState,
+							order = 1,
+						},
+					},
+				},
 				States = {
 					type = "group",
 					name = L["State Colors"],
-					order = 5,
+					order = 6,
 					inline = true,
 					args = {
 						Normal = {
@@ -326,8 +353,9 @@ do
 				Borders = {
 					type = "group",
 					name = L["Border Colors"],
-					order = 6,
+					order = 7,
 					inline = true,
+					hidden = function() return not LBFGroup.Borders end,
 					args = {
 						None = {
 							type = "color",
@@ -401,50 +429,20 @@ do
 						},
 						Special = {
 							type = "color",
-							name = L["Special"],
-							desc = L["Set the border color for special types."],
+							name = L["Custom"],
+							desc = L["Set the border color for custom types."],
 							get = GetBorderColor,
 							set = SetBorderColor,
-							arg = {LBFGroup, "Special"},
+							arg = {LBFGroup, "Custom"},
 							hasAlpha = true,
 							order = 8,
-						},
-					},
-				},
-				Backdrop = {
-					type = "group",
-					name = L["Backdrop Settings"],
-					order = 7,
-					inline = true,
-					args = {
-						Color = {
-							type = "color",
-							name = L["Color"],
-							desc = L["Set the backdrop color."],
-							get = GetLayerColor,
-							set = SetLayerColor,
-							arg = {LBFGroup, "Backdrop"},
-							hasAlpha = true,
-							disabled = GetBackdropState,
-							order = 1,
-						},
-						Enable = {
-							type = "toggle",
-							name = L["Enable"],
-							desc = L["Enable the backdrop."],
-							get = GetBackdrop,
-							set = SetBackdrop,
-							arg = {LBFGroup, "Backdrop"},
-							--width = "half",
-							disabled = GetState,
-							order = 1,
 						},
 					},
 				},
 				ResetAll = {
 					type = "execute",
 					name = L["Reset All Colors"],
-					desc = L["Reset all colors."],
+					desc = L["Reset all colors to their defaults."],
 					func = ResetAllColors,
 					arg = LBFGroup,
 					width = "full",
@@ -461,7 +459,6 @@ do
 			for _, addon in pairs(LBF:ListAddons()) do
 				local cAddon = addon:gsub("%s","_")
 				args[cAddon] = args[cAddon] or CreateOptions(addon)
-				args[cAddon].hidden = false
 			end
 		elseif not group then
 			local cAddon = addon:gsub("%s","_")
