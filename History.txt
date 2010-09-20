@@ -22,6 +22,7 @@ Release History
   - A button's additional frame layers will now automatically update their levels when Button:SetFrameLevel() is called.
   - Removed the redundant code for SetTextColor() and SetVertexColor() since they apparently work as they should.
   - More code optimization. (Scope: It's not just for bad breath.)
+  - A new method, LBF:Debug() is available that will cause LBF to throw errors on certain issues (IE, bad skin parameters, etc). Note that this function acts as a toggle.
 - Skin API
   - The "Border" layer no longer supports the "Color" attribute. Instead, a new attribute, "Colors", is available that allows the skin author to specify a border color for each type of button. (See the notes above on button types)
 - ButtonFacade GUI:

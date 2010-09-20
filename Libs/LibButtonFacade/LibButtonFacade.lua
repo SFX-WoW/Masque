@@ -26,15 +26,25 @@ local E_PRE = "|cffffff99<LBF Debug>|r "
 local E_ARG = "Bad argument to method '%s'. '%s' must be a %s."
 local E_TPL = "Invalid template reference by skin '%s'. Skin '%s' does not exist."
 
-LBF.Debug = true
+local debug = false
+
 -- Throws an error if debug mode is enabled.
 local function Debug(e,...)
-	if LBF.Debug == true then
+	if debug == true then
 		local msg = (E_PRE..e):format(...)
 		error(msg,3)
 	end
 end
 
+function LBF:Debug()
+	if not debug then
+		debug = true
+		print(E_PRE.."|cff00ff00enabled|r.")
+	else
+		debug = false
+		print(E_PRE.."|cffff0000disabled|r.")
+	end
+end
 -- [ Call Backs ] --
 
 local FireGuiCB
