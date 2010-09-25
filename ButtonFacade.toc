@@ -13,6 +13,7 @@
 ## X-eMail: stormfx@gmail.com
 ## X-Website: http://www.wowace.com/projects/buttonfacade/
 ## X-Category: Interface Enhancements
+## X-Compatible-With: 40000
 ## X-WoWI-ID: 12097
 ## OptionalDeps: Ace3
 ## SavedVariables: ButtonFacadeDB

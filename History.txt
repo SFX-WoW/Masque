@@ -1,34 +1,26 @@
 Release History
 
-3.3.328
+3.3.330
 
+- General:
+  - Updated for 3.3.5. All future versions will be for 4.0 and later.
+  - ButtonFacade should much more CPU friendly. (I hope)
 - LibButtonFacade:
-  - Border color support is now available. Note that support is optional for authors.
-    - The Group:AddButton() method now how has a third parameter, "Type". This new string parameter will allow authors to specify the type of button that's being passed so that the borders may be colored correctly by LBF. These types and their default colors are:
-      - "None" (Unremovable Debuff)(Red)
-      - "Curse" (Purple)
-      - "Disease" (Brown)
-      - "Magic" (Light Blue)
-      - "Poison" (Light Green)
-      - "Action" (Green)
-      - "Enchant" (Purple)
-      - "Custom" (A special type that allows for custom coloring.)(Blue)
-    - When a button is assigned a type, LBF will then take control of the border coloring for that button. If an author wishes to retain control of the border colors, for example, in the event that they have their own GUI for it, they can simply not pass a "Type" and LBF coloring will be disabled for the border texture of that button. Authors will then have to manipulate the color manually via :SetVertexColor.
-    - Authors can customize the color of the "Custom" type via the LBF:SetBorderColor(Button,r,g,b,a) method. Note that if the button's type is not set to "Custom", this function will do nothing.
-    - An additional Group:SetButtonType(Button,Type,noReskin) method is available. This will allow authors to change the button's type on the fly. The Button parameter must be the button object. The "Type" is of the same mentioned above. If noReskin is set to true, LBF will not reskin the button. Additionally, passing an invalid value or nil will cause the button to no longer be assigned a type and internal coloring will be disabled.
+  - Border color support has been removed. This leaves coloring the borders up to add-on authors, as it should be. (Use SetVertexColor)
   - The Group:AddButton() method will now correctly return if attempting to add a button to a group that already has that button assigned to it.
   - The Group:Skin() method now only supports a table of the layers and their respective colors. The single layer specification used by the ButtonFacade GUI has been removed.
   - The Group:SetLayerColor() method used by the ButtonFacade GUI will now correctly update the skin with new color.
   - A button's additional frame layers will now automatically update their levels when Button:SetFrameLevel() is called.
   - Removed the redundant code for SetTextColor() and SetVertexColor() since they apparently work as they should.
-  - More code optimization. (Scope: It's not just for bad breath.)
+  - A new method, Group:ReSkin(), is available so authors can reapply the skin after calls that may interfere with LBF's engine.
   - A new method, LBF:Debug() is available that will cause LBF to throw errors on certain issues (IE, bad skin parameters, etc). Note that this function acts as a toggle.
+  - Authors can use LBF, version = LibStub("LibButtonFacade") to check the LBF version for compatibility. This release is 30305.
+  - More code optimization. (Scope: It's not just for bad breath.)
 - Skin API
-  - The "Border" layer no longer supports the "Color" attribute. Instead, a new attribute, "Colors", is available that allows the skin author to specify a border color for each type of button. (See the notes above on button types)
+  - The "Border" layer no longer supports the "Color" attribute.
 - ButtonFacade GUI:
   - The ButtonFacade GUI has been reworked a little and tool tips should now be slight more descriptive.
   - Layers that are disabled in the skin definition will now show their respective options as disabled in the GUI.
-  - The new "Border Color" options will only be enabled for groups that have at least one button with its type set.
 - Miscellaneous:
   - ButtonFacade will no longer be registered in the global namespace. Authors will have to use AceAddOn or IsAddOnLoaded() to check for it.
   - Removed AceLocale.

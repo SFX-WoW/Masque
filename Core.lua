@@ -2,7 +2,7 @@
 	Project.: ButtonFacade
 	File....: Core.lua
 	Version.: @file-revision@
-	Author..: StormFX, JJ Sheets
+	Author..: StormFX, JJSheets
 ]]
 
 -- [ Private Table ] --
@@ -11,9 +11,9 @@ local AddOn, ns = ...
 
 -- [ Set Up ] --
 
-local LibStub = LibStub
-local LBF = LibStub("LibButtonFacade", true)
-if not LBF then return end
+local assert = assert
+local LibStub = assert(LibStub, "ButtonFacade requires LibStub.")
+local LBF = LibStub("LibButtonFacade")
 local BF = LibStub("AceAddon-3.0"):NewAddon(AddOn, "AceConsole-3.0")
 
 -- [ Locals ] --
@@ -57,7 +57,6 @@ BF.Options = {
 
 -- Initialize function.
 function BF:OnInitialize()
-	-- Set up saved variables.
 	local defaults = {
 		profile = {
 			SkinID = "Blizzard",
@@ -148,16 +147,6 @@ do
 	local function SetLayerColor(info, r, g, b, a)
 		local LBFGroup, layer = info.arg[1], info.arg[2]
 		LBFGroup:SetLayerColor(layer, r, g, b, a)
-	end
-	-- Gets a border's color.
-	local function GetBorderColor(info)
-		local LBFGroup, type = info.arg[1], info.arg[2]
-		return LBFGroup:GetBorderColor(type)
-	end
-	-- Sets a border's color.
-	local function SetBorderColor(info, r, g, b, a)
-		local LBFGroup, type = info.arg[1], info.arg[2]
-		LBFGroup:SetBorderColor(type, r, g, b, a)
 	end
 	-- Resets all colors.
 	local function ResetAllColors(info)
@@ -347,95 +336,6 @@ do
 							hasAlpha = true,
 							disabled = GetState,
 							order = 6,
-						},
-					},
-				},
-				Borders = {
-					type = "group",
-					name = L["Border Colors"],
-					order = 7,
-					inline = true,
-					hidden = function() return not LBFGroup.Borders end,
-					args = {
-						None = {
-							type = "color",
-							name = L["Debuff"],
-							desc = L["Set the border color for debuffs that cannot be removed."],
-							get = GetBorderColor,
-							set = SetBorderColor,
-							arg = {LBFGroup, "None"},
-							hasAlpha = true,
-							order = 1,
-						},
-						Curse = {
-							type = "color",
-							name = L["Curse"],
-							desc = L["Set the border color for curses."],
-							get = GetBorderColor,
-							set = SetBorderColor,
-							arg = {LBFGroup, "Curse"},
-							hasAlpha = true,
-							order = 2,
-						},
-						Disease = {
-							type = "color",
-							name = L["Disease"],
-							desc = L["Set the border color for diseases."],
-							get = GetBorderColor,
-							set = SetBorderColor,
-							arg = {LBFGroup, "Disease"},
-							hasAlpha = true,
-							order = 3,
-						},
-						Magic = {
-							type = "color",
-							name = L["Magic"],
-							desc = L["Set the border color for magic."],
-							get = GetBorderColor,
-							set = SetBorderColor,
-							arg = {LBFGroup, "Magic"},
-							hasAlpha = true,
-							order = 4,
-						},
-						Poison = {
-							type = "color",
-							name = L["Poison"],
-							desc = L["Set the border color for poisons."],
-							get = GetBorderColor,
-							set = SetBorderColor,
-							arg = {LBFGroup, "Poison"},
-							hasAlpha = true,
-							order = 5,
-						},
-						Action = {
-							type = "color",
-							name = L["Equipped"],
-							desc = L["Set the border color for equipped items."],
-							get = GetBorderColor,
-							set = SetBorderColor,
-							arg = {LBFGroup, "Action"},
-							hasAlpha = true,
-							order = 6,
-						},
-						Enchant = {
-							type = "color",
-							name = L["Enchant"],
-							desc = L["Set the border color for weapon enchants."],
-							get = GetBorderColor,
-							set = SetBorderColor,
-							arg = {LBFGroup, "Enchant"},
-							hasAlpha = true,
-							order = 7,
-						},
-						Special = {
-							type = "color",
-							name = L["Custom"],
-							desc = L["Set the border color for custom types."],
-							get = GetBorderColor,
-							set = SetBorderColor,
-							arg = {LBFGroup, "Custom"},
-							hasAlpha = true,
-							order = 8,
 						},
 					},
 				},

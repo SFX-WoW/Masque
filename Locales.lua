@@ -9,7 +9,8 @@
 -- Please use the localization application on WoWAce.com to submit translations.
 -- http://www.wowace.com/projects/buttonfacade/localization/
 
--- Get the private table.
+-- [ Private Table ] --
+
 local _, ns = ...
 
 -- Hard-code enUS/enGB.
@@ -21,40 +22,23 @@ ns.L = {
 	["Apply skin to all buttons registered with %s: %s/%s."] = "Apply skin to all buttons registered with %s: %s/%s.",
 	["Backdrop Settings"] = "Backdrop Settings",
 	["BF_INFO"] = "ButtonFacade, with its associated library, is a small add-on that allows for the dynamic skinning of button-based add-ons.",
-	["Border Colors"] = "Border Colors",
 	["Checked"] = "Checked",
 	["Color"] = "Color",
-	["Curse"] = "Curse",
-	["Custom"] = "Custom",
-	["Debuff"] = "Debuff",
 	["Disabled"] = "Disabled",
-	["Disease"] = "Disease",
 	["Enable"] = "Enable",
 	["Enable the backdrop."] = "Enable the backdrop.",
-	["Enchant"] = "Enchant",
-	["Equipped"] = "Equipped",
 	["Flash"] = "Flash",
 	["GLOBAL_INFO"] = "This section allows you adjust the skin settings globally. Note that while changes here will affect all registered elements, ButtonFacade only saves changes made at this level.",
 	["Global Settings"] = "Global Settings",
 	["Gloss Settings"] = "Gloss Settings",
 	["Highlight"] = "Highlight",
-	["Magic"] = "Magic",
 	["Normal"] = "Normal",
 	["Opacity"] = "Opacity",
-	["Poison"] = "Poison",
 	["Profiles"] = "Profiles",
 	["Pushed"] = "Pushed",
 	["Reset All Colors"] = "Reset All Colors",
 	["Reset all colors to their defaults."] = "Reset all colors to their defaults.",
 	["Set the backdrop color."] = "Set the backdrop color.",
-	["Set the border color for curses."] = "Set the border color for curses.",
-	["Set the border color for custom types."] = "Set the border color for custom types.",
-	["Set the border color for debuffs that cannot be removed."] = "Set the border color for debuffs that cannot be removed.",
-	["Set the border color for diseases."] = "Set the border color for diseases.",
-	["Set the border color for equipped items."] = "Set the border color for equipped items.",
-	["Set the border color for magic."] = "Set the border color for magic.",
-	["Set the border color for poisons."] = "Set the border color for poisons.",
-	["Set the border color for weapon enchants."] = "Set the border color for weapon enchants.",
 	["Set the color of the checked texture."] = "Set the color of the checked texture.",
 	["Set the color of the disabled texture."] = "Set the color of the gloss texture.",
 	["Set the color of the flash texture."] = "Set the color of the flash texture.",
@@ -65,7 +49,6 @@ ns.L = {
 	["Set the intensity of the gloss."] = "Set the intensity of the gloss.",
 	["Set the skin."] = "Set the skin.",
 	["Skin"] = "Skin",
-	["Custom"] = "Custom",
 	["State Colors"] = "State Colors",
 }
 
