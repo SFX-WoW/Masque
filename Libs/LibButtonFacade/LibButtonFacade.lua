@@ -495,6 +495,7 @@ do
 			Region:SetTexCoord(unpack(skin.TexCoords or TexCoords))
 			Region:SetBlendMode(skin.BlendMode or "BLEND")
 			Region:SetDrawLayer(DrawLayers[Layer])
+			Region:SetVertexColor(GetLayerColor(skin,Colors,Layer))
 		elseif type == "Icon" then
 			Region:SetParent(parent or Button)
 			Region:SetTexCoord(unpack(skin.TexCoords or TexCoords))
