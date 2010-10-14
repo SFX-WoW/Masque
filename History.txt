@@ -1,5 +1,25 @@
 Release History
 
+4.0.334
+
+- General:
+  - ToC updated to 40000.
+- Bug Fixes:
+  - Fixed an issue with HotKeys not obeying skin settings. (Ticket 56)
+  - All texture layers now default to their proper blend mode. (Ticket 58)
+  - All texture layers now correctly support the "TexCoords" attribute. (Ticket 59)
+  - Layers set to false in the ButtonData table will now be ignored instead of being hidden first.
+  - Text layers will now be above all texture layers, where they should be.
+- LibButtonFacade:
+  - Minor version bumped to 40000.
+- Skin API:
+  - Layers not defined in the SkinData table will now be set as hidden.
+  - Colors must now be passed as a table such as {r, g, b, a}. The attributes "Red", "Blue", "Green" and "Alpha" are no longer supported.
+  - The HotKey layer no longer supports a "Color" attribute due to update calls overwriting it.
+- ToDo:
+  - Add support for the new "flash alert" frame.
+  - Add support for the AutoCast frame textures.
+
 3.3.330
 
 - General:

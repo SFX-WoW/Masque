@@ -1,6 +1,6 @@
-﻿## Interface: 30300
+﻿## Interface: 40000
 ## Title: ButtonFacade
-## Version: 3.3.@project-revision@
+## Version: 4.0.@project-revision@
 ## Notes: Allows the dynamic skinning of button-based addons.
 ## Notes-esES: Permite el texturizado dinámico de los botones base de los addons.
 ## Notes-esMX: Permite el texturizado dinámico de los botones base de los addons.
@@ -13,7 +13,6 @@
 ## X-eMail: stormfx@gmail.com
 ## X-Website: http://www.wowace.com/projects/buttonfacade/
 ## X-Category: Interface Enhancements
-## X-Compatible-With: 40000
 ## X-WoWI-ID: 12097
 ## OptionalDeps: Ace3
 ## SavedVariables: ButtonFacadeDB

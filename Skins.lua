@@ -46,19 +46,16 @@ LBF:AddSkin("Dream Layout", {
 	Checked = {
 		Width = 32,
 		Height = 32,
-		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
 	Border = {
 		Width = 56,
 		Height = 56,
-		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Highlight = {
 		Width = 32,
 		Height = 32,
-		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
 	AutoCast = {
@@ -129,19 +126,16 @@ LBF:AddSkin("Zoomed", {
 	Checked = {
 		Width = 36,
 		Height = 36,
-		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
 	Border = {
 		Width = 64,
 		Height = 64,
-		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Highlight = {
 		Width = 36,
 		Height = 36,
-		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
 	AutoCast = {
