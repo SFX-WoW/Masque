@@ -118,7 +118,7 @@ do
 		end
 		for k in pairs(Skins["Blizzard"]) do
 			if type(SkinData[k]) ~= "table" then
-			`	SkinData[k] = hidden
+				SkinData[k] = hidden
 			end
 		end
 		Skins[SkinID] = SkinData
