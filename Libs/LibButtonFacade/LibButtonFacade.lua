@@ -576,7 +576,9 @@ do
 		for k,v in pairs(offsets) do
 			local f = Button.__LBF_Level[k]
 			if f then
-				f:SetFrameLevel(base + v)
+				local level = base + v
+				if level < 0 then level = 0 end
+				f:SetFrameLevel(level)
 			end
 		end
 	end
