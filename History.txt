@@ -1,16 +1,16 @@
 Release History
 
-4.0.337
+4.0.338
 
 - General:
   - ToC updated to 40000.
 - Bug Fixes:
-  - [Temporary fix for add-ons that set their buttons' frame levels below 3.]
   - Fixed an issue with HotKeys not obeying skin settings. (Ticket 56)
   - All texture layers now default to their proper blend mode. (Ticket 58)
   - All texture layers now correctly support the "TexCoords" attribute. (Ticket 59)
   - Layers set to false in the ButtonData table will now be ignored instead of being hidden first.
   - Text layers will now be above all texture layers, where they should be.
+  - Fixed an issue with negative frame levels.
 - LibButtonFacade:
   - Minor version bumped to 40000.
 - Skin API:

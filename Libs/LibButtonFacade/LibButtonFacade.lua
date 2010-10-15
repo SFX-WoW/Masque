@@ -25,7 +25,6 @@ local error, pairs, print, setmetatable, type, unpack = error, pairs, print, set
 local E_PRE = "|cffffff99<LBF Debug>|r "
 local E_ARG = "Bad argument to method '%s'. '%s' must be a %s."
 local E_TPL = "Invalid template reference by skin '%s'. Skin '%s' does not exist."
-local E_SKN = "Invalid skin definition for layer '%s' in skin '%s'."
 
 local debug = false
 
@@ -460,8 +459,6 @@ local function SkinCooldownFrame(Skin,Button,Region,xScale,yScale)
 		Region:Hide()
 		return
 	end
-	local level = Button:GetFrameLevel()
-	Region:SetFrameLevel(level - 1)
 	Region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
 	Region:SetHeight((skin.Height or 36) * (skin.Scale or 1) * yScale)
 	Region:ClearAllPoints()
@@ -477,8 +474,6 @@ local function SkinAutoCastFrame(Skin,Button,Region,xScale,yScale)
 		Region:Hide()
 		return
 	end
-	local level = Button:GetFrameLevel()
-	Region:SetFrameLevel(level + 1)
 	Region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
 	Region:SetHeight((skin.Height or 36) * (skin.Scale or 1) * yScale)
 	Region:ClearAllPoints()
@@ -573,11 +568,11 @@ do
 	-- Hook to automatically adjust the button's additional frames.
 	local function Hook_SetFrameLevel(Button,Level)
 		local base = Level or Button:GetFrameLevel()
+		if base < 3 then base = 3 end
 		for k,v in pairs(offsets) do
 			local f = Button.__LBF_Level[k]
 			if f then
 				local level = base + v
-				if level < 0 then level = 0 end
 				f:SetFrameLevel(level)
 			end
 		end
@@ -640,7 +635,7 @@ do
 			ButtonData.AutoCast = (name and _G[name.."Shine"]) or false
 		end
 		if ButtonData.AutoCast then
-			Button.__LBF_Level[2] = ButtonData.AutoCast -- Frame Level 2
+			Button.__LBF_Level[4] = ButtonData.AutoCast -- Frame Level 4
 			SkinAutoCastFrame(skin,Button,ButtonData.AutoCast,xScale,yScale)
 		end
 		if not hooked[Button] then
