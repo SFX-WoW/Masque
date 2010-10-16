@@ -11,7 +11,7 @@ if not LBF then return end
 -- [ Default Skins] --
 
 -- Dream Layout
-LBF:AddSkin("Dream Layout", {
+LBF:AddSkin("Dream Layout",{
 	Backdrop = {
 		Width = 36,
 		Height = 36,
@@ -23,11 +23,6 @@ LBF:AddSkin("Dream Layout", {
 		Height = 30,
 		TexCoords = {0.07,0.93,0.07,0.93},
 	},
-	Pushed = {
-		Width = 32,
-		Height = 32,
-		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
-	},
 	Flash = {
 		Width = 32,
 		Height = 32,
@@ -36,6 +31,11 @@ LBF:AddSkin("Dream Layout", {
 	Cooldown = {
 		Width = 32,
 		Height = 32,
+	},
+	Pushed = {
+		Width = 32,
+		Height = 32,
+		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 	},
 	Normal = {
 		Hide = true,
@@ -47,22 +47,16 @@ LBF:AddSkin("Dream Layout", {
 		Width = 32,
 		Height = 32,
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
+		BlendMode = "ADD",
 	},
 	Border = {
 		Width = 56,
 		Height = 56,
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
+		BlendMode = "ADD",
 	},
-	Highlight = {
-		Width = 32,
-		Height = 32,
-		Texture = [[Interface\Buttons\ButtonHilight-Square]],
-	},
-	AutoCast = {
-		Width = 30,
-		Height = 30,
-		OffsetX = 0.5,
-		OffsetY = -0.5,
+	Gloss = {
+		Hide = true,
 	},
 	AutoCastable = {
 		Width = 54,
@@ -71,14 +65,16 @@ LBF:AddSkin("Dream Layout", {
 		OffsetY = -0.5,
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 	},
-	Gloss = {
-		Hide = true,
+	Highlight = {
+		Width = 32,
+		Height = 32,
+		Texture = [[Interface\Buttons\ButtonHilight-Square]],
+		BlendMode = "ADD",
 	},
-	HotKey = {
+	Name = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -2,
-		OffsetY = 11,
+		OffsetY = -11,
 	},
 	Count = {
 		Width = 36,
@@ -86,15 +82,22 @@ LBF:AddSkin("Dream Layout", {
 		OffsetX = -2,
 		OffsetY = -11,
 	},
-	Name = {
+	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetY = -11,
+		OffsetX = -2,
+		OffsetY = 11,
 	},
-}, true)
+	AutoCast = {
+		Width = 30,
+		Height = 30,
+		OffsetX = 0.5,
+		OffsetY = -0.5,
+	},
+},true)
 
 -- Zoomed
-LBF:AddSkin("Zoomed", {
+LBF:AddSkin("Zoomed",{
 	Backdrop = {
 		Hide = true,
 	},
@@ -102,11 +105,6 @@ LBF:AddSkin("Zoomed", {
 		Width = 36,
 		Height = 36,
 		TexCoords = {0.07,0.93,0.07,0.93},
-	},
-	Pushed = {
-		Width = 36,
-		Height = 36,
-		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 	},
 	Flash = {
 		Width = 36,
@@ -116,6 +114,11 @@ LBF:AddSkin("Zoomed", {
 	Cooldown = {
 		Width = 36,
 		Height = 36,
+	},
+	Pushed = {
+		Width = 36,
+		Height = 36,
+		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 	},
 	Normal = {
 		Hide = true,
@@ -127,21 +130,16 @@ LBF:AddSkin("Zoomed", {
 		Width = 36,
 		Height = 36,
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
+		BlendMode = "ADD",
 	},
 	Border = {
 		Width = 64,
 		Height = 64,
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
+		BlendMode = "ADD",
 	},
-	Highlight = {
-		Width = 36,
-		Height = 36,
-		Texture = [[Interface\Buttons\ButtonHilight-Square]],
-	},
-	AutoCast = {
-		Width = 36,
-		Height = 36,
-		OffsetX = 0.5,
+	Gloss = {
+		Hide = true,
 	},
 	AutoCastable = {
 		Width = 66,
@@ -150,14 +148,16 @@ LBF:AddSkin("Zoomed", {
 		OffsetY = -0.5,
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 	},
-	Gloss = {
-		Hide = true,
+	Highlight = {
+		Width = 36,
+		Height = 36,
+		Texture = [[Interface\Buttons\ButtonHilight-Square]],
+		BlendMode = "ADD",
 	},
-	HotKey = {
+	Name = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -2,
-		OffsetY = 11,
+		OffsetY = -11,
 	},
 	Count = {
 		Width = 36,
@@ -165,9 +165,15 @@ LBF:AddSkin("Zoomed", {
 		OffsetX = -2,
 		OffsetY = -11,
 	},
-	Name = {
+	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetY = -11,
+		OffsetX = -2,
+		OffsetY = 11,
+	},
+	AutoCast = {
+		Width = 36,
+		Height = 36,
+		OffsetX = 0.5,
 	},
 }, true)
