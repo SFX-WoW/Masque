@@ -115,9 +115,9 @@ do
 				return
 			end
 		end
-		for k in pairs(Skins["Blizzard"]) do
-			if type(SkinData[k]) ~= "table" then
-				SkinData[k] = hidden
+		for layer in pairs(Skins.Blizzard) do
+			if type(SkinData[layer]) ~= "table" then
+				SkinData[layer] = hidden
 			end
 		end
 		Skins[SkinID] = SkinData
@@ -445,7 +445,7 @@ local function SkinTextLayer(Skin,Button,Region,Layer,xScale,yScale,Colors)
 	end
 	Region:SetDrawLayer("OVERLAY")
 	Region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
-	Region:SetHeight((skin.Height or 36) * (skin.Scale or 1) * yScale)
+	Region:SetHeight((skin.Height or 10) * (skin.Scale or 1) * yScale)
 	Region:ClearAllPoints()
 	if Layer == "HotKey" then
 		if not Region.__LBF_SetPoint then
@@ -723,7 +723,7 @@ do
 					Gloss = (Gloss and 1) or 0
 				end
 				self.Gloss = Gloss
-				self.Backdrop = Backdrop and true or false
+				self.Backdrop = (Backdrop and true) or false
 				if type(Colors) == "table" then
 					self.Colors = Colors
 				end
@@ -737,19 +737,6 @@ do
 						Groups[k]:Skin(SkinID,Gloss,Backdrop,Colors)
 					end
 				end
-			end,
-			-- Updates the group's skin data without applying the new skin.
-			SetSkin = function(self,SkinID,Gloss,Backdrop,Colors)
-				self.SkinID = SkinID and SkinList[SkinID] or self.SkinID
-				if type(Gloss) ~= "number" then
-					Gloss = (Gloss and 1) or 0
-				end
-				self.Gloss = Gloss
-				self.Backdrop = Backdrop and true or false
-				if type(Colors) == "table" then
-					self.Colors = Colors
-				end
-				FireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,self.Button,self.Colors)
 			end,
 			-- Reskins the group.
 			ReSkin = function(self)
@@ -772,6 +759,19 @@ do
 				FireGuiCB(self.Addon,self.Group,self.Button)
 			end,
 			-- [ GUI ] --
+			-- Updates only the specified group's skin data and doesn't apply it.
+			SetSkin = function(self,SkinID,Gloss,Backdrop,Colors)
+				self.SkinID = SkinID and SkinList[SkinID] or self.SkinID
+				if type(Gloss) ~= "number" then
+					Gloss = (Gloss and 1) or 0
+				end
+				self.Gloss = Gloss
+				self.Backdrop = (Backdrop and true) or false
+				if type(Colors) == "table" then
+					self.Colors = Colors
+				end
+				FireSkinCB(self.Addon,self.SkinID,self.Gloss,self.Backdrop,self.Group,self.Button,self.Colors)
+			end,
 			-- Returns a layer's color.
 			GetLayerColor = function(self,Layer)
 				local skin = Skins[self.SkinID or "Blizzard"] or Skins["Blizzard"]
@@ -784,7 +784,6 @@ do
 				else
 					self.Colors[Layer] = nil
 				end
-				-- ToDo: Don't skin the whole button, just the layer.
 				if not noReskin then self:ReSkin() end
 			end,
 			-- Resets a layer's colors.

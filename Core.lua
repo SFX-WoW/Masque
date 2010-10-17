@@ -228,7 +228,7 @@ do
 							arg = {LBFGroup, "Gloss"},
 							min = 0,
 							max = 1,
-							step = 0.01,
+							step = 0.05,
 							isPercent = true,
 							disabled = GetState,
 							order = 2,

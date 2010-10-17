@@ -1,6 +1,6 @@
 Release History
 
-4.0.339
+4.0.340
 
 - General:
   - ToC updated to 40000.
@@ -12,6 +12,8 @@ Release History
   - Fixed an issue with negative frame levels.
 - LibButtonFacade:
   - Minor version bumped to 40000.
+- GUI:
+  - Increased the step value for the "Opacity" option for the Gloss layer from 1 to 5.
 - Skin API:
   - Layers not defined in the SkinData table will now be set as hidden.
   - Colors must now be passed as a table such as {r, g, b, a}. The attributes "Red", "Blue", "Green" and "Alpha" are no longer supported.
@@ -19,7 +21,6 @@ Release History
 - ToDo:
   - Add support for the new "flash alert" frame.
   - Add support for the AutoCast frame textures.
-  - Fix it so that recoloring a layer doesn't reskin every single button in that group.
 
 3.3.330
 
