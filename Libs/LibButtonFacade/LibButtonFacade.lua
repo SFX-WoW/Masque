@@ -163,9 +163,6 @@ local Layers = {
 	Border = "Texture",
 	AutoCastable = "Texture",
 	Highlight = "Special",
-	Name = "Text",
-	Count = "Text",
-	HotKey = "Text",
 }
 -- Draw Layers
 local Levels = {
@@ -436,27 +433,70 @@ end
 
 -- [ Text Layers ] --
 
--- Skins a text layer.
-local function SkinTextLayer(Skin,Button,Region,Layer,xScale,yScale,Colors)
-	local skin = Skin[Layer]
-	if skin.Hide then
-		Region:Hide()
-		return
+-- Skins the Name text.
+local function SkinNameText(Skin,Button,ButtonData,xScale,yScale,Colors)
+	if ButtonData.Name == nil then
+		local name = Button:GetName()
+		ButtonData.Name = (name and _G[name.."Name"]) or false
 	end
-	Region:SetDrawLayer("OVERLAY")
-	Region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
-	Region:SetHeight((skin.Height or 10) * (skin.Scale or 1) * yScale)
-	Region:ClearAllPoints()
-	if Layer == "HotKey" then
-		if not Region.__LBF_SetPoint then
-			Region.__LBF_SetPoint = Region.SetPoint
-			Region.SetPoint = function() end
-		end
-		Region:__LBF_SetPoint("CENTER",Button,"CENTER",skin.OffsetX or 0,skin.OffsetY or 0)
-	else
-		Region:SetPoint("CENTER",Button,"CENTER",skin.OffsetX or 0,skin.OffsetY or 0)
-		Region:SetVertexColor(GetLayerColor(skin,Colors,Layer))
+	local region = ButtonData.Name
+	local skin = Skin.Name
+	if not region or skin.Hide then return end
+	local font, _, flags = region:GetFont()
+	region:SetFont(skin.Font or font,skin.FontSize or 11,flags)
+	region:SetJustifyH(skin.JustifyH or "CENTER")
+	region:SetJustifyV(skin.JustifyV or "MIDDLE")
+	region:SetDrawLayer("OVERLAY")
+	region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
+	region:SetHeight((skin.Height or 10) * (skin.Scale or 1) * yScale)
+	region:ClearAllPoints()
+	region:SetPoint("BOTTOM",Button,"BOTTOM",skin.OffsetX or 0,skin.OffsetY or 0)
+	region:SetVertexColor(GetLayerColor(skin,Colors,"Name"))
+end
+
+-- Skins the Count text.
+local function SkinCountText(Skin,Button,ButtonData,xScale,yScale,Colors)
+	if ButtonData.Count == nil then
+		local name = Button:GetName()
+		ButtonData.Count = (name and _G[name.."Count"]) or false
 	end
+	local region = ButtonData.Count
+	local skin = Skin.Count
+	if not region or skin.Hide then return end
+	local font, _, flags = region:GetFont()
+	region:SetFont(skin.Font or font,skin.FontSize or 15,flags)
+	region:SetJustifyH(skin.JustifyH or "RIGHT")
+	region:SetJustifyV(skin.JustifyV or "MIDDLE")
+	region:SetDrawLayer("OVERLAY")
+	region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
+	region:SetHeight((skin.Height or 10) * (skin.Scale or 1) * yScale)
+	region:ClearAllPoints()
+	region:SetPoint("BOTTOMRIGHT",Button,"BOTTOMRIGHT",skin.OffsetX or 0,skin.OffsetY or 0)
+	region:SetVertexColor(GetLayerColor(skin,Colors,"Count"))
+end
+
+-- Skins the HotKey text.
+local function SkinHotKeyText(Skin,Button,ButtonData,xScale,yScale)
+	if ButtonData.HotKey == nil then
+		local name = Button:GetName()
+		ButtonData.HotKey = (name and _G[name.."HotKey"]) or false
+	end
+	local region = ButtonData.HotKey
+	local skin = Skin.HotKey
+	if not region or skin.Hide then return end
+	local font, _, flags = region:GetFont()
+	region:SetFont(skin.Font or font,skin.FontSize or 13,flags)
+	region:SetJustifyH(skin.JustifyH or "RIGHT")
+	region:SetJustifyV(skin.JustifyV or "MIDDLE")
+	region:SetDrawLayer("OVERLAY")
+	region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
+	region:SetHeight((skin.Height or 10) * (skin.Scale or 1) * yScale)
+	region:ClearAllPoints()
+	if not region.__LBF_SetPoint then
+		region.__LBF_SetPoint = region.SetPoint
+		region.SetPoint = function() end
+	end
+	region:__LBF_SetPoint("TOPLEFT",Button,"TOPLEFT",skin.OffsetX or 0,skin.OffsetY or 0)
 end
 
 -- [ Frame Layers ] --
@@ -550,8 +590,6 @@ do
 			if region then
 				if type == "Special" then
 					SkinSpecialLayer(skin,Button,region,layer,xScale,yScale,Colors)
-				elseif type == "Text" then
-					SkinTextLayer(skin,Button,region,layer,xScale,yScale,Colors)
 				else
 					SkinTextureLayer(skin,Button,region,layer,xScale,yScale,Colors)
 				end
@@ -570,6 +608,9 @@ do
 			Button.__LBF_Level[2] = ButtonData.Cooldown -- Frame Level 2
 			SkinCooldownFrame(skin,Button,ButtonData.Cooldown,xScale,yScale)
 		end
+		SkinNameText(skin,Button,ButtonData,xScale,yScale,Colors)
+		SkinCountText(skin,Button,ButtonData,xScale,yScale,Colors)
+		SkinHotKeyText(skin,Button,ButtonData,xScale,yScale)
 		if ButtonData.AutoCast == nil then
 			ButtonData.AutoCast = (name and _G[name.."Shine"]) or false
 		end
@@ -873,19 +914,17 @@ Skins.Blizzard = {
 	Name = {
 		Width = 36,
 		Height = 10,
-		OffsetY = -11,
+		OffsetY = 2,
 	},
 	Count = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -2,
-		OffsetY = -11,
+		OffsetY = 2,
 	},
 	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -2,
-		OffsetY = 11,
+		OffsetY = -3,
 	},
 	AutoCast = {
 		Width = 36,

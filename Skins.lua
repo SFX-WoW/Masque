@@ -74,19 +74,19 @@ LBF:AddSkin("Dream Layout",{
 	Name = {
 		Width = 36,
 		Height = 10,
-		OffsetY = -11,
+		OffsetY = 4,
 	},
 	Count = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -2,
-		OffsetY = -11,
+		OffsetX = -1,
+		OffsetY = 4,
 	},
 	HotKey = {
 		Width = 36,
 		Height = 10,
 		OffsetX = -2,
-		OffsetY = 11,
+		OffsetY = -4,
 	},
 	AutoCast = {
 		Width = 30,
@@ -157,19 +157,15 @@ LBF:AddSkin("Zoomed",{
 	Name = {
 		Width = 36,
 		Height = 10,
-		OffsetY = -11,
 	},
 	Count = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -2,
-		OffsetY = -11,
 	},
 	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -2,
-		OffsetY = 11,
+		OffsetY = -1,
 	},
 	AutoCast = {
 		Width = 36,
