@@ -94,6 +94,7 @@ local SkinList = {}
 
 do
 	local hidden = {Hide = true}
+	local layers = {"Backdrop","Icon","Flash","Cooldown","Pushed","Normal","Disabled","Checked","Border","Gloss","AutoCastable","Highlight","Name","Count","HotKey","AutoCast"}
 	-- Adds a skin to the skin tables.
 	function LBF:AddSkin(SkinID,SkinData,Replace)
 		if type(SkinID) ~= "string" then
@@ -115,7 +116,7 @@ do
 				return
 			end
 		end
-		for layer in pairs(Skins.Blizzard) do
+		for _, layer in pairs(layers) do
 			if type(SkinData[layer]) ~= "table" then
 				SkinData[layer] = hidden
 			end
@@ -433,6 +434,32 @@ end
 
 -- [ Text Layers ] --
 
+-- Skins a text layer. Temporary function for backward compatibility.
+local function SkinTextLayer(Skin,Button,ButtonData,Layer,xScale,yScale,Colors)
+	if ButtonData[Layer] == nil then
+		local name = Button:GetName()
+		ButtonData[Layer] = (name and _G[name..Layer]) or false
+	end
+	local region = ButtonData[Layer]
+	local skin = Skin[Layer]
+	if not region or skin.Hide then return end
+	region:SetDrawLayer("OVERLAY")
+	region:SetWidth((skin.Width or 36) * (skin.Scale or 1) * xScale)
+	region:SetHeight((skin.Height or 10) * (skin.Scale or 1) * yScale)
+	region:ClearAllPoints()
+	if Layer == "HotKey" then
+		if not region.__LBF_SetPoint then
+			region.__LBF_SetPoint = region.SetPoint
+			region.SetPoint = function() end
+		end
+		region:__LBF_SetPoint("CENTER",Button,"CENTER",skin.OffsetX or 0,skin.OffsetY or 0)
+	else
+		region:SetPoint("CENTER",Button,"CENTER",skin.OffsetX or 0,skin.OffsetY or 0)
+		region:SetVertexColor(GetLayerColor(skin,Colors,Layer))
+	end
+end
+
+
 -- Skins the Name text.
 local function SkinNameText(Skin,Button,ButtonData,xScale,yScale,Colors)
 	if ButtonData.Name == nil then
@@ -608,9 +635,16 @@ do
 			Button.__LBF_Level[2] = ButtonData.Cooldown -- Frame Level 2
 			SkinCooldownFrame(skin,Button,ButtonData.Cooldown,xScale,yScale)
 		end
-		SkinNameText(skin,Button,ButtonData,xScale,yScale,Colors)
-		SkinCountText(skin,Button,ButtonData,xScale,yScale,Colors)
-		SkinHotKeyText(skin,Button,ButtonData,xScale,yScale)
+		local version = skin.LBF_Version
+		if type(version) == "number" and version >= 40000 then
+			SkinNameText(skin,Button,ButtonData,xScale,yScale,Colors)
+			SkinCountText(skin,Button,ButtonData,xScale,yScale,Colors)
+			SkinHotKeyText(skin,Button,ButtonData,xScale,yScale)
+		else
+			SkinTextLayer(skin,Button,ButtonData,"Name",xScale,yScale,Colors)
+			SkinTextLayer(skin,Button,ButtonData,"Count",xScale,yScale,Colors)
+			SkinTextLayer(skin,Button,ButtonData,"HotKey",xScale,yScale,Colors)
+		end
 		if ButtonData.AutoCast == nil then
 			ButtonData.AutoCast = (name and _G[name.."Shine"]) or false
 		end
@@ -847,6 +881,7 @@ end
 
 SkinList.Blizzard = "Blizzard"
 Skins.Blizzard = {
+	LBF_Version = 40000,
 	Backdrop = {
 		Width = 34,
 		Height = 35,

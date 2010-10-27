@@ -12,6 +12,7 @@ if not LBF then return end
 
 -- Dream Layout
 LBF:AddSkin("Dream Layout",{
+	LBF_Version = 40000,
 	Backdrop = {
 		Width = 36,
 		Height = 36,
@@ -98,6 +99,7 @@ LBF:AddSkin("Dream Layout",{
 
 -- Zoomed
 LBF:AddSkin("Zoomed",{
+	LBF_Version = 40000,
 	Backdrop = {
 		Hide = true,
 	},

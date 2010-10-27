@@ -1,13 +1,13 @@
 Release History
 
-v4.0.342
+v4.0.343
 
 Skin API:
 - Text layers now accept the following attributes:
-  - Font ("Path\\To\\Font\\File" or ([[Path\To\Font\File]])
   - FontSize
   - JustifyH ("LEFT", "CENTER", "RIGHT")
   - JustifyV ("TOP", "MIDDLE", "BOTTOM")
+- For skins to use the new attributes, a new skin data table key is required. This new key is called LBF_Version. The value of this key MUST be set to 40000 (number) in order to use the new attributes. Older skins need no modifications and will function as they have until after Cataclysm is released, at which point they will *have* to be updated.
 Bug Fixes:
 - Text layers can no longer be hidden by skins.
 - Fixed an issue that was causing some text elements to be placed oddly at different sizes.
