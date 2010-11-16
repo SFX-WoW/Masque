@@ -76,7 +76,7 @@ end
 -- Enable function.
 function BF:OnEnable()
 	LBF:RegisterSkinCallback(AddOn, self.SkinCallback, self)
-	LBF:Group():Skin(self.db.profile.SkinID, self.db.profile.Gloss, self.db.profile.Backdrop, self.db.profile.Colors)
+	LBF:Group():SetSkin(self.db.profile.SkinID, self.db.profile.Gloss, self.db.profile.Backdrop, self.db.profile.Colors)
 	LBF:RegisterGuiCallback(self.GuiUpdate, self)
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(AddOn, self.Options)
 	local ACD = LibStub("AceConfigDialog-3.0")
