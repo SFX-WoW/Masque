@@ -41,11 +41,4 @@ Skins:
   - JustifyV ("TOP", "MIDDLE", "BOTTOM")
 - Previously, ButtonFacade included code to work around old skins. This code has been removed. If a skin is outdated, the new text features may cause text to be placed oddly. Ask the author to update the skin. If the author has abandonded skin, post a ticket on the project page and I'll see about getting it fixed.
 - The LBF_Version entry has been replaced with Masque_Version. The current version is 40100.
-- Skins now support the 'Version' (number) and 'Author' (string) keys. A future version of Masque may include a 'skin info' panel.
-
-To Do:
-
-- Popout menu stuff.
-- Active ability animations.
-
-
+- Skins now support the 'Version' (number) and 'Author' (string) keys. A future version of Masque may include a 'skin info' panel. that will display this information.

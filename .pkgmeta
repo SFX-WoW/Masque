@@ -23,6 +23,7 @@ externals:
 
 ignore:
   - Legacy
+  - ToDo.txt
 
 move-folders:
   Masque/ButtonFacade: ButtonFacade
