@@ -1,3 +1,51 @@
 Masque Update History
 
-- Repository Tweaks
+[ v4.1.351 ]
+
+ButtonFacade has been renamed to 'Masque' and has been overhauled. It *is* backwards-compatible with ButtonFacade-enabled add-ons and includes a (temporary) ButtonFacade 'add-on' that will preload Masque for those add-ons still using the old API.
+
+General:
+
+- Masque's options are now load-on-demand. An option is available to 'preload' them, though it defaults to off.
+- Add-ons and their groups can now be disabled. Disabling an add-on will disable its groups, etc.
+- Masque's slash commands are /msq and /masque.
+- Masque now supports LibDualSpec. /cheer
+
+API:
+
+- Add-ons no longer need to save skin settings. All of the old LBF methods related to that feature now do nothing.
+- Masque's API no longer uses 'LibStub' or 'LibButtonFacade'. Instead, a global interface, 'LibMasque', will provide access to the desired API. Currently, only the 'Button' API is available. To access it, simply pass the string name of the API to the interface. IE: local LMB = LibMasque("Button"). You can access the current API version via the LibMasque.Version key (Currently 40100).
+- Masque includes a 'debug mode'. When enabled, Masque will throw Lua errors when it encounters API or skin errors. This feature can be toggled via the options window or by passing the 'debug' parameter to the slash commands.
+- The following methods are available to the 'Button' API and function as they previously did:
+  - :Group('Addon', 'Group')
+  - :AddSkin('SkinID', {SkinData})
+  - :GetNormalTexture({Button}) (Note: Use this and :SetVertexColor() to change the 'Normal' texture color)
+- The following methods are available to the button 'Group' API and function as they previously did:
+  - AddButton({Button} [, {ButtonData})
+  - RemoveButton({Button})
+  - Delete()
+  - ReSkin()
+- To prevent excessive overhead, a button's layers (ButtonData) are no longer parsed when the button is skinned but rather when the button is added to a group.
+
+Skins:
+
+- Button skins can now use a random texture for the 'Normal' layer. To enable this feature, set the 'Normal.Random' variable to true and place the list of textures in an indexed table assigned to the 'Normal.Textures' variable. This requires at least 2 entries. (Elloria, WoWI)
+- Added the 'Duration' text layer for buff/debuff buttons.
+- Button skin elements no longer support a 'Scale' attribute. Use 'Width' and 'Height'.
+- Button 'Icon' layers no longer support a 'BlendMode' attribute.
+- Button skins can no longer hide text layers.
+- Text layers now accept the following attributes:
+  - Font ("Path\\To\\File")
+  - FontSize (Number)
+  - JustifyH ("LEFT", "CENTER", "RIGHT")
+  - JustifyV ("TOP", "MIDDLE", "BOTTOM")
+- Previously, ButtonFacade included code to work around old skins. This code has been removed. If a skin is outdated, the new text features may cause text to be placed oddly. Ask the author to update the skin. If the author has abandonded skin, post a ticket on the project page and I'll see about getting it fixed.
+- The LBF_Version entry has been replaced with Masque_Version. The current version is 40100.
+- Skins now support the 'Version' (number) and 'Author' (string) keys. A future version of Masque may include a 'skin info' panel.
+
+To Do:
+
+- Popout menu stuff.
+- Active ability animations.
+
+

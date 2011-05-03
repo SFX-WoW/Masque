@@ -1,0 +1,143 @@
+--[[
+	Project.: Masque
+	File....: Core.lua
+	Version.: @file-revision@
+	Author..: Storm FX
+]]
+
+-- [ Locals ] --
+
+local Masque, Core = ...
+local LibStub = assert(LibStub, "Masque requires LibStub.")
+local MSQ = LibStub("AceAddon-3.0"):NewAddon(Masque)
+local error, print, type = error, print, type
+local L = Core.Locale
+
+-- [ Core Elements ] --
+
+Core.Button = {}
+
+-- Initial Options
+Core.Options = {
+	type = "group",
+	name = Masque,
+	args = {
+		General = {
+			type = "group",
+			name = Masque,
+			order = 0,
+			args = {},
+		},
+		Buttons = {
+			type = "group",
+			name = L["Buttons"],
+			order = 1,
+			args = {
+				Info = {
+					type = "description",
+					name = L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."].."\n",
+					order = 1,
+				},
+			},
+		},
+	},
+}
+
+-- [ Add-On Methods ] --
+
+-- OnInitialize
+function MSQ:OnInitialize()
+	-- Defaults
+	local Defaults = {
+		profile = {
+			Debug = false,
+			Preload = false,
+			Buttons = {
+				["*"] = {
+					Disabled = false,
+					SkinID = "Blizzard",
+					Gloss = false,
+					Backdrop = false,
+					Colors = {},
+				},
+			},
+		},
+	}
+
+	-- Database
+	Core.db = LibStub("AceDB-3.0"):New("MasqueDB", Defaults, true)
+	Core.db.RegisterCallback(Core, "OnProfileChanged", "Reload")
+	Core.db.RegisterCallback(Core, "OnProfileCopied", "Reload")
+	Core.db.RegisterCallback(Core, "OnProfileReset", "Reload")
+
+	-- Options
+	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(Masque, Core.Options)
+	Core.OptionsPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(Masque, Masque, nil, "General")
+	if Core.db.profile.Preload then
+		Core:LoadOptions()
+	else
+		Core.Options.args.General.args.Load = {
+			type = "execute",
+			name = L["Load Masque Options"],
+			desc = (L["Click this button to load Masque's options. You can also use the %s or %s chat command."]):format("|cffffcc00/msq|r", "|cffffcc00/masque|r"),
+			func = function() Core:LoadOptions() end,
+			hidden = function() return Core.OptionsLoaded or false end,
+			order = 0,
+		}
+	end
+
+	-- Slash Commands
+	SLASH_MASQUE1 = "/msq"
+	SLASH_MASQUE2 = "/masque"
+	SlashCmdList["MASQUE"] = function(Cmd, ...)
+		if Cmd == "debug" then
+			Core:Debug()
+		else
+			MSQ:ShowOptions()
+		end
+	end
+end
+
+-- OnEnable
+function MSQ:OnEnable()
+	-- Global Button Skin
+	Core.Button:Group()
+end
+
+	-- Opens the options window.
+	function MSQ:ShowOptions()
+		if not Core.OptionsLoaded then
+			print("|cffffff99"..L["Loading Masque Options..."].."|r")
+			Core:LoadOptions()
+		end
+		--InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Profiles)
+		InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Buttons)
+	end
+
+-- Prevent module creation.
+function MSQ:NewModule()
+	if Core.db.profile.Debug then error("Masque does not support external modules.", 2) end
+	return
+end
+
+-- [ Core Methods ] --
+
+-- Reloads settings on profile activity.
+function Core:Reload()
+	self.Button:Reload()
+end
+
+-- Toggles debug mode.
+function Core:Debug()
+	if self.db.profile.Debug then
+		self.db.profile.Debug = false
+		print("|cffffff99"..L["Masque debug mode disabled."].."|r")
+	else
+		self.db.profile.Debug = true
+		print("|cffffff99"..L["Masque debug mode enabled."].."|r")
+	end
+end
+
+-- [ Miscellaneous ] --
+
+Core.Loaded = true

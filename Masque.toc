@@ -1,0 +1,28 @@
+﻿## Interface: 40100
+## Title: Masque
+## Version: 4.1.@project-revision@
+## Notes: A modular skinning add-on.
+## Author: StormFX, JJSheets
+## X-Website: http://www.wowace.com/projects/masque/
+## X-Category: Interface Enhancements
+## X-WoWI-ID: 12097
+## OptionalDeps: Ace3
+## SavedVariables: MasqueDB
+
+# Libraries
+Libs\LibStub\Libstub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\AceAddon-3.0\AceAddon-3.0.xml
+Libs\AceDB-3.0\AceDB-3.0.xml
+Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+Libs\AceGUI-3.0\AceGUI-3.0.xml
+Libs\AceConfig-3.0\AceConfig-3.0.xml
+Libs\LibDualSpec-1.0\LibDualSpec-1.0.lua
+
+# Scripts
+Locales.lua
+Core.lua
+Button.lua
+Skins.lua
+Options.lua
+LibMasque.lua
