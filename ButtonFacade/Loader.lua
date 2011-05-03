@@ -1,0 +1,1 @@
+if not IsAddOnLoaded("Masque") then LoadAddOn("Masque") end
