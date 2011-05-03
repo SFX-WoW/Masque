@@ -26,6 +26,8 @@ ignore:
 
 move-folders:
   Masque/ButtonFacade: ButtonFacade
-	 
+
+enable-nolib-creation: no
+
 license-output: License.txt
 manual-changelog: History.txt
