@@ -1,4 +1,4 @@
-package-as: ButtonFacade
+package-as: Masque
 
 externals:
   Libs/LibStub:
@@ -11,14 +11,21 @@ externals:
     svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
   Libs/AceConfig-3.0:
     svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
-  Libs/AceConsole-3.0:
-    svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConsole-3.0
   Libs/AceDB-3.0:
     svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDB-3.0
   Libs/AceDBOptions-3.0:
     svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDBOptions-3.0
   Libs/AceGUI-3.0:
     svn://svn.wowace.com/wow/ace3/mainline/trunk/AceGUI-3.0
+  Libs/LibDualSpec-1.0:
+    url: git://git.wowace.com/wow/libdualspec-1-0/mainline.git
+    tag: latest
 
+ignore:
+  - Legacy
+
+move-folders:
+  Masque/ButtonFacade: ButtonFacade
+	 
 license-output: License.txt
 manual-changelog: History.txt
