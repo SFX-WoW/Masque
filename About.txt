@@ -1,4 +1,4 @@
-Masque (formerly ButtonFacade) is a modular add-on skinning engine.
+Masque (formerly ButtonFacade) is a modular skinning add-on.
 
 Resources:
 

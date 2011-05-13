@@ -19,10 +19,15 @@ Libs\AceGUI-3.0\AceGUI-3.0.xml
 Libs\AceConfig-3.0\AceConfig-3.0.xml
 Libs\LibDualSpec-1.0\LibDualSpec-1.0.lua
 
-# Scripts
+# Core
 Locales.lua
 Core.lua
-Button.lua
-Skins.lua
-Options.lua
+
+# Button
+Button\Skins.lua
+Button\Core.lua
+Button\API.lua
+Button\Options.lua
+
+# LibMasque
 LibMasque.lua

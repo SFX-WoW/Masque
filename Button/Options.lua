@@ -1,75 +1,29 @@
 --[[
 	Project.: Masque
-	File....: Options.lua
+	File....: Button/Options.lua
 	Version.: @file-revision@
 	Author..: StormFX, JJSheets
 ]]
 
+local Masque, Core = ...
+
 -- [ Locals ] --
 
-local Masque, Core = ...
-if not Core.Loaded then return end
-local L, pairs = Core.Locale, pairs
+local pairs = pairs
+local L = Core.Locale
 
--- [ Core Methods ] --
-
--- Loads the options table when called.
-function Core:LoadOptions()
-	-- General Options
-	self.Options.args.General.args.Info = {
-		type = "description",
-		name = L["Masque is a modular add-on skinning engine."].."\n",
-		order = 1,
-	}
-	self.Options.args.General.args.Preload = {
-		type = "toggle",
-		name = L["Preload Options"],
-		desc = L["Causes Masque to preload its options instead of having them loaded on demand."],
-		get = function() return Core.db.profile.Preload end,
-		set = function(i, v)
-			Core.db.profile.Preload = v
-		end,
-		order = 2,
-	}
-	self.Options.args.General.args.Debug = {
-		type = "toggle",
-		name = L["Debug Mode"],
-		desc = L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."],
-		get = function() return Core.db.profile.Debug end,
-		set = function() Core:Debug() end,
-		order = 3,
-	}
-
-	-- Button Options
-	Core.Options.args.Buttons.args.Global = Core.Button:CreateOptions()
-	Core.Options.args.Buttons.args.Global.order = 0
-	self.Button:UpdateOptions()
-	for _, Addon in pairs(self.Button:ListAddons()) do
-		self.Button:UpdateOptions(Addon)
-	end
-
-	-- Profile Options
-	self.Options.args.Profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-	self.Options.args.Profiles.order = -1
-
-	-- DualSpec
-	local LDS = LibStub('LibDualSpec-1.0', true)
-	if LDS then
-		LDS:EnhanceDatabase(self.db, Masque)
-		LDS:EnhanceOptions(self.Options.args.Profiles, self.db)
-	end
-
-	-- Options Panels
-	local ACD = LibStub("AceConfigDialog-3.0")
-	self.OptionsPanel.Buttons = ACD:AddToBlizOptions(Masque, L["Buttons"], Masque, "Buttons")
-	self.OptionsPanel.Profiles = ACD:AddToBlizOptions(Masque, L["Profiles"], Masque, "Profiles")
-
-	self.OptionsLoaded = true
-end
+-- Skin Tables
+local Skins = Core.Button:GetSkins()
+local SkinList = Core.Button:ListSkins()
 
 -- [ Button Options ] --
 
+local CreateOptions
+
 do
+
+	-- [ Skin ] --
+
 	-- Gets the skin.
 	local function GetSkin(info)
 		return info.arg.SkinID
@@ -78,8 +32,10 @@ do
 	-- Sets the skin.
 	local function SetSkin(info, value)
 		local Group = info.arg
-		Group:Skin(value, Group.Gloss, Group.Backdrop)
+		Group:__Skin(value, Group.Gloss, Group.Backdrop)
 	end
+
+	-- [ Gloss ] --
 
 	-- Gets the gloss.
 	local function GetGloss(info)
@@ -87,10 +43,12 @@ do
 	end
 
 	-- Sets the gloss.
-	local function SetGloss(info, value) -- redo
+	local function SetGloss(info, value)
 		local Group = info.arg[1]
-		Group:Skin(Group.SkinID, value, Group.Backdrop)
+		Group:__Skin(Group.SkinID, value, Group.Backdrop)
 	end
+
+	-- [ Backdrop ] --
 
 	-- Gets the backdrop.
 	local function GetBackdrop(info)
@@ -100,13 +58,10 @@ do
 	-- Sets the backdrop.
 	local function SetBackdrop(info, value)
 		local Group = info.arg[1]
-		Group:Skin(Group.SkinID, Group.Gloss, (value and true) or false)
+		Group:__Skin(Group.SkinID, Group.Gloss, (value and true) or false)
 	end
 
-	-- Gets the state of the backdrop color.
-	local function GetBDState(info)
-		return (not info.arg[1].Backdrop) or info.arg[1].Disabled
-	end
+	-- [ Colors ] --
 
 	-- Gets a layer's color.
 	local function GetLayerColor(info)
@@ -117,20 +72,29 @@ do
 	-- Sets a layer's color.
 	local function SetLayerColor(info, r, g, b, a)
 		local Group, Layer = info.arg[1], info.arg[2]
-		Group:SetLayerColor(Layer, r, g, b, a)
+		Group:__SetLayerColor(Layer, r, g, b, a)
 	end
 
 	-- Resets all colors.
 	local function ResetAllColors(info)
-		info.arg:ResetColors()
+		info.arg:__ResetColors()
+	end
+
+	-- [ Layer States ] --
+
+	-- Gets the state of the backdrop color.
+	local function GetBackdropState(info)
+		return (not info.arg[1].Backdrop) or info.arg[1].Disabled
 	end
 
 	-- Gets the hidden state of a layer.
 	local function GetState(info)
 		local Group, Layer = info.arg[1], info.arg[2]
-		local Skin = Core.Button:GetSkin(Group.SkinID)
+		local Skin = Skins[Group.SkinID]
 		return Skin[Layer].Hide or Group.Disabled
 	end
+
+	-- [ Group States ] --
 
 	-- Gets the disabled state of a group.
 	local function GetDisabled(info)
@@ -141,22 +105,22 @@ do
 	local function SetDisabled(info, value)
 		local Group = info.arg
 		if value then
-			Group:Disable()
+			Group:__Disable()
 		else
-			Group:Enable()
+			Group:__Enable()
 		end
 	end
 
-	-- Gets the disabled state of a group and its parent.
+	-- Gets the disabled state of a group's parent.
 	local function GetParentState(info)
 		local Parent = info.arg.Parent
 		return Parent and Parent.Disabled
 	end
 
 	-- Creates an options group for an add-on or add-on group.
-	function Core.Button:CreateOptions(Addon, SubGroup)
-		local Group = self:Group(Addon, SubGroup)
- 		local Name, Info
+	function CreateOptions(Addon, SubGroup)
+		local Group = Core.Button:Group(Addon, SubGroup)
+		local Name, Info, Desc
 		if SubGroup then
 			Name = SubGroup
 			Info = (L["Adjust the skin of all buttons registered to %s: %s."]):format(Addon, SubGroup)
@@ -195,7 +159,7 @@ do
 					arg = Group,
 					style = "dropdown",
 					width = "full",
-					values = Core.Button.ListSkins,
+					values = SkinList,
 					disabled = GetDisabled,
 					order = 2,
 				},
@@ -260,7 +224,7 @@ do
 							set = SetLayerColor,
 							arg = {Group, "Backdrop"},
 							hasAlpha = true,
-							disabled = GetBDState,
+							disabled = GetBackdropState,
 							order = 2,
 						},
 					},
@@ -352,24 +316,84 @@ do
 			},
 		}
 	end
+end
 
-	local Args = Core.Options.args.Buttons.args
+local args
 
-	-- Updates the button options table.
-	function Core.Button:UpdateOptions(Addon, Group)
-		if not Addon then
-			for _, Addon in pairs(Core.Button:ListAddons()) do
-				local a = Addon:gsub("%s", "_")
-				Args[a] = Args[a] or Core.Button:CreateOptions(Addon)
-				--print("Creating options for", Addon)
-			end
-		elseif not Group then
+-- [ Core Methods ] --
+
+-- Updates the appropriate button options table.
+function Core.Button:UpdateOptions(Addon, Group)
+	if not Core.OptionsLoaded then
+		return
+	end
+	if not Addon then
+		for _, Addon in pairs(self:ListAddons()) do
 			local a = Addon:gsub("%s", "_")
-			for _, Group in pairs(Core.Button:ListGroups(Addon)) do
-				local g = Group:gsub("%s", "_")
-				local AddonArgs = Args[a].args
-				AddonArgs[g] = AddonArgs[g] or Core.Button:CreateOptions(Addon, Group)
-			end
+			args[a] = args[a] or CreateOptions(Addon)
+		end
+	elseif not Group then
+		local a = Addon:gsub("%s", "_")
+		for _, Group in pairs(self:ListGroups(Addon)) do
+			local g = Group:gsub("%s", "_")
+			local aargs = args[a].args
+			aargs[g] = aargs[g] or CreateOptions(Addon, Group)
+		end
+	end
+end
+
+-- Loads the buttons options.
+function Core.Button:LoadOptions()
+	-- Button General
+	Core.Options.args.Buttons = {
+		type = "group",
+		name = L["Buttons"],
+		order = 1,
+		args = {
+			Info = {
+				type = "description",
+				name = L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."].."\n",
+				order = 1,
+			},
+		},
+	}
+
+	args = Core.Options.args.Buttons.args
+
+	-- Global
+	Core.Options.args.Buttons.args.Global = CreateOptions()
+	Core.Options.args.Buttons.args.Global.order = 0
+
+	-- Update
+	self:UpdateOptions()
+	for _, Addon in pairs(self:ListAddons()) do
+		self:UpdateOptions(Addon)
+	end
+
+	-- Buttons Panel
+	Core.OptionsPanel.Buttons = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(Masque, L["Buttons"], Masque, "Buttons")
+end
+
+-- Reloads the button settings on profile activity.
+function Core.Button:Reload()
+	-- Global Skin
+	local CG = self:Group()
+	CG.Disabled = Core.db.profile.Button.Masque.Disabled
+	CG:__Skin(Core.db.profile.Button.Masque.SkinID, Core.db.profile.Button.Masque.Gloss, Core.db.profile.Button.Masque.Backdrop, Core.db.profile.Button.Masque.Colors, true)
+
+	-- Add-on Skins
+	for _, Addon in pairs(self:ListAddons()) do
+		local AG = self:Group(Addon)
+		local id = AG.GroupID
+		AG.Disabled = Core.db.profile.Button[id].Disabled
+		AG:__Skin(Core.db.profile.Button[id].SkinID, Core.db.profile.Button[id].Gloss, Core.db.profile.Button[id].Backdrop, Core.db.profile.Button[id].Colors, true)
+
+		-- Group Skins
+		for _, Group in pairs(self:ListGroups(Addon)) do
+			local SG = self:Group(Addon, Group)
+			local sid = SG.GroupID
+			SG.Disabled = Core.db.profile.Button[sid].Disabled
+			SG:__Skin(Core.db.profile.Button[sid].SkinID, Core.db.profile.Button[sid].Gloss, Core.db.profile.Button[sid].Backdrop, Core.db.profile.Button[sid].Colors)
 		end
 	end
 end

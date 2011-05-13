@@ -9,8 +9,6 @@
 -- Please use the localization application on WoWAce.com to submit translations.
 -- http://www.wowace.com/projects/masque/localization/
 
--- [ Locals ] --
-
 local _, Core = ...
 
 -- [ Hard-Coded enUS/enGB ] --
@@ -41,7 +39,7 @@ Core.Locale = {
 	["Loading Masque Options..."] = "Loading Masque Options...",
 	["Masque debug mode disabled."] = "Masque debug mode disabled.",
 	["Masque debug mode enabled."] = "Masque debug mode enabled.",
-	["Masque is a modular add-on skinning engine."] = "Masque is a modular add-on skinning engine.",
+	["Masque is a modular skinning add-on."] = "Masque is a modular skinning add-on.",
 	["Normal"] = "Normal",
 	["Opacity"] = "Opacity",
 	["Preload Options"] = "Preload Options",

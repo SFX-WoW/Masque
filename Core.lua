@@ -5,19 +5,22 @@
 	Author..: Storm FX
 ]]
 
+local Masque, Core = ...
+
 -- [ Locals ] --
 
-local Masque, Core = ...
 local LibStub = assert(LibStub, "Masque requires LibStub.")
 local MSQ = LibStub("AceAddon-3.0"):NewAddon(Masque)
-local error, print, type = error, print, type
+
+local error, print = error, print
 local L = Core.Locale
 
 -- [ Core Elements ] --
 
 Core.Button = {}
 
--- Initial Options
+-- [ Initial Options] --
+
 Core.Options = {
 	type = "group",
 	name = Masque,
@@ -27,18 +30,6 @@ Core.Options = {
 			name = Masque,
 			order = 0,
 			args = {},
-		},
-		Buttons = {
-			type = "group",
-			name = L["Buttons"],
-			order = 1,
-			args = {
-				Info = {
-					type = "description",
-					name = L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."].."\n",
-					order = 1,
-				},
-			},
 		},
 	},
 }
@@ -52,8 +43,9 @@ function MSQ:OnInitialize()
 		profile = {
 			Debug = false,
 			Preload = false,
-			Buttons = {
+			Button = {
 				["*"] = {
+					Import = true,
 					Disabled = false,
 					SkinID = "Blizzard",
 					Gloss = false,
@@ -80,8 +72,10 @@ function MSQ:OnInitialize()
 			type = "execute",
 			name = L["Load Masque Options"],
 			desc = (L["Click this button to load Masque's options. You can also use the %s or %s chat command."]):format("|cffffcc00/msq|r", "|cffffcc00/masque|r"),
-			func = function() Core:LoadOptions() end,
-			hidden = function() return Core.OptionsLoaded or false end,
+			func = Core.LoadOptions,
+			hidden = function()
+				return Core.OptionsLoaded or false
+			end,
 			order = 0,
 		}
 	end
@@ -104,26 +98,81 @@ function MSQ:OnEnable()
 	Core.Button:Group()
 end
 
-	-- Opens the options window.
-	function MSQ:ShowOptions()
-		if not Core.OptionsLoaded then
-			print("|cffffff99"..L["Loading Masque Options..."].."|r")
-			Core:LoadOptions()
-		end
-		--InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Profiles)
-		InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Buttons)
+-- Opens the options window.
+function MSQ:ShowOptions()
+	if not Core.OptionsLoaded then
+		print("|cffffff99"..L["Loading Masque Options..."].."|r")
+		Core:LoadOptions()
 	end
+	--InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Profiles)
+	InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Buttons)
+end
 
 -- Prevent module creation.
 function MSQ:NewModule()
-	if Core.db.profile.Debug then error("Masque does not support external modules.", 2) end
+	if Core.db.profile.Debug then
+		error("Masque does not support modules.", 2)
+	end
 	return
 end
 
 -- [ Core Methods ] --
 
+-- Loads the options table when called.
+function Core:LoadOptions()
+	-- Info
+	self.Options.args.General.args.Info = {
+		type = "description",
+		name = L["Masque is a modular skinning add-on."].."\n",
+		order = 1,
+	}
+	-- Preload
+	self.Options.args.General.args.Preload = {
+		type = "toggle",
+		name = L["Preload Options"],
+		desc = L["Causes Masque to preload its options instead of having them loaded on demand."],
+		get = function()
+			return Core.db.profile.Preload
+		end,
+		set = function(i, v)
+			Core.db.profile.Preload = v
+		end,
+		order = 2,
+	}
+	-- Debug
+	self.Options.args.General.args.Debug = {
+		type = "toggle",
+		name = L["Debug Mode"],
+		desc = L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."],
+		get = function()
+			return Core.db.profile.Debug
+		end,
+		set = Core.Debug,
+		order = 3,
+	}
+
+	-- Loaded
+	self.OptionsLoaded = true
+
+	-- Buttons
+	self.Button:LoadOptions()
+
+	-- Profiles
+	self.Options.args.Profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
+	self.Options.args.Profiles.order = -1
+	self.OptionsPanel.Profiles = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(Masque, L["Profiles"], Masque, "Profiles")
+
+	-- LibDualSpec
+	local LDS = LibStub('LibDualSpec-1.0', true)
+	if LDS then
+		LDS:EnhanceDatabase(self.db, Masque)
+		LDS:EnhanceOptions(self.Options.args.Profiles, self.db)
+	end
+end
+
 -- Reloads settings on profile activity.
 function Core:Reload()
+	-- Buttons
 	self.Button:Reload()
 end
 
@@ -137,7 +186,3 @@ function Core:Debug()
 		print("|cffffff99"..L["Masque debug mode enabled."].."|r")
 	end
 end
-
--- [ Miscellaneous ] --
-
-Core.Loaded = true

@@ -1,21 +1,109 @@
 --[[
 	Project.: Masque
-	File....: Skins.lua
+	File....: Button/Skins.lua
 	Version.: @file-revision@
 	Author..: StormFX, JJSheets
 ]]
 
+local _, Core = ...
+
 -- [ Locals ] --
 
-local _, Core = ...
-if not Core.Loaded then return end
+local error, pairs, setmetatable, type = error, pairs, setmetatable, type
 
--- [ Default Button Skins] --
+-- Layer Types
+local Layers = {
+	Backdrop = "Custom",
+	Icon = "Texture",
+	Flash = "Texture",
+	Cooldown = "Frame",
+	Pushed = "Special",
+	Normal = "Custom",
+	Disabled = "Special",
+	Checked = "Special",
+	Border = "Texture",
+	Gloss = "Custom",
+	AutoCastable = "Texture",
+	Highlight = "Special",
+	Name = "Text",
+	Count = "Text",
+	HotKey = "Text",
+	Duration = "Text",
+	AutoCast = "Frame",
+}
+
+-- Returns a list of button layers.
+function Core.Button:GetLayers()
+	return Layers
+end
+
+-- [ Skin API ] --
+
+-- Skin Tables
+local Skins = {}
+local SkinList = {}
+
+-- Hidden Layer
+local Hidden = {Hide = true}
+
+-- Adds a button skin.
+function Core.Button:AddSkin(SkinID, SkinData, Replace)
+	if type(SkinID) ~= "string" then
+		if Core.db.profile.Debug then
+			error("Bad argument to method 'AddSkin'. 'SkinID' must be a string.", 2)
+		end
+		return
+	end
+	if Skins[SkinID] and not Replace then
+		return
+	end
+	if type(SkinData) ~= "table" then
+		if Core.db.profile.Debug then
+			error("Bad argument to method 'AddSkin'. 'SkinData' must be a table.", 2)
+		end
+		return
+	end
+	if SkinData.Template then
+		if Skins[SkinData.Template] then
+			setmetatable(SkinData, {__index=Skins[SkinData.Template]})
+		else
+			if Core.db.profile.Debug then
+				error(("Invalid template reference by skin '%s'. Skin '%s' does not exist."):format(SkinID, SkinData.Template), 2)
+			end
+			return
+		end
+	end
+	for Layer in pairs(Layers) do
+		if type(SkinData[Layer]) ~= "table" then
+			SkinData[Layer] = Hidden
+		end
+	end
+	Skins[SkinID] = SkinData
+	SkinList[SkinID] = SkinID
+end
+
+-- Returns the specified skin.
+function Core.Button:GetSkin(SkinID)
+	return Skins[SkinID]
+end
+
+-- Returns the skins table.
+function Core.Button:GetSkins()
+	return Skins
+end
+
+-- Returns a list of skins.
+function Core.Button:ListSkins()
+	return SkinList
+end
+
+-- [ Default Skins] --
 
 Core.Button:AddSkin("Blizzard", {
-	Masque_Version = 40100,
-	Version = "4.1.@project-revision@",
 	Author = "Blizzard Entertainment",
+	Version = "4.1.@project-revision@",
+	Masque_Version = 40100,
+	Shape = "Square",
 	Backdrop = {
 		Width = 34,
 		Height = 35,
@@ -103,11 +191,14 @@ Core.Button:AddSkin("Blizzard", {
 	},
 }, true)
 
+-- Blizzard 2.0, awaiting permission for inclusion from Maul.
+
 -- Dream Layout
 Core.Button:AddSkin("Dream Layout", {
-	Masque_Version = 40100,
-	Version = "4.1.@project-revision@",
 	Author = "JJSheets, StormFX",
+	Version = "4.1.@project-revision@",
+	Masque_Version = 40100,
+	Shape = "Square",
 	Backdrop = {
 		Width = 36,
 		Height = 36,
@@ -192,9 +283,10 @@ Core.Button:AddSkin("Dream Layout", {
 
 -- Zoomed
 Core.Button:AddSkin("Zoomed", {
-	Masque_Version = 40100,
-	Version = "4.1.@project-revision@",
 	Author = "JJSheets, StormFX",
+	Version = "4.1.@project-revision@",
+	Masque_Version = 40100,
+	Shape = "Square",
 	-- Backdrop = Hidden,
 	Icon = {
 		Width = 36,
