@@ -72,7 +72,9 @@ function MSQ:OnInitialize()
 			type = "execute",
 			name = L["Load Masque Options"],
 			desc = (L["Click this button to load Masque's options. You can also use the %s or %s chat command."]):format("|cffffcc00/msq|r", "|cffffcc00/masque|r"),
-			func = Core.LoadOptions,
+			func = function() 
+				Core:LoadOptions()
+			end,
 			hidden = function()
 				return Core.OptionsLoaded or false
 			end,
