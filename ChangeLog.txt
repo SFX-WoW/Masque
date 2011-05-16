@@ -1,4 +1,4 @@
-=== v4.1.354 ALPHA ===
+=== v4.1.355 ALPHA ===
 
 ** IMPORTANT: ** This is an ALPHA. Do NOT install this unless you know what you're doing. If you have any issues, please use the [[http://www.wowace.com/addons/masque/tickets|ticket system]].
 
@@ -45,7 +45,7 @@
 ** JustifyV ("TOP", "MIDDLE", "BOTTOM")
 ** Note: These settings require that the 'Masque_Version' be set or the old methods of alignment will apply.
 * The LBF_Version entry has been replaced with Masque_Version. The current version is 40100.
-* Skins now support a 'Shape' parameter that, in a future build, will allow the spell alert animation to fit the button style. At this time, only "Square" and "Circle" are supported. If not specified, this defaults to "Square".
+* Skins now support a 'Shape' parameter that will allow the spell alert animation to fit the button style. Masque includes a 'Circle' texture set and will include an API for authors to add their own spell alert textures in a future build.
 * Skins now support the 'Version' (number) and 'Author' (string) keys. A future version of Masque *may* include a 'skin info' panel that will display this information.
 * Skins no longer have to specify the 'Normal' layer as being 'Static'. Instead, this is now the default behavior. If a skin author wants to use the built-in state changes, they can force this by explicitly setting the 'Static' attribute to false.
 * Skins can now use the 'EmptyTexture' and 'EmptyCoords' attributes for the 'Normal' layer even if not using the default state changes.

@@ -378,6 +378,50 @@ local function SkinFrame(Button, Region, Skin, xScale, yScale)
 	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
 end
 
+-- [ Spell Alert ] --
+
+local UpdateSpellAlert
+
+do
+	local Alerts = {
+		Square = {
+			Glow = "Interface\\SpellActivationOverlay\\IconAlert",
+			Ants = "Interface\\SpellActivationOverlay\\IconAlertAnts",
+		},
+		Circle = {
+			Glow = "Interface\\AddOns\\Masque\\Button\\Textures\\IconAlert-Circle",
+			Ants = "Interface\\AddOns\\Masque\\Button\\Textures\\IconAlertAnts-Circle",
+		},
+	}
+
+	-- Hook to adjust the spell alert animation.
+	function UpdateSpellAlert(self)
+		local Glow = self.overlay
+		if Glow and Glow.__MSQ_Shape ~= self.__MSQ_Shape then
+			local Shape = self.__MSQ_Shape
+			if Shape and Alerts[Shape] then
+				local Texture = Alerts[Shape].Glow or Alerts.Square.Glow
+				Glow.innerGlow:SetTexture(Texture)
+				Glow.innerGlowOver:SetTexture(Texture)
+				Glow.outerGlow:SetTexture(Texture)
+				Glow.outerGlowOver:SetTexture(Texture)
+				Glow.spark:SetTexture(Texture)
+				Glow.ants:SetTexture(Alerts[Shape].Ants or Alerts.Square.Ants)
+			else
+				Glow.innerGlow:SetTexture(Alerts.Square.Glow)
+				Glow.innerGlowOver:SetTexture(Alerts.Square.Glow)
+				Glow.outerGlow:SetTexture(Alerts.Square.Glow)
+				Glow.outerGlowOver:SetTexture(Alerts.Square.Glow)
+				Glow.spark:SetTexture(Alerts.Square.Glow)
+				Glow.ants:SetTexture(Alerts.Square.Ants)
+	
+			end
+			Glow.__MSQ_Shape = self.__MSQ_Shape
+		end
+	end
+end
+hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
+
 -- [ Button ] --
 
 do
@@ -391,17 +435,17 @@ do
 	local __MTT = {}
 
 	-- Hook to automatically adjust the button's additional frames' levels.
-	local function Hook_SetFrameLevel(Button, Level)
-		local base = Level or Button:GetFrameLevel()
+	local function Hook_SetFrameLevel(self, Level)
+		local base = Level or self:GetFrameLevel()
 		if base < 3 then base = 3 end
-		if Button.__MSQ_Level[1] then
-			Button.__MSQ_Level[1]:SetFrameLevel(base - 2)
+		if self.__MSQ_Level[1] then
+			self.__MSQ_Level[1]:SetFrameLevel(base - 2)
 		end
-		if Button.__MSQ_Level[2] then
-			Button.__MSQ_Level[2]:SetFrameLevel(base - 1)
+		if self.__MSQ_Level[2] then
+			self.__MSQ_Level[2]:SetFrameLevel(base - 1)
 		end
-		if Button.__MSQ_Level[4] then
-			Button.__MSQ_Level[4]:SetFrameLevel(base + 1)
+		if self.__MSQ_Level[4] then
+			self.__MSQ_Level[4]:SetFrameLevel(base + 1)
 		end
 	end
 
@@ -428,6 +472,7 @@ do
 		local Version = Skin.Masque_Version or Skin.LBF_Version
 		-- Skin Shape
 		Button.__MSQ_Shape = Skin.Shape
+		UpdateSpellAlert(Button)
 		-- Backdrop
 		if Backdrop and not Skin.Backdrop.Hide then
 			SkinBackdrop(Button, Skin.Backdrop, xScale, yScale, Colors.Backdrop)

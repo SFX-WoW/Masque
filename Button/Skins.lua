@@ -184,6 +184,7 @@ Core.Button:AddSkin("Blizzard", {
 	Duration = {
 		Width = 36,
 		Height = 10,
+		OffsetY = -4,
 	},
 	AutoCast = {
 		Width = 36,
@@ -272,6 +273,7 @@ Core.Button:AddSkin("Dream Layout", {
 	Duration = {
 		Width = 36,
 		Height = 10,
+		OffsetY = -3,
 	},
 	AutoCast = {
 		Width = 30,
@@ -351,6 +353,7 @@ Core.Button:AddSkin("Zoomed", {
 	Duration = {
 		Width = 36,
 		Height = 10,
+		OffsetY = -3,
 	},
 	AutoCast = {
 		Width = 36,
