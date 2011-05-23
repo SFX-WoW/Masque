@@ -132,6 +132,7 @@ Core.Button:AddSkin("Blizzard", {
 	Normal = {
 		Width = 66,
 		Height = 66,
+		Static = false,
 		Texture = [[Interface\Buttons\UI-Quickslot2]],
 		EmptyTexture = [[Interface\Buttons\UI-Quickslot]],
 		OffsetY = -1,
@@ -187,8 +188,10 @@ Core.Button:AddSkin("Blizzard", {
 		OffsetY = -4,
 	},
 	AutoCast = {
-		Width = 36,
-		Height = 36,
+		Width = 34,
+		Height = 34,
+		OffsetX = 0.5,
+		OffsetY = -0.5
 	},
 }, true)
 
@@ -276,8 +279,8 @@ Core.Button:AddSkin("Dream Layout", {
 		OffsetY = -3,
 	},
 	AutoCast = {
-		Width = 30,
-		Height = 30,
+		Width = 28,
+		Height = 28,
 		OffsetX = 0.5,
 		OffsetY = -0.5,
 	},
@@ -356,8 +359,9 @@ Core.Button:AddSkin("Zoomed", {
 		OffsetY = -3,
 	},
 	AutoCast = {
-		Width = 36,
-		Height = 36,
+		Width = 34,
+		Height = 34,
 		OffsetX = 0.5,
+		OffsetY = -0.5
 	},
 }, true)

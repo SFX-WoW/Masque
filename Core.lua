@@ -11,6 +11,8 @@ local Masque, Core = ...
 
 local LibStub = assert(LibStub, "Masque requires LibStub.")
 local MSQ = LibStub("AceAddon-3.0"):NewAddon(Masque)
+local LDB = LibStub("LibDataBroker-1.1", true)
+local DBI = LibStub("LibDBIcon-1.0", true)
 
 local error, print = error, print
 local L = Core.Locale
@@ -53,6 +55,11 @@ function MSQ:OnInitialize()
 					Colors = {},
 				},
 			},
+			LDB = {
+				hide = true,
+				minimapPos = 220,
+				radius = 80,
+			},
 		},
 	}
 
@@ -89,7 +96,7 @@ function MSQ:OnInitialize()
 		if Cmd == "debug" then
 			Core:Debug()
 		else
-			MSQ:ShowOptions()
+			Core:ShowOptions()
 		end
 	end
 end
@@ -98,16 +105,47 @@ end
 function MSQ:OnEnable()
 	-- Global Button Skin
 	Core.Button:Group()
+
+	-- LibDataBroker-1.1
+	if LDB then
+		Core.LDBO = LDB:NewDataObject(Masque, {
+			type  = "launcher",
+			label = Masque,
+			icon  = "Interface\\Addons\\Masque\\Icon",
+			OnClick = function(self, Button)
+				if Button == "LeftButton" or Button == "RightButton" then
+					Core:ShowOptions()
+				end
+			end,
+			OnTooltipShow = function(Tip)
+				if not Tip or not Tip.AddLine then return end
+				local Group = Core.Button:Group()
+				local Skin = Group.SkinID or "Blizzard"
+				Tip:AddLine(Masque)
+				Tip:AddLine(L["Click to open Masque's options window."], 1, 1, 1)
+				Tip:AddDoubleLine(L["Current Skin:"], "|cffff8000"..Skin.."|r")
+			end,
+		})
+
+		-- LibDBIcon-1.0
+		if DBI then
+			DBI:Register(Masque, Core.LDBO, Core.db.profile.LDB)
+		end
+	end
 end
 
 -- Opens the options window.
-function MSQ:ShowOptions()
-	if not Core.OptionsLoaded then
+function Core:ShowOptions()
+	if not self.OptionsLoaded then
 		print("|cffffff99"..L["Loading Masque Options..."].."|r")
-		Core:LoadOptions()
+		self:LoadOptions()
 	end
-	--InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Profiles)
-	InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Buttons)
+	if InterfaceOptionsFrame:IsShown() then
+		InterfaceOptionsFrame_Show()
+	else
+		--InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Profiles)
+		InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Buttons)
+	end
 end
 
 -- Prevent module creation.
@@ -120,7 +158,7 @@ end
 
 -- [ Core Methods ] --
 
--- Loads the options table when called.
+-- Loads the options when called.
 function Core:LoadOptions()
 	-- Info
 	self.Options.args.General.args.Info = {
@@ -141,6 +179,27 @@ function Core:LoadOptions()
 		end,
 		order = 2,
 	}
+	-- LBD Icon
+	self.Options.args.General.args.Icon = {
+		type = "toggle",
+		name = L["Minimap Icon"],
+		desc = L["Enable the minimap icon."],
+		get = function()
+			return not Core.db.profile.LDB.hide
+		end,
+		set = function(i, v)
+			Core.db.profile.LDB.hide = not v
+			if not v then
+				DBI:Hide(Masque)
+			else
+				DBI:Show(Masque)
+			end
+		end,
+		disabled = function()
+			return not DBI
+		end,
+		order = 3,
+	}
 	-- Debug
 	self.Options.args.General.args.Debug = {
 		type = "toggle",
@@ -149,8 +208,10 @@ function Core:LoadOptions()
 		get = function()
 			return Core.db.profile.Debug
 		end,
-		set = Core.Debug,
-		order = 3,
+		set = function()
+			Core:Debug()
+		end,
+		order = 4,
 	}
 
 	-- Loaded
@@ -164,7 +225,7 @@ function Core:LoadOptions()
 	self.Options.args.Profiles.order = -1
 	self.OptionsPanel.Profiles = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(Masque, L["Profiles"], Masque, "Profiles")
 
-	-- LibDualSpec
+	-- LibDualSpec-1.0
 	local LDS = LibStub('LibDualSpec-1.0', true)
 	if LDS then
 		LDS:EnhanceDatabase(self.db, Masque)

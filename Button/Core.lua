@@ -396,27 +396,42 @@ do
 
 	-- Hook to adjust the spell alert animation.
 	function UpdateSpellAlert(self)
-		local Glow = self.overlay
-		if Glow and Glow.__MSQ_Shape ~= self.__MSQ_Shape then
+		local Overlay = self.overlay
+		if Overlay and Overlay.__MSQ_Shape ~= self.__MSQ_Shape then
 			local Shape = self.__MSQ_Shape
+			local Texture, Ants
 			if Shape and Alerts[Shape] then
-				local Texture = Alerts[Shape].Glow or Alerts.Square.Glow
-				Glow.innerGlow:SetTexture(Texture)
-				Glow.innerGlowOver:SetTexture(Texture)
-				Glow.outerGlow:SetTexture(Texture)
-				Glow.outerGlowOver:SetTexture(Texture)
-				Glow.spark:SetTexture(Texture)
-				Glow.ants:SetTexture(Alerts[Shape].Ants or Alerts.Square.Ants)
+				Texture = Alerts[Shape].Glow or Alerts.Square.Glow
+				Ants = Alerts[Shape].Ants or Alerts.Square.Ants
 			else
-				Glow.innerGlow:SetTexture(Alerts.Square.Glow)
-				Glow.innerGlowOver:SetTexture(Alerts.Square.Glow)
-				Glow.outerGlow:SetTexture(Alerts.Square.Glow)
-				Glow.outerGlowOver:SetTexture(Alerts.Square.Glow)
-				Glow.spark:SetTexture(Alerts.Square.Glow)
-				Glow.ants:SetTexture(Alerts.Square.Ants)
-	
+				Texture = Alerts.Square.Glow
+				Ants = Alerts.Square.Ants
 			end
-			Glow.__MSQ_Shape = self.__MSQ_Shape
+			Overlay.innerGlow:SetTexture(Texture)
+			Overlay.innerGlowOver:SetTexture(Texture)
+			Overlay.outerGlow:SetTexture(Texture)
+			Overlay.outerGlowOver:SetTexture(Texture)
+			Overlay.spark:SetTexture(Texture)
+			Overlay.ants:SetTexture(Ants)
+			Overlay.__MSQ_Shape = self.__MSQ_Shape
+		end
+	end
+
+	-- Method to add new spell alert textures.
+	function Core.Button:AddSpellAlert(Shape, Glow, Ants)
+		if type(Shape) == "string" then
+			local Overlay = Alerts[Shape] or {}
+			if type(Glow) == "string" then
+				Overlay.Glow = Glow
+			end
+			if type(Ants) == "string" then
+				Overlay.Ants = Ants
+			end
+		else
+			if Core.db.profile.Debug then
+				error("Bad argument to method 'AddSpellAlert'. 'Shape' must be a string.", 2)
+			end
+			return
 		end
 	end
 end

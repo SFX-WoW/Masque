@@ -107,6 +107,9 @@ do
 			Region = (f and f(Button)) or false
 		else
 			local n = Button:GetName()
+			if Layer == "AutoCast" then
+				Layer = "Shine"
+			end
 			Region = (n and _G[n..Layer]) or false
 		end
 		return Region

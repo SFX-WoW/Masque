@@ -18,6 +18,7 @@ local API = {
 
 	Button = {
 		AddSkin = Core.Button.AddSkin,
+		AddSpellAlert = Core.Button.AddSpellAlert,
 		GetBackdropLayer = Core.Button.GetBackdrop,
 		GetNormalTexture = Core.Button.GetNormalTexture,
 		GetGlossLayer = Core.Button.GetGloss,

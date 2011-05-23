@@ -1,4 +1,4 @@
 Buttons:
 
-- Popout menus.
-- Active ability animations.
+- Popout menus?
+- See about AutoCast customization.
