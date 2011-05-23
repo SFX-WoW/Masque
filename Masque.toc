@@ -6,7 +6,7 @@
 ## X-Website: http://www.wowace.com/projects/masque/
 ## X-Category: Interface Enhancements
 ## X-WoWI-ID: 12097
-## OptionalDeps: Ace3
+## OptionalDeps: Ace3, ButtonFacade, SharedMedia
 ## SavedVariables: MasqueDB
 
 # Libraries

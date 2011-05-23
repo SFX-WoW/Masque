@@ -285,8 +285,6 @@ end
 
 -- Skins the 'Name' text od a button.
 local function SkinName(Button, Region, Skin, xScale, yScale, Color, Version)
-	local font, _, flags = Region:GetFont()
-	Region:SetFont(font, Skin.FontSize or 11, flags)
 	Region:SetJustifyH(Skin.JustifyH or "CENTER")
 	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
 	Region:SetDrawLayer("OVERLAY")
@@ -305,8 +303,6 @@ end
 
 -- Skins the 'Count' text of a button.
 local function SkinCount(Button, Region, Skin, xScale, yScale, Color, Version)
-	local font, _, flags = Region:GetFont()
-	Region:SetFont(font, Skin.FontSize or 15, flags)
 	Region:SetJustifyH(Skin.JustifyH or "RIGHT")
 	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
 	Region:SetDrawLayer("OVERLAY")
@@ -325,8 +321,6 @@ end
 
 -- Skins the 'HotKey' text of a button.
 local function SkinHotKey(Button, Region, Skin, xScale, yScale, Version)
-	local font, _, flags = Region:GetFont()
-	Region:SetFont(font, Skin.FontSize or 13, flags)
 	Region:SetJustifyH(Skin.JustifyH or "RIGHT")
 	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
 	Region:SetDrawLayer("OVERLAY")
@@ -348,8 +342,6 @@ end
 
 -- Skins the 'Duration' text of a button.
 local function SkinDuration(Button, Region, Skin, xScale, yScale, Color, Version)
-	local font, _, flags = Region:GetFont()
-	Region:SetFont(font, Skin.FontSize or 11, flags)
 	Region:SetJustifyH(Skin.JustifyH or "CENTER")
 	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
 	Region:SetDrawLayer("OVERLAY")
