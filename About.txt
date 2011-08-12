@@ -1,4 +1,4 @@
-Masque (formerly ButtonFacade) is a modular skinning add-on.
+Masque (formerly ButtonFacade) is a dynammic button skinning add-on.
 
 Resources:
 
@@ -7,12 +7,14 @@ Resources:
 
 Options:
 
-   Access the options panel via the /msq or /masque chat commands, or the Interface Options Window.
+   Access the options panel via the /msq or /masque chat command, or via the Interface Options Window.
 
 Installation:
 
    1. Download the package.
    2. Extract the package to your "World of Warcraft\Interface\AddOns" directory.
+
+   Note: This package contains a "ButtonFacade" add-on that MUST be installed in order for add-ons still using ButtonFacade's API to load Masque correctly.
 
 Feedback: 
 
