@@ -29,14 +29,14 @@ enable-nolib-creation: no
 move-folders:
   Masque/ButtonFacade: ButtonFacade
 
-license-output: License.txt
+license-output: Docs/License.txt
 manual-changelog:
-  filename: ChangeLog.txt
+  filename: Docs/ChangeLog.txt
   markup-type: creole
 
 ignore:
   - Legacy
-  - ToDo.txt
+  - Docs/ToDo.txt
 
 tools-used:
   - libdatabroker-1-1
