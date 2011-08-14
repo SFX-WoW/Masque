@@ -1,8 +1,8 @@
-﻿## Interface: 40100
+﻿## Interface: 40200
 ## Title: ButtonFacade
-## Version: 4.1.@project-revision@
+## Version: 4.2.@project-revision@
 ## Notes: Loads Masque for add-ons still using ButtonFacade's API. Do NOT disable this!
 ## Author: StormFX
 ## OptionalDeps: Masque
 
-Loader.lua
+ButtonFacade.lua
