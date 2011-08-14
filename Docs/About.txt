@@ -14,7 +14,7 @@ Installation:
    1. Download the package.
    2. Extract the package to your "World of Warcraft\Interface\AddOns" directory.
 
-   Note: This package contains a "ButtonFacade" add-on that MUST be installed in order for add-ons still using ButtonFacade's API to load Masque correctly.
+   Note: This package contains a "ButtonFacade" add-on that MUST be installed and enabled in order for add-ons still using ButtonFacade's API to load Masque correctly.
 
 Feedback: 
 

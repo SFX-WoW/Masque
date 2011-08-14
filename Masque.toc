@@ -1,12 +1,12 @@
-﻿## Interface: 40100
+﻿## Interface: 40200
 ## Title: Masque
-## Version: 4.1.@project-revision@
-## Notes: A modular skinning add-on.
+## Version: 4.2.@project-revision@
+## Notes: A dynamic button skinning add-on.
 ## Author: StormFX, JJSheets
 ## X-Website: http://www.wowace.com/projects/masque/
 ## X-Category: Interface Enhancements
 ## X-WoWI-ID: 12097
-## OptionalDeps: Ace3, ButtonFacade, SharedMedia
+## OptionalDeps: Ace3, ButtonFacade
 ## SavedVariables: MasqueDB
 
 # Libraries
@@ -21,15 +21,19 @@ Libs\LibDualSpec-1.0\LibDualSpec-1.0.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 
+# Locales
+Core\Locales.lua
+
+# Add-On
+Masque.lua
+
+# Skins
+Skins\Skins.lua
+Skins\Blizzard.lua
+Skins\Dream.lua
+Skins\Zoomed.lua
+
 # Core
-Locales.lua
-Core.lua
-
-# Button
-Button\Skins.lua
-Button\Core.lua
-Button\API.lua
-Button\Options.lua
-
-# LibMasque
-LibMasque.lua
+Core\Button.lua
+Core\Groups.lua
+Core\Options.lua

@@ -1,4 +1,3 @@
-Buttons:
-
-- Popout menus?
-- See about AutoCast customization.
+- Look at how the buttons of fly-out menus are skinned.
+- Look into Autocast customization.
+- Adjusting a setting probably shouldn't cause every layer to be reskinned.
