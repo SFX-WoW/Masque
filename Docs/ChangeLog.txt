@@ -1,4 +1,4 @@
-== v4.2.365 ALPHA ==
+== v4.2.366 ALPHA ==
 
 <<color red>>** IMPORTANT: ** This version of Masque is an **alpha** and is for testing purposes only. Testers may post bug reports via the ticket system on the project page.<</color>>
 

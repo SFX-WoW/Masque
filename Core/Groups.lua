@@ -310,25 +310,24 @@ do
 			-- Updates the group on profile activity, etc.
 			Update = function(self, Static, Limit)
 				self.db = Core.db.profile.Groups[self.ID]
-				if self.Parent and self.db.Inherit then
+				if self.Parent then
 					local db = self.Parent.db
-					self.db.SkinID = db.SkinID
-					self.db.Gloss = db.Gloss
-					self.db.Backdrop = db.Backdrop
-					self.db.Fonts = db.Fonts
-					for Layer in pairs(self.db.Colors) do
-						self.db.Colors[Layer] = nil
-					end
-					for Layer in pairs(db.Colors) do
-						if type(db.Colors[Layer]) == "table" then
-							local r, g, b, a = unpack(db.Colors[Layer])
-							self.db.Colors[Layer] = {r, g, b, a}
+					if self.db.Inherit and self.db.SkinID ~= db.SkinID then
+						self.db.SkinID = db.SkinID
+						self.db.Gloss = db.Gloss
+						self.db.Backdrop = db.Backdrop
+						self.db.Fonts = db.Fonts
+						for Layer in pairs(self.db.Colors) do
+							self.db.Colors[Layer] = nil
 						end
+						for Layer in pairs(db.Colors) do
+							if type(db.Colors[Layer]) == "table" then
+								local r, g, b, a = unpack(db.Colors[Layer])
+								self.db.Colors[Layer] = {r, g, b, a}
+							end
+						end
+						self.db.Inherit = false
 					end
-					self.db.Inherit = false
-				end
-				if not SkinList[self.db.SkinID] then
-					self.db.SkinID = "Blizzard"
 				end
 				if not Static then
 					if self.db.Disabled then
@@ -372,4 +371,3 @@ do
 		}
 	}
 end
-MSQG = Groups

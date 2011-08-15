@@ -138,7 +138,12 @@ end
 do
 	-- Gets an option's value.
 	local function GetOption(info)
-		return info.arg.db[info[#info]]
+		local Option = info[#info]
+		if Option == "SkinID" then
+			return SkinList[info.arg.db.SkinID] or SkinList["Blizzard"]
+		else
+			return info.arg.db[Option]
+		end
 	end
 
 	-- Sets an option's value.
@@ -185,14 +190,14 @@ do
 
 	-- Gets the disabled state of a group's parent.
 	local function GetParentState(info)
-		local p = info.arg.Parent
-		return p and p.db.Disabled
+		local Parent = info.arg.Parent
+		return Parent and Parent.db.Disabled
 	end
 
 	-- Gets the state of a layer.
 	local function GetState(info)
 		local db, Layer = info.arg.db, info[#info]
-		local Skin = Skins[db.SkinID]
+		local Skin = Skins[db.SkinID] or Skins["Blizzard"]
 		if Layer == "Color" then
 			Layer = info[#info-1]
 		end

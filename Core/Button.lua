@@ -203,7 +203,7 @@ do
 
 	-- API: Returns the 'Normal' layer of a button.
 	function Core.API:GetNormal(Button)
-		return Button.__MSQ_NormalTexture or Button:GetNormalTexture()
+		return Button.__MSQ_NormalTexture or (Button.GetNormalTexture and Button:GetNormalTexture())
 	end
 end
 
