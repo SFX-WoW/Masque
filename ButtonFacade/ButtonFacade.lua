@@ -15,10 +15,12 @@
 ]]
 
 local LibStub = assert(LibStub, "Masque requires LibStub.")
-_G.ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade")
+local MSQ = LibStub("Masque", true)
 
+if not MSQ then return end
+
+_G.ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade")
 local LBF = LibStub:NewLibrary("LibButtonFacade", 40200)
-local MSQ = LibStub("Masque")
 
 function LBF:GetNormalVertexColor(Button)
 	local Region = self:GetNormalTexture(Button)

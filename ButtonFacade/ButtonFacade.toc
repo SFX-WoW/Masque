@@ -3,6 +3,6 @@
 ## Version: 4.2.@project-revision@
 ## Notes: Loads Masque for add-ons still using ButtonFacade's API. Do NOT disable this!
 ## Author: StormFX
-## OptionalDeps: Masque
+## Dependencies: Masque
 
 ButtonFacade.lua

@@ -31,7 +31,7 @@ move-folders:
 
 license-output: Docs/License.txt
 manual-changelog:
-  filename: Docs/ChangeLog.txt
+  filename: Docs/History.txt
   markup-type: creole
 
 ignore:
