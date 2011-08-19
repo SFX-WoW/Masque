@@ -14,9 +14,34 @@ local error, setmetatable, type = error, setmetatable, type
 
 local Skins = {}
 local SkinList = {}
+local Layers = {
+	"Backdrop",
+	"Icon",
+	"Flash",
+	"Cooldown",
+	"Pushed",
+	"Normal",
+	"Disabled",
+	"Checked",
+	"Border",
+	"Gloss",
+	"AutoCastable",
+	"Highlight",
+	"Name",
+	"Count",
+	"HotKey",
+	"Duration",
+	"AutoCast",
+}
 
 -- Adds data to the skin tables, bypassing the skin validation.
 function Core:AddSkin(SkinID, SkinData)
+	for i = 1, #Layers do
+		local Layer = Layers[i]
+		if type(SkinData[Layer]) ~= "table" then
+			SkinData[Layer] = {Hide = true}
+		end
+	end
 	Skins[SkinID] = SkinData
 	SkinList[SkinID] = SkinID
 end
@@ -26,62 +51,34 @@ function Core:GetSkins()
 	return Skins, SkinList
 end
 
-do
-	local Layers = {
-		"Backdrop",
-		"Icon",
-		"Flash",
-		"Cooldown",
-		"Pushed",
-		"Normal",
-		"Disabled",
-		"Checked",
-		"Border",
-		"Gloss",
-		"AutoCastable",
-		"Highlight",
-		"Name",
-		"Count",
-		"HotKey",
-		"Duration",
-		"AutoCast",
-	}
-
-	-- API method for adding skins.
-	function Core.API:AddSkin(SkinID, SkinData, Replace)
-		local debug = Core.db.profile.Debug
-		if type(SkinID) ~= "string" then
-			if debug then
-				error("Bad argument to method 'AddSkin'. 'SkinID' must be a string.", 2)
-			end
-			return
+-- API method for validating and adding skins.
+function Core.API:AddSkin(SkinID, SkinData, Replace)
+	local debug = Core.db.profile.Debug
+	if type(SkinID) ~= "string" then
+		if debug then
+			error("Bad argument to method 'AddSkin'. 'SkinID' must be a string.", 2)
 		end
-		if Skins[SkinID] and not Replace then
-			return
-		end
-		if type(SkinData) ~= "table" then
-			if debug then
-				error("Bad argument to method 'AddSkin'. 'SkinData' must be a table.", 2)
-			end
-			return
-		end
-		local Template = SkinData.Template
-		if Template then
-			if Skins[Template] then
-				setmetatable(SkinData, {__index=Skins[Template]})
-			else
-				if debug then
-					error(("Invalid template reference by skin '%s'. Skin '%s' does not exist."):format(SkinID, Template), 2)
-				end
-				return
-			end
-		end
-		for i = 1, #Layers do
-			local Layer = Layers[i]
-			if type(SkinData[Layer]) ~= "table" then
-				SkinData[Layer] = {Hide = true}
-			end
-		end
-		Core:AddSkin(SkinID, SkinData)
+		return
 	end
+	if Skins[SkinID] and not Replace then
+		return
+	end
+	if type(SkinData) ~= "table" then
+		if debug then
+			error("Bad argument to method 'AddSkin'. 'SkinData' must be a table.", 2)
+		end
+		return
+	end
+	local Template = SkinData.Template
+	if Template then
+		if Skins[Template] then
+			setmetatable(SkinData, {__index=Skins[Template]})
+		else
+			if debug then
+				error(("Invalid template reference by skin '%s'. Skin '%s' does not exist."):format(SkinID, Template), 2)
+			end
+			return
+		end
+	end
+	Core:AddSkin(SkinID, SkinData)
 end

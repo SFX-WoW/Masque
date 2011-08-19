@@ -285,7 +285,7 @@ local function SkinName(Button, Region, Skin, xScale, yScale, Color, Fonts, Vers
 		if not Region.__MSQ_Font then
 			Region.__MSQ_Font = font
 		end
-		size = 11
+		size = 10
 		if Fonts then
 			font = Skin.Font or Region.__MSQ_Font
 			size = Skin.FontSize or size
@@ -315,7 +315,7 @@ local function SkinCount(Button, Region, Skin, xScale, yScale, Color, Fonts, Ver
 		if not Region.__MSQ_Font then
 			Region.__MSQ_Font = font
 		end
-		size = 14
+		size = 13
 		if Fonts then
 			font = Skin.Font or Region.__MSQ_Font
 			size = Skin.FontSize or size
@@ -345,7 +345,7 @@ local function SkinHotKey(Button, Region, Skin, xScale, yScale, Fonts, Version)
 		if not Region.__MSQ_Font then
 			Region.__MSQ_Font = font
 		end
-		size = 13
+		size = 12
 		if Fonts then
 			font = Skin.Font or Region.__MSQ_Font
 			size = Skin.FontSize or size
@@ -378,7 +378,7 @@ local function SkinDuration(Button, Region, Skin, xScale, yScale, Color, Fonts, 
 		if not Region.__MSQ_Font then
 			Region.__MSQ_Font = font
 		end
-		size = 12
+		size = 10
 		if Fonts then
 			font = Skin.Font or Region.__MSQ_Font
 			size = Skin.FontSize or size

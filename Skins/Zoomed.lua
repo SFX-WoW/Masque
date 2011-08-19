@@ -47,14 +47,14 @@ Core:AddSkin("Zoomed", {
 	Checked = {
 		Width = 36,
 		Height = 36,
-		Texture = [[Interface\Buttons\CheckButtonHilight]],
 		BlendMode = "ADD",
+		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
 	Border = {
 		Width = 64,
 		Height = 64,
-		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 		BlendMode = "ADD",
+		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Gloss = {
 		Hide = true,
@@ -69,21 +69,25 @@ Core:AddSkin("Zoomed", {
 	Highlight = {
 		Width = 36,
 		Height = 36,
-		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 		BlendMode = "ADD",
+		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
 	Name = {
 		Width = 36,
 		Height = 10,
+		OffsetY = 1,
 	},
 	Count = {
 		Width = 36,
 		Height = 10,
+		OffsetX = 1,
+		OffsetY = 1,
 	},
 	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetY = -1,
+		OffsetX = 2,
+		OffsetY = -3,
 	},
 	Duration = {
 		Width = 36,

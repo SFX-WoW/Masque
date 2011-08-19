@@ -50,14 +50,14 @@ Core:AddSkin("Dream", {
 	Checked = {
 		Width = 32,
 		Height = 32,
-		Texture = [[Interface\Buttons\CheckButtonHilight]],
 		BlendMode = "ADD",
+		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
 	Border = {
 		Width = 56,
 		Height = 56,
-		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 		BlendMode = "ADD",
+		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
 	Gloss = {
 		Hide = true,
@@ -72,8 +72,8 @@ Core:AddSkin("Dream", {
 	Highlight = {
 		Width = 32,
 		Height = 32,
-		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 		BlendMode = "ADD",
+		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
 	Name = {
 		Width = 36,
@@ -89,13 +89,13 @@ Core:AddSkin("Dream", {
 	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -2,
-		OffsetY = -4,
+		OffsetX = -1,
+		OffsetY = -5,
 	},
 	Duration = {
 		Width = 36,
 		Height = 10,
-		OffsetY = -3,
+		OffsetY = -2,
 	},
 	AutoCast = {
 		Width = 28,
