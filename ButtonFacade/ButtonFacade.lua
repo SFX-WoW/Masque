@@ -48,22 +48,18 @@ function LBF:GetBackdropLayer(Button)
 	return self:GetNormal(Button)
 end
 
-
 local __MTT = {}
 local __MTF = function() end
-
--- Bug fix for SBF.
-function LBF:GetSkins()
-	return __MTT
-end
+local __MTR = function() return __MTT end
 
 -- Deprecated
 LBF.RegisterSkinCallback = __MTF
 LBF.RegisterGuiCallback = __MTF
-LBF.ListAddons = __MTF
-LBF.ListGroups = __MTF
-LBF.ListButtons = __MTF
+LBF.ListAddons = __MTR
+LBF.ListGroups = __MTR
+LBF.ListButtons = __MTR
 LBF.GetSkin = __MTF
-LBF.ListSkins = __MTF
+LBF.GetSkins = __MTR
+LBF.ListSkins = __MTR
 
 setmetatable(LBF, {__index = MSQ})

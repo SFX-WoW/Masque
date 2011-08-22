@@ -1,6 +1,4 @@
-=== v4.2.368 ALPHA ===
-
-<<color red>>** IMPORTANT: ** This version of Masque is an **alpha** and is for testing purposes only. Testers may post bug reports via the ticket system on the project page.<</color>>
+== v4.2.369 ALPHA ==
 
 === General ===
 
@@ -49,7 +47,7 @@
 * Skins no longer have to specify the **Normal** layer as being **Static**. Instead, this is now the default behavior. If a skin author wants to use the built-in state changes, they can force this by explicitly setting the **Static** attribute to **false**.
 * Skins can now use the **EmptyTexture** and **EmptyCoords** attributes for the **Normal** layer even if not using the default state changes.
 * Text layers now accept the following attributes:
-** Font ("Path\\To\\Font")
+** Font ("Path\To\Font")
 ** FontSize
 ** Note that fonts must be included with the skin and are disabled by default. Users have the option whether or not to enable skin fonts.
 
