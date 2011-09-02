@@ -430,7 +430,8 @@ do
 	-- Hook to update the spell alert animation.
 	function UpdateSpellAlert(Button)
 		local Overlay = Button.overlay
-		if Overlay and Overlay.__MSQ_Shape ~= Button.__MSQ_Shape then
+		if not Overlay or not Overlay.spark then return end
+		if Overlay.__MSQ_Shape ~= Button.__MSQ_Shape then
 			local Shape = Button.__MSQ_Shape
 			local Glow, Ants
 			if Shape and Alerts[Shape] then
@@ -550,7 +551,10 @@ do
 			SkinFrame(Button, ButtonData.AutoCast, Skin.AutoCast, xScale, yScale)
 		end
 		Button.__MSQ_Shape = Skin.Shape
-		UpdateSpellAlert(Button)
+		-- Button must be a 'CheckButton' to use the Spell Alert feature.
+		if Button:GetObjectType() == "CheckButton" then
+			UpdateSpellAlert(Button)
+		end
 		if not Hooked[Button] then
 			hooksecurefunc(Button, "SetFrameLevel", Hook_SetFrameLevel)
 			Hooked[Button] = true
