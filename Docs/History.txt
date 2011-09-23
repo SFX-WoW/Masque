@@ -1,4 +1,4 @@
-== v4.2.372 ==
+== v4.2.373 ==
 
 === General ===
 
@@ -34,7 +34,8 @@
 
 === Skins ===
 
-* ++The default skin has been cleaned up and now looks better. (Maul)++
+* The default skin has been cleaned up and now looks better. (Maul)
+* The "Zoomed" skin has been removed due to its similarity to the "Dream" skin.
 * Skins can now use a random texture for the **Normal** layer. 
 * Added the **Duration** text layer for buff/debuff buttons.
 * Skin elements no longer support a **Scale** attribute. Use **Width** and **Height**.

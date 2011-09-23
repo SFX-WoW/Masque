@@ -20,18 +20,18 @@ Core:AddSkin("Blizzard", {
 	Backdrop = {
 		Width = 32,
 		Height = 32,
-		OffsetY = -0.5,
 		TexCoords = {0.2, 0.8, 0.2, 0.8},
 		Texture = [[Interface\Buttons\UI-EmptySlot]],
 	},
 	Icon = {
-		Width = 32,
-		Height = 32,
+		Width = 30,
+		Height = 30,
 		TexCoords = {0.07, 0.93, 0.07, 0.93},
 	},
 	Flash = {
-		Width = 32,
-		Height = 32,
+		Width = 30,
+		Height = 30,
+		TexCoords = {0.2, 0.8, 0.2, 0.8},
 		Texture = [[Interface\Buttons\UI-QuickslotRed]],
 	},
 	Cooldown = {
@@ -46,6 +46,8 @@ Core:AddSkin("Blizzard", {
 	Normal = {
 		Width = 56,
 		Height = 56,
+		OffsetX = 0.5,
+		OffsetY = -0.5,
 		Texture = [[Interface\Buttons\UI-Quickslot2]],
 		EmptyTexture = [[Interface\Buttons\UI-Quickslot]],
 	},
@@ -53,14 +55,16 @@ Core:AddSkin("Blizzard", {
 		Hide = true,
 	},
 	Checked = {
-		Width = 32,
-		Height = 32,
+		Width = 31,
+		Height = 31,
 		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
 	Border = {
 		Width = 60,
 		Height = 60,
+		OffsetX = 0.5,
+		OffsetY = 0.5,
 		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
@@ -70,11 +74,13 @@ Core:AddSkin("Blizzard", {
 	AutoCastable = {
 		Width = 56,
 		Height = 56,
+		OffsetX = 0.5,
+		OffsetY = -0.5,
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 	},
 	Highlight = {
-		Width = 32,
-		Height = 32,
+		Width = 30,
+		Height = 30,
 		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 	},
@@ -96,13 +102,13 @@ Core:AddSkin("Blizzard", {
 		OffsetY = -4,
 	},
 	Duration = {
-		Width = 32,
+		Width = 36,
 		Height = 10,
 		OffsetY = -2,
 	},
 	AutoCast = {
-		Width = 30,
-		Height = 30,
+		Width = 32,
+		Height = 32,
 		OffsetX = 0.5,
 		OffsetY = -0.5
 	},
