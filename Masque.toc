@@ -34,6 +34,7 @@ Masque.lua
 Skins\Skins.lua
 Skins\Blizzard.lua
 Skins\Dream.lua
+Skins\Zoomed.lua
 
 # Core
 Core\Button.lua
