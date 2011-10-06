@@ -1,8 +1,8 @@
-== v4.2.374 ==
+== v4.2.375 ==
 
 === General ===
 
-* ButtonFacade has been renamed to **Masque** and has been partially rewritten. It should be backwards-compatible with ButtonFacade-enabled add-ons and includes a (temporary)  ButtonFacade add-on that will pre-load Masque for those add-ons still using the old API.
+* ButtonFacade has been renamed to **Masque** and has been partially rewritten. It should be backwards-compatible with ButtonFacade-enabled add-ons and includes a replacement ButtonFacade add-on that will pre-load Masque for those add-ons still using the old API.
 * Masque's options are now load-on-demand. An option is available to pre-load them but this option is disabled by default.
 * Masque's slash commands are **/msq** and **/masque**.
 * Masque now supports LibDualSpec-1.0.
@@ -28,7 +28,7 @@
 ** :RemoveButton({Button})
 ** :Delete()
 ** :ReSkin()
-** :GetColor('Layer')
+** :GetColor('Layer') (Previously 'GetlayerColor')
 ** :GetLayer({Button}, 'Layer') - NEW - Returns the specified layer for the button passed.
 ** All other methods have been either deprecated or are intended for internal use only.
 
