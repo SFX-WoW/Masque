@@ -82,3 +82,13 @@ function Core.API:AddSkin(SkinID, SkinData, Replace)
 	end
 	Core:AddSkin(SkinID, SkinData)
 end
+
+-- API method for returning the skins table.
+function Core.API:GetSkins()
+	return Skins
+end
+
+-- API method returning a specific skin.
+function Core.API:GetSkin(SkinID)
+	return SkinID and Skins[SkinID]
+end

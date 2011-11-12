@@ -1,6 +1,24 @@
+== v4.2.377 ALPHA ==
+
+== General ==
+
+* In a future build, the "Fonts" option will be removed from the "Skins" panel and be replaced with a "Fonts" panel that will allow users more control over the fonts.
+
+== API ==
+
+* The following methods are now available to the API:
+** :GetSkin(SkinID)
+** :GetSkins()
+** :Register(Addon, Callback, arg) - Registers an add-on to be notified when the add-on or group skin has changed. The callback is fired as Callback(arg, Group, SkinID, Gloss, Backdrop, Colors, Fonts).
+
+== Bug Fixes ==
+
+* Fixed some poor copy/pasting in the ButtonFacade module.
+* Removed a reverse load dependency from Masque.
+
 == v4.2.375 ==
 
-=== General ===
+== General ==
 
 * ButtonFacade has been renamed to **Masque** and has been partially rewritten. It should be backwards-compatible with ButtonFacade-enabled add-ons and includes a replacement ButtonFacade add-on that will pre-load Masque for those add-ons still using the old API.
 * Masque's options are now load-on-demand. An option is available to pre-load them but this option is disabled by default.
@@ -9,7 +27,7 @@
 * Add-ons and their groups can now be disabled. Any group (including the Global group) that is disabled will also disable its child groups.
 * Masque includes a debug mode. When enabled, Masque will throw Lua errors when it encounters API or skin errors. This feature can be toggled via the options window or by passing the **debug** parameter to the slash commands.
 
-=== API ===
+== API ==
 
 * Masque's API is now available via the **LibStub("Masque")** call.
 * Add-ons no longer need to save skin settings. This is now handled by Masque.
@@ -32,7 +50,7 @@
 ** :GetLayer({Button}, 'Layer') - NEW - Returns the specified layer for the button passed.
 ** All other methods have been either deprecated or are intended for internal use only.
 
-=== Skins ===
+== Skins ==
 
 * The default skin has been cleaned up and now looks better. (Maul)
 * Skins can now use a random texture for the **Normal** layer. 
@@ -51,10 +69,8 @@
 ** FontSize
 ** Note that fonts must be included with the skin and are disabled by default. Users have the option whether or not to enable skin fonts.
 
-=== Known Issues ===
+== Known Issues ==
 
 * Many add-ons and skins will need to be updated. Be patient.
-
-\\
 
 Please see the documentation on the project page for more information.

@@ -16,6 +16,29 @@ local Skins, SkinList = Core:GetSkins()
 local GetColor = Core.GetColor
 local SkinButton = Core.SkinButton
 
+local FireCB
+
+do
+	local Callbacks = {}
+
+	-- Notifies an add-on of skin changes.
+	function FireCB(Addon, Group, SkinID, Gloss, Backdrop, Colors, Fonts)
+		local args = Callbacks[Addon]
+		if args then
+			for arg, callback in pairs(args) do
+				callback(arg and arg, Group, SkinID, Gloss, Backdrop, Colors, Fonts)
+			end
+		end
+	end
+
+	-- Registers an add-on to be notified on skin changes.
+	function Core.API:Register(Addon, Callback, arg)
+		local arg = Callback and arg or false
+		Callbacks[Addon] = Callbacks[Addon] or {}
+		Callbacks[Addon][arg] = Callback
+	end
+end
+
 local Groups = {}
 local GMT
 
@@ -194,6 +217,9 @@ do
 				if not self.db.Disabled then
 					for Button in pairs(self.Buttons) do
 						SkinButton(Button, self.Buttons[Button], self.db.SkinID, self.db.Gloss, self.db.Backdrop, self.db.Colors, self.db.Fonts)
+					end
+					if self.Addon then
+						FireCB(self.Addon, self.Group, self.db.SkinID, self.db.Gloss, self.db.Backdrop, self.db.Colors, self.db.Fonts)
 					end
 				end
 			end,

@@ -19,18 +19,17 @@ local MSQ = LibStub("Masque", true)
 
 if not MSQ then return end
 
-_G.ButtonFacade = LibStub("AceAddon-3.0"):NewAddon("ButtonFacade")
-local LBF = LibStub:NewLibrary("LibButtonFacade", 40200)
+local LBF = LibStub:NewLibrary("LibButtonFacade", 40300)
 
 function LBF:GetNormalVertexColor(Button)
-	local Region = self:GetNormalTexture(Button)
+	local Region = self:GetNormal(Button)
 	if Region then
 		return Region:GetVertexColor()
 	end
 end
 
 function LBF:SetNormalVertexColor(Button, r, g, b, a)
-	local Region = self:GetNormalTexture(Button)
+	local Region = self:GetNormal(Button)
 	if Region then
 		Region:SetVertexColor(r, g, b, a)
 	end
@@ -41,11 +40,11 @@ function LBF:GetNormalTexture(Button)
 end
 
 function LBF:GetGlossLayer(Button)
-	return self:GetNormal(Button)
+	return self:GetGloss(Button)
 end
 
 function LBF:GetBackdropLayer(Button)
-	return self:GetNormal(Button)
+	return self:GetBackdrop(Button)
 end
 
 local __MTT = {}
@@ -58,8 +57,6 @@ LBF.RegisterGuiCallback = __MTF
 LBF.ListAddons = __MTR
 LBF.ListGroups = __MTR
 LBF.ListButtons = __MTR
-LBF.GetSkin = __MTF
-LBF.GetSkins = __MTR
 LBF.ListSkins = __MTR
 
 setmetatable(LBF, {__index = MSQ})
