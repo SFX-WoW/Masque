@@ -126,6 +126,7 @@ do
 		HotKey = "Text",
 		Duration = "Text",
 		AutoCast = "Frame",
+		FloatingBG = "Texture",
 	}
 
 	local __MTF = function() end

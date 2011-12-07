@@ -1,7 +1,8 @@
-== v4.2.377 ALPHA ==
+== v4.3.378 ALPHA ==
 
 == General ==
 
+* ToC to 40300.
 * In a future build, the "Fonts" option will be removed from the "Skins" panel and be replaced with a "Fonts" panel that will allow users more control over the fonts.
 
 == API ==
@@ -11,10 +12,16 @@
 ** :GetSkins()
 ** :Register(Addon, Callback, arg) - Registers an add-on to be notified when the add-on or group skin has changed. The callback is fired as Callback(arg, Group, SkinID, Gloss, Backdrop, Colors, Fonts).
 
+== Skins ==
+
+* A new attribute, 'EmptyColor', is available to the 'Normal' layer. This attribute takes a standard color table as the value and sets the color of the 'EmptyTexture', if specified.
+* The 'Blizzard' skin should now correctly lower the alpha of the 'Normal' layer when the slot is empty.
+
 == Bug Fixes ==
 
 * Fixed some poor copy/pasting in the ButtonFacade module.
 * Removed a reverse load dependency from Masque.
+* Fixed an issue with the new 'FloatingBG' texture always displaying on MultiBar buttons.
 
 == v4.2.375 ==
 

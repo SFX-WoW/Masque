@@ -65,27 +65,31 @@ do
 
 	-- Removes the 'Backdrop' layer from a button.
 	function RemoveBackdrop(Button)
-		local Region = Backdrop[Button]
-		Backdrop[Button] = nil
+		local Region = Button.__MSQ_Background or Backdrop[Button]
 		if Region then
 			Region:Hide()
-			Cache[#Cache + 1] = Region
+			if Backdrop[Button] then
+				Backdrop[Button] = nil
+				Cache[#Cache + 1] = Region
+			end
 		end
 	end
 
 	-- Adds a 'Backdrop' layer to a button.
 	function SkinBackdrop(Button, Skin, xScale, yScale, Color)
-		local Region
-		local i = #Cache
-		if Backdrop[Button] then
-			Region = Backdrop[Button]
-		elseif i > 0 then
-			Region = Cache[i]
-			Cache[i] = nil
-		else
-			Region = Button:CreateTexture()
+		local Region = Button.__MSQ_Background or Backdrop[Button]
+		if not Region then
+			local i = #Cache
+			if i > 0 then
+				Region = Cache[i]
+				Cache[i] = nil
+			else
+				Region = Button:CreateTexture()
+			end
 		end
-		Backdrop[Button] = Region
+		if not Button.__MSQ_Background then
+			Backdrop[Button] = Region
+		end
 		Region:SetParent(Button.__MSQ_Level[1] or Button)
 		Region:SetTexture(Skin.Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
@@ -102,7 +106,7 @@ do
 	-- API: Returns the 'Backdrop' layer of a button.
 	function Core.API:GetBackdrop(Button)
 		if Button then
-			return Backdrop[Button]
+			return Button.__MSQ_Background or Backdrop[Button]
 		end
 	end
 end
@@ -133,19 +137,18 @@ do
 			Normal:SetTexture("")
 			Normal:Hide()
 		end
-		if Texture == "Interface\\Buttons\\UI-Quickslot2" then
-			Region:SetTexture(Button.__MSQ_RandomTexture or Skin.Texture)
-			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-			Region.__MSQ_Empty = nil
-		elseif Texture == "Interface\\Buttons\\UI-Quickslot" then
-			if Skin.EmptyTexture then
-				Region:SetTexture(Skin.EmptyTexture)
-				Region:SetTexCoord(GetTexCoords(Skin.EmptyCoords))
-			else
-				Region:SetTexture(Button.__MSQ_RandomTexture or Skin.Texture)
-				Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+		if Texture == "Interface\\Buttons\\UI-Quickslot" and Skin.EmptyTexture then
+			Region:SetTexture(Skin.EmptyTexture)
+			Region:SetTexCoord(GetTexCoords(Skin.EmptyCoords or Skin.TexCoords))
+			if Skin.EmptyColor then
+				Region:SetVertexColor(GetColor(Skin.EmptyColor))
 			end
 			Region.__MSQ_Empty = true
+		elseif Texture == "Interface\\Buttons\\UI-Quickslot2" then
+			Region:SetTexture(Button.__MSQ_RandomTexture or Skin.Texture)
+			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+			Region:SetVertexColor(GetColor(Button.__MSQ_NormalColor))
+			Region.__MSQ_Empty = nil
 		end
 	end
 
@@ -174,12 +177,17 @@ do
 		else
 			Button.__MSQ_RandomTexture = nil
 		end
+		Button.__MSQ_NormalColor = Color or Skin.Color
 		if (Texture == "Interface\\Buttons\\UI-Quickslot" or Region.__MSQ_Empty) and Skin.EmptyTexture then
 			Region:SetTexture(Skin.EmptyTexture)
 			Region:SetTexCoord(GetTexCoords(Skin.EmptyCoords))
+			if Skin.EmptyColor then
+				Region:SetVertexColor(GetColor(Skin.EmptyColor))
+			end
 		else
 			Region:SetTexture(Button.__MSQ_RandomTexture or Skin.Texture)
 			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+			Region:SetVertexColor(GetColor(Button.__MSQ_NormalColor))
 		end
 		if not Hooked[Button] then
 			hooksecurefunc(Button, "SetNormalTexture", Hook_SetNormalTexture)
@@ -194,7 +202,6 @@ do
 		end
 		Region:SetDrawLayer("BORDER", 0)
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
-		Region:SetVertexColor(GetColor(Color or Skin.Color))
 		Region:SetWidth((Skin.Width or 36) * xScale)
 		Region:SetHeight((Skin.Height or 36) * yScale)
 		Region:ClearAllPoints()
@@ -509,6 +516,7 @@ do
 		local xScale, yScale = GetScale(Button)
 		local Skin = (SkinID and Skins[SkinID]) or Skins["Blizzard"]
 		local Version = Skin.Masque_Version or Skin.LBF_Version
+		Button.__MSQ_Background = ButtonData.FloatingBG
 		if Backdrop and not Skin.Backdrop.Hide then
 			SkinBackdrop(Button, Skin.Backdrop, xScale, yScale, Colors.Backdrop)
 		else

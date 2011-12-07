@@ -50,6 +50,7 @@ Core:AddSkin("Blizzard", {
 		OffsetY = -0.5,
 		Texture = [[Interface\Buttons\UI-Quickslot2]],
 		EmptyTexture = [[Interface\Buttons\UI-Quickslot]],
+		EmptyColor = {1, 1, 1, 0.5},
 	},
 	Disabled = {
 		Hide = true,
