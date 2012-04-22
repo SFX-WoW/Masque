@@ -57,6 +57,10 @@ local function Random(v)
 	end
 end
 
+-- A do-nothing function used to overwrite things we don't want to be changed.
+local function null()
+end
+
 local SkinBackdrop, RemoveBackdrop
 
 do
@@ -369,7 +373,7 @@ local function SkinHotKey(Button, Region, Skin, xScale, yScale, Fonts, Version)
 	Region:ClearAllPoints()
 	if not Region.__MSQ_SetPoint then
 		Region.__MSQ_SetPoint = Region.SetPoint
-		Region.SetPoint = function() end
+		Region.SetPoint = null
 	end
 	if Version then
 		Region:__MSQ_SetPoint("TOPLEFT", Button, "TOPLEFT", Skin.OffsetX or 0, Skin.OffsetY or 0)
