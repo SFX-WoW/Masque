@@ -10,7 +10,7 @@
 
 	[ Notes ]
 
-	This file will create a 'ButtonFacade' add-on  object to ensure compability for older add-ons and skins.
+	This package will create a 'ButtonFacade' add-on to ensure compability for older add-ons and skins.
 	The directory that this file is located in MUST be installed as a separate add-on in order for it to work correctly.
 ]]
 

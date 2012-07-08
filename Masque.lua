@@ -12,15 +12,23 @@
 local MASQUE, Core = ...
 local print = print
 
+---------------------------------------------
+-- Libraries, etc.
+---------------------------------------------
+
 local LibStub = assert(LibStub, "Masque requires LibStub.")
 local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 
-Core.API = LibStub:NewLibrary(MASQUE, 40200)
+Core.API = LibStub:NewLibrary(MASQUE, 40300)
 
 local LDB = LibStub("LibDataBroker-1.1", true)
 local DBI = LibStub("LibDBIcon-1.0", true)
 
 local L = Core.Locale
+
+---------------------------------------------
+-- Base Options Table
+---------------------------------------------
 
 Core.Options = {
 	type = "group",
@@ -35,7 +43,10 @@ Core.Options = {
 	},
 }
 
--- ADDON_LOADED
+---------------------------------------------
+-- ADDON_LOADED Event
+---------------------------------------------
+
 function Masque:OnInitialize()
 	local Defaults = {
 		profile = {
@@ -75,7 +86,10 @@ function Masque:OnInitialize()
 	end
 end
 
--- PLAYER_LOGIN
+---------------------------------------------
+-- PLAYER_LOGIN Event
+---------------------------------------------
+
 function Masque:OnEnable()
 	local db = Core.db.profile
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(MASQUE, Core.Options)
@@ -120,6 +134,10 @@ function Masque:OnEnable()
 		end
 	end
 end
+
+---------------------------------------------
+-- Core Methods
+---------------------------------------------
 
 -- Toggles debug mode.
 function Core:Debug()

@@ -13,7 +13,11 @@ local MASQUE, Core = ...
 local pairs = pairs
 
 local L = Core.Locale
-local Skins, SkinList = Core:GetSkins()
+local Skins, SkinList = Core.Skins, Core.SkinList
+
+---------------------------------------------
+-- Options Loader
+---------------------------------------------
 
 -- Loads the options when called.
 function Core:LoadOptions()
@@ -97,6 +101,10 @@ function Core:LoadOptions()
 	end
 end
 
+---------------------------------------------
+-- Options Window Toggle
+---------------------------------------------
+
 -- Opens or closes the options window.
 function Core:ShowOptions()
 	if not self.OptionsLoaded then
@@ -109,6 +117,10 @@ function Core:ShowOptions()
 		InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Addons)
 	end
 end
+
+---------------------------------------------
+-- Options Updater
+---------------------------------------------
 
 do
 	local args
@@ -134,6 +146,10 @@ do
 		end
 	end
 end
+
+---------------------------------------------
+-- Options Table
+---------------------------------------------
 
 do
 	-- Gets an option's value.
@@ -380,7 +396,7 @@ do
 						},
 					},
 				},
-				Fonts = {
+				--[[Fonts = {
 					type = "group",
 					name = L["Font Settings"],
 					inline = true,
@@ -393,11 +409,11 @@ do
 							get = GetOption,
 							set = SetOption,
 							arg = Group,
-							disabled = GetGroupState,
+							disabled = true, -- Disabled.
 							order = 1,
 						},
 					},
-				},
+				},]]
 				Reset = {
 					type = "execute",
 					name = L["Reset Skin"],

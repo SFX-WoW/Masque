@@ -1,4 +1,24 @@
-== v4.3.378 ALPHA ==
+== v4.3.381 ALPHA ==
+
+== General ==
+
+* The "Fonts" feature has been removed until such a time when better support can be implemented.
+* The "Gloss" texture should no longer appear on empty buttons.
+* Eliminated a bit more overhead.
+
+== API ==
+
+* A new method, :GetSpellAlert("Shape") is available. This will return the paths to the "Glow" and "Ants" textures associated with the specified shape. Ex: Glow, Ants = MSQ:GetSpellAlert("Shape") [Dargen]
+
+== Skins ==
+
+* Really old skins may no longer display text layers correctly. These skins will need to be updated.
+
+== Bug Fixes ==
+
+* Added a possible taint fix. [Dargen]
+
+== v4.3.378 BETA ==
 
 == General ==
 

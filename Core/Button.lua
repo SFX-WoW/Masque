@@ -10,18 +10,18 @@
 ]]
 
 local _, Core = ...
-local hooksecurefunc, pairs, random, type, unpack = hooksecurefunc, pairs, random, type, unpack
+local error, hooksecurefunc, pairs, random, type = error, hooksecurefunc, pairs, random, type
+local InCombatLockdown = InCombatLockdown
 
-local Skins, SkinList = Core:GetSkins()
-local Levels = {
-	Flash = {"ARTWORK", 0},
-	Pushed = {"BACKGROUND", 0},
-	Disabled = {"BORDER", 1},
-	Checked = {"BORDER", 2},
-	Border = {"ARTWORK", 0},
-	AutoCastable = {"OVERLAY", 1},
-	Highlight = {"HIGHLIGHT", 0},
-}
+local Skins = Core.Skins
+local __MTT = {}
+
+---------------------------------------------
+-- Utility Functions
+---------------------------------------------
+
+-- Empty function.
+local __MTF = function() end
 
 -- Returns a set of color values.
 local function GetColor(Color, Alpha)
@@ -57,31 +57,30 @@ local function Random(v)
 	end
 end
 
--- A do-nothing function used to overwrite things we don't want to be changed.
-local function null()
-end
+---------------------------------------------
+-- Backdrop Texture Layer
+---------------------------------------------
 
 local SkinBackdrop, RemoveBackdrop
 
 do
-	local Backdrop = {}
 	local Cache = {}
 
-	-- Removes the 'Backdrop' layer from a button.
+	-- Removes the 'Backdrop' texture from a button.
 	function RemoveBackdrop(Button)
-		local Region = Button.__MSQ_Background or Backdrop[Button]
+		local Region = Button.__MSQ_Background or Button.__MSQ_Backdrop
 		if Region then
 			Region:Hide()
-			if Backdrop[Button] then
-				Backdrop[Button] = nil
+			if Button.__MSQ_Backdrop then
 				Cache[#Cache + 1] = Region
+				Button.__MSQ_Backdrop = nil
 			end
 		end
 	end
 
-	-- Adds a 'Backdrop' layer to a button.
-	function SkinBackdrop(Button, Skin, xScale, yScale, Color)
-		local Region = Button.__MSQ_Background or Backdrop[Button]
+	-- Adds a 'Backdrop' texture to a button.
+	function SkinBackdrop(Button, Skin, Color, xScale, yScale)
+		local Region = Button.__MSQ_Background or Button.__MSQ_Backdrop
 		if not Region then
 			local i = #Cache
 			if i > 0 then
@@ -90,11 +89,9 @@ do
 			else
 				Region = Button:CreateTexture()
 			end
+			Button.__MSQ_Backdrop = Region
 		end
-		if not Button.__MSQ_Background then
-			Backdrop[Button] = Region
-		end
-		Region:SetParent(Button.__MSQ_Level[1] or Button)
+		Region:SetParent(Button.__MSQ_BaseFrame or Button)
 		Region:SetTexture(Skin.Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 		Region:SetDrawLayer("BACKGROUND", 0)
@@ -109,22 +106,19 @@ do
 
 	-- API: Returns the 'Backdrop' layer of a button.
 	function Core.API:GetBackdrop(Button)
-		if Button then
-			return Button.__MSQ_Background or Backdrop[Button]
+		if type(Button) ~= "table" then
+			if Core.db.profile.Debug then
+				error("Bad argument to method 'GetBackdrop'. 'Button' must be a button object.", 2)
+			end
+			return
 		end
+		return Button.__MSQ_Background or Button.__MSQ_Backdrop
 	end
 end
 
--- Skins the 'Icon' layer of a button.
-local function SkinIcon(Button, Region, Skin, xScale, yScale)
-	Region:SetParent(Button.__MSQ_Level[1] or Button)
-	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-	Region:SetDrawLayer("BORDER", 0)
-	Region:SetWidth((Skin.Width or 36) * xScale)
-	Region:SetHeight((Skin.Height or 36) * yScale)
-	Region:ClearAllPoints()
-	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
-end
+---------------------------------------------
+-- Normal Texture Layer
+---------------------------------------------
 
 local SkinNormal
 
@@ -136,31 +130,36 @@ do
 	local function Hook_SetNormalTexture(Button, Texture)
 		local Region = Button.__MSQ_NormalTexture
 		local Normal = Button:GetNormalTexture()
-		local Skin = Button.__MSQ_NormalSkin
 		if Normal ~= Region then
 			Normal:SetTexture("")
 			Normal:Hide()
 		end
-		if Texture == "Interface\\Buttons\\UI-Quickslot" and Skin.EmptyTexture then
-			Region:SetTexture(Skin.EmptyTexture)
+		local Skin = Button.__MSQ_NormalSkin
+		local Gloss = Button.__MSQ_Gloss
+		if Texture == "Interface\\Buttons\\UI-Quickslot" then
+			Region:SetTexture(Skin.EmptyTexture or Skin.Texture)
 			Region:SetTexCoord(GetTexCoords(Skin.EmptyCoords or Skin.TexCoords))
-			if Skin.EmptyColor then
-				Region:SetVertexColor(GetColor(Skin.EmptyColor))
+			Region:SetVertexColor(GetColor(Skin.EmptyColor or Button.__MSQ_NormalColor))
+			Button.__MSQ_Empty = true
+			if Gloss then 
+				Gloss:Hide()
 			end
-			Region.__MSQ_Empty = true
 		elseif Texture == "Interface\\Buttons\\UI-Quickslot2" then
 			Region:SetTexture(Button.__MSQ_RandomTexture or Skin.Texture)
 			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 			Region:SetVertexColor(GetColor(Button.__MSQ_NormalColor))
-			Region.__MSQ_Empty = nil
+			Button.__MSQ_Empty = nil
+			if Gloss then
+				Gloss:Show()
+			end
 		end
 	end
 
 	-- Skins the 'Normal' layer of a button.
-	function SkinNormal(Button, Region, Skin, xScale, yScale, Color)
+	function SkinNormal(Button, Region, Skin, Color, xScale, yScale)
 		Region = Region or Button:GetNormalTexture()
 		local Texture = Region and Region:GetTexture()
-		-- Explicitly call 'Static = false' to enable the default states.
+		-- Explicitly specify Static = false to enable the default states.
 		if Skin.Static == false then
 			if Base[Button] then
 				Base[Button]:Hide()
@@ -182,12 +181,10 @@ do
 			Button.__MSQ_RandomTexture = nil
 		end
 		Button.__MSQ_NormalColor = Color or Skin.Color
-		if (Texture == "Interface\\Buttons\\UI-Quickslot" or Region.__MSQ_Empty) and Skin.EmptyTexture then
-			Region:SetTexture(Skin.EmptyTexture)
-			Region:SetTexCoord(GetTexCoords(Skin.EmptyCoords))
-			if Skin.EmptyColor then
-				Region:SetVertexColor(GetColor(Skin.EmptyColor))
-			end
+		if Texture == "Interface\\Buttons\\UI-Quickslot" or Button.__MSQ_Empty then
+			Region:SetTexture(Skin.EmptyTexture or Skin.Texture)
+			Region:SetTexCoord(GetTexCoords(Skin.EmptyCoords or Skin.TexCoords))
+			Region:SetVertexColor(GetColor(Skin.EmptyColor or Button.__MSQ_NormalColor))
 		else
 			Region:SetTexture(Button.__MSQ_RandomTexture or Skin.Texture)
 			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
@@ -214,39 +211,48 @@ do
 
 	-- API: Returns the 'Normal' layer of a button.
 	function Core.API:GetNormal(Button)
+		if type(Button) ~= "table" then
+			if Core.db.profile.Debug then
+				error("Bad argument to method 'GetNormal'. 'Button' must be a button object.", 2)
+			end
+			return
+		end
 		return Button.__MSQ_NormalTexture or (Button.GetNormalTexture and Button:GetNormalTexture())
 	end
 end
 
+---------------------------------------------
+-- Gloss Texture Layer
+---------------------------------------------
+
 local SkinGloss, RemoveGloss
 
 do
-	local Gloss = {}
 	local Cache = {}
 
-	-- Removes the 'Gloss' layer from a button.
+	-- Removes the 'Gloss' texture from a button.
 	function RemoveGloss(Button)
-		local Region = Gloss[Button]
-		Gloss[Button] = nil
+		local Region = Button.__MSQ_Gloss
+		Button.__MSQ_Gloss = nil
 		if Region then
 			Region:Hide()
 			Cache[#Cache+1] = Region
 		end
 	end
 
-	-- Adds a 'Gloss' layer to a button.
-	function SkinGloss(Button, Skin, xScale, yScale, Color, Alpha)
-		local Region
-		local i = #Cache
-		if Gloss[Button] then
-			Region = Gloss[Button]
-		elseif i > 0 then
-			Region = Cache[i]
-			Cache[i] = nil
-		else
-			Region = Button:CreateTexture()
+	-- Adds a 'Gloss' texture to a button.
+	function SkinGloss(Button, Skin, Color, Alpha, xScale, yScale)
+		local Region = Button.__MSQ_Gloss
+		if not Region then
+			local i = #Cache
+			if i > 0 then
+				Region = Cache[i]
+				Cache[i] = nil
+			else
+				Region = Button:CreateTexture()
+			end
+			Button.__MSQ_Gloss = Region
 		end
-		Gloss[Button] = Region
 		Region:SetParent(Button)
 		Region:SetTexture(Skin.Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
@@ -257,160 +263,135 @@ do
 		Region:SetHeight((Skin.Height or 36) * yScale)
 		Region:ClearAllPoints()
 		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
-		Region:Show()
+		if Button.__MSQ_Empty then
+			Region:Hide()
+		else
+			Region:Show()
+		end
 	end
 
-	-- API: Returns the 'Gloss' layer of a button.
+	-- API method to get the 'Gloss' layer of a button.
 	function Core.API:GetGloss(Button)
-		if Button then
-			return Gloss[Button]
+		if type(Button) ~= "table" then
+			if Core.db.profile.Debug then
+				error("Bad argument to method 'GetGloss'. 'Button' must be a button object.", 2)
+			end
+			return
 		end
+		return Button.__MSQ_Gloss
 	end
 end
 
--- Skins a texture layer.
-local function SkinTexture(Button, Region, Layer, Skin, xScale, yScale, Color)
-	if Skin.Hide then
-		Region:SetTexture("")
-		Region:Hide()
-		return
-	end
-	local Texture = Skin.Texture or Region:GetTexture()
-	Region:SetTexture(Texture)
-	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-	Region:SetDrawLayer(unpack(Levels[Layer]))
-	Region:SetBlendMode(Skin.BlendMode or "BLEND")
-	if Layer ~= "Border" then
-		Region:SetVertexColor(GetColor(Color or Skin.Color))
-	end
-	Region:SetWidth((Skin.Width or 36) * xScale)
-	Region:SetHeight((Skin.Height or 36) * yScale)
-	Region:ClearAllPoints()
-	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
-end
+---------------------------------------------
+-- Texture Layer
+---------------------------------------------
 
--- Skins the 'Name' text of a button.
-local function SkinName(Button, Region, Skin, xScale, yScale, Color, Fonts, Version)
-	local font, size, flags = Region:GetFont()
-	if font then
-		if not Region.__MSQ_Font then
-			Region.__MSQ_Font = font
-		end
-		size = 10
-		if Fonts then
-			font = Skin.Font or Region.__MSQ_Font
-			size = Skin.FontSize or size
+local SkinTexture
+
+-- Draw Layers
+local Layers = {
+		Icon = "BORDER",
+		Flash = "ARTWORK",
+		Pushed = "BACKGROUND",
+		Disabled = "BORDER",
+		Checked = "BORDER",
+		Border = "ARTWORK",
+		AutoCastable = "OVERLAY",
+		Highlight = "HIGHLIGHT",
+}
+
+do
+	-- Draw Levels
+	local Levels = {
+		Icon = 0,
+		Flash = 0,
+		Pushed = 0,
+		Disabled = 1,
+		Checked = 2,
+		Border = 0,
+		AutoCastable = 1,
+		Highlight = 0,
+	}
+
+	-- Skins a generic texture layer.
+	function SkinTexture(Button, Region, Layer, Skin, Color, xScale, yScale)
+		if Layer == "Icon" then
+			Region:SetParent(Button.__MSQ_BaseFrame or Button)
 		else
-			font = Region.__MSQ_Font
+			if Skin.Hide then
+				Region:SetTexture("")
+				Region:Hide()
+				return
+			end
+			local Texture = Skin.Texture or Region:GetTexture()
+			Region:SetTexture(Texture)
+			Region:SetBlendMode(Skin.BlendMode or "BLEND")
+			if Layer ~= "Border" then
+				Region:SetVertexColor(GetColor(Color or Skin.Color))
+			end
 		end
-		Region:SetFont(font, size, flags)
-	end
-	Region:SetJustifyH(Skin.JustifyH or "CENTER")
-	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
-	Region:SetDrawLayer("OVERLAY")
-	Region:SetWidth((Skin.Width or 36) * xScale)
-	Region:SetHeight((Skin.Height or 10) * yScale)
-	Region:ClearAllPoints()
-	if Version then
-		Region:SetPoint("BOTTOM", Button, "BOTTOM", Skin.OffsetX or 0, Skin.OffsetY or 0)
-	else
+		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+		Region:SetDrawLayer(Layers[Layer], Levels[Layer])
+		Region:SetWidth((Skin.Width or 36) * xScale)
+		Region:SetHeight((Skin.Height or 36) * yScale)
+		Region:ClearAllPoints()
 		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
 	end
-	Region:SetVertexColor(GetColor(Color or Skin.Color))
 end
 
--- Skins the 'Count' text of a button.
-local function SkinCount(Button, Region, Skin, xScale, yScale, Color, Fonts, Version)
-	local font, size, flags = Region:GetFont()
-	if font then
-		if not Region.__MSQ_Font then
-			Region.__MSQ_Font = font
-		end
-		size = 13
-		if Fonts then
-			font = Skin.Font or Region.__MSQ_Font
-			size = Skin.FontSize or size
-		else
-			font = Region.__MSQ_Font
-		end
-		Region:SetFont(font, size, flags)
-	end
-	Region:SetJustifyH(Skin.JustifyH or "RIGHT")
-	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
-	Region:SetDrawLayer("OVERLAY")
-	Region:SetWidth((Skin.Width or 36) * xScale)
-	Region:SetHeight((Skin.Height or 10) * yScale)
-	Region:ClearAllPoints()
-	if Version then
-		Region:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", Skin.OffsetX or 0, Skin.OffsetY or 0)
-	else
-		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
-	end
-	Region:SetVertexColor(GetColor(Color or Skin.Color))
-end
+---------------------------------------------
+-- Text Layer
+---------------------------------------------
 
--- Skins the 'HotKey' text of a button.
-local function SkinHotKey(Button, Region, Skin, xScale, yScale, Fonts, Version)
-	local font, size, flags = Region:GetFont()
-	if font then
-		if not Region.__MSQ_Font then
-			Region.__MSQ_Font = font
-		end
-		size = 12
-		if Fonts then
-			font = Skin.Font or Region.__MSQ_Font
-			size = Skin.FontSize or size
+local SkinText
+
+-- Horizontal Justification
+local Justify = {
+	Name = "CENTER",
+	Count = "RIGHT",
+	Duration = "CENTER",
+	HotKey = "RIGHT",
+}
+
+do
+	-- Point
+	local Point = {
+		Name = "BOTTOM",
+		Count = "BOTTOMRIGHT",
+		Duration = "TOP",
+	}
+
+	-- Relative Point
+	local RelPoint = {
+		Name = "BOTTOM",
+		Count = "BOTTOMRIGHT",
+		Duration = "BOTTOM",
+	}
+
+	-- Skins a text layer.
+	function SkinText(Button, Region, Layer, Skin, Color, xScale, yScale)
+		Region:SetJustifyH(Skin.JustifyH or Justify[Layer])
+		Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
+		Region:SetDrawLayer("OVERLAY")
+		Region:SetWidth((Skin.Width or 36) * xScale)
+		Region:SetHeight((Skin.Height or 10) * yScale)
+		Region:ClearAllPoints()
+		if Layer == "HotKey" then
+			if not Region.__MSQ_SetPoint then
+				Region.__MSQ_SetPoint = Region.SetPoint
+				Region.SetPoint = __MTF
+			end
+			Region:__MSQ_SetPoint("TOPLEFT", Button, "TOPLEFT", Skin.OffsetX or 0, Skin.OffsetY or 0)
 		else
-			font = Region.__MSQ_Font
+			Region:SetVertexColor(GetColor(Color or Skin.Color))
+			Region:SetPoint(Point[Layer], Button, RelPoint[Layer], Skin.OffsetX or 0, Skin.OffsetY or 0)
 		end
-		Region:SetFont(font, size, flags)
-	end
-	Region:SetJustifyH(Skin.JustifyH or "RIGHT")
-	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
-	Region:SetDrawLayer("OVERLAY")
-	Region:SetWidth((Skin.Width or 36) * xScale)
-	Region:SetHeight((Skin.Height or 10) * yScale)
-	Region:ClearAllPoints()
-	if not Region.__MSQ_SetPoint then
-		Region.__MSQ_SetPoint = Region.SetPoint
-		Region.SetPoint = null
-	end
-	if Version then
-		Region:__MSQ_SetPoint("TOPLEFT", Button, "TOPLEFT", Skin.OffsetX or 0, Skin.OffsetY or 0)
-	else
-		Region:__MSQ_SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
 	end
 end
 
--- Skins the 'Duration' text of a button.
-local function SkinDuration(Button, Region, Skin, xScale, yScale, Color, Fonts, Version)
-	local font, size, flags = Region:GetFont()
-	if font then
-		if not Region.__MSQ_Font then
-			Region.__MSQ_Font = font
-		end
-		size = 10
-		if Fonts then
-			font = Skin.Font or Region.__MSQ_Font
-			size = Skin.FontSize or size
-		else
-			font = Region.__MSQ_Font
-		end
-		Region:SetFont(font, size, flags)
-	end
-	Region:SetJustifyH(Skin.JustifyH or "CENTER")
-	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
-	Region:SetDrawLayer("OVERLAY")
-	Region:SetWidth((Skin.Width or 36) * xScale)
-	Region:SetHeight((Skin.Height or 10) * yScale)
-	Region:ClearAllPoints()
-	if Version then
-		Region:SetPoint("TOP", Button, "BOTTOM", Skin.OffsetX or 0, Skin.OffsetY or 0)
-	else
-		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
-	end
-	Region:SetVertexColor(GetColor(Color or Skin.Color))
-end
+---------------------------------------------
+-- Frame Layer
+---------------------------------------------
 
 -- Skins an animation frame.
 local function SkinFrame(Button, Region, Skin, xScale, yScale)
@@ -423,6 +404,10 @@ local function SkinFrame(Button, Region, Skin, xScale, yScale)
 	Region:ClearAllPoints()
 	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
 end
+
+---------------------------------------------
+-- Spell Alert
+---------------------------------------------
 
 local UpdateSpellAlert
 
@@ -463,113 +448,132 @@ do
 	end
 	hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 
-	-- Adds a spell alert to the cache.
+	-- Adds a spell alert texture set.
 	function Core.API:AddSpellAlert(Shape, Glow, Ants)
-		if type(Shape) == "string" then
-			local  Overlay = Alerts[Shape] or {}
-			if type(Glow) == "string" then
-				Overlay.Glow = Glow
-			end
-			if type(Ants) == "string" then
-				Overlay.Ants = Ants
-			end
-			Alerts[Shape] = Overlay
-		else
+		if type(Shape) ~= "string" then
 			if Core.db.profile.Debug then
 				error("Bad argument to method 'AddSpellAlert'. 'Shape' must be a string.", 2)
 			end
 			return
 		end
+		local Overlay = Alerts[Shape] or {}
+		if type(Glow) == "string" then
+			Overlay.Glow = Glow
+		end
+		if type(Ants) == "string" then
+			Overlay.Ants = Ants
+		end
+		Alerts[Shape] = Overlay
+	end
+
+	-- Returns a spell alert texture set.
+	function Core.API:GetSpellAlert(Shape)
+		if type(Shape) ~= "string" then
+			if Core.db.profile.Debug then
+				error("Bad argument to method 'GetSpellAlert'. 'Shape' must be a string.", 2)
+			end
+			return
+		end
+		local Overlay = Alerts[Shape]
+		if Overlay then
+			return Overlay.Glow, Overlay.Ants
+		end
 	end
 end
 
+---------------------------------------------
+-- Button Skinning Function
+---------------------------------------------
+
 do
 	local Hooked = {}
-	local __MTT = {}
 
 	-- Hook to automatically adjust the button's additional frame levels.
 	local function Hook_SetFrameLevel(Button, Level)
 		local base = Level or Button:GetFrameLevel()
 		if base < 3 then base = 3 end
-		if Button.__MSQ_Level[1] then
-			Button.__MSQ_Level[1]:SetFrameLevel(base - 2)
+		if Button.__MSQ_BaseFrame then
+			Button.__MSQ_BaseFrame:SetFrameLevel(base - 2)
 		end
-		if Button.__MSQ_Level[2] then
-			Button.__MSQ_Level[2]:SetFrameLevel(base - 1)
+		if Button.__MSQ_Cooldown then
+			Button.__MSQ_Cooldown:SetFrameLevel(base - 1)
 		end
-		if Button.__MSQ_Level[4] then
-			Button.__MSQ_Level[4]:SetFrameLevel(base + 1)
+		if Button.__MSQ_AutoCast then
+			Button.__MSQ_AutoCast:SetFrameLevel(base + 1)
 		end
 	end
 
 	-- Applies a skin to a button and its associated layers.
-	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors, Fonts)
+	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors)
 		if not Button then return end
-		Button.__MSQ_Level = Button.__MSQ_Level or {}
-		if not Button.__MSQ_Level[1] then
-			local frame = CreateFrame("Frame", nil, Button)
-			Button.__MSQ_Level[1] = frame
+		if not Button.__MSQ_BaseFrame then
+			Button.__MSQ_BaseFrame = CreateFrame("Frame", nil, Button)
 		end
-		Button.__MSQ_Level[3] = Button
+		local Skin = (SkinID and Skins[SkinID]) or Skins["Blizzard"]
 		if type(Colors) ~= "table" then
 			Colors = __MTT
 		end
+		local xScale, yScale = GetScale(Button)
+		-- Backdrop
+		Button.__MSQ_Background = ButtonData.FloatingBG
 		if type(Gloss) ~= "number" then
 			Gloss = (Gloss and 1) or 0
 		end
-		local xScale, yScale = GetScale(Button)
-		local Skin = (SkinID and Skins[SkinID]) or Skins["Blizzard"]
-		local Version = Skin.Masque_Version or Skin.LBF_Version
-		Button.__MSQ_Background = ButtonData.FloatingBG
 		if Backdrop and not Skin.Backdrop.Hide then
-			SkinBackdrop(Button, Skin.Backdrop, xScale, yScale, Colors.Backdrop)
+			SkinBackdrop(Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 		else
 			RemoveBackdrop(Button)
 		end
-		if ButtonData.Icon then
-			SkinIcon(Button, ButtonData.Icon, Skin.Icon, xScale, yScale)
+		-- Normal
+		local Normal = ButtonData.Normal
+		if Normal ~= false then
+			SkinNormal(Button, Normal, Skin.Normal, Colors.Normal, xScale, yScale)
 		end
-		if ButtonData.Normal ~= false then
-			SkinNormal(Button, ButtonData.Normal, Skin.Normal, xScale, yScale, Colors.Normal)
-		end
-		for Layer in pairs(Levels) do
-			if ButtonData[Layer] then
-				SkinTexture(Button, ButtonData[Layer], Layer, Skin[Layer], xScale, yScale, Colors[Layer])
+		-- Textures
+		for Layer in pairs(Layers) do
+			local Region = ButtonData[Layer]
+			if Region then
+				SkinTexture(Button, Region, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
 			end
 		end
+		-- Gloss
 		if Gloss > 0 and not Skin.Gloss.Hide then
-			SkinGloss(Button, Skin.Gloss, xScale, yScale, Colors.Gloss, Gloss)
+			SkinGloss(Button, Skin.Gloss, Colors.Gloss, Gloss, xScale, yScale)
 		else
 			RemoveGloss(Button)
 		end
-		if ButtonData.Name then
-			SkinName(Button, ButtonData.Name, Skin.Name, xScale, yScale, Colors.Name, Fonts, Version)
+		-- Text
+		for Layer in pairs(Justify) do
+			local Region = ButtonData[Layer]
+			if Region then
+				SkinText(Button, Region, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
+			end
 		end
-		if ButtonData.Count then
-			SkinCount(Button, ButtonData.Count, Skin.Count, xScale, yScale, Colors.Count, Fonts, Version)
+		-- Cooldown
+		local Cooldown = ButtonData.Cooldown
+		if Cooldown then
+			Button.__MSQ_Cooldown = Cooldown
+			SkinFrame(Button, Cooldown, Skin.Cooldown, xScale, yScale)
 		end
-		if ButtonData.HotKey then
-			SkinHotKey(Button, ButtonData.HotKey, Skin.HotKey, xScale, yScale, Fonts, Version)
+		-- AutoCast
+		local AutoCast = ButtonData.AutoCast
+		if AutoCast then
+			Button.__MSQ_AutoCast = AutoCast
+			SkinFrame(Button, AutoCast, Skin.AutoCast, xScale, yScale)
 		end
-		if ButtonData.Duration then
-			SkinDuration(Button, ButtonData.Duration, Skin.Duration, xScale, yScale, Colors.Duration, Fonts, Version)
-		end
-		if ButtonData.Cooldown then
-			Button.__MSQ_Level[2] = ButtonData.Cooldown
-			SkinFrame(Button, ButtonData.Cooldown, Skin.Cooldown, xScale, yScale)
-		end
-		if ButtonData.AutoCast then
-			Button.__MSQ_Level[4] = ButtonData.AutoCast
-			SkinFrame(Button, ButtonData.AutoCast, Skin.AutoCast, xScale, yScale)
-		end
+		-- Spell Alert
 		Button.__MSQ_Shape = Skin.Shape
-		-- Button must be a 'CheckButton' to use the Spell Alert feature.
 		if Button:GetObjectType() == "CheckButton" then
 			UpdateSpellAlert(Button)
 		end
+		-- Frame Level
 		if not Hooked[Button] then
 			hooksecurefunc(Button, "SetFrameLevel", Hook_SetFrameLevel)
 			Hooked[Button] = true
+		end
+		-- Taint protection, just in case.
+		if Button.IsProtected and Button:IsProtected() and InCombatLockdown() then
+			return
 		end
 		local level = Button:GetFrameLevel()
 		if level < 4 then

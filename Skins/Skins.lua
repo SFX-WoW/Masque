@@ -12,8 +12,15 @@
 local _, Core = ...
 local error, setmetatable, type = error, setmetatable, type
 
+-- Skin Data
 local Skins = {}
+Core.Skins = Skins
+
+-- Skin List
 local SkinList = {}
+Core.SkinList = SkinList
+
+-- Layers
 local Layers = {
 	"Backdrop",
 	"Icon",
@@ -34,21 +41,21 @@ local Layers = {
 	"AutoCast",
 }
 
+-- Hidden Layer
+local Hidden = {
+	Hide = true,
+}
+
 -- Adds data to the skin tables, bypassing the skin validation.
 function Core:AddSkin(SkinID, SkinData)
 	for i = 1, #Layers do
 		local Layer = Layers[i]
 		if type(SkinData[Layer]) ~= "table" then
-			SkinData[Layer] = {Hide = true}
+			SkinData[Layer] = Hidden
 		end
 	end
 	Skins[SkinID] = SkinData
 	SkinList[SkinID] = SkinID
-end
-
--- Returns the skin tables.
-function Core:GetSkins()
-	return Skins, SkinList
 end
 
 -- API method for validating and adding skins.
