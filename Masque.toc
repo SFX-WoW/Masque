@@ -5,8 +5,9 @@
 ## Notes: A dynamic button skinning add-on.
 ## Notes-frFR: Un add-on de skinnage dynamique des boutons.
 ## Notes-koKR: 동적인 버튼 스킨 입히기 애드온 입니다.
+## Notes-ptBR: Um add-on de skin dinâmico de botões.
 ## Notes-zhCN: 一个动态按钮皮肤插件。
-## Notes-zhTW: 模組化按鈕皮膚插件。
+## Notes-zhTW: 動態套用按鈕佈景主題的插件。
 ## X-Website: http://www.wowace.com/projects/masque/
 ## X-Category: Interface Enhancements
 ## X-WoWI-ID: 12097
