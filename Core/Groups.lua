@@ -25,11 +25,11 @@ do
 	local Callbacks = {}
 
 	-- Notifies an add-on of skin changes.
-	function FireCB(Addon, Group, SkinID, Gloss, Backdrop, Colors, Fonts)
+	function FireCB(Addon, Group, SkinID, Gloss, Backdrop, Colors)
 		local args = Callbacks[Addon]
 		if args then
 			for arg, callback in pairs(args) do
-				callback(arg and arg, Group, SkinID, Gloss, Backdrop, Colors, Fonts)
+				callback(arg and arg, Group, SkinID, Gloss, Backdrop, Colors)
 			end
 		end
 	end
@@ -123,9 +123,10 @@ end
 do
 	local Group = {}
 	local Layers = {
+		FloatingBG = "Texture",
 		Icon = "Texture",
-		Flash = "Texture",
 		Cooldown = "Frame",
+		Flash = "Texture",
 		Pushed = "Special",
 		Disabled = "Special",
 		Checked = "Special",
@@ -137,7 +138,6 @@ do
 		HotKey = "Text",
 		Duration = "Text",
 		AutoCast = "Frame",
-		FloatingBG = "Texture",
 	}
 
 	local __MTF = function() end
@@ -233,7 +233,7 @@ do
 						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors)
 					end
 					if self.Addon then
-						FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, db.Fonts)
+						FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
 					end
 				end
 			end,
@@ -297,8 +297,6 @@ do
 					self.db.Gloss = Value
 				elseif Option == "Backdrop" then
 					self.db.Backdrop = (Value and true) or false
-				--elseif Option == "Fonts" then
-					--self.db.Fonts = (Value and true) or false
 				else
 					return
 				end
@@ -332,7 +330,7 @@ do
 			Reset = function(self, Static)
 				self.db.Gloss = 0
 				self.db.Backdrop = false
-				--self.db.Fonts = false
+				self.db.Fonts = nil -- Clean up on the old "Fonts" entry.
 				for Layer in pairs(self.db.Colors) do
 					self.db.Colors[Layer] = nil
 				end
@@ -356,7 +354,6 @@ do
 						self.db.SkinID = db.SkinID
 						self.db.Gloss = db.Gloss
 						self.db.Backdrop = db.Backdrop
-						--self.db.Fonts = db.Fonts
 						for Layer in pairs(self.db.Colors) do
 							self.db.Colors[Layer] = nil
 						end

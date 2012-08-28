@@ -60,7 +60,6 @@ function Masque:OnInitialize()
 					Gloss = 0,
 					Backdrop = false,
 					Colors = {},
-					Fonts = false,
 				},
 			},
 			LDB = {

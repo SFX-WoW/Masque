@@ -1,6 +1,6 @@
-﻿## Interface: 40300
+﻿## Interface: 50001
 ## Title: Masque
-## Version: 4.3.@project-revision@
+## Version: 5.0.@project-revision@
 ## Author: StormFX, JJSheets
 ## Notes: A dynamic button skinning add-on.
 ## Notes-frFR: Un add-on de skinnage dynamique des boutons.
