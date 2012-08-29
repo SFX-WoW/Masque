@@ -1,6 +1,7 @@
-== v5.0.384 ==
+== v5.0.386 ==
 
 * Updated ToC and skins to 5.0.
+* Allow no-lib packages.
 
 == v4.3.382 ==
 
