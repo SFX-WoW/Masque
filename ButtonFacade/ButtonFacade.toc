@@ -1,6 +1,6 @@
-﻿## Interface: 50300
+﻿## Interface: 50400
 ## Title: ButtonFacade
-## Version: 5.3.@project-revision@
+## Version: 5.4.@project-revision@
 ## Notes: Loads Masque for add-ons still using ButtonFacade's API. Do NOT disable this!
 ## Author: StormFX
 ## Dependencies: Masque

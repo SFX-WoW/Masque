@@ -13,7 +13,7 @@ local _, Core = ...
 
 Core:AddSkin("Dream", {
 	Author = "JJSheets, StormFX",
-	Version = "5.0.@project-revision@",
+	Version = "5.4.@project-revision@",
 	Masque_Version = 40300,
 	Shape = "Square",
 	Backdrop = {
