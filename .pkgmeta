@@ -24,15 +24,14 @@ externals:
     url: svn://svn.wowace.com/wow/libdbicon-1-0/mainline/trunk/LibDBIcon-1.0
     tag: latest
 
-move-folders:
-  Masque/ButtonFacade: ButtonFacade
-
 license-output: Docs/License.txt
+
 manual-changelog:
-  filename: Docs/History.txt
+  filename: Docs/Update.txt
   markup-type: creole
 
 ignore:
+  - ButtonFacade
   - Legacy
   - Docs/ToDo.txt
 
