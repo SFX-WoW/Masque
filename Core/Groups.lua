@@ -25,11 +25,11 @@ do
 	local Callbacks = {}
 
 	-- Notifies an add-on of skin changes.
-	function FireCB(Addon, Group, SkinID, Gloss, Backdrop, Colors)
+	function FireCB(Addon, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
 		local args = Callbacks[Addon]
 		if args then
 			for arg, callback in pairs(args) do
-				callback(arg and arg, Group, SkinID, Gloss, Backdrop, Colors)
+				callback(arg and arg, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
 			end
 		end
 	end
@@ -262,6 +262,8 @@ do
 				for Button in pairs(self.Buttons) do
 					SkinButton(Button, self.Buttons[Button], "Blizzard")
 				end
+				local db = self.db
+				FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
 				local Subs = self.SubList
 				if Subs then
 					for Sub in pairs(Subs) do
