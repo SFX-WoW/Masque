@@ -1,3 +1,9 @@
+== v6.0.1 ==
+
+== API ==
+
+* Calling the Group:Delete() method no longer hides the options frame.
+
 == v6.0.0 ==
 
 == General ==

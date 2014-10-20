@@ -138,9 +138,6 @@ function Core:RemoveOptions(Addon, Group)
 	if not self.OptionsLoaded then
 		return
 	end
-	if InterfaceOptionsFrame:IsShown() then
-		InterfaceOptionsFrame:Hide()
-	end
 	if Addon then
 		local args = self.Options.args.Addons.args
 		local a = Addon:gsub("%s", "_")
@@ -150,6 +147,9 @@ function Core:RemoveOptions(Addon, Group)
 			aargs[g] = nil
 		else
 			args[a] = nil
+		end
+		if Core.OptionsPanel.Addons:IsShown() then
+			InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Addons)
 		end
 	end
 end
