@@ -38,13 +38,13 @@ function Core:LoadOptions()
 			set = function(i, v)
 				Core.db.profile.LDB.hide = not v
 				if not v then
-					Core.DBI:Hide(MASQUE)
+					Core.LDBI:Hide(MASQUE)
 				else
-					Core.DBI:Show(MASQUE)
+					Core.LDBI:Show(MASQUE)
 				end
 			end,
 			disabled = function()
-				return not Core.DBI
+				return not Core.LDBI
 			end,
 			order = 3,
 		}
@@ -92,15 +92,16 @@ function Core:LoadOptions()
 end
 
 ----------------------------------------
--- Options Window Toggle
+-- Options Window
 ----------------------------------------
 
--- Opens or closes the options window.
+-- Opens the options window.
 function Core:ShowOptions()
 	if not self.OptionsLoaded then
 		self:LoadOptions()
 	end
-	InterfaceOptionsFrame_Show()
+	-- Double call to ensure the proper category is opened.
+	InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
 	InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Addons)
 end
 
@@ -127,6 +128,7 @@ function Core:UpdateOptions(Addon, Group)
 			aargs[g] = aargs[g] or self:GetOptions(Addon, Group)
 		end
 	end
+	Core.ACR:NotifyChange(MASQUE)
 end
 
 ----------------------------------------
@@ -148,9 +150,7 @@ function Core:RemoveOptions(Addon, Group)
 		else
 			args[a] = nil
 		end
-		if Core.OptionsPanel.Addons:IsShown() then
-			InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel.Addons)
-		end
+		Core.ACR:NotifyChange(MASQUE)
 	end
 end
 

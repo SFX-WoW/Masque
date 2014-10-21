@@ -29,7 +29,7 @@ Core.Locale = setmetatable(L, {
 
 --[[ enUS/enGB: For reference only.
 L = {
-	["Addons"] = "Addons",
+	["Addon Settings"] = "Addon Settings",
 	["Adjust the skin of all buttons registered to %s. This will overwrite any per-group settings."] = "Adjust the skin of all buttons registered to %s. This will overwrite any per-group settings.",
 	["Adjust the skin of all buttons registered to %s: %s."] = "Adjust the skin of all buttons registered to %s: %s.",
 	["Adjust the skin of all registered buttons. This will overwrite any per-add-on settings."] = "Adjust the skin of all registered buttons. This will overwrite any per-add-on settings.",
@@ -50,6 +50,7 @@ L = {
 	["Enable the backdrop texture."] = "Enable the backdrop texture.",
 	["Enable the minimap icon."] = "Enable the minimap icon.",
 	["Flash"] = "Flash",
+	["General"] = "General",
 	["Global"] = "Global",
 	["Gloss Settings"] = "Gloss Settings",
 	["Highlight"] = "Highlight",
@@ -62,7 +63,7 @@ L = {
 	["Normal"] = "Normal",
 	["Opacity"] = "Opacity",
 	["Preload Options"] = "Preload Options",
-	["Profiles"] = "Profiles",
+	["Profile Settings"] = "Profile Settings",
 	["Pushed"] = "Pushed",
 	["Reset Skin"] = "Reset Skin",
 	["Reset all skin options to the defaults."] = "Reset all skin options to the defaults.",
