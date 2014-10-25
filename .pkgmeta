@@ -31,9 +31,7 @@ manual-changelog:
   markup-type: creole
 
 ignore:
-  - ButtonFacade
   - Legacy
-  - Docs/ToDo.txt
 
 tools-used:
   - libdatabroker-1-1

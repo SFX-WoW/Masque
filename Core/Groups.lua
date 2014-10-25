@@ -219,7 +219,7 @@ do
 				if self.Parent then
 					self.Parent.SubList[self.ID] = nil
 				end
-				Core:RemoveOptions(self.Addon, self.Group)
+				Core:UpdateOptions(self.Addon, self.Group, true)
 				Groups[self.ID] = nil
 			end,
 

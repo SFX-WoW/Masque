@@ -110,48 +110,38 @@ end
 ----------------------------------------
 
 -- Updates the specified add-on options.
-function Core:UpdateOptions(Addon, Group)
+function Core:UpdateOptions(Addon, Group, Delete)
 	if not self.OptionsLoaded then
 		return
 	end
 	local args = self.Options.args.Addons.args
-	if not Addon then
-		for _, Addon in pairs(self:ListAddons()) do
+	if Delete then
+		if Addon then
 			local a = Addon:gsub("%s", "_")
-			args[a] = args[a] or self:GetOptions(Addon)
+			if Group then
+				local g = Group:gsub("%s", "_")
+				local aargs = args[a].args
+				aargs[g] = nil
+			else
+				args[a] = nil
+			end
 		end
-	elseif not Group then
-		local a = Addon:gsub("%s", "_")
-		for _, Group in pairs(self:ListGroups(Addon)) do
-			local g = Group:gsub("%s", "_")
-			local aargs = args[a].args
-			aargs[g] = aargs[g] or self:GetOptions(Addon, Group)
+	else
+		if not Addon then
+			for _, Addon in pairs(self:ListAddons()) do
+				local a = Addon:gsub("%s", "_")
+				args[a] = args[a] or self:GetOptions(Addon)
+			end
+		elseif not Group then
+			local a = Addon:gsub("%s", "_")
+			for _, Group in pairs(self:ListGroups(Addon)) do
+				local g = Group:gsub("%s", "_")
+				local aargs = args[a].args
+				aargs[g] = aargs[g] or self:GetOptions(Addon, Group)
+			end
 		end
 	end
 	Core.ACR:NotifyChange(MASQUE)
-end
-
-----------------------------------------
--- Options Remover
-----------------------------------------
-
--- Deletes an Addon or Group's options table.
-function Core:RemoveOptions(Addon, Group)
-	if not self.OptionsLoaded then
-		return
-	end
-	if Addon then
-		local args = self.Options.args.Addons.args
-		local a = Addon:gsub("%s", "_")
-		if Group then
-			local g = Group:gsub("%s", "_")
-			local aargs = args[a].args
-			aargs[g] = nil
-		else
-			args[a] = nil
-		end
-		Core.ACR:NotifyChange(MASQUE)
-	end
 end
 
 ----------------------------------------
