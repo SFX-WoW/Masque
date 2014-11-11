@@ -86,10 +86,8 @@ do
 	local LOC = GetLocale()
 	if LOC == "deDE" then
 --@localization(locale="deDE", format="lua_additive_table", table-name="L")@
-	elseif LOC == "esES" then
+	elseif LOC == "esES" or LOC == "esMX" then
 --@localization(locale="esES", format="lua_additive_table", table-name="L")@
-	elseif LOC == "esMX" then
---@localization(locale="esMX", format="lua_additive_table", table-name="L")@
 	elseif LOC == "frFR" then
 --@localization(locale="frFR", format="lua_additive_table", table-name="L")@
 	elseif LOC == "koKR" then
