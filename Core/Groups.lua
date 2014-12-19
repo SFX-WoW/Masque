@@ -363,6 +363,9 @@ do
 						end
 						self.db.Inherit = false
 					end
+					if db.Disabled then
+						self.db.Disabled = true
+					end
 				end
 				if self.db.Disabled then
 					for Button in pairs(self.Buttons) do
