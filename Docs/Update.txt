@@ -1,4 +1,8 @@
-=== __v6.0.1__ ===
+=== __v6.1.0__ ===
+
+**General**
+
+* ToC Update.
 
 **API**
 
@@ -6,8 +10,9 @@
 
 **Bug Fixes**
 
-* Fixed an issue with the minimap icon option not appearing.
+* Fixed an issue with the mini-map icon option not appearing.
 * Fixed the "General" options group so that "Masque - General" is displayed rather than "Masque - Masque".
+* Fixed disabled state inheritance.
 
 **Miscellaneous**
 
