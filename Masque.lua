@@ -19,7 +19,7 @@ local print = print
 local LibStub = assert(LibStub, "Masque requires LibStub.")
 local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 
-Core.API = LibStub:NewLibrary(MASQUE, 60100)
+Core.API = LibStub:NewLibrary(MASQUE, 60200)
 
 local ACR = LibStub("AceConfigRegistry-3.0")
 

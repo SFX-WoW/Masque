@@ -1,8 +1,8 @@
-﻿## Interface: 60100
+﻿## Interface: 60200
 ## Title: Masque
-## Version: 6.1.0
+## Version: 6.2.0
 ## Author: StormFX, JJSheets
-## Notes: A dynamic button skinning add-on.
+## Notes: A dynamic button skinning engine.
 ## Notes-frFR: Un add-on de skinnage dynamique des boutons.
 ## Notes-koKR: 동적인 버튼 스킨 입히기 애드온 입니다.
 ## Notes-ptBR: Um add-on de skin dinâmico de botões.
