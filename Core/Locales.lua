@@ -2,11 +2,10 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
-	* File.....: Core\Locales.lua
-	* Revision.: @file-revision@
-	* Author...: StormFX
-
-	Localization
+	* File...: Core\Locales.lua
+	* Date...: @file-date-iso@
+	* Hash...: @file-abbreviated-hash@
+	* Author.: StormFX
 
 	[ Notes ]
 

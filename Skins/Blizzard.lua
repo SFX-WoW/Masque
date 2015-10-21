@@ -2,11 +2,11 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
-	* File.....: Skins\Blizzard.lua
-	* Revision.: @file-revision@
-	* Author...: Blizzard Entertainment
+	* File...: Skins\Blizzard.lua
+	* Date...: @file-date-iso@
+	* Hash...: @file-abbreviated-hash@
+	* Author.: StormFX, Maul, Blizzard Entertainment
 
-	'Blizzard' skin for Masque.
 ]]
 
 local _, Core = ...
@@ -14,7 +14,7 @@ local _, Core = ...
 -- Improved Blizzard skin. Thanks to Maul for the reference!
 Core:AddSkin("Blizzard", {
 	Author = "Blizzard Entertainment",
-	Version = "6.2.0",
+	Version = "@project-version@",
 	Masque_Version = 60200,
 	Shape = "Square",
 	Backdrop = {
@@ -35,6 +35,10 @@ Core:AddSkin("Blizzard", {
 		Texture = [[Interface\Buttons\UI-QuickslotRed]],
 	},
 	Cooldown = {
+		Width = 32,
+		Height = 32,
+	},
+	ChargeCooldown = {
 		Width = 32,
 		Height = 32,
 	},

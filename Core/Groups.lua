@@ -2,11 +2,11 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
-	* File.....: Core\Groups.lua
-	* Revision.: @file-revision@
-	* Author...: StormFX, JJSheets
+	* File...: Core\Groups.lua
+	* Date...: @file-date-iso@
+	* Hash...: @file-abbreviated-hash@
+	* Author.: StormFX, JJSheets
 
-	Group API
 ]]
 
 local MASQUE, Core = ...

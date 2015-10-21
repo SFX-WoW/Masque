@@ -24,14 +24,12 @@ externals:
     url: svn://svn.wowace.com/wow/libdbicon-1-0/mainline/trunk/LibDBIcon-1.0
     tag: latest
 
-license-output: Docs/License.txt
-
 manual-changelog:
-  filename: Docs/Update.txt
-  markup-type: creole
+  filename: RELEASE.md
+  markup-type: markdown
 
 ignore:
-  - Legacy
+  - RELEASE.md
 
 tools-used:
   - libdatabroker-1-1

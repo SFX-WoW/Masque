@@ -2,18 +2,18 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
-	* File.....: Skins\Zoomed.lua
-	* Revision.: @file-revision@
-	* Author...: JJSheets, StormFX
+	* File...: Skins\Zoomed.lua
+	* Date...: @file-date-iso@
+	* Hash...: @file-abbreviated-hash@
+	* Author.: StormFX, JJSheets
 
-	'Zoomed' skin for Masque.
 ]]
 
 local _, Core = ...
 
 Core:AddSkin("Zoomed", {
 	Author = "JJSheets, StormFX",
-	Version = "6.2.0",
+	Version = "@project-version@",
 	Masque_Version = 60200,
 	Shape = "Square",
 	Backdrop = {
@@ -30,6 +30,10 @@ Core:AddSkin("Zoomed", {
 		Texture = [[Interface\Buttons\UI-QuickslotRed]],
 	},
 	Cooldown = {
+		Width = 36,
+		Height = 36,
+	},
+	ChargeCooldown = {
 		Width = 36,
 		Height = 36,
 	},

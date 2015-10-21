@@ -1,6 +1,6 @@
 ﻿## Interface: 60200
 ## Title: Masque
-## Version: 6.2.0
+## Version: @project-version@
 ## Author: StormFX, JJSheets
 ## Notes: A dynamic button skinning engine.
 ## Notes-frFR: Un add-on de skinnage dynamique des boutons.
@@ -42,4 +42,3 @@ Skins\Zoomed.lua
 Core\Button.lua
 Core\Groups.lua
 Core\Options.lua
-
