@@ -14,7 +14,7 @@ local _, Core = ...
 Core:AddSkin("Dream", {
 	Author = "JJSheets, StormFX",
 	Version = "@project-version@",
-	Masque_Version = 60200,
+	Masque_Version = 60201,
 	Shape = "Square",
 	Backdrop = {
 		Width = 36,
@@ -103,7 +103,7 @@ Core:AddSkin("Dream", {
 		Height = 10,
 		OffsetY = -2,
 	},
-	AutoCast = {
+	Shine = {
 		Width = 28,
 		Height = 28,
 		OffsetX = 0.5,

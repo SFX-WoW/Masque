@@ -14,7 +14,7 @@ local _, Core = ...
 Core:AddSkin("Zoomed", {
 	Author = "JJSheets, StormFX",
 	Version = "@project-version@",
-	Masque_Version = 60200,
+	Masque_Version = 60201,
 	Shape = "Square",
 	Backdrop = {
 		Hide = true,
@@ -99,7 +99,7 @@ Core:AddSkin("Zoomed", {
 		Height = 10,
 		OffsetY = -3,
 	},
-	AutoCast = {
+	Shine = {
 		Width = 34,
 		Height = 34,
 		OffsetX = 0.5,

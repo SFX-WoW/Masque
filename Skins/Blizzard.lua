@@ -15,7 +15,7 @@ local _, Core = ...
 Core:AddSkin("Blizzard", {
 	Author = "Blizzard Entertainment",
 	Version = "@project-version@",
-	Masque_Version = 60200,
+	Masque_Version = 60201,
 	Shape = "Square",
 	Backdrop = {
 		Width = 32,
@@ -111,7 +111,7 @@ Core:AddSkin("Blizzard", {
 		Height = 10,
 		OffsetY = -2,
 	},
-	AutoCast = {
+	Shine = {
 		Width = 32,
 		Height = 32,
 		OffsetX = 0.5,
