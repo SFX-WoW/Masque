@@ -38,7 +38,7 @@ local Layers = {
 	"Count",
 	"HotKey",
 	"Duration",
-	"AutoCast",
+	"Shine",
 }
 
 -- Hidden Layer
@@ -51,7 +51,11 @@ function Core:AddSkin(SkinID, SkinData)
 	for i = 1, #Layers do
 		local Layer = Layers[i]
 		if type(SkinData[Layer]) ~= "table" then
-			SkinData[Layer] = Hidden
+			if Layer == "Shine" and type(SkinData.AutoCast) == "table" then
+				SkinData[Layer] = SkinData.AutoCast
+			else
+				SkinData[Layer] = Hidden
+			end
 		end
 	end
 	Skins[SkinID] = SkinData
