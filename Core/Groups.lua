@@ -10,8 +10,11 @@
 ]]
 
 local MASQUE, Core = ...
+
+-- Lua Functions
 local error, pairs, setmetatable, type, unpack = error, pairs, setmetatable, type, unpack
 
+-- Internal Methods
 local Skins, SkinList = Core.Skins, Core.SkinList
 local GetColor, SkinButton = Core.GetColor, Core.SkinButton
 
@@ -137,7 +140,7 @@ do
 		Count = "Text",
 		HotKey = "Text",
 		Duration = "Text",
-		AutoCast = "Frame",
+		Shine = "Frame",
 	}
 
 	local __MTF = function() end
@@ -150,9 +153,6 @@ do
 			Region = (f and f(Button)) or false
 		else
 			local n = Button:GetName()
-			if Layer == "AutoCast" then
-				Layer = "Shine"
-			end
 			Region = (n and _G[n..Layer]) or false
 		end
 		return Region
@@ -181,7 +181,11 @@ do
 				end
 				for Layer, Type in pairs(Layers) do
 					if ButtonData[Layer] == nil then
-						ButtonData[Layer] = GetRegion(Button, Layer, Type)
+						if Layer = "Shine" then
+							ButtonData[Layer] = ButtonData.AutoCast or GetRegion(Button, Layer, Type)
+						else
+							ButtonData[Layer] = GetRegion(Button, Layer, Type)
+						end
 					end
 				end
 				self.Buttons[Button] = ButtonData
@@ -388,22 +392,6 @@ do
 			GetOptions = function(self)
 				return Core:GetOptions(self.Addon, self.Group)
 			end,
-
-			-- [ Temporary Methods ] --
-
-			-- These methods are deprecated and will be removed.
-
-			-- Returns a layer color.
-			--GetLayerColor = function(self, Layer)
-			--	return self:GetColor(Layer)
-			--end,
-
-			-- Deprecated
-			--AddSubGroup = __MTF,
-			--RemoveSubGroup = __MTF,
-			--SetLayerColor = __MTF,
-			--Skin = __MTF,
-			--ResetColors = __MTF,
 		}
 	}
 end
