@@ -181,7 +181,7 @@ do
 				end
 				for Layer, Type in pairs(Layers) do
 					if ButtonData[Layer] == nil then
-						if Layer = "Shine" then
+						if Layer == "Shine" then
 							ButtonData[Layer] = ButtonData.AutoCast or GetRegion(Button, Layer, Type)
 						else
 							ButtonData[Layer] = GetRegion(Button, Layer, Type)
@@ -334,7 +334,6 @@ do
 			Reset = function(self)
 				self.db.Gloss = 0
 				self.db.Backdrop = false
-				self.db.Fonts = nil -- Clean up on the old "Fonts" entry.
 				for Layer in pairs(self.db.Colors) do
 					self.db.Colors[Layer] = nil
 				end
