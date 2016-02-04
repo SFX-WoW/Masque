@@ -18,7 +18,9 @@ local print = print
 -- Libraries, etc.
 ----------------------------------------
 
-local LibStub = assert(LibStub, "Masque requires LibStub.")
+-- GLOBALS: LibStub
+
+assert(LibStub, "Masque requires LibStub.")
 local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 
 Core.API = LibStub:NewLibrary(MASQUE, 60201)
