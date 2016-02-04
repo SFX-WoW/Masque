@@ -6,7 +6,7 @@
   - Updated Changelog, License and ReadMe.
   - Updated .pkgmeta.
  
-** API **
+**API**
 
   - API version 60201.
   - Renamed the "AutoCast" layer to the native name, "Shine".
