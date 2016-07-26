@@ -92,19 +92,19 @@ Core:AddSkin("Blizzard", {
 	Name = {
 		Width = 32,
 		Height = 10,
-		OffsetY = 4,
+		OffsetY = 6,
 	},
 	Count = {
 		Width = 32,
 		Height = 10,
-		OffsetX = -1,
-		OffsetY = 5,
+		OffsetX = -3,
+		OffsetY = 6,
 	},
 	HotKey = {
 		Width = 32,
 		Height = 10,
-		OffsetX = 3,
-		OffsetY = -4,
+		OffsetX = 1,
+		OffsetY = -6,
 	},
 	Duration = {
 		Width = 36,

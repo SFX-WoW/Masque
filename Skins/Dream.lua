@@ -84,19 +84,19 @@ Core:AddSkin("Dream", {
 	Name = {
 		Width = 36,
 		Height = 10,
-		OffsetY = 4,
+		OffsetY = 5,
 	},
 	Count = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -1,
-		OffsetY = 4,
+		OffsetX = -3,
+		OffsetY = 5,
 	},
 	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetX = -1,
-		OffsetY = -5,
+		OffsetX = -3,
+		OffsetY = -6,
 	},
 	Duration = {
 		Width = 36,

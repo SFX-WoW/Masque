@@ -81,18 +81,19 @@ Core:AddSkin("Zoomed", {
 	Name = {
 		Width = 36,
 		Height = 10,
-		OffsetY = 1,
+		OffsetY = 3,
 	},
 	Count = {
 		Width = 36,
 		Height = 10,
-		OffsetX = 1,
-		OffsetY = 1,
+		OffsetX = -2,
+		OffsetY = 4,
 	},
 	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetY = -1,
+		OffsetX = -2,
+		OffsetY = -4,
 	},
 	Duration = {
 		Width = 36,
