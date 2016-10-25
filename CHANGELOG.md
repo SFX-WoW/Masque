@@ -280,3 +280,4 @@
   - The /bf and /buttonfacade chat commands now open the options window.
   - Updated locales.
   - Code clean-up.
+
