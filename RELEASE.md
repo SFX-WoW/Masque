@@ -1,8 +1,5 @@
-### 7.0.1 ###
+### 7.1.0 ###
 
 **General**
 
-  - ToC to 70000.
-  - Updated version.
-  - Updated locales.
-  - Adjust text positions.
+  - ToC to 70100.
