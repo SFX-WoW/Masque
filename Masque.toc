@@ -21,7 +21,7 @@
 
 # Libraries
 Libs\LibStub\Libstub.lua
-Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\AceAddon-3.0\AceAddon-3.0.xml
 Libs\AceDB-3.0\AceDB-3.0.xml
 Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
@@ -47,4 +47,3 @@ Skins\Zoomed.lua
 Core\Button.lua
 Core\Groups.lua
 Core\Options.lua
-
