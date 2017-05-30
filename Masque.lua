@@ -3,8 +3,6 @@
 	please see the included License.txt file.
 
 	* File...: Masque.lua
-	* Date...: @file-date-iso@
-	* Hash...: @file-abbreviated-hash@
 	* Author.: StormFX
 
 ]]
@@ -23,7 +21,7 @@ local print = print
 assert(LibStub, "Masque requires LibStub.")
 local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 
-Core.API = LibStub:NewLibrary(MASQUE, 60201)
+Core.API = LibStub:NewLibrary(MASQUE, 70200)
 
 local ACR = LibStub("AceConfigRegistry-3.0")
 
