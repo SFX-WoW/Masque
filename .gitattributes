@@ -1,0 +1,12 @@
+# Keep some files from being included in releases.
+
+# Git Files
+.gitattributes export-ignore
+.gitignore export-ignore
+
+# Curse Packager
+pkgmeta.yaml export-ignore
+
+# Docs
+_docs export-ignore
+RELEASE.md export-ignore
