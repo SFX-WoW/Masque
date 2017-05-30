@@ -20,6 +20,8 @@ manual-changelog:
   markup-type: markdown
 
 ignore:
+  - .gitattributes
+  - _docs\
   - RELEASE.md
 
 tools-used:
