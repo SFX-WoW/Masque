@@ -1,8 +1,8 @@
 ## Interface: 70200
 ## Title: Masque
-## Version: @project-version@
+## Version: 7.2.1
 ## Author: StormFX, JJSheets
-## Notes: A dynamic button skinning engine.
+## Notes: A dynamic button-skinning engine.
 ## Notes-deDE: Ein dynamisches Button-Skin-Addon.
 ## Notes-esES: Cambiar dinamicamente la aparencia de botones.
 ## Notes-esMX: Cambiar dinamicamente la aparencia de botones.
@@ -13,7 +13,7 @@
 ## Notes-ruRU: Аддон для добавления скинов к панелям команд.
 ## Notes-zhCN: 一个动态按钮皮肤插件。
 ## Notes-zhTW: 動態套用按鈕佈景主題的插件。
-## X-Website: http://www.wowace.com/projects/masque/
+## X-Website: https://www.wowace.com/projects/masque
 ## X-Category: Interface Enhancements
 ## X-WoWI-ID: 12097
 ## OptionalDeps: Ace3
