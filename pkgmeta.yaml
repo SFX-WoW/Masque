@@ -14,9 +14,6 @@ externals:
   Libs/LibDBIcon-1.0:
     url: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
     tag: latest
-  Libs/LibDualSpec-1.0:
-    url: https://repos.wowace.com/wow/libdualspec-1-0
-    tag: latest
 
 manual-changelog:
   filename: RELEASE.md
@@ -29,3 +26,4 @@ tools-used:
   - libstub
   - callbackhandler
   - libdatabroker-1-1
+  - libdualspec-1-0
