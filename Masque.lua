@@ -22,6 +22,7 @@ assert(LibStub, "Masque requires LibStub.")
 local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 
 Core.API = LibStub:NewLibrary(MASQUE, 70200)
+Core.Version = GetAddOnMetadata(MASQUE, "Version")
 
 local ACR = LibStub("AceConfigRegistry-3.0")
 
