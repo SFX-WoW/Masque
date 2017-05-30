@@ -3,8 +3,6 @@
 	please see the included License.txt file.
 
 	* File...: Core\Options.lua
-	* Date...: @file-date-iso@
-	* Hash...: @file-abbreviated-hash@
 	* Author.: StormFX
 
 ]]
@@ -390,6 +388,14 @@ do
 							arg = Group,
 							hasAlpha = true,
 							order = 6,
+						},
+						Cooldown = {
+							type = "color",
+							name = L["Cooldown"],
+							desc = L["Set the color of the cooldown animation."],
+							arg = Group,
+							hasAlpha = true,
+							order = 7,
 						},
 					},
 				},
