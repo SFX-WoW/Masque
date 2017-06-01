@@ -18,7 +18,6 @@ To access _Masque_'s options, use the **/msq** or **/masque** chat commands. You
 
 ### Links ###
 
-- [Masque Project Page](https://www.wowace.com/projects/masque "Masque Project Page")
 - [Masque Wiki](https://github.com/stormfx/masque/wiki "Masque Wiki")
 - [Masque Facebook Page](https://www.facebook.com/masqueui "Masque on Facebook")
 - [Get Skins](https://github.com/stormfx/masque/wiki/skin-list "Masque Skin List")

@@ -21,7 +21,6 @@ To access [I]Masque[/I]'s options, use the [B]/msq[/B] or [B]/masque[/B] chat co
 
 [LIST]
 [*] [URL="https://github.com/stormfx/masque/wiki"]Masque Wiki[/URL]
-[*] [URL="https://www.wowace.com/projects/masque"]Masque Project Page[/URL]
 [*] [URL="https://www.facebook.com/masqueui"]Masque Facebook Page[/URL]
 [*] [URL="https://github.com/stormfx/masque/wiki/skin-list"]Get Skins[/URL]
 [/LIST]
