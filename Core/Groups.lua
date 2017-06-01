@@ -189,7 +189,7 @@ do
 				self.Buttons[Button] = ButtonData
 				if not self.db.Disabled then
 					local db = self.db
-					SkinButton(Button, ButtonData, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+					SkinButton(Button, ButtonData, db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.BorderSVC)
 				end
 			end,
 
@@ -230,7 +230,7 @@ do
 				if not self.db.Disabled then
 					local db = self.db
 					for Button in pairs(self.Buttons) do
-						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.BorderSVC)
 					end
 					if self.Addon then
 						FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
