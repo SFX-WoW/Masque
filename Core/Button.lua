@@ -296,8 +296,8 @@ do
 		Region:SetTexture(Skin.Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 		Region:SetDrawLayer("OVERLAY", 0)
-		Region:SetVertexColor(GetColor(Color or Skin.Color, Alpha))
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
+		Region:SetVertexColor(GetColor(Color or Skin.Color, Alpha))
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
 		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
@@ -321,10 +321,43 @@ do
 end
 
 ---------------------------------------------
--- Texture Layer
+-- Border Layer
 ---------------------------------------------
 
-local SkinTexture
+local SkinBorder
+
+do
+	-- Default Color
+	local BaseColor = {0, 1, 0, 0.35}
+
+	-- Skins the Border layer.
+	function SkinBorder(Button, Region, Skin, Color, xScale, yScale, BorderSVC)
+		if Skin.Hide then
+			Region:SetTexture("")
+			Region:Hide()
+			return
+		end
+		local Texture = Skin.Texture or Region:GetTexture()
+		Region:SetTexture(Texture)
+		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+		Region:SetBlendMode(Skin.BlendMode or "ADD")
+		Region:SetDrawLayer("ARTWORK", 0)
+		if not BorderSVC then
+			if not Region.__MSQ_SetVertexColor then
+				Region.__MSQ_SetVertexColor = Region.SetVertexColor
+				Region.SetVertexColor = __MTF
+			end
+			Region:__MSQ_SetVertexColor(GetColor(Color or Skin.Color or BaseColor))
+		end
+		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+		Region:ClearAllPoints()
+		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+	end
+end
+
+---------------------------------------------
+-- Texture Layer
+---------------------------------------------
 
 -- Draw Layers
 local Layers = {
@@ -332,10 +365,11 @@ local Layers = {
 		Pushed = "BACKGROUND",
 		Disabled = "BORDER",
 		Checked = "BORDER",
-		Border = "ARTWORK",
 		AutoCastable = "OVERLAY",
 		Highlight = "HIGHLIGHT",
 }
+
+local SkinTexture
 
 do
 	-- Draw Levels
@@ -344,12 +378,11 @@ do
 		Pushed = 0,
 		Disabled = 1,
 		Checked = 2,
-		Border = 0,
 		AutoCastable = 1,
 		Highlight = 0,
 	}
 
-	-- Skins a generic texture layer.
+	-- Skins a texture layer.
 	function SkinTexture(Button, Region, Layer, Skin, Color, xScale, yScale)
 		if Skin.Hide then
 			Region:SetTexture("")
@@ -358,12 +391,10 @@ do
 		end
 		local Texture = Skin.Texture or Region:GetTexture()
 		Region:SetTexture(Texture)
-		Region:SetBlendMode(Skin.BlendMode or "BLEND")
-		if Layer ~= "Border" then
-			Region:SetVertexColor(GetColor(Color or Skin.Color))
-		end
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetDrawLayer(Layers[Layer], Levels[Layer])
+		Region:SetVertexColor(GetColor(Color or Skin.Color))
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
 		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
@@ -420,21 +451,6 @@ do
 end
 
 ---------------------------------------------
--- Frame Layer
----------------------------------------------
-
--- Skins an animation frame.
-local function SkinFrame(Button, Region, Skin, xScale, yScale, Color)
-	if Skin.Hide then
-		Region:Hide()
-		return
-	end
-	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-	Region:ClearAllPoints()
-	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
-end
-
----------------------------------------------
 -- Cooldown Frame Layer
 ---------------------------------------------
 
@@ -449,7 +465,6 @@ do
 			Region:Hide()
 			return
 		end
-		-- Probably don't need this check but just in case.
 		if Region.SetSwipeTexture then
 			if Skin.Texture then
 				Region:SetSwipeTexture(Skin.Texture)
@@ -468,6 +483,21 @@ do
 		Region:ClearAllPoints()
 		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
 	end
+end
+
+---------------------------------------------
+-- Frame Layer
+---------------------------------------------
+
+-- Skins an animation frame.
+local function SkinFrame(Button, Region, Skin, xScale, yScale, Color)
+	if Skin.Hide then
+		Region:Hide()
+		return
+	end
+	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+	Region:ClearAllPoints()
+	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
 end
 
 ---------------------------------------------
@@ -599,7 +629,7 @@ do
 	end
 
 	-- Applies a skin to a button and its associated layers.
-	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors)
+	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors, BorderSVC)
 		if not Button then return end
 		if not Button.__MSQ_BaseFrame then
 			Button.__MSQ_BaseFrame = CreateFrame("Frame", nil, Button)
@@ -628,6 +658,11 @@ do
 		local Normal = ButtonData.Normal
 		if Normal ~= false then
 			SkinNormal(Button, Normal, Skin.Normal, Colors.Normal, xScale, yScale)
+		end
+		-- Border
+		local Border = ButtonData.Border
+		if Border then
+			SkinBorder(Button, Border, Skin.Border, Colors.Border, xScale, yScale, BorderSVC)
 		end
 		-- Textures
 		for Layer in pairs(Layers) do
