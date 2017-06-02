@@ -213,7 +213,7 @@ do
 			Layer = info[#info-1]
 		end
 		if Layer == "Border" then
-			return info.arg.BorderSVC or Skin[Layer].Hide or db.Disabled
+			return (not info.arg.IsActionBar) or Skin[Layer].Hide or db.Disabled
 		else
 			return Skin[Layer].Hide or db.Disabled
 		end
