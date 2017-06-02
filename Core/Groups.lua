@@ -63,7 +63,7 @@ local function GetID(Addon, Group)
 end
 
 -- Creates a new group.
-local function NewGroup(Addon, Group)
+local function NewGroup(Addon, Group, IsActionBar)
 	local id = GetID(Addon, Group)
 	local o = {
 		Addon = Addon,
@@ -71,6 +71,7 @@ local function NewGroup(Addon, Group)
 		ID = id,
 		Buttons = {},
 		SubList = (not Group and {}) or nil,
+		IsActionBar = IsActionBar,
 	}
 	setmetatable(o, GMT)
 	Groups[id] = o
@@ -91,8 +92,8 @@ local function NewGroup(Addon, Group)
 end
 
 -- Returns a button group.
-function Core:Group(Addon, Group)
-	return Groups[GetID(Addon, Group)] or NewGroup(Addon, Group)
+function Core:Group(Addon, Group, IsActionBar)
+	return Groups[GetID(Addon, Group)] or NewGroup(Addon, Group, IsActionBar)
 end
 
 -- Returns a list of registered add-ons.
@@ -107,14 +108,14 @@ function Core:ListGroups(Addon)
 end
 
 -- API: Validates and returns a button group.
-function Core.API:Group(Addon, Group)
+function Core.API:Group(Addon, Group, IsActionBar)
 	if type(Addon) ~= "string" or Addon == MASQUE then
 		if Core.db.profile.Debug then
 			error("Bad argument to method 'Group'. 'Addon' must be a string.", 2)
 		end
 		return
 	end
-	return Core:Group(Addon, Group)
+	return Core:Group(Addon, Group, IsActionBar)
 end
 
 ---------------------------------------------
@@ -189,7 +190,7 @@ do
 				self.Buttons[Button] = ButtonData
 				if not self.db.Disabled then
 					local db = self.db
-					SkinButton(Button, ButtonData, db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.BorderSVC)
+					SkinButton(Button, ButtonData, db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
 				end
 			end,
 
@@ -230,7 +231,7 @@ do
 				if not self.db.Disabled then
 					local db = self.db
 					for Button in pairs(self.Buttons) do
-						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.BorderSVC)
+						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
 					end
 					if self.Addon then
 						FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
