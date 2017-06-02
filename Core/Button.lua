@@ -331,7 +331,7 @@ do
 	local BaseColor = {0, 1, 0, 0.35}
 
 	-- Skins the Border layer.
-	function SkinBorder(Button, Region, Skin, Color, xScale, yScale, BorderSVC)
+	function SkinBorder(Button, Region, Skin, Color, xScale, yScale, IsActionButton)
 		if Skin.Hide then
 			Region:SetTexture("")
 			Region:Hide()
@@ -342,7 +342,7 @@ do
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 		Region:SetBlendMode(Skin.BlendMode or "ADD")
 		Region:SetDrawLayer("ARTWORK", 0)
-		if not BorderSVC then
+		if IsActionButton then
 			if not Region.__MSQ_SetVertexColor then
 				Region.__MSQ_SetVertexColor = Region.SetVertexColor
 				Region.SetVertexColor = __MTF
@@ -629,7 +629,7 @@ do
 	end
 
 	-- Applies a skin to a button and its associated layers.
-	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors, BorderSVC)
+	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors, IsActionButton)
 		if not Button then return end
 		if not Button.__MSQ_BaseFrame then
 			Button.__MSQ_BaseFrame = CreateFrame("Frame", nil, Button)
@@ -662,7 +662,7 @@ do
 		-- Border
 		local Border = ButtonData.Border
 		if Border then
-			SkinBorder(Button, Border, Skin.Border, Colors.Border, xScale, yScale, BorderSVC)
+			SkinBorder(Button, Border, Skin.Border, Colors.Border, xScale, yScale, IsActionButton)
 		end
 		-- Textures
 		for Layer in pairs(Layers) do
