@@ -1,3 +1,10 @@
+### 7.2.3 ###
+
+** Bug Fixes **
+
+  - Replaced overrides with secure hooks to prevent taint in some add-ons.
+  - Removed the HotKey override that hasn't been necessary in years.
+
 ### 7.2.2 ###
 
 **General**
