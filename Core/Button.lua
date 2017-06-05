@@ -21,10 +21,6 @@ local __MTT = {}
 -- Utility Functions
 ---------------------------------------------
 
--- Empty function.
-local __MTF = function() end
-
--- Returns a set of color values.
 local function GetColor(Color, Alpha)
 	if type(Color) == "table" then
 		return Color[1] or 1, Color[2] or 1, Color[3] or 1, Alpha or Color[4] or 1
@@ -156,7 +152,7 @@ local function SkinIcon(Button, Region, Skin, xScale, yScale)
 	end
 end
 
-	---------------------------------------------
+---------------------------------------------
 -- Normal Texture Layer
 ---------------------------------------------
 
@@ -164,7 +160,6 @@ local SkinNormal
 
 do
 	local Base = {}
-	local Hooked = {}
 
 	-- Hook to catch changes to a button's 'Normal' texture. 
 	local function Hook_SetNormalTexture(Button, Texture)
@@ -230,9 +225,9 @@ do
 			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 			Region:SetVertexColor(GetColor(Button.__MSQ_NormalColor))
 		end
-		if not Hooked[Button] then
+		if not Button.__MSQ_NormalHook then
 			hooksecurefunc(Button, "SetNormalTexture", Hook_SetNormalTexture)
-			Hooked[Button] = true
+			Button.__MSQ_NormalHook = true
 		end
 		Button.__MSQ_NormalSkin = Skin
 		Region:Show()
@@ -330,6 +325,11 @@ do
 	-- Default Color
 	local BaseColor = {0, 1, 0, 0.35}
 
+	-- Hook to counter color changes.
+	local function Hook_Show(Region)
+		Region:SetVertexColor(GetColor(Region.__MSQ_Color))
+	end
+
 	-- Skins the Border layer.
 	function SkinBorder(Button, Region, Skin, Color, xScale, yScale, IsActionButton)
 		if Skin.Hide then
@@ -343,11 +343,12 @@ do
 		Region:SetBlendMode(Skin.BlendMode or "ADD")
 		Region:SetDrawLayer("ARTWORK", 0)
 		if IsActionButton then
-			if not Region.__MSQ_SetVertexColor then
-				Region.__MSQ_SetVertexColor = Region.SetVertexColor
-				Region.SetVertexColor = __MTF
+			if not Region.__MSQ_Hooked then
+				hooksecurefunc(Region, "Show", Hook_Show)
+				Region.__MSQ_Hooked = true
 			end
-			Region:__MSQ_SetVertexColor(GetColor(Color or Skin.Color or BaseColor))
+			Region.__MSQ_Color = Color or Skin.Color or BaseColor
+			Region:SetVertexColor(GetColor(Region.__MSQ_Color))
 		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
@@ -421,6 +422,7 @@ do
 		Name = "BOTTOM",
 		Count = "BOTTOMRIGHT",
 		Duration = "TOP",
+		HotKey = "TOPLEFT",
 	}
 
 	-- Relative Point
@@ -428,6 +430,7 @@ do
 		Name = "BOTTOM",
 		Count = "BOTTOMRIGHT",
 		Duration = "BOTTOM",
+		HotKey = "TOPLEFT",
 	}
 
 	-- Skins a text layer.
@@ -435,18 +438,12 @@ do
 		Region:SetJustifyH(Skin.JustifyH or Justify[Layer])
 		Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
 		Region:SetDrawLayer("OVERLAY")
+		if Layer ~= "HotKey" then
+			Region:SetVertexColor(GetColor(Color or Skin.Color))
+		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale))
 		Region:ClearAllPoints()
-		if Layer == "HotKey" then
-			if not Region.__MSQ_SetPoint then
-				Region.__MSQ_SetPoint = Region.SetPoint
-				Region.SetPoint = __MTF
-			end
-			Region:__MSQ_SetPoint("TOPLEFT", Button, "TOPLEFT", Skin.OffsetX or 0, Skin.OffsetY or 0)
-		else
-			Region:SetVertexColor(GetColor(Color or Skin.Color))
-			Region:SetPoint(Point[Layer], Button, RelPoint[Layer], Skin.OffsetX or 0, Skin.OffsetY or 0)
-		end
+		Region:SetPoint(Point[Layer], Button, RelPoint[Layer], Skin.OffsetX or 0, Skin.OffsetY or 0)
 	end
 end
 
@@ -459,6 +456,11 @@ local SkinCooldown
 do
 	local BaseColor = {0, 0, 0, 0.8}
 
+	-- Hook to counter unwanted changes.
+	local function Hook_SetCooldown(Region, ...)
+		Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
+	end
+
 	-- Skins the Cooldown frame.
 	function SkinCooldown(Button, Region, Skin, Color, xScale, yScale)
 		if Skin.Hide then
@@ -466,18 +468,15 @@ do
 			return
 		end
 		if Region.SetSwipeTexture then
-			if Skin.Texture then
-				Region:SetSwipeTexture(Skin.Texture)
-			else
-				Region:SetSwipeTexture("")
-			end
+			Region:SetSwipeTexture(Skin.Texture or "")
 		end
-		if Region.SetSwipeColor then
-			if not Region.__MSQ_SetSwipeColor then
-				Region.__MSQ_SetSwipeColor = Region.SetSwipeColor
-				Region.SetSwipeColor = __MTF
+		if Region.SetSwipeColor and Region.SetCooldown then
+			if not Region.__MSQ_Hooked then
+				hooksecurefunc(Region, "SetCooldown", Hook_SetCooldown)
+				Region.__MSQ_Hooked = true
 			end
-			Region:__MSQ_SetSwipeColor(GetColor(Color or Skin.Color or BaseColor))
+			Region.__MSQ_Color = Color or Skin.Color or BaseColor
+			Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
 		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
@@ -543,7 +542,7 @@ do
 	-- Hook to update the spell alert animation.
 	function UpdateSpellAlert(Button)
 		local Overlay = Button.overlay
-		if not Overlay or not Overlay.spark then return end
+		if (not Overlay) or (not Overlay.spark) then return end
 		if Overlay.__MSQ_Shape ~= Button.__MSQ_Shape then
 			local Shape = Button.__MSQ_Shape
 			local Glow, Ants
@@ -611,8 +610,6 @@ end
 ---------------------------------------------
 
 do
-	local Hooked = {}
-
 	-- Hook to automatically adjust the button's additional frame levels.
 	local function Hook_SetFrameLevel(Button, Level)
 		local base = Level or Button:GetFrameLevel()
@@ -708,9 +705,9 @@ do
 			UpdateSpellAlert(Button)
 		end
 		-- Frame Level
-		if not Hooked[Button] then
+		if not Button.__MSQ_FrameHook then
 			hooksecurefunc(Button, "SetFrameLevel", Hook_SetFrameLevel)
-			Hooked[Button] = true
+			Button.__MSQ_FrameHook = true
 		end
 		-- Taint protection, just in case.
 		if Button.IsProtected and Button:IsProtected() and InCombatLockdown() then
