@@ -142,8 +142,6 @@ do
 		Shine = "Frame",
 	}
 
-	local __MTF = function() end
-
 	-- Gets a button region.
 	local function GetRegion(Button, Layer, Type)
 		local Region
