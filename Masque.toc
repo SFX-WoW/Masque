@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Title: Masque
-## Version: 7.2.2
+## Version: 7.2.3
 ## Author: StormFX, JJSheets
 ## Notes: A dynamic button-skinning engine.
 ## Notes-deDE: Ein dynamisches Button-Skin-Addon.
