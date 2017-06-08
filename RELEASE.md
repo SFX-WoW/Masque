@@ -2,15 +2,9 @@
 
 ** Bug Fixes **
 
+  - Added missing itIT and ptBR localization entries.
   - Replaced overrides with secure hooks to prevent taint in some add-ons.
   - Removed the HotKey override that hasn't been necessary in years.
-
-** API **
-
-  - The following methods have been restored and their `__MSQ_` counterparts removed:
-	- `Border:SetVertexColor`
-	- `Cooldown:SetSwipeColor`
-	- `HotKey:SetPoint`
 
 ### 7.2.2 ###
 
