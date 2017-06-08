@@ -3,7 +3,7 @@
 ## Version: 7.2.3
 ## Author: StormFX, JJSheets
 ## Notes: A dynamic button-skinning engine.
-## Notes-deDE: Ein dynamisches Button-Skin-Addon.
+## Notes-deDE: Ein Addon zur dynamischen Änderung der Buttonoptiken.
 ## Notes-esES: Cambiar dinamicamente la aparencia de botones.
 ## Notes-esMX: Cambiar dinamicamente la aparencia de botones.
 ## Notes-frFR: Un add-on de skinnage dynamique des boutons.
@@ -16,22 +16,24 @@
 ## X-Website: https://www.wowace.com/projects/masque
 ## X-Category: Interface Enhancements
 ## X-WoWI-ID: 12097
-## OptionalDeps: Ace3
+## OptionalDeps: Ace3, LibDBIcon-1.0
 ## SavedVariables: MasqueDB
 
 # Libraries
 Libs\LibStub\Libstub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+#@no-lib-strip@
 Libs\AceAddon-3.0\AceAddon-3.0.xml
 Libs\AceDB-3.0\AceDB-3.0.xml
 Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
 Libs\AceGUI-3.0\AceGUI-3.0.xml
 Libs\AceConfig-3.0\AceConfig-3.0.xml
-Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+#@end-no-lib-strip@
 
 # Locales
-Core\Locales.lua
+Locales\Locales.lua
 
 # Add-On
 Masque.lua
