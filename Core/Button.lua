@@ -326,8 +326,11 @@ do
 	local BaseColor = {0, 1, 0, 0.35}
 
 	-- Hook to counter color changes.
-	local function Hook_Show(Region)
+	local function Hook_SetVertexColor(Region, ...)
+		if Region.__ExitHook then return end
+		Region.__ExitHook = true
 		Region:SetVertexColor(GetColor(Region.__MSQ_Color))
+		Region.__ExitHook = nil
 	end
 
 	-- Skins the Border layer.
@@ -343,12 +346,12 @@ do
 		Region:SetBlendMode(Skin.BlendMode or "ADD")
 		Region:SetDrawLayer("ARTWORK", 0)
 		if IsActionButton then
+			Region.__MSQ_Color = Color or Skin.Color or BaseColor
 			if not Region.__MSQ_Hooked then
-				hooksecurefunc(Region, "Show", Hook_Show)
+				hooksecurefunc(Region, "SetVertexColor", Hook_SetVertexColor)
 				Region.__MSQ_Hooked = true
 			end
-			Region.__MSQ_Color = Color or Skin.Color or BaseColor
-			Region:SetVertexColor(GetColor(Region.__MSQ_Color))
+			Hook_SetVertexColor(Region)
 		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
@@ -422,7 +425,6 @@ do
 		Name = "BOTTOM",
 		Count = "BOTTOMRIGHT",
 		Duration = "TOP",
-		HotKey = "TOPLEFT",
 	}
 
 	-- Relative Point
@@ -430,20 +432,36 @@ do
 		Name = "BOTTOM",
 		Count = "BOTTOMRIGHT",
 		Duration = "BOTTOM",
-		HotKey = "TOPLEFT",
 	}
+
+	-- Hook to counter add-ons that call HotKey.SetPoint after Masque has skinned the region.
+	local function Hook_SetPoint(Region, ...)
+		if Region.__ExitHook then return end
+		Region.__ExitHook = true
+		local Skin = Region.__MSQ_Skin
+		Region:SetPoint("TOPLEFT", Region.__MSQ_Button, "TOPLEFT", Skin.OffsetX or 0, Skin.OffsetY or 0)
+		Region.__ExitHook = nil
+	end
 
 	-- Skins a text layer.
 	function SkinText(Button, Region, Layer, Skin, Color, xScale, yScale)
 		Region:SetJustifyH(Skin.JustifyH or Justify[Layer])
 		Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
 		Region:SetDrawLayer("OVERLAY")
-		if Layer ~= "HotKey" then
-			Region:SetVertexColor(GetColor(Color or Skin.Color))
-		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale))
 		Region:ClearAllPoints()
-		Region:SetPoint(Point[Layer], Button, RelPoint[Layer], Skin.OffsetX or 0, Skin.OffsetY or 0)
+		if Layer == "HotKey" then
+			Region.__MSQ_Button = Button
+			Region.__MSQ_Skin = Skin
+			if not Region.__MSQ_Hooked then
+				hooksecurefunc(Region, "SetPoint", Hook_SetPoint)
+				Region.__MSQ_Hooked = true
+			end
+			Hook_SetPoint(Region)
+		else
+			Region:SetVertexColor(GetColor(Color or Skin.Color))
+			Region:SetPoint(Point[Layer], Button, RelPoint[Layer], Skin.OffsetX or 0, Skin.OffsetY or 0)
+		end
 	end
 end
 
@@ -457,8 +475,11 @@ do
 	local BaseColor = {0, 0, 0, 0.8}
 
 	-- Hook to counter unwanted changes.
-	local function Hook_SetCooldown(Region, ...)
+	local function Hook_SetSwipeColor(Region, ...)
+		if Region.__ExitHook then return end
+		Region.__ExitHook = true
 		Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
+		Region.__ExitHook = nil
 	end
 
 	-- Skins the Cooldown frame.
@@ -470,13 +491,13 @@ do
 		if Region.SetSwipeTexture then
 			Region:SetSwipeTexture(Skin.Texture or "")
 		end
-		if Region.SetSwipeColor and Region.SetCooldown then
+		if Region.SetSwipeColor then
+			Region.__MSQ_Color = Color or Skin.Color or BaseColor
 			if not Region.__MSQ_Hooked then
-				hooksecurefunc(Region, "SetCooldown", Hook_SetCooldown)
+				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
 				Region.__MSQ_Hooked = true
 			end
-			Region.__MSQ_Color = Color or Skin.Color or BaseColor
-			Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
+			Hook_SetSwipeColor(Region)
 		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
