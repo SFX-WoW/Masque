@@ -1,3 +1,9 @@
+### 7.2.4 ###
+
+**Bug Fixes**
+
+  - Modified previous fixes that were conflicting with some add-ons.
+
 ### 7.2.3 ###
 
 **Bug Fixes**
