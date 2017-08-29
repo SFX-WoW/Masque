@@ -1,3 +1,9 @@
+### 7.3.0 ###
+
+**General**
+
+  - ToC to 70300.
+
 ### 7.2.4 ###
 
 **Bug Fixes**
@@ -52,8 +58,7 @@
 **General**
 
   - ToC to 70000.
-  - Updated version.
-  - Updated locales.
+  - Updated Locales.
   - Adjust text positions.
 
 ### 6.2.1 ###
@@ -61,7 +66,7 @@
 **General**
 
   - SVN to Git conversion.
-  - Updated Changelog, License and ReadMe.
+  - Updated License and ReadMe.
   - Updated .pkgmeta.
  
 **API**
@@ -77,7 +82,6 @@
 **General**
 
   - ToC to 60200.
-  - Updated version.
 
 **API**
 
@@ -88,8 +92,7 @@
 **General**
 
   - ToC to 60100.
-  - Updated version.
-  - Updated locales.
+  - Updated Locales.
 
 **API**
 
@@ -107,7 +110,6 @@
 **General**
 
   - ToC to 60000.
-  - Updated version.
   - Removed legacy ButtonFacade support.
   - Options panel is always load-on-demand.
 
@@ -134,28 +136,24 @@
 **General**
 
   - ToC to 50400.
-  - Updated version.
 
 ### 5.3.394 ###
 
 **General**
 
   - ToC to 50300.
-  - Updated version.
 
 ### 5.2.391 ###
 
 **General**
 
   - ToC to 50200.
-  - Updated version.
 
 ### 5.1.389 ###
 
 **General**
 
   - ToC to 50100.
-  - Updated version.
 
 ### 5.0.387 ###
 
@@ -170,8 +168,7 @@
 **General**
 
   - ToC to 40300.
-  - Updated version.
-  - Updated locales.
+  - Updated Locales.
 
 **API**
 
@@ -189,7 +186,6 @@
 **General**
 
   - ToC to 40200.
-  - Updated version.
   - Renamed ButtonFacade to Masque.
   - Added LibDualSpec support.
   - Added an option to disable groups.
@@ -214,7 +210,6 @@
 **General**
 
   - ToC to 40000.
-  - Updated version.
 
 ### 3.3.330 ###
 
@@ -228,30 +223,27 @@
 **General**
 
   - ToC to 30300.
-  - Updated version.
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.2.285 ###
 
 **General**
 
-  - Updated ChangeLog.
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.2.275 ###
 
 **General**
 
   - ToC to 30200.
-  - Updated version.
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.1.270 ###
 
 **General**
 
   - Removed the About panel.
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.1.260 ###
 
@@ -265,14 +257,14 @@
 
   - Add X-WoWI-ID.
   - More GUI fixes.
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.1.240 ###
 
 **General**
 
   - GUI fixes.
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.1.235 ###
 
@@ -280,33 +272,33 @@
 
   - ToC to 30100.
   - Updated GUI.
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.1.225 ###
 
 **General**
 
   - Added a new icon.
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.0.211 ###
 
 **General**
 
-  - Updated locales.
+  - Updated Locales.
   - Tag clean-up.
 
 ### 3.0.208 ###
 
 **General**
 
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.0.205 ###
 
 **General**
 
-  - Updated locales.
+  - Updated Locales.
 
 ### 3.0.202 ###
 
@@ -321,6 +313,5 @@
   - Removed FuBar/Harbor support.
   - Rebuilt the options window.
   - The /bf and /buttonfacade chat commands now open the options window.
-  - Updated locales.
+  - Updated Locales.
   - Code clean-up.
-

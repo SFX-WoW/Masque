@@ -1,3 +1,9 @@
+### 7.3.0 ###
+
+**General**
+
+  - ToC to 70300.
+
 ### 7.2.4 ###
 
 **Bug Fixes**
@@ -34,3 +40,23 @@
   - A third parameter, `IsActionBar`, is now available to the `:Group()` method. Setting this parameter to true will allow Masque (and by proxy, users) to adjust the color of equipped item borders.
 	- _With this option enabled, Masque will override the Border region's `SetVertexColor` method of all buttons in this group. This is to prevent the game from changing the color. The functionality remains in a substitute method, `__MSQ_SetVertexColor`._
 	- _This parameter must be passed on the initial `:Group()` call as its presence or absence in calls after the group has been created will have no effect. The group option `IsActionBar` must be explicitly set or unset if the group has already been created._
+
+### 7.2.0 ###
+
+**General**
+
+  - ToC to 70200.
+
+### 7.1.0 ###
+
+**General**
+
+  - ToC to 70100.
+
+### 7.0.1 ###
+
+**General**
+
+  - ToC to 70000.
+  - Updated Locales.
+  - Adjust text positions.
