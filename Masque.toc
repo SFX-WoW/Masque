@@ -36,7 +36,7 @@ Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 #@end-no-lib-strip@
 
 # Locales
-Core\Locales.lua
+Locales\Locales.xml
 
 # Add-On
 Masque.lua
