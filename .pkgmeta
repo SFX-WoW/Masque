@@ -12,13 +12,12 @@ externals:
   Libs/LibDualSpec-1.0: https://repos.wowace.com/wow/libdualspec-1-0
 
 manual-changelog:
-  filename: RELEASE.md
+  filename: CHANGELOG.md
   markup-type: markdown
 
 ignore:
   - .gitattributes
   - _docs\
-  - CHANGELOG.md
 
 tools-used:
   - libdatabroker-1-1
