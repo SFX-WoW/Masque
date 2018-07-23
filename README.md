@@ -7,9 +7,10 @@ _Masque_ is an add-on for [World of Warcraft](https://worldofwarcraft.com "World
 Install the package through your preferred add-on manager. You can also install the add-on manually using the following steps:
 
 1. Download the package from one of the following sites:
-    - [Curse](https://mods.curse.com/addons/wow/masque "Download from Curse")
+    - [GitHub](https://github.com/stormfx/masque/releases "Download from GitHub")
+    - [CurseForge](https://www.curseforge.com/wow/addons/masque "Download from CurseForge")
     - [WoW Ace](https://www.wowace.com/projects/masque "Download from WoW Ace")
-    - [WoW Interface](http://www.wowinterface.com/downloads/info12097 "Download from WoW Interface")
+    - [WoW Interface](https://www.wowinterface.com/downloads/info12097 "Download from WoW Interface")
 2. Extract the package to your **World of Warcraft\Interface\AddOns** directory.
 
 ### Options ###
