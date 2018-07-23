@@ -15,7 +15,7 @@
 **Bug Fixes**
 
   - Added missing itIT and ptBR localization entries.
-  - Replaced overrides with secure hooks to prevent taint in some add-ons.
+  - Replaced overrides with secure hooks to prevent taint in some add-ons. (#12)
   - Removed the HotKey override that hasn't been necessary in years.
 
 ### 7.2.2 ###
@@ -37,7 +37,7 @@
 **API**
 
   - API version increased to 70200.
-  - A third parameter, `IsActionBar`, is now available to the `:Group()` method. Setting this parameter to true will allow Masque (and by proxy, users) to adjust the color of equipped item borders.
+  - A third parameter, `IsActionBar`, is now available to the `:Group()` method. Setting this parameter to true will allow Masque (and by proxy, users) to adjust the color of equipped item borders. (#11)
 	- _With this option enabled, Masque will override the Border region's `SetVertexColor` method of all buttons in this group. This is to prevent the game from changing the color. The functionality remains in a substitute method, `__MSQ_SetVertexColor`._
 	- _This parameter must be passed on the initial `:Group()` call as its presence or absence in calls after the group has been created will have no effect. The group option `IsActionBar` must be explicitly set or unset if the group has already been created._
 
@@ -74,7 +74,7 @@
   - API version 60201.
   - Renamed the "AutoCast" layer to the native name, "Shine".
       - Backwards compatibility available until game version 7.0.
-  - Added support for ChargeCooldowns (tentative).
+  - Added support for ChargeCooldowns (tentative). (#1)
 	  - A new API method, :UpdateCharge(Button) is available for add-ons that implement their own API for charges.
 
 ### 6.2.0 ###
@@ -100,7 +100,7 @@
 
 **Bug Fixes**
 
-  - Fixed hiding of options frame on `Group:Delete()`. [A147]
+  - Fixed hiding of options frame on `Group:Delete()`. (A147)
   - Fixed inheritence for disabled groups. [A153]
   - Fixed "General" options group.
   - Fixed minimap option not appearing. [A154]
@@ -128,7 +128,7 @@
 
 **Bug Fixes**
 
-  - Fixed groups not being removed from the options panel. [A144]
+  - Fixed groups not being removed from the options panel. (A144)
   - Fixed options window not opening to the correct panel.
 
 ### 5.4.396 ###
@@ -172,14 +172,14 @@
 
 **API**
 
-  - New API method `:GetSpellAlert() to return the texture paths for the passed shape string.
+  - New API method `:GetSpellAlert()` to return the texture paths for the passed shape string.
   - Removed the Fonts feature.
 
 **Bug Fixes**
 
   - Fixed the Background on Multibar buttons.
   - Fixed the Gloss showing on empty buttons.
-  - Fixed 'Hotkey.SetPoint()'
+  - Fixed `Hotkey.SetPoint()`
 
 ### 4.2.375 ###
 
