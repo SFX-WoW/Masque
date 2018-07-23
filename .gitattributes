@@ -9,4 +9,3 @@ pkgmeta.yaml export-ignore
 
 # Docs
 _docs export-ignore
-RELEASE.md export-ignore
