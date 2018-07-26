@@ -6,6 +6,12 @@
     - LibDualSpec-1.0 is once again included by default. (#29)
   - Localization files are now embedded so that translators can fork from GitHub.
 
+**API**
+
+  - Added bridge methods to Masque's add-on object to allow UI authors to copy and switch Masque's profiles via AceDB-3.0. (#30)
+    - `:CopyProfile("Name" [, Silent])`
+    - `:SetProfile("Name")`
+
 **Bug Fixes**
 
   - Fixed some faulty itIT phrases. (#22)(#28)
