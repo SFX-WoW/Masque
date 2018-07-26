@@ -25,8 +25,8 @@ To access _Masque_'s options, use the **/msq** or **/masque** chat commands. You
 
 ### Feedback ###
 
-For bug reports and suggestions, please use the [ticket system](https://github.com/stormfx/masque/issues) on GitHub.
+For bug reports and suggestions, please use the [issue tracker](https://github.com/stormfx/masque/issues "Masque Issue Tracker") on GitHub.
 
 ### Localization ###
 
-If you would like to help translate _Masque_, please use the [localization system](https://www.wowace.com/projects/masque/localization) on WoW Ace.
+If you would like to help translate _Masque_, please use the [localization system](https://www.wowace.com/projects/masque/localization "Masque on WoW Ace") on WoW Ace or [contribute directly](https://github.com/stormfx/masque "Masque on GitHub") on GitHub.
