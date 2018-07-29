@@ -1,3 +1,4 @@
 # Ignore local files.
 
+.docs/README_BBCode.txt
 .release/
