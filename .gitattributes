@@ -5,7 +5,7 @@
 .gitignore export-ignore
 
 # Curse Packager
-pkgmeta.yaml export-ignore
+.pkgmeta export-ignore
 
 # Docs
-_docs export-ignore
+.docs export-ignore
