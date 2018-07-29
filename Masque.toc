@@ -21,19 +21,7 @@
 ## X-WoWI-ID: 12097
 
 # Libraries
-#@no-lib-strip@
-Libs\LibStub\Libstub.lua
-Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
-#@end-no-lib-strip@
-Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
-#@no-lib-strip@
-Libs\AceAddon-3.0\AceAddon-3.0.xml
-Libs\AceDB-3.0\AceDB-3.0.xml
-Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
-Libs\AceGUI-3.0\AceGUI-3.0.xml
-Libs\AceConfig-3.0\AceConfig-3.0.xml
-Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
-#@end-no-lib-strip@
+Libs\Libs.xml
 
 # Locales
 Locales\Locales.xml
@@ -42,12 +30,7 @@ Locales\Locales.xml
 Masque.lua
 
 # Skins
-Skins\Skins.lua
-Skins\Blizzard.lua
-Skins\Dream.lua
-Skins\Zoomed.lua
+Skins\Skins.xml
 
 # Core
-Core\Button.lua
-Core\Groups.lua
-Core\Options.lua
+Core\Core.xml
