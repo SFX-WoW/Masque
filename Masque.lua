@@ -122,7 +122,7 @@ function Masque:OnEnable()
 				end
 			end,
 			OnTooltipShow = function(Tip)
-				if not Tip or not Tip.AddLine then 
+				if not Tip or not Tip.AddLine then
 					return
 				end
 				Tip:AddLine(MASQUE)
