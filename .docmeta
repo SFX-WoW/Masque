@@ -1,0 +1,8 @@
+-
+  type: markdown
+  input-file: README.md
+  output-page: "Main"
+-
+  type: markdown
+  input-file: CHANGELOG.md
+  output-page: "Changelog"
