@@ -4,7 +4,8 @@
 .gitattributes export-ignore
 .gitignore export-ignore
 
-# Curse Packager
+# Curse
+.docmeta export-ignore
 .pkgmeta export-ignore
 
 # Docs
