@@ -1,5 +1,6 @@
 # Ignore local files.
 
-.docs/README_BBCode.txt
+.docs/CHANGELOG_BB.txt
+.docs/README_BB.txt
 .release/
 .vscode/
