@@ -8,14 +8,14 @@ Install the package through your preferred add-on manager. You can also install 
 
 1. Download the package from one of the following sites:
     - [CurseForge](https://www.curseforge.com/wow/addons/masque "Download from CurseForge")
-    - [GitHub](https://github.com/stormfx/masque/releases "Download from GitHub")
+    - [GitHub](https://github.com/stormfx/masque "Download from GitHub")
     - [WoW Ace](https://www.wowace.com/projects/masque "Download from WoW Ace")
     - [WoW Interface](https://www.wowinterface.com/downloads/info12097 "Download from WoW Interface")
-2. Extract the package to your **World of Warcraft\Interface\AddOns** directory.
+2. Extract the package to your `World of Warcraft\Interface\AddOns` directory.
 
 ## Options
 
-To access _Masque_'s options, use the **/msq** or **/masque** chat commands. You can also access the options via the _Interface Options Window_ or by clicking on _Masque_'s icon in a _DataBroker_ display.
+To access _Masque_'s options, use the `/msq` or `/masque` chat commands. You can also access the options via the _Interface Options Window_ or by clicking on _Masque_'s icon in a _DataBroker_ display.
 
 ## Links
 
