@@ -1,4 +1,4 @@
-# Keep some files from being included in releases.
+# Keep some files from being included in packages.
 
 # Git Files
 .gitattributes export-ignore
