@@ -3,6 +3,7 @@
 ### General
 
 - Updated the zhTW locale.
+- The "Blizzard" skin has been renamed to "Classic".
 
 ### Features
 
@@ -13,17 +14,21 @@
 ### API
 
 - Masque_Version updated to 80100.
+- The "Blizzard" skin has been renamed to "Classic".
+  - Until add-ons authors update their code, a fail-safe has been implemented.
+    - Please use the API's `.DefaultSkin` key instead of referencing the skin by name.
 
 ### Skins
 
 - Added new default 'Swipe' and 'Edge' textures for the Cooldown and ChargeCooldown regions. These will change according to the shape set by the skin.
   - Only the "Square" and "Circle" shapes are currently supported.
-  - Currently, skins may only specify the 'Swipe' texture, which will take precedence.
-  - This change puts cooldown frames back above the button, where they belong and as such, skins will need to be updated.
+  - At the moment, only the 'Swipe' texture is available to skins and it will take precedence over the default.
+  - This change puts cooldown frames back above the button, where they belong so skins will need to be updated.
 
 ### Bug Fixes
 
-- Fixed an issue that would cause the default cooldown count to appear beneath other text regions.
+- Fixed an issue that would cause the default cooldown count to appear beneath other text regions. (#19)
+- Tentative fix for edge textures on round buttons. (#38)
 
 ## 8.0.1
 
