@@ -198,7 +198,7 @@ do
 					local ButtonData = self.Buttons[Button]
 					Group[Button] = nil
 					if ButtonData then
-						SkinButton(Button, ButtonData, "Blizzard")
+						SkinButton(Button, ButtonData, "Classic")
 					end
 					self.Buttons[Button] = nil
 				end
@@ -214,7 +214,7 @@ do
 				end
 				for Button in pairs(self.Buttons) do
 					Group[Button] = nil
-					SkinButton(Button, self.Buttons[Button], "Blizzard")
+					SkinButton(Button, self.Buttons[Button], "Classic")
 					self.Buttons[Button] = nil
 				end
 				if self.Parent then
@@ -249,7 +249,7 @@ do
 
 			-- Returns a layer color.
 			GetColor = function(self, Layer)
-				local Skin = Skins[self.db.SkinID] or Skins["Blizzard"]
+				local Skin = Skins[self.db.SkinID] or Skins["Classic"]
 				return GetColor(self.db.Colors[Layer] or Skin[Layer].Color)
 			end,
 
@@ -261,7 +261,7 @@ do
 			Disable = function(self)
 				self.db.Disabled = true
 				for Button in pairs(self.Buttons) do
-					SkinButton(Button, self.Buttons[Button], "Blizzard")
+					SkinButton(Button, self.Buttons[Button], "Classic")
 				end
 				local db = self.db
 				FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
@@ -369,7 +369,7 @@ do
 				end
 				if self.db.Disabled then
 					for Button in pairs(self.Buttons) do
-						SkinButton(Button, self.Buttons[Button], "Blizzard")
+						SkinButton(Button, self.Buttons[Button], "Classic")
 					end
 				else
 					self:ReSkin()
