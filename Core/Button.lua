@@ -706,7 +706,7 @@ do
 		if not Button.__MSQ_BaseFrame then
 			Button.__MSQ_BaseFrame = CreateFrame("Frame", nil, Button)
 		end
-		local Skin = (SkinID and Skins[SkinID]) or Skins["Blizzard"]
+		local Skin = (SkinID and Skins[SkinID]) or Skins["Classic"]
 		if type(Colors) ~= "table" then
 			Colors = __MTT
 		end
