@@ -33,12 +33,12 @@ Core:AddSkin("Blizzard", {
 		Texture = [[Interface\Buttons\UI-QuickslotRed]],
 	},
 	Cooldown = {
-		Width = 32,
-		Height = 32,
+		Width = 30,
+		Height = 30,
 	},
 	ChargeCooldown = {
-		Width = 32,
-		Height = 32,
+		Width = 30,
+		Height = 30,
 	},
 	Pushed = {
 		Width = 34,
