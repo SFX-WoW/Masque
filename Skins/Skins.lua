@@ -10,6 +10,10 @@
 local _, Core = ...
 local error, setmetatable, type = error, setmetatable, type
 
+----------------------------------------
+-- Internal
+----------------------------------------
+
 -- Skin Data
 local Skins = {}
 Core.Skins = setmetatable(Skins, {
@@ -65,6 +69,13 @@ function Core:AddSkin(SkinID, SkinData)
 	Skins[SkinID] = SkinData
 	SkinList[SkinID] = SkinID
 end
+
+----------------------------------------
+-- Skin API
+----------------------------------------
+
+-- Default Skin
+Core.API.DefaultSkin = "Classic"
 
 -- API method for validating and adding skins.
 function Core.API:AddSkin(SkinID, SkinData, Replace)
