@@ -12,7 +12,13 @@ local error, setmetatable, type = error, setmetatable, type
 
 -- Skin Data
 local Skins = {}
-Core.Skins = Skins
+Core.Skins = setmetatable(Skins, {
+	__index = function(self, s)
+		if s == "Blizzard" then
+			return self.Classic
+		end
+	end
+})
 
 -- Skin List
 local SkinList = {}
