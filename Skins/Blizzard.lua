@@ -2,7 +2,7 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
-	* File...: Skins\Blizzard.lua
+	* File...: Skins\Classic.lua
 	* Author.: StormFX, Maul, Blizzard Entertainment
 
 ]]
@@ -10,8 +10,8 @@
 local _, Core = ...
 
 -- Improved Blizzard skin. Thanks, Maul!
-Core:AddSkin("Blizzard", {
-	Author = "Blizzard Entertainment",
+Core:AddSkin("Classic", {
+	Author = "StormFX, Maul, Blizzard Entertainment",
 	Version = Core.Version,
 	Masque_Version = 70200,
 	Shape = "Square",
