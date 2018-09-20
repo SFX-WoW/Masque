@@ -1,3 +1,30 @@
+## 8.0.2
+
+### General
+
+- Updated the zhTW locale.
+
+### Features
+
+- Added new textures for Cooldowns and Charges.
+  - The new textures are higher quality and will look more crisp.
+  - Includes alternate textures for round buttons.
+
+### API
+
+- Masque_Version updated to 80100.
+
+### Skins
+
+- Added new default 'Swipe' and 'Edge' textures for the Cooldown and ChargeCooldown regions. These will change according to the shape set by the skin.
+  - Only the "Square" and "Circle" shapes are currently supported.
+  - Currently, skins may only specify the 'Swipe' texture, which will take precedence.
+  - This change puts cooldown frames back above the button, where they belong and as such, skins will need to be updated.
+
+### Bug Fixes
+
+- Fixed an issue that would cause the default cooldown count to appear beneath other text regions.
+
 ## 8.0.1
 
 ### General
