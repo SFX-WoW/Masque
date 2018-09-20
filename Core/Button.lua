@@ -555,8 +555,8 @@ do
 			Ants = "Interface\\SpellActivationOverlay\\IconAlertAnts",
 		},
 		Circle = {
-			Glow = "Interface\\AddOns\\Masque\\Textures\\IconAlert-Circle",
-			Ants = "Interface\\AddOns\\Masque\\Textures\\IconAlertAnts-Circle",
+			Glow = "Interface\\AddOns\\Masque\\Textures\\SpellAlert\\IconAlert-Circle",
+			Ants = "Interface\\AddOns\\Masque\\Textures\\SpellAlert\\IconAlertAnts-Circle",
 		},
 	}
 
