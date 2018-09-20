@@ -53,6 +53,21 @@ local function GetSize(Width, Height, xScale, yScale)
 	return w, h
 end
 
+local GetShape
+
+do
+	-- List of valid shapes.
+	local Shapes = {
+		Circle = "Circle",
+		Square = "Square",
+	}
+
+	-- Validates and returns a shape.
+	function GetShape(Shape)
+		return Shape and Shapes[Shape] or "Square"
+	end
+end
+
 -- Returns a random table key.
 local function Random(v)
 	if type(v) == "table" and #v > 1 then
@@ -472,36 +487,100 @@ end
 local SkinCooldown
 
 do
-	local BaseColor = {0, 0, 0, 0.8}
+	local SwipeColor = {
+		LoC = {0.2, 0, 0, 0.8},
+		Normal = {0, 0, 0, 0.8},
+	}
+	local Edges = {
+		Circle = {
+			LoC = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge-LoC-Circle",
+			Normal = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge-Circle",
+		},
+		Square = {
+			LoC = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge-LoC",
+			Normal = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge",
+		},
+	}
+	local Swipe = {
+		Circle = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Swipe-Circle",
+		Square = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Swipe",
+	}
 
-	-- Hook to counter unwanted changes.
-	local function Hook_SetSwipeColor(Region, ...)
-		if Region.__ExitHook then return end
-		Region.__ExitHook = true
-		Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
-		Region.__ExitHook = nil
+	-- Hook to counter color/texture changes.
+	local function Hook_SetSwipeColor(Region, r, g, b)
+		if Region.__SwipeHook then return end
+		Region.__SwipeHook = true
+		-- Default Loss-of-control color.
+		-- If an add-on doesn't have it set properly for the LoC event, the color won't change.
+		if r == 0.17 and g == 0 and b == 0 then
+			Region:SetSwipeColor(GetColor(SwipeColor.LoC))
+		else
+			Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
+		end
+		Region.__SwipeHook = nil
 	end
 
-	-- Skins the Cooldown frame.
-	function SkinCooldown(Button, Region, Skin, Color, xScale, yScale)
-		if Skin.Hide then
-			Region:Hide()
-			return
+	-- Hook to counter texture changes.
+	local function Hook_SetEdgeTexture(Region, Texture)
+		if Region.__EdgeHook then return end
+		Region.__EdgeHook = true
+		local Button = Region.__MSQ_Parent
+		local Shape = Button.__MSQ_Shape
+		local Edge = Edges[Shape]
+		if Texture == "Interface\\Cooldown\\edge-LoC" then -- Default loss-of-control texture.
+			Region:SetEdgeTexture(Edge.LoC)
+		else
+			Region:SetEdgeTexture(Edge.Normal)
 		end
-		if Region.SetSwipeTexture then
-			Region:SetSwipeTexture(Skin.Texture or "")
-		end
-		if Region.SetSwipeColor then
-			Region.__MSQ_Color = Color or Skin.Color or BaseColor
-			if not Region.__MSQ_Hooked then
+		Region.__EdgeHook = nil
+	end
+
+	-- Skins a Cooldown frame.
+	function SkinCooldown(Button, Region, Skin, Color, xScale, yScale, isSwipe)
+		local Shape = Button.__MSQ_Shape
+		local Edge = Edges[Shape]
+		if isSwipe then
+			Region.__MSQ_Parent = Button
+			Region:SetSwipeTexture(Skin.Texture or Swipe[Shape])
+			Region.__MSQ_Color = Color or Skin.Color or SwipeColor.Normal
+			if not Region.__MSQ_SwipeHook then
 				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
-				Region.__MSQ_Hooked = true
+				Region.__MSQ_SwipeHook = true
 			end
-			Hook_SetSwipeColor(Region)
+			Region.__SwipeHook = true
+			Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
+			Region.__SwipeHook = nil
+			if not Region.__MSQ_EdgeHook then
+				hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
+				Region.__MSQ_EdgeHook = true
+			end
+			Region.__EdgeHook = true
+			Region:SetEdgeTexture(Edge.Normal)
+			Region.__EdgeHook = nil
+		else
+			Region:SetEdgeTexture(Edge.Normal)
 		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
 		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+	end
+
+	-- Skins the ChargeCooldown.
+	local function UpdateCharge(Button)
+		local Region = Button.chargeCooldown
+		local Skin = Button.__MSQ_ChargeSkin
+		if not Region or not Skin then return end
+		local xScale, yScale = GetScale(Button)
+		SkinCooldown(Button, Region, Skin, nil, xScale, yScale)
+	end
+	hooksecurefunc("StartChargeCooldown", UpdateCharge)
+
+	-- API: Allows add-ons to call the update when not using the native API.
+	function Core.API:UpdateCharge(Button)
+		if type(Button) ~= "table" then
+			return
+		end
+		UpdateCharge(Button)
 	end
 end
 
@@ -518,28 +597,6 @@ local function SkinFrame(Button, Region, Skin, xScale, yScale, Color)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 	Region:ClearAllPoints()
 	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
-end
-
----------------------------------------------
--- Charge Cooldown
----------------------------------------------
-
--- Skins the ChargeCooldown.
-local function UpdateCharge(Button)
-	local Charge = Button.chargeCooldown
-	local Skin = Button.__MSQ_ChargeSkin
-	if not Charge or not Charge.parent or not Skin then return end
-	local xScale, yScale = GetScale(Button)
-	SkinFrame(Button, Charge, Skin, xScale, yScale)
-end
-hooksecurefunc("StartChargeCooldown", UpdateCharge)
-
--- API: Allows add-ons to call the update when not using the native API.
-function Core.API:UpdateCharge(Button)
-	if type(Button) ~= "table" then
-		return
-	end
-	UpdateCharge(Button)
 end
 
 ---------------------------------------------
@@ -638,9 +695,6 @@ do
 		if Button.__MSQ_BaseFrame then
 			Button.__MSQ_BaseFrame:SetFrameLevel(base - 2)
 		end
-		if Button.__MSQ_Cooldown then
-			Button.__MSQ_Cooldown:SetFrameLevel(base - 1)
-		end
 		if Button.__MSQ_Shine then
 			Button.__MSQ_Shine:SetFrameLevel(base + 1)
 		end
@@ -657,6 +711,8 @@ do
 			Colors = __MTT
 		end
 		local xScale, yScale = GetScale(Button)
+		-- Shape
+		Button.__MSQ_Shape = GetShape(Skin.Shape)
 		-- Backdrop
 		Button.__MSQ_Background = ButtonData.FloatingBG
 		if type(Gloss) ~= "number" then
@@ -706,13 +762,13 @@ do
 		local Cooldown = ButtonData.Cooldown
 		if Cooldown then
 			Button.__MSQ_Cooldown = Cooldown
-			SkinCooldown(Button, Cooldown, Skin.Cooldown, Colors.Cooldown, xScale, yScale)
+			SkinCooldown(Button, Cooldown, Skin.Cooldown, Colors.Cooldown, xScale, yScale, true)
 		end
 		-- Charge Cooldown
 		local Charge = Button.chargeCooldown
 		Button.__MSQ_ChargeSkin = Skin.ChargeCooldown or Skin.Cooldown
 		if Charge then
-			SkinFrame(Button, Charge, Button.__MSQ_ChargeSkin, xScale, yScale)
+			SkinCooldown(Button, Charge, Button.__MSQ_ChargeSkin, nil, xScale, yScale)
 		end
 		-- Shine (AutoCast)
 		local Shine = ButtonData.Shine
@@ -721,7 +777,6 @@ do
 			SkinFrame(Button, Shine, Skin.Shine, xScale, yScale)
 		end
 		-- Spell Alert
-		Button.__MSQ_Shape = Skin.Shape
 		if Button:GetObjectType() == "CheckButton" then
 			UpdateSpellAlert(Button)
 		end
@@ -735,8 +790,8 @@ do
 			return
 		end
 		local level = Button:GetFrameLevel()
-		if level < 4 then
-			level = 4
+		if level < 3 then
+			level = 3
 		end
 		Button:SetFrameLevel(level)
 	end
