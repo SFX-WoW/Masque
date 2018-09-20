@@ -13,7 +13,7 @@ local _, Core = ...
 Core:AddSkin("Classic", {
 	Author = "StormFX, Maul, Blizzard Entertainment",
 	Version = Core.Version,
-	Masque_Version = 70200,
+	Masque_Version = 80100,
 	Shape = "Square",
 	Backdrop = {
 		Width = 32,
