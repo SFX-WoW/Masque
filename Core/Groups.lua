@@ -228,11 +228,13 @@ do
 			ReSkin = function(self)
 				if not self.db.Disabled then
 					local db = self.db
-					for Button in pairs(self.Buttons) do
-						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
-					end
-					if self.Addon then
-						FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+					if (next(self.Buttons)) then
+						for Button, Data in pairs(self.Buttons) do
+							SkinButton(Button, Data, db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
+						end
+						if self.Addon then
+							FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+						end
 					end
 				end
 			end,

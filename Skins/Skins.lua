@@ -68,6 +68,15 @@ function Core:AddSkin(SkinID, SkinData)
 	end
 	Skins[SkinID] = SkinData
 	SkinList[SkinID] = SkinID
+
+	local db = self.db
+	if not (db and db.profile and db.profile.Groups) then return end
+
+	for group, data in next, db.profile.Groups do
+		if SkinID == data.SkinID then
+			self:Group(group):ReSkin()
+		end
+	end
 end
 
 ----------------------------------------
