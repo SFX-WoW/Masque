@@ -367,14 +367,14 @@ do
 						self.db.Disabled = true
 					end
 				end
-				if self.db.Disabled then
-					for Button in pairs(self.Buttons) do
-						SkinButton(Button, self.Buttons[Button], "Classic")
-					end
-				else
-					self:ReSkin()
-				end
 				if not Limit then
+					if self.db.Disabled then
+						for Button in pairs(self.Buttons) do
+							SkinButton(Button, self.Buttons[Button], "Classic")
+						end
+					else
+						self:ReSkin()
+					end
 					local Subs = self.SubList
 					if Subs then
 						for Sub in pairs(Subs) do
