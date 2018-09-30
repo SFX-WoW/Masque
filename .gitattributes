@@ -5,7 +5,6 @@
 .gitignore export-ignore
 
 # Curse
-.docmeta export-ignore
 .pkgmeta export-ignore
 
 # Docs
