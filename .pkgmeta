@@ -16,7 +16,6 @@ manual-changelog:
 ignore:
   - .gitattributes
   - .gitignore
-  - .docmeta
   - .docs\
 
 tools-used:
