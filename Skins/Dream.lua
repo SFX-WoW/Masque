@@ -35,7 +35,7 @@ Core:AddSkin("Dream", {
 		Width = 30,
 		Height = 30,
 	},
-	ChargegCooldown = {
+	ChargeCooldown = {
 		Width = 30,
 		Height = 30,
 	},
