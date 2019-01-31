@@ -166,11 +166,14 @@ do
 					end
 					return
 				end
-				if Group[Button] == self then
-					return
-				end
-				if Group[Button] then
-					Group[Button]:RemoveButton(Button, true)
+				local Parent = Group[Button]
+				if Parent then
+					if Parent == self then
+						return
+					else
+						ButtonData = ButtonData or Parent.Buttons[Button]
+						Parent.Buttons[Button] = nil
+					end
 				end
 				Group[Button] = self
 				if type(ButtonData) ~= "table" then
