@@ -55,7 +55,7 @@ function Core:LoadOptions()
 			return Core.db.profile.Debug
 		end,
 		set = function()
-			Core:Debug()
+			Core:ToggleDebug()
 		end,
 		order = 4,
 	}

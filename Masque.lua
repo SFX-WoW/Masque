@@ -52,6 +52,7 @@ do
 end
 
 local L = Core.Locale
+local LDBI = LibStub("LibDBIcon-1.0", true)
 
 ----------------------------------------
 -- Basic Options Table
@@ -109,7 +110,7 @@ do
 		SLASH_MASQUE2 = "/masque"
 		SlashCmdList["MASQUE"] = function(Cmd, ...)
 			if Cmd == "debug" then
-				Core:Debug()
+				Core:ToggleDebug()
 			else
 				Core:ShowOptions()
 			end
@@ -118,7 +119,6 @@ do
 
 	local ACR = LibStub("AceConfigRegistry-3.0")
 	local LDB = LibStub("LibDataBroker-1.1", true)
-	local LDBI = LibStub("LibDBIcon-1.0", true)
 
 	-- PLAYER_LOGIN Event
 	function Masque:OnEnable()
@@ -182,21 +182,27 @@ end
 
 do
 	-- Toggles debug mode.
-	function Core:Debug()
+	function Core:ToggleDebug()
 		local db = self.db.profile
+		db.Debug = not db.Debug
+		Core.Debug = db.Debug
 		if db.Debug then
-			db.Debug = false
 			print("|cffffff99"..L["Masque debug mode disabled."].."|r")
 		else
-			db.Debug = true
 			print("|cffffff99"..L["Masque debug mode enabled."].."|r")
 		end
 	end
 
 	-- Updates on profile activity.
 	function Core:Update()
+		-- Debug
+		Core.Debug = self.db.profile.Debug
+
+		-- Skin Settings
 		local Global = Core:Group()
 		Global:Update()
+
+		-- LDB Icon
 		if LDBI then
 			LDBI:Refresh(MASQUE, Core.db.profile.LDB)
 		end
