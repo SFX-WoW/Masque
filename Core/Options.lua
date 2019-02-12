@@ -79,14 +79,6 @@ function Core:LoadOptions()
 		self:UpdateOptions(Addon)
 	end
 	self.OptionsPanel.Addons = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["Addons"], MASQUE, "Addons")
-	self.Options.args.Profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-	self.Options.args.Profiles.order = -1
-	self.OptionsPanel.Profiles = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["Profiles"], MASQUE, "Profiles")
-	local LDS = LibStub("LibDualSpec-1.0", true)
-	if LDS then
-		LDS:EnhanceDatabase(self.db, MASQUE)
-		LDS:EnhanceOptions(self.Options.args.Profiles, self.db)
-	end
 end
 
 ----------------------------------------
