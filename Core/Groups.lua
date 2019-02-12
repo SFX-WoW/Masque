@@ -10,7 +10,7 @@
 local MASQUE, Core = ...
 
 -- Lua Functions
-local error, pairs, setmetatable, type, unpack = error, pairs, setmetatable, type, unpack
+local error, pairs, setmetatable, type = error, pairs, setmetatable, type
 
 -- Internal Methods
 local Skins, SkinList = Core.Skins, Core.SkinList
@@ -346,31 +346,47 @@ do
 				end
 			end,
 
-			-- Updates the group on profile activity, etc.
-			Update = function(self, Limit)
-				self.db = Core.db.profile.Groups[self.ID]
+			-- Updates the group on profile activity.
+			Update = function(self, IsNew)
+				local db = Core.db.profile.Groups[self.ID]
+
+				-- Only update on profile change or group creation.
+				if db == self.db then return end
+				self.db = db
+
+				-- Inheritance
 				if self.Parent then
-					local db = self.Parent.db
-					if self.db.Inherit and self.db.SkinID ~= db.SkinID then
-						self.db.SkinID = db.SkinID
-						self.db.Gloss = db.Gloss
-						self.db.Backdrop = db.Backdrop
-						for Layer in pairs(self.db.Colors) do
-							self.db.Colors[Layer] = nil
-						end
+					local p_db = self.Parent.db
+
+					-- Inherit the parent's settings on a new db.
+					if db.Inherit and (db.SkinID ~= p_db.SkinID) then
+						db.SkinID = p_db.SkinID
+						db.Gloss = p_db.Gloss
+						db.Backdrop = p_db.Backdrop
+
+						-- Remove any colors.
 						for Layer in pairs(db.Colors) do
-							if type(db.Colors[Layer]) == "table" then
-								local r, g, b, a = unpack(db.Colors[Layer])
-								self.db.Colors[Layer] = {r, g, b, a}
+							db.Colors[Layer] = nil
+						end
+
+						-- Duplicate the parent's colors.
+						for Layer in pairs(p_db.Colors) do
+							local c = p_db.Colors[Layer]
+							if type(c) == "table" then
+								db.Colors[Layer] = {c[1], c[2], c[3], c[4]}
 							end
 						end
-						self.db.Inherit = false
+
+						db.Inherit = false
 					end
-					if db.Disabled then
-						self.db.Disabled = true
+
+					-- Update the disabled state.
+					if p_db.Disabled then
+						db.Disabled = true
 					end
 				end
-				if not Limit then
+
+				if not IsNew then
 					if self.db.Disabled then
 						for Button in pairs(self.Buttons) do
 							SkinButton(Button, self.Buttons[Button], "Classic")
