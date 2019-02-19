@@ -189,7 +189,7 @@ do
 					inline = true,
 					disabled = GetState,
 					order = 5,
-					args = { 
+					args = {
 						Color = {
 							type = "color",
 							name = L["Color"],
@@ -405,8 +405,8 @@ do
 	function Core.UpdateSkinOptions(obj, Value)
 		if not Core.OptionsLoaded then return end
 
-		local ID, Addon, Group = obj.ID, obj.Addon, Obj.Group
-		local args = self.Options.args.Skins.args
+		local ID, Addon, Group = obj.ID, obj.Addon, obj.Group
+		local args = Core.Options.args.Skins.args
 
 		if Group then
 			args = args[Addon].args
