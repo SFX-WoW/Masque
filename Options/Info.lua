@@ -263,6 +263,6 @@ do
 		else
 			self.Options.args.Core.args.SkinInfo = nil
 		end
-		LibStub("AceConfigRegistry-3.0")NotifyChange(MASQUE)
+		LibStub("AceConfigRegistry-3.0"):NotifyChange(MASQUE)
 	end
 end
