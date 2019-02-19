@@ -95,7 +95,7 @@ do
 	-- Gets the state of a layer.
 	local function GetState(info)
 		local db, Layer = info.arg.db, info[#info]
-		local Skin = Skins[db.SkinID] or Skins["Classic"]
+		local Skin = Skins[db.SkinID] or "Classic"
 		if Layer == "Color" then
 			Layer = info[#info-1]
 		end
@@ -119,27 +119,41 @@ do
 	-- Creates a skin options group for an add-on or add-on group.
 	function GetOptions(obj, Order)
 		local Addon, Group = obj.Addon, obj.Group
-		local Name, Info
+		local Name, Title, Info
+
 		if Group then
+			local Text = Addon..": "..Group
 			Name = Group
-			Info = (L["Adjust the skin of all buttons registered to %s: %s."]):format(Addon, Group)
+			Title = "|cffffcc00"..Text.."|r\n"
+			Info = L["This section will allow you to adjust the skin settings of all buttons registered to %s."]
+			Info = Info:format(Text)
 		elseif Addon then
 			Name = Addon
-			Info = (L["Adjust the skin of all buttons registered to %s. This will overwrite any per-group settings."]):format(Addon)
+			Title = "|cffffcc00"..Addon.."|r\n"
+			Info = L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."]
+			Info = Info:format(Addon)
 		else
 			Name = L["Global"]
-			Info = L["Adjust the skin of all registered buttons. This will overwrite any per-add-on settings."]
+			Title = "|cffffcc00"..L["Global Settings"].."|r\n"
+			Info = L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."]
 		end
+
 		return {
 			type = "group",
 			name = Name,
 			order = Order,
 			args = {
+				Title = {
+					type = "description",
+					name = Title,
+					fontSize = "medium",
+					order = 0,
+				},
 				Info = {
 					type = "description",
 					name = Info.."\n",
 					fontSize = "medium",
-					order = 0,
+					order = 1,
 				},
 				Disable = {
 					type = "toggle",
@@ -149,7 +163,7 @@ do
 					set = SetGroupState,
 					arg = obj,
 					disabled = GetParentState,
-					order = 1,
+					order = 2,
 				},
 				SkinID = {
 					type = "select",
@@ -162,20 +176,20 @@ do
 					width = "full",
 					values = SkinList,
 					disabled = GetGroupState,
-					order = 2,
+					order = 3,
 				},
 				Spacer = {
 					type = "description",
 					name = " ",
-					order = 3,
+					order = 4,
 				},
 				Gloss = {
 					type = "group",
 					name = L["Gloss Settings"],
 					inline = true,
 					disabled = GetState,
-					order = 4,
-					args = {
+					order = 5,
+					args = { 
 						Color = {
 							type = "color",
 							name = L["Color"],
@@ -204,7 +218,7 @@ do
 					type = "group",
 					name = L["Backdrop Settings"],
 					inline = true,
-					order = 5,
+					order = 6,
 					args = {
 						Backdrop = {
 							type = "toggle",
@@ -236,7 +250,7 @@ do
 					set = SetColor,
 					inline = true,
 					disabled = GetState,
-					order = 6,
+					order = 7,
 					args = {
 						Normal = {
 							type = "color",
@@ -336,11 +350,18 @@ do
 			name = L["Skin Settings"],
 			order = 1,
 			args = {
+				Title = {
+					type = "description",
+					name = "|cffffcc00"..MASQUE.." - "..L["Skin Settings"].."|r\n",
+					order = 0,
+					fontSize = "medium",
+					hidden = Core.GetStandAlone,
+				},
 				Info = {
 					type = "description",
 					name = L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."].."\n",
 					fontSize = "medium",
-					order = 0,
+					order = 1,
 				},
 			},
 		}
@@ -349,7 +370,7 @@ do
 
 		-- Global
 		local Global = Core.GetGroup(MASQUE)
-		args.Global = GetOptions(Global, 1)
+		args.Global = GetOptions(Global, 2)
 
 		-- Add-Ons
 		local Addons = Global.SubList
@@ -381,13 +402,8 @@ do
 	local LIB_ACR = LibStub("AceConfigRegistry-3.0")
 
 	-- Updates the skin options for the group based on the value passed.
-	-- * A nil value creates the group.
-	-- * A true value deletes the group.
-	-- * A string value renames the group.
 	function Core.UpdateSkinOptions(obj, Value)
-		if not Core.OptionsLoaded then
-			return
-		end
+		if not Core.OptionsLoaded then return end
 
 		local ID, Addon, Group = obj.ID, obj.Addon, Obj.Group
 		local args = self.Options.args.Skins.args
@@ -396,12 +412,17 @@ do
 			args = args[Addon].args
 		end
 
-		if Group and type(Value) == "string" then
+		-- Create
+		if not Value and not args[ID] then
+			args[ID] = GetOptions(obj)
+		-- Rename
+		elseif type(Value) == "string" and Group then
 			args[ID].name = Value
+		-- Delete
 		elseif Value == true then
 			args[ID] = nil
 		else
-			args[ID] = args[ID] or GetOptions(obj)
+			return
 		end
 
 		LIB_ACR:NotifyChange(MASQUE)
