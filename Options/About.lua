@@ -43,7 +43,7 @@ do
 			args = {
 				Label = {
 					type = "description",
-					name = "|cffffcc00"..L["Description"].."|r\n",
+					name = "|cffffcc00"..L["About Masque"].."|r\n",
 					fontSize = "medium",
 					order = 1,
 				},
@@ -67,7 +67,7 @@ do
 							arg  = tostring(Core.Version),
 							order = 1,
 							disabled = true,
-							dialogControl = "SFX-InfoRow",
+							dialogControl = "SFX-Info",
 						},
 						API = {
 							type = "input",
@@ -75,7 +75,7 @@ do
 							arg  = tostring(Core.API_VERSION),
 							order = 2,
 							disabled = true,
-							dialogControl = "SFX-InfoRow",
+							dialogControl = "SFX-Info",
 						},
 						SPC0 = {
 							type = "description",
@@ -107,7 +107,7 @@ do
 					arg  = Authors[i],
 					order = Order,
 					disabled = true,
-					dialogControl = "SFX-InfoRow",
+					dialogControl = "SFX-Info",
 				}
 				Order = Order + 1
 			end
@@ -130,7 +130,7 @@ do
 					name = Name,
 					arg  = Websites[i],
 					order = Order,
-					dialogControl = "SFX-InfoRow",
+					dialogControl = "SFX-Info-URL",
 				}
 				Order = Order + 1
 			end
