@@ -10,9 +10,9 @@
 
 ]]
 
--- GLOBALS:
+-- GLOBALS: LibStub
 
-local _, Core = ...
+local MASQUE, Core = ...
 
 ----------------------------------------
 -- Lua
@@ -32,32 +32,40 @@ local GetInfoGroup
 ---
 
 do
-	-- Versions
-	local API_VERSION = Core.API_VERSION
-	local OLD_VERSION = Core.OLD_VERSION
-
-	-- Formatted Status Text
-	local UNKNOWN = "|cff777777"..L["Unknown"].."|r"
+	-- Formatted Text
 	local UPDATED = "|cff00ff00"..L["Compatible"].."|r"
 	local COMPATIBLE = "|cffffff00"..L["Compatible"].."|r"
 	local INCOMPATIBLE = "|cffff0000"..L["Incompatible"].."|r"
+	local UNKNOWN = "|cff777777"..L["Unknown"].."|r"
 
-	-- Returns the Status text for a skin based on its Masque_Version setting.
+	-- Versions
+	local API = Core.API_VERSION
+	local OLD = Core.OLD_VERSION
+
+	-- Returns the Status text and tooltip for a skin based on its Masque_Version setting.
 	local function GetStatus(Version)
 		if not Version then
-			return UNKNOWN
-		elseif Version < OLD_VERSION then
-			return INCOMPATIBLE
-		elseif Version < API_VERSION then
-			return COMPATIBLE
+			return UNKNOWN, L["The status of this skin is unknown."]
+		elseif Version < OLD then
+			return INCOMPATIBLE, L["This skin is outdated and is incompatible with the current version of Masque."]
+		elseif Version < API then
+			return COMPATIBLE, L["This skin is outdated, but should be compatible with the current version of Masque."]
 		else
-			return UPDATED
+			return UPDATED, L["This skin is compatible with the current version of Masque."]
 		end
 	end
 
 	----------------------------------------
 	-- Options Builder
 	---
+
+	-- Reusable Label
+	local LABEL = {
+		type = "description",
+		name = "|cffffcc00"..L["Description"].."|r\n",
+		order = 1,
+		fontSize = "medium",
+	}
 
 	-- Creates a Skin Info options group.
 	function GetInfoGroup(Skin, Group)
@@ -67,7 +75,7 @@ do
 		local Version = (Skin.Version and tostring(Skin.Version)) or UNKNOWN
 		local Authors = Skin.Authors or Skin.Author or UNKNOWN
 		local Websites = Skin.Websites or Skin.Website
-		local Status = GetStatus(Skin.Masque_Version)
+		local Status, Tooltip = GetStatus(Skin.Masque_Version)
 
 		-- Options Group
 		local Info = {
@@ -75,12 +83,7 @@ do
 			name = Title,
 			order = Order,
 			args = {
-				Label = {
-					type = "description",
-					name = "|cffffcc00"..L["Description"].."|r\n",
-					order = 1,
-					fontSize = "medium",
-				},
+				Label = LABEL,
 				Text = {
 					type = "description",
 					name = Description.."\n",
@@ -99,7 +102,7 @@ do
 							arg = Version.."\n",
 							order = 1,
 							disabled = true,
-							dialogControl = "SFX-InfoRow",
+							dialogControl = "SFX-Info",
 						},
 					},
 				},
@@ -122,7 +125,7 @@ do
 						arg  = Authors[i],
 						order = Order,
 						disabled = true,
-						dialogControl = "SFX-InfoRow",
+						dialogControl = "SFX-Info",
 					}
 					Order = Order + 1
 				end
@@ -140,7 +143,7 @@ do
 				arg  = Authors,
 				order = Order,
 				disabled = true,
-				dialogControl = "SFX-InfoRow",
+				dialogControl = "SFX-Info",
 			}
 			Order = Order + 1
 			args["SPC"..Order] = {
@@ -163,7 +166,7 @@ do
 						name = Name,
 						arg  = Websites[i],
 						order = Order,
-						dialogControl = "SFX-InfoRow",
+						dialogControl = "SFX-Info-URL",
 					}
 					Order = Order + 1
 				end
@@ -180,7 +183,7 @@ do
 				name = L["Website"],
 				arg  = Websites,
 				order = Order,
-				dialogControl = "SFX-InfoRow",
+				dialogControl = "SFX-Info",
 			}
 			Order = Order + 1
 			args["SPC"..Order] = {
@@ -195,10 +198,10 @@ do
 		args.Status = {
 			type = "input",
 			name = L["Status"],
+			desc = Tooltip,
 			arg = Status,
 			order = Order,
-			disabled = true,
-			dialogControl = "SFX-InfoRow",
+			dialogControl = "SFX-Info",
 		}
 
 		return Info
@@ -211,10 +214,18 @@ end
 
 do
 	local Setup = Core.Setup
+	local LIB_ACR = LibStub("AceConfigRegistry-3.0")
 
 	-- Creates/Removes the 'Installed Skins' options group and panel.
 	function Setup.Info(self)
-		if self.db.profile.SkinInfo then
+		local cArgs = self.Options.args.Core.args
+
+		-- Disabled
+		if not self.db.profile.SkinInfo then
+			cArgs.SkinInfo = nil
+
+		-- Enabled
+		elseif not cArgs.SkinInfo then
 			local TOOLTIP = "|cffffffff"..L["Click for details."].."|r"
 
 			-- Root Options Group
@@ -228,9 +239,15 @@ do
 				args = {
 					Label = {
 						type = "description",
-						name = "Skins page description",
+						name = "|cffffcc00"..L["Installed Skins"].."|r\n",
 						fontSize = "medium",
 						order = 0,
+					},
+					Text = {
+						type = "description",
+						name = L["This section provides information on any skins you have installed."].."\n",
+						fontSize = "medium",
+						order = 2,
 					},
 				},
 			}
@@ -238,7 +255,7 @@ do
 			local Skins = Core.Skins
 			local args = Options.args
 
-			-- Create the options groups.
+			-- Create the info groups.
 			for SkinID, Skin in pairs(Skins) do
 				local Group = Skin.Group
 				if Group then
@@ -259,10 +276,11 @@ do
 			end
 
 			-- Core Options Group
-			self.Options.args.Core.args.SkinInfo = Options
+			cArgs.SkinInfo = Options
 		else
-			self.Options.args.Core.args.SkinInfo = nil
+			return
 		end
-		LibStub("AceConfigRegistry-3.0"):NotifyChange(MASQUE)
+
+		LIB_ACR:NotifyChange(MASQUE)
 	end
 end
