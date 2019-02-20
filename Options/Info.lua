@@ -47,11 +47,11 @@ do
 		if not Version then
 			return UNKNOWN, L["The status of this skin is unknown."]
 		elseif Version < OLD then
-			return INCOMPATIBLE, L["This skin is outdated and is incompatible with the current version of Masque."]
+			return INCOMPATIBLE, L["This skin is outdated and is incompatible with Masque."]
 		elseif Version < API then
-			return COMPATIBLE, L["This skin is outdated, but should be compatible with the current version of Masque."]
+			return COMPATIBLE, L["This skin is outdated but is still compatible with Masque."]
 		else
-			return UPDATED, L["This skin is compatible with the current version of Masque."]
+			return UPDATED, L["This skin is compatible with Masque."]
 		end
 	end
 
