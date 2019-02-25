@@ -9,37 +9,77 @@
 
 local MASQUE, Core = ...
 
--- Lua Functions
+----------------------------------------
+-- Lua
+---
+
 local error, pairs, setmetatable, type = error, pairs, setmetatable, type
 
--- Internal Methods
+----------------------------------------
+-- Locals
+---
+
+local C_API = Core.API
 local Skins, SkinList = Core.Skins, Core.SkinList
 local GetColor, SkinButton = Core.GetColor, Core.SkinButton
 
----------------------------------------------
--- Callbacks
----------------------------------------------
+----------------------------------------
+-- Callback
+---
 
-local FireCB
+local Callback
 
 do
-	local Callbacks = {}
+	local Cache = {}
 
-	-- Notifies an add-on of skin changes.
-	function FireCB(Addon, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
-		local args = Callbacks[Addon]
-		if args then
-			for arg, callback in pairs(args) do
-				callback(arg and arg, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
+	Callback = {
+
+		-- Notifies an add-on of skin changes.
+		Fire = function(self, Addon, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
+			local args = Cache[Addon]
+			if args then
+				for arg, func in pairs(args) do
+					if arg then
+						func(arg, Group, Skin, SkinID, Backdrop, Colors, Disabled)
+					else
+						func(Group, Skin, SkinID, Backdrop, Colors, Disabled)
+					end
+				end
 			end
-		end
-	end
+		end,
 
-	-- API: Registers an add-on to be notified on skin changes.
-	function Core.API:Register(Addon, Callback, arg)
-		local arg = Callback and arg or false
-		Callbacks[Addon] = Callbacks[Addon] or {}
-		Callbacks[Addon][arg] = Callback
+		-- Registers an add-on to be notified of skin changes.
+		Register = function(self, Addon, func, arg)
+			Cache[Addon] = Cache[Addon] or {}
+			Cache[Addon][arg] = func
+		end,
+	}
+
+	setmetatable(Callback, {__call = Callback.Fire})
+
+	---------------------------------------------
+	-- API
+	---
+
+	-- Wrapper for the 'Register' method.
+	function C_API:Register(Addon, func, arg)
+		if type(Addon) ~= "string" then
+			if Core.db.profile.Debug then
+				error("Bad argument to method 'Register'. 'Addon' must be a string.", 2)
+			end
+			return
+		elseif type(func) ~= "function" then
+			if Core.db.profile.Debug then
+				error("Bad argument to method 'Register'. 'func' must be a function.", 2)
+			end
+			return
+		elseif arg and type(arg) ~= "table" then
+			if Core.db.profile.Debug then
+				error("Bad argument to method 'Register'. 'arg' must be a table or nil.", 2)
+			end
+			return
+		end
+		Callback:Register(Addon, func, arg or false)
 	end
 end
 
@@ -235,7 +275,7 @@ do
 						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
 					end
 					if self.Addon then
-						FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+						Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
 					end
 				end
 			end,
@@ -267,7 +307,7 @@ do
 					SkinButton(Button, self.Buttons[Button], "Classic")
 				end
 				local db = self.db
-				FireCB(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
+				Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
 				local Subs = self.SubList
 				if Subs then
 					for Sub in pairs(Subs) do
