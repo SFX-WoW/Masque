@@ -1,11 +1,16 @@
 --[[
+
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
 	* File...: Core\Groups.lua
 	* Author.: StormFX, JJSheets
 
+	Group API
+
 ]]
+
+-- GLOBALS:
 
 local MASQUE, Core = ...
 
@@ -20,7 +25,7 @@ local error, pairs, setmetatable, type = error, pairs, setmetatable, type
 ---
 
 local C_API = Core.API
-local Skins, SkinList = Core.Skins, Core.SkinList
+local Skins = Core.Skins
 local GetColor, SkinButton = Core.GetColor, Core.SkinButton
 
 ----------------------------------------
@@ -57,7 +62,7 @@ do
 
 	setmetatable(Callback, {__call = Callback.Fire})
 
-	---------------------------------------------
+	----------------------------------------
 	-- API
 	---
 
@@ -83,9 +88,9 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Groups
----------------------------------------------
+---
 
 local Groups = {}
 local GMT
@@ -160,7 +165,7 @@ end
 
 ---------------------------------------------
 -- Group Metatable
----------------------------------------------
+---
 
 do
 	local Group = {}
@@ -331,7 +336,7 @@ do
 			-- Validates and sets a skin option.
 			SetOption = function(self, Option, Value)
 				if Option == "SkinID" then
-					if Value and SkinList[Value] then
+					if Value and Skins[Value] then
 						self.db.SkinID = Value
 					end
 				elseif Option == "Gloss" then
