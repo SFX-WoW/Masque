@@ -273,13 +273,13 @@ do
 			end,
 
 			-- Reskins the group with its current settings.
-			ReSkin = function(self)
+			ReSkin = function(self, Silent)
 				if not self.db.Disabled then
 					local db = self.db
 					for Button in pairs(self.Buttons) do
 						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
 					end
-					if self.Addon then
+					if self.Addon and not Silent then
 						Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
 					end
 				end
