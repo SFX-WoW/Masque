@@ -127,82 +127,102 @@ end
 -- Groups
 ---
 
+-- Group Storage
 local Groups = {}
 local GMT
 
--- Returns a group's ID.
-local function GetID(Addon, Group)
-	local ID = MASQUE
-	if type(Addon) == "string" then
-		ID = Addon
-		if type(Group) == "string" then
-			ID = ID.."_"..Group
+local GetGroup
+
+do
+	-- Creates and returns a simple ID for a group.
+	local function GetID(Addon, Group, StaticID)
+		local ID = MASQUE
+		if Addon then
+			ID = Addon
+			if Group then
+				if StaticID then
+					ID = ID.."_"..StaticID
+				else
+					ID = ID.."_"..Group
+				end
+			end
 		end
-	end
-	return ID
-end
-
--- Creates a new group.
-local function NewGroup(Addon, Group, IsActionBar)
-	local ID = GetID(Addon, Group)
-	local obj = {
-		Addon = Addon,
-		Group = Group,
-		ID = ID,
-		Buttons = {},
-		SubList = (not Group and {}) or nil,
-		IsActionBar = IsActionBar,
-	}
-
-	setmetatable(obj, GMT)
-	Groups[ID] = obj
-
-	local Parent
-	if Group then
-		Parent = Groups[Addon] or NewGroup(Addon)
-		Core:UpdateOptions(Addon)
-	elseif Addon then
-		Parent = Groups[MASQUE] or NewGroup()
-		Core:UpdateOptions()
+		return ID
 	end
 
-	if Parent then
-		Parent.SubList[ID] = obj
-		obj.Parent = Parent
-	end
+	-- Creates and returns a new group.
+	local function NewGroup(ID, Addon, Group, IsActionBar, StaticID)
+		-- Build the group object.
+		local obj = {
+			ID = ID,
+			Addon = Addon,
+			Group = Group,
+			Buttons = {},
+			SubList = (not Group and {}) or nil,
+			StaticID = (Group and StaticID) or nil,
+			IsActionBar = IsActionBar,
+		}
 
-	obj:Update(true)
-	return obj
-end
+		setmetatable(obj, GMT)
+		Groups[ID] = obj
 
--- Returns a button group.
-function Core:Group(Addon, Group, IsActionBar)
-	return Groups[GetID(Addon, Group)] or NewGroup(Addon, Group, IsActionBar)
-end
-
--- Returns a list of registered add-ons.
-function Core:ListAddons()
-	local Group = self:Group()
-	return Group.SubList
-end
-
--- Returns a list of button groups registered to an add-on.
-function Core:ListGroups(Addon)
-	return Groups[Addon].SubList
-end
-
--- API: Validates and returns a button group.
-function Core.API:Group(Addon, Group, IsActionBar)
-	if type(Addon) ~= "string" or Addon == MASQUE then
-		if Core.db.profile.Debug then
-			error("Bad argument to method API 'Group'. 'Addon' must be a string.", 2)
+		local Parent
+		if Group then
+			Parent = GetGroup(Addon)
+		elseif Addon then
+			Parent = GetGroup()
 		end
-		return
+
+		if Parent then
+			Parent.SubList[ID] = obj
+			obj.Parent = Parent
+		end
+
+		obj:Update(true)
+		return obj
 	end
-	return Core:Group(Addon, Group, IsActionBar)
+
+	-- Returns an existing or new group.
+	function GetGroup(Addon, Group, IsActionBar, StaticID)
+		local ID = GetID(Addon, Group, StaticID)
+		return Groups[ID] or NewGroup(ID, Addon, Group, IsActionBar, StaticID)
+	end
+
+	----------------------------------------
+	-- Core
+	---
+
+	Core.GetGroup = GetGroup
+
+	----------------------------------------
+	-- API
+	---
+
+	-- Wrapper for the GetGroup function.
+	function C_API:Group(Addon, Group, IsActionBar, StaticID)
+		-- Validation
+		if type(Addon) ~= "string" or Addon == MASQUE then
+			if Core.db.profile.Debug then
+				error("Bad argument to API method 'Group'. 'Addon' must be a string.", 2)
+			end
+			return
+		elseif Group and type(Group) ~= "string" then
+			if Core.db.profile.Debug then
+				error("Bad argument to API method 'Group'. 'Group' must be a string.", 2)
+			end
+			return
+		elseif StaticID and type(StaticID) ~= "string" then
+			if Core.db.profile.Debug then
+				error("Bad argument to API method 'Group'. 'StaticID' must be a string.", 2)
+			end
+			return
+		end
+
+		return GetGroup(Addon, Group, IsActionBar, StaticID)
+	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Group Metatable
 ---
 
@@ -312,7 +332,8 @@ do
 				if Parent then
 					Parent.SubList[self.ID] = nil
 				end
-				Core:UpdateOptions(self.Addon, self.Group, true)
+
+				Core:UpdateSkinOptions(self, true)
 				Groups[self.ID] = nil
 			end,
 
@@ -343,6 +364,20 @@ do
 			GetColor = function(self, Layer)
 				local Skin = Skins[self.db.SkinID] or Skins["Classic"]
 				return GetColor(self.db.Colors[Layer] or Skin[Layer].Color)
+			end,
+
+			-- Renames the group.
+			SetName = function(self, Name)
+				if not self.StaticID then
+					return
+				elseif type(Name) ~= "string" then
+					if Core.db.profile.Debug then
+						error("Bad argument to group method 'SetName'. 'Name' must be a string.", 2)
+					end
+					return
+				end
+				self.Group = Name
+				Core:UpdateSkinOptions(self, Name)
 			end,
 
 			----------------------------------------
@@ -483,6 +518,9 @@ do
 						Core.Queue(self)
 					end
 
+					-- Update the options.
+					Core:UpdateSkinOptions(self)
+
 				-- Update the skin.
 				else
 					if db.Disabled then
@@ -505,7 +543,7 @@ do
 
 			-- Returns an Ace3 options table for the group.
 			GetOptions = function(self, Order)
-				return Core:GetOptions(self.Addon, self.Group, Order)
+				return Core.GetOptions(self, Order)
 			end,
 		}
 	}
