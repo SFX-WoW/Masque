@@ -97,43 +97,47 @@ local GMT
 
 -- Returns a group's ID.
 local function GetID(Addon, Group)
-	local id = MASQUE
+	local ID = MASQUE
 	if type(Addon) == "string" then
-		id = Addon
+		ID = Addon
 		if type(Group) == "string" then
-			id = id.."_"..Group
+			ID = ID.."_"..Group
 		end
 	end
-	return id
+	return ID
 end
 
 -- Creates a new group.
 local function NewGroup(Addon, Group, IsActionBar)
-	local id = GetID(Addon, Group)
-	local o = {
+	local ID = GetID(Addon, Group)
+	local obj = {
 		Addon = Addon,
 		Group = Group,
-		ID = id,
+		ID = ID,
 		Buttons = {},
 		SubList = (not Group and {}) or nil,
 		IsActionBar = IsActionBar,
 	}
-	setmetatable(o, GMT)
-	Groups[id] = o
-	if Addon then
-		local Parent = Groups[MASQUE] or NewGroup()
-		o.Parent = Parent
-		Parent.SubList[Addon] = Addon
+
+	setmetatable(obj, GMT)
+	Groups[ID] = obj
+
+	local Parent
+	if Group then
+		Parent = Groups[Addon] or NewGroup(Addon)
+		Core:UpdateOptions(Addon)
+	elseif Addon then
+		Parent = Groups[MASQUE] or NewGroup()
 		Core:UpdateOptions()
 	end
-	if Group then
-		local Parent = Groups[Addon] or NewGroup(Addon)
-		o.Parent = Parent
-		Parent.SubList[id] = Group
-		Core:UpdateOptions(Addon)
+
+	if Parent then
+		Parent.SubList[ID] = obj
+		obj.Parent = Parent
 	end
-	o:Update(true)
-	return o
+
+	obj:Update(true)
+	return obj
 end
 
 -- Returns a button group.
@@ -234,8 +238,9 @@ do
 					end
 				end
 				self.Buttons[Button] = ButtonData
-				if not self.db.Disabled then
-					local db = self.db
+
+				local db = self.db
+				if not db.Disabled then
 					SkinButton(Button, ButtonData, db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
 				end
 			end,
@@ -252,21 +257,25 @@ do
 				end
 			end,
 
-			-- Deletes the current group and applies the default skin to its buttons.
+			-- Deletes the group and applies the default skin to its buttons.
 			Delete = function(self)
 				local Subs = self.SubList
 				if Subs then
-					for Sub in pairs(Subs) do
-						Groups[Sub]:Delete()
+					for _, Sub in pairs(Subs) do
+						Sub:Delete()
 					end
 				end
-				for Button in pairs(self.Buttons) do
+
+				local Buttons = self.Buttons
+				for Button in pairs(Buttons) do
 					Group[Button] = nil
-					SkinButton(Button, self.Buttons[Button], "Classic")
-					self.Buttons[Button] = nil
+					SkinButton(Button, Buttons[Button], "Classic")
+					Buttons[Button] = nil
 				end
-				if self.Parent then
-					self.Parent.SubList[self.ID] = nil
+
+				local Parent = self.Parent
+				if Parent then
+					Parent.SubList[self.ID] = nil
 				end
 				Core:UpdateOptions(self.Addon, self.Group, true)
 				Groups[self.ID] = nil
@@ -301,9 +310,9 @@ do
 				return GetColor(self.db.Colors[Layer] or Skin[Layer].Color)
 			end,
 
-			-- [ Private Methods ] --
-
-			-- These methods are for internal use only. Don't use them.
+			----------------------------------------
+			-- Internal Methods
+			---
 
 			-- Disables the group.
 			Disable = function(self)
@@ -315,8 +324,8 @@ do
 				Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
 				local Subs = self.SubList
 				if Subs then
-					for Sub in pairs(Subs) do
-						Groups[Sub]:Disable()
+					for _, Sub in pairs(Subs) do
+						Sub:Disable()
 					end
 				end
 			end,
@@ -325,10 +334,11 @@ do
 			Enable = function(self)
 				self.db.Disabled = false
 				self:ReSkin()
+
 				local Subs = self.SubList
 				if Subs then
-					for Sub in pairs(Subs) do
-						Groups[Sub]:Enable()
+					for _, Sub in pairs(Subs) do
+						Sub:Enable()
 					end
 				end
 			end,
@@ -352,8 +362,8 @@ do
 				self:ReSkin()
 				local Subs = self.SubList
 				if Subs then
-					for Sub in pairs(Subs) do
-						Groups[Sub]:SetOption(Option, Value)
+					for _, Sub in pairs(Subs) do
+						Sub:SetOption(Option, Value)
 					end
 				end
 			end,
@@ -369,8 +379,8 @@ do
 				self:ReSkin()
 				local Subs = self.SubList
 				if Subs then
-					for Sub in pairs(Subs) do
-						Groups[Sub]:SetColor(Layer, r, g, b, a)
+					for _, Sub in pairs(Subs) do
+						Sub:SetColor(Layer, r, g, b, a)
 					end
 				end
 			end,
@@ -385,8 +395,8 @@ do
 				self:ReSkin()
 				local Subs = self.SubList
 				if Subs then
-					for Sub in pairs(Subs) do
-						Groups[Sub]:Reset()
+					for _, Sub in pairs(Subs) do
+						Sub:Reset()
 					end
 				end
 			end,
@@ -441,8 +451,8 @@ do
 					end
 					local Subs = self.SubList
 					if Subs then
-						for Sub in pairs(Subs) do
-							Groups[Sub]:Update()
+						for _, Sub in pairs(Subs) do
+							Sub:Update()
 						end
 					end
 				end
