@@ -504,8 +504,8 @@ do
 			end,
 
 			-- Returns an Ace3 options table for the group.
-			GetOptions = function(self)
-				return Core:GetOptions(self.Addon, self.Group)
+			GetOptions = function(self, Order)
+				return Core:GetOptions(self.Addon, self.Group, Order)
 			end,
 		}
 	}
