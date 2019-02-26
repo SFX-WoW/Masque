@@ -68,22 +68,24 @@ do
 
 	-- Wrapper for the 'Register' method.
 	function C_API:Register(Addon, func, arg)
+		-- Validation
 		if type(Addon) ~= "string" then
 			if Core.db.profile.Debug then
-				error("Bad argument to method 'Register'. 'Addon' must be a string.", 2)
+				error("Bad argument to API method 'Register'. 'Addon' must be a string.", 2)
 			end
 			return
 		elseif type(func) ~= "function" then
 			if Core.db.profile.Debug then
-				error("Bad argument to method 'Register'. 'func' must be a function.", 2)
+				error("Bad argument to API method 'Register'. 'func' must be a function.", 2)
 			end
 			return
 		elseif arg and type(arg) ~= "table" then
 			if Core.db.profile.Debug then
-				error("Bad argument to method 'Register'. 'arg' must be a table or nil.", 2)
+				error("Bad argument to API method 'Register'. 'arg' must be a table or nil.", 2)
 			end
 			return
 		end
+
 		Callback:Register(Addon, func, arg or false)
 	end
 end
@@ -160,7 +162,7 @@ end
 function Core.API:Group(Addon, Group, IsActionBar)
 	if type(Addon) ~= "string" or Addon == MASQUE then
 		if Core.db.profile.Debug then
-			error("Bad argument to method 'Group'. 'Addon' must be a string.", 2)
+			error("Bad argument to method API 'Group'. 'Addon' must be a string.", 2)
 		end
 		return
 	end
@@ -211,7 +213,7 @@ do
 			AddButton = function(self, Button, ButtonData)
 				if type(Button) ~= "table" then
 					if Core.db.profile.Debug then
-						error("Bad argument to method 'AddButton'. 'Button' must be a button object.", 2)
+						error("Bad argument to group method 'AddButton'. 'Button' must be a button object.", 2)
 					end
 					return
 				end
