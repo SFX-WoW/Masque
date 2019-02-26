@@ -39,15 +39,16 @@ do
 		local Options = {
 			type = "group",
 			name = L["About Masque"],
+			desc = "|cffffffff"..L["Select to view."].."|r",
 			order = 3,
 			args = {
-				Label = {
+				Title = {
 					type = "description",
 					name = "|cffffcc00"..L["About Masque"].."|r\n",
 					fontSize = "medium",
 					order = 1,
 				},
-				Text = {
+				Desc = {
 					type = "description",
 					name = Desc,
 					fontSize = "medium",
@@ -58,13 +59,13 @@ do
 					name = "",
 					order = 3,
 					inline = true,
-					get  = Core.GetArg,
-					set  = Core.NoOp,
+					get  = self.GetArg,
+					set  = self.NoOp,
 					args = {
 						Version = {
 							type = "input",
 							name = L["Version"],
-							arg  = tostring(Core.Version),
+							arg  = tostring(self.Version),
 							order = 1,
 							disabled = true,
 							dialogControl = "SFX-Info",
@@ -72,7 +73,7 @@ do
 						API = {
 							type = "input",
 							name = L["API"],
-							arg  = tostring(Core.API_VERSION),
+							arg  = tostring(self.API_VERSION),
 							order = 2,
 							disabled = true,
 							dialogControl = "SFX-Info",
