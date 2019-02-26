@@ -119,28 +119,29 @@ do
 	-- Creates a skin options group for an add-on or add-on group.
 	function GetOptions(obj, Order)
 		local Addon, Group = obj.Addon, obj.Group
-		local Name, Title, Info
+		local Name, Title, Desc
 
 		if Group then
 			local Text = Addon..": "..Group
 			Name = Group
 			Title = "|cffffcc00"..Text.."|r\n"
-			Info = L["This section will allow you to adjust the skin settings of all buttons registered to %s."]
-			Info = Info:format(Text)
+			Desc = L["This section will allow you to adjust the skin settings of all buttons registered to %s."]
+			Desc = Desc:format(Text)
 		elseif Addon then
 			Name = Addon
 			Title = "|cffffcc00"..Addon.."|r\n"
-			Info = L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."]
-			Info = Info:format(Addon)
+			Desc = L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."]
+			Desc = Desc:format(Addon)
 		else
 			Name = L["Global"]
 			Title = "|cffffcc00"..L["Global Settings"].."|r\n"
-			Info = L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."]
+			Desc = L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."]
 		end
 
 		return {
 			type = "group",
 			name = Name,
+			desc = "|cffffffff"..L["Select to view."].."|r",
 			order = Order,
 			args = {
 				Title = {
@@ -149,9 +150,9 @@ do
 					fontSize = "medium",
 					order = 0,
 				},
-				Info = {
+				Desc = {
 					type = "description",
-					name = Info.."\n",
+					name = Desc.."\n",
 					fontSize = "medium",
 					order = 1,
 				},
@@ -355,9 +356,9 @@ do
 					name = "|cffffcc00"..MASQUE.." - "..L["Skin Settings"].."|r\n",
 					order = 0,
 					fontSize = "medium",
-					hidden = Core.GetStandAlone,
+					hidden = self.GetStandAlone,
 				},
-				Info = {
+				Desc = {
 					type = "description",
 					name = L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."].."\n",
 					fontSize = "medium",
@@ -369,7 +370,7 @@ do
 		local args = Options.args
 
 		-- Global
-		local Global = Core.GetGroup(MASQUE)
+		local Global = self.GetGroup()
 		args.Global = GetOptions(Global, 2)
 
 		-- Add-Ons
@@ -401,26 +402,23 @@ end
 do
 	local LIB_ACR = LibStub("AceConfigRegistry-3.0")
 
-	-- Updates the skin options for the group based on the value passed.
-	function Core.UpdateSkinOptions(obj, Value)
-		if not Core.OptionsLoaded then return end
+	-- Updates the skin options for the group.
+	function Core:UpdateSkinOptions(obj, Delete)
+		if not self.OptionsLoaded then return end
 
 		local ID, Addon, Group = obj.ID, obj.Addon, obj.Group
-		local args = Core.Options.args.Skins.args
+		local args = self.Options.args.Skins.args
 
 		if Group then
 			args = args[Addon].args
 		end
 
-		-- Create
-		if not Value and not args[ID] then
-			args[ID] = GetOptions(obj)
-		-- Rename
-		elseif type(Value) == "string" and Group then
-			args[ID].name = Value
-		-- Delete
-		elseif Value == true then
+		if Delete then
 			args[ID] = nil
+		elseif not args[ID] then
+			args[ID] = GetOptions(obj)
+		elseif Group and (args[ID].name ~= Group) then
+			args[ID].name = Group
 		else
 			return
 		end
