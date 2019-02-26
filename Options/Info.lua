@@ -59,19 +59,20 @@ do
 	-- Options Builder
 	---
 
-	-- Reusable Label
-	local LABEL = {
+	-- Reusable Title
+	local TITLE = {
 		type = "description",
 		name = "|cffffcc00"..L["Description"].."|r\n",
 		order = 1,
 		fontSize = "medium",
 	}
 
-	-- Creates a Skin Info options group.
+	-- Creates a skin info options group.
 	function GetInfoGroup(Skin, Group)
-		local Title = (Group and Skin.Title) or Skin.SkinID
+		local Name = (Group and Skin.Title) or Skin.SkinID
 		local Order = (Group and Skin.Order) or nil
 		local Description = Skin.Description or L["No description available."]
+
 		local Version = (Skin.Version and tostring(Skin.Version)) or UNKNOWN
 		local Authors = Skin.Authors or Skin.Author or UNKNOWN
 		local Websites = Skin.Websites or Skin.Website
@@ -80,11 +81,11 @@ do
 		-- Options Group
 		local Info = {
 			type = "group",
-			name = Title,
+			name = Name,
 			order = Order,
 			args = {
-				Label = LABEL,
-				Text = {
+				Title = TITLE,
+				Desc = {
 					type = "description",
 					name = Description.."\n",
 					order = 2,
@@ -110,7 +111,7 @@ do
 		}
 
 		local args = Info.args.Info.args
-		Order = 3
+		Order = 2
 
 		-- Populate the Author field(s).
 		if type(Authors) == "table" then
@@ -226,33 +227,33 @@ do
 
 		-- Enabled
 		elseif not cArgs.SkinInfo then
-			local TOOLTIP = "|cffffffff"..L["Click for details."].."|r"
+			local Tooltip = "|cffffffff"..L["Select to view."].."|r"
 
 			-- Root Options Group
 			local Options = {
 				type = "group",
 				name = L["Installed Skins"],
-				desc = TOOLTIP,
-				get = Core.GetArg,
-				set = Core.NoOp,
+				desc = Tooltip,
+				get = self.GetArg,
+				set = self.NoOp,
 				order = 4,
 				args = {
-					Label = {
+					Title = {
 						type = "description",
 						name = "|cffffcc00"..L["Installed Skins"].."|r\n",
 						fontSize = "medium",
 						order = 0,
 					},
-					Text = {
+					Desc = {
 						type = "description",
 						name = L["This section provides information on any skins you have installed."].."\n",
 						fontSize = "medium",
-						order = 2,
+						order = 1,
 					},
 				},
 			}
 
-			local Skins = Core.Skins
+			local Skins = self.Skins
 			local args = Options.args
 
 			-- Create the info groups.
@@ -263,7 +264,7 @@ do
 						args[Group] = {
 							type = "group",
 							name = Group,
-							desc = TOOLTIP,
+							desc = Tooltip,
 							args = {},
 							childGroups = "select",
 						}
@@ -271,7 +272,7 @@ do
 					args[Group].args[SkinID] = GetInfoGroup(Skin, Group)
 				else
 					args[SkinID] = GetInfoGroup(Skin)
-					args[SkinID].desc = TOOLTIP
+					args[SkinID].desc = Tooltip
 				end
 			end
 
