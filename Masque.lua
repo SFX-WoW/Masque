@@ -163,6 +163,10 @@ do
 				Core.LDBI = LDBI
 			end
 		end
+		-- Re-skin queued groups.
+		if Core.Queue then
+			Core.Queue:ReSkin()
+		end
 	end
 
 	-- Wrapper for the DB:CopyProfile method.

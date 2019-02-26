@@ -91,6 +91,39 @@ do
 end
 
 ----------------------------------------
+-- Queue
+---
+
+do
+	-- Self-destructing table to skin groups created prior to PLAYER_LOGIN.
+	Core.Queue = {
+		-- Storage
+		Cache = {},
+
+		-- Adds a group to the queue.
+		Add = function(self, obj)
+			self.Cache[#self.Cache+1] = obj
+			obj.Queued = true
+		end,
+
+		-- Re-Skins all queued groups.
+		ReSkin = function(self)
+			for i = 1, #self.Cache do
+				local obj = self.Cache[i]
+				obj:ReSkin(true)
+				obj.Queued = nil
+			end
+
+			-- GC
+			self.Cache = nil
+			Core.Queue = nil
+		end,
+	}
+
+	setmetatable(Core.Queue, {__call = Core.Queue.Add})
+end
+
+----------------------------------------
 -- Groups
 ---
 
@@ -242,7 +275,7 @@ do
 				self.Buttons[Button] = ButtonData
 
 				local db = self.db
-				if not db.Disabled then
+				if not db.Disabled and not self.Queued then
 					SkinButton(Button, ButtonData, db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
 				end
 			end,
@@ -443,14 +476,24 @@ do
 					end
 				end
 
-				if not IsNew then
-					if self.db.Disabled then
+				-- New Group
+				if IsNew then
+					-- Queue the group if PLAYER_LOGIN hasn't fired and the skin hasn't loaded.
+					if Core.Queue and not self.Queued and not Skins[db.SkinID] then
+						Core.Queue(self)
+					end
+
+				-- Update the skin.
+				else
+					if db.Disabled then
 						for Button in pairs(self.Buttons) do
 							SkinButton(Button, self.Buttons[Button], "Classic")
 						end
 					else
 						self:ReSkin()
 					end
+
+					-- Update the sub-groups.
 					local Subs = self.SubList
 					if Subs then
 						for _, Sub in pairs(Subs) do
