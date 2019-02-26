@@ -414,7 +414,7 @@ do
 					local p_db = self.Parent.db
 
 					-- Inherit the parent's settings on a new db.
-					if db.Inherit and (db.SkinID ~= p_db.SkinID) then
+					if db.Inherit then
 						db.SkinID = p_db.SkinID
 						db.Gloss = p_db.Gloss
 						db.Backdrop = p_db.Backdrop
