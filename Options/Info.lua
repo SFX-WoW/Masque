@@ -118,11 +118,11 @@ do
 			local Count = #Authors
 			if Count > 0 then
 				for i = 1, Count do
-					local Key = "Author"..i
-					local Name = (i == 1 and L["Authors"]) or ""
-					args[Key] = {
+					local k = "Author"..i
+					local n = (i == 1 and L["Authors"]) or ""
+					args[k] = {
 						type = "input",
-						name = Name,
+						name = n,
 						arg  = Authors[i],
 						order = Order,
 						disabled = true,
@@ -160,11 +160,11 @@ do
 			local Count = #Websites
 			if Count > 0 then
 				for i = 1, Count do
-					local Key = "Website"..i
-					local Name = (i == 1) and L["Websites"] or ""
-					args[Key] = {
+					local k = "Website"..i
+					local n = (i == 1) and L["Websites"] or ""
+					args[k] = {
 						type = "input",
-						name = Name,
+						name = n,
 						arg  = Websites[i],
 						order = Order,
 						dialogControl = "SFX-Info-URL",
