@@ -377,7 +377,7 @@ do
 					return
 				end
 				self.Group = Name
-				Core:UpdateSkinOptions(self, Name)
+				Core:UpdateSkinOptions(self)
 			end,
 
 			----------------------------------------
