@@ -144,7 +144,7 @@ do
 				type  = "launcher",
 				label = MASQUE,
 				icon  = "Interface\\Addons\\Masque\\Textures\\Icon",
-				OnClick = function(self, Button)
+				OnClick = function(Tip, Button)
 					if Button == "LeftButton" or Button == "RightButton" then
 						Core:ShowOptions()
 					end
