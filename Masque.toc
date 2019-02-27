@@ -34,3 +34,6 @@ Skins\Skins.xml
 
 # Core
 Core\Core.xml
+
+# Options
+Options\Options.xml

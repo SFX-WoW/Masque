@@ -2,5 +2,4 @@
 ..\FrameXML\UI.xsd">
 	<Script file="Button.lua"/>
 	<Script file="Groups.lua"/>
-	<Script file="Options.lua"/>
 </Ui>
