@@ -110,7 +110,6 @@ function Core:LoadOptions()
 	self.OptionsLoaded = true
 
 	-- Load the options.
-	local Setup = Core.Setup
 	Setup("About")
 	Setup("Info")
 	Setup("Skins")
