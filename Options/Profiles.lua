@@ -29,11 +29,11 @@ local pairs = pairs
 do
 	local Setup = Core.Setup
 
-	-- Creates the 'Profile Settings' group and panel.
+	-- Creates the 'Profile Settings' group/panel.
 	function Setup.Profiles(self)
 		local L = Core.Locale
 
-		-- Root Options Group
+		-- Options Group
 		local Options = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 		Options.name = L["Profile Settings"]
 		Options.order = -1
