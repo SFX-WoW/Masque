@@ -59,8 +59,8 @@ do
 	-- Options Builder
 	---
 
-	-- Reusable Title
-	local TITLE = {
+	-- Reusable Header
+	local HDR = {
 		type = "description",
 		name = "|cffffcc00"..L["Description"].."|r\n",
 		order = 1,
@@ -69,7 +69,7 @@ do
 
 	-- Creates a skin info options group.
 	function GetInfoGroup(Skin, Group)
-		local Name = (Group and Skin.Title) or Skin.SkinID
+		local Title = (Group and Skin.Title) or Skin.SkinID
 		local Order = (Group and Skin.Order) or nil
 		local Description = Skin.Description or L["No description available."]
 
@@ -81,10 +81,10 @@ do
 		-- Options Group
 		local Info = {
 			type = "group",
-			name = Name,
+			name = Title,
 			order = Order,
 			args = {
-				Title = TITLE,
+				Head = HDR,
 				Desc = {
 					type = "description",
 					name = Description.."\n",
@@ -118,11 +118,11 @@ do
 			local Count = #Authors
 			if Count > 0 then
 				for i = 1, Count do
-					local k = "Author"..i
-					local n = (i == 1 and L["Authors"]) or ""
-					args[k] = {
+					local Key = "Author"..i
+					local Name = (i == 1 and L["Authors"]) or ""
+					args[Key] = {
 						type = "input",
-						name = n,
+						name = Name,
 						arg  = Authors[i],
 						order = Order,
 						disabled = true,
@@ -160,11 +160,11 @@ do
 			local Count = #Websites
 			if Count > 0 then
 				for i = 1, Count do
-					local k = "Website"..i
-					local n = (i == 1) and L["Websites"] or ""
-					args[k] = {
+					local Key = "Website"..i
+					local Name = (i == 1) and L["Websites"] or ""
+					args[Key] = {
 						type = "input",
-						name = n,
+						name = Name,
 						arg  = Websites[i],
 						order = Order,
 						dialogControl = "SFX-Info-URL",
@@ -217,8 +217,10 @@ do
 	local Setup = Core.Setup
 	local LIB_ACR = LibStub("AceConfigRegistry-3.0")
 
-	-- Creates/Removes the 'Installed Skins' options group and panel.
+	-- Creates/Removes the 'Installed Skins' options group/panel.
 	function Setup.Info(self)
+		if not self.OptionsLoaded then return end
+
 		local cArgs = self.Options.args.Core.args
 
 		-- Disabled
@@ -238,7 +240,7 @@ do
 				set = self.NoOp,
 				order = 4,
 				args = {
-					Title = {
+					Head = {
 						type = "description",
 						name = "|cffffcc00"..L["Installed Skins"].."|r\n",
 						fontSize = "medium",
@@ -278,6 +280,8 @@ do
 
 			-- Core Options Group
 			cArgs.SkinInfo = Options
+
+		-- Exit
 		else
 			return
 		end
