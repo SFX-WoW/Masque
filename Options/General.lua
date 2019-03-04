@@ -21,20 +21,20 @@ local MASQUE, Core = ...
 do
 	local Setup = Core.Setup
 
-	-- Creates the 'General Settings' group and panel.
+	-- Creates the 'General Settings' group/panel.
 	function Setup.General(self)
 		local L = self.Locale
 
 		local Reload = "\n|cff0099ff"..L["Requires an interface reload."].."|r"
 		local Tooltip = "|cffffffff"..L["Select to view."].."|r"
 
-		-- Root Options Group
+		-- Options Group
 		local Options = {
 			type = "group",
 			name = L["General Settings"],
 			order = 2,
 			args = {
-				Title = {
+				Head = {
 					type = "description",
 					name = "|cffffcc00"..MASQUE.." - "..L["General Settings"].."|r\n",
 					order = 0,
@@ -53,7 +53,7 @@ do
 					desc = Tooltip,
 					order = 2,
 					args = {
-						Title = {
+						Head = {
 							type = "description",
 							name = "|cffffcc00"..L["Interface Settings"].."|r\n",
 							order = 0,
@@ -97,7 +97,7 @@ do
 					desc = Tooltip,
 					order = 3,
 					args = {
-						Title = {
+						Head = {
 							type = "description",
 							name = "|cffffcc00"..L["Performance Settings"].."|r\n",
 							order = 1,
@@ -129,9 +129,7 @@ do
 							type = "execute",
 							name = L["Reload Interface"],
 							desc = L["Click to load reload the interface."],
-							func = function()
-								ReloadUI()
-							end,
+							func = function() ReloadUI() end,
 							order = -1,
 						},
 					},
@@ -142,7 +140,7 @@ do
 					desc = Tooltip,
 					order = 4,
 					args = {
-						Title = {
+						Head = {
 							type = "description",
 							name = "|cffffcc00"..L["Developer Settings"].."|r\n",
 							order = 0,
