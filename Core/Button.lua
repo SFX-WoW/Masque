@@ -1,9 +1,12 @@
 --[[
+
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
 	* File...: Core\Button.lua
 	* Author.: StormFX, JJSheets
+
+	Button Skinning
 
 ]]
 
@@ -17,9 +20,9 @@ local error, hooksecurefunc, pairs, random, type = error, hooksecurefunc, pairs,
 local Skins = Core.Skins
 local __MTT = {}
 
----------------------------------------------
+----------------------------------------
 -- Utility Functions
----------------------------------------------
+---
 
 local function GetColor(Color, Alpha)
 	if type(Color) == "table" then
@@ -76,9 +79,9 @@ local function Random(v)
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Backdrop Texture Layer
----------------------------------------------
+---
 
 local SkinBackdrop, RemoveBackdrop
 
@@ -134,9 +137,9 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Icon Layer
----------------------------------------------
+---
 
 local function SkinIcon(Button, Region, Skin, xScale, yScale)
 	Region:SetParent(Button.__MSQ_BaseFrame or Button)
@@ -167,9 +170,9 @@ local function SkinIcon(Button, Region, Skin, xScale, yScale)
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Normal Texture Layer
----------------------------------------------
+---
 
 local SkinNormal
 
@@ -270,9 +273,9 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Gloss Texture Layer
----------------------------------------------
+---
 
 local SkinGloss, RemoveGloss
 
@@ -330,9 +333,9 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Border Layer
----------------------------------------------
+---
 
 local SkinBorder
 
@@ -374,9 +377,9 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Texture Layer
----------------------------------------------
+---
 
 -- Draw Layers
 local Layers = {
@@ -420,9 +423,9 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Text Layer
----------------------------------------------
+---
 
 local SkinText
 
@@ -480,30 +483,24 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Cooldown Frame Layer
----------------------------------------------
+---
 
 local SkinCooldown
 
 do
+	local Swipe = {
+		Circle = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Swipe-Circle",
+		Square = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Swipe",
+	}
 	local SwipeColor = {
 		LoC = {0.2, 0, 0, 0.8},
 		Normal = {0, 0, 0, 0.8},
 	}
-	local Edges = {
-		Circle = {
-			LoC = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge-LoC-Circle",
-			Normal = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge-Circle",
-		},
-		Square = {
-			LoC = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge-LoC",
-			Normal = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge",
-		},
-	}
-	local Swipe = {
-		Circle = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Swipe-Circle",
-		Square = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Swipe",
+	local Edge = {
+		LoC = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge-LoC",
+		Normal = "Interface\\AddOns\\Masque\\Textures\\Cooldown\\Edge",
 	}
 
 	-- Hook to counter color/texture changes.
@@ -511,7 +508,7 @@ do
 		if Region.__SwipeHook then return end
 		Region.__SwipeHook = true
 		-- Default Loss-of-control color.
-		-- If an add-on doesn't have it set properly for the LoC event, the color won't change.
+		-- If an add-on doesn't have this set properly for the LoC event, the color won't change.
 		if r == 0.17 and g == 0 and b == 0 then
 			Region:SetSwipeColor(GetColor(SwipeColor.LoC))
 		else
@@ -524,10 +521,8 @@ do
 	local function Hook_SetEdgeTexture(Region, Texture)
 		if Region.__EdgeHook then return end
 		Region.__EdgeHook = true
-		local Button = Region.__MSQ_Parent
-		local Shape = Button.__MSQ_Shape
-		local Edge = Edges[Shape]
-		if Texture == "Interface\\Cooldown\\edge-LoC" then -- Default loss-of-control texture.
+		-- Default loss-of-control texture.
+		if Texture == "Interface\\Cooldown\\edge-LoC" then
 			Region:SetEdgeTexture(Edge.LoC)
 		else
 			Region:SetEdgeTexture(Edge.Normal)
@@ -536,30 +531,23 @@ do
 	end
 
 	-- Skins a Cooldown frame.
-	function SkinCooldown(Button, Region, Skin, Color, xScale, yScale, isSwipe)
+	function SkinCooldown(Button, Region, Skin, Color, xScale, yScale)
 		local Shape = Button.__MSQ_Shape
-		local Edge = Edges[Shape]
-		if isSwipe then
-			Region.__MSQ_Parent = Button
+		if Region:GetDrawSwipe() then
 			Region:SetSwipeTexture(Skin.Texture or Swipe[Shape])
 			Region.__MSQ_Color = Color or Skin.Color or SwipeColor.Normal
 			if not Region.__MSQ_SwipeHook then
 				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
 				Region.__MSQ_SwipeHook = true
 			end
-			Region.__SwipeHook = true
-			Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
-			Region.__SwipeHook = nil
+			Hook_SetSwipeColor(Region)
 			if not Region.__MSQ_EdgeHook then
 				hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
 				Region.__MSQ_EdgeHook = true
 			end
-			Region.__EdgeHook = true
-			Region:SetEdgeTexture(Edge.Normal)
-			Region.__EdgeHook = nil
-		else
-			Region:SetEdgeTexture(Edge.Normal)
 		end
+		Hook_SetEdgeTexture(Region)
+		Region:SetUseCircularEdge(Shape == "Circle")
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
 		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
@@ -584,9 +572,9 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Frame Layer
----------------------------------------------
+---
 
 -- Skins an animation frame.
 local function SkinFrame(Button, Region, Skin, xScale, yScale, Color)
@@ -599,9 +587,9 @@ local function SkinFrame(Button, Region, Skin, xScale, yScale, Color)
 	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
 end
 
----------------------------------------------
+----------------------------------------
 -- Spell Alert
----------------------------------------------
+---
 
 local UpdateSpellAlert
 
@@ -683,9 +671,9 @@ do
 	end
 end
 
----------------------------------------------
+----------------------------------------
 -- Button Skinning Function
----------------------------------------------
+---
 
 do
 	-- Hook to automatically adjust the button's additional frame levels.
@@ -762,7 +750,7 @@ do
 		local Cooldown = ButtonData.Cooldown
 		if Cooldown then
 			Button.__MSQ_Cooldown = Cooldown
-			SkinCooldown(Button, Cooldown, Skin.Cooldown, Colors.Cooldown, xScale, yScale, true)
+			SkinCooldown(Button, Cooldown, Skin.Cooldown, Colors.Cooldown, xScale, yScale)
 		end
 		-- Charge Cooldown
 		local Charge = Button.chargeCooldown
