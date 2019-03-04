@@ -245,6 +245,8 @@ do
 		Duration = "Text",
 		Cooldown = "Frame",
 		Shine = "Frame",
+		IconBorder = "Child",
+		IconOverlay = "Child",
 	}
 
 	-- Gets a button region.
@@ -253,6 +255,8 @@ do
 		if Type == "Special" then
 			local f = Button["Get"..Layer.."Texture"]
 			Region = (f and f(Button)) or false
+		elseif Type == "Child" then
+			Region = Button[Layer] or false
 		else
 			local n = Button:GetName()
 			Region = (n and _G[n..Layer]) or false

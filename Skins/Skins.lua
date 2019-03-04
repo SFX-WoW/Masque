@@ -52,6 +52,8 @@ local Layers = {
 	"Disabled",
 	"Checked",
 	"Border",
+	"IconBorder",
+	"IconOverlay",
 	"Gloss",
 	"AutoCastable",
 	"Highlight",

@@ -389,6 +389,8 @@ local Layers = {
 		Checked = "BORDER",
 		AutoCastable = "OVERLAY",
 		Highlight = "HIGHLIGHT",
+		IconBorder = false,
+		IconOverlay = false,
 }
 
 local SkinTexture
@@ -406,17 +408,19 @@ do
 
 	-- Skins a texture layer.
 	function SkinTexture(Button, Region, Layer, Skin, Color, xScale, yScale)
-		if Skin.Hide then
-			Region:SetTexture("")
-			Region:Hide()
-			return
+		if Layers[Layer] then
+			if Skin.Hide then
+				Region:SetTexture("")
+				Region:Hide()
+				return
+			end
+			local Texture = Skin.Texture or Region:GetTexture()
+			Region:SetTexture(Texture)
+			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+			Region:SetBlendMode(Skin.BlendMode or "BLEND")
+			Region:SetDrawLayer(Layers[Layer], Levels[Layer])
+			Region:SetVertexColor(GetColor(Color or Skin.Color))
 		end
-		local Texture = Skin.Texture or Region:GetTexture()
-		Region:SetTexture(Texture)
-		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-		Region:SetBlendMode(Skin.BlendMode or "BLEND")
-		Region:SetDrawLayer(Layers[Layer], Levels[Layer])
-		Region:SetVertexColor(GetColor(Color or Skin.Color))
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
 		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
