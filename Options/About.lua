@@ -27,7 +27,7 @@ local tostring = tostring
 do
 	local Setup = Core.Setup
 
-	-- Creates the 'About Masque' options group and panel.
+	-- Creates the 'About Masque' options group/panel.
 	function Setup.About(self)
 		local L = self.Locale
 
@@ -35,14 +35,14 @@ do
 			L["You must have an add-on that supports Masque installed to use it."].."\n\n"..
 			L["For more information, please visit one of the sites listed below."].."\n"
 
-		-- Root Options Group
+		-- Options Group
 		local Options = {
 			type = "group",
 			name = L["About Masque"],
 			desc = "|cffffffff"..L["Select to view."].."|r",
 			order = 3,
 			args = {
-				Title = {
+				Head = {
 					type = "description",
 					name = "|cffffcc00"..L["About Masque"].."|r\n",
 					fontSize = "medium",
