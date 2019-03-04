@@ -131,11 +131,11 @@ end
 local Groups = {}
 local GMT
 
-local GetGroup
+local GetID, GetGroup
 
 do
 	-- Creates and returns a simple ID for a group.
-	local function GetID(Addon, Group, StaticID)
+	function GetID(Addon, Group, StaticID)
 		local ID = MASQUE
 		if Addon then
 			ID = Addon
@@ -482,6 +482,24 @@ do
 
 				-- Only update on profile change or group creation.
 				if db == self.db then return end
+
+				-- Update the DB the first time StaticID is used.
+				if self.StaticID and not db.Upgraded then
+					-- Get the old DB.
+					local o_id = GetID(self.Addon, self.Group)
+					local o_db = Core.db.profile.Groups[o_id]
+
+					-- Make sure it's not a new group.
+					if not o_db.Inherit then
+						Core.db.profile.Groups[self.ID] = o_db
+						db = Core.db.profile.Groups[self.ID]
+					end
+
+					-- Remove the old pointer.
+					Core.db.profile.Groups[o_id] = nil
+					db.Upgraded = true
+				end
+
 				self.db = db
 
 				-- Inheritance
