@@ -70,7 +70,7 @@ local Hidden = {
 }
 
 -- Adds data to the skin tables, bypassing the skin validation.
-function Core:AddSkin(SkinID, SkinData)
+function Core:AddSkin(SkinID, SkinData, Default)
 	for i = 1, #Layers do
 		local Layer = Layers[i]
 		if type(SkinData[Layer]) ~= "table" then
@@ -84,6 +84,9 @@ function Core:AddSkin(SkinID, SkinData)
 	SkinData.SkinID = SkinID
 	Skins[SkinID] = SkinData
 	SkinList[SkinID] = SkinID
+	if Default then
+		Core.DEFAULT_SKIN = SkinID
+	end
 end
 
 do
@@ -137,6 +140,11 @@ do
 			setmetatable(SkinData, {__index = Parent})
 		end
 		Core:AddSkin(SkinID, SkinData)
+	end
+
+	-- API method for returning the default skin.
+	function C_API:GetDefaultSkin()
+		return Core.DEFAULT_SKIN
 	end
 
 	-- API method returning a specific skin.
