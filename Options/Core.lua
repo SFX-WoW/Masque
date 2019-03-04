@@ -33,7 +33,7 @@ Core.Setup = setmetatable(Setup, {
 function Setup.Core(self)
 	local L = self.Locale
 
-	-- Root Options Group
+	-- Options Group
 	local Options = {
 		type = "group",
 		name = MASQUE,
@@ -43,7 +43,7 @@ function Setup.Core(self)
 				name = L["About"],
 				order = 0,
 				args = {
-					Title = {
+					Head = {
 						type = "description",
 						name = "|cffffcc00"..MASQUE.." - "..L["About"].."|r\n",
 						order = 0,
@@ -76,9 +76,7 @@ function Setup.Core(self)
 								name = L["Load Options"],
 								desc = L["Click to load Masque's options."],
 								func = function()
-									if not Core.OptionsLoaded then
-										Core:LoadOptions()
-									end
+									if Setup.LoD then Setup("LoD") end
 									-- Force a sub-panel refresh.
 									-- Call the main panel first to prevent an error in AceConfigDialog-3.0.
 									InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
@@ -95,7 +93,7 @@ function Setup.Core(self)
 		},
 	}
 
-	-- Root Options Group/Panel
+	-- Core Options Group/Panel
 	self.Options = Options
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(MASQUE, self.Options)
 	self.OptionsPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, MASQUE, nil, "Core")
@@ -104,17 +102,19 @@ function Setup.Core(self)
 	Setup.Core = nil
 end
 
--- Loads all remaining options.
-function Core:LoadOptions()
-	if self.OptionsLoaded then return end
+-- Loads the LoD options.
+function Setup.LoD(self)
 	self.OptionsLoaded = true
 
-	-- Load the options.
+	-- Load all options.
 	Setup("About")
 	Setup("Info")
 	Setup("Skins")
 	Setup("General")
 	Setup("Profiles")
+
+	-- GC
+	Set.LoD = nil
 end
 
 ----------------------------------------
@@ -126,9 +126,8 @@ do
 
 	-- Toggles the Interface/ACD options frame.
 	function Core:ToggleOptions()
-		if not self.OptionsLoaded then
-			self:LoadOptions()
-		end
+		if Setup.LoD then Setup("LoD") end
+
 		local IOF_Open = InterfaceOptionsFrame:IsShown()
 		local ACD_Open = ACD.OpenFrames[MASQUE]
 
@@ -141,6 +140,7 @@ do
 			else
 				ACD:Open(MASQUE)
 			end
+
 		-- Toggle the Interface Options frame.
 		else
 			if ACD_Open then
