@@ -1,18 +1,32 @@
 --[[
+
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
 	* File...: Skins\Skins.lua
 	* Author.: StormFX
 
+	Skin API
+
 ]]
 
 local _, Core = ...
+
+----------------------------------------
+-- Lua
+---
+
 local error, setmetatable, type = error, setmetatable, type
 
 ----------------------------------------
--- Internal
+-- Locals
+---
+
+local C_API = Core.API
+
 ----------------------------------------
+-- Skins
+---
 
 -- Skin Data
 local Skins = {}
@@ -33,7 +47,6 @@ local Layers = {
 	"Backdrop",
 	"Icon",
 	"Flash",
-	"Cooldown",
 	"Pushed",
 	"Normal",
 	"Disabled",
@@ -46,6 +59,8 @@ local Layers = {
 	"Count",
 	"HotKey",
 	"Duration",
+	"Cooldown",
+	"ChargeCooldown",
 	"Shine",
 }
 
@@ -66,55 +81,71 @@ function Core:AddSkin(SkinID, SkinData)
 			end
 		end
 	end
+	SkinData.SkinID = SkinID
 	Skins[SkinID] = SkinData
 	SkinList[SkinID] = SkinID
 end
 
-----------------------------------------
--- Skin API
-----------------------------------------
+do
+	----------------------------------------
+	-- API
+	---
 
--- Default Skin
-Core.API.DefaultSkin = "Classic"
+	-- Wrapper method for the AddSkin function.
+	function C_API:AddSkin(SkinID, SkinData, Replace)
+		local Debug = Core.db.profile.Debug
 
--- API method for validating and adding skins.
-function Core.API:AddSkin(SkinID, SkinData, Replace)
-	local debug = Core.db.profile.Debug
-	if type(SkinID) ~= "string" then
-		if debug then
-			error("Bad argument to method 'AddSkin'. 'SkinID' must be a string.", 2)
-		end
-		return
-	end
-	if Skins[SkinID] and not Replace then
-		return
-	end
-	if type(SkinData) ~= "table" then
-		if debug then
-			error("Bad argument to method 'AddSkin'. 'SkinData' must be a table.", 2)
-		end
-		return
-	end
-	local Template = SkinData.Template
-	if Template then
-		if Skins[Template] then
-			setmetatable(SkinData, {__index=Skins[Template]})
-		else
-			if debug then
-				error(("Invalid template reference by skin '%s'. Skin '%s' does not exist."):format(SkinID, Template), 2)
+		-- Validation
+		if type(SkinID) ~= "string" then
+			if Debug then
+				error("Bad argument to API method 'AddSkin'. 'SkinID' must be a string.", 2)
 			end
 			return
 		end
+
+		if Skins[SkinID] and not Replace then
+			return
+		end
+		if type(SkinData) ~= "table" then
+			if Debug then
+				error("Bad argument to API method 'AddSkin'. 'SkinData' must be a table.", 2)
+			end
+			return
+		end
+
+		-- Template Vaidation
+		local Template = SkinData.Template
+		if Template then
+			if type(Template) ~= "string" then
+				if Debug then
+					error(("Invalid template reference by skin '%s'. 'Template' must be a string."):format(SkinID), 2)
+				end
+				return
+			end
+			local Parent = Skins[Template]
+			if type(Parent) ~= "table"  then
+				if Debug then
+					error(("Invalid template reference by skin '%s'. Template '%s' does not exist or is not a table."):format(SkinID, Template), 2)
+				end
+				return
+			end
+
+			-- Automatically group templated skins with their parent.
+			local Group = Parent.Group or Template
+			Parent.Group = Group
+
+			setmetatable(SkinData, {__index = Parent})
+		end
+		Core:AddSkin(SkinID, SkinData)
 	end
-	Core:AddSkin(SkinID, SkinData)
-end
 
--- API method for returning the skins table.
-function Core.API:GetSkins()
-	return Skins
-end
+	-- API method returning a specific skin.
+	function C_API:GetSkin(SkinID)
+		return SkinID and Skins[SkinID]
+	end
 
--- API method returning a specific skin.
-function Core.API:GetSkin(SkinID)
-	return SkinID and Skins[SkinID]
+	-- API method for returning the skins table.
+	function C_API:GetSkins()
+		return Skins
+	end
 end
