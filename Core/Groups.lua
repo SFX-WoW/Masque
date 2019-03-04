@@ -231,9 +231,9 @@ do
 	local Layers = {
 		FloatingBG = "Texture",
 		Icon = "Texture",
-		Cooldown = "Frame",
 		Flash = "Texture",
 		Pushed = "Special",
+		Normal = "Special",
 		Disabled = "Special",
 		Checked = "Special",
 		Border = "Texture",
@@ -243,6 +243,7 @@ do
 		Count = "Text",
 		HotKey = "Text",
 		Duration = "Text",
+		Cooldown = "Frame",
 		Shine = "Frame",
 	}
 
