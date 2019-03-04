@@ -114,7 +114,7 @@ function Setup.LoD(self)
 	Setup("Profiles")
 
 	-- GC
-	Set.LoD = nil
+	Setup.LoD = nil
 end
 
 ----------------------------------------
