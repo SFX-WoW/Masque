@@ -144,7 +144,7 @@ do
 			desc = "|cffffffff"..L["Select to view."].."|r",
 			order = Order,
 			args = {
-				Title = {
+				Head = {
 					type = "description",
 					name = Title,
 					fontSize = "medium",
@@ -343,15 +343,15 @@ end
 do
 	local Setup = Core.Setup
 
-	-- Creates the 'Skin Settings' options group and panel.
+	-- Creates the 'Skin Settings' options group/panel.
 	function Setup.Skins(self)
-		-- Root Options Group
+		-- Options Group
 		local Options = {
 			type = "group",
 			name = L["Skin Settings"],
 			order = 1,
 			args = {
-				Title = {
+				Head = {
 					type = "description",
 					name = "|cffffcc00"..MASQUE.." - "..L["Skin Settings"].."|r\n",
 					order = 0,
