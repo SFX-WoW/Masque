@@ -37,7 +37,7 @@ do
 	Core.API_VERSION = VERSION
 	Core.OLD_VERSION = 70200
 
-	-- General Info
+	-- Core Info
 	Core.Version = GetAddOnMetadata(MASQUE, "Version")
 	Core.Authors = {
 		"StormFX",
@@ -60,7 +60,7 @@ do
 
 	-- ADDON_LOADED Event
 	function Masque:OnInitialize()
-		-- DB
+		-- DB Setup
 		local Defaults = {
 			profile = {
 				Debug = false,
@@ -165,9 +165,7 @@ do
 		Global:Update()
 
 		-- Skin Info Panel
-		if self.OptionsLoaded then
-			self.Setup("Info")
-		end
+		self.Setup("Info")
 
 		-- LDB Icon
 		local LDBI = LibStub("LibDBIcon-1.0", true)
