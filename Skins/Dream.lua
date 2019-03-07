@@ -65,6 +65,14 @@ do
 			BlendMode = "ADD",
 			Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 		},
+		IconBorder = {
+			Width = 31,
+			Height = 31,
+		},
+		IconOverlay = {
+			Width = 31,
+			Height = 31,
+		},
 		-- Gloss = {Hide = true},
 		AutoCastable = {
 			Width = 56,
