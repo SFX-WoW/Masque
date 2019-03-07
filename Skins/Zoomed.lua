@@ -28,7 +28,10 @@ do
 
 		-- Data
 		Backdrop = {
-			Hide = true,
+			Width = 36,
+			Height = 36,
+			Color = {0, 0, 0, 0.5},
+			Texture = [[Interface\Tooltips\UI-Tooltip-Background]],
 		},
 		Icon = {
 			Width = 36,
