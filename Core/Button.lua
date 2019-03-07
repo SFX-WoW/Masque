@@ -128,7 +128,7 @@ do
 	-- API: Returns the 'Backdrop' layer of a button.
 	function Core.API:GetBackdrop(Button)
 		if type(Button) ~= "table" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to method 'GetBackdrop'. 'Button' must be a button object.", 2)
 			end
 			return
@@ -264,7 +264,7 @@ do
 	-- API: Returns the 'Normal' layer of a button.
 	function Core.API:GetNormal(Button)
 		if type(Button) ~= "table" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to method 'GetNormal'. 'Button' must be a button object.", 2)
 			end
 			return
@@ -324,7 +324,7 @@ do
 	-- API: Returns the 'Gloss' layer of a button.
 	function Core.API:GetGloss(Button)
 		if type(Button) ~= "table" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to method 'GetGloss'. 'Button' must be a button object.", 2)
 			end
 			return
@@ -645,7 +645,7 @@ do
 	-- API: Adds a spell alert texture set.
 	function Core.API:AddSpellAlert(Shape, Glow, Ants)
 		if type(Shape) ~= "string" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to method 'AddSpellAlert'. 'Shape' must be a string.", 2)
 			end
 			return
@@ -663,7 +663,7 @@ do
 	-- API: Returns a spell alert texture set.
 	function Core.API:GetSpellAlert(Shape)
 		if type(Shape) ~= "string" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to method 'GetSpellAlert'. 'Shape' must be a string.", 2)
 			end
 			return
