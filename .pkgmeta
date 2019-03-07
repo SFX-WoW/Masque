@@ -14,9 +14,10 @@ manual-changelog:
   markup-type: markdown
 
 ignore:
+  - .docs\
   - .gitattributes
   - .gitignore
-  - .docs\
+  - .luacheckrc
 
 tools-used:
   - libdatabroker-1-1
