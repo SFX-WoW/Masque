@@ -1,66 +1,169 @@
 --[[
+
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
 	* File...: Locales\esES.lua
 
+	esMX/esES Locale
+
 	[ Notes ]
 
 	To help with translations, use the localization system on WoWAce (https://www.wowace.com/projects/masque/localization)
 	or contribute directly on GitHub (https://github.com/stormfx/masque).
+
 ]]
 
-if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
+-- GLOBALS: GetLocale
+
+local Locale = GetLocale()
+if Locale ~= "esMX" and Locale ~= "esES" then return end
 
 local _, Core = ...
 local L = Core.Locale
 
-L["Addons"] = "Botones"
-L["Adjust the skin of all buttons registered to %s. This will overwrite any per-group settings."] = "Ajusta la apariencia de todos los botones registrados a %s. Esto sobreescribirá la configuracion de los grupos."
-L["Adjust the skin of all buttons registered to %s: %s."] = "Ajusta la apariencia de todos los botones registrados a %s: %s."
-L["Adjust the skin of all registered buttons. This will overwrite any per-add-on settings."] = "Ajusta la apariencia de todos los botones registrados. Esto sobreescribirá la configuración de los grupos."
-L["Backdrop Settings"] = "Opciones de Fondo"
+----------------------------------------
+-- About Masque
+---
+
+-- L["About Masque"] = "About Masque"
+-- L["API"] = "API"
+-- L["For more information, please visit one of the sites listed below."] = "For more information, please visit one of the sites listed below."
+-- L["Masque is a skinning engine for button-based add-ons."] = "Masque is a skinning engine for button-based add-ons."
+-- L["Select to view."] = "Select to view."
+-- L["You must have an add-on that supports Masque installed to use it."] = "You must have an add-on that supports Masque installed to use it."
+
+----------------------------------------
+-- Classic Skin
+---
+
+-- L["An improved version of the game's default button style."] = "An improved version of the game's default button style."
+
+----------------------------------------
+-- Core Settings
+---
+
+-- L["About"] = "About"
+-- L["Click to load Masque's options."] = "Click to load Masque's options."
+-- L["Load Options"] = "Load Options"
+-- L["Masque's options are load on demand. Click the button below to load them."] = "Masque's options are load on demand. Click the button below to load them."
+-- L["This section will allow you to view information about Masque and any skins you have installed."] = "This section will allow you to view information about Masque and any skins you have installed."
+
+----------------------------------------
+-- Developer Settings
+---
+
 L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Mostrar errores Lua al encontrar una problema con un add-on o una tema."
+L["Debug Mode"] = "Depuración"
+-- L["Developer"] = "Developer"
+-- L["Developer Settings"] = "Developer Settings"
+L["Masque debug mode disabled."] = "La depuración de Masque se ha desactivada."
+L["Masque debug mode enabled."] = "La depuración de Masque se ha activada."
+-- L["This section will allow you to adjust settings that affect working with Masque's API."] = "This section will allow you to adjust settings that affect working with Masque's API."
+
+----------------------------------------
+-- Dream Skin
+---
+
+-- L["A square skin with trimmed icons and a semi-transparent background."] = "A square skin with trimmed icons and a semi-transparent background."
+
+----------------------------------------
+-- General Settings
+---
+
+-- L["General Settings"] = "General Settings"
+-- L["This section will allow you to adjust Masque's interface and performance settings."] = "This section will allow you to adjust Masque's interface and performance settings."
+
+----------------------------------------
+-- Installed Skins
+---
+
+-- L["Author"] = "Author"
+-- L["Authors"] = "Authors"
+-- L["Click for details."] = "Click for details."
+-- L["Compatible"] = "Compatible"
+-- L["Description"] = "Description"
+-- L["Incompatible"] = "Incompatible"
+-- L["Installed Skins"] = "Installed Skins"
+-- L["No description available."] = "No description available."
+-- L["Status"] = "Status"
+-- L["The status of this skin is unknown."] = "The status of this skin is unknown."
+-- L["This section provides information on any skins you have installed."] = "This section provides information on any skins you have installed."
+-- L["This skin is compatible with Masque."] = "This skin is compatible with Masque."
+-- L["This skin is outdated and is incompatible with Masque."] = "This skin is outdated and is incompatible with Masque."
+-- L["This skin is outdated but is still compatible with Masque."] = "This skin is outdated but is still compatible with Masque."
+-- L["Unknown"] = "Unknown"
+-- L["Version"] = "Version"
+-- L["Website"] = "Website"
+-- L["Websites"] = "Websites"
+
+----------------------------------------
+-- Interface Settings
+---
+
+L["Enable the Minimap icon."] = "Mostrar un icono en el minimapa."
+-- L["Interface"] = "Interface"
+-- L["Interface Settings"] = "Interface Settings"
+L["Minimap Icon"] = "Icono en minimapa"
+-- L["Stand-Alone GUI"] = "Stand-Alone GUI"
+-- L["This section will allow you to adjust settings that affect Masque's interface."] = "This section will allow you to adjust settings that affect Masque's interface."
+-- L["Use a resizable, stand-alone options window."] = "Use a resizable, stand-alone options window."
+
+----------------------------------------
+-- LDB Launcher
+---
+
+-- L["Click to open Masque's settings."] = "Click to open Masque's settings."
+
+----------------------------------------
+-- Performance Settings
+---
+
+-- L["Click to load reload the interface."] = "Click to load reload the interface."
+-- L["Load the skin information panel."] = "Load the skin information panel."
+-- L["Performance"] = "Performance"
+-- L["Performance Settings"] = "Performance Settings"
+-- L["Reload Interface"] = "Reload Interface"
+-- L["Requires an interface reload."] = "Requires an interface reload."
+-- L["Skin Information"] = "Skin Information"
+-- L["This section will allow you to adjust settings that affect Masque's performance."] = "This section will allow you to adjust settings that affect Masque's performance."
+
+----------------------------------------
+-- Profile Settings
+---
+
+-- L["Profile Settings"] = "Profile Settings"
+
+----------------------------------------
+-- Skin Settings
+---
+
+L["Backdrop Settings"] = "Opciones de Fondo"
 L["Checked"] = "Activado"
-L["Click this button to load Masque's options. You can also use the %s or %s chat command."] = "Haz click en este botón para cargar las opciones de Masque. Puedes también utilizar los comandos de chat %s o %s."
-L["Click to open Masque's options window."] = "Clic para mostrar las opciones de Masque."
 L["Color"] = "Color"
 L["Colors"] = "Colores"
---[[Translation missing --]]
-L["Cooldown"] = "Cooldown"
-L["Debug Mode"] = "Depuración"
+-- L["Cooldown"] = "Cooldown"
 L["Disable"] = "Desactivado"
 L["Disable the skinning of this group."] = "Deshabilitar las texturas para este grupo."
 L["Disabled"] = "Desactivado"
 L["Enable"] = "Activado"
 L["Enable the Backdrop texture."] = "Habilitar la textura de fondo."
-L["Enable the Minimap icon."] = "Mostrar un icono en el minimapa."
---[[Translation missing --]]
-L["Equipped"] = "Equipped"
+-- L["Equipped"] = "Equipped"
 L["Flash"] = "Destello"
-L["General"] = "General"
 L["Global"] = "Global"
+-- L["Global Settings"] = "Global Settings"
 L["Gloss Settings"] = "Opciones de Brillo"
 L["Highlight"] = "Resaltado"
-L["Load Masque Options"] = "Cargar las opciones de Masque"
-L["Loading Masque Options..."] = "Cargando las opciones de Masque..."
-L["Masque debug mode disabled."] = "La depuración de Masque se ha desactivada."
-L["Masque debug mode enabled."] = "La depuración de Masque se ha activada."
-L["Masque is a dynamic button skinning add-on."] = "Un add-on para cambiar la aparencia de botones."
-L["Minimap Icon"] = "Icono en minimapa"
 L["Normal"] = "Normal"
 L["Opacity"] = "Opacidad"
-L["Profiles"] = "Perfiles"
 L["Pushed"] = "Pulsado"
 L["Reset all skin options to the defaults."] = "Reestablece todos los colores a los predefinidos."
 L["Reset Skin"] = "Restablecer Colores"
 L["Set the color of the Backdrop texture."] = "Establece el color de la textura del fondo."
 L["Set the color of the Checked texture."] = "Establece el color de la textura activada."
---[[Translation missing --]]
-L["Set the color of the Cooldown animation."] = "Set the color of the Cooldown animation."
+-- L["Set the color of the Cooldown animation."] = "Set the color of the Cooldown animation."
 L["Set the color of the Disabled texture."] = "Establece el color de la textura desactivada."
---[[Translation missing --]]
-L["Set the color of the Equipped item texture."] = "Set the color of the Equipped item texture."
+-- L["Set the color of the Equipped item texture."] = "Set the color of the Equipped item texture."
 L["Set the color of the Flash texture."] = "Establece el color del textura destelleando."
 L["Set the color of the Gloss texture."] = "Establece el color de la textura brillando."
 L["Set the color of the Highlight texture."] = "Establece el color de la textura resaltada."
@@ -69,4 +172,14 @@ L["Set the color of the Pushed texture."] = "Establece el color de la textura pu
 L["Set the intensity of the Gloss color."] = "Establece la transparencia de la textura brillando."
 L["Set the skin for this group."] = "Seleccionar la tema para este grupo."
 L["Skin"] = "Textura"
+-- L["Skin Settings"] = "Skin Settings"
+-- L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "This section will allow you to adjust the skin settings of all buttons registered to %s."
+-- L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."] = "This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."
+-- L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."] = "This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."
 L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."] = "Estas opciones te permiten cambiar la aparencia de los botones de los add-ons que se han registrados en Masque."
+
+----------------------------------------
+-- Zoomed Skin
+---
+
+-- L["A square skin with zoomed icons and a semi-transparent background."] = "A square skin with zoomed icons and a semi-transparent background."
