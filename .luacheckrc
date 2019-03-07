@@ -30,10 +30,15 @@ globals = {
 read_globals = {
 	-- WoW Lua
 	"assert",
+	"hooksecurefunc",
 	"print",
+	"random",
 
 	-- WoW API
+	"CreateFrame",
 	"GetAddOnMetadata",
+	"GetLocale",
+	"InCombatLockdown"
 	"InterfaceOptionsFrame",
 	"InterfaceOptionsFrame_OpenToCategory",
 	"InterfaceOptionsFrame_Show",
