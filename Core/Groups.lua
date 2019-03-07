@@ -45,9 +45,9 @@ do
 			if args then
 				for arg, func in pairs(args) do
 					if arg then
-						func(arg, Group, Skin, SkinID, Backdrop, Colors, Disabled)
+						func(arg, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
 					else
-						func(Group, Skin, SkinID, Backdrop, Colors, Disabled)
+						func(Group, SkinID, Gloss, Backdrop, Colors, Disabled)
 					end
 				end
 			end
