@@ -70,17 +70,17 @@ do
 	function C_API:Register(Addon, func, arg)
 		-- Validation
 		if type(Addon) ~= "string" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to API method 'Register'. 'Addon' must be a string.", 2)
 			end
 			return
 		elseif type(func) ~= "function" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to API method 'Register'. 'func' must be a function.", 2)
 			end
 			return
 		elseif arg and type(arg) ~= "table" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to API method 'Register'. 'arg' must be a table or nil.", 2)
 			end
 			return
@@ -202,17 +202,17 @@ do
 	function C_API:Group(Addon, Group, IsActionBar, StaticID)
 		-- Validation
 		if type(Addon) ~= "string" or Addon == MASQUE then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to API method 'Group'. 'Addon' must be a string.", 2)
 			end
 			return
 		elseif Group and type(Group) ~= "string" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to API method 'Group'. 'Group' must be a string.", 2)
 			end
 			return
 		elseif StaticID and type(StaticID) ~= "string" then
-			if Core.db.profile.Debug then
+			if Core.Debug then
 				error("Bad argument to API method 'Group'. 'StaticID' must be a string.", 2)
 			end
 			return
@@ -270,7 +270,7 @@ do
 			-- Adds or reassigns a button to the group.
 			AddButton = function(self, Button, ButtonData)
 				if type(Button) ~= "table" then
-					if Core.db.profile.Debug then
+					if Core.Debug then
 						error("Bad argument to group method 'AddButton'. 'Button' must be a button object.", 2)
 					end
 					return
@@ -376,7 +376,7 @@ do
 				if not self.StaticID then
 					return
 				elseif type(Name) ~= "string" then
-					if Core.db.profile.Debug then
+					if Core.Debug then
 						error("Bad argument to group method 'SetName'. 'Name' must be a string.", 2)
 					end
 					return
