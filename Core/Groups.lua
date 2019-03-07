@@ -349,8 +349,12 @@ do
 					for Button in pairs(self.Buttons) do
 						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
 					end
-					if self.Addon and not Silent then
-						Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+					if not Silent then
+						if self.Callback then
+							Callback(self.ID, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+						elseif self.Addon then
+							Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+						end
 					end
 				end
 			end,
@@ -385,6 +389,27 @@ do
 				Core:UpdateSkinOptions(self)
 			end,
 
+			-- Sets a callback for the group.
+			SetCallback = function(self, func, arg)
+				if self.ID == MASQUE then return end
+
+				-- Validation
+				if type(func) ~= "function" then
+					if Core.Debug then
+						error("Bad argument to Group method 'SetCallback'. 'func' must be a function.", 2)
+					end
+					return
+				elseif arg and type(arg) ~= "table" then
+					if Core.Debug then
+						error("Bad argument to Group method 'SetCallback'. 'arg' must be a table or nil.", 2)
+					end
+					return
+				end
+
+				Callback:Register(self.ID, func, arg or false)
+				self.Callback = true
+			end,
+
 			----------------------------------------
 			-- Internal Methods
 			---
@@ -396,7 +421,14 @@ do
 					SkinButton(Button, self.Buttons[Button], "Classic")
 				end
 				local db = self.db
-				Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
+
+				-- Fire the callback.
+				if self.Callback then
+					Callback(self.ID, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
+				elseif self.Addon then
+					Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
+				end
+
 				local Subs = self.SubList
 				if Subs then
 					for _, Sub in pairs(Subs) do
