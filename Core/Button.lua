@@ -90,7 +90,7 @@ do
 
 	-- Removes the 'Backdrop' texture from a button.
 	function RemoveBackdrop(Button)
-		local Region = Button.__MSQ_Background or Button.__MSQ_Backdrop
+		local Region = Button.FloatingBG or Button.__MSQ_Backdrop
 		if Region then
 			Region:Hide()
 			if Button.__MSQ_Backdrop then
@@ -102,7 +102,7 @@ do
 
 	-- Adds a 'Backdrop' texture to a button.
 	function SkinBackdrop(Button, Skin, Color, xScale, yScale)
-		local Region = Button.__MSQ_Background or Button.__MSQ_Backdrop
+		local Region = Button.FloatingBG or Button.__MSQ_Backdrop
 		if not Region then
 			local i = #Cache
 			if i > 0 then
@@ -133,7 +133,7 @@ do
 			end
 			return
 		end
-		return Button.__MSQ_Background or Button.__MSQ_Backdrop
+		return Button.FloatingBG or Button.__MSQ_Backdrop
 	end
 end
 
@@ -706,7 +706,7 @@ do
 		-- Shape
 		Button.__MSQ_Shape = GetShape(Skin.Shape)
 		-- Backdrop
-		Button.__MSQ_Background = ButtonData.FloatingBG
+		Button.FloatingBG = ButtonData.FloatingBG
 		if type(Gloss) ~= "number" then
 			Gloss = (Gloss and 1) or 0
 		end
