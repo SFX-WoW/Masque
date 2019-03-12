@@ -116,7 +116,7 @@ do
 		Region:SetParent(Button)
 		Region:SetTexture(Skin.Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-		Region:SetDrawLayer("BACKGROUND", -1)
+		Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or -1)
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetVertexColor(GetColor(Color or Skin.Color))
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
@@ -144,7 +144,7 @@ end
 local function SkinIcon(Button, Region, Skin, xScale, yScale)
 	Region:SetParent(Button)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-	Region:SetDrawLayer("BACKGROUND", 0)
+	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 	Region:ClearAllPoints()
 	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
@@ -254,7 +254,7 @@ do
 			Region:Hide()
 			return
 		end
-		Region:SetDrawLayer("ARTWORK", 0)
+		Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or 0)
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
@@ -308,7 +308,7 @@ do
 		Region:SetParent(Button)
 		Region:SetTexture(Skin.Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-		Region:SetDrawLayer("OVERLAY", 0)
+		Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetVertexColor(GetColor(Color or Skin.Color, Alpha))
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
@@ -362,7 +362,7 @@ do
 		Region:SetTexture(Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 		Region:SetBlendMode(Skin.BlendMode or "ADD")
-		Region:SetDrawLayer("OVERLAY", 0)
+		Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 		if IsActionButton then
 			Region.__MSQ_Color = Color or Skin.Color or BaseColor
 			if not Region.__MSQ_Hooked then
@@ -418,7 +418,7 @@ do
 			Region:SetTexture(Texture)
 			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 			Region:SetBlendMode(Skin.BlendMode or "BLEND")
-			Region:SetDrawLayer(Layers[Layer], Levels[Layer])
+			Region:SetDrawLayer(Skin.DrawLayer or Layers[Layer], Skin.DrawLevel or Levels[Layer])
 			Region:SetVertexColor(GetColor(Color or Skin.Color))
 		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
@@ -469,7 +469,7 @@ do
 	function SkinText(Button, Region, Layer, Skin, Color, xScale, yScale)
 		Region:SetJustifyH(Skin.JustifyH or Justify[Layer])
 		Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
-		Region:SetDrawLayer("OVERLAY")
+		Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY")
 		Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale))
 		Region:ClearAllPoints()
 		if Layer == "HotKey" then
