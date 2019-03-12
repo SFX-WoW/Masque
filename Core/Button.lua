@@ -113,7 +113,7 @@ do
 			end
 			Button.__MSQ_Backdrop = Region
 		end
-		Region:SetParent(Button.__MSQ_BaseFrame or Button)
+		Region:SetParent(Button)
 		Region:SetTexture(Skin.Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 		Region:SetDrawLayer("BACKGROUND", 0)
@@ -142,7 +142,7 @@ end
 ---
 
 local function SkinIcon(Button, Region, Skin, xScale, yScale)
-	Region:SetParent(Button.__MSQ_BaseFrame or Button)
+	Region:SetParent(Button)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 	Region:SetDrawLayer("BORDER", 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
@@ -680,24 +680,9 @@ end
 ---
 
 do
-	-- Hook to automatically adjust the button's additional frame levels.
-	local function Hook_SetFrameLevel(Button, Level)
-		local base = Level or Button:GetFrameLevel()
-		if base < 3 then base = 3 end
-		if Button.__MSQ_BaseFrame then
-			Button.__MSQ_BaseFrame:SetFrameLevel(base - 2)
-		end
-		if Button.__MSQ_Shine then
-			Button.__MSQ_Shine:SetFrameLevel(base + 1)
-		end
-	end
-
 	-- Applies a skin to a button and its associated layers.
 	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors, IsActionButton)
 		if not Button then return end
-		if not Button.__MSQ_BaseFrame then
-			Button.__MSQ_BaseFrame = CreateFrame("Frame", nil, Button)
-		end
 		local Skin = (SkinID and Skins[SkinID]) or Skins["Classic"]
 		if type(Colors) ~= "table" then
 			Colors = __MTT
@@ -772,19 +757,5 @@ do
 		if Button:GetObjectType() == "CheckButton" then
 			UpdateSpellAlert(Button)
 		end
-		-- Frame Level
-		if not Button.__MSQ_FrameHook then
-			hooksecurefunc(Button, "SetFrameLevel", Hook_SetFrameLevel)
-			Button.__MSQ_FrameHook = true
-		end
-		-- Taint protection, just in case.
-		if Button.IsProtected and Button:IsProtected() and InCombatLockdown() then
-			return
-		end
-		local level = Button:GetFrameLevel()
-		if level < 3 then
-			level = 3
-		end
-		Button:SetFrameLevel(level)
 	end
 end
