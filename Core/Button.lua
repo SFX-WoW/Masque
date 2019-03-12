@@ -116,7 +116,7 @@ do
 		Region:SetParent(Button)
 		Region:SetTexture(Skin.Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-		Region:SetDrawLayer("BACKGROUND", 0)
+		Region:SetDrawLayer("BACKGROUND", -1)
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetVertexColor(GetColor(Color or Skin.Color))
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
@@ -144,7 +144,7 @@ end
 local function SkinIcon(Button, Region, Skin, xScale, yScale)
 	Region:SetParent(Button)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-	Region:SetDrawLayer("BORDER", 0)
+	Region:SetDrawLayer("BACKGROUND", 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 	Region:ClearAllPoints()
 	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
@@ -254,7 +254,7 @@ do
 			Region:Hide()
 			return
 		end
-		Region:SetDrawLayer("BORDER", 0)
+		Region:SetDrawLayer("ARTWORK", 0)
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 		Region:ClearAllPoints()
@@ -362,7 +362,7 @@ do
 		Region:SetTexture(Texture)
 		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 		Region:SetBlendMode(Skin.BlendMode or "ADD")
-		Region:SetDrawLayer("ARTWORK", 0)
+		Region:SetDrawLayer("OVERLAY", 0)
 		if IsActionButton then
 			Region.__MSQ_Color = Color or Skin.Color or BaseColor
 			if not Region.__MSQ_Hooked then
@@ -383,10 +383,10 @@ end
 
 -- Draw Layers
 local Layers = {
+		Pushed = "ARTWORK",
+		Disabled = "ARTWORK",
 		Flash = "ARTWORK",
-		Pushed = "BACKGROUND",
-		Disabled = "BORDER",
-		Checked = "BORDER",
+		Checked = "OVERLAY",
 		AutoCastable = "OVERLAY",
 		Highlight = "HIGHLIGHT",
 		IconBorder = false,
@@ -398,10 +398,10 @@ local SkinTexture
 do
 	-- Draw Levels
 	local Levels = {
-		Flash = 0,
 		Pushed = 0,
-		Disabled = 1,
-		Checked = 2,
+		Disabled = 0,
+		Flash = 1,
+		Checked = 0,
 		AutoCastable = 1,
 		Highlight = 0,
 	}
@@ -435,17 +435,17 @@ local SkinText
 
 -- Horizontal Justification
 local Justify = {
-	Name = "CENTER",
-	Count = "RIGHT",
-	Duration = "CENTER",
 	HotKey = "RIGHT",
+	Count = "RIGHT",
+	Name = "CENTER",
+	Duration = "CENTER",
 }
 
 do
 	-- Point
 	local Point = {
-		Name = "BOTTOM",
 		Count = "BOTTOMRIGHT",
+		Name = "BOTTOM",
 		Duration = "TOP",
 	}
 
