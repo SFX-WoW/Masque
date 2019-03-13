@@ -26,7 +26,7 @@ local error, hooksecurefunc, pairs, random, type = error, hooksecurefunc, pairs,
 
 local GetScale, GetSize = Core.GetScale, Core.GetSize
 local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
-local SkinBackdrop = Core.SkinBackdrop
+local SkinBackdrop, SkinGloss = Core.SkinBackdrop, Core.SkinGloss
 local Skins = Core.Skins
 local __MTT = {}
 
@@ -199,71 +199,6 @@ do
 			return
 		end
 		return Button.__MSQ_NormalTexture or (Button.GetNormalTexture and Button:GetNormalTexture())
-	end
-end
-
-----------------------------------------
--- Gloss Texture Layer
----
-
-local SkinGloss, RemoveGloss
-
-do
-	local Cache = {}
-
-	-- Removes the 'Gloss' texture from a button.
-	function RemoveGloss(Button)
-		local Region = Button.__MSQ_Gloss
-		Button.__MSQ_Gloss = nil
-		if Region then
-			Region:Hide()
-			Cache[#Cache+1] = Region
-		end
-	end
-
-	-- Adds a 'Gloss' texture to a button.
-	function SkinGloss(Button, Skin, Color, Alpha, xScale, yScale)
-		local Region = Button.__MSQ_Gloss
-		if not Region then
-			local i = #Cache
-			if i > 0 then
-				Region = Cache[i]
-				Cache[i] = nil
-			else
-				Region = Button:CreateTexture()
-			end
-			Button.__MSQ_Gloss = Region
-		end
-		Region:SetParent(Button)
-		Region:SetTexture(Skin.Texture)
-		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-		Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
-		Region:SetBlendMode(Skin.BlendMode or "BLEND")
-		Region:SetVertexColor(GetColor(Color or Skin.Color, Alpha))
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
-		local Point = Skin.Point or "CENTER"
-		local RelPoint = Skin.RelPoint or Point
-
-		Region:ClearAllPoints()
-		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
-
-		if Button.__MSQ_Empty then
-			Region:Hide()
-		else
-			Region:Show()
-		end
-	end
-
-	-- API: Returns the 'Gloss' layer of a button.
-	function Core.API:GetGloss(Button)
-		if type(Button) ~= "table" then
-			if Core.Debug then
-				error("Bad argument to method 'GetGloss'. 'Button' must be a button object.", 2)
-			end
-			return
-		end
-		return Button.__MSQ_Gloss
 	end
 end
 
@@ -657,6 +592,7 @@ do
 		if Icon then
 			SkinIcon(Button, Icon, Skin.Icon, xScale, yScale)
 		end
+
 		-- Normal
 		local Normal = ButtonData.Normal
 		if Normal ~= false then
@@ -679,11 +615,9 @@ do
 		if type(Gloss) ~= "number" then
 			Gloss = (Gloss and 1) or 0
 		end
-		if Gloss > 0 and not Skin.Gloss.Hide then
-			SkinGloss(Button, Skin.Gloss, Colors.Gloss, Gloss, xScale, yScale)
-		else
-			RemoveGloss(Button)
-		end
+
+		SkinGloss(Button, Skin.Backdrop, Colors.Backdrop, Alpha, xScale, yScale)
+
 		-- Text
 		for Layer in pairs(Justify) do
 			local Region = ButtonData[Layer]
