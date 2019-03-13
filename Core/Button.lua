@@ -26,6 +26,7 @@ local error, hooksecurefunc, pairs, random, type = error, hooksecurefunc, pairs,
 
 local GetScale, GetSize = Core.GetScale, Core.GetSize
 local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
+local SkinBackdrop = Core.SkinBackdrop
 local Skins = Core.Skins
 local __MTT = {}
 
@@ -53,68 +54,6 @@ local function Random(v)
 	if type(v) == "table" and #v > 1 then
 		local i = random(1, #v)
 		return v[i]
-	end
-end
-
-----------------------------------------
--- Backdrop Texture Layer
----
-
-local SkinBackdrop, RemoveBackdrop
-
-do
-	local Cache = {}
-
-	-- Removes the 'Backdrop' texture from a button.
-	function RemoveBackdrop(Button)
-		local Region = Button.FloatingBG or Button.__MSQ_Backdrop
-		if Region then
-			Region:Hide()
-			if Button.__MSQ_Backdrop then
-				Cache[#Cache + 1] = Region
-				Button.__MSQ_Backdrop = nil
-			end
-		end
-	end
-
-	-- Adds a 'Backdrop' texture to a button.
-	function SkinBackdrop(Button, Skin, Color, xScale, yScale)
-		local Region = Button.FloatingBG or Button.__MSQ_Backdrop
-		if not Region then
-			local i = #Cache
-			if i > 0 then
-				Region = Cache[i]
-				Cache[i] = nil
-			else
-				Region = Button:CreateTexture()
-			end
-			Button.__MSQ_Backdrop = Region
-		end
-		Region:SetParent(Button)
-		Region:SetTexture(Skin.Texture)
-		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-		Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or -1)
-		Region:SetBlendMode(Skin.BlendMode or "BLEND")
-		Region:SetVertexColor(GetColor(Color or Skin.Color))
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
-		local Point = Skin.Point or "CENTER"
-		local RelPoint = Skin.RelPoint or Point
-
-		Region:ClearAllPoints()
-		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
-		Region:Show()
-	end
-
-	-- API: Returns the 'Backdrop' layer of a button.
-	function Core.API:GetBackdrop(Button)
-		if type(Button) ~= "table" then
-			if Core.Debug then
-				error("Bad argument to method 'GetBackdrop'. 'Button' must be a button object.", 2)
-			end
-			return
-		end
-		return Button.FloatingBG or Button.__MSQ_Backdrop
 	end
 end
 
@@ -694,23 +633,25 @@ do
 	-- Applies a skin to a button and its associated layers.
 	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors, IsActionButton)
 		if not Button then return end
+
+		-- Skin
 		local Skin = (SkinID and Skins[SkinID]) or Skins["Classic"]
+
+		-- Color
 		if type(Colors) ~= "table" then
 			Colors = __MTT
 		end
+
+		-- Scale
 		local xScale, yScale = GetScale(Button)
+
 		-- Shape
 		Button.__MSQ_Shape = GetShape(Skin.Shape)
+
 		-- Backdrop
 		Button.FloatingBG = ButtonData.FloatingBG
-		if type(Gloss) ~= "number" then
-			Gloss = (Gloss and 1) or 0
-		end
-		if Backdrop and not Skin.Backdrop.Hide then
-			SkinBackdrop(Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
-		else
-			RemoveBackdrop(Button)
-		end
+		SkinBackdrop(Button, Backdrop, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
+
 		-- Icon
 		local Icon = ButtonData.Icon
 		if Icon then
@@ -733,7 +674,11 @@ do
 				SkinTexture(Button, Region, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
 			end
 		end
+
 		-- Gloss
+		if type(Gloss) ~= "number" then
+			Gloss = (Gloss and 1) or 0
+		end
 		if Gloss > 0 and not Skin.Gloss.Hide then
 			SkinGloss(Button, Skin.Gloss, Colors.Gloss, Gloss, xScale, yScale)
 		else
