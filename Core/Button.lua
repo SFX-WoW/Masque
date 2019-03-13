@@ -120,8 +120,12 @@ do
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetVertexColor(GetColor(Color or Skin.Color))
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+		local Point = Skin.Point or "CENTER"
+		local RelPoint = Skin.RelPoint or Point
+
 		Region:ClearAllPoints()
-		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
 		Region:Show()
 	end
 
@@ -146,8 +150,13 @@ local function SkinIcon(Button, Region, Skin, xScale, yScale)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+
+	local Point, RelPoint = Skin.Point or "CENTER", Skin.RelPoint or Point
+	local OffsetX, OffsetY = Skin.OffsetX or 0, Skin.OffsetY or 0
+
 	Region:ClearAllPoints()
-	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+	Region:SetPoint(Point, Button, RelPoint, OffsetX, OffsetY)
 	-- Mask support added in 7.2. @InfusOnWoW
 	if Skin.Mask then
 		if not Region.__MSQ_Mask then
@@ -156,7 +165,7 @@ local function SkinIcon(Button, Region, Skin, xScale, yScale)
 		local Mask = Region.__MSQ_Mask
 		Mask:SetTexture(Skin.Mask)
 		Mask:SetSize(GetSize(Skin.MaskWidth or Skin.Width, Skin.MaskHeight or Skin.Height, xScale, yScale))
-		Mask:SetPoint("CENTER", Button, "CENTER", 0, 0)
+		Mask:SetPoint(Skin.MaskPoint or Point, Button, Skin.MaskRelPoint or RelPoint, MaskOffsetX or OffsetX, MaskOffsetY or OffsetY)
 		if not Mask.active then
 			Region:AddMaskTexture(Mask)
 			Mask.active = true
@@ -257,8 +266,12 @@ do
 		Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or 0)
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+		local Point = Skin.Point or "CENTER"
+		local RelPoint = Skin.RelPoint or Point
+
 		Region:ClearAllPoints()
-		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
 	end
 
 	-- API: Returns the 'Normal' layer of a button.
@@ -312,8 +325,13 @@ do
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetVertexColor(GetColor(Color or Skin.Color, Alpha))
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+		local Point = Skin.Point or "CENTER"
+		local RelPoint = Skin.RelPoint or Point
+
 		Region:ClearAllPoints()
-		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
+
 		if Button.__MSQ_Empty then
 			Region:Hide()
 		else
@@ -372,8 +390,12 @@ do
 			Hook_SetVertexColor(Region)
 		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+		local Point = Skin.Point or "CENTER"
+		local RelPoint = Skin.RelPoint or Point
+
 		Region:ClearAllPoints()
-		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
 	end
 end
 
@@ -422,8 +444,12 @@ do
 			Region:SetVertexColor(GetColor(Color or Skin.Color))
 		end
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+		local Point = Skin.Point or "CENTER"
+		local RelPoint = Skin.RelPoint or Point
+
 		Region:ClearAllPoints()
-		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
 	end
 end
 
@@ -553,8 +579,12 @@ do
 		Hook_SetEdgeTexture(Region)
 		Region:SetUseCircularEdge(Shape == "Circle")
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+		local Point = Skin.Point or "CENTER"
+		local RelPoint = Skin.RelPoint or Point
+
 		Region:ClearAllPoints()
-		Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
 	end
 
 	-- Skins the ChargeCooldown.
@@ -587,8 +617,12 @@ local function SkinFrame(Button, Region, Skin, xScale, yScale, Color)
 		return
 	end
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+	local Point = Skin.Point or "CENTER"
+	local RelPoint = Skin.RelPoint or Point
+
 	Region:ClearAllPoints()
-	Region:SetPoint("CENTER", Button, "CENTER", Skin.OffsetX or 0, Skin.OffsetY or 0)
+	Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
 end
 
 ----------------------------------------
