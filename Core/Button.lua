@@ -10,51 +10,28 @@
 
 ]]
 
+-- GLOBALS:
+
 local _, Core = ...
 
--- Lua Functions
+----------------------------------------
+-- Lua
+---
+
 local error, hooksecurefunc, pairs, random, type = error, hooksecurefunc, pairs, random, type
 
--- GLOBALS: InCombatLockdown
+----------------------------------------
+-- Locals
+---
 
+local GetScale, GetSize = Core.GetScale, Core.GetSize
+local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 local Skins = Core.Skins
 local __MTT = {}
 
 ----------------------------------------
--- Utility Functions
+-- Utility
 ---
-
-local function GetColor(Color, Alpha)
-	if type(Color) == "table" then
-		return Color[1] or 1, Color[2] or 1, Color[3] or 1, Alpha or Color[4] or 1
-	else
-		return 1, 1, 1, Alpha or 1
-	end
-end
-Core.GetColor = GetColor
-
--- Returns a set of texture coordinates.
-local function GetTexCoords(Coords)
-	if type(Coords) == "table" then
-		return Coords[1] or 0, Coords[2] or 1, Coords[3] or 0, Coords[4] or 1
-	else
-		return 0, 1, 0, 1
-	end
-end
-
--- Returns the x and y scale of a button.
-local function GetScale(Button)
-	local x = (Button:GetWidth() or 36) / 36
-	local y = (Button:GetHeight() or 36) / 36
-	return x, y
-end
-
--- Returns the height and width of a region.
-local function GetSize(Width, Height, xScale, yScale)
-	local w = (Width or 36) * xScale
-	local h = (Height or 36) * yScale
-	return w, h
-end
 
 local GetShape
 
