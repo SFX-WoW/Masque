@@ -46,7 +46,7 @@ do
 
 			-- Cache the custom region.
 			if Button.__MSQ_Backdrop then
-				Region:SetTexture("")
+				Region:SetTexture()
 
 				Cache[#Cache + 1] = Region
 				Button.__MSQ_Backdrop = nil
@@ -80,7 +80,7 @@ do
 
 		-- Color
 		if Skin.UseColor then
-			Region:SetTexture("")
+			Region:SetTexture()
 			Region:SetColorTexture(GetColor(Color))
 
 		-- Texture
