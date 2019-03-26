@@ -38,7 +38,7 @@ read_globals = {
 	"CreateFrame",
 	"GetAddOnMetadata",
 	"GetLocale",
-	"InCombatLockdown"
+	"InCombatLockdown",
 	"InterfaceOptionsFrame",
 	"InterfaceOptionsFrame_OpenToCategory",
 	"InterfaceOptionsFrame_Show",
