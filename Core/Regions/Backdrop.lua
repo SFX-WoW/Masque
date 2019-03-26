@@ -98,15 +98,21 @@ do
 
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 
-		-- Size/Position
+		-- Level
+		local DrawLayer = Skin.DrawLayer
+		local DrawLevel = Skin.DrawLevel
+
+		if DrawLayer then
+			DrawLevel = Skin.DrawLevel or 0
+		end
+
+		Region:SetDrawLayer(DrawLayer or "BACKGROUND", DrawLevel or -1)
+
+		-- Size
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-		Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or -1)
 
-		local Point = Skin.Point or "CENTER"
-		local RelPoint = Skin.RelPoint or Point
-
-		Region:ClearAllPoints()
-		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
+		-- Position
+		SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 		Region:Show()
 	end
