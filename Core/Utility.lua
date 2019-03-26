@@ -72,7 +72,7 @@ do
 			-- Offsets
 			local OffsetX = Skin.OffsetX
 			local OffsetY = Skin.OffsetY
-		
+
 			-- Default
 			if Default and not OffsetX and not OffsetY then
 				OffsetX = Default.OffsetX or 0
@@ -130,4 +130,18 @@ do
 		local y = (Button:GetHeight() or 36) / 36
 		return x, y
 	end
+
+	----------------------------------------
+	-- Region-Skinning Metatable
+	---
+
+	-- Use a metatable to call region-skinning functions.
+	Core.SkinRegion = setmetatable({}, {
+		__call = function(self, Region, ...)
+			local func = Region and self[Region]
+			if func then
+				func(...)
+			end
+		end,
+	})
 end
