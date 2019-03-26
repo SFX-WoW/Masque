@@ -78,22 +78,22 @@ do
 		local Texture = Skin.Texture
 		Color = Color or Skin.Color
 
+		-- Color
+		if Skin.UseColor then
+			Region:SetTexture("")
+			Region:SetColorTexture(GetColor(Color))
+
 		-- Texture
-		if Texture then
+		elseif Texture then
 			Region:SetTexture(Texture)
 			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 			Region:SetVertexColor(GetColor(Color))
+
+		-- Default
 		else
-			Region:SetTexture("")
-
-			-- Color
-			if Color then
-				Region:SetColorTexture(GetColor(Color))
-
-			-- Default
-			else
-				Region:SetColorTexture(1, 1, 1, 0.6)
-			end
+			Region:SetTexture([[Interface\Buttons\UI-Quickslot]])
+			Region:SetTexCoord(0, 1, 0, 1)
+			Region:SetVertexColor(1, 1, 1, 0.6)
 		end
 
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
