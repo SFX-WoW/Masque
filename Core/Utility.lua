@@ -37,6 +37,53 @@ do
 	end
 
 	----------------------------------------
+	-- Point
+	---
+
+	-- Clears and sets the points for a region.
+	local function SetPoints(Region, Button, Skin, Default, SetAllPoints)
+		Region:ClearAllPoints()
+
+		-- Set All
+		if SetAllPoints then
+			Region:SetAllPoints(Button)
+
+		-- Custom
+		else
+			-- Skin
+			-- Point must be set for RelPoint to be used.
+			local Point = Skin.Point
+			local RelPoint = Skin.RelPoint or Point
+
+			-- Internal
+			if not Point then
+				Point = Default and Default.Point
+
+				if Point then
+					RelPoint = Default.RelPoint or Point
+
+				-- Default
+				else
+					Point = "CENTER"
+					RelPoint = Point
+				end
+			end
+
+			-- Offsets
+			local OffsetX = Skin.OffsetX
+			local OffsetY = Skin.OffsetY
+		
+			-- Default
+			if Default and not OffsetX and not OffsetY then
+				OffsetX = Default.OffsetX or 0
+				OffsetY = Default.OffsetY or 0
+			end
+
+			Region:SetPoint(Point, Button, RelPoint, OffsetX or 0, OffsetY or 0)
+		end
+	end
+
+	----------------------------------------
 	-- Color
 	---
 
