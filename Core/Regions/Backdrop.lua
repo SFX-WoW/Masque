@@ -8,7 +8,7 @@
 
 	'Backdrop' Region
 
-	* See .docs\Regions.lua for FrameXML defaults.
+	* See Skins\Regions.lua for region defaults.
 
 ]]
 
@@ -26,13 +26,15 @@ local error, type = error, type
 -- Locals
 ---
 
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
+-- @ Core\Utility: Size, Points, Color, Coords
+local GetSize, SetPoints, GetColor, GetTexCoords = Core.Utility()
 
 ----------------------------------------
 -- Backdrop
 ---
 
 do
+	-- Storage
 	local Cache = {}
 
 	-- Removes the 'Backdrop' region from a button.
@@ -42,11 +44,10 @@ do
 		if Region then
 			Region:Hide()
 
-			-- Cache the region if not native.
+			-- Cache the custom region.
 			if Button.__MSQ_Backdrop then
 				Region:SetTexture("")
 
-				-- Cache the region.
 				Cache[#Cache + 1] = Region
 				Button.__MSQ_Backdrop = nil
 			end
@@ -57,7 +58,7 @@ do
 	local function AddBackdrop(Button, Skin, Color, xScale, yScale)
 		local Region = Button.FloatingBG or Button.__MSQ_Backdrop
 
-		-- Assign a region.
+		-- Assign or create a custom region if necessary.
 		if not Region then
 			local i = #Cache
 
@@ -73,6 +74,7 @@ do
 
 		Region:SetParent(Button)
 
+		-- Skin
 		local Texture = Skin.Texture
 		Color = Color or Skin.Color
 
@@ -110,11 +112,13 @@ do
 	end
 
 	----------------------------------------
-	-- Core
+	-- Region-Skinning Function
 	---
 
+	local SkinRegion = Core.SkinRegion
+
 	-- Add or removes a 'Backdrop' region.
-	function Core.SkinBackdrop(Button, Enabled, Skin, Color, xScale, yScale)
+	function SkinRegion.Backdrop(Enabled, Button, Skin, Color, xScale, yScale)
 		if Enabled and not Skin.Hide then
 			AddBackdrop(Button, Skin, Color, xScale, yScale)
 		else
@@ -126,7 +130,7 @@ do
 	-- API
 	---
 
-	-- Wrapper to return the 'Backdrop' region of a button.
+	-- Retrieves the 'Backdrop' region of a button.
 	function Core.API:GetBackdrop(Button)
 		if type(Button) ~= "table" then
 			if Core.Debug then
