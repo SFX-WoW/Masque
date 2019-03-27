@@ -159,7 +159,7 @@ do
 
 	SkinRegion.Frame = SkinFrame
 	SkinRegion.Cooldown = SkinCooldown
-	
+
 	----------------------------------------
 	-- API
 	---

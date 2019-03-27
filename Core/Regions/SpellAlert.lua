@@ -52,7 +52,7 @@ do
 		end
 
 		local Shape = Button.__MSQ_Shape
-	
+
 		-- Compare the shapes.
 		if Overlay.__MSQ_Shape ~= Shape then
 			local Glow, Ants
@@ -119,7 +119,7 @@ do
 		if type(Glow) == "string" then
 			Overlay.Glow = Glow
 		end
-	
+
 		-- Add the 'Ants' texture.
 		if type(Ants) == "string" then
 			Overlay.Ants = Ants
