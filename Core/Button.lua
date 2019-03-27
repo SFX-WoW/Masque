@@ -266,7 +266,7 @@ do
 	local SkinRegion = Core.SkinRegion
 
 	-- Applies a skin to a button and its associated layers.
-	function Core.SkinButton(Button, ButtonData, SkinID, Backdrop, Shadow, Gloss, Colors, IsActionButton)
+	function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, IsActionButton)
 		if not Button then return end
 
 		----------------------------------------
@@ -290,12 +290,16 @@ do
 		-- Shape
 		Button.__MSQ_Shape = GetShape(Skin.Shape)
 
+		----------------------------------------
 		-- Backdrop
-		Button.FloatingBG = ButtonData.FloatingBG
-		SkinBackdrop(Button, Backdrop, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
+		---
+
+		Button.FloatingBG = Button.FloatingBG or Regions.Backdrop
+
+		SkinRegion("Backdrop", Backdrop, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 
 		-- Icon
-		local Icon = ButtonData.Icon
+		local Icon = Regions.Icon
 		if Icon then
 			SkinIcon(Button, Icon, Skin.Icon, xScale, yScale)
 		end
@@ -317,13 +321,13 @@ do
 		end
 
 		-- Border
-		local Border = ButtonData.Border
+		local Border = Regions.Border
 		if Border then
 			SkinBorder(Button, Border, Skin.Border, Colors.Border, xScale, yScale, IsActionButton)
 		end
 		-- Textures
 		for Layer in pairs(Layers) do
-			local Region = ButtonData[Layer]
+			local Region = Regions[Layer]
 			if Region then
 				SkinTexture(Button, Region, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
 			end
@@ -341,7 +345,7 @@ do
 
 		-- Text
 		for Layer in pairs(Justify) do
-			local Region = ButtonData[Layer]
+			local Region = Regions[Layer]
 			if Region then
 				SkinText(Button, Region, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
 			end
