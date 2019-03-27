@@ -3,4 +3,5 @@
 	<Script file="Backdrop.lua"/>
 	<Script file="Shadow.lua"/>
 	<Script file="Gloss.lua"/>
+	<Script file="Frame.lua"/>
 </Ui>
