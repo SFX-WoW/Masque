@@ -19,80 +19,76 @@ local _, Core = ...
 local error, setmetatable, type = error, setmetatable, type
 
 ----------------------------------------
--- Locals
----
-
-local C_API = Core.API
-
-----------------------------------------
 -- Skins
 ---
 
--- Skin Data
-local Skins = {}
-
-----------------------------------------
--- Core
----
-
 do
+	-- Skin Data
+	local Skins = {}
+
 	-- Skin List
 	local SkinList = {}
 
 	-- Layers
-	local Layers = {
-		"Backdrop",
-		"Icon",
-		"Flash",
-		"Pushed",
-		--"Shadow",
-		"Normal",
-		"Disabled",
-		"Checked",
-		"Border",
-		"IconBorder",
-		"IconOverlay",
-		"Gloss",
-		"AutoCastable",
-		"Highlight",
-		"Name",
-		"Count",
-		"HotKey",
-		"Duration",
-		"Cooldown",
-		"ChargeCooldown",
-		"Shine",
-	}
+	local Layers = Core.Defaults
 
-	-- Hidden
+	-- Empty Table
+	local __Empty = {}
+
+	-- Hidden Table
 	local Hidden = {
 		Hide = true,
 	}
 
 	-- Adds data to the skin tables.
-	function Core:AddSkin(SkinID, SkinData, Default)
-		-- Layer Validation
-		for i = 1, #Layers do
-			local Layer = Layers[i]
-			if type(SkinData[Layer]) ~= "table" then
-				if Layer == "Shine" and type(SkinData.AutoCast) == "table" then
-					SkinData[Layer] = SkinData.AutoCast
-				else
-					SkinData[Layer] = Hidden
-				end
+	local function AddSkin(SkinID, SkinData, Default)
+		-- Validation
+		for Layer, Info in pairs(Layers) do
+			local Skin = SkinData[Layer]
+
+			-- Set AutoCast/Shine to the proper key.
+			if Layer == "AutoCastShine" then
+				Skin = Skin or SkinData.Shine or SkinData.AutoCast
+
+			-- Use Cooldown if ChargeCooldown is missing.
+			elseif Layer == "ChargeCooldown" then
+				Skin = Skin or SkinData.Cooldown
 			end
+
+			local CanHide = Info.CanHide
+
+			-- Ensure each layer is set.
+			if type(Skin) ~= "table" then
+				Skin = (CanHide and Hidden) or __Empty
+
+			-- Don't let skins hide layers they shouldn't.
+			elseif not CanHide then
+				Skin.Hide = nil
+
+			-- Hide unused layers.
+			elseif Info.Hide then
+				Skin = Hidden
+			end
+
+			SkinData[Layer] = Skin
 		end
 
-		-- Skin Addition
+		-- Save the ID
 		SkinData.SkinID = SkinID
+
+		-- Set the skin data.
 		Skins[SkinID] = SkinData
 		SkinList[SkinID] = SkinID
 
 		-- Default Skin
 		if Default then
-			self.DEFAULT_SKIN = SkinID
+			Core.DEFAULT_SKIN = SkinID
 		end
 	end
+
+	----------------------------------------
+	-- Core
+	---
 
 	Core.Skins = setmetatable(Skins, {
 		__index = function(self, s)
@@ -101,72 +97,84 @@ do
 			end
 		end
 	})
+
 	Core.SkinList = SkinList
-end
+	Core.AddSkin = AddSkin
+	Core.__Empty = __Empty
 
-----------------------------------------
--- API
----
+	----------------------------------------
+	-- API
+	---
 
--- Wrapper for the AddSkin function.
-function C_API:AddSkin(SkinID, SkinData, Replace)
-	local Debug = Core.Debug
+	local API = Core.API
 
-	-- Validation
-	if type(SkinID) ~= "string" then
-		if Debug then
-			error("Bad argument to API method 'AddSkin'. 'SkinID' must be a string.", 2)
-		end
-		return
-	end
-	if Skins[SkinID] and not Replace then
-		return
-	end
-	if type(SkinData) ~= "table" then
-		if Debug then
-			error("Bad argument to API method 'AddSkin'. 'SkinData' must be a table.", 2)
-		end
-		return
-	end
+	-- Wrapper for the AddSkin function.
+	function API:AddSkin(SkinID, SkinData, Replace)
+		local Debug = Core.Debug
 
-	-- Template Vaidation
-	local Template = SkinData.Template
-	if Template then
-		if type(Template) ~= "string" then
+		-- SkinID
+		if type(SkinID) ~= "string" then
 			if Debug then
-				error(("Invalid template reference by skin '%s'. 'Template' must be a string."):format(SkinID), 2)
-			end
-			return
-		end
-		local Parent = Skins[Template]
-		if type(Parent) ~= "table"  then
-			if Debug then
-				error(("Invalid template reference by skin '%s'. Template '%s' does not exist or is not a table."):format(SkinID, Template), 2)
+				error("Bad argument to API method 'AddSkin'. 'SkinID' must be a string.", 2)
 			end
 			return
 		end
 
-		-- Automatically group skins with their template.
-		local Group = Parent.Group or Template
-		Parent.Group = Group
+		-- Duplicates
+		if Skins[SkinID] and not Replace then
+			return
+		end
 
-		setmetatable(SkinData, {__index = Parent})
+		-- SkinData
+		if type(SkinData) ~= "table" then
+			if Debug then
+				error("Bad argument to API method 'AddSkin'. 'SkinData' must be a table.", 2)
+			end
+			return
+		end
+
+		-- Template
+		local Template = SkinData.Template
+
+		if Template then
+			if type(Template) ~= "string" then
+				if Debug then
+					error(("Invalid template reference by skin '%s'. 'Template' must be a string."):format(SkinID), 2)
+				end
+				return
+			end
+
+			-- Make sure the template exists.
+			local Parent = Skins[Template]
+			if type(Parent) ~= "table"  then
+				if Debug then
+					error(("Invalid template reference by skin '%s'. Template '%s' does not exist or is not a table."):format(SkinID, Template), 2)
+				end
+				return
+			end
+
+			-- Group skins with their template.
+			local Group = Parent.Group or Template
+			Parent.Group = Group
+
+			setmetatable(SkinData, {__index = Parent})
+		end
+
+		AddSkin(SkinID, SkinData)
 	end
 
-	Core:AddSkin(SkinID, SkinData)
-end
+	-- Retrieves the default skin.
+	function API:GetDefaultSkin()
+		return Core.DEFAULT_SKIN
+	end
 
--- API method for returning the default skin.
-function C_API:GetDefaultSkin()
-	return Core.DEFAULT_SKIN
-end
+	-- Retrieves the skin data for the specified skin.
+	function API:GetSkin(SkinID)
+		return SkinID and Skins[SkinID]
+	end
 
--- API method returning a specific skin.
-function C_API:GetSkin(SkinID)
-	return SkinID and Skins[SkinID]
-end
-
--- API method for returning the skins table.
-function C_API:GetSkins()
-	return Skins
+	-- Retrieves the Skins table.
+	function API:GetSkins()
+		return Skins
+	end
 end
