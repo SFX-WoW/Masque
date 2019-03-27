@@ -5,6 +5,12 @@
 std = 'lua51'
 
 ----------------------------------------
+-- Path Exclusions
+---
+
+exclude_files = {".docs", "Libs"}
+
+----------------------------------------
 -- Ignored Warnings
 ---
 
