@@ -4,4 +4,5 @@
 	<Script file="Shadow.lua"/>
 	<Script file="Gloss.lua"/>
 	<Script file="Frame.lua"/>
+	<Script file="SpellAlert.lua"/>
 </Ui>
