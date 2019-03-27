@@ -31,18 +31,13 @@ local GetScale, SkinRegion = Core.GetScale, Core.SkinRegion
 local Skins, __Empty = Core.Skins, Core.__Empty
 
 -- @ Skins\Regions
-local RegList = Core.Regions
+local RegList = Core.RegList
 
 ----------------------------------------
 -- Button
 ---
 
 do
-
-	----------------------------------------
-	-- Utility
-	---
-
 	-- List of valid shapes.
 	local Shapes = {
 		Circle = "Circle",
