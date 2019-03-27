@@ -18,26 +18,31 @@ local _, Core = ...
 -- Lua
 ---
 
-local error, hooksecurefunc, pairs, type = error, hooksecurefunc, pairs, type
+local pairs, type = pairs, type
 
 ----------------------------------------
 -- Locals
 ---
 
--- @ Core\Utility: Size, Points, Color, Coords
-local GetSize, SetPoints, GetColor, GetTexCoords = Core.Utility()
-local GetScale = Core.GetScale
+-- @ Core\Utility
+local GetScale, SkinRegion = Core.GetScale, Core.SkinRegion
 
-local Skins = Core.Skins
-local __MTT = {}
+-- @ Skins\Skins
+local Skins, __Empty = Core.Skins, Core.__Empty
+
+-- @ Skins\Regions
+local RegList = Core.Regions
 
 ----------------------------------------
--- Utility
+-- Button
 ---
 
-local GetShape
-
 do
+
+	----------------------------------------
+	-- Utility
+	---
+
 	-- List of valid shapes.
 	local Shapes = {
 		Circle = "Circle",
@@ -45,77 +50,13 @@ do
 	}
 
 	-- Validates and returns a shape.
-	function GetShape(Shape)
+	local function GetShape(Shape)
 		return Shape and Shapes[Shape] or "Square"
 	end
-end
 
-----------------------------------------
--- Text Layer
----
-
-local SkinText
-
--- Horizontal Justification
-local Justify = {
-	HotKey = "RIGHT",
-	Count = "RIGHT",
-	Name = "CENTER",
-	Duration = "CENTER",
-}
-
-do
-	-- Point
-	local Point = {
-		Count = "BOTTOMRIGHT",
-		Name = "BOTTOM",
-		Duration = "TOP",
-	}
-
-	-- Relative Point
-	local RelPoint = {
-		Name = "BOTTOM",
-		Count = "BOTTOMRIGHT",
-		Duration = "BOTTOM",
-	}
-
-	-- Hook to counter add-ons that call HotKey.SetPoint after Masque has skinned the region.
-	local function Hook_SetPoint(Region, ...)
-		if Region.__ExitHook then return end
-		Region.__ExitHook = true
-		local Skin = Region.__MSQ_Skin
-		Region:SetPoint("TOPLEFT", Region.__MSQ_Button, "TOPLEFT", Skin.OffsetX or 0, Skin.OffsetY or 0)
-		Region.__ExitHook = nil
-	end
-
-	-- Skins a text layer.
-	function SkinText(Button, Region, Layer, Skin, Color, xScale, yScale)
-		Region:SetJustifyH(Skin.JustifyH or Justify[Layer])
-		Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
-		Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY")
-		Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale))
-		Region:ClearAllPoints()
-		if Layer == "HotKey" then
-			Region.__MSQ_Button = Button
-			Region.__MSQ_Skin = Skin
-			if not Region.__MSQ_Hooked then
-				hooksecurefunc(Region, "SetPoint", Hook_SetPoint)
-				Region.__MSQ_Hooked = true
-			end
-			Hook_SetPoint(Region)
-		else
-			Region:SetVertexColor(GetColor(Color or Skin.Color))
-			Region:SetPoint(Point[Layer], Button, RelPoint[Layer], Skin.OffsetX or 0, Skin.OffsetY or 0)
-		end
-	end
-end
-
-----------------------------------------
--- Button Skinning Function
----
-
-do
-	local SkinRegion = Core.SkinRegion
+	----------------------------------------
+	-- Button-Skinning Function
+	---
 
 	-- Applies a skin to a button and its associated layers.
 	function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, IsActionButton)
@@ -133,7 +74,7 @@ do
 
 		-- Color
 		if type(Colors) ~= "table" then
-			Colors = __MTT
+			Colors = __Empty
 		end
 
 		-- Scale

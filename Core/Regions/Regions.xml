@@ -6,6 +6,7 @@
 	<Script file="Normal.lua"/>
 	<Script file="Texture.lua"/>
 	<Script file="Gloss.lua"/>
+	<Script file="Text.lua"/>
 	<Script file="Frame.lua"/>
 	<Script file="SpellAlert.lua"/>
 </Ui>
