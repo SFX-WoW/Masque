@@ -97,113 +97,6 @@ local function SkinIcon(Button, Region, Skin, xScale, yScale)
 end
 
 ----------------------------------------
--- Normal Texture Layer
----
-
-local SkinNormal
-
-do
-	local Base = {}
-
-	-- Hook to catch changes to a button's 'Normal' texture.
-	local function Hook_SetNormalTexture(Button, Texture)
-		local Region = Button.__MSQ_NormalTexture
-		local Normal = Button:GetNormalTexture()
-		if Normal ~= Region then
-			Normal:SetTexture("")
-			Normal:Hide()
-		end
-		local Skin = Button.__MSQ_NormalSkin
-		local Gloss = Button.__MSQ_Gloss
-		if Texture == "Interface\\Buttons\\UI-Quickslot" then
-			Region:SetTexture(Skin.EmptyTexture or Skin.Texture)
-			Region:SetTexCoord(GetTexCoords(Skin.EmptyCoords or Skin.TexCoords))
-			Region:SetVertexColor(GetColor(Skin.EmptyColor or Button.__MSQ_NormalColor))
-			Button.__MSQ_Empty = true
-			if Gloss then
-				Gloss:Hide()
-			end
-		elseif Texture == "Interface\\Buttons\\UI-Quickslot2" then
-			Region:SetTexture(Button.__MSQ_RandomTexture or Skin.Texture)
-			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-			Region:SetVertexColor(GetColor(Button.__MSQ_NormalColor))
-			Button.__MSQ_Empty = nil
-			if Gloss then
-				Gloss:Show()
-			end
-		end
-	end
-
-	-- Skins the 'Normal' layer of a button.
-	function SkinNormal(Button, Region, Skin, Color, xScale, yScale)
-		Region = Region or Button:GetNormalTexture()
-		local Texture = Region and Region:GetTexture()
-		-- Explicitly specify Static = false to enable the default states.
-		if Skin.Static == false then
-			if Base[Button] then
-				Base[Button]:Hide()
-			end
-		else
-			if Region then
-				Region:SetTexture("")
-				Region:Hide()
-			end
-			Region = Base[Button] or Button:CreateTexture()
-			Base[Button] = Region
-		end
-		if not Region then return end
-		Button.__MSQ_NormalTexture = Region
-		-- Random Texture
-		if Skin.Random then
-			Button.__MSQ_RandomTexture = Random(Skin.Textures)
-		else
-			Button.__MSQ_RandomTexture = nil
-		end
-		Button.__MSQ_NormalColor = Color or Skin.Color
-		if Texture == "Interface\\Buttons\\UI-Quickslot" or Button.__MSQ_Empty then
-			Region:SetTexture(Skin.EmptyTexture or Skin.Texture)
-			Region:SetTexCoord(GetTexCoords(Skin.EmptyCoords or Skin.TexCoords))
-			Region:SetVertexColor(GetColor(Skin.EmptyColor or Button.__MSQ_NormalColor))
-		else
-			Region:SetTexture(Button.__MSQ_RandomTexture or Skin.Texture)
-			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-			Region:SetVertexColor(GetColor(Button.__MSQ_NormalColor))
-		end
-		if not Button.__MSQ_NormalHook then
-			hooksecurefunc(Button, "SetNormalTexture", Hook_SetNormalTexture)
-			Button.__MSQ_NormalHook = true
-		end
-		Button.__MSQ_NormalSkin = Skin
-		Region:Show()
-		if Skin.Hide then
-			Region:SetTexture("")
-			Region:Hide()
-			return
-		end
-		Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or 0)
-		Region:SetBlendMode(Skin.BlendMode or "BLEND")
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
-		local Point = Skin.Point or "CENTER"
-		local RelPoint = Skin.RelPoint or Point
-
-		Region:ClearAllPoints()
-		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
-	end
-
-	-- API: Returns the 'Normal' layer of a button.
-	function Core.API:GetNormal(Button)
-		if type(Button) ~= "table" then
-			if Core.Debug then
-				error("Bad argument to method 'GetNormal'. 'Button' must be a button object.", 2)
-			end
-			return
-		end
-		return Button.__MSQ_NormalTexture or (Button.GetNormalTexture and Button:GetNormalTexture())
-	end
-end
-
-----------------------------------------
 -- Border Layer
 ---
 
@@ -413,11 +306,16 @@ do
 
 		SkinRegion("Shadow", Shadow, Button, Skin.Shadow, Colors.Shadow, xScale, yScale)
 
+		----------------------------------------
 		-- Normal
-		local Normal = ButtonData.Normal
+		---
+
+		local Normal = Regions.Normal
+
 		if Normal ~= false then
-			SkinNormal(Button, Normal, Skin.Normal, Colors.Normal, xScale, yScale)
+			SkinRegion("Normal", Normal, Button, Skin.Normal, Colors.Normal, xScale, yScale)
 		end
+
 		-- Border
 		local Border = ButtonData.Border
 		if Border then
