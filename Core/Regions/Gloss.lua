@@ -40,7 +40,7 @@ do
 		local Region = Button.__MSQ_Gloss
 
 		if Region then
-			Region:SetTexture("")
+			Region:SetTexture()
 			Region:Hide()
 
 			-- Cache the region.
