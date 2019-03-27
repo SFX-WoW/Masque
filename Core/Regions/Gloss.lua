@@ -24,13 +24,15 @@ local error, type = error, type
 -- Locals
 ---
 
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
+-- @ Core\Utility: Size, Points, Color, Coords
+local GetSize, SetPoints, GetColor, GetTexCoords = Core.Utility()
 
 ----------------------------------------
 -- Gloss
 ---
 
 do
+	-- Storage
 	local Cache = {}
 
 	-- Removes the 'Gloss' region from a button.
@@ -51,7 +53,7 @@ do
 	local function AddGloss(Button, Skin, Color, Alpha, xScale, yScale)
 		local Region = Button.__MSQ_Gloss
 
-		-- Assign a region.
+		-- Assign or create a region.
 		if not Region then
 			local i = #Cache
 
@@ -75,15 +77,14 @@ do
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
 		Region:SetVertexColor(GetColor(Color or Skin.Color, Alpha))
 
-		-- Size/Position
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+		-- Level
 		Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 
-		local Point = Skin.Point or "CENTER"
-		local RelPoint = Skin.RelPoint or Point
+		-- Size
+		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 
-		Region:ClearAllPoints()
-		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
+		-- Position
+		SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 		-- Hide if the button's empty.
 		if Button.__MSQ_Empty then
@@ -94,11 +95,13 @@ do
 	end
 
 	----------------------------------------
-	-- Core
+	-- Region-Skinning Function
 	---
 
+	local SkinRegion = Core.SkinRegion
+
 	-- Add or removes a 'Gloss' region.
-	function Core.SkinGloss(Button, Skin, Color, Alpha, xScale, yScale)
+	function SkinRegion.Gloss(Alpha, Button, Skin, Color, xScale, yScale)
 		if Alpha > 0 and not Skin.Hide and Skin.Texture then
 			AddGloss(Button, Skin, Color, Alpha, xScale, yScale)
 		else
@@ -110,7 +113,7 @@ do
 	-- API
 	---
 
-	-- Wrapper to return the 'Gloss' region of a button.
+	-- Retrieves the 'Gloss' region of a button.
 	function Core.API:GetGloss(Button)
 		if type(Button) ~= "table" then
 			if Core.Debug then
