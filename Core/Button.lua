@@ -51,108 +51,6 @@ do
 end
 
 ----------------------------------------
--- Border Layer
----
-
-local SkinBorder
-
-do
-	-- Default Color
-	local BaseColor = {0, 1, 0, 0.35}
-
-	-- Hook to counter color changes.
-	local function Hook_SetVertexColor(Region, ...)
-		if Region.__ExitHook then return end
-		Region.__ExitHook = true
-		Region:SetVertexColor(GetColor(Region.__MSQ_Color))
-		Region.__ExitHook = nil
-	end
-
-	-- Skins the Border layer.
-	function SkinBorder(Button, Region, Skin, Color, xScale, yScale, IsActionButton)
-		if Skin.Hide then
-			Region:SetTexture("")
-			Region:Hide()
-			return
-		end
-		local Texture = Skin.Texture or Region:GetTexture()
-		Region:SetTexture(Texture)
-		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-		Region:SetBlendMode(Skin.BlendMode or "ADD")
-		Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
-		if IsActionButton then
-			Region.__MSQ_Color = Color or Skin.Color or BaseColor
-			if not Region.__MSQ_Hooked then
-				hooksecurefunc(Region, "SetVertexColor", Hook_SetVertexColor)
-				Region.__MSQ_Hooked = true
-			end
-			Hook_SetVertexColor(Region)
-		end
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
-		local Point = Skin.Point or "CENTER"
-		local RelPoint = Skin.RelPoint or Point
-
-		Region:ClearAllPoints()
-		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
-	end
-end
-
-----------------------------------------
--- Texture Layer
----
-
--- Draw Layers
-local Layers = {
-		Pushed = "ARTWORK",
-		Disabled = "ARTWORK",
-		Flash = "ARTWORK",
-		Checked = "OVERLAY",
-		AutoCastable = "OVERLAY",
-		Highlight = "HIGHLIGHT",
-		IconBorder = false,
-		IconOverlay = false,
-}
-
-local SkinTexture
-
-do
-	-- Draw Levels
-	local Levels = {
-		Pushed = 0,
-		Disabled = 0,
-		Flash = 1,
-		Checked = 0,
-		AutoCastable = 1,
-		Highlight = 0,
-	}
-
-	-- Skins a texture layer.
-	function SkinTexture(Button, Region, Layer, Skin, Color, xScale, yScale)
-		if Layers[Layer] then
-			if Skin.Hide then
-				Region:SetTexture("")
-				Region:Hide()
-				return
-			end
-			local Texture = Skin.Texture or Region:GetTexture()
-			Region:SetTexture(Texture)
-			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-			Region:SetBlendMode(Skin.BlendMode or "BLEND")
-			Region:SetDrawLayer(Skin.DrawLayer or Layers[Layer], Skin.DrawLevel or Levels[Layer])
-			Region:SetVertexColor(GetColor(Color or Skin.Color))
-		end
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
-		local Point = Skin.Point or "CENTER"
-		local RelPoint = Skin.RelPoint or Point
-
-		Region:ClearAllPoints()
-		Region:SetPoint(Point, Button, RelPoint, Skin.OffsetX or 0, Skin.OffsetY or 0)
-	end
-end
-
-----------------------------------------
 -- Text Layer
 ---
 
@@ -278,16 +176,28 @@ do
 			SkinRegion("Normal", Normal, Button, Skin.Normal, Colors.Normal, xScale, yScale)
 		end
 
-		-- Border
-		local Border = Regions.Border
-		if Border then
-			SkinBorder(Button, Border, Skin.Border, Colors.Border, xScale, yScale, IsActionButton)
-		end
-		-- Textures
-		for Layer in pairs(Layers) do
-			local Region = Regions[Layer]
-			if Region then
-				SkinTexture(Button, Region, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
+		----------------------------------------
+		-- Other Regions
+		---
+
+		local Layers = RegList[bType]
+
+		-- Iterate the regions for this button type.
+		for Layer, Info in pairs(Layers) do
+			local nType = Info.nType
+
+			-- Only process regions with an internal type.
+			if nType then
+				local Region = Regions[Layer]
+
+				-- Skin the region, if available.
+				if Region then
+					if nType == "Text" then
+						SkinRegion("Text", Region, Button, Layer, Skin[Layer], xScale, yScale)
+					else
+						SkinRegion(nType, Region, Button, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
+					end
+				end
 			end
 		end
 
@@ -300,14 +210,6 @@ do
 		end
 
 		SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
-
-		-- Text
-		for Layer in pairs(Justify) do
-			local Region = Regions[Layer]
-			if Region then
-				SkinText(Button, Region, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
-			end
-		end
 
 		----------------------------------------
 		-- Cooldown
