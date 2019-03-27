@@ -25,8 +25,10 @@ local error, pairs, setmetatable, type = error, pairs, setmetatable, type
 ---
 
 local C_API = Core.API
-local Skins = Core.Skins
-local GetColor, SkinButton = Core.GetColor, Core.SkinButton
+local Skins, SkinButton = Core.Skins, Core.SkinButton
+
+-- @ Core\Utility: Size, Points, Color, Coords
+local _, _, GetColor = Core.Utility()
 
 ----------------------------------------
 -- Callback
@@ -301,7 +303,7 @@ do
 
 				local db = self.db
 				if not db.Disabled and not self.Queued then
-					SkinButton(Button, ButtonData, db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
+					SkinButton(Button, ButtonData, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, self.IsActionBar)
 				end
 			end,
 
@@ -347,7 +349,7 @@ do
 				if not self.db.Disabled then
 					local db = self.db
 					for Button in pairs(self.Buttons) do
-						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Gloss, db.Backdrop, db.Colors, self.IsActionBar)
+						SkinButton(Button, self.Buttons[Button], db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, self.IsActionBar)
 					end
 					if not Silent then
 						if self.Callback then
@@ -463,6 +465,8 @@ do
 					self.db.Gloss = Value
 				elseif Option == "Backdrop" then
 					self.db.Backdrop = (Value and true) or false
+				elseif Option == "Shadow" then
+					self.db.Shadow = (Value and true) or false
 				else
 					return
 				end
@@ -494,8 +498,10 @@ do
 
 			-- Resets the group's skin back to its defaults.
 			Reset = function(self)
-				self.db.Gloss = 0
 				self.db.Backdrop = false
+				self.db.Shadow = false
+				self.db.Gloss = 0
+
 				for Layer in pairs(self.db.Colors) do
 					self.db.Colors[Layer] = nil
 				end

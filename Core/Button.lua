@@ -6,7 +6,7 @@
 	* File...: Core\Button.lua
 	* Author.: StormFX, JJSheets
 
-	Button Skinning
+	Button
 
 ]]
 
@@ -565,8 +565,10 @@ end
 ---
 
 do
+	local SkinRegion = Core.SkinRegion
+
 	-- Applies a skin to a button and its associated layers.
-	function Core.SkinButton(Button, ButtonData, SkinID, Gloss, Backdrop, Colors, IsActionButton)
+	function Core.SkinButton(Button, ButtonData, SkinID, Backdrop, Shadow, Gloss, Colors, IsActionButton)
 		if not Button then return end
 
 		-- Skin
@@ -593,6 +595,12 @@ do
 			SkinIcon(Button, Icon, Skin.Icon, xScale, yScale)
 		end
 
+		----------------------------------------
+		-- Shadow
+		---
+
+		SkinRegion("Shadow", Shadow, Button, Skin.Shadow, Colors.Shadow, xScale, yScale)
+
 		-- Normal
 		local Normal = ButtonData.Normal
 		if Normal ~= false then
@@ -611,12 +619,15 @@ do
 			end
 		end
 
+		----------------------------------------
 		-- Gloss
+		---
+
 		if type(Gloss) ~= "number" then
 			Gloss = (Gloss and 1) or 0
 		end
 
-		SkinGloss(Button, Skin.Backdrop, Colors.Backdrop, Alpha, xScale, yScale)
+		SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
 
 		-- Text
 		for Layer in pairs(Justify) do

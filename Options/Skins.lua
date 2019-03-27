@@ -95,7 +95,7 @@ do
 	-- Gets the state of a layer.
 	local function GetState(info)
 		local db, Layer = info.arg.db, info[#info]
-		local Skin = Skins[db.SkinID] or "Classic"
+		local Skin = Skins[db.SkinID] or Skins.Classic
 		if Layer == "Color" then
 			Layer = info[#info-1]
 		end
@@ -110,6 +110,12 @@ do
 	local function GetBackdropState(info)
 		local db = info.arg.db
 		return (not db.Backdrop) or db.Disabled
+	end
+
+	-- Gets the state of the shadow color.
+	local function GetShadowState(info)
+		local db = info.arg.db
+		return (not db.Shadow) or db.Disabled
 	end
 
 	----------------------------------------
@@ -184,12 +190,73 @@ do
 					name = " ",
 					order = 4,
 				},
+				Backdrop = {
+					type = "group",
+					name = L["Backdrop Settings"],
+					inline = true,
+					order = 5,
+					args = {
+						Backdrop = {
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Enable the Backdrop texture."],
+							get = GetOption,
+							set = SetOption,
+							arg = obj,
+							disabled = GetState,
+							order = 1,
+						},
+						Color = {
+							type = "color",
+							name = L["Color"],
+							desc = L["Set the color of the Backdrop texture."],
+							get = GetColor,
+							set = SetColor,
+							arg = obj,
+							disabled = GetBackdropState,
+							hasAlpha = true,
+							order = 2,
+						},
+					},
+				},
+				Shadow = {
+					type = "group",
+					name = L["Shadow Settings"],
+					arg = obj,
+					hidden = GetHidden,
+					inline = true,
+					order = 6,
+					args = {
+						Shadow = {
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Enable the Shadow texture."],
+							get = GetOption,
+							set = SetOption,
+							arg = obj,
+							disabled = GetState,
+							order = 1,
+						},
+						Color = {
+							type = "color",
+							name = L["Color"],
+							desc = L["Set the color of the Shadow texture."],
+							get = GetColor,
+							set = SetColor,
+							arg = obj,
+							disabled = GetShadowState,
+							hasAlpha = true,
+							order = 2,
+						},
+					},
+				},
 				Gloss = {
 					type = "group",
 					name = L["Gloss Settings"],
+					arg = obj,
 					inline = true,
 					disabled = GetState,
-					order = 5,
+					order = 7,
 					args = {
 						Color = {
 							type = "color",
@@ -215,35 +282,6 @@ do
 						},
 					},
 				},
-				Backdrop = {
-					type = "group",
-					name = L["Backdrop Settings"],
-					inline = true,
-					order = 6,
-					args = {
-						Backdrop = {
-							type = "toggle",
-							name = L["Enable"],
-							desc = L["Enable the Backdrop texture."],
-							get = GetOption,
-							set = SetOption,
-							arg = obj,
-							disabled = GetState,
-							order = 1,
-						},
-						Color = {
-							type = "color",
-							name = L["Color"],
-							desc = L["Set the color of the Backdrop texture."],
-							get = GetColor,
-							set = SetColor,
-							arg = obj,
-							disabled = GetBackdropState,
-							hasAlpha = true,
-							order = 2,
-						},
-					},
-				},
 				Colors = {
 					type = "group",
 					name = L["Colors"],
@@ -251,7 +289,7 @@ do
 					set = SetColor,
 					inline = true,
 					disabled = GetState,
-					order = 7,
+					order = 8,
 					args = {
 						Normal = {
 							type = "color",
