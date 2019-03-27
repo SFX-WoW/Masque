@@ -34,7 +34,11 @@ local GetSize, SetPoints, GetColor, GetTexCoords = Core.Utility()
 ---
 
 do
-	-- Post-Hook to catch changes to a button's 'Normal' texture.
+	----------------------------------------
+	-- Hook
+	---
+
+	-- Catches changes to a button's 'Normal' texture.
 	-- * The default behavior for action buttons is to set the 'Normal' region's
 	--   alpha to 0.5, but the PetBar and some add-ons still change the texture.
 	local function Hook_SetNormalTexture(Button, Texture)
@@ -69,7 +73,10 @@ do
 	-- Region-Skinning Function
 	---
 
+	-- @ Core\Utility
 	local SkinRegion = Core.SkinRegion
+
+	-- Reference
 	local Base = {}
 
 	-- Skins the 'Normal' layer of a button.

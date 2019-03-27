@@ -28,6 +28,8 @@ local type = type
 
 -- @ Core\Utility: Size, Points, Color, Coords
 local GetSize, SetPoints, GetColor = Core.Utility()
+
+-- @ Core\Utility
 local GetScale = Core.GetScale
 
 ----------------------------------------
@@ -49,7 +51,7 @@ do
 	end
 
 	----------------------------------------
-	-- Cooldown
+	-- Hooks
 	---
 
 	local Swipe = {
@@ -94,6 +96,10 @@ do
 
 		Region.__EdgeHook = nil
 	end
+
+	----------------------------------------
+	-- Cooldown
+	---
 
 	-- Skins the 'Cooldown' frame of a button.
 	local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale)
@@ -155,6 +161,7 @@ do
 	-- Region-Skinning Functions
 	---
 
+	-- @ Core\Utility
 	local SkinRegion = Core.SkinRegion
 
 	SkinRegion.Frame = SkinFrame

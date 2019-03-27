@@ -28,7 +28,8 @@ local GetSize, SetPoints = Core.Utility()
 ---
 
 do
-	local Defaults = Core.Defaults
+	-- @ Skins\Regions
+	local Defaults = Core.RegDefs
 
 	----------------------------------------
 	-- Hook
@@ -49,6 +50,7 @@ do
 	-- Region-Skinning Function
 	---
 
+	-- @ Core\Utility
 	local SkinRegion = Core.SkinRegion
 
 	-- Skins a text layer of a button.

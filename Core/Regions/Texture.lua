@@ -28,14 +28,17 @@ local GetSize, SetPoints, GetColor, GetTexCoords = Core.Utility()
 ---
 
 do
+	-- @ Skins\Regions
+	local Defaults = Core.RegDefs
+
 	----------------------------------------
 	-- Region-Skinning Function
 	---
 
+	-- @ Core\Utility
 	local SkinRegion = Core.SkinRegion
-	local Defaults = Core.Defaults
 
-	-- Skins a texture layer of a button.
+	-- Skins a texture region of a button.
 	function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 		if Skin.Hide then
 			Region:SetTexture("")

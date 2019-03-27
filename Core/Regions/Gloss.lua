@@ -98,6 +98,7 @@ do
 	-- Region-Skinning Function
 	---
 
+	-- @ Core\Utility
 	local SkinRegion = Core.SkinRegion
 
 	-- Add or removes a 'Gloss' region.

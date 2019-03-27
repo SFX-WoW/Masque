@@ -317,7 +317,7 @@ do
 	-- Core
 	---
 
-	Core.Defaults = Defaults
+	Core.RegDefs = Defaults
 
 end
 

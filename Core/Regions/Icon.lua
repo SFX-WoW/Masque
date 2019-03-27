@@ -28,12 +28,14 @@ local GetSize, SetPoints, _, GetTexCoords = Core.Utility()
 ---
 
 do
-	local SkinRegion = Core.SkinRegion
-
 	----------------------------------------
 	-- Region-Skinning Function
 	---
 
+	-- @ Core\Utility
+	local SkinRegion = Core.SkinRegion
+
+	-- Skins 'Icon' region of a button.
 	function SkinRegion.Icon(Region, Button, Skin, xScale, yScale)
 		Region:SetParent(Button)
 

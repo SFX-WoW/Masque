@@ -84,7 +84,7 @@ do
 	hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 
 	----------------------------------------
-	-- Core
+	-- Region-Skinning Function
 	---
 
 	Core.SkinRegion.SpellAlert = UpdateSpellAlert
@@ -93,9 +93,11 @@ do
 	-- API
 	---
 
+	local API = Core.API
+
 	-- Wrapper for the Update function.
 	-- * Allows add-ons to call the function when not using the native API.
-	function Core.API:UpdateSpellAlert(Button)
+	function API:UpdateSpellAlert(Button)
 		if type(Button) ~= "table" then
 			return
 		end
@@ -103,8 +105,8 @@ do
 		UpdateSpellAlert(Button)
 	end
 
-	-- Method to add or overwrite a 'SpellAlert' texture set.
-	function Core.API:AddSpellAlert(Shape, Glow, Ants)
+	-- Adds or overwrites a 'SpellAlert' texture set.
+	function API:AddSpellAlert(Shape, Glow, Ants)
 		if type(Shape) ~= "string" then
 			if Core.Debug then
 				error("Bad argument to API method 'AddSpellAlert'. 'Shape' must be a string.", 2)
@@ -128,8 +130,8 @@ do
 		Alerts[Shape] = Overlay
 	end
 
-	-- Method to retrieve a 'SpellAlert' texture set.
-	function Core.API:GetSpellAlert(Shape)
+	-- Retrieves a 'SpellAlert' texture set.
+	function API:GetSpellAlert(Shape)
 		if type(Shape) ~= "string" then
 			if Core.Debug then
 				error("Bad argument to API method 'GetSpellAlert'. 'Shape' must be a string.", 2)

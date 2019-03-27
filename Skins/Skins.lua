@@ -30,7 +30,7 @@ do
 	local SkinList = {}
 
 	-- Layers
-	local Layers = Core.Defaults
+	local Layers = Core.RegDefs
 
 	-- Empty Table
 	local __Empty = {}
