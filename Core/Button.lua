@@ -18,7 +18,7 @@ local _, Core = ...
 -- Lua
 ---
 
-local error, hooksecurefunc, pairs, random, type = error, hooksecurefunc, pairs, random, type
+local error, hooksecurefunc, pairs, type = error, hooksecurefunc, pairs, type
 
 ----------------------------------------
 -- Locals
@@ -47,52 +47,6 @@ do
 	-- Validates and returns a shape.
 	function GetShape(Shape)
 		return Shape and Shapes[Shape] or "Square"
-	end
-end
-
--- Returns a random table key.
-local function Random(v)
-	if type(v) == "table" and #v > 1 then
-		local i = random(1, #v)
-		return v[i]
-	end
-end
-
-----------------------------------------
--- Icon Layer
----
-
-local function SkinIcon(Button, Region, Skin, xScale, yScale)
-	Region:SetParent(Button)
-	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
-	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
-
-	local Point, RelPoint = Skin.Point or "CENTER", Skin.RelPoint or Point
-	local OffsetX, OffsetY = Skin.OffsetX or 0, Skin.OffsetY or 0
-
-	Region:ClearAllPoints()
-	Region:SetPoint(Point, Button, RelPoint, OffsetX, OffsetY)
-	-- Mask support added in 7.2. @InfusOnWoW
-	if Skin.Mask then
-		if not Region.__MSQ_Mask then
-			Region.__MSQ_Mask = Button:CreateMaskTexture()
-		end
-		local Mask = Region.__MSQ_Mask
-		Mask:SetTexture(Skin.Mask)
-		Mask:SetSize(GetSize(Skin.MaskWidth or Skin.Width, Skin.MaskHeight or Skin.Height, xScale, yScale))
-		Mask:SetPoint(Skin.MaskPoint or Point, Button, Skin.MaskRelPoint or RelPoint, MaskOffsetX or OffsetX, MaskOffsetY or OffsetY)
-		if not Mask.active then
-			Region:AddMaskTexture(Mask)
-			Mask.active = true
-		end
-	else
-		local Mask = Region.__MSQ_Mask
-		if Mask and Mask.active then
-			Region:RemoveMaskTexture(Mask)
-			Mask.active = false
-		end
 	end
 end
 
@@ -298,10 +252,14 @@ do
 
 		SkinRegion("Backdrop", Backdrop, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 
+		----------------------------------------
 		-- Icon
+		---
+
 		local Icon = Regions.Icon
+
 		if Icon then
-			SkinIcon(Button, Icon, Skin.Icon, xScale, yScale)
+			SkinRegion("Icon", Icon, Button, Skin.Icon, xScale, yScale)
 		end
 
 		----------------------------------------
