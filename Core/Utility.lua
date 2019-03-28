@@ -6,7 +6,7 @@
 	* File...: Core\Utility.lua
 	* Author.: StormFX
 
-	Utility
+	Utility Functions
 
 ]]
 
@@ -21,7 +21,7 @@ local _, Core = ...
 local type = type
 
 ----------------------------------------
--- Functions
+-- Utility
 ---
 
 do
@@ -130,18 +130,4 @@ do
 		local y = (Button:GetHeight() or 36) / 36
 		return x, y
 	end
-
-	----------------------------------------
-	-- Region-Skinning Metatable
-	---
-
-	-- Use a metatable to call region-skinning functions.
-	Core.SkinRegion = setmetatable({}, {
-		__call = function(self, Region, ...)
-			local func = Region and self[Region]
-			if func then
-				func(...)
-			end
-		end,
-	})
 end

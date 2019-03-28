@@ -93,39 +93,6 @@ do
 end
 
 ----------------------------------------
--- Queue
----
-
-do
-	-- Self-destructing table to skin groups created prior to PLAYER_LOGIN.
-	Core.Queue = {
-		-- Storage
-		Cache = {},
-
-		-- Adds a group to the queue.
-		Add = function(self, obj)
-			self.Cache[#self.Cache+1] = obj
-			obj.Queued = true
-		end,
-
-		-- Re-Skins all queued groups.
-		ReSkin = function(self)
-			for i = 1, #self.Cache do
-				local obj = self.Cache[i]
-				obj:ReSkin(true)
-				obj.Queued = nil
-			end
-
-			-- GC
-			self.Cache = nil
-			Core.Queue = nil
-		end,
-	}
-
-	setmetatable(Core.Queue, {__call = Core.Queue.Add})
-end
-
-----------------------------------------
 -- Groups
 ---
 
@@ -229,43 +196,6 @@ end
 ---
 
 do
-	local Group = {}
-	local Layers = {
-		FloatingBG = "Texture",
-		Icon = "Texture",
-		Flash = "Texture",
-		Pushed = "Special",
-		Normal = "Special",
-		Disabled = "Special",
-		Checked = "Special",
-		Border = "Texture",
-		AutoCastable = "Texture",
-		Highlight = "Special",
-		Name = "Text",
-		Count = "Text",
-		HotKey = "Text",
-		Duration = "Text",
-		Cooldown = "Frame",
-		Shine = "Frame",
-		IconBorder = "Child",
-		IconOverlay = "Child",
-	}
-
-	-- Gets a button region.
-	local function GetRegion(Button, Layer, Type)
-		local Region
-		if Type == "Special" then
-			local f = Button["Get"..Layer.."Texture"]
-			Region = (f and f(Button)) or false
-		elseif Type == "Child" then
-			Region = Button[Layer] or false
-		else
-			local n = Button:GetName()
-			Region = (n and _G[n..Layer]) or false
-		end
-		return Region
-	end
-
 	GMT = {
 		__index = {
 
