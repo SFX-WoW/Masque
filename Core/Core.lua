@@ -55,7 +55,7 @@ do
 
 		-- Internal Type
 		else
-			local oType = Button.__MSQ_oType
+			oType = Button.__MSQ_oType
 			Type = "Button"
 
 			-- CheckButton
