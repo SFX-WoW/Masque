@@ -7,5 +7,6 @@
 
 	<Script file="Button.lua"/>
 	<Script file="Callback.lua"/>
+	<Script file="Group.lua"/>
 	<Script file="Groups.lua"/>
 </Ui>
