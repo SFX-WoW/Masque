@@ -6,5 +6,6 @@
 	<Include file="Regions\Regions.xml"/>
 
 	<Script file="Button.lua"/>
+	<Script file="Callback.lua"/>
 	<Script file="Groups.lua"/>
 </Ui>
