@@ -121,7 +121,7 @@ do
 	-- Region-Skinning Function
 	---
 
-	-- @ Core\Utility
+	-- @ Core\Core
 	local SkinRegion = Core.SkinRegion
 
 	-- Add or removes a 'Backdrop' region.
