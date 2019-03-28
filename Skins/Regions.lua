@@ -42,7 +42,7 @@ do
 			-- DrawLayer = "BACKGROUND",
 			-- DrawLevel = -1,
 
-			-- CanHide = true,
+			CanHide = true,
 			-- UseColor = true,
 		},
 		Icon = {
@@ -56,7 +56,7 @@ do
 			-- DrawLayer = "ARTWORK",
 			-- DrawLevel = -1,
 
-			-- CanHide = true,
+			CanHide = true,
 		},
 		Normal = {
 			-- Texture = "Interface\\Buttons\\UI-Quickslot2",
@@ -64,7 +64,7 @@ do
 			-- DrawLayer = "ARTWORK",
 			-- DrawLevel = 0,
 
-			-- CanHide = true,
+			CanHide = true,
 		},
 		Disabled = {
 			Hide = true,
@@ -160,7 +160,7 @@ do
 			-- DrawLayer = "OVERLAY",
 			-- DrawLevel = 0,
 
-			-- CanHide = true,
+			CanHide = true,
 		},
 		IconOverlay = {
 			Atlas = "AzeriteIconFrame",
