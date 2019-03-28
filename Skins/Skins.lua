@@ -29,9 +29,6 @@ do
 	-- Skin List
 	local SkinList = {}
 
-	-- Layers
-	local Layers = Core.RegDefs
-
 	-- Empty Table
 	local __Empty = {}
 
@@ -39,6 +36,9 @@ do
 	local Hidden = {
 		Hide = true,
 	}
+
+	-- @ Skins\Regions
+	local Layers = Core.RegDefs
 
 	-- Adds data to the skin tables.
 	local function AddSkin(SkinID, SkinData, Default)
@@ -112,7 +112,7 @@ do
 	function API:AddSkin(SkinID, SkinData, Replace)
 		local Debug = Core.Debug
 
-		-- SkinID
+		-- @SkinID must be a string.
 		if type(SkinID) ~= "string" then
 			if Debug then
 				error("Bad argument to API method 'AddSkin'. 'SkinID' must be a string.", 2)
@@ -125,7 +125,7 @@ do
 			return
 		end
 
-		-- SkinData
+		-- @SkinData must be a table.
 		if type(SkinData) ~= "table" then
 			if Debug then
 				error("Bad argument to API method 'AddSkin'. 'SkinData' must be a table.", 2)
