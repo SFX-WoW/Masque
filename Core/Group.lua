@@ -222,11 +222,11 @@ do
 			if not Silent then
 				-- Group Callback
 				if self.Callback then
-					Callback(self.ID, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+					Callback(self.ID, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors)
 
 				-- Add-on Callback
 				elseif self.Addon then
-					Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors)
+					Callback(self.Addon, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors)
 				end
 			end
 		end
@@ -395,11 +395,11 @@ do
 
 			-- Group Callback
 			if self.Callback then
-				Callback(self.ID, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
+				Callback(self.ID, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, true)
 
 			-- Add-on Callback
 			elseif self.Addon then
-				Callback(self.Addon, self.Group, db.SkinID, db.Gloss, db.Backdrop, db.Colors, true)
+				Callback(self.Addon, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, true)
 			end
 		end
 

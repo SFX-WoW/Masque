@@ -31,14 +31,15 @@ do
 	local Callback = {
 
 		-- Notifies an add-on of skin changes.
-		Fire = function(self, Addon, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
+		-- @ Core\Group: Group, SkinID, Backdrop, Shadow, Gloss, Colors, Disabled
+		Fire = function(self, Addon, ...)
 			local args = Cache[Addon]
 			if args then
 				for arg, func in pairs(args) do
 					if arg then
-						func(arg, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
+						func(arg, ...)
 					else
-						func(Group, SkinID, Gloss, Backdrop, Colors, Disabled)
+						func(...)
 					end
 				end
 			end
