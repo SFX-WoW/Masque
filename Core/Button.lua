@@ -54,7 +54,7 @@ do
 	---
 
 	-- Applies a skin to a button and its associated layers.
-	function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, IsActionButton)
+	function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors)
 		if not Button then return end
 
 		----------------------------------------
