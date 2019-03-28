@@ -28,7 +28,7 @@ local error, pairs, type = error, pairs, type
 local Skins = Core.Skins
 
 -- @ Core\Utility: Size, Points, Color, Coords
-local _, _, GetColor = Core.Utility()
+local _, _, _GetColor = Core.Utility()
 
 -- @ Core\Button
 local SkinButton = Core.SkinButton
@@ -184,7 +184,7 @@ do
 			local Skin = Skins[self.db.SkinID] or Skins.Classic
 
 			-- Return the current db or skin color.
-			return GetColor(self.db.Colors[Layer] or Skin[Layer].Color)
+			return _GetColor(self.db.Colors[Layer] or Skin[Layer].Color)
 		end
 	end
 
@@ -270,7 +270,7 @@ do
 		Core:UpdateSkinOptions(self, true)
 
 		-- Remove the group.
-		Groups[self.ID] = nil
+		Core.Groups[self.ID] = nil
 	end
 
 	----------------------------------------
@@ -282,7 +282,6 @@ do
 		if not self.StaticID then
 			return
 
-			
 		-- @Name must be a string.
 		elseif type(Name) ~= "string" then
 			if Core.Debug then
@@ -481,7 +480,7 @@ do
 
 		-- Apply the changes.
 		self:ReSkin()
-	
+
 		-- Update the sub-groups.
 		local Subs = self.SubList
 

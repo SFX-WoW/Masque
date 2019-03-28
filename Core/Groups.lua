@@ -18,7 +18,7 @@ local MASQUE, Core = ...
 -- Lua
 ---
 
-local error, pairs, setmetatable, type = error, pairs, setmetatable, type
+local error, setmetatable, type = error, setmetatable, type
 
 ----------------------------------------
 -- Groups
@@ -48,6 +48,8 @@ do
 
 		return ID
 	end
+
+	local GetGroup
 
 	-- Creates and returns a new group.
 	local function NewGroup(ID, Addon, Group, StaticID)
@@ -85,7 +87,7 @@ do
 	end
 
 	-- Returns an existing or new group.
-	local function GetGroup(Addon, Group, StaticID)
+	function GetGroup(Addon, Group, StaticID)
 		local ID = GetID(Addon, Group, StaticID)
 		return Groups[ID] or NewGroup(ID, Addon, Group, StaticID)
 	end
@@ -95,6 +97,7 @@ do
 	---
 
 	Core.GetID = GetID
+	Core.Groups = Groups
 	Core.GetGroup = GetGroup
 
 	----------------------------------------
