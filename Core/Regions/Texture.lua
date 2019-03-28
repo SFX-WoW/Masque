@@ -35,7 +35,7 @@ do
 	-- Region-Skinning Function
 	---
 
-	-- @ Core\Utility
+	-- @ Core\Core
 	local SkinRegion = Core.SkinRegion
 
 	-- Skins a texture region of a button.
