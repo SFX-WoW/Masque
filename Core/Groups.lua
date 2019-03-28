@@ -21,29 +21,20 @@ local MASQUE, Core = ...
 local error, pairs, setmetatable, type = error, pairs, setmetatable, type
 
 ----------------------------------------
--- Locals
----
-
-local C_API = Core.API
-local Skins, SkinButton = Core.Skins, Core.SkinButton
-
--- @ Core\Utility: Size, Points, Color, Coords
-local _, _, GetColor = Core.Utility()
-
-----------------------------------------
 -- Groups
 ---
 
--- Group Storage
-local Groups = {}
-local GMT
-
-local GetID, GetGroup
-
 do
+	-- Storage
+	local Groups = {}
+
+	-- @ Core\Core
+	local Group_MT = Core.Group_MT
+
 	-- Creates and returns a simple ID for a group.
-	function GetID(Addon, Group, StaticID)
+	local function GetID(Addon, Group, StaticID)
 		local ID = MASQUE
+
 		if Addon then
 			ID = Addon
 			if Group then
@@ -54,26 +45,29 @@ do
 				end
 			end
 		end
+
 		return ID
 	end
 
 	-- Creates and returns a new group.
-	local function NewGroup(ID, Addon, Group, IsActionBar, StaticID)
-		-- Build the group object.
+	local function NewGroup(ID, Addon, Group, StaticID)
+		-- Build the group table.
 		local obj = {
 			ID = ID,
 			Addon = Addon,
 			Group = Group,
 			Buttons = {},
 			SubList = (not Group and {}) or nil,
+			Regions  = (Addon and {}) or nil,
 			StaticID = (Group and StaticID) or nil,
-			IsActionBar = IsActionBar,
 		}
 
-		setmetatable(obj, GMT)
+		setmetatable(obj, Group_MT)
 		Groups[ID] = obj
 
+		-- Update the parent group.
 		local Parent
+
 		if Group then
 			Parent = GetGroup(Addon)
 		elseif Addon then
@@ -85,20 +79,22 @@ do
 			obj.Parent = Parent
 		end
 
+		-- Update the group.
 		obj:Update(true)
 		return obj
 	end
 
 	-- Returns an existing or new group.
-	function GetGroup(Addon, Group, IsActionBar, StaticID)
+	local function GetGroup(Addon, Group, StaticID)
 		local ID = GetID(Addon, Group, StaticID)
-		return Groups[ID] or NewGroup(ID, Addon, Group, IsActionBar, StaticID)
+		return Groups[ID] or NewGroup(ID, Addon, Group, StaticID)
 	end
 
 	----------------------------------------
 	-- Core
 	---
 
+	Core.GetID = GetID
 	Core.GetGroup = GetGroup
 
 	----------------------------------------
@@ -106,25 +102,30 @@ do
 	---
 
 	-- Wrapper for the GetGroup function.
-	function C_API:Group(Addon, Group, IsActionBar, StaticID)
-		-- Validation
+	function Core.API:Group(Addon, Group, StaticID, Deprecated)
+		-- @Addon must be a string.
 		if type(Addon) ~= "string" or Addon == MASQUE then
 			if Core.Debug then
 				error("Bad argument to API method 'Group'. 'Addon' must be a string.", 2)
 			end
 			return
+
+		-- @Group must be a string or nil.
 		elseif Group and type(Group) ~= "string" then
 			if Core.Debug then
 				error("Bad argument to API method 'Group'. 'Group' must be a string.", 2)
 			end
 			return
-		elseif StaticID and type(StaticID) ~= "string" then
-			if Core.Debug then
-				error("Bad argument to API method 'Group'. 'StaticID' must be a string.", 2)
+
+		-- Check for deprecated parameters.
+		elseif type(StaticID) ~= "string" then
+			if type(Deprecated) == "string" then
+				StaticID = Deprecated
+			else
+				StaticID = nil
 			end
-			return
 		end
 
-		return GetGroup(Addon, Group, IsActionBar, StaticID)
+		return GetGroup(Addon, Group, StaticID)
 	end
 end
