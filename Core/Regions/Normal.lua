@@ -73,7 +73,7 @@ do
 	-- Region-Skinning Function
 	---
 
-	-- @ Core\Utility
+	-- @ Core\Core
 	local SkinRegion = Core.SkinRegion
 
 	-- Reference
