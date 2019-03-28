@@ -161,7 +161,7 @@ do
 	-- Region-Skinning Functions
 	---
 
-	-- @ Core\Utility
+	-- @ Core\Core
 	local SkinRegion = Core.SkinRegion
 
 	SkinRegion.Frame = SkinFrame
