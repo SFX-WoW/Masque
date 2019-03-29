@@ -12,11 +12,15 @@
 
 local _, Core = ...
 
+----------------------------------------
+-- Dream
+---
+
 do
 	local L = Core.Locale
 
-	-- Skin
-	Core:AddSkin("Dream", {
+	-- Dream
+	Core.AddSkin("Dream", {
 		Shape = "Square",
 		Masque_Version = 80100,
 
@@ -26,100 +30,137 @@ do
 		Authors = Core.Authors,
 		Websites = Core.Websites,
 
-		-- Data
+		-- Skin
 		Backdrop = {
-			Width = 36,
-			Height = 36,
 			Color = {0, 0, 0, 0.5},
-			Texture = [[Interface\Tooltips\UI-Tooltip-Background]],
+			UseColor = true,
+			Width = 40,
+			Height = 40,
 		},
 		Icon = {
-			Width = 30,
-			Height = 30,
 			TexCoords = {0.08, 0.92, 0.08, 0.92},
-		},
-		Flash = {
-			Width = 30,
-			Height = 30,
-			TexCoords = {0.2, 0.8, 0.2, 0.8},
-			Texture = [[Interface\Buttons\UI-QuickslotRed]],
-		},
-		Pushed = {
 			Width = 34,
 			Height = 34,
-			Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 		},
 		-- Shadow = {Hide = true},
 		-- Normal = {Hide = true},
 		-- Disabled = {Hide = true},
-		Checked = {
-			Width = 32,
-			Height = 32,
-			BlendMode = "ADD",
-			Texture = [[Interface\Buttons\CheckButtonHilight]],
-		},
-		Border = {
-			Width = 54,
-			Height = 54,
-			OffsetY = 0.5,
-			BlendMode = "ADD",
-			Texture = [[Interface\Buttons\UI-ActionButton-Border]],
-		},
-		IconBorder = {
-			Width = 31,
-			Height = 31,
-		},
-		IconOverlay = {
-			Width = 31,
-			Height = 31,
-		},
-		-- Gloss = {Hide = true},
-		AutoCastable = {
-			Width = 56,
-			Height = 56,
-			OffsetX = 0.5,
-			OffsetY = -0.5,
-			Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-		},
-		Highlight = {
-			Width = 30,
-			Height = 30,
-			BlendMode = "ADD",
-			Texture = [[Interface\Buttons\ButtonHilight-Square]],
-		},
-		Name = {
+		Pushed = {
+			Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 			Width = 36,
-			Height = 10,
-			OffsetY = 5,
+			Height = 36,
 		},
-		Count = {
-			Width = 36,
-			Height = 10,
-			OffsetX = -3,
-			OffsetY = 5,
+		Flash = {
+			Texture = [[Interface\Buttons\UI-QuickslotRed]],
+			TexCoords = {0.2, 0.8, 0.2, 0.8},
+			Color = {1, 1, 1, 0.75},
+			Width = 34,
+			Height = 34,
 		},
 		HotKey = {
 			Width = 36,
 			Height = 10,
-			OffsetX = -3,
-			OffsetY = -6,
+			OffsetX = -1,
+			OffsetY = -3,
+		},
+		Count = {
+			Width = 36,
+			Height = 10,
+			OffsetX = -2,
+			OffsetY = 3,
 		},
 		Duration = {
 			Width = 36,
 			Height = 10,
 			OffsetY = -2,
 		},
+		Border = {
+			BlendMode = "ADD",
+			Width = 64,
+			Height = 64,
+			Item = {
+				Width = 36,
+				Height = 36,
+			},
+			Debuff = {
+				Width = 36,
+				Height = 36,
+			},
+			Enchant = {
+				Width = 36,
+				Height = 36,
+			},
+		},
+		IconBorder = {
+			Width = 36,
+			Height = 36,
+		},
+		Checked = {
+			Texture = [[Interface\Buttons\CheckButtonHilight]],
+			BlendMode = "ADD",
+			Width = 38,
+			Height = 38,
+		},
+		SlotHighlight = {
+			Texture = [[Interface\Buttons\CheckButtonHilight]],
+			BlendMode = "ADD",
+			Width = 38,
+			Height = 38,
+		},
+		-- Gloss = {Hide = true},
+		IconOverlay = {
+			Width = 36,
+			Height = 36,
+		},
+		SearchOverlay = {
+			Color = {0, 0, 0, 0.75},
+			UseColor = true,
+		},
+		ContextOverlay = {
+			Color = {0, 0, 0, 0.75},
+			UseColor = true,
+		},
+		NewAction = {
+			Width = 44,
+			Height = 44,
+		},
+		SpellHighlight = {
+			Width = 44,
+			Height = 44,
+		},
+		AutoCastable = {
+			Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
+			Width = 64,
+			Height = 64,
+			OffsetX = 0.5,
+			OffsetY = -0.5,
+		},
+		NewItem = {
+			Width = 35,
+			Height = 35,
+		},
+		Highlight = {
+			Texture = [[Interface\Buttons\ButtonHilight-Square]],
+			BlendMode = "ADD",
+			Width = 34,
+			Height = 34,
+		},
+		Name = {
+			Width = 36,
+			Height = 10,
+			OffsetY = 3,
+		},
 		Cooldown = {
-			Width = 30,
-			Height = 30,
+			Width = 34,
+			Height = 34,
 		},
 		ChargeCooldown = {
-			Width = 30,
-			Height = 30,
+			Width = 34,
+			Height = 34,
 		},
 		Shine = {
-			Width = 28,
-			Height = 28,
+			Width = 34,
+			Height = 34,
 			OffsetX = 0.5,
 			OffsetY = -0.5,
 		},

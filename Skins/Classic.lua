@@ -84,12 +84,25 @@ do
 			OffsetY = -2,
 		},
 		Border = {
-			Texture = [[Interface\Buttons\UI-ActionButton-Border]],
-			Color = {0, 1, 0, 0.35},
 			BlendMode = "ADD",
 			Width = 57,
 			Height = 57,
 			OffsetY = 1,
+			Item = {
+				Width = 36,
+				Height = 36,
+				OffsetX = -0.5,
+				OffsetY = 0.5,
+			},
+			Debuff = {
+				Width = 38,
+				Height = 38,
+				OffsetY = 1,
+			},
+			Enchant = {
+				Width = 36,
+				Height = 36,
+			},
 		},
 		IconBorder = {
 			Width = 37,
