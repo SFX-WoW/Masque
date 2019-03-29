@@ -121,11 +121,18 @@ do
 			NoColor = true,
 
 			-- Nested Settings
-			Debuff = {
-				Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
+			Item = {
+				Texture = [[Interface\Common\WhiteIconFrame]],
 				DrawLayer = "OVERLAY",
 				DrawLevel = 0,
+
+				NoColor = true,
+			},
+			Debuff = {
+				Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
 				TexCoords = {0.296875, 0.5703125, 0, 0.515625},
+				DrawLayer = "OVERLAY",
+				DrawLevel = 0,
 
 				NoColor = true,
 			},
