@@ -106,6 +106,21 @@ do
 		end
 	end
 
+	local function GetHidden(info)
+		local db, Layer = info.arg.db, info[#info]
+		local Skin = Skins[db.SkinID] or Skins["Classic"]
+
+		if Layer == "Color" then
+			Layer = info[#info-1]
+		end
+
+		if Layer == "Border" then
+			return (not info.arg.IsActionBar) or Skin[Layer].Hide
+		else
+			return Skin[Layer].Hide
+		end
+	end
+
 	-- Gets the state of the backdrop color.
 	local function GetBackdropState(info)
 		local db = info.arg.db
@@ -116,6 +131,12 @@ do
 	local function GetShadowState(info)
 		local db = info.arg.db
 		return (not db.Shadow) or db.Disabled
+	end
+
+	-- Gets the state of the shadow color.
+	local function GetGlossState(info)
+		local db = info.arg.db
+		return (not db.Gloss) or db.Disabled
 	end
 
 	----------------------------------------
@@ -255,9 +276,19 @@ do
 					name = L["Gloss Settings"],
 					arg = obj,
 					inline = true,
-					disabled = GetState,
+					hidden = GetHidden,
 					order = 7,
 					args = {
+						Gloss = {
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Enable the Gloss texture."],
+							get = GetOption,
+							set = SetOption,
+							arg = obj,
+							disabled = GetState,
+							order = 1,
+						},
 						Color = {
 							type = "color",
 							name = L["Color"],
@@ -265,19 +296,8 @@ do
 							get = GetColor,
 							set = SetColor,
 							arg = obj,
-							order = 1,
-						},
-						Gloss = {
-							type = "range",
-							name = L["Opacity"],
-							desc = L["Set the intensity of the Gloss color."],
-							get = GetOption,
-							set = SetOption,
-							arg = obj,
-							min = 0,
-							max = 1,
-							step = 0.05,
-							isPercent = true,
+							disabled = GetGlossState,
+							hasAlpha = true,
 							order = 2,
 						},
 					},
@@ -315,21 +335,13 @@ do
 							hasAlpha = true,
 							order = 3,
 						},
-						Border = {
-							type = "color",
-							name = L["Equipped"],
-							desc = L["Set the color of the Equipped item texture."],
-							arg = obj,
-							hasAlpha = true,
-							order = 4,
-						},
 						Flash = {
 							type = "color",
 							name = L["Flash"],
 							desc = L["Set the color of the Flash texture."],
 							arg = obj,
 							hasAlpha = true,
-							order = 5,
+							order = 4,
 						},
 						Pushed = {
 							type = "color",
@@ -337,7 +349,7 @@ do
 							desc = L["Set the color of the Pushed texture."],
 							arg = obj,
 							hasAlpha = true,
-							order = 6,
+							order = 5,
 						},
 						Disabled = {
 							type = "color",
@@ -345,7 +357,7 @@ do
 							desc = L["Set the color of the Disabled texture."],
 							arg = obj,
 							hasAlpha = true,
-							order = 7,
+							order = 6,
 						},
 						Cooldown = {
 							type = "color",
@@ -353,7 +365,7 @@ do
 							desc = L["Set the color of the Cooldown animation."],
 							arg = obj,
 							hasAlpha = true,
-							order = 8,
+							order = 7,
 						},
 					},
 				},

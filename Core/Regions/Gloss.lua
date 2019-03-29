@@ -50,7 +50,7 @@ do
 	end
 
 	-- Adds a 'Gloss' region to a button.
-	local function AddGloss(Button, Skin, Color, Alpha, xScale, yScale)
+	local function AddGloss(Button, Skin, Color, xScale, yScale)
 		local Region = Button.__MSQ_Gloss
 
 		-- Assign or create a region.
@@ -75,7 +75,7 @@ do
 
 		-- Color
 		Region:SetBlendMode(Skin.BlendMode or "BLEND")
-		Region:SetVertexColor(GetColor(Color or Skin.Color, Alpha))
+		Region:SetVertexColor(GetColor(Color or Skin.Color))
 
 		-- Level
 		Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
@@ -102,9 +102,9 @@ do
 	local SkinRegion = Core.SkinRegion
 
 	-- Add or removes a 'Gloss' region.
-	function SkinRegion.Gloss(Alpha, Button, Skin, Color, xScale, yScale)
-		if Alpha > 0 and not Skin.Hide and Skin.Texture then
-			AddGloss(Button, Skin, Color, Alpha, xScale, yScale)
+	function SkinRegion.Gloss(Enabled, Button, Skin, Color, xScale, yScale)
+		if Enabled and not Skin.Hide and Skin.Texture then
+			AddGloss(Button, Skin, Color, xScale, yScale)
 		else
 			RemoveGloss(Button)
 		end

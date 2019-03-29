@@ -332,7 +332,7 @@ do
 	local function Reset(self)
 		self.db.Backdrop = false
 		self.db.Shadow = false
-		self.db.Gloss = 0
+		self.db.Gloss = false
 
 		-- Unset all colors.
 		for Layer in pairs(self.db.Colors) do
@@ -468,10 +468,7 @@ do
 
 		-- Gloss
 		elseif Option == "Gloss" then
-			if type(Value) ~= "number" then
-				Value = (Value and 1) or 0
-			end
-			self.db.Gloss = Value
+			self.db.Gloss = (Value and true) or false
 
 		-- Etc
 		else

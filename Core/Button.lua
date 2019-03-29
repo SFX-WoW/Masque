@@ -141,10 +141,6 @@ do
 		-- Gloss
 		---
 
-		if type(Gloss) ~= "number" then
-			Gloss = (Gloss and 1) or 0
-		end
-
 		SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
 
 		----------------------------------------
