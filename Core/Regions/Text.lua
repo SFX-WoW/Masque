@@ -35,8 +35,7 @@ do
 	-- Hook
 	---
 
-	-- Hook to counter calls to SetPoint() after HotKey region has been skinned.
-	-- Stop doing this.
+	-- Hook to counter calls to SetPoint() after the HotKey region has been skinned.
 	local function Hook_SetPoint(Region, ...)
 		if Region.__ExitHook then return end
 		Region.__ExitHook = true

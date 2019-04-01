@@ -25,13 +25,7 @@ local error, setmetatable, type = error, setmetatable, type
 ---
 
 do
-	-- Storage
-	local Groups = {}
-
-	-- @ Core\Core
-	local Group_MT = Core.Group_MT
-
-	-- Creates and returns a simple ID for a group.
+	-- Creates and returns an ID for a group.
 	local function GetID(Addon, Group, StaticID)
 		local ID = MASQUE
 
@@ -48,6 +42,16 @@ do
 
 		return ID
 	end
+
+	----------------------------------------
+	-- Create
+	---
+
+	-- Storage
+	local Groups = {}
+
+	-- @ Core\Group
+	local Group_MT = Core.Group_MT
 
 	local GetGroup
 
@@ -85,6 +89,10 @@ do
 		obj:Update(true)
 		return obj
 	end
+
+	----------------------------------------
+	-- Retrieve
+	---
 
 	-- Returns an existing or new group.
 	function GetGroup(Addon, Group, StaticID)

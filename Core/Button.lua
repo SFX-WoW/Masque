@@ -25,19 +25,19 @@ local pairs, type = pairs, type
 ---
 
 -- @ Core\Utility
-local GetScale, SkinRegion = Core.GetScale, Core.SkinRegion
+local GetScale = Core.GetScale
 
 -- @ Skins\Skins
 local Skins, __Empty = Core.Skins, Core.__Empty
-
--- @ Skins\Regions
-local RegList = Core.RegList
 
 ----------------------------------------
 -- Button
 ---
 
 do
+	-- @ Skins\Regions
+	local RegList = Core.RegList
+
 	-- List of valid shapes.
 	local Shapes = {
 		Circle = "Circle",
@@ -52,6 +52,9 @@ do
 	----------------------------------------
 	-- Button-Skinning Function
 	---
+
+	-- @ Core\Core
+	local SkinRegion = Core.SkinRegion
 
 	-- Applies a skin to a button and its associated layers.
 	function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors)

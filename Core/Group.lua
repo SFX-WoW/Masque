@@ -44,6 +44,10 @@ do
 	-- Storage
 	local Group = {}
 
+	----------------------------------------
+	-- :AddButton({Button}, {Regions} [, "Type" [, Strict]])
+	---
+
 	-- @ Core\Core
 	local GetType = Core.GetType
 
@@ -52,10 +56,6 @@ do
 
 	-- @ Core\Core
 	local GetRegion = Core.GetRegion
-
-	----------------------------------------
-	-- :AddButton({Button}, {Regions} [, "Type" [, Strict]])
-	---
 
 	-- Adds or reassigns a button to the group.
 	local function AddButton(self, Button, Regions, Type, Strict)

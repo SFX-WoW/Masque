@@ -75,7 +75,7 @@ do
 				elseif Button.duration then
 					Type = "Aura"
 
-					local bName = Button:GetName()
+					local bName = Button.GetName and Button:GetName()
 					local Border = bName and _G[bName.."Border"]
 
 					-- Debuff/Enchant Button

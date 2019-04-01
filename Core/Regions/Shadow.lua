@@ -79,7 +79,7 @@ do
 
 		-- Level
 		local DrawLayer = Skin.DrawLayer
-		local DrawLevel = Skin.DrawLevel
+		local DrawLevel
 
 		if DrawLayer then
 			DrawLevel = Skin.DrawLevel or 0
