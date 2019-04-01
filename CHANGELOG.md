@@ -15,7 +15,7 @@ _**Warning:** This is an alpha version and may contain bugs._
   - A new "General Settings" panel is available that contains interface and performance settings for _Masque_.
   - The font size for all options panels has been increased.
   - The "Gloss" option now has a toggle and color picker.
-  - Options that are unavailable due to the group type or skin settings will now be hidden.
+  - Options that are unavailable due to skin settings will now be hidden.
   - A new option, "Shadow", is available for skins that provide them.
 - Masque now has an optional, stand-alone GUI.
 
@@ -24,8 +24,8 @@ _**Warning:** This is an alpha version and may contain bugs._
 - The "Blizzard" skin has been renamed to "Classic".
 - The "Zoomed" skin now has a background. (#44)
 - The handling of Cooldown and Charge frames has been improved:
-- Added new higher quality, default textures that  will change according to the shape set by the skin.
-  - Only "Square" and "Circle" are supported.
+  - Added new higher quality, default textures that  will change according to the shape set by the skin.
+    - Only "Square" and "Circle" are supported.
 
 ### Core API
 
@@ -40,7 +40,7 @@ _**Warning:** This is an alpha version and may contain bugs._
 
 - The `AddButton()` method now has a third, `string` parameter, `"Type"`, that will tell _Masque_ the type of button being passed.
   - If not passed, _Masque_ will attempt to determine the `"Type"` by checking for specific regions. If none are found, it will default to `"Button"`.
-  - _Masque_ will use this value to determine which regions to search for if unavailable in the `Regions` (`ButtonData`) table and which skin options to display.
+  - _Masque_ will use this value to determine which regions to search for if unavailable in the `Regions` (`ButtonData`) table.
   - The following are valid values:
     - `"Button"` - Supports basic `CheckButton` regions plus `Icon`.
     - `"Action"` - Supports regions available in `ActionButtonTemplate` and its derivatives (`PetAction`, etc).
@@ -73,10 +73,10 @@ _**Warning:** This is an alpha version and may contain bugs._
   - `Order` - An `number` indicating the order the skins should be displayed in. Requires `Group` to be set.
 - Skins can now use custom Cooldown swipe textures.
 - Skins can now customize the following button regions:
-  - `"Action"`
+  - `"ActionButton"`
     - `"NewAction"` - Texture, Color, Size, Position
     - `"SpellHighlight"` - Texture, Color, Size, Position
-  - `"Item"`
+  - `"ItemButton"`
     - `"IconBorder"` - Size, Position
     - `"SlotHighlight"` - Texture, Color, Size, Position
     - `"IconOverlay"` - Size, Position
@@ -98,6 +98,7 @@ _**Warning:** This is an alpha version and may contain bugs._
   - `ContextOverlay`
 - Using a `Gloss` or `Shadow` texture no longer requires a `Normal` texture.
 - Most regions have been restored to their default positions. This will require updates to most skins.
+- Most skin settings now have default values stored internally by _Masque_. Any settings not specified will fall back to these defaults.
 
 ### Bug Fixes/Improvements
 
