@@ -5,31 +5,37 @@
 
 ]]
 
--- GLOBALS: GameFontHighlight
-
-local AceGUI = LibStub and LibStub("AceGUI-3.0")
+-- GLOBALS: LibStub, UIParent
 
 local Type, Version = "SFX-Info", 1
+local AceGUI = LibStub and LibStub("AceGUI-3.0", true)
+
+-- Exit if a current or newer version is loaded.
 if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 
 ----------------------------------------
--- Locals
+-- Lua
 ---
 
--- Lua Functions
 local max = math.max
+
+----------------------------------------
+-- WoW
+---
+
+local CreateFrame = CreateFrame
 
 do
 	----------------------------------------
 	-- Frame
 	---
 
-	-- :OnEnter Handler
+	-- Frame:OnEnter()
 	local function Frame_OnEnter(self)
 		self.obj:Fire("OnEnter")
 	end
 
-	-- :OnLeave Handler
+	-- Frame:OnLeave()
 	local function Frame_OnLeave(self)
 		self.obj:Fire("OnLeave")
 	end
@@ -38,7 +44,7 @@ do
 	-- Widget
 	---
 
-	-- :OnAcquire Handler
+	-- Widget:OnAcquire()
 	local function Widget_OnAcquire(self)
 		-- Default to disabled.
 		self:SetDisabled(true)
@@ -50,34 +56,37 @@ do
 		self:SetFullWidth(true)
 	end
 
-	-- :OnRelease Handler
+	-- Widget:OnRelease()
 	local function Widget_OnRelease(self)
 		self:SetDisabled(true)
 		self.frame:ClearAllPoints()
 	end
 
-	-- :SetDisabled Handler
+	-- Widget:SetDisabled()
 	-- Toggles showing of the tooltip.
 	local function Widget_SetDisabled(self, Disabled)
 		self.disabled = Disabled
 		local frame = self.frame
 
+		-- Disable Tooltip
 		if Disabled then
 			frame:SetScript("OnEnter", nil)
 			frame:SetScript("OnLeave", nil)
+
+		-- Enable Tooltip
 		else
 			frame:SetScript("OnEnter", Frame_OnEnter)
 			frame:SetScript("OnLeave", Frame_OnLeave)
 		end
 	end
 
-	-- :SetColon
+	-- Widget:SetColon()
 	-- Sets the column separator.
 	local function Widget_SetColon(self, Text)
 		self.Colon:SetText(Text or ":")
 	end
 
-	-- :SetLabel
+	-- Widget:SetLabel()
 	-- Sets the text of the Label field.
 	local function Widget_SetLabel(self, Text)
 		Text = Text or ""
@@ -87,23 +96,25 @@ do
 		end
 	end
 
-	-- :GetText
+	-- Widget:GetText()
 	-- Returns the text of the Info field.
 	local function Widget_GetText(self)
 		return self.Info:GetText() or ""
 	end
 
-	-- :SetText
+	-- Widget:SetText()
 	-- Sets the text of the Info field.
 	local function Widget_SetText(self, Text)
 		Text = Text or ""
-		self.Info:SetText(Text)
 
-		local Height = max(self.Label:GetHeight(), self.Info:GetHeight())
+		local Info = self.Info
+		Info:SetText(Text)
+
+		local Height = max(self.Label:GetStringHeight(), Info:GetStringHeight())
 		self:SetHeight(Height)
 	end
 
-	-- :SetWidth
+	-- Widget:SetWidth()
 	-- * Uses :SetFullWidth(true).
 	local function Widget_SetWidth(self, Width)
 		--self.frame:SetWidth(Width)
@@ -117,16 +128,16 @@ do
 		local Widget = {}
 
 		-- Container Frame
-		local frame = CreateFrame("Frame", nil, UIParent)
+		local Frame = CreateFrame("Frame", nil, UIParent)
 
-		Widget.frame = frame
-		frame.obj = Widget
+		Widget.frame = Frame
+		Frame.obj = Widget
 
 		-- Label: Left Text
-		local Label = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		local Label = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		Label:SetWidth(75)
-		Label:SetPoint("TOPLEFT", frame, "TOPLEFT")
-		Label:SetPoint("BOTTOM", frame, "BOTTOM")
+		Label:SetPoint("TOPLEFT", Frame, "TOPLEFT")
+		Label:SetPoint("BOTTOM", Frame, "BOTTOM")
 		Label:SetJustifyH("RIGHT")
 		Label:SetJustifyV("TOP")
 
@@ -134,10 +145,10 @@ do
 		Label.obj = Widget
 
 		-- Colon: Column Separator
-		local Colon = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		local Colon = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		Colon:SetWidth(8)
 		Colon:SetPoint("TOPLEFT", Label, "TOPRIGHT")
-		Colon:SetPoint("BOTTOM", frame, "BOTTOM")
+		Colon:SetPoint("BOTTOM", Frame, "BOTTOM")
 		Colon:SetJustifyH("LEFT")
 		Colon:SetJustifyV("TOP")
 
@@ -145,9 +156,9 @@ do
 		Colon.obj = Widget
 
 		-- Info: Right Text
-		local Info = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		local Info = Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 		Info:SetPoint("TOPLEFT", Colon, "TOPRIGHT")
-		Info:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
+		Info:SetPoint("BOTTOMRIGHT", Frame, "BOTTOMRIGHT")
 		Info:SetJustifyH("LEFT")
 		Info:SetJustifyV("TOP")
 
