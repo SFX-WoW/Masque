@@ -213,7 +213,7 @@ do
 				},
 				Backdrop = {
 					type = "group",
-					name = L["Backdrop Settings"],
+					name = L["Backdrop"],
 					inline = true,
 					order = 5,
 					args = {
@@ -242,7 +242,7 @@ do
 				},
 				Shadow = {
 					type = "group",
-					name = L["Shadow Settings"],
+					name = L["Shadow"],
 					arg = obj,
 					hidden = GetHidden,
 					inline = true,
@@ -273,7 +273,7 @@ do
 				},
 				Gloss = {
 					type = "group",
-					name = L["Gloss Settings"],
+					name = L["Gloss"],
 					arg = obj,
 					inline = true,
 					hidden = GetHidden,
