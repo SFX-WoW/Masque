@@ -8,7 +8,11 @@ std = 'lua51'
 -- Path Exclusions
 ---
 
-exclude_files = {".docs", "Libs"}
+exclude_files = {
+	".luacheckrc",
+	".docs",
+	"Libs",
+}
 
 ----------------------------------------
 -- Ignored Warnings
