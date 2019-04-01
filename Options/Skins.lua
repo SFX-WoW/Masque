@@ -34,109 +34,111 @@ local GetOptions
 do
 	local Skins, SkinList = Core.Skins, Core.SkinList
 
-	-- Gets an option's value.
-	local function GetOption(info)
-		local Option = info[#info]
+	----------------------------------------
+	-- Option
+	---
+
+	-- Gets an option value.
+	local function GetOption(Info)
+		local Option = Info[#Info]
+
 		if Option == "SkinID" then
-			return SkinList[info.arg.db.SkinID] or "Classic"
+			return SkinList[Info.arg.db.SkinID] or "Classic"
 		else
-			return info.arg.db[Option]
+			return Info.arg.db[Option]
 		end
 	end
 
-	-- Sets an option's value.
-	local function SetOption(info, value)
-		info.arg:SetOption(info[#info], value)
+	-- Sets an option value.
+	local function SetOption(Info, Value)
+		Info.arg:SetOption(Info[#Info], Value)
 	end
+
+	----------------------------------------
+	-- Color
+	---
 
 	-- Gets a layer color.
-	local function GetColor(info)
-		local Layer = info[#info]
+	local function GetColor(Info)
+		local Layer = Info[#Info]
+
+		-- Account for "Color" options.
 		if Layer == "Color" then
-			Layer = info[#info-1]
+			Layer = Info[#Info - 1]
 		end
-		return info.arg:GetColor(Layer)
+
+		return Info.arg:GetColor(Layer)
 	end
 
 	-- Sets a layer color.
-	local function SetColor(info, r, g, b, a)
-		local Layer = info[#info]
+	local function SetColor(Info, r, g, b, a)
+		local Layer = Info[#Info]
+
+		-- Account for "Color" options.
 		if Layer == "Color" then
-			Layer = info[#info-1]
+			Layer = Info[#Info-1]
 		end
-		info.arg:SetColor(Layer, r, g, b, a)
+
+		Info.arg:SetColor(Layer, r, g, b, a)
 	end
+
+	----------------------------------------
+	-- Reset
+	---
 
 	-- Resets the skin.
-	local function Reset(info)
-		info.arg:Reset()
+	local function Reset(Info)
+		Info.arg:Reset()
 	end
 
-	-- Gets the disabled state of a group.
-	local function GetGroupState(info)
-		return info.arg.db.Disabled
+	----------------------------------------
+	-- Disabled
+	---
+
+	-- Gets the disabled state of a group or option.
+	local function GetDisabled(Info)
+		return Info.arg.db.Disabled
 	end
 
 	-- Sets the disabled state of a group.
-	local function SetGroupState(info, value)
-		if value then
-			info.arg:Disable()
+	local function SetDisabled(Info, Value)
+		if Value then
+			Info.arg:Disable()
 		else
-			info.arg:Enable()
+			Info.arg:Enable()
 		end
+	end
+
+	-- Gets the disabled state of a color option.
+	-- @ Backdrop, Shadow, Gloss
+	local function GetDisabledColor(Info)
+		local Layer = Info[#Info-1]
+		local db = Info.arg.db
+
+		return (not db[Layer]) or db.Disabled
 	end
 
 	-- Gets the disabled state of a group's parent.
-	local function GetParentState(info)
-		local Parent = info.arg.Parent
+	local function GetDisabledParent(Info)
+		local Parent = Info.arg.Parent
 		return Parent and Parent.db.Disabled
 	end
 
-	-- Gets the state of a layer.
-	local function GetState(info)
-		local db, Layer = info.arg.db, info[#info]
-		local Skin = Skins[db.SkinID] or Skins.Classic
+	----------------------------------------
+	-- Hidden
+	---
+
+	-- Gets the hidden state of a group or option.
+	local function GetHidden(Info)
+		local Layer = Info[#Info]
+
+		-- Account for "Color" options.
 		if Layer == "Color" then
-			Layer = info[#info-1]
-		end
-		if Layer == "Border" then
-			return (not info.arg.IsActionBar) or Skin[Layer].Hide or db.Disabled
-		else
-			return Skin[Layer].Hide or db.Disabled
-		end
-	end
-
-	local function GetHidden(info)
-		local db, Layer = info.arg.db, info[#info]
-		local Skin = Skins[db.SkinID] or Skins["Classic"]
-
-		if Layer == "Color" then
-			Layer = info[#info-1]
+			Layer = Info[#Info - 1]
 		end
 
-		if Layer == "Border" then
-			return (not info.arg.IsActionBar) or Skin[Layer].Hide
-		else
-			return Skin[Layer].Hide
-		end
-	end
-
-	-- Gets the state of the backdrop color.
-	local function GetBackdropState(info)
-		local db = info.arg.db
-		return (not db.Backdrop) or db.Disabled
-	end
-
-	-- Gets the state of the shadow color.
-	local function GetShadowState(info)
-		local db = info.arg.db
-		return (not db.Shadow) or db.Disabled
-	end
-
-	-- Gets the state of the shadow color.
-	local function GetGlossState(info)
-		local db = info.arg.db
-		return (not db.Gloss) or db.Disabled
+		local Skin = Skins[Info.arg.db.SkinID] or Skins["Classic"]
+		return Skin[Layer].Hide
 	end
 
 	----------------------------------------
@@ -187,10 +189,10 @@ do
 					type = "toggle",
 					name = L["Disable"],
 					desc = L["Disable the skinning of this group."],
-					get = GetGroupState,
-					set = SetGroupState,
+					get = GetDisabled,
+					set = SetDisabled,
 					arg = obj,
-					disabled = GetParentState,
+					disabled = GetDisabledParent,
 					order = 2,
 				},
 				SkinID = {
@@ -200,10 +202,10 @@ do
 					get = GetOption,
 					set = SetOption,
 					arg = obj,
-					style = "dropdown",
 					width = "full",
+					style = "dropdown",
 					values = SkinList,
-					disabled = GetGroupState,
+					disabled = GetDisabled,
 					order = 3,
 				},
 				Spacer = {
@@ -214,7 +216,9 @@ do
 				Backdrop = {
 					type = "group",
 					name = L["Backdrop"],
+					arg = obj,
 					inline = true,
+					hidden = GetHidden,
 					order = 5,
 					args = {
 						Backdrop = {
@@ -224,7 +228,7 @@ do
 							get = GetOption,
 							set = SetOption,
 							arg = obj,
-							disabled = GetState,
+							disabled = GetDisabled,
 							order = 1,
 						},
 						Color = {
@@ -234,8 +238,8 @@ do
 							get = GetColor,
 							set = SetColor,
 							arg = obj,
-							disabled = GetBackdropState,
 							hasAlpha = true,
+							disabled = GetDisabledColor,
 							order = 2,
 						},
 					},
@@ -244,8 +248,8 @@ do
 					type = "group",
 					name = L["Shadow"],
 					arg = obj,
-					hidden = GetHidden,
 					inline = true,
+					hidden = GetHidden,
 					order = 6,
 					args = {
 						Shadow = {
@@ -255,7 +259,7 @@ do
 							get = GetOption,
 							set = SetOption,
 							arg = obj,
-							disabled = GetState,
+							disabled = GetDisabled,
 							order = 1,
 						},
 						Color = {
@@ -265,8 +269,8 @@ do
 							get = GetColor,
 							set = SetColor,
 							arg = obj,
-							disabled = GetShadowState,
 							hasAlpha = true,
+							disabled = GetDisabledColor,
 							order = 2,
 						},
 					},
@@ -286,7 +290,7 @@ do
 							get = GetOption,
 							set = SetOption,
 							arg = obj,
-							disabled = GetState,
+							disabled = GetDisabled,
 							order = 1,
 						},
 						Color = {
@@ -296,8 +300,8 @@ do
 							get = GetColor,
 							set = SetColor,
 							arg = obj,
-							disabled = GetGlossState,
 							hasAlpha = true,
+							disabled = GetDisabledColor,
 							order = 2,
 						},
 					},
@@ -308,7 +312,7 @@ do
 					get = GetColor,
 					set = SetColor,
 					inline = true,
-					disabled = GetState,
+					disabled = GetDisabled,
 					order = 8,
 					args = {
 						Normal = {
@@ -317,6 +321,7 @@ do
 							desc = L["Set the color of the Normal texture."],
 							arg = obj,
 							hasAlpha = true,
+							hidden = GetHidden,
 							order = 1,
 						},
 						Highlight = {
@@ -351,14 +356,6 @@ do
 							hasAlpha = true,
 							order = 5,
 						},
-						Disabled = {
-							type = "color",
-							name = L["Disabled"],
-							desc = L["Set the color of the Disabled texture."],
-							arg = obj,
-							hasAlpha = true,
-							order = 6,
-						},
 						Cooldown = {
 							type = "color",
 							name = L["Cooldown"],
@@ -376,7 +373,7 @@ do
 					func = Reset,
 					arg = obj,
 					width = "full",
-					disabled = GetGroupState,
+					disabled = GetDisabled,
 					order = -1,
 				},
 			},
