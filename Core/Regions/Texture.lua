@@ -69,7 +69,7 @@ do
 
 			-- Color Only
 			if Skin.UseColor and UseColor then
-				Region:SetTexture("")
+				Region:SetTexture()
 				Region:SetColorTexture(GetColor(Color))
 				Region:SetBlendMode(Skin.BlendMode or "BLEND")
 
@@ -91,7 +91,7 @@ do
 
 				-- Atlas
 				if Atlas then
-					Region:SetAtlas(Atlas, Default.UseAtlasSize)
+					Region:SetAtlas(Atlas)
 
 					-- Color Check
 					if SetColor then
@@ -112,7 +112,7 @@ do
 
 				-- Color Only
 				elseif UseColor then
-					Region:SetTexture("")
+					Region:SetTexture()
 					Region:SetColorTexture(GetColor(Default.Color))
 					Region:SetBlendMode(Default.BlendMode or "BLEND")
 				end
@@ -121,7 +121,7 @@ do
 
 		-- Level
 		local DrawLayer = Skin.DrawLayer
-		local DrawLevel = Skin.DrawLevel
+		local DrawLevel
 
 		if DrawLayer then
 			DrawLevel = Skin.DrawLevel or 0
