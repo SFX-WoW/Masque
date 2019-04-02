@@ -21,108 +21,83 @@ local _, Core = ...
 local type = type
 
 ----------------------------------------
--- Utility
+-- Size
 ---
 
-do
-	----------------------------------------
-	-- Size
-	---
+-- Returns a height and width.
+function Core.GetSize(Width, Height, xScale, yScale)
+	local w = (Width or 36) * xScale
+	local h = (Height or 36) * yScale
+	return w, h
+end
 
-	-- Returns the height and width of a region.
-	local function GetSize(Width, Height, xScale, yScale)
-		local w = (Width or 36) * xScale
-		local h = (Height or 36) * yScale
-		return w, h
-	end
+----------------------------------------
+-- Point
+---
 
-	----------------------------------------
-	-- Point
-	---
+-- Clears and sets the points for a region.
+function Core.SetPoints(Region, Button, Skin, Default, SetAllPoints)
+	Region:ClearAllPoints()
 
-	-- Clears and sets the points for a region.
-	local function SetPoints(Region, Button, Skin, Default, SetAllPoints)
-		Region:ClearAllPoints()
+	if SetAllPoints then
+		Region:SetAllPoints(Button)
 
-		-- Set All
-		if SetAllPoints then
-			Region:SetAllPoints(Button)
+	else
+		local Point = Skin.Point
+		local RelPoint = Skin.RelPoint or Point
 
-		-- Custom
-		else
-			-- Skin
-			-- Point must be set for RelPoint to be used.
-			local Point = Skin.Point
-			local RelPoint = Skin.RelPoint or Point
+		if not Point then
+			Point = Default and Default.Point
 
-			-- Internal
-			if not Point then
-				Point = Default and Default.Point
+			if Point then
+				RelPoint = Default.RelPoint or Point
 
-				if Point then
-					RelPoint = Default.RelPoint or Point
-
-				-- Default
-				else
-					Point = "CENTER"
-					RelPoint = Point
-				end
+			else
+				Point = "CENTER"
+				RelPoint = Point
 			end
-
-			-- Offsets
-			local OffsetX = Skin.OffsetX
-			local OffsetY = Skin.OffsetY
-
-			-- Default
-			if Default and not OffsetX and not OffsetY then
-				OffsetX = Default.OffsetX or 0
-				OffsetY = Default.OffsetY or 0
-			end
-
-			Region:SetPoint(Point, Button, RelPoint, OffsetX or 0, OffsetY or 0)
 		end
-	end
 
-	----------------------------------------
-	-- Color
-	---
+		local OffsetX = Skin.OffsetX
+		local OffsetY = Skin.OffsetY
 
-	-- Returns a set of color values.
-	local function GetColor(Color, Alpha)
-		if type(Color) == "table" then
-			return Color[1] or 1, Color[2] or 1, Color[3] or 1, Alpha or Color[4] or 1
-		else
-			return 1, 1, 1, Alpha or 1
+		if Default and not OffsetX and not OffsetY then
+			OffsetX = Default.OffsetX or 0
+			OffsetY = Default.OffsetY or 0
 		end
+
+		Region:SetPoint(Point, Button, RelPoint, OffsetX or 0, OffsetY or 0)
 	end
+end
 
-	----------------------------------------
-	-- Coords
-	---
+----------------------------------------
+-- Color
+---
 
-	-- Returns a set of texture coordinates.
-	local function GetTexCoords(Coords)
-		if type(Coords) == "table" then
-			return Coords[1] or 0, Coords[2] or 1, Coords[3] or 0, Coords[4] or 1
-		else
-			return 0, 1, 0, 1
-		end
+-- Returns a set of color values.
+function Core.GetColor(Color, Alpha)
+	if type(Color) == "table" then
+		return Color[1] or 1, Color[2] or 1, Color[3] or 1, Alpha or Color[4] or 1
+	else
+		return 1, 1, 1, Alpha or 1
 	end
+end
 
-	----------------------------------------
-	-- Core
-	---
+----------------------------------------
+-- Coords
+---
 
-	-- Returns a list of utility functions.
-	function Core.Utility()
-		return GetSize, SetPoints, GetColor, GetTexCoords
+-- Returns a set of texture coordinates.
+function Core.GetTexCoords(Coords)
+	if type(Coords) == "table" then
+		return Coords[1] or 0, Coords[2] or 1, Coords[3] or 0, Coords[4] or 1
+	else
+		return 0, 1, 0, 1
 	end
 end
 
 ----------------------------------------
 -- Scale
--- @ Core\Button.lua
--- @ Core\Regions\Frame.lua
 ---
 
 -- Returns the x and y scale of a button.
