@@ -15,45 +15,49 @@
 local MASQUE, Core = ...
 
 ----------------------------------------
+-- Locals
+---
+
+-- @ Options\Core
+local Setup = Core.Setup
+
+----------------------------------------
 -- Setup
 ---
 
-do
-	local Setup = Core.Setup
+function Setup.LDB(self)
+	local LDB = LibStub("LibDataBroker-1.1", true)
 
-	function Setup.LDB(self)
-		local LDB = LibStub("LibDataBroker-1.1", true)
-		if LDB then
-			local L = self.Locale
+	if LDB then
+		-- @ Locales\enUS
+		local L = self.Locale
 
-			-- Create the LDB object.
-			self.LDBO = LDB:NewDataObject(MASQUE, {
-				type  = "launcher",
-				label = MASQUE,
-				icon  = "Interface\\Addons\\Masque\\Textures\\Icon",
-				OnClick = function(Tip, Button)
-					if Button == "LeftButton" or Button == "RightButton" then
-						Core:ToggleOptions()
-					end
-				end,
-				OnTooltipShow = function(Tip)
-					if not Tip or not Tip.AddLine then
-						return
-					end
-					Tip:AddLine(MASQUE)
-					Tip:AddLine(L["Click to open Masque's settings."], 1, 1, 1)
-				end,
-			})
+		self.LDBO = LDB:NewDataObject(MASQUE, {
+			type  = "launcher",
+			label = MASQUE,
+			icon  = "Interface\\Addons\\Masque\\Textures\\Icon",
+			OnClick = function(Tip, Button)
+				if Button == "LeftButton" or Button == "RightButton" then
+					Core:ToggleOptions()
+				end
+			end,
+			OnTooltipShow = function(Tip)
+				if not Tip or not Tip.AddLine then
+					return
+				end
+				Tip:AddLine(MASQUE)
+				Tip:AddLine(L["Click to open Masque's settings."], 1, 1, 1)
+			end,
+		})
 
-			-- Set up the icon.
-			local LDBI = LibStub("LibDBIcon-1.0", true)
-			if LDBI then
-				LDBI:Register(MASQUE, self.LDBO, self.db.profile.LDB)
-				self.LDBI = LDBI
-			end
+		local LDBI = LibStub("LibDBIcon-1.0", true)
+
+		if LDBI then
+			LDBI:Register(MASQUE, self.LDBO, self.db.profile.LDB)
+			self.LDBI = LDBI
 		end
-
-		-- GC
-		Setup.LDB = nil
 	end
+
+	-- GC
+	Setup.LDB = nil
 end
