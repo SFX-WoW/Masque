@@ -22,6 +22,10 @@ local _, Core = ...
 
 local error, type = error, type
 
+----------------------------------------
+-- Locals
+---
+
 local Alerts = {
 	Square = {
 		Glow = [[Interface\SpellActivationOverlay\IconAlert]],
@@ -34,7 +38,7 @@ local Alerts = {
 }
 
 ----------------------------------------
--- Update Function
+-- Update
 ---
 
 -- Hook to update the 'SpellAlert' animation.
@@ -73,7 +77,7 @@ end
 hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 
 ----------------------------------------
--- Region-Skinning Function
+-- Region
 ---
 
 Core.SkinRegion.SpellAlert = UpdateSpellAlert
