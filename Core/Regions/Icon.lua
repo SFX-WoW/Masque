@@ -20,14 +20,15 @@ local _, Core = ...
 -- Locals
 ---
 
--- @ Core\Utility: Size, Points, Color, Coords
-local GetSize, SetPoints, _, GetTexCoords = Core.Utility()
+-- @ Core\Utility
+local GetSize, SetPoints = Core.GetSize, Core.SetPoints
+local GetTexCoords = Core.GetTexCoords
 
 -- @ Core\Core
 local SkinRegion = Core.SkinRegion
 
 ----------------------------------------
--- Region-Skinning Function
+-- Region
 ---
 
 -- Skins 'Icon' region of a button.
