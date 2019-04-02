@@ -23,41 +23,43 @@ local MASQUE, Core = ...
 local pairs = pairs
 
 ----------------------------------------
+-- Locals
+---
+
+-- @ Options\Core
+local Setup = Core.Setup
+
+----------------------------------------
 -- Setup
 ---
 
-do
-	local Setup = Core.Setup
+-- Creates the 'Profile Settings' group/panel.
+function Setup.Profiles(self)
+	-- @ Locales\enUS
+	local L = Core.Locale
 
-	-- Creates the 'Profile Settings' group/panel.
-	function Setup.Profiles(self)
-		local L = Core.Locale
+	local Options = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
+	Options.name = L["Profile Settings"]
+	Options.order = -1
 
-		-- Options Group
-		local Options = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-		Options.name = L["Profile Settings"]
-		Options.order = -1
-
-		-- Font Size Fix
-		local args = Options.args
-		for _, arg in pairs(args) do
-			local type = arg.type
-			if type and type == "description" then
-				arg.fontSize = "medium"
-			end
+	-- Font Size Fix
+	local args = Options.args
+	for _, arg in pairs(args) do
+		local type = arg.type
+		if type and type == "description" then
+			arg.fontSize = "medium"
 		end
-
-		-- LibDualSpec-1.0
-		local LDS = LibStub("LibDualSpec-1.0", true)
-		if LDS then
-			LDS:EnhanceOptions(Options, self.db)
-		end
-
-		-- Core Options Group/Panel
-		self.Options.args.Profiles = Options
-		self.ProfilesPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["Profile Settings"], MASQUE, "Profiles")
-
-		-- GC
-		Setup.Profiles = nil
 	end
+
+	-- LibDualSpec-1.0
+	local LDS = LibStub("LibDualSpec-1.0", true)
+	if LDS then
+		LDS:EnhanceOptions(Options, self.db)
+	end
+
+	self.Options.args.Profiles = Options
+	self.ProfilesPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["Profile Settings"], MASQUE, "Profiles")
+
+	-- GC
+	Setup.Profiles = nil
 end
