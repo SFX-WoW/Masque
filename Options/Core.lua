@@ -38,9 +38,9 @@ Core.Setup = setmetatable(Setup, {
 
 -- Sets up the root options group/panel.
 function Setup.Core(self)
+	-- @ Locales\enUS
 	local L = self.Locale
 
-	-- Options Group
 	local Options = {
 		type = "group",
 		name = MASQUE,
