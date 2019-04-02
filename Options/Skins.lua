@@ -21,15 +21,26 @@ local MASQUE, Core = ...
 local pairs = pairs
 
 ----------------------------------------
+-- Libraries
+---
+
+local LIB_ACR = LibStub("AceConfigRegistry-3.0")
+
+----------------------------------------
 -- Locals
 ---
 
+-- @ Options\Core
+local Setup = Core.Setup
+
+-- @ Locales\enUS
 local L = Core.Locale
-local GetOptions
 
 ----------------------------------------
 -- Utility
 ---
+
+local GetOptions
 
 do
 	local Skins, SkinList = Core.Skins, Core.SkinList
@@ -387,89 +398,79 @@ end
 -- Setup
 ---
 
-do
-	local Setup = Core.Setup
-
-	-- Creates the 'Skin Settings' options group/panel.
-	function Setup.Skins(self)
-		-- Options Group
-		local Options = {
-			type = "group",
-			name = L["Skin Settings"],
-			order = 1,
-			args = {
-				Head = {
-					type = "description",
-					name = "|cffffcc00"..MASQUE.." - "..L["Skin Settings"].."|r\n",
-					order = 0,
-					fontSize = "medium",
-					hidden = self.GetStandAlone,
-				},
-				Desc = {
-					type = "description",
-					name = L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."].."\n",
-					fontSize = "medium",
-					order = 1,
-				},
+-- Creates the 'Skin Settings' options group/panel.
+function Setup.Skins(self)
+	local Options = {
+		type = "group",
+		name = L["Skin Settings"],
+		order = 1,
+		args = {
+			Head = {
+				type = "description",
+				name = "|cffffcc00"..MASQUE.." - "..L["Skin Settings"].."|r\n",
+				order = 0,
+				fontSize = "medium",
+				hidden = self.GetStandAlone,
 			},
-		}
+			Desc = {
+				type = "description",
+				name = L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."].."\n",
+				fontSize = "medium",
+				order = 1,
+			},
+		},
+	}
 
-		local args = Options.args
+	local args = Options.args
 
-		-- Global
-		local Global = self.GetGroup()
-		args.Global = GetOptions(Global, 2)
+	-- Global
+	local Global = self.GetGroup()
+	args.Global = GetOptions(Global, 2)
 
-		-- Add-Ons
-		local Addons = Global.SubList
-		for aID, aObj in pairs(Addons) do
-		args[aID] = GetOptions(aObj)
-			local aargs = args[aID].args
+	-- Add-Ons
+	local Addons = Global.SubList
+	for aID, aObj in pairs(Addons) do
+	args[aID] = GetOptions(aObj)
+		local aargs = args[aID].args
 
-			-- Groups
-			local Groups = aObj.SubList
-			for gID, gObj in pairs(Groups) do
-			aargs[gID] = GetOptions(gObj)
-			end
+		-- Groups
+		local Groups = aObj.SubList
+		for gID, gObj in pairs(Groups) do
+		aargs[gID] = GetOptions(gObj)
 		end
-
-		-- Core Options Group/Panel
-		self.Options.args.Skins = Options
-		self.SkinOptionsPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["Skin Settings"], MASQUE, "Skins")
-
-		-- GC
-		Setup.Skins = nil
 	end
+
+	self.Options.args.Skins = Options
+	self.SkinOptionsPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["Skin Settings"], MASQUE, "Skins")
+
+	-- GC
+	Setup.Skins = nil
 end
 
 ----------------------------------------
 -- Core
 ---
 
-do
-	local LIB_ACR = LibStub("AceConfigRegistry-3.0")
+-- Updates the skin options for the group.
+function Core:UpdateSkinOptions(obj, Delete)
+	if not self.OptionsLoaded then return end
 
-	-- Updates the skin options for the group.
-	function Core:UpdateSkinOptions(obj, Delete)
-		if not self.OptionsLoaded then return end
+	local ID, Addon, Group = obj.ID, obj.Addon, obj.Group
+	local args = self.Options.args.Skins.args
 
-		local ID, Addon, Group = obj.ID, obj.Addon, obj.Group
-		local args = self.Options.args.Skins.args
-
-		if Group then
-			args = args[Addon].args
-		end
-
-		if Delete then
-			args[ID] = nil
-		elseif not args[ID] then
-			args[ID] = GetOptions(obj)
-		elseif Group and (args[ID].name ~= Group) then
-			args[ID].name = Group
-		else
-			return
-		end
-
-		LIB_ACR:NotifyChange(MASQUE)
+	if Group then
+		args = args[Addon].args
 	end
+
+	if Delete then
+		args[ID] = nil
+	elseif not args[ID] then
+		args[ID] = GetOptions(obj)
+	elseif Group and (args[ID].name ~= Group) then
+		args[ID].name = Group
+	else
+		return
+	end
+
+	LIB_ACR:NotifyChange(MASQUE)
 end
