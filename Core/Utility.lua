@@ -117,17 +117,17 @@ do
 	function Core.Utility()
 		return GetSize, SetPoints, GetColor, GetTexCoords
 	end
+end
 
-	----------------------------------------
-	-- Scale
-	-- @ Core\Button.lua
-	-- @ Core\Regions\Frame.lua
-	---
+----------------------------------------
+-- Scale
+-- @ Core\Button.lua
+-- @ Core\Regions\Frame.lua
+---
 
-	-- Returns the x and y scale of a button.
-	function Core.GetScale(Button)
-		local x = (Button:GetWidth() or 36) / 36
-		local y = (Button:GetHeight() or 36) / 36
-		return x, y
-	end
+-- Returns the x and y scale of a button.
+function Core.GetScale(Button)
+	local x = (Button:GetWidth() or 36) / 36
+	local y = (Button:GetHeight() or 36) / 36
+	return x, y
 end
