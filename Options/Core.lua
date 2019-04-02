@@ -52,25 +52,25 @@ function Setup.Core(self)
 				args = {
 					Head = {
 						type = "description",
-						name = "|cffffcc00"..MASQUE.." - "..L["About"].."|r\n",
-						order = 0,
+						name = "|cffffcc00Masque - "..L["About"].."|r\n",
 						fontSize = "medium",
-						hidden = Core.GetStandAlone,
+						hidden = self.GetStandAlone,
+						order = 0,
 					},
 					Desc = {
 						type = "description",
 						name = L["This section will allow you to view information about Masque and any skins you have installed."].."\n",
-						order = 1,
 						fontSize = "medium",
 						hidden = function() return not Core.OptionsLoaded end,
+						order = 1,
 					},
 					-- Necessary when manually navigating to the InterfaceOptionsFrame prior to the options being loaded.
 					Load = {
 						type = "group",
 						name = "",
 						inline = true,
-						--order = 100,
 						hidden = function() return Core.OptionsLoaded end,
+						--order = 100,
 						args = {
 							Desc = {
 								type = "description",
@@ -100,11 +100,9 @@ function Setup.Core(self)
 		},
 	}
 
-	-- Core Options Group
 	self.Options = Options
-	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(MASQUE, self.Options)
 
-	-- Core Options Panel
+	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(MASQUE, self.Options)
 	self.OptionsPanel = ACD:AddToBlizOptions(MASQUE, MASQUE, nil, "Core")
 
 	-- GC
@@ -115,7 +113,6 @@ end
 function Setup.LoD(self)
 	self.OptionsLoaded = true
 
-	-- Load all options.
 	Setup("About")
 	Setup("Info")
 	Setup("Skins")
@@ -171,8 +168,8 @@ function Core.GetStandAlone()
 end
 
 -- Returns the 'arg' of an options group.
-function Core.GetArg(info, ...)
-	return info.arg
+function Core.GetArg(Info, ...)
+	return Info.arg
 end
 
 -- NoOp
