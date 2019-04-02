@@ -29,123 +29,111 @@ local error, type = error, type
 -- @ Core\Utility: Size, Points, Color, Coords
 local GetSize, SetPoints, GetColor, GetTexCoords = Core.Utility()
 
+-- @ Core\Core
+local SkinRegion = Core.SkinRegion
+
+local Cache = {}
+
 ----------------------------------------
--- Backdrop
+-- Functions
 ---
 
-do
-	-- Storage
-	local Cache = {}
+-- Removes the 'Backdrop' region from a button.
+local function RemoveBackdrop(Button)
+	local Region = Button.FloatingBG or Button.__MSQ_Backdrop
 
-	-- Removes the 'Backdrop' region from a button.
-	local function RemoveBackdrop(Button)
-		local Region = Button.FloatingBG or Button.__MSQ_Backdrop
+	if Region then
+		Region:Hide()
 
-		if Region then
-			Region:Hide()
-
-			-- Cache the custom region.
-			if Button.__MSQ_Backdrop then
-				Region:SetTexture()
-
-				Cache[#Cache + 1] = Region
-				Button.__MSQ_Backdrop = nil
-			end
-		end
-	end
-
-	-- Adds a 'Backdrop' region to a button.
-	local function AddBackdrop(Button, Skin, Color, xScale, yScale)
-		local Region = Button.FloatingBG or Button.__MSQ_Backdrop
-
-		-- Assign or create a custom region if necessary.
-		if not Region then
-			local i = #Cache
-
-			if i > 0 then
-				Region = Cache[i]
-				Cache[i] = nil
-			else
-				Region = Button:CreateTexture()
-			end
-
-			Button.__MSQ_Backdrop = Region
-		end
-
-		Region:SetParent(Button)
-
-		-- Skin
-		local Texture = Skin.Texture
-		Color = Color or Skin.Color
-
-		-- Color
-		if Skin.UseColor then
+		if Button.__MSQ_Backdrop then
 			Region:SetTexture()
-			Region:SetColorTexture(GetColor(Color))
 
-		-- Texture
-		elseif Texture then
-			Region:SetTexture(Texture)
-			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-			Region:SetVertexColor(GetColor(Color))
+			Cache[#Cache + 1] = Region
+			Button.__MSQ_Backdrop = nil
+		end
+	end
+end
 
-		-- Default
+-- Adds a 'Backdrop' region to a button.
+local function AddBackdrop(Button, Skin, Color, xScale, yScale)
+	local Region = Button.FloatingBG or Button.__MSQ_Backdrop
+
+	if not Region then
+		local i = #Cache
+
+		if i > 0 then
+			Region = Cache[i]
+			Cache[i] = nil
 		else
-			Region:SetTexture([[Interface\Buttons\UI-Quickslot]])
-			Region:SetTexCoord(0, 1, 0, 1)
-			Region:SetVertexColor(1, 1, 1, 0.6)
+			Region = Button:CreateTexture()
 		end
 
-		Region:SetBlendMode(Skin.BlendMode or "BLEND")
-
-		-- Level
-		local DrawLayer = Skin.DrawLayer
-		local DrawLevel = Skin.DrawLevel
-
-		if DrawLayer then
-			DrawLevel = Skin.DrawLevel or 0
-		end
-
-		Region:SetDrawLayer(DrawLayer or "BACKGROUND", DrawLevel or -1)
-
-		-- Size
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
-		-- Position
-		SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
-
-		Region:Show()
+		Button.__MSQ_Backdrop = Region
 	end
 
-	----------------------------------------
-	-- Region-Skinning Function
-	---
+	Region:SetParent(Button)
 
-	-- @ Core\Core
-	local SkinRegion = Core.SkinRegion
+	local Texture = Skin.Texture
+	Color = Color or Skin.Color
 
-	-- Add or removes a 'Backdrop' region.
-	function SkinRegion.Backdrop(Enabled, Button, Skin, Color, xScale, yScale)
-		if Enabled and not Skin.Hide then
-			AddBackdrop(Button, Skin, Color, xScale, yScale)
-		else
-			RemoveBackdrop(Button)
-		end
+	if Skin.UseColor then
+		Region:SetTexture()
+		Region:SetColorTexture(GetColor(Color))
+
+	elseif Texture then
+		Region:SetTexture(Texture)
+		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+		Region:SetVertexColor(GetColor(Color))
+
+	else
+		Region:SetTexture([[Interface\Buttons\UI-Quickslot]])
+		Region:SetTexCoord(0, 1, 0, 1)
+		Region:SetVertexColor(1, 1, 1, 0.6)
 	end
 
-	----------------------------------------
-	-- API
-	---
+	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 
-	-- Retrieves the 'Backdrop' region of a button.
-	function Core.API:GetBackdrop(Button)
-		if type(Button) ~= "table" then
-			if Core.Debug then
-				error("Bad argument to API method 'GetBackdrop'. 'Button' must be a button object.", 2)
-			end
-			return
-		end
+	local DrawLayer = Skin.DrawLayer
+	local DrawLevel = Skin.DrawLevel
 
-		return Button.FloatingBG or Button.__MSQ_Backdrop
+	if DrawLayer then
+		DrawLevel = Skin.DrawLevel or 0
 	end
+
+	Region:SetDrawLayer(DrawLayer or "BACKGROUND", DrawLevel or -1)
+
+	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+
+	Region:Show()
+end
+
+----------------------------------------
+-- Region-Skinning Function
+---
+
+-- Add or removes a 'Backdrop' region.
+function SkinRegion.Backdrop(Enabled, Button, Skin, Color, xScale, yScale)
+	if Enabled and not Skin.Hide then
+		AddBackdrop(Button, Skin, Color, xScale, yScale)
+	else
+		RemoveBackdrop(Button)
+	end
+end
+
+----------------------------------------
+-- API
+---
+
+-- Retrieves the 'Backdrop' region of a button.
+function Core.API:GetBackdrop(Button)
+	if type(Button) ~= "table" then
+		if Core.Debug then
+			error("Bad argument to API method 'GetBackdrop'. 'Button' must be a button object.", 2)
+		end
+		return
+	end
+
+	return Button.FloatingBG or Button.__MSQ_Backdrop
 end
