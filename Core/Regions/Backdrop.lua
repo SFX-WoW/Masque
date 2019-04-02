@@ -26,8 +26,9 @@ local error, type = error, type
 -- Locals
 ---
 
--- @ Core\Utility: Size, Points, Color, Coords
-local GetSize, SetPoints, GetColor, GetTexCoords = Core.Utility()
+-- @ Core\Utility
+local GetSize, SetPoints = Core.GetSize, Core.SetPoints
+local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 
 -- @ Core\Core
 local SkinRegion = Core.SkinRegion
@@ -110,7 +111,7 @@ local function AddBackdrop(Button, Skin, Color, xScale, yScale)
 end
 
 ----------------------------------------
--- Region-Skinning Function
+-- Region
 ---
 
 -- Add or removes a 'Backdrop' region.
