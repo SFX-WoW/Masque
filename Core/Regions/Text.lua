@@ -20,70 +20,55 @@ local _, Core = ...
 -- Locals
 ---
 
+-- @ Skins\Regions
+local Defaults = Core.RegDefs
+
 -- @ Core\Utility: Size, Points, Color, Coords
 local GetSize, SetPoints = Core.Utility()
 
+-- @ Core\Core
+local SkinRegion = Core.SkinRegion
+
 ----------------------------------------
--- Text
+-- Hook
 ---
 
-do
-	-- @ Skins\Regions
-	local Defaults = Core.RegDefs
+-- Hook to counter calls to SetPoint() after the HotKey region has been skinned.
+local function Hook_SetPoint(Region, ...)
+	if Region.__ExitHook then return end
+	Region.__ExitHook = true
 
-	----------------------------------------
-	-- Hook
-	---
+	SetPoints(Region, Region.__MSQ_Button, Region.__MSQ_Skin, Defaults.HotKey)
 
-	-- Hook to counter calls to SetPoint() after the HotKey region has been skinned.
-	local function Hook_SetPoint(Region, ...)
-		if Region.__ExitHook then return end
-		Region.__ExitHook = true
+	Region.__ExitHook = nil
+end
 
-		SetPoints(Region, Region.__MSQ_Button, Region.__MSQ_Skin, Defaults.HotKey)
+----------------------------------------
+-- Region-Skinning Function
+---
 
-		Region.__ExitHook = nil
-	end
+-- Skins a text layer of a button.
+function SkinRegion.Text(Region, Button, Layer, Skin, xScale, yScale)
+	local Default = Defaults[Layer]
 
-	----------------------------------------
-	-- Region-Skinning Function
-	---
+	Region:SetJustifyH(Skin.JustifyH or Default.JustifyH)
+	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
 
-	-- @ Core\Core
-	local SkinRegion = Core.SkinRegion
+	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
 
-	-- Skins a text layer of a button.
-	function SkinRegion.Text(Region, Button, Layer, Skin, xScale, yScale)
-		-- Region Defaults
-		local Default = Defaults[Layer]
+	Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale))
 
-		-- Justify
-		Region:SetJustifyH(Skin.JustifyH or Default.JustifyH)
-		Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
+	if Layer == "HotKey" then
+		Region.__MSQ_Button = Button
+		Region.__MSQ_Skin = Skin
 
-		-- Level
-		Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
-
-		-- Size
-		Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale))
-
-		-- HotKey
-		if Layer == "HotKey" then
-			Region.__MSQ_Button = Button
-			Region.__MSQ_Skin = Skin
-
-			-- Hook SetPoint
-			if not Region.__MSQ_Hooked then
-				hooksecurefunc(Region, "SetPoint", Hook_SetPoint)
-				Region.__MSQ_Hooked = true
-			end
-
-			Hook_SetPoint(Region)
-
-		-- Etc
-		else
-			-- Position
-			SetPoints(Region, Button, Skin, Default)
+		if not Region.__MSQ_Hooked then
+			hooksecurefunc(Region, "SetPoint", Hook_SetPoint)
+			Region.__MSQ_Hooked = true
 		end
+
+		Hook_SetPoint(Region)
+	else
+		SetPoints(Region, Button, Skin, Default)
 	end
 end
