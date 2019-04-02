@@ -23,61 +23,45 @@ local _, Core = ...
 -- @ Core\Utility: Size, Points, Color, Coords
 local GetSize, SetPoints, _, GetTexCoords = Core.Utility()
 
+-- @ Core\Core
+local SkinRegion = Core.SkinRegion
+
 ----------------------------------------
--- Icon
+-- Region-Skinning Function
 ---
 
-do
-	----------------------------------------
-	-- Region-Skinning Function
-	---
+-- Skins 'Icon' region of a button.
+function SkinRegion.Icon(Region, Button, Skin, xScale, yScale)
+	Region:SetParent(Button)
 
-	-- @ Core\Core
-	local SkinRegion = Core.SkinRegion
+	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 
-	-- Skins 'Icon' region of a button.
-	function SkinRegion.Icon(Region, Button, Skin, xScale, yScale)
-		Region:SetParent(Button)
+	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
 
-		-- Texture
-		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 
-		-- Level
-		Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
+	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
-		-- Size
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+	local Mask = Region.__MSQ_Mask
+	local SkinMask = Skin.Mask
 
-		-- Position
-		SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	if SkinMask then
+		if not Mask then
+			Mask = Button:CreateMaskTexture()
+			Region.__MSQ_Mask = Mask
+		end
 
-		-- Mask
-		local Mask = Region.__MSQ_Mask
-		local SkinMask = Skin.Mask
+		Mask:SetTexture(SkinMask)
+		Mask:SetAllPoints(Region)
 
-		if SkinMask then
-			if not Mask then
-				Mask = Button:CreateMaskTexture()
-				Region.__MSQ_Mask = Mask
-			end
-
-			-- Texture
-			Mask:SetTexture(SkinMask)
-
-			-- Position
-			Mask:SetAllPoints(Region)
-
-			-- Enable the mask.
-			if not Mask.active then
-				Region:AddMaskTexture(Mask)
-				Mask.active = true
-			end
-		else
-			-- Disable the mask.
-			if Mask and Mask.active then
-				Region:RemoveMaskTexture(Mask)
-				Mask.active = false
-			end
+		if not Mask.active then
+			Region:AddMaskTexture(Mask)
+			Mask.active = true
+		end
+	else
+		if Mask and Mask.active then
+			Region:RemoveMaskTexture(Mask)
+			Mask.active = false
 		end
 	end
 end
