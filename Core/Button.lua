@@ -24,14 +24,14 @@ local pairs, type = pairs, type
 -- Locals
 ---
 
--- @ Core\Utility
-local GetScale = Core.GetScale
-
 -- @ Skins\Skins
 local Skins, __Empty = Core.Skins, Core.__Empty
 
 -- @ Skins\Regions
 local RegList = Core.RegList
+
+-- @ Core\Utility
+local GetScale = Core.GetScale
 
 -- @ Core\Core
 local SkinRegion = Core.SkinRegion
@@ -52,7 +52,7 @@ local function GetShape(Shape)
 end
 
 ----------------------------------------
--- Button-Skinning Function
+-- Button
 ---
 
 -- Applies a skin to a button and its associated layers.
