@@ -26,11 +26,9 @@ local type = type
 -- Locals
 ---
 
--- @ Core\Utility: Size, Points, Color, Coords
-local GetSize, SetPoints, GetColor = Core.Utility()
-
 -- @ Core\Utility
-local GetScale = Core.GetScale
+local GetSize, SetPoints = Core.GetSize, Core.SetPoints
+local GetColor, GetScale = Core.GetColor, Core.GetScale
 
 -- @ Core\Core
 local SkinRegion = Core.SkinRegion
@@ -140,7 +138,7 @@ end
 hooksecurefunc("StartChargeCooldown", UpdateCharge)
 
 ----------------------------------------
--- Region-Skinning Functions
+-- Regions
 ---
 
 SkinRegion.Frame = SkinFrame
