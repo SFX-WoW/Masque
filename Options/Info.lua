@@ -21,15 +21,26 @@ local MASQUE, Core = ...
 local pairs, tostring = pairs, tostring
 
 ----------------------------------------
+-- Libraries
+---
+
+local LIB_ACR = LibStub("AceConfigRegistry-3.0")
+
+----------------------------------------
 -- Locals
 ---
 
+-- @ Options\Core
+local Setup = Core.Setup
+
+-- @ Locales\enUS
 local L = Core.Locale
-local GetInfoGroup
 
 ----------------------------------------
 -- Utility
 ---
+
+local GetInfoGroup
 
 do
 	-- Formatted Text
@@ -213,79 +224,72 @@ end
 -- Setup
 ---
 
-do
-	local Setup = Core.Setup
-	local LIB_ACR = LibStub("AceConfigRegistry-3.0")
+-- Creates/Removes the 'Installed Skins' options group/panel.
+function Setup.Info(self)
+	if not self.OptionsLoaded then return end
 
-	-- Creates/Removes the 'Installed Skins' options group/panel.
-	function Setup.Info(self)
-		if not self.OptionsLoaded then return end
+	local cArgs = self.Options.args.Core.args
 
-		local cArgs = self.Options.args.Core.args
+	-- Disabled
+	if not self.db.profile.SkinInfo then
+		cArgs.SkinInfo = nil
 
-		-- Disabled
-		if not self.db.profile.SkinInfo then
-			cArgs.SkinInfo = nil
+	-- Enabled
+	elseif not cArgs.SkinInfo then
+		local Tooltip = "|cffffffff"..L["Select to view."].."|r"
 
-		-- Enabled
-		elseif not cArgs.SkinInfo then
-			local Tooltip = "|cffffffff"..L["Select to view."].."|r"
-
-			-- Root Options Group
-			local Options = {
-				type = "group",
-				name = L["Installed Skins"],
-				desc = Tooltip,
-				get = self.GetArg,
-				set = self.NoOp,
-				order = 4,
-				args = {
-					Head = {
-						type = "description",
-						name = "|cffffcc00"..L["Installed Skins"].."|r\n",
-						fontSize = "medium",
-						order = 0,
-					},
-					Desc = {
-						type = "description",
-						name = L["This section provides information on any skins you have installed."].."\n",
-						fontSize = "medium",
-						order = 1,
-					},
+		local Options = {
+			type = "group",
+			name = L["Installed Skins"],
+			desc = Tooltip,
+			get = self.GetArg,
+			set = self.NoOp,
+			order = 4,
+			args = {
+				Head = {
+					type = "description",
+					name = "|cffffcc00"..L["Installed Skins"].."|r\n",
+					fontSize = "medium",
+					order = 0,
 				},
-			}
+				Desc = {
+					type = "description",
+					name = L["This section provides information on any skins you have installed."].."\n",
+					fontSize = "medium",
+					order = 1,
+				},
+			},
+		}
 
-			local Skins = self.Skins
-			local args = Options.args
+		local Skins = self.Skins
+		local args = Options.args
 
-			-- Create the info groups.
-			for SkinID, Skin in pairs(Skins) do
-				local Group = Skin.Group
-				if Group then
-					if not args[Group] then
-						args[Group] = {
-							type = "group",
-							name = Group,
-							desc = Tooltip,
-							args = {},
-							childGroups = "select",
-						}
-					end
-					args[Group].args[SkinID] = GetInfoGroup(Skin, Group)
-				else
-					args[SkinID] = GetInfoGroup(Skin)
-					args[SkinID].desc = Tooltip
+		-- Create the info groups.
+		for SkinID, Skin in pairs(Skins) do
+			local Group = Skin.Group
+			if Group then
+				if not args[Group] then
+					args[Group] = {
+						type = "group",
+						name = Group,
+						desc = Tooltip,
+						args = {},
+						childGroups = "select",
+					}
 				end
+				args[Group].args[SkinID] = GetInfoGroup(Skin, Group)
+			else
+				args[SkinID] = GetInfoGroup(Skin)
+				args[SkinID].desc = Tooltip
 			end
-
-			-- Core Options Group
-			cArgs.SkinInfo = Options
-
-		-- Exit
-		else
-			return
 		end
 
-		LIB_ACR:NotifyChange(MASQUE)
+		cArgs.SkinInfo = Options
+
+	-- Exit
+	else
+		return
 	end
+
+	LIB_ACR:NotifyChange(MASQUE)
 end
