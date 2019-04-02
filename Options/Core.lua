@@ -15,11 +15,18 @@
 local MASQUE, Core = ...
 
 ----------------------------------------
+-- Libraries
+---
+
+local ACD = LibStub("AceConfigDialog-3.0")
+
+----------------------------------------
 -- Setup
 ---
 
 -- Options Loader
 local Setup = {}
+
 Core.Setup = setmetatable(Setup, {
 	__call = function(self, Name, ...)
 		local func = Name and self[Name]
@@ -93,10 +100,12 @@ function Setup.Core(self)
 		},
 	}
 
-	-- Core Options Group/Panel
+	-- Core Options Group
 	self.Options = Options
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(MASQUE, self.Options)
-	self.OptionsPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, MASQUE, nil, "Core")
+
+	-- Core Options Panel
+	self.OptionsPanel = ACD:AddToBlizOptions(MASQUE, MASQUE, nil, "Core")
 
 	-- GC
 	Setup.Core = nil
@@ -121,54 +130,50 @@ end
 -- Core
 ---
 
-do
-	local ACD = LibStub("AceConfigDialog-3.0")
+-- Toggles the Interface/ACD options frame.
+function Core:ToggleOptions()
+	if Setup.LoD then Setup("LoD") end
 
-	-- Toggles the Interface/ACD options frame.
-	function Core:ToggleOptions()
-		if Setup.LoD then Setup("LoD") end
+	local IOF_Open = InterfaceOptionsFrame:IsShown()
+	local ACD_Open = ACD.OpenFrames[MASQUE]
 
-		local IOF_Open = InterfaceOptionsFrame:IsShown()
-		local ACD_Open = ACD.OpenFrames[MASQUE]
-
-		-- Toggle the stand-alone GUI if enabled.
-		if self.db.profile.StandAlone then
-			if IOF_Open then
-				InterfaceOptionsFrame_Show()
-			elseif ACD_Open then
-				ACD:Close(MASQUE)
-			else
-				ACD:Open(MASQUE)
-			end
-
-		-- Toggle the Interface Options frame.
+	-- Toggle the stand-alone GUI if enabled.
+	if self.db.profile.StandAlone then
+		if IOF_Open then
+			InterfaceOptionsFrame_Show()
+		elseif ACD_Open then
+			ACD:Close(MASQUE)
 		else
-			if ACD_Open then
-				ACD:Close(MASQUE)
-			elseif IOF_Open then
-				InterfaceOptionsFrame_Show()
-			else
-				-- Call twice to make sure the IOF opens to the proper category.
-				InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
-				InterfaceOptionsFrame_OpenToCategory(self.SkinOptionsPanel)
-			end
+			ACD:Open(MASQUE)
+		end
+
+	-- Toggle the Interface Options frame.
+	else
+		if ACD_Open then
+			ACD:Close(MASQUE)
+		elseif IOF_Open then
+			InterfaceOptionsFrame_Show()
+		else
+			-- Call twice to make sure the IOF opens to the proper category.
+			InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
+			InterfaceOptionsFrame_OpenToCategory(self.SkinOptionsPanel)
 		end
 	end
-
-	----------------------------------------
-	-- Utility
-	---
-
-	-- Hides or shows panel titles.
-	function Core.GetStandAlone()
-		return not ACD.OpenFrames[MASQUE]
-	end
-
-	-- Returns the 'arg' of an options group.
-	Core.GetArg = function(info, ...)
-		return info.arg
-	end
-
-	-- NoOp
-	Core.NoOp = function() end
 end
+
+----------------------------------------
+-- Utility
+---
+
+-- Hides or shows panel titles.
+function Core.GetStandAlone()
+	return not ACD.OpenFrames[MASQUE]
+end
+
+-- Returns the 'arg' of an options group.
+function Core.GetArg(info, ...)
+	return info.arg
+end
+
+-- NoOp
+function Core.NoOp() end
