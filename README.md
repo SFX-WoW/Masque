@@ -11,7 +11,7 @@ Install the package through your preferred add-on manager. You can also install 
     - [GitHub](https://github.com/stormfx/masque "Download from GitHub")
     - [WoW Ace](https://www.wowace.com/projects/masque "Download from WoW Ace")
     - [WoW Interface](https://www.wowinterface.com/downloads/info12097 "Download from WoW Interface")
-2. Extract the package to your `World of Warcraft\Interface\AddOns` directory.
+2. Extract the package to your `World of Warcraft\_retail_\Interface\AddOns` directory.
 
 ## Options
 
