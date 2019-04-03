@@ -32,7 +32,7 @@ _**Warning:** This is an alpha version and may contain bugs._
 - API Version updated to 80100.
 - A new API method, `:DefaultSkin()`, is available that will return the default skin.
 - A new API method, `:GetShadow({Button})`, is available that will return the `Shadow` region for a button.
-- A new API method, `:SetEmpty({Button} [, IsEmpty])`, is available that will tell _Masque_ whether a button has an icon, allowing it to hide the Gloss region when appropriate.
+- A new API method, `:SetEmpty({Button} [, IsEmpty])`, is available that will tell _Masque_ whether a button has an icon, allowing it to apply skin different settings.
 - The third parameter of the `:Group()` API method, `IsActionBar`, has been replaced with a new `string` parameter, `"StaticID"`. This will be used internally by _Masque_ instead of the `"Group"` parameter.
 - The signature for callbacks has been updated. The new signature is as follows:
   - If `arg` is passed when registered: `Callback(arg, Group, SkinID, Backdrop, Shadow, Gloss, Colors, Disabled)`
