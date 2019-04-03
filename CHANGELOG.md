@@ -32,13 +32,15 @@ _**Warning:** This is an alpha version and may contain bugs._
 - API Version updated to 80100.
 - A new API method, `:DefaultSkin()`, is available that will return the default skin.
 - A new API method, `:GetShadow({Button})`, is available that will return the `Shadow` region for a button.
+- A new API method, `:SetEmpty({Button} [, IsEmpty])`, is available that will tell _Masque_ whether a button has an icon, allowing it to hide the Gloss region when appropriate.
+- The third parameter of the `:Group()` API method, `IsActionBar`, has been replaced with a new `string` parameter, `"StaticID"`. This will be used internally by _Masque_ instead of the `"Group"` parameter.
 - The signature for callbacks has been updated. The new signature is as follows:
   - If `arg` is passed when registered: `Callback(arg, Group, SkinID, Backdrop, Shadow, Gloss, Colors, Disabled)`
   - If no `arg` is passed when registered: `Callback(Group, SkinID, Backdrop, Shadow, Gloss, Colors, Disabled)`
 
 ### Group API
 
-- The `AddButton()` method now has a third, `string` parameter, `"Type"`, that will tell _Masque_ the type of button being passed.
+- The `AddButton()` Group method now has a third, `string` parameter, `"Type"`, that will tell _Masque_ the type of button being passed.
   - If not passed, _Masque_ will attempt to determine the `"Type"` by checking for specific regions. If none are found, it will default to `"Button"`.
   - _Masque_ will use this value to determine which regions to search for if unavailable in the `Regions` (`ButtonData`) table.
   - The following are valid values:
@@ -50,10 +52,9 @@ _**Warning:** This is an alpha version and may contain bugs._
       - Can be used for generic "Aura" buttons.
     - `"Debuff"` - Same as `"Aura"`, but a different default texture with no skin color support.
     - `"Enchant"` - Same as `"Aura"`, but a different default texture and supports skin colors.
-- The `AddButton()` method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause Masque to skip locating missing regions.
+- The `AddButton()` Group method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause Masque to skip locating missing regions.
 - Groups can now be renamed.
-  - Only sub-groups with static IDs support this feature.
-  - The third parameter of the `:Group()` method, `IsActionBar`, has been replaced with a new `string` parameter, `"StaticID"`. This will be used internally by _Masque_ instead of the `"Group"` parameter.
+  - Only sub-groups with static IDs support this feature. (See the Core API section above)
   - A new method, `:SetName("Name")`, is available that will replace the group's `Group` field and update _Masque_'s options.
 - A new method, `:SetCallback(func [, {arg}])`, is available that will allow callbacks to be registered at the group level. This will allow add-ons to be notified on a per-group basis, rather than when _any_ group's settings have changed.
 - The `:ReSkin()` method now has a`boolean` `Silent` parameter that when set to `true`, will prevent the add-on/group's callback from being fired.
@@ -73,10 +74,10 @@ _**Warning:** This is an alpha version and may contain bugs._
   - `Order` - An `number` indicating the order the skins should be displayed in. Requires `Group` to be set.
 - Skins can now use custom Cooldown swipe textures.
 - Skins can now customize the following button regions:
-  - `"ActionButton"`
+  - _ActionButton_
     - `"NewAction"` - Texture, Color, Size, Position
     - `"SpellHighlight"` - Texture, Color, Size, Position
-  - `"ItemButton"`
+  - _ItemButton_
     - `"IconBorder"` - Size, Position
     - `"SlotHighlight"` - Texture, Color, Size, Position
     - `"IconOverlay"` - Size, Position
@@ -97,6 +98,7 @@ _**Warning:** This is an alpha version and may contain bugs._
   - `SearchOverlay`
   - `ContextOverlay`
 - Using a `Gloss` or `Shadow` texture no longer requires a `Normal` texture.
+- The `Border` layer can now have nested skins for each button type.  (See the Group API section above for a list of types)
 - Most regions have been restored to their default positions. This will require updates to most skins.
 - Most skin settings now have default values stored internally by _Masque_. Any settings not specified will fall back to these defaults.
 
