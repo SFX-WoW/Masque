@@ -30,20 +30,22 @@ local LIB_ACR = LibStub("AceConfigRegistry-3.0")
 -- Locals
 ---
 
+-- @ Skins\Skins
+local Skins, SkinList = Core.Skins, Core.SkinList
+
 -- @ Options\Core
 local Setup = Core.Setup
 
 -- @ Locales\enUS
 local L = Core.Locale
 
+local GetOptions
+
 ----------------------------------------
 -- Utility
 ---
 
-local GetOptions
-
 do
-	local Skins, SkinList = Core.Skins, Core.SkinList
 
 	----------------------------------------
 	-- Option
@@ -62,7 +64,7 @@ do
 
 	-- Sets an option value.
 	local function SetOption(Info, Value)
-		Info.arg:SetOption(Info[#Info], Value)
+		Info.arg:__Set(Info[#Info], Value)
 	end
 
 	----------------------------------------
@@ -73,7 +75,6 @@ do
 	local function GetColor(Info)
 		local Layer = Info[#Info]
 
-		-- Account for "Color" options.
 		if Layer == "Color" then
 			Layer = Info[#Info - 1]
 		end
@@ -85,7 +86,6 @@ do
 	local function SetColor(Info, r, g, b, a)
 		local Layer = Info[#Info]
 
-		-- Account for "Color" options.
 		if Layer == "Color" then
 			Layer = Info[#Info-1]
 		end
@@ -99,7 +99,7 @@ do
 
 	-- Resets the skin.
 	local function Reset(Info)
-		Info.arg:Reset()
+		Info.arg:__Reset()
 	end
 
 	----------------------------------------
@@ -143,7 +143,6 @@ do
 	local function GetHidden(Info)
 		local Layer = Info[#Info]
 
-		-- Account for "Color" options.
 		if Layer == "Color" then
 			Layer = Info[#Info - 1]
 		end
@@ -423,18 +422,17 @@ function Setup.Skins(self)
 
 	local args = Options.args
 
-	-- Global
 	local Global = self.GetGroup()
 	args.Global = GetOptions(Global, 2)
 
-	-- Add-Ons
 	local Addons = Global.SubList
+
 	for aID, aObj in pairs(Addons) do
 	args[aID] = GetOptions(aObj)
 		local aargs = args[aID].args
 
-		-- Groups
 		local Groups = aObj.SubList
+
 		for gID, gObj in pairs(Groups) do
 		aargs[gID] = GetOptions(gObj)
 		end
@@ -464,10 +462,13 @@ function Core:UpdateSkinOptions(obj, Delete)
 
 	if Delete then
 		args[ID] = nil
+
 	elseif not args[ID] then
 		args[ID] = GetOptions(obj)
+
 	elseif Group and (args[ID].name ~= Group) then
 		args[ID].name = Group
+
 	else
 		return
 	end
