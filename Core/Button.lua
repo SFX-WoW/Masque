@@ -186,3 +186,27 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	SkinRegion("SpellAlert", Button)
 end
+
+----------------------------------------
+-- API
+---
+
+function Core.API:SetEmpty(Button, IsEmpty)
+	if type(Button) ~= "table" then
+		return
+	end
+
+	IsEmpty = (IsEmpty and true) or nil
+	Button.__MSQ_Empty = IsEmpty
+
+	local Shadow = Button.__MSQ_Shadow
+	local Gloss = Button.__MSQ_Gloss
+
+	if IsEmpty then
+		if Shadow then Shadow:Hide() end
+		if Gloss then Gloss:Hide() end
+	else
+		if Shadow then Shadow:Show() end
+		if Gloss then Gloss:Show() end
+	end
+end
