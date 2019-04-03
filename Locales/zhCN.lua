@@ -131,7 +131,7 @@ L["This section will allow you to adjust settings that affect Masque's performan
 -- Profile Settings
 ---
 
-L["Profile Settings"] = "配置文档设置"
+L["Profile Settings"] = "配置文件设置"
 
 ----------------------------------------
 -- Skin Settings
