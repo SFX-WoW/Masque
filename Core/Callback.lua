@@ -21,10 +21,14 @@ local _, Core = ...
 local error, pairs, type = error, pairs, type
 
 ----------------------------------------
--- Callback
+-- Locals
 ---
 
 local Cache = {}
+
+----------------------------------------
+-- Callback
+---
 
 local Callback = {
 
@@ -67,11 +71,13 @@ function Core.API:Register(Addon, func, arg)
 			error("Bad argument to API method 'Register'. 'Addon' must be a string.", 2)
 		end
 		return
+
 	elseif type(func) ~= "function" then
 		if Core.Debug then
 			error("Bad argument to API method 'Register'. 'func' must be a function.", 2)
 		end
 		return
+
 	elseif arg and type(arg) ~= "table" then
 		if Core.Debug then
 			error("Bad argument to API method 'Register'. 'arg' must be a table or nil.", 2)
