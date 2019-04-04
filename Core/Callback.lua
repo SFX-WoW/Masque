@@ -3,7 +3,7 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
 	please see the included License.txt file.
 
-	* File...: Core\Groups.lua
+	* File...: Core\Callback.lua
 	* Author.: StormFX, JJSheets
 
 	Group API
