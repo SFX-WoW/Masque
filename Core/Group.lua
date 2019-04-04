@@ -465,7 +465,9 @@ local function __Update(self, IsNew)
 			db.Inherit = false
 		end
 
-		db.Disabled = p_db.Disabled
+		if p_db.Disabled then
+			db.Disabled = true
+		end
 	end
 
 	if IsNew then
