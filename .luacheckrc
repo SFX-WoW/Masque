@@ -12,7 +12,7 @@ exclude_files = {
 	".luacheckrc",
 	".docs",
 	"Libs",
-	"Options\Widgets",
+	"Options/Widgets/",
 }
 
 ----------------------------------------
