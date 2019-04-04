@@ -32,7 +32,7 @@ local Alerts = {
 		Ants = [[Interface\SpellActivationOverlay\IconAlertAnts]],
 	},
 	Circle = {
-		Glow = [[Interface\AddOns\Masque\\Textures\SpellAlert\IconAlert-Circle]],
+		Glow = [[Interface\AddOns\Masque\Textures\SpellAlert\IconAlert-Circle]],
 		Ants = [[Interface\AddOns\Masque\Textures\SpellAlert\IconAlertAnts-Circle]],
 	},
 }
