@@ -9,7 +9,7 @@ install:
   - eval $(luarocks path --bin)
   - luarocks install --local luacheck
 
-script: /home/travis/.luarocks/bin/luacheck . --config ".luacheckrc"
+script: /home/travis/.luarocks/bin/luacheck .
 
 notifications:
   email:
