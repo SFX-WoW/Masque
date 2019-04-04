@@ -18,6 +18,7 @@ ignore:
   - .gitattributes
   - .gitignore
   - .luacheckrc
+  - CONTRIBUTING.md
 
 tools-used:
   - libdatabroker-1-1
