@@ -18,6 +18,7 @@ ignore:
   - .gitattributes
   - .gitignore
   - .luacheckrc
+  - .travis.yml
   - CONTRIBUTING.md
 
 tools-used:
