@@ -112,6 +112,12 @@ do
 
 			NoColor = true,
 		},
+		Checked = {
+			Texture = [[Interface\Buttons\CheckButtonHilight]],
+			BlendMode = "ADD",
+			DrawLayer = "OVERLAY",
+			DrawLevel = 0,
+		},
 		Border = { -- Default at the root.
 			Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 			BlendMode = "ADD",
@@ -150,12 +156,6 @@ do
 
 			NoColor = true,
 			NoTexture = true,
-		},
-		Checked = {
-			Texture = [[Interface\Buttons\CheckButtonHilight]],
-			BlendMode = "ADD",
-			DrawLayer = "OVERLAY",
-			DrawLevel = 0,
 		},
 		SlotHighlight = {
 			Texture = [[Interface\Buttons\CheckButtonHilight]],
@@ -338,10 +338,14 @@ do
 	-- * nType -> Internal type used for iteration.
 
 	----------------------------------------
-	-- Button
+	-- Legacy
 	---
 
-	local Button = {
+	local Legacy = {
+		Backdrop = {
+			Name = "FloatingBG",
+			Type = "Texture",
+		},
 		Icon = {
 			Key = "icon",
 			Name = "Icon",
@@ -363,44 +367,12 @@ do
 			Type = "Texture",
 			nType = "Texture",
 		},
-		Checked = {
-			Func = "GetCheckedTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Highlight = {
-			Func = "GetHighlightTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-	}
-
-	----------------------------------------
-	-- Action Button
-	---
-
-	local Action = {
-		Backdrop = {
-			Name = "FloatingBG",
-			Type = "Texture",
-		},
-		Icon = Button.Icon,
-		Normal = Button.Normal,
-		Disabled = Button.Disabled, -- Unused
-		Pushed = Button.Pushed,
 		Flash = {
 			-- Key = "Flash", -- Conflicts with item buttons.
 			Name = "Flash",
 			Type = "Texture",
 			nType = "Texture",
 		},
-		Border = {
-			Key = "Border",
-			Name = "Border",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Checked = Button.Checked,
 		HotKey = {
 			Key = "HotKey",
 			Name = "HotKey",
@@ -413,12 +385,57 @@ do
 			Type = "FontString",
 			nType = "Text",
 		},
+		Duration = {
+			Key = "duration",
+			Name = "Duration",
+			Type = "FontString",
+			nType = "Text",
+		},
+		Checked = {
+			Func = "GetCheckedTexture",
+			Type = "Texture",
+			nType = "Texture",
+		},
+		Border = {
+			Key = "Border",
+			Name = "Border",
+			Type = "Texture",
+			nType = "Texture",
+		},
 		Name = {
 			Key = "Name",
 			Name = "Name",
 			Type = "FontString",
 			nType = "Text",
 		},
+		Highlight = {
+			Func = "GetHighlightTexture",
+			Type = "Texture",
+			nType = "Texture",
+		},
+		Cooldown = {
+			Key = "cooldown",
+			Name = "Cooldown",
+			Type = "Cooldown",
+		},
+	}
+
+	----------------------------------------
+	-- Action Button
+	---
+
+	local Action = {
+		Backdrop = Legacy.Backdrop,
+		Icon = Legacy.Icon,
+		Normal = Legacy.Normal,
+		Disabled = Legacy.Disabled, -- Unused
+		Pushed = Legacy.Pushed,
+		Flash = Legacy.Flash,
+		Checked = Legacy.Checked,
+		Border = Legacy.Border,
+		HotKey = Legacy.HotKey,
+		Count = Legacy.Count,
+		Name = Legacy.Name,
 		NewAction = {
 			Key = "NewActionTexture",
 			Type = "Texture",
@@ -436,18 +453,14 @@ do
 			Type = "Texture",
 			nType = "Texture",
 		},
-		Highlight = Button.Highlight,
+		Highlight = Legacy.Highlight,
 		-- * Only used by Pet Action Buttons.
 		AutoCastShine = {
 			--Key = "AutoCastShine", -- Causes issues with PetBars.
 			Name = "Shine",
 			Type = "Frame",
 		},
-		Cooldown = {
-			Key = "cooldown",
-			Name = "Cooldown",
-			Type = "Cooldown",
-		},
+		Cooldown = Legacy.Cooldown,
 	}
 
 	----------------------------------------
@@ -460,15 +473,15 @@ do
 			Name = "IconTexture",
 			Type = "Texture",
 		},
-		Normal = Button.Normal,
-		Disabled = Button.Disabled, -- Unused
-		Pushed = Button.Pushed,
+		Normal = Legacy.Normal,
+		Disabled = Legacy.Disabled, -- Unused
+		Pushed = Legacy.Pushed,
 		IconBorder = {
 			Key = "IconBorder",
 			Type = "Texture",
 			nType = "Texture",
 		},
-		Border = Action.Border, -- Backwards-compatibility.
+		Border = Legacy.Border, -- Backwards-compatibility.
 		SlotHighlight = {
 			Key = "SlotHighlightTexture",
 			Type = "Texture",
@@ -510,9 +523,9 @@ do
 			Type = "Texture",
 			nType = "Texture",
 		},
-		Count = Action.Count,
-		Highlight = Button.Highlight,
-		Cooldown = Action.Cooldown,
+		Count = Legacy.Count,
+		Highlight = Legacy.Highlight,
+		Cooldown = Legacy.Cooldown,
 	}
 
 	----------------------------------------
@@ -524,9 +537,9 @@ do
 			Name = "Icon",
 			Type = "Texture",
 		},
-		Normal = Button.Normal, -- Unused
-		Disabled = Button.Disabled, -- Unused
-		Pushed = Button.Pushed, -- Unused
+		Normal = Legacy.Normal, -- Unused
+		Disabled = Legacy.Disabled, -- Unused
+		Pushed = Legacy.Pushed, -- Unused
 		Border = {
 			Name = "Border",
 			Type = "Texture",
@@ -537,13 +550,8 @@ do
 			Name = "Count",
 			Type = "FontString",
 		},
-		Duration = {
-			Key = "duration",
-			Name = "Duration",
-			Type = "FontString",
-			nType = "Text",
-		},
-		Highlight = Button.Highlight, -- Unused
+		Duration = Legacy.Duration,
+		Highlight = Legacy.Highlight, -- Unused
 	}
 
 	----------------------------------------
@@ -552,7 +560,7 @@ do
 
 	-- Reference Table
 	Core.RegList = {
-		Button = Button,
+		Legacy = Legacy,
 		Action = Action,
 		Item = Item,
 		Aura = Aura,

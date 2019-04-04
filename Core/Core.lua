@@ -52,7 +52,7 @@ function Core.GetType(Button, oType)
 
 	else
 		oType = Button.__MSQ_oType
-		Type = "Button"
+		Type = "Legacy"
 
 		if oType == "CheckButton" then
 			if Button.HotKey then
