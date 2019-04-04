@@ -235,6 +235,33 @@ local Regions = {
 		},
 
 		----------------------------------------
+		-- Checked                                                        --[10]--[DONE]
+		---
+
+		-- @CheckButton
+		-- * Visible in the "checked" state.
+		Checked = {
+			Func = "GetCheckedTexture",
+			Type = "Texture",
+
+			Texture = [[Interface\Buttons\CheckButtonHilight]],           -- XML
+			TexCoords = {0, 1, 0, 1},                                     -- Default
+
+			DrawLayer = "OVERLAY",                                        -- In-Game
+			DrawLevel = 0,                                                -- Default
+
+			Color = {1, 1, 1, 1},                                         -- Default
+			BlendMode = "ADD",                                            -- XML
+
+			Width = 36,                                                   -- In-Game
+			Height = 36,                                                  -- In-Game
+
+			Point = "TOPLEFT",                                            -- Default
+			OffsetX = 0,                                                  -- Default
+			OffsetY = 0,                                                  -- Default
+		},
+
+		----------------------------------------
 		-- Border                                                         --[9]--[DONE]
 		---
 
@@ -258,33 +285,6 @@ local Regions = {
 			Height = 62,                                                  -- XML
 
 			Point = "CENTER",                                             -- XML
-			OffsetX = 0,                                                  -- Default
-			OffsetY = 0,                                                  -- Default
-		},
-
-		----------------------------------------
-		-- Checked                                                        --[10]--[DONE]
-		---
-
-		-- @CheckButton
-		-- * Visible in the "checked" state.
-		Checked = {
-			Func = "GetCheckedTexture",
-			Type = "Texture",
-
-			Texture = [[Interface\Buttons\CheckButtonHilight]],           -- XML
-			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- In-Game
-			DrawLevel = 0,                                                -- Default
-
-			Color = {1, 1, 1, 1},                                         -- Default
-			BlendMode = "ADD",                                            -- XML
-
-			Width = 36,                                                   -- In-Game
-			Height = 36,                                                  -- In-Game
-
-			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
 		},
