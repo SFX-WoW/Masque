@@ -1,4 +1,4 @@
-## 8.1.1 (Alpha)
+## 8.1.3 (Alpha)
 
 _**Warning:** This is an alpha version and may contain bugs._
 
@@ -41,10 +41,10 @@ _**Warning:** This is an alpha version and may contain bugs._
 ### Group API
 
 - The `AddButton()` Group method now has a third, `string` parameter, `"Type"`, that will tell _Masque_ the type of button being passed.
-  - If not passed, _Masque_ will attempt to determine the `"Type"` by checking for specific regions. If none are found, it will default to `"Button"`.
-  - _Masque_ will use this value to determine which regions to search for if unavailable in the `Regions` (`ButtonData`) table.
+  - If not passed, _Masque_ will attempt to determine the `"Type"` by checking for specific regions. If none are found, it will default to `"Legacy"`.
+  - _Masque_ will use this value to determine which regions to search for, if unavailable in the `Regions` (`ButtonData`) table, and which regions to apply skins to.
   - The following are valid values:
-    - `"Button"` - Supports basic `CheckButton` regions plus `Icon`.
+    - `"Legacy"` - This is fall-back type for backwards compatibility. It supports most regions previously supported by _Masque. Only use this value if the other types don't cover all necessary regions.
     - `"Action"` - Supports regions available in `ActionButtonTemplate` and its derivatives (`PetAction`, etc).
     - `"Item"` - Supports regions available in `ItemButtonTemplate` and its derivatives (`ContaineFrameItem`, etc).
       - `Border` is still available due to the skinning limitatons of `IconBorder`.
@@ -104,6 +104,7 @@ _**Warning:** This is an alpha version and may contain bugs._
 
 ### Bug Fixes/Improvements
 
+- _Masque_ no longer adjusts the frame levels of buttons or their child frames.
 - Functions registered as callbacks without an `arg` `table` will no longer pass `false` in place of `arg`.
 - Groups registered prior to the `PLAYER_LOGIN` event will now be queued and skinned when that event fires. (#41)
 - Fixed an issue that would cause groups to incorrectly inherit the wrong skin. (WeakAuras/WeakAuras2#1171)
