@@ -1,3 +1,7 @@
+[![Build Status](https://img.shields.io/travis/StormFX/Masque/master.svg?label=Build&style=flat-square)](https://travis-ci.org/StormFX/Masque)
+[![Release](https://img.shields.io/github/release/StormFX/Masque.svg?label=Release&style=flat-square)](https://github.com/StormFX/Masque/releases/)
+[![Pre-Release](https://img.shields.io/github/tag-pre/StormFX/Masque.svg?label=Pre-Release&style=flat-square)](https://github.com/StormFX/Masque/releases/)
+
 ## About
 
 _Masque_ is an add-on for [World of Warcraft](https://worldofwarcraft.com "World of Warcraft Website") that provides a skinning engine for button-based add-ons. Note that you **must** have an add-on that supports _Masque_ installed in order to use it. _Masque_ does **not** support the default interface.
