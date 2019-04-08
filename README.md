@@ -1,6 +1,9 @@
 [![Build Status](https://img.shields.io/travis/StormFX/Masque/master.svg?label=Build&style=flat-square)](https://travis-ci.org/StormFX/Masque)
-[![Release](https://img.shields.io/github/release/StormFX/Masque.svg?label=Release&style=flat-square)](https://github.com/StormFX/Masque/releases/)
-[![Pre-Release](https://img.shields.io/github/tag-pre/StormFX/Masque.svg?label=Pre-Release&style=flat-square)](https://github.com/StormFX/Masque/releases/)
+[![Release](https://img.shields.io/github/release/StormFX/Masque.svg?label=Release&style=flat-square)](https://github.com/StormFX/Masque/releases)
+[![Pre-Release](https://img.shields.io/github/tag-pre/StormFX/Masque.svg?label=Pre-Release&style=flat-square)](https://github.com/StormFX/Masque/releases)
+[![Discord](https://img.shields.io/badge/Discord-StormFX-7289da.svg?style=flat-square)](https://discord.gg/Q2s9MD)
+[![Patreon Donate](https://img.shields.io/badge/Patreon-Donate-f96854.svg?style=flat-square)](https://www.patreon.com/stormfx)
+[![PayPal Donate](https://img.shields.io/badge/PayPal-Donate-009CDE.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EELAK9TC4W4KQ)
 
 ## About
 
