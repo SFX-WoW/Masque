@@ -102,10 +102,10 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 	end
 
 	local DrawLayer = Skin.DrawLayer
-	local DrawLevel
+	local DrawLevel = Skin.DrawLevel
 
 	if DrawLayer then
-		DrawLevel = Skin.DrawLevel or 0
+		DrawLevel = DrawLevel or 0
 	end
 
 	Region:SetDrawLayer(DrawLayer or Default.DrawLayer, DrawLevel or Default.DrawLevel or 0)
