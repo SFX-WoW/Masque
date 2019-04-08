@@ -61,7 +61,6 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 		if Skin.UseColor and UseColor then
 			Region:SetTexture()
 			Region:SetColorTexture(GetColor(Color))
-			Region:SetBlendMode(Skin.BlendMode or "BLEND")
 
 		elseif Texture then
 			Region:SetTexture(Texture)
@@ -69,7 +68,6 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 
 			if SetColor then
 				Region:SetVertexColor(GetColor(Color))
-				Region:SetBlendMode(Skin.BlendMode or "BLEND")
 			end
 
 		else
@@ -81,7 +79,6 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 
 				if SetColor then
 					Region:SetVertexColor(GetColor(Default.Color))
-					Region:SetBlendMode(Default.BlendMode or "BLEND")
 				end
 
 			elseif Texture then
@@ -90,15 +87,15 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 
 				if SetColor then
 					Region:SetVertexColor(GetColor(Default.Color))
-					Region:SetBlendMode(Default.BlendMode or "BLEND")
 				end
 
 			elseif UseColor then
 				Region:SetTexture()
 				Region:SetColorTexture(GetColor(Default.Color))
-				Region:SetBlendMode(Default.BlendMode or "BLEND")
 			end
 		end
+
+		Region:SetBlendMode(Skin.BlendMode or Default.BlendMode or "BLEND")
 	end
 
 	local DrawLayer = Skin.DrawLayer
