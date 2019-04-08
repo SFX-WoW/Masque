@@ -1,4 +1,4 @@
-## 8.1.4 (Alpha)
+## 8.1.5 (Alpha)
 
 _**Warning:** This is an alpha version and may contain bugs._
 
@@ -83,7 +83,7 @@ _**Warning:** This is an alpha version and may contain bugs._
     - `"IconBorder"` - Size, Position
     - `"SlotHighlight"` - Texture, Color, Size, Position
     - `"IconOverlay"` - Size, Position
-    - `"NewItem"` - Texture, Color, Size, Position
+    - `"NewItem"` - Size, Position
     - `"SearchOverlay"` - Texture and/or Color, Size, Position
     - `"ContextOverlay"` - Texture and/or Color, Size, Position
 - Skins can now use the following settings:
