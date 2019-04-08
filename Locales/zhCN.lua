@@ -53,11 +53,14 @@ L["This section will allow you to view information about Masque and any skins yo
 ---
 
 L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "无论何时 Masque 遇到了一个插件问题或者皮肤问题，都让其屏蔽 Lua 错误。"
+-- L["Clean Database"] = "Clean Database"
+-- L["Click to purge the settings of all unused add-ons and groups."] = "Click to purge the settings of all unused add-ons and groups."-- L["Debug Mode"] = "Debug Mode"
 L["Debug Mode"] = "调试模式"
 L["Developer"] = "开发者"
 L["Developer Settings"] = "开发者设置"
 L["Masque debug mode disabled."] = "Masque 调试模式已禁用。"
 L["Masque debug mode enabled."] = "Masque 调试模式已启用。"
+-- L["This action cannot be undone. Continue?"] = "This action cannot be undone. Continue?"
 L["This section will allow you to adjust settings that affect working with Masque's API."] = "此部分将允许调整影响 Masque 使用的 API。"
 
 ----------------------------------------
