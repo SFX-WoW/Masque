@@ -56,11 +56,14 @@ Core.Locale = setmetatable(L, {
 ---
 
 -- L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."
+-- L["Clean Database"] = "Clean Database"
+-- L["Click to purge the settings of all unused add-ons and groups."] = "Click to purge the settings of all unused add-ons and groups."-- L["Debug Mode"] = "Debug Mode"
 -- L["Debug Mode"] = "Debug Mode"
 -- L["Developer"] = "Developer"
 -- L["Developer Settings"] = "Developer Settings"
 -- L["Masque debug mode disabled."] = "Masque debug mode disabled."
 -- L["Masque debug mode enabled."] = "Masque debug mode enabled."
+-- L["This action cannot be undone. Continue?"] = "This action cannot be undone. Continue?"
 -- L["This section will allow you to adjust settings that affect working with Masque's API."] = "This section will allow you to adjust settings that affect working with Masque's API."
 
 ----------------------------------------
