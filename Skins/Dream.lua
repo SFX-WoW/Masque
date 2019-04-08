@@ -74,6 +74,12 @@ do
 			Height = 10,
 			OffsetY = -2,
 		},
+		Checked = {
+			Texture = [[Interface\Buttons\CheckButtonHilight]],
+			BlendMode = "ADD",
+			Width = 38,
+			Height = 38,
+		},
 		Border = {
 			BlendMode = "ADD",
 			Width = 64,
@@ -95,12 +101,6 @@ do
 			Width = 36,
 			Height = 36,
 		},
-		Checked = {
-			Texture = [[Interface\Buttons\CheckButtonHilight]],
-			BlendMode = "ADD",
-			Width = 38,
-			Height = 38,
-		},
 		SlotHighlight = {
 			Texture = [[Interface\Buttons\CheckButtonHilight]],
 			BlendMode = "ADD",
@@ -111,14 +111,6 @@ do
 		IconOverlay = {
 			Width = 36,
 			Height = 36,
-		},
-		SearchOverlay = {
-			Color = {0, 0, 0, 0.75},
-			UseColor = true,
-		},
-		ContextOverlay = {
-			Color = {0, 0, 0, 0.75},
-			UseColor = true,
 		},
 		NewAction = {
 			Width = 44,
@@ -139,6 +131,14 @@ do
 			Width = 35,
 			Height = 35,
 		},
+		SearchOverlay = {
+			Color = {0, 0, 0, 0.75},
+			UseColor = true,
+		},
+		ContextOverlay = {
+			Color = {0, 0, 0, 0.75},
+			UseColor = true,
+		},
 		Highlight = {
 			Texture = [[Interface\Buttons\ButtonHilight-Square]],
 			BlendMode = "ADD",
@@ -150,6 +150,12 @@ do
 			Height = 10,
 			OffsetY = 3,
 		},
+		AutoCastShine = {
+			Width = 34,
+			Height = 34,
+			OffsetX = 0.5,
+			OffsetY = -0.5,
+		},
 		Cooldown = {
 			Width = 34,
 			Height = 34,
@@ -157,12 +163,6 @@ do
 		ChargeCooldown = {
 			Width = 34,
 			Height = 34,
-		},
-		Shine = {
-			Width = 34,
-			Height = 34,
-			OffsetX = 0.5,
-			OffsetY = -0.5,
 		},
 	})
 end
