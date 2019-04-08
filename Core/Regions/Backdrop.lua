@@ -98,7 +98,7 @@ local function AddBackdrop(Button, Skin, Color, xScale, yScale)
 	local DrawLevel = Skin.DrawLevel
 
 	if DrawLayer then
-		DrawLevel = Skin.DrawLevel or 0
+		DrawLevel = DrawLevel or 0
 	end
 
 	Region:SetDrawLayer(DrawLayer or "BACKGROUND", DrawLevel or -1)
