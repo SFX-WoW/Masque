@@ -552,6 +552,7 @@ do
 		},
 		Duration = Legacy.Duration,
 		Highlight = Legacy.Highlight, -- Unused
+		Cooldown = Legacy.Cooldown,
 	}
 
 	----------------------------------------
