@@ -62,7 +62,10 @@ end
 
 -- Hook to counter color changes.
 local function Hook_SetSwipeColor(Region, r, g, b)
-	if Region.__SwipeHook then return end
+	if Region.__SwipeHook or Region.__MSQ_UnHook then
+		return
+	end
+
 	Region.__SwipeHook = true
 
 	if r == 0.17 and g == 0 and b == 0 then
@@ -76,10 +79,13 @@ end
 
 -- Hook to counter texture changes.
 local function Hook_SetEdgeTexture(Region, Texture)
-	if Region.__EdgeHook then return end
+	if Region.__EdgeHook or Region.__MSQ_UnHook then
+		return
+	end
+
 	Region.__EdgeHook = true
 
-	if Texture == "Interface\\Cooldown\\edge-LoC" then
+	if Texture == [[Interface\Cooldown\edge-LoC]] then
 		Region:SetEdgeTexture(Edge.LoC)
 	else
 		Region:SetEdgeTexture(Edge.Normal)
@@ -95,27 +101,36 @@ end
 -- Skins the 'Cooldown' frame of a button.
 local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale)
 	local Shape = Button.__MSQ_Shape
+	local UnHook = Button.__MSQ_UnHook
 
-	if Region:GetDrawSwipe() then
-		Region:SetSwipeTexture(Skin.Texture or Swipe[Shape])
-		Region.__MSQ_Color = Color or Skin.Color or SwipeColor.Normal
+	if UnHook then
+		Region:SetSwipeTexture(0, 0, 0)
+		Region:SetEdgeTexture([[Interface\Cooldown\edge]])
 
-		if not Region.__MSQ_SwipeHook then
-			hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
-			Region.__MSQ_SwipeHook = true
+	else
+		if Region:GetDrawSwipe() then
+			Region:SetSwipeTexture(Skin.Texture or Swipe[Shape])
+			Region.__MSQ_Color = Color or Skin.Color or SwipeColor.Normal
+
+			if not Region.__MSQ_SwipeHook then
+				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
+				Region.__MSQ_SwipeHook = true
+			end
+
+			Hook_SetSwipeColor(Region)
+
+			if not Region.__MSQ_EdgeHook then
+				hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
+				Region.__MSQ_EdgeHook = true
+			end
 		end
 
-		Hook_SetSwipeColor(Region)
-
-		if not Region.__MSQ_EdgeHook then
-			hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
-			Region.__MSQ_EdgeHook = true
-		end
+		Hook_SetEdgeTexture(Region)
 	end
 
-	Hook_SetEdgeTexture(Region)
 	Region:SetUseCircularEdge(Shape == "Circle")
 
+	Region.__MSQ_UnHook = UnHook
 	SkinFrame(Region, Button, Skin, xScale, yScale)
 end
 
@@ -125,6 +140,8 @@ end
 
 -- Updates the 'ChargeCooldown' frame of a button.
 local function UpdateCharge(Button)
+	if Button.__MSQ_UnHook then return end
+
 	local Region = Button.chargeCooldown
 	local Skin = Button.__MSQ_ChargeSkin
 
