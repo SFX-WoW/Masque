@@ -101,23 +101,25 @@ local function AddButton(self, Button, Regions, Type, Strict)
 		Regions = {}
 	end
 
-	local Layers = RegList[Type]
+	if not Strict then
+		local Layers = RegList[Type]
 
-	for Layer, Info in pairs(Layers) do
-		local Region = Regions[Layer]
+		for Layer, Info in pairs(Layers) do
+			local Region = Regions[Layer]
 
-		if not Strict and Region == nil then
-			if Layer == "AutoCastShine" then
-				Region = Regions.Shine or Regions.AutoCast or GetRegion(Button, Info)
+			if Region == nil then
+				if Layer == "AutoCastShine" then
+					Region = Regions.Shine or Regions.AutoCast or GetRegion(Button, Info)
 
-			elseif Layer == "Backdrop" then
-				Region = Regions.FloatingBG or GetRegion(Button, Info)
+				elseif Layer == "Backdrop" then
+					Region = Regions.FloatingBG or GetRegion(Button, Info)
 
-			else
-				Region = GetRegion(Button, Info)
+				else
+					Region = GetRegion(Button, Info)
+				end
+
+				Regions[Layer] = Region
 			end
-
-			Regions[Layer] = Region
 		end
 	end
 
