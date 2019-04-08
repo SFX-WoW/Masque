@@ -170,7 +170,7 @@ do
 			CanHide = true,
 		},
 		IconOverlay = {
-			Atlas = "AzeriteIconFrame",
+			-- Atlas = "AzeriteIconFrame",
 			-- AtlasInfo = {
 				-- Atlas = "AzeriteIconFrame",
 				-- UseSize = false,
@@ -267,8 +267,8 @@ do
 		},
 		]]
 		NewItem = {
-			Atlas = "bags-glow-green",
-			UseAtlasSize = true,
+			-- Atlas = "bags-glow-green",
+			-- UseAtlasSize = true,
 			-- AtlasInfo = {
 				-- Atlas = "bags-glow-green",
 				-- UseSize = true,
@@ -277,9 +277,12 @@ do
 				-- Width = 39,
 				-- Height = 39,
 			-- },
-			BlendMode = "ADD",
+			-- BlendMode = "ADD",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 2,
+
+			NoColor = true,
+			NoTexture = true,
 		},
 		SearchOverlay = {
 			Color = {0, 0, 0, 0.8},
