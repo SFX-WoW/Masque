@@ -53,11 +53,14 @@ local L = Core.Locale
 ---
 
 L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Faz com que o Masque envie erros de Lua sempre que encontrar um problema com um add-on ou skin."
+-- L["Clean Database"] = "Clean Database"
+-- L["Click to purge the settings of all unused add-ons and groups."] = "Click to purge the settings of all unused add-ons and groups."-- L["Debug Mode"] = "Debug Mode"
 L["Debug Mode"] = "Modo de Depuração"
 -- L["Developer"] = "Developer"
 -- L["Developer Settings"] = "Developer Settings"
 L["Masque debug mode disabled."] = "Modo de depuração do Masque desativado."
 L["Masque debug mode enabled."] = "Modo de depuração do Masque ativado."
+-- L["This action cannot be undone. Continue?"] = "This action cannot be undone. Continue?"
 -- L["This section will allow you to adjust settings that affect working with Masque's API."] = "This section will allow you to adjust settings that affect working with Masque's API."
 
 ----------------------------------------
