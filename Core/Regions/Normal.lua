@@ -43,6 +43,8 @@ local Base = {}
 -- * The default behavior for action buttons is to set the 'Normal' region's
 --   alpha to 0.5, but the PetBar and some add-ons still change the texture.
 local function Hook_SetNormalTexture(Button, Texture)
+	if Button.__MSQ_UnHook then return end
+
 	local Region = Button.__MSQ_Normal
 	local Normal = Button:GetNormalTexture()
 

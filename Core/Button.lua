@@ -56,12 +56,8 @@ end
 ---
 
 -- Applies a skin to a button and its associated layers.
-function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors)
+function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, UnHook)
 	if not Button then return end
-
-	----------------------------------------
-	-- Set Up
-	---
 
 	local bType = Button.__MSQ_bType
 
@@ -73,19 +69,16 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	local xScale, yScale = GetScale(Button)
 
-	Button.__MSQ_Shape = GetShape(Skin.Shape)
+	Button.__MSQ_UnHook = UnHook
+	Button.__MSQ_Shape = (Unhook and "Square") or GetShape(Skin.Shape)
 
-	----------------------------------------
 	-- Backdrop
-	---
 
 	Button.FloatingBG = Button.FloatingBG or Regions.Backdrop
 
 	SkinRegion("Backdrop", Backdrop, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 
-	----------------------------------------
 	-- Icon
-	---
 
 	local Icon = Regions.Icon
 
@@ -93,15 +86,11 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		SkinRegion("Icon", Icon, Button, Skin.Icon, xScale, yScale)
 	end
 
-	----------------------------------------
 	-- Shadow
-	---
 
 	SkinRegion("Shadow", Shadow, Button, Skin.Shadow, Colors.Shadow, xScale, yScale)
 
-	----------------------------------------
 	-- Normal
-	---
 
 	local Normal = Regions.Normal
 
@@ -109,13 +98,10 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		SkinRegion("Normal", Normal, Button, Skin.Normal, Colors.Normal, xScale, yScale)
 	end
 
-	----------------------------------------
 	-- Text/Texture
-	---
 
 	local Layers = RegList[bType]
 
-	-- Iterate the regions for this button type.
 	for Layer, Info in pairs(Layers) do
 		local nType = Info.nType
 
@@ -132,15 +118,11 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		end
 	end
 
-	----------------------------------------
 	-- Gloss
-	---
 
 	SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
 
-	----------------------------------------
 	-- Cooldown
-	---
 
 	local Cooldown = Regions.Cooldown
 
@@ -148,19 +130,13 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		SkinRegion("Cooldown", Cooldown, Button, Skin.Cooldown, Colors.Cooldown, xScale, yScale)
 	end
 
-	----------------------------------------
-	-- Action Button Only
-	---
+	-- Action Button
 
 	if bType ~= "Action" then return end
 
-	----------------------------------------
 	-- ChargeCooldown
-	---
 
 	local Charge = Button.chargeCooldown
-
-	-- Set this so it can be accessed later.
 	local ChargeSkin = Skin.ChargeCooldown
 
 	Button.__MSQ_ChargeSkin = ChargeSkin
@@ -169,9 +145,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		SkinRegion("Cooldown", Charge, Button, ChargeSkin, nil, xScale, yScale)
 	end
 
-	----------------------------------------
 	-- AutoCastShine
-	---
 
 	local Shine = Regions.AutoCastShine
 
@@ -180,9 +154,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		SkinRegion("Frame", Shine, Button, Skin.AutoCastShine, xScale, yScale)
 	end
 
-	----------------------------------------
 	-- SpellAlert
-	---
 
 	SkinRegion("SpellAlert", Button)
 end
@@ -191,6 +163,7 @@ end
 -- API
 ---
 
+-- Sets the button's empty status.
 function Core.API:SetEmpty(Button, IsEmpty)
 	if type(Button) ~= "table" then
 		return

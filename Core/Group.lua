@@ -142,7 +142,7 @@ local function RemoveButton(self, Button)
 		local Regions = self.Buttons[Button]
 
 		if Regions then
-			SkinButton(Button, Regions, "Classic")
+			SkinButton(Button, Regions, "Classic", nil, nil, nil, nil, true)
 		end
 
 		Group[Button] = nil
@@ -210,13 +210,8 @@ local function Delete(self)
 		end
 	end
 
-	local Buttons = self.Buttons
-
-	for Button in pairs(Buttons) do
-		SkinButton(Button, Buttons[Button], "Classic")
-
-		Group[Button] = nil
-		Buttons[Button] = nil
+	for Button in pairs(self.Buttons) do
+		self:RemoveButton(Button)
 	end
 
 	local Parent = self.Parent
