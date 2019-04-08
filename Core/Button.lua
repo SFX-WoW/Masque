@@ -70,7 +70,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local xScale, yScale = GetScale(Button)
 
 	Button.__MSQ_UnHook = UnHook
-	Button.__MSQ_Shape = (Unhook and "Square") or GetShape(Skin.Shape)
+	Button.__MSQ_Shape = (UnHook and "Square") or GetShape(Skin.Shape)
 
 	-- Backdrop
 
