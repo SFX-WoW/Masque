@@ -5,7 +5,7 @@ _**Warning:** This is an alpha version and may contain bugs._
 ### General
 
 - _Masque_ now has a new icon.
-- This update contains extensive changes that will require add-on, skin and localization updates.
+- This update contains extensive changes that will require add-on, skin and localization updates. Please make sure that your add-ons and skins have been updated _before_ reporting issues.
 
 ### Options
 
@@ -13,18 +13,20 @@ _**Warning:** This is an alpha version and may contain bugs._
   - The primary panel under the _"Masque"_ header is now an information display and contains information about _Masque_ and any installed skins.
   - The "Addons" panel has been more appropriately named "Skin Settings".
   - A new "General Settings" panel is available that contains interface and performance settings for _Masque_.
-  - The font size for all options panels has been increased.
-  - The "Gloss" option now has a toggle and color picker.
-  - Options that are unavailable due to skin settings will now be hidden.
-  - A new option, "Shadow", is available for skins that provide them.
+- The font size for all options panels has been increased.
+- The "Gloss" option now has a toggle and color picker.
+- Options that are unavailable due to skin settings will now be hidden.
+- A new option, "Shadow", is available for skins that provide them.
+- A new option, "Clean Database", is available in the "Developer" panel that will purge the settings of unused add-ons and groups.
 - Masque now has an optional, stand-alone GUI.
 
 ### Skins
 
 - The "Blizzard" skin has been renamed to "Classic".
+- The "Classic", "Dream" and "Zoomed" skins have all been updated, including a slight increase in size to be more in line with the default button size.
 - The "Zoomed" skin now has a background. (#44)
 - The handling of Cooldown and Charge frames has been improved:
-  - Added new higher quality, default textures that  will change according to the shape set by the skin.
+  - Added new, higher-quality, default textures that will change according to the shape set by the skin.
     - Only "Square" and "Circle" are supported.
 
 ### Core API
@@ -32,7 +34,7 @@ _**Warning:** This is an alpha version and may contain bugs._
 - API Version updated to 80100.
 - A new API method, `:DefaultSkin()`, is available that will return the default skin.
 - A new API method, `:GetShadow({Button})`, is available that will return the `Shadow` region for a button.
-- A new API method, `:SetEmpty({Button} [, IsEmpty])`, is available that will tell _Masque_ whether a button has an icon, allowing it to apply skin different settings.
+- A new API method, `:SetEmpty({Button} [, IsEmpty])`, is available that will tell _Masque_ whether a button has an icon, allowing it to apply different skin settings.
 - The third parameter of the `:Group()` API method, `IsActionBar`, has been replaced with a new `string` parameter, `"StaticID"`. This will be used internally by _Masque_ instead of the `"Group"` parameter.
 - The signature for callbacks has been updated. The new signature is as follows:
   - If `arg` is passed when registered: `Callback(arg, Group, SkinID, Backdrop, Shadow, Gloss, Colors, Disabled)`
@@ -42,9 +44,9 @@ _**Warning:** This is an alpha version and may contain bugs._
 
 - The `AddButton()` Group method now has a third, `string` parameter, `"Type"`, that will tell _Masque_ the type of button being passed.
   - If not passed, _Masque_ will attempt to determine the `"Type"` by checking for specific regions. If none are found, it will default to `"Legacy"`.
-  - _Masque_ will use this value to determine which regions to search for, if unavailable in the `Regions` (`ButtonData`) table, and which regions to apply skins to.
+  - _Masque_ will use this value to determine which regions to search for, if unavailable in the `Regions` (`ButtonData`) table, and which regions to apply skins to when skinning a button.
   - The following are valid values:
-    - `"Legacy"` - This is fall-back type for backwards compatibility. It supports most regions previously supported by _Masque. Only use this value if the other types don't cover all necessary regions.
+    - `"Legacy"` - This is fall-back type for backwards compatibility. It supports most regions previously supported by _Masque_. Only use this value if the other types don't cover all necessary regions.
     - `"Action"` - Supports regions available in `ActionButtonTemplate` and its derivatives (`PetAction`, etc).
     - `"Item"` - Supports regions available in `ItemButtonTemplate` and its derivatives (`ContaineFrameItem`, etc).
       - `Border` is still available due to the skinning limitatons of `IconBorder`.
@@ -98,12 +100,13 @@ _**Warning:** This is an alpha version and may contain bugs._
   - `SearchOverlay`
   - `ContextOverlay`
 - Using a `Gloss` or `Shadow` texture no longer requires a `Normal` texture.
-- The `Border` layer can now have nested skins for each button type.  (See the Group API section above for a list of types)
+- The `Border` layer can now have nested skins for each button type. (See the Group API section above for a list of types)
 - Most regions have been restored to their default positions. This will require updates to most skins.
-- Most skin settings now have default values stored internally by _Masque_. Any settings not specified will fall back to these defaults.
+- Most skin settings now have default values stored internally by _Masque_. Any settings not specified will fall back to these values.
 
 ### Bug Fixes/Improvements
 
+- _Masque_ will now exit out of the `:SetNormalTexture()` hook of buttons that no longer belong to a group.
 - _Masque_ no longer adjusts the frame levels of buttons or their child frames.
 - Functions registered as callbacks without an `arg` `table` will no longer pass `false` in place of `arg`.
 - Groups registered prior to the `PLAYER_LOGIN` event will now be queued and skinned when that event fires. (#41)
