@@ -46,7 +46,7 @@ local function Hook_SetNormalTexture(Button, Texture)
 	local Region = Button.__MSQ_Normal
 	local Normal = Button:GetNormalTexture()
 
-	if Normal ~= Region then
+	if Normal and Normal ~= Region then
 		Normal:SetTexture()
 		Normal:Hide()
 	end
