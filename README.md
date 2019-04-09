@@ -15,7 +15,7 @@ Install the package through your preferred add-on manager. You can also install 
 
 1. Download the package from one of the following sites:
     - [CurseForge](https://www.curseforge.com/wow/addons/masque "Download from CurseForge")
-    - [GitHub](https://github.com/stormfx/masque "Download from GitHub")
+    - [GitHub](https://github.com/StormFX/Masque "Download from GitHub")
     - [WoW Ace](https://www.wowace.com/projects/masque "Download from WoW Ace")
     - [WoW Interface](https://www.wowinterface.com/downloads/info12097 "Download from WoW Interface")
 2. Extract the package to your `World of Warcraft\_retail_\Interface\AddOns` directory.
@@ -26,14 +26,14 @@ To access _Masque_'s options, use the `/msq` or `/masque` chat commands. You can
 
 ## Links
 
-- [Masque Wiki](https://github.com/stormfx/masque/wiki "Masque Wiki")
+- [Masque Wiki](https://github.com/StormFX/Masque/wiki "Masque Wiki")
 - [Masque Facebook Page](https://www.facebook.com/masqueui "Masque on Facebook")
-- [Get Skins](https://github.com/stormfx/masque/wiki/skin-list "Masque Skin List")
+- [Get Skins](https://github.com/StormFX/Masque/wiki/skin-list "Masque Skin List")
 
 ## Feedback
 
-For bug reports and suggestions, please use the [issue tracker](https://github.com/stormfx/masque/issues "Masque Issue Tracker") on GitHub.
+For bug reports and suggestions, please use the [issue tracker](https://github.com/StormFX/Masque/issues "Report an Issue") on GitHub.
 
 ## Localization
 
-If you would like to help translate _Masque_, please use the [localization system](https://www.wowace.com/projects/masque/localization "Masque on WoW Ace") on WoW Ace or [contribute directly](https://github.com/stormfx/masque "Masque on GitHub") on GitHub.
+If you would like to help translate _Masque_, please use the [localization system](https://www.wowace.com/projects/masque/localization "Translate on WoW Ace") on WoW Ace or [contribute directly](https://github.com/StormFX/Masque "Translate on GitHub") on GitHub.
