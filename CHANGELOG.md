@@ -18,7 +18,7 @@ _**Warning:** This is an alpha version and may contain bugs._
 - Options that are unavailable due to skin settings will now be hidden.
 - A new option, "Shadow", is available for skins that provide them.
 - A new option, "Clean Database", is available in the "Developer" panel that will purge the settings of unused add-ons and groups.
-- Masque now has an optional, stand-alone GUI.
+- _Masque_ now has an optional, stand-alone GUI.
 
 ### Skins
 
@@ -54,7 +54,7 @@ _**Warning:** This is an alpha version and may contain bugs._
       - Can be used for generic "Aura" buttons.
     - `"Debuff"` - Same as `"Aura"`, but a different default texture with no skin color support.
     - `"Enchant"` - Same as `"Aura"`, but a different default texture and supports skin colors.
-- The `AddButton()` Group method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause Masque to skip locating missing regions.
+- The `AddButton()` Group method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause _Masque_ to skip locating missing regions.
 - Groups can now be renamed.
   - Only sub-groups with static IDs support this feature. (See the Core API section above)
   - A new method, `:SetName("Name")`, is available that will replace the group's `Group` field and update _Masque_'s options.
@@ -106,7 +106,7 @@ _**Warning:** This is an alpha version and may contain bugs._
 
 ### Bug Fixes/Improvements
 
-- _Masque_ will now exit out of the `:SetNormalTexture()` hook of buttons that no longer belong to a group.
+- _Masque_ will now exit out of some hooks after a button has been removed from its group.
 - _Masque_ no longer adjusts the frame levels of buttons or their child frames.
 - Functions registered as callbacks without an `arg` `table` will no longer pass `false` in place of `arg`.
 - Groups registered prior to the `PLAYER_LOGIN` event will now be queued and skinned when that event fires. (#41)
@@ -119,8 +119,8 @@ _**Warning:** This is an alpha version and may contain bugs._
 
 ### Feedback
 
-For bug reports and suggestions, please use the [issue tracker](https://github.com/stormfx/masque/issues "Report an Issue") on GitHub.
+For bug reports and suggestions, please use the [issue tracker](https://github.com/StormFX/Masque/issues "Report an Issue") on GitHub.
 
 ### Localization
 
-To help translate _Masque_, please use the [localization system](https://www.wowace.com/projects/masque/localization "Translate on WoW Ace") on WoW Ace or [contribute directly](https://github.com/stormfx/masque "Translate on GitHub") on GitHub.
+To help translate _Masque_, please use the [localization system](https://www.wowace.com/projects/masque/localization "Translate on WoW Ace") on WoW Ace or [contribute directly](https://github.com/StormFX/Masque "Translate on GitHub") on GitHub.
