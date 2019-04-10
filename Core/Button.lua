@@ -130,13 +130,9 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		SkinRegion("Cooldown", Cooldown, Button, Skin.Cooldown, Colors.Cooldown, xScale, yScale)
 	end
 
-	-- Action Button
-
-	if bType ~= "Action" then return end
-
 	-- ChargeCooldown
 
-	local Charge = Button.chargeCooldown
+	local Charge = Regions.ChargeCooldown or Button.chargeCooldown
 	local ChargeSkin = Skin.ChargeCooldown
 
 	Button.__MSQ_ChargeSkin = ChargeSkin

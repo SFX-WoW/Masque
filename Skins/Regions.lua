@@ -421,6 +421,10 @@ do
 			Name = "Cooldown",
 			Type = "Cooldown",
 		},
+		ChargeCooldown = {
+			Key = "chargeCooldown",
+			Type = "Cooldown",
+		},
 	}
 
 	----------------------------------------
@@ -464,6 +468,7 @@ do
 			Type = "Frame",
 		},
 		Cooldown = Legacy.Cooldown,
+		ChargeCooldown = Legacy.ChargeCooldown,
 	}
 
 	----------------------------------------
@@ -529,6 +534,7 @@ do
 		Count = Legacy.Count,
 		Highlight = Legacy.Highlight,
 		Cooldown = Legacy.Cooldown,
+		ChargeCooldown = Legacy.ChargeCooldown,
 	}
 
 	----------------------------------------
@@ -556,6 +562,7 @@ do
 		Duration = Legacy.Duration,
 		Highlight = Legacy.Highlight, -- Unused
 		Cooldown = Legacy.Cooldown,
+		ChargeCooldown = Legacy.ChargeCooldown,
 	}
 
 	----------------------------------------
@@ -568,6 +575,7 @@ do
 		Action = Action,
 		Item = Item,
 		Aura = Aura,
+		Buff = Aura,
 		Debuff = Aura,
 		Enchant = Aura,
 	}
