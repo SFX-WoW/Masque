@@ -66,7 +66,7 @@ end
 
 -- Adds or reassigns a button to the group.
 local function AddButton(self, Button, Regions, Type, Strict)
-	local oType = Button.__MSQ_oType or GetType(Button, true)
+	local oType = GetType(Button, true)
 
 	if not oType then
 		if Core.Debug then
