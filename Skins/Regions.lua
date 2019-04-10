@@ -32,12 +32,18 @@ do
 	-- * NoColor -> Do not allow color changes.
 	-- * NoTexture -> Do not allow texture changes.
 
-	-- * Regions with dedicated functions have their settings hard-coded and so are
-	--   commented out.
+	-- * Type -> Must match the game's internal type, for validation.
+	-- * Ignore -> Ignore when looking for regions.
+	-- * Iterate -> Include in iteration.
 
-	local Defaults = {
+	-- * Regions with dedicated functions have their settings hard-coded, so are commented out.
+
+	local Regions = {
 		Backdrop = {
-			-- Texture = "Interface\\Buttons\\UI-Quickslot",
+			Name = "FloatingBG",
+			Type = "Texture",
+
+			-- Texture = [[Interface\Buttons\UI-Quickslot]],
 			-- Color = {1, 1, 1, 0.6},
 			-- DrawLayer = "BACKGROUND",
 			-- DrawLevel = -1,
@@ -46,6 +52,16 @@ do
 			-- UseColor = true,
 		},
 		Icon = {
+			Key = "icon",
+			Name = "Icon",
+			Type = "Texture",
+
+			Item = {
+				Key = "icon",
+				Name = "IconTexture",
+				Type = "Texture",
+			},
+
 			-- DrawLayer = "BACKGROUND",
 			-- DrawLevel = 0,
 
@@ -56,9 +72,15 @@ do
 			-- DrawLayer = "ARTWORK",
 			-- DrawLevel = -1,
 
+			Ignore = true,
 			CanHide = true,
 		},
 		Normal = {
+			--Key = "NormalTexture", -- Conflicts with some add-ons.
+			Func = "GetNormalTexture",
+			Name = "NormalTexture",
+			Type = "Texture",
+
 			-- Texture = "Interface\\Buttons\\UI-Quickslot2",
 			-- EmptyTexture = "Interface\\Buttons\\UI-Quickslot",
 			-- DrawLayer = "ARTWORK",
@@ -67,23 +89,40 @@ do
 			CanHide = true,
 		},
 		Disabled = {
+			Func = "GetDisabledTexture",
+			Type = "Texture",
+
+			Iterate = true,
 			Hide = true,
 		},
 		Pushed = {
+			Func = "GetPushedTexture",
+			Type = "Texture",
+
 			Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 			DrawLayer = "ARTWORK",
 			DrawLevel = 0,
 
+			Iterate = true,
 			UseColor = true,
 		},
 		Flash = {
+			-- Key = "Flash", -- Conflicts with item buttons.
+			Name = "Flash",
+			Type = "Texture",
+
 			Texture = [[Interface\Buttons\UI-QuickslotRed]],
 			DrawLayer = "ARTWORK",
 			DrawLevel = 1,
 
+			Iterate = true,
 			UseColor = true,
 		},
 		HotKey = {
+			Key = "HotKey",
+			Name = "HotKey",
+			Type = "FontString",
+
 			--FontObject = "NumberFontNormalSmallGray",
 			JustifyH = "RIGHT",
 			DrawLayer = "ARTWORK",
@@ -91,9 +130,14 @@ do
 			OffsetX = 1,
 			OffsetY = -3,
 
+			Iterate = true,
 			NoColor = true,
 		},
 		Count = {
+			Key = "Count",
+			Name = "Count",
+			Type = "FontString",
+
 			--FontObject = "NumberFontNormal",
 			JustifyH = "RIGHT",
 			DrawLayer = "ARTWORK",
@@ -101,75 +145,146 @@ do
 			OffsetX = -2,
 			OffsetY = 2,
 
+			Iterate = true,
 			NoColor = true,
+
+			Aura = {
+				Key = "count",
+				Name = "Count",
+				Type = "FontString",
+
+				--FontObject = "NumberFontNormal",
+				JustifyH = "RIGHT",
+				DrawLayer = "ARTWORK",
+				Point = "BOTTOMRIGHT",
+				OffsetX = -2,
+				OffsetY = 2,
+
+				Iterate = true,
+				NoColor = true,
+			},
 		},
 		Duration = {
+			Key = "duration",
+			Name = "Duration",
+			Type = "FontString",
+
 			--FontObject = "GameFontNormalSmall",
 			JustifyH = "CENTER",
 			Point = "TOP",
 			RelPoint = "BOTTOM",
 			DrawLayer = "ARTWORK",
 
+			Iterate = true,
 			NoColor = true,
 		},
 		Checked = {
+			Func = "GetCheckedTexture",
+			Type = "Texture",
+
 			Texture = [[Interface\Buttons\CheckButtonHilight]],
 			BlendMode = "ADD",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 0,
+
+			Iterate = true,
 		},
-		Border = { -- Default at the root.
+		Border = {
+			Key = "Border",
+			Name = "Border",
+			Type = "Texture",
+
 			Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 			BlendMode = "ADD",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 0,
 
+			Iterate = true,
 			NoColor = true,
 
 			-- Nested Settings
-			Item = {
-				Texture = [[Interface\Common\WhiteIconFrame]],
+			Aura = {
+				Name = "Border",
+				Type = "Texture",
+
+				Texture = [[Interface\Buttons\UI-ActionButton-Border]],
+				BlendMode = "ADD",
 				DrawLayer = "OVERLAY",
 				DrawLevel = 0,
 
+				Iterate = true,
 				NoColor = true,
 			},
 			Debuff = {
+				Name = "Border",
+				Type = "Texture",
+
 				Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
 				TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 				DrawLayer = "OVERLAY",
 				DrawLevel = 0,
 
+				Iterate = true,
 				NoColor = true,
 			},
 			Enchant = {
+				Name = "Border",
+				Type = "Texture",
+
 				Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
 				DrawLayer = "OVERLAY",
 				DrawLevel = 0,
+
+				Iterate = true,
+			},
+			Item = {
+				Key = "Border",
+				Name = "Border",
+				Type = "Texture",
+
+				Texture = [[Interface\Common\WhiteIconFrame]],
+				DrawLayer = "OVERLAY",
+				DrawLevel = 0,
+
+				Iterate = true,
+				NoColor = true,
 			},
 		},
 		IconBorder = {
+			Key = "IconBorder",
+			Type = "Texture",
+
 			Texture = [[Interface\Common\WhiteIconFrame]],
 			RelicTexture = [[Interface\Artifacts\RelicIconFrame]],
 			DrawLayer = "OVERLAY",
 			DrawLevel = 0,
 
+			Iterate = true,
 			NoColor = true,
 			NoTexture = true,
 		},
 		SlotHighlight = {
+			Key = "SlotHighlightTexture",
+			Type = "Texture",
+
 			Texture = [[Interface\Buttons\CheckButtonHilight]],
 			BlendMode = "ADD",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 0,
+
+			Iterate = true,
 		},
 		Gloss = {
 			-- DrawLayer = "OVERLAY",
 			-- DrawLevel = 0,
 
+			Ignore = true,
 			CanHide = true,
 		},
 		IconOverlay = {
+			Key = "IconOverlay",
+			Type = "Texture",
+
 			-- Atlas = "AzeriteIconFrame",
 			-- AtlasInfo = {
 				-- Atlas = "AzeriteIconFrame",
@@ -182,10 +297,14 @@ do
 			DrawLayer = "OVERLAY",
 			DrawLevel = 1,
 
+			Iterate = true,
 			NoColor = true,
 			NoTexture = true,
 		},
 		NewAction = {
+			Key = "NewActionTexture",
+			Type = "Texture",
+
 			Atlas = "bags-newitem",
 			-- AtlasInfo = {
 				-- Atlas = "bags-newitem",
@@ -198,8 +317,13 @@ do
 			BlendMode = "ADD",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 1,
+
+			Iterate = true,
 		},
 		SpellHighlight = {
+			Key = "SpellHighlightTexture",
+			Type = "Texture",
+
 			Atlas = "bags-newitem",
 			-- AtlasInfo = {
 				-- Atlas = "bags-newitem",
@@ -212,11 +336,20 @@ do
 			BlendMode = "ADD",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 1,
+
+			Iterate = true,
 		},
+		-- * Only used by Pet Action Buttons.
 		AutoCastable = {
+			--Key = "AutoCastable", -- Causes issues with PetBars.
+			Name = "AutoCastable",
+			Type = "Texture",
+
 			Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 			DrawLayer = "OVERLAY",
 			DrawLevel = 1,
+
+			Iterate = true,
 		},
 		--[[
 		JunkIcon = {
@@ -267,6 +400,9 @@ do
 		},
 		]]
 		NewItem = {
+			Key = "NewItemTexture",
+			Type = "Texture",
+
 			-- Atlas = "bags-glow-green",
 			-- UseAtlasSize = true,
 			-- AtlasInfo = {
@@ -281,140 +417,64 @@ do
 			DrawLayer = "OVERLAY",
 			DrawLevel = 2,
 
+			Iterate = true,
 			NoColor = true,
 			NoTexture = true,
 		},
 		SearchOverlay = {
+			Key = "searchOverlay",
+			Name = "SearchOverlay",
+			Type = "Texture",
+
 			Color = {0, 0, 0, 0.8},
 			DrawLayer = "OVERLAY",
 			DrawLevel = 4,
 
+			Iterate = true,
 			UseColor = true,
 			SetAllPoints = true,
 		},
 		ContextOverlay = {
+			Key = "ItemContextOverlay",
+			Type = "Texture",
+
 			Color = {0, 0, 0, 0.8},
 			DrawLayer = "OVERLAY",
 			DrawLevel = 5,
 
+			Iterate = true,
 			UseColor = true,
 			SetAllPoints = true,
 		},
 		Name = {
+			Key = "Name",
+			Name = "Name",
+			Type = "FontString",
+
 			--FontObject = "GameFontHighlightSmallOutline",
 			JustifyH = "CENTER",
 			DrawLayer = "OVERLAY",
 			Point = "BOTTOM",
 			OffsetY = 2,
 
+			Iterate = true,
 			NoColor = true,
-		},
-		Highlight = {
-			Texture = [[Interface\Buttons\ButtonHilight-Square]],
-			BlendMode = "ADD",
-			DrawLayer = "HIGHLIGHT",
-			DrawLevel = 0,
-		},
-		AutoCastShine = {
-		},
-		Cooldown = {
-		},
-		ChargeCooldown = {
-		},
-	}
-
-	----------------------------------------
-	-- Core
-	---
-
-	Core.RegDefs = Defaults
-
-end
-
-----------------------------------------
--- Region List
--- * A list of regions for various button types.
----
-
-do
-	-- * Type -> Must match the game's internal type, for validation.
-	-- * nType -> Internal type used for iteration.
-
-	----------------------------------------
-	-- Legacy
-	---
-
-	local Legacy = {
-		Backdrop = {
-			Name = "FloatingBG",
-			Type = "Texture",
-		},
-		Icon = {
-			Key = "icon",
-			Name = "Icon",
-			Type = "Texture",
-		},
-		Normal = {
-			--Key = "NormalTexture", -- Conflicts with some add-ons.
-			Func = "GetNormalTexture",
-			Name = "NormalTexture",
-			Type = "Texture",
-		},
-		Disabled = {
-			Func = "GetDisabledTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Pushed = {
-			Func = "GetPushedTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Flash = {
-			-- Key = "Flash", -- Conflicts with item buttons.
-			Name = "Flash",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		HotKey = {
-			Key = "HotKey",
-			Name = "HotKey",
-			Type = "FontString",
-			nType = "Text",
-		},
-		Count = {
-			Key = "Count",
-			Name = "Count",
-			Type = "FontString",
-			nType = "Text",
-		},
-		Duration = {
-			Key = "duration",
-			Name = "Duration",
-			Type = "FontString",
-			nType = "Text",
-		},
-		Checked = {
-			Func = "GetCheckedTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Border = {
-			Key = "Border",
-			Name = "Border",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Name = {
-			Key = "Name",
-			Name = "Name",
-			Type = "FontString",
-			nType = "Text",
 		},
 		Highlight = {
 			Func = "GetHighlightTexture",
 			Type = "Texture",
-			nType = "Texture",
+
+			Texture = [[Interface\Buttons\ButtonHilight-Square]],
+			BlendMode = "ADD",
+			DrawLayer = "HIGHLIGHT",
+			DrawLevel = 0,
+
+			Iterate = true,
+		},
+		AutoCastShine = {
+			--Key = "AutoCastShine", -- Causes issues with PetBars.
+			Name = "Shine",
+			Type = "Frame",
 		},
 		Cooldown = {
 			Key = "cooldown",
@@ -428,155 +488,120 @@ do
 	}
 
 	----------------------------------------
-	-- Action Button
+	-- Action Type
 	---
 
 	local Action = {
-		Backdrop = Legacy.Backdrop,
-		Icon = Legacy.Icon,
-		Normal = Legacy.Normal,
-		Disabled = Legacy.Disabled, -- Unused
-		Pushed = Legacy.Pushed,
-		Flash = Legacy.Flash,
-		Checked = Legacy.Checked,
-		Border = Legacy.Border,
-		HotKey = Legacy.HotKey,
-		Count = Legacy.Count,
-		Name = Legacy.Name,
-		NewAction = {
-			Key = "NewActionTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		SpellHighlight = {
-			Key = "SpellHighlightTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		-- * Only used by Pet Action Buttons.
-		AutoCastable = {
-			--Key = "AutoCastable", -- Causes issues with PetBars.
-			Name = "AutoCastable",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Highlight = Legacy.Highlight,
-		-- * Only used by Pet Action Buttons.
-		AutoCastShine = {
-			--Key = "AutoCastShine", -- Causes issues with PetBars.
-			Name = "Shine",
-			Type = "Frame",
-		},
-		Cooldown = Legacy.Cooldown,
-		ChargeCooldown = Legacy.ChargeCooldown,
+		Backdrop = Regions.Backdrop,
+		Icon = Regions.Icon,
+		Normal = Regions.Normal,
+		Disabled = Regions.Disabled, -- Unused
+		Pushed = Regions.Pushed,
+		Flash = Regions.Flash,
+		Checked = Regions.Checked,
+		HotKey = Regions.HotKey,
+		Count = Regions.Count,
+		Border = Regions.Border,
+		NewAction = Regions.NewAction,
+		SpellHighlight = Regions.SpellHighlight,
+		AutoCastable = Regions.AutoCastable,
+		Name = Regions.Name,
+		Highlight = Regions.Highlight,
+		AutoCastShine = Regions.AutoCastShine,
+		Cooldown = Regions.Cooldown,
+		ChargeCooldown = Regions.ChargeCooldown,
 	}
 
 	----------------------------------------
-	-- Item Button
+	-- Item Type
 	---
 
 	local Item = {
-		Icon = {
-			Key = "icon",
-			Name = "IconTexture",
-			Type = "Texture",
-		},
-		Normal = Legacy.Normal,
-		Disabled = Legacy.Disabled, -- Unused
-		Pushed = Legacy.Pushed,
-		IconBorder = {
-			Key = "IconBorder",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Border = Legacy.Border, -- Backwards-compatibility.
-		SlotHighlight = {
-			Key = "SlotHighlightTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		IconOverlay = {
-			Key = "IconOverlay",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		--[[
-		JunkIcon = {
-			Key = "JunkIcon",
-			Type = "Texture",
-		},
-		UpgradeIcon = {
-			Key = "UpgradeIcon",
-			Type = "Texture",
-		},
-		QuestIcon = {
-			Key = "IconQuestTexture",
-			Type = "Texture",
-			Texture = false,
-		},
-		]]
-		NewItem = {
-			Key = "NewItemTexture",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		SearchOverlay = {
-			Key = "searchOverlay",
-			Name = "SearchOverlay",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		ContextOverlay = {
-			Key = "ItemContextOverlay",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Count = Legacy.Count,
-		Highlight = Legacy.Highlight,
-		Cooldown = Legacy.Cooldown,
-		ChargeCooldown = Legacy.ChargeCooldown,
+		Icon = Regions.Icon.Item,
+		Normal = Regions.Normal,
+		Disabled = Regions.Disabled,
+		Pushed = Regions.Pushed,
+		IconBorder = Regions.IconBorder,
+		Border = Regions.Border.Item, -- Backwards-Compatibility
+		SlotHighlight = Regions.SlotHighlight,
+		IconOverlay = Regions.IconOverlay,
+		-- JunkIcon = Regions.JunkIcon,
+		-- UpgradeIcon = Regions.UpgradeIcon,
+		-- QuestIcon = Regions.QuestIcon,
+		NewItem = Regions.NewItem,
+		SearchOverlay = Regions.SearchOverlay,
+		ContextOverlay = Regions.ContextOverlay,
+		Count = Regions.Count,
+		Highlight = Regions.Highlight,
+		Cooldown = Regions.Cooldown,
+		ChargeCooldown = Regions.ChargeCooldown,
 	}
 
 	----------------------------------------
-	-- Aura Button
+	-- Aura Type
 	---
 
 	local Aura = {
-		Icon = {
-			Name = "Icon",
-			Type = "Texture",
-		},
-		Normal = Legacy.Normal, -- Unused
-		Disabled = Legacy.Disabled, -- Unused
-		Pushed = Legacy.Pushed, -- Unused
-		Border = {
-			Name = "Border",
-			Type = "Texture",
-			nType = "Texture",
-		},
-		Count = {
-			Key = "count",
-			Name = "Count",
-			Type = "FontString",
-		},
-		Duration = Legacy.Duration,
-		Highlight = Legacy.Highlight, -- Unused
-		Cooldown = Legacy.Cooldown,
-		ChargeCooldown = Legacy.ChargeCooldown,
+		Icon = Regions.Icon,
+		Normal = Regions.Normal, -- Unused
+		Disabled = Regions.Disabled, -- Unused
+		Pushed = Regions.Pushed, -- Unused
+		Border = Regions.Border.Aura,
+		Count = Regions.Count.Aura,
+		Duration = Regions.Duration,
+		Highlight = Regions.Highlight, -- Unused
+		Cooldown = Regions.Cooldown,
+		ChargeCooldown = Regions.ChargeCooldown,
+	}
+
+	----------------------------------------
+	-- Debuff Type
+	---
+
+	local Debuff = {
+		Icon = Regions.Icon,
+		Normal = Regions.Normal, -- Unused
+		Disabled = Regions.Disabled, -- Unused
+		Pushed = Regions.Pushed, -- Unused
+		Border = Regions.Border.Debuff,
+		Count = Regions.Count.Aura,
+		Duration = Regions.Duration,
+		Highlight = Regions.Highlight, -- Unused
+		Cooldown = Regions.Cooldown,
+		ChargeCooldown = Regions.ChargeCooldown,
+	}
+
+	----------------------------------------
+	-- Enchant Type
+	---
+
+	local Enchant = {
+		Icon = Regions.Icon,
+		Normal = Regions.Normal, -- Unused
+		Disabled = Regions.Disabled, -- Unused
+		Pushed = Regions.Pushed, -- Unused
+		Border = Regions.Border.Enchant,
+		Count = Regions.Count.Aura,
+		Duration = Regions.Duration,
+		Highlight = Regions.Highlight, -- Unused
+		Cooldown = Regions.Cooldown,
+		ChargeCooldown = Regions.ChargeCooldown,
 	}
 
 	----------------------------------------
 	-- Core
 	---
 
+	Core.RegDefs = Regions
+
 	-- Reference Table
 	Core.RegList = {
-		Legacy = Legacy,
+		Legacy = Regions,
 		Action = Action,
 		Item = Item,
 		Aura = Aura,
 		Buff = Aura,
-		Debuff = Aura,
-		Enchant = Aura,
+		Debuff = Debuff,
+		Enchant = Enchant,
 	}
 end

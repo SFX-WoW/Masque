@@ -103,16 +103,15 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local Layers = RegList[bType]
 
 	for Layer, Info in pairs(Layers) do
-		local nType = Info.nType
-
-		if nType then
+		if Info.Iterate then
 			local Region = Regions[Layer]
+			local Type = Info.Type
 
 			if Region then
-				if nType == "Text" then
+				if Type == "FontString" then
 					SkinRegion("Text", Region, Button, Layer, Skin[Layer], xScale, yScale)
 				else
-					SkinRegion(nType, Region, Button, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
+					SkinRegion(Type, Region, Button, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
 				end
 			end
 		end
