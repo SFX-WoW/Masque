@@ -46,10 +46,9 @@ function Core.GetType(Button, oType)
 			if not Type or not oTypes[Type] then
 				Type = nil
 			end
+
+			Button.__MSQ_oType = Type
 		end
-
-		Button.__MSQ_oType = Type
-
 	else
 		oType = Button.__MSQ_oType
 		Type = "Legacy"
