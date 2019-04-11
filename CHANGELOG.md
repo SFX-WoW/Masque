@@ -1,4 +1,4 @@
-## 8.1.5 (Alpha2)
+## 8.1.5 (Alpha-3)
 
 _**Warning:** This is an alpha version and may contain bugs._
 
@@ -80,7 +80,7 @@ _**Warning:** This is an alpha version and may contain bugs._
     - `"NewAction"` - Texture, Color, Size, Position
     - `"SpellHighlight"` - Texture, Color, Size, Position
   - _ItemButton_
-    - `"IconBorder"` - Size, Position
+    - `"IconBorder"` - Texture, Size, Position
     - `"SlotHighlight"` - Texture, Color, Size, Position
     - `"IconOverlay"` - Size, Position
     - `"NewItem"` - Size, Position
