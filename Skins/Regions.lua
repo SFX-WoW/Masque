@@ -254,14 +254,14 @@ do
 			Key = "IconBorder",
 			Type = "Texture",
 
-			Texture = [[Interface\Common\WhiteIconFrame]],
-			RelicTexture = [[Interface\Artifacts\RelicIconFrame]],
-			DrawLayer = "OVERLAY",
-			DrawLevel = 0,
+			-- Texture = [[Interface\Common\WhiteIconFrame]],
+			-- RelicTexture = [[Interface\Artifacts\RelicIconFrame]],
+			-- DrawLayer = "OVERLAY",
+			-- DrawLevel = 0,
 
-			Iterate = true,
-			NoColor = true,
-			NoTexture = true,
+			-- Iterate = true,
+			-- NoColor = true,
+			-- NoTexture = true,
 		},
 		SlotHighlight = {
 			Key = "SlotHighlightTexture",

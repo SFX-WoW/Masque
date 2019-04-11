@@ -117,6 +117,14 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		end
 	end
 
+	-- IconBorder
+
+	local IconBorder = Regions.IconBorder
+
+	if IconBorder then
+		SkinRegion("IconBorder", IconBorder, Button, Skin.IconBorder, xScale, yScale)
+	end
+
 	-- Gloss
 
 	SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
