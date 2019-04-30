@@ -8,7 +8,7 @@
 
 	Text Regions
 
-	* See Skins\Regions.lua for region defaults.
+	* See Skins\Default.lua for region defaults.
 
 ]]
 
@@ -17,11 +17,11 @@
 local _, Core = ...
 
 ----------------------------------------
--- Locals
+-- Internal
 ---
 
--- @ Skins\Regions
-local Defaults = Core.RegDefs
+-- @ Skins\Default
+local Defaults = Core.Skins.Default
 
 -- @ Core\Utility
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
@@ -33,13 +33,14 @@ local SkinRegion = Core.SkinRegion
 -- Hook
 ---
 
--- Hook to counter calls to SetPoint() after the HotKey region has been skinned.
+-- Counter calls to SetPoint() after the HotKey region has been skinned.
 local function Hook_SetPoint(Region, ...)
-	if Region.__ExitHook then return end
+	if Region.__ExitHook or not Region.__MSQ_Skin then
+		return
+	end
+
 	Region.__ExitHook = true
-
 	SetPoints(Region, Region.__MSQ_Button, Region.__MSQ_Skin, Defaults.HotKey)
-
 	Region.__ExitHook = nil
 end
 
@@ -49,25 +50,36 @@ end
 
 -- Skins a text layer of a button.
 function SkinRegion.Text(Region, Button, Layer, Skin, xScale, yScale)
+	local bType = Button.__MSQ_bType
 	local Default = Defaults[Layer]
+
+	if bType then
+		Skin = Skin[bType] or Skin
+		Default = Default[bType] or Default
+	end
 
 	Region:SetJustifyH(Skin.JustifyH or Default.JustifyH)
 	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
-
 	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
-
 	Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale))
 
 	if Layer == "HotKey" then
-		Region.__MSQ_Button = Button
-		Region.__MSQ_Skin = Skin
+		if Button.__MSQ_Enabled then
+			Region.__MSQ_Skin = Skin
+			Region.__MSQ_Button = Button
 
-		if not Region.__MSQ_Hooked then
-			hooksecurefunc(Region, "SetPoint", Hook_SetPoint)
-			Region.__MSQ_Hooked = true
+			if not Region.__MSQ_Hooked then
+				hooksecurefunc(Region, "SetPoint", Hook_SetPoint)
+				Region.__MSQ_Hooked = true
+			end
+
+			Hook_SetPoint(Region)
+		else
+			Region.__MSQ_Skin = nil
+			Region.__MSQ_Button = nil
+
+			SetPoints(Region, Button, Skin, Default)
 		end
-
-		Hook_SetPoint(Region)
 	else
 		SetPoints(Region, Button, Skin, Default)
 	end
