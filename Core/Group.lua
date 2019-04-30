@@ -21,17 +21,17 @@ local MASQUE, Core = ...
 local error, pairs, type = error, pairs, type
 
 ----------------------------------------
--- Locals
+-- Internal
 ---
 
 -- @ Skins\Skins
-local Skins = Core.Skins
+local Skins, LoadSkin = Core.Skins, Core.LoadSkin
 
 -- @ Skins\Regions
-local RegList = Core.RegList
+local RegTypes = Core.RegTypes
 
 -- @ Core\Utility
-local _GetColor = Core.GetColor
+local GetColor = Core.GetColor
 
 -- @ Core\Core
 local GetType, GetRegion = Core.GetType, Core.GetRegion
@@ -42,10 +42,14 @@ local SkinButton = Core.SkinButton
 -- @ Core\Callback
 local Callback = Core.Callback
 
-local Group = {}
+----------------------------------------
+-- Locals
+---
+
+local Group, GMT = {}, {}
 
 ----------------------------------------
--- Private Functions
+-- Private
 ---
 
 -- Fires the callback for the add-on or group.
@@ -54,18 +58,17 @@ local function FireCB(self)
 
 	if self.Callback then
 		Callback(self.ID, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
-
 	elseif self.Addon then
 		Callback(self.Addon, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
 	end
 end
 
 ----------------------------------------
--- AddButton
+-- Group Metatable
 ---
 
 -- Adds or reassigns a button to the group.
-local function AddButton(self, Button, Regions, Type, Strict)
+function GMT:AddButton(Button, Regions, Type, Strict)
 	local oType = GetType(Button, true)
 
 	if not oType then
@@ -73,16 +76,16 @@ local function AddButton(self, Button, Regions, Type, Strict)
 			error("Bad argument to group method 'AddButton'. 'Button' must be a button object.", 2)
 		end
 		return
-
 	elseif oType == "Frame" then
 		Strict = true
 	end
 
-	if not Type or not RegList[Type] then
-		Type = Button.__MSQ_bType or GetType(Button)
+	if not Type or not RegTypes[Type] then
+		Type = self.Type or GetType(Button)
 	end
 
 	Button.__MSQ_bType = Type
+	self.Type = Type
 
 	local Parent = Group[Button]
 
@@ -102,18 +105,16 @@ local function AddButton(self, Button, Regions, Type, Strict)
 	end
 
 	if not Strict then
-		local Layers = RegList[Type]
+		local Layers = RegTypes[Type]
 
 		for Layer, Info in pairs(Layers) do
 			local Region = Regions[Layer]
 
-			if Region == nil then
+			if Region == nil and not Info.Ignore then
 				if Layer == "AutoCastShine" then
 					Region = Regions.Shine or Regions.AutoCast or GetRegion(Button, Info)
-
 				elseif Layer == "Backdrop" then
 					Region = Regions.FloatingBG or GetRegion(Button, Info)
-
 				else
 					Region = GetRegion(Button, Info)
 				end
@@ -124,6 +125,7 @@ local function AddButton(self, Button, Regions, Type, Strict)
 	end
 
 	self.Buttons[Button] = Regions
+	Button.__MSQ_Addon = self.Addon
 
 	local db = self.db
 
@@ -132,17 +134,13 @@ local function AddButton(self, Button, Regions, Type, Strict)
 	end
 end
 
-----------------------------------------
--- RemoveButton
----
-
 -- Removes a button from the group and applies the default skin.
-local function RemoveButton(self, Button)
+function GMT:RemoveButton(Button)
 	if Button then
 		local Regions = self.Buttons[Button]
 
 		if Regions then
-			SkinButton(Button, Regions, "Classic", nil, nil, nil, nil, true)
+			SkinButton(Button, Regions, false)
 		end
 
 		Group[Button] = nil
@@ -150,24 +148,16 @@ local function RemoveButton(self, Button)
 	end
 end
 
-----------------------------------------
--- GetColor
----
-
 -- Returns a layer's current color.
-local function GetColor(self, Layer)
+function GMT:GetColor(Layer)
 	if Layer then
 		local Skin = Skins[self.db.SkinID] or Skins.Classic
-		return _GetColor(self.db.Colors[Layer] or Skin[Layer].Color)
+		return GetColor(self.db.Colors[Layer] or Skin[Layer].Color)
 	end
 end
 
-----------------------------------------
--- GetLayer
----
-
--- Returns a button layer.
-local function GetLayer(self, Button, Layer)
+-- Returns a button region.
+function GMT:GetLayer(Button, Layer)
 	if Button and Layer then
 		local Regions = self.Buttons[Button]
 
@@ -177,17 +167,13 @@ local function GetLayer(self, Button, Layer)
 	end
 end
 
-----------------------------------------
--- ReSkin
----
-
 -- Reskins the group with its current settings.
-local function ReSkin(self, Silent)
+function GMT:ReSkin(Silent)
 	local db = self.db
 
 	if not db.Disabled then
-		for Button in pairs(self.Buttons) do
-			SkinButton(Button, self.Buttons[Button], db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors)
+		for Button, Regions in pairs(self.Buttons) do
+			SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors)
 		end
 
 		if not Silent then
@@ -196,12 +182,8 @@ local function ReSkin(self, Silent)
 	end
 end
 
-----------------------------------------
--- Delete
----
-
 -- Deletes the group and applies the default skin to its buttons.
-local function Delete(self)
+function GMT:Delete()
 	local Subs = self.SubList
 
 	if Subs then
@@ -224,16 +206,11 @@ local function Delete(self)
 	Core.Groups[self.ID] = nil
 end
 
-----------------------------------------
--- SetName
----
-
 -- Renames the group.
-local function SetName(self, Name)
+function GMT:SetName(Name)
 	if not self.StaticID then
 		return
-
-	elseif type(Name) ~= "string" then
+	elseif type(Name) ~= "string" or self.ID == MASQUE then
 		if Core.Debug then
 			error("Bad argument to group method 'SetName'. 'Name' must be a string.", 2)
 		end
@@ -244,12 +221,8 @@ local function SetName(self, Name)
 	Core:UpdateSkinOptions(self)
 end
 
-----------------------------------------
--- SetCallback
----
-
 -- Registers a group-specific callback.
-local function SetCallback(self, func, arg)
+function GMT:SetCallback(func, arg)
 	if self.ID == MASQUE then return end
 
 	if type(func) ~= "function" then
@@ -257,7 +230,6 @@ local function SetCallback(self, func, arg)
 			error("Bad argument to Group method 'SetCallback'. 'func' must be a function.", 2)
 		end
 		return
-
 	elseif arg and type(arg) ~= "table" then
 		if Core.Debug then
 			error("Bad argument to Group method 'SetCallback'. 'arg' must be a table or nil.", 2)
@@ -269,22 +241,14 @@ local function SetCallback(self, func, arg)
 	self.Callback = true
 end
 
-----------------------------------------
--- GetOptions
----
-
 -- Creates and returns an AceConfig-3.0 options table for the group.
-local function GetOptions(self, Order)
+function GMT:GetOptions(Order)
 	return Core.GetOptions(self, Order)
 end
 
-----------------------------------------
--- Enable
--- * This methods is intended for internal use only.
----
-
 -- Enables the group.
-local function Enable(self)
+-- * This methods is intended for internal use only.
+function GMT:Enable()
 	self.db.Disabled = false
 	self:ReSkin()
 
@@ -297,17 +261,13 @@ local function Enable(self)
 	end
 end
 
-----------------------------------------
--- Disable
--- * This methods is intended for internal use only.
----
-
 -- Disables the group.
-local function Disable(self, Silent)
+-- * This methods is intended for internal use only.
+function GMT:Disable(Silent)
 	self.db.Disabled = true
 
-	for Button in pairs(self.Buttons) do
-		SkinButton(Button, self.Buttons[Button], "Classic")
+	for Button, Regions in pairs(self.Buttons) do
+		SkinButton(Button, Regions, false)
 	end
 
 	if not Silent then
@@ -323,13 +283,9 @@ local function Disable(self, Silent)
 	end
 end
 
-----------------------------------------
--- SetColor
--- * This methods is intended for internal use only.
----
-
 -- Sets the specified layer color.
-local function SetColor(self, Layer, r, g, b, a)
+-- * This methods is intended for internal use only.
+function GMT:SetColor(Layer, r, g, b, a)
 	if not Layer then return end
 
 	if r then
@@ -349,13 +305,9 @@ local function SetColor(self, Layer, r, g, b, a)
 	end
 end
 
-----------------------------------------
--- __Set
--- * This methods is intended for internal use only.
----
-
 -- Validates and sets a skin option.
-local function __Set(self, Option, Value)
+-- * This methods is intended for internal use only.
+function GMT:__Set(Option, Value)
 	if not Option then return end
 
 	local db = self.db
@@ -364,11 +316,9 @@ local function __Set(self, Option, Value)
 		if Value and Skins[Value] then
 			db.SkinID = Value
 		end
-
 	elseif db[Option] ~= nil then
 		Value = (Value and true) or false
 		db[Option] = Value
-
 	else
 		return
 	end
@@ -384,13 +334,9 @@ local function __Set(self, Option, Value)
 	end
 end
 
-----------------------------------------
--- __Reset
--- * This methods is intended for internal use only.
----
-
 -- Resets the group's skin settings.
-local function __Reset(self)
+-- * This methods is intended for internal use only.
+function GMT:__Reset()
 	self.db.Backdrop = false
 	self.db.Shadow = false
 	self.db.Gloss = false
@@ -410,13 +356,9 @@ local function __Reset(self)
 	end
 end
 
-----------------------------------------
--- __Update
--- * This methods is intended for internal use only.
----
-
 -- Updates the group on creation or profile activity.
-local function __Update(self, IsNew)
+-- * This methods is intended for internal use only.
+function GMT:__Update(IsNew)
 	local db = Core.db.profile.Groups[self.ID]
 
 	if db == self.db then return end
@@ -468,17 +410,22 @@ local function __Update(self, IsNew)
 	end
 
 	if IsNew then
+		local Addon = self.Addon
+
+		if Addon and not self.Group then
+			LoadSkin(Addon)
+		end
+
 		-- Queue the group if PLAYER_LOGIN hasn't fired and the skin hasn't loaded.
 		if Core.Queue and not self.Queued and not Skins[db.SkinID] then
 			Core.Queue(self)
 		end
 
 		Core:UpdateSkinOptions(self)
-
 	else
 		if db.Disabled then
-			for Button in pairs(self.Buttons) do
-				SkinButton(Button, self.Buttons[Button], "Classic")
+			for Button, Regions in pairs(self.Buttons) do
+				SkinButton(Button, Regions, false)
 			end
 		else
 			self:ReSkin()
@@ -495,33 +442,7 @@ local function __Update(self, IsNew)
 end
 
 ----------------------------------------
--- Group Metatable
+-- Core
 ---
 
-Core.Group_MT = {__index = {
-	-- Button
-	AddButton = AddButton,
-	RemoveButton = RemoveButton,
-
-	-- Region
-	GetColor = GetColor,
-	GetLayer = GetLayer,
-
-	-- Group
-	ReSkin = ReSkin,
-	Delete = Delete,
-	SetName = SetName,
-	SetCallback = SetCallback,
-
-	-- Options
-	GetOptions = GetOptions,
-
-	-- Internal
-	Enable = Enable,
-	Disable = Disable,
-	SetColor = SetColor,
-
-	__Set = __Set,
-	__Reset = __Reset,
-	__Update = __Update,
-}}
+Core.Group_MT = {__index = GMT}
