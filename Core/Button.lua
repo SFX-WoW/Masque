@@ -135,7 +135,12 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	Gloss = (Gloss and not Disabled) or false
 	SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
 
-	SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
+	-- NewItem
+	local NewItem = Regions.NewItem
+
+	if NewItem then
+		SkinRegion("NewItem", NewItem, Button, Skin.NewItem, xScale, yScale)
+	end
 
 	-- Cooldown
 	local Cooldown = Regions.Cooldown
