@@ -56,12 +56,16 @@ function Core.GetType(Button, oType)
 		if oType == "CheckButton" then
 			if Button.HotKey then
 				Type = "Action"
-			end
 
+				local bName = Button.GetName and Button:GetName()
+
+				if bName and bName:find("Pet") then
+					Type = "Pet"
+				end
+			end
 		elseif oType == "Button" then
 			if Button.IconBorder then
 				Type = "Item"
-
 			elseif Button.duration then
 				Type = "Aura"
 
@@ -104,7 +108,6 @@ function Core.GetRegion(Button, Info)
 		if Func then
 			local f = Func and Button[Func]
 			Region = f and f(Button)
-
 		elseif Name then
 			local n = Button.GetName and Button:GetName()
 			Region = n and _G[n..Name]
