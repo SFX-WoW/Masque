@@ -230,11 +230,8 @@ function Setup.Info(self)
 
 	local cArgs = self.Options.args.Core.args
 
-	-- Disabled
 	if not self.db.profile.SkinInfo then
 		cArgs.SkinInfo = nil
-
-	-- Enabled
 	elseif not cArgs.SkinInfo then
 		local Tooltip = "|cffffffff"..L["Select to view."].."|r"
 
@@ -261,12 +258,14 @@ function Setup.Info(self)
 			},
 		}
 
-		local Skins = self.Skins
+		local Skins, SkinList = self.Skins, self.SkinList
 		local args = Options.args
 
 		-- Create the info groups.
-		for SkinID, Skin in pairs(Skins) do
+		for SkinID in pairs(SkinList) do
+			local Skin = Skins[SkinID]
 			local Group = Skin.Group
+
 			if Group then
 				if not args[Group] then
 					args[Group] = {
@@ -285,8 +284,6 @@ function Setup.Info(self)
 		end
 
 		cArgs.SkinInfo = Options
-
-	-- Exit
 	else
 		return
 	end
