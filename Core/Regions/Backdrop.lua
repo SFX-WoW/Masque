@@ -8,7 +8,7 @@
 
 	'Backdrop' Region
 
-	* See Skins\Regions.lua for region defaults.
+	* See Skins\Default.lua for region defaults.
 
 ]]
 
@@ -23,8 +23,11 @@ local _, Core = ...
 local error, type = error, type
 
 ----------------------------------------
--- Locals
+-- Internal
 ---
+
+-- @ Skins\Default
+local Default = Core.Skins.Default.Backdrop
 
 -- @ Core\Utility
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
@@ -33,6 +36,13 @@ local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 -- @ Core\Core
 local SkinRegion = Core.SkinRegion
 
+----------------------------------------
+-- Locals
+---
+
+local DEF_COLOR = Default.Color
+local DEF_TEXTURE = Default.Texture
+
 local Cache = {}
 
 ----------------------------------------
@@ -40,8 +50,8 @@ local Cache = {}
 ---
 
 -- Removes the 'Backdrop' region from a button.
-local function RemoveBackdrop(Button)
-	local Region = Button.FloatingBG or Button.__MSQ_Backdrop
+local function RemoveBackdrop(Region, Button)
+	Region = Region or Button.__MSQ_Backdrop
 
 	if Region then
 		Region:Hide()
@@ -55,9 +65,10 @@ local function RemoveBackdrop(Button)
 	end
 end
 
--- Adds a 'Backdrop' region to a button.
-local function AddBackdrop(Button, Skin, Color, xScale, yScale)
-	local Region = Button.FloatingBG or Button.__MSQ_Backdrop
+-- Skins or creates the 'Backdrop' region of a button.
+local function SkinBackdrop(Region, Button, Skin, Color, xScale, yScale)
+	Button.FloatingBG = Region
+	Region = Region or Button.__MSQ_Backdrop
 
 	if not Region then
 		local i = #Cache
@@ -73,40 +84,21 @@ local function AddBackdrop(Button, Skin, Color, xScale, yScale)
 	end
 
 	Region:SetParent(Button)
-
-	local Texture = Skin.Texture
 	Color = Color or Skin.Color
 
 	if Skin.UseColor then
 		Region:SetTexture()
-		Region:SetColorTexture(GetColor(Color))
-
-	elseif Texture then
-		Region:SetTexture(Texture)
-		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-		Region:SetVertexColor(GetColor(Color))
-
+		Region:SetColorTexture(GetColor(Color or DEF_COLOR))
 	else
-		Region:SetTexture([[Interface\Buttons\UI-Quickslot]])
-		Region:SetTexCoord(0, 1, 0, 1)
-		Region:SetVertexColor(1, 1, 1, 0.6)
+		Region:SetTexture(Skin.Texture or DEF_TEXTURE)
+		Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
+		Region:SetVertexColor(GetColor(Color or DEF_COLOR))
 	end
 
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
-
-	local DrawLayer = Skin.DrawLayer
-	local DrawLevel = Skin.DrawLevel
-
-	if DrawLayer then
-		DrawLevel = DrawLevel or 0
-	end
-
-	Region:SetDrawLayer(DrawLayer or "BACKGROUND", DrawLevel or -1)
-
+	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or -1)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
-
 	Region:Show()
 end
 
@@ -115,11 +107,14 @@ end
 ---
 
 -- Add or removes a 'Backdrop' region.
-function SkinRegion.Backdrop(Enabled, Button, Skin, Color, xScale, yScale)
+function SkinRegion.Backdrop(Enabled, Region, Button, Skin, Color, xScale, yScale)
+	local bType = Button.__MSQ_bType
+	Skin = (bType and Skin[bType]) or Skin
+
 	if Enabled and not Skin.Hide then
-		AddBackdrop(Button, Skin, Color, xScale, yScale)
+		SkinBackdrop(Region, Button, Skin, Color, xScale, yScale)
 	else
-		RemoveBackdrop(Button)
+		RemoveBackdrop(Region, Button)
 	end
 end
 
