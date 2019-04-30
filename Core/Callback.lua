@@ -6,7 +6,7 @@
 	* File...: Core\Callback.lua
 	* Author.: StormFX, JJSheets
 
-	Group API
+	Callback API
 
 ]]
 
@@ -64,20 +64,18 @@ Core.Callback = setmetatable(Callback, {__call = Callback.Fire})
 -- API
 ---
 
--- Wrapper for the 'Register' method.
+-- Registers a callback at the add-on level.
 function Core.API:Register(Addon, func, arg)
 	if type(Addon) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'Register'. 'Addon' must be a string.", 2)
 		end
 		return
-
 	elseif type(func) ~= "function" then
 		if Core.Debug then
 			error("Bad argument to API method 'Register'. 'func' must be a function.", 2)
 		end
 		return
-
 	elseif arg and type(arg) ~= "table" then
 		if Core.Debug then
 			error("Bad argument to API method 'Register'. 'arg' must be a table or nil.", 2)
