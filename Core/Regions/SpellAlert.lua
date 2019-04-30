@@ -57,7 +57,6 @@ local function UpdateSpellAlert(Button)
 		if Shape and Alerts[Shape] then
 			Glow = Alerts[Shape].Glow or Alerts.Square.Glow
 			Ants = Alerts[Shape].Ants or Alerts.Square.Ants
-
 		else
 			Glow = Alerts.Square.Glow
 			Ants = Alerts.Square.Ants
@@ -74,6 +73,7 @@ local function UpdateSpellAlert(Button)
 	end
 end
 
+-- @ FrameXML\ActionButton.lua
 hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 
 ----------------------------------------
