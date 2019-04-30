@@ -8,7 +8,7 @@
 
 	Texture Regions
 
-	* See Skins\Regions.lua for region defaults.
+	* See Skins\Default.lua for region defaults.
 
 ]]
 
@@ -17,11 +17,14 @@
 local _, Core = ...
 
 ----------------------------------------
--- Locals
+-- Internal
 ---
 
 -- @ Skins\Regions
-local Defaults = Core.RegDefs
+local Settings = Core.RegTypes.Legacy
+
+-- @ Skins\Default
+local Defaults = Core.Skins.Default
 
 -- @ Core\Utility
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
@@ -42,26 +45,26 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 		return
 	end
 
+	local bType = Button.__MSQ_bType
+	local Config = Settings[Layer]
 	local Default = Defaults[Layer]
 
-	if Layer == "Border" then
-		local bType = Button.__MSQ_bType
-
+	if bType then
 		Skin = Skin[bType] or Skin
+		Config = Config[bType] or Config
 		Default = Default[bType] or Default
 	end
 
-	if not Default.NoTexture then
+	if not Config.NoTexture then
 		local Texture = Skin.Texture
 		Color = Color or Skin.Color
 
-		local SetColor = not Default.NoColor
-		local UseColor = Default.UseColor
+		local SetColor = not Config.NoColor
+		local UseColor = Config.UseColor
 
 		if Skin.UseColor and UseColor then
 			Region:SetTexture()
 			Region:SetColorTexture(GetColor(Color))
-
 		elseif Texture then
 			Region:SetTexture(Texture)
 			Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
@@ -69,7 +72,6 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 			if SetColor then
 				Region:SetVertexColor(GetColor(Color))
 			end
-
 		else
 			local Atlas = Default.Atlas
 			Texture = Default.Texture
@@ -80,7 +82,6 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 				if SetColor then
 					Region:SetVertexColor(GetColor(Default.Color))
 				end
-
 			elseif Texture then
 				Region:SetTexture(Default.Texture)
 				Region:SetTexCoord(GetTexCoords(Default.TexCoords))
@@ -88,25 +89,15 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 				if SetColor then
 					Region:SetVertexColor(GetColor(Default.Color))
 				end
-
 			elseif UseColor then
 				Region:SetTexture()
 				Region:SetColorTexture(GetColor(Default.Color))
 			end
 		end
-
-		Region:SetBlendMode(Skin.BlendMode or Default.BlendMode or "BLEND")
 	end
 
-	local DrawLayer = Skin.DrawLayer
-	local DrawLevel = Skin.DrawLevel
-
-	if DrawLayer then
-		DrawLevel = DrawLevel or 0
-	end
-
-	Region:SetDrawLayer(DrawLayer or Default.DrawLayer, DrawLevel or Default.DrawLevel or 0)
-
+	Region:SetBlendMode(Skin.BlendMode or Default.BlendMode or "BLEND")
+	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer, Skin.DrawLevel or Default.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 
 	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default.SetAllPoints)
