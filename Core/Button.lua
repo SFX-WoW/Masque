@@ -6,7 +6,7 @@
 	* File...: Core\Button.lua
 	* Author.: StormFX, JJSheets
 
-	Button
+	Button-Skinning API
 
 ]]
 
@@ -21,14 +21,14 @@ local _, Core = ...
 local pairs, type = pairs, type
 
 ----------------------------------------
--- Locals
+-- Internal
 ---
 
 -- @ Skins\Skins
 local Skins, __Empty = Core.Skins, Core.__Empty
 
 -- @ Skins\Regions
-local RegList = Core.RegList
+local RegTypes = Core.RegTypes
 
 -- @ Core\Utility
 local GetScale = Core.GetScale
@@ -37,7 +37,7 @@ local GetScale = Core.GetScale
 local SkinRegion = Core.SkinRegion
 
 ----------------------------------------
--- Shape
+-- Locals
 ---
 
 -- List of valid shapes.
@@ -48,7 +48,7 @@ local Shapes = {
 
 -- Validates and returns a shape.
 local function GetShape(Shape)
-	return Shape and Shapes[Shape] or "Square"
+	return (Shape and Shapes[Shape]) or "Square"
 end
 
 ----------------------------------------
@@ -56,30 +56,39 @@ end
 ---
 
 -- Applies a skin to a button and its associated layers.
-function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, UnHook)
+function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors)
 	if not Button then return end
 
 	local bType = Button.__MSQ_bType
+	local Skin, Disabled
 
-	local Skin = (SkinID and Skins[SkinID]) or Skins["Classic"]
+	if SkinID then
+		Skin = Skins[SkinID] or Skins.Classic
+	else
+		local Addon = Button.__MSQ_Addon or false
+		Skin = Skins[Addon] or Skins.Default
+		Disabled = true
+	end
 
-	if type(Colors) ~= "table" then
+	Button.__MSQ_Enabled = (not Disabled and true) or nil
+	Button.__MSQ_Shape = GetShape(Skin.Shape)
+
+	if Disabled or type(Colors) ~= "table" then
 		Colors = __Empty
 	end
 
 	local xScale, yScale = GetScale(Button)
 
-	Button.__MSQ_UnHook = UnHook
-	Button.__MSQ_Shape = (UnHook and "Square") or GetShape(Skin.Shape)
-
 	-- Backdrop
+	local FloatingBG = Button.FloatingBG or Regions.Backdrop
 
-	Button.FloatingBG = Button.FloatingBG or Regions.Backdrop
+	if Disabled then
+		Backdrop = (FloatingBG and true) or false
+	end
 
-	SkinRegion("Backdrop", Backdrop, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
+	SkinRegion("Backdrop", Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 
 	-- Icon
-
 	local Icon = Regions.Icon
 
 	if Icon then
@@ -87,20 +96,18 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- Shadow
-
+	Shadow = (Shadow and not Disabled) or false
 	SkinRegion("Shadow", Shadow, Button, Skin.Shadow, Colors.Shadow, xScale, yScale)
 
 	-- Normal
-
 	local Normal = Regions.Normal
 
 	if Normal ~= false then
 		SkinRegion("Normal", Normal, Button, Skin.Normal, Colors.Normal, xScale, yScale)
 	end
 
-	-- Text/Texture
-
-	local Layers = RegList[bType]
+	-- FontStrings and Textures
+	local Layers = (bType and RegTypes[bType]) or RegTypes.Legacy
 
 	for Layer, Info in pairs(Layers) do
 		if Info.Iterate then
@@ -118,7 +125,6 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- IconBorder
-
 	local IconBorder = Regions.IconBorder
 
 	if IconBorder then
@@ -126,11 +132,12 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- Gloss
+	Gloss = (Gloss and not Disabled) or false
+	SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
 
 	SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
 
 	-- Cooldown
-
 	local Cooldown = Regions.Cooldown
 
 	if Cooldown then
@@ -138,7 +145,6 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- ChargeCooldown
-
 	local Charge = Regions.ChargeCooldown or Button.chargeCooldown
 	local ChargeSkin = Skin.ChargeCooldown
 
@@ -149,40 +155,12 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- AutoCastShine
-
 	local Shine = Regions.AutoCastShine
 
 	if Shine then
-		Button.__MSQ_Shine = Shine
 		SkinRegion("Frame", Shine, Button, Skin.AutoCastShine, xScale, yScale)
 	end
 
 	-- SpellAlert
-
 	SkinRegion("SpellAlert", Button)
-end
-
-----------------------------------------
--- API
----
-
--- Sets the button's empty status.
-function Core.API:SetEmpty(Button, IsEmpty)
-	if type(Button) ~= "table" then
-		return
-	end
-
-	IsEmpty = (IsEmpty and true) or nil
-	Button.__MSQ_Empty = IsEmpty
-
-	local Shadow = Button.__MSQ_Shadow
-	local Gloss = Button.__MSQ_Gloss
-
-	if IsEmpty then
-		if Shadow then Shadow:Hide() end
-		if Gloss then Gloss:Hide() end
-	else
-		if Shadow then Shadow:Show() end
-		if Gloss then Gloss:Show() end
-	end
 end
