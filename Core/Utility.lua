@@ -41,7 +41,6 @@ function Core.SetPoints(Region, Button, Skin, Default, SetAllPoints)
 
 	if SetAllPoints then
 		Region:SetAllPoints(Button)
-
 	else
 		local Point = Skin.Point
 		local RelPoint = Skin.RelPoint or Point
@@ -51,7 +50,6 @@ function Core.SetPoints(Region, Button, Skin, Default, SetAllPoints)
 
 			if Point then
 				RelPoint = Default.RelPoint or Point
-
 			else
 				Point = "CENTER"
 				RelPoint = Point
