@@ -24,16 +24,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\UI-Quickslot]],                 -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "BACKGROUND",                                     -- XML
-			DrawLevel = -1,                                               -- XML
-
 			Color = {1, 1, 1, 0.4},                                       -- Default, XML Alpha
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "BACKGROUND",                                     -- XML
+			DrawLevel = -1,                                               -- XML
 			Width = 66,                                                   -- Calculated
 			Height = 66,                                                  -- Calculated
-
 			Points = {
 				{ -- [1]
 					Point = "TOPLEFT",                                    -- XML
@@ -59,13 +55,10 @@ local Regions = {
 			Type = "Texture",
 
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
 			DrawLayer = "BACKGROUND",                                     -- XML
 			DrawLevel = 0,                                                -- XML
-
 			Width = 36,                                                   -- In-Game
 			Height = 36,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -85,19 +78,15 @@ local Regions = {
 			Type = "Texture",
 
 			Texture = [[Interface\Buttons\UI-Quickslot2]],                -- XML
-			TexCoords = {0, 1, 0, 1},                                     -- Default
 			EmptyTexture = [[Interface\Buttons\UI-Quickslot]],            -- Lua
-
-			DrawLayer = "ARTWORK",                                        -- Default
-			DrawLevel = 0,                                                -- Default
-
+			TexCoords = {0, 1, 0, 1},                                     -- Default
 			Color = {1, 1, 1, 1},                                         -- Default
 			EmptyColor = {1, 1, 1, 0.5},                                  -- Lua
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "ARTWORK",                                        -- Default
+			DrawLevel = 0,                                                -- Default
 			Width = 66,                                                   -- Calculated
 			Height = 66,                                                  -- Calculated
-
 			Points = {
 				{ -- [1]
 					Point = "TOPLEFT",                                    -- XML
@@ -137,16 +126,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\UI-Quickslot-Depress]],         -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "ARTWORK",                                        -- Default
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "ARTWORK",                                        -- Default
+			DrawLevel = 0,                                                -- Default
 			Width = 36,                                                   -- In-Game
 			Height = 36,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -165,16 +150,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\UI-QuickslotRed]],              -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "ARTWORK",                                        -- XML
-			DrawLevel = 1,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "ARTWORK",                                        -- XML
+			DrawLevel = 1,                                                -- XML
 			Width = 36,                                                   -- In-Game
 			Height = 36,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -190,18 +171,14 @@ local Regions = {
 			Name = "HotKey",
 			Type = "Text",
 
+			FontObject = "NumberFontNormalSmallGray",                     -- XML
+			--Color = {0.6, 0.6, 0.6, 1},                                 -- XML (FontObject), Do Not Modify
 			JustifyH = "RIGHT",                                           -- XML
 			JustifyV = "MIDDLE",                                          -- Default
-			FontObject = "NumberFontNormalSmallGray",                     -- XML
-
 			DrawLayer = "ARTWORK",                                        -- XML
 			DrawLevel = 2,                                                -- XML
-
-			--Color = {0.6, 0.6, 0.6, 1},                                 -- XML (FontObject), Do Not Modify
-
 			Width = 36,                                                   -- XML
 			Height = 10,                                                  -- XML
-
 			Point = "TOPLEFT",                                            -- XML
 			OffsetX = 1,                                                  -- XML
 			OffsetY = -3,                                                 -- XML
@@ -217,19 +194,15 @@ local Regions = {
 			Name = "Count",
 			Type = "Text",
 
+			FontObject = "NumberFontNormal",                              -- XML
+			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
 			JustifyH = "RIGHT",                                           -- XML
 			JustifyV = "MIDDLE",                                          -- Default
-			FontObject = "NumberFontNormal",                              -- XML
-
 			DrawLayer = "ARTWORK",                                        -- XML
 			DrawLevel = 2,                                                -- XML
-
-			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
-
 			Width = 1,                                                    -- In-Game
 			Height = 1,                                                   -- In-Game
-
-			Point = "TOPLEFT",                                            -- XML
+			Point = "BOTTOMRIGHT",                                        -- XML
 			OffsetX = -2,                                                 -- XML
 			OffsetY = 2,                                                  -- XML
 		},
@@ -246,16 +219,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\CheckButtonHilight]],           -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- In-Game
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "ADD",                                            -- XML
-
+			DrawLayer = "OVERLAY",                                        -- In-Game
+			DrawLevel = 0,                                                -- Default
 			Width = 36,                                                   -- In-Game
 			Height = 36,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -274,16 +243,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\UI-ActionButton-Border]],       -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "ADD",                                            -- XML
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 0,                                                -- Default
 			Width = 62,                                                   -- XML
 			Height = 62,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -299,18 +264,14 @@ local Regions = {
 			Name = "Name",
 			Type = "Text",
 
+			FontObject = "GameFontHighlightSmallOutline",                 -- XML
+			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
 			JustifyH = "CENTER",                                          -- Default
 			JustifyV = "MIDDLE",                                          -- Default
-			FontObject = "GameFontHighlightSmallOutline",                 -- XML
-
 			DrawLayer = "OVERLAY",                                        -- XML
 			DrawLevel = 0,                                                -- Default
-
-			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
-
 			Width = 36,                                                   -- XML
 			Height = 10,                                                  -- XML
-
 			Point = "BOTTOM",                                             -- XML
 			OffsetX = 0,                                                  -- XML
 			OffsetY = 2,                                                  -- XML
@@ -328,23 +289,17 @@ local Regions = {
 			Atlas = {                                                     -- XML
 				ID = "bags-newitem",
 				UseSize = false,                                          -- XML
-
 				Texture = [[Interface\ContainerFrame\Bags]],
 				TexCoords = {0.363281, 0.535156, 0.00390625, 0.175781},
-
 				Width = 44,
 				Height = 44,
 			},
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 1,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "ADD",                                            -- XML
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 1,                                                -- XML
 			Width = 44,                                                   -- XML
 			Height = 44,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -369,13 +324,10 @@ local Regions = {
 				Width = 44,                                               -- XML
 				Height = 44,                                              -- XML
 			},
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 1,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "ADD",                                            -- XML
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 1,                                                -- XML
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -392,16 +344,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],       -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 1,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 1,                                                -- XML
 			Width = 58,                                                   -- XML
 			Height = 58,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -419,16 +367,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\ButtonHilight-Square]],         -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "HIGHLIGHT",                                      -- In-Game
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "ADD",                                            -- XML
-
+			DrawLayer = "HIGHLIGHT",                                      -- In-Game
+			DrawLevel = 0,                                                -- Default
 			Width = 36,                                                   -- In-Game
 			Height = 36,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -446,7 +390,6 @@ local Regions = {
 
 			Width = 28,                                                   -- XML
 			Height = 28,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- XML
 			OffsetY = 0,                                                  -- XML
@@ -465,10 +408,8 @@ local Regions = {
 			SwipeColor = {0, 0, 0, 0.8},                                  -- Normal
 			--SwipeColor = {0.17, 0, 0, 0.8},                             -- LoC
 			--SwipeColor = {1, 1, 1, 0.8},                                -- XML
-
 			Width = 36,                                                   -- XML
 			Height = 36,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- XML
 			OffsetY = -1,                                                 -- XML
@@ -509,13 +450,10 @@ local Regions = {
 			Type = "Texture",
 
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
 			DrawLayer = "BACKGROUND",                                     -- XML
 			DrawLevel = 0,                                                -- Default
-
 			Width = 30,                                                   -- In-Game
 			Height = 30,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -531,18 +469,14 @@ local Regions = {
 			Name = "Count",
 			Type = "Text",
 
+			FontObject = "NumberFontNormal",                              -- XML
+			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
 			JustifyH = "CENTER",                                          -- Default
 			JustifyV = "MIDDLE",                                          -- Default
-			FontObject = "NumberFontNormal",                              -- XML
-
 			DrawLayer = "BACKGROUND",                                     -- XML
 			DrawLevel = 0,                                                -- Default
-
-			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
-
 			Width = 1,                                                    -- In-Game
 			Height = 1,                                                   -- In-Game
-
 			Point = "BOTTOMRIGHT",                                        -- XML
 			OffsetX = -2,                                                 -- XML
 			OffsetY = 2,                                                  -- XML
@@ -558,18 +492,14 @@ local Regions = {
 			Name = "Duration",
 			Type = "Text",
 
+			FontObject = "GameFontNormalSmall",                           -- XML
+			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
 			JustifyH = "CENTER",                                          -- Default
 			JustifyV = "MIDDLE",                                          -- Default
-			FontObject = "GameFontNormalSmall",                           -- XML
-
 			DrawLayer = "BACKGROUND",                                     -- XML
 			DrawLevel = 0,                                                -- Default
-
-			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
-
 			Width = 12,                                                   -- In-Game
 			Height = 11,                                                  -- In-Game
-
 			Point = "TOP",                                                -- XML
 			RelPoint = "BOTTOM",                                          -- XML
 			OffsetX = 0,                                                  -- Default
@@ -584,19 +514,14 @@ local Regions = {
 		DebuffBorder = {
 			Name = "Border",
 			Type = "Texture",
-
 			Texture = [[Interface\Buttons\UI-Debuff-Overlays]],           -- XML
 			TexCoords = {0.296875, 0.5703125, 0, 0.515625},               -- XML
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 0,                                                -- Default
 			Width = 33,                                                   -- XML
 			Height = 32,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -613,16 +538,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\UI-TempEnchant-Border]],        -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 0,                                                -- Default
 			Width = 32,                                                   -- XML
 			Height = 32,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -698,13 +619,10 @@ local Regions = {
 			Type = "Texture",
 
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
 			DrawLayer = "BORDER",                                         -- XML
 			DrawLevel = 0,                                                -- Default
-
 			Width = 37,                                                   -- In-Game
 			Height = 37,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -725,16 +643,12 @@ local Regions = {
 			Texture = [[Interface\Buttons\UI-Quickslot2]],                -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
 			EmptyTexture = [[Interface\Buttons\UI-Quickslot]],            -- In-Game
-
-			DrawLayer = "ARTWORK",                                        -- Default
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "ARTWORK",                                        -- Default
+			DrawLevel = 0,                                                -- Default
 			Width = 64,                                                   -- XML
 			Height = 64,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- XML
 			OffsetY = -1,                                                 -- XML
@@ -752,16 +666,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\UI-Quickslot-Depress]],         -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "ARTWORK",                                        -- Default
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "ARTWORK",                                        -- Default
+			DrawLevel = 0,                                                -- Default
 			Width = 37,                                                   -- In-Game
 			Height = 37,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -777,18 +687,14 @@ local Regions = {
 			Name = "Count",
 			Type = "Text",
 
+			FontObject = "NumberFontNormal",                              -- XML
+			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
 			JustifyH = "RIGHT",                                           -- XML
 			JustifyV = "MIDDLE",                                          -- Default
-			FontObject = "NumberFontNormal",                              -- XML
-
 			DrawLayer = "ARTWORK",                                        -- XML
 			DrawLevel = 2,                                                -- XML
-
-			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
-
 			Width = 1,                                                    -- In-Game
 			Height = 1,                                                   -- In-Game
-
 			Point = "BOTTOMRIGHT",                                        -- XML
 			OffsetX = -5,                                                 -- XML
 			OffsetY = 2,                                                  -- XML
@@ -805,16 +711,12 @@ local Regions = {
 
 			Texture = [[Interface\Common\WhiteIconFrame]],                -- XML, Changes to [[Interface\Artifacts\RelicIconFrame]] if it's an artifact.
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 0,                                                -- Default
 			Width = 37,                                                   -- XML
 			Height = 37,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -831,13 +733,10 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\CheckButtonHilight]],           -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "ADD",                                            -- XML
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 0,                                                -- Default
 			Width = 30,                                                   -- XML / SetAllPoints, 40 @Backpack
 			Height = 30,                                                  -- XML / SetAllPoints, 40 @Backpack
 
@@ -863,16 +762,12 @@ local Regions = {
 				Width = 64,
 				Height = 64,
 			},
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 1,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 1,                                                -- XML
 			Width = 37,                                                   -- XML
 			Height = 37,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -897,13 +792,10 @@ local Regions = {
 				Width = 20,
 				Height = 18,
 			},
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 1,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 1,                                                -- XML
 			Point = "TOPLEFT",                                            -- XML
 			OffsetX = 1,                                                  -- XML
 			OffsetY = 0,                                                  -- XML
@@ -928,13 +820,10 @@ local Regions = {
 				Width = 20,
 				Height = 22,
 			},
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 1,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 1,                                                -- XML
 			Point = "TOPLEFT",                                            -- XML
 			OffsetX = 0,                                                  -- XML
 			OffsetY = 0,                                                  -- XML
@@ -952,16 +841,12 @@ local Regions = {
 			--Texture = [[Interface\\ContainerFrame\\UI-Icon-QuestBorder]]-- Active   TEXTURE_ITEM_QUEST_BORDER
 			--Texture = [[Interface\\ContainerFrame\\UI-Icon-QuestBang]], -- Inactive TEXTURE_ITEM_QUEST_BANG
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 2,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 2,                                                -- XML
 			Width = 37,                                                   -- XML
 			Height = 38,                                                  -- XML
-
 			Point = "TOP",                                                -- XML
 			OffsetX = 0,                                                  -- XML
 			OffsetY = 0,                                                  -- XML
@@ -986,13 +871,10 @@ local Regions = {
 				Width = 39,
 				Height = 39,
 			},
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 2,                                                -- XML
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "ADD",                                            -- XML
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 2,                                                -- XML
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- XML
 			OffsetY = 0,                                                  -- XML
@@ -1009,13 +891,10 @@ local Regions = {
 			Type = "Texture",
 
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 4,                                                -- XML
-
 			Color = {0, 0, 0, 0.8},                                       -- XML
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 4,                                                -- XML
 			Width = 37,                                                   -- XML / SetAllPoints
 			Height = 37,                                                  -- XML / SetAllPoints
 
@@ -1032,13 +911,10 @@ local Regions = {
 			Type = "Texture",
 
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 5,                                                -- XML
-
 			Color = {0, 0, 0, 0.8},                                       -- XML
 			BlendMode = "BLEND",                                          -- Default
-
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 5,                                                -- XML
 			Width = 37,                                                   -- XML / SetAllPoints
 			Height = 37,                                                  -- XML / SetAllPoints
 
@@ -1057,16 +933,12 @@ local Regions = {
 
 			Texture = [[Interface\Buttons\ButtonHilight-Square]],         -- XML
 			TexCoords = {0, 1, 0, 1},                                     -- Default
-
-			DrawLayer = "HIGHLIGHT",                                      -- In-Game
-			DrawLevel = 0,                                                -- Default
-
 			Color = {1, 1, 1, 1},                                         -- Default
 			BlendMode = "ADD",                                            -- XML
-
+			DrawLayer = "HIGHLIGHT",                                      -- In-Game
+			DrawLevel = 0,                                                -- Default
 			Width = 37,                                                   -- In-Game
 			Height = 37,                                                  -- In-Game
-
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -1084,10 +956,8 @@ local Regions = {
 			SwipeColor = {0, 0, 0, 0.8},                                  -- Normal
 			--SwipeColor = {0.17, 0, 0, 0.8},                             -- LoC
 			--SwipeColor = {1, 1, 1, 0.8},                                -- XML
-
 			Width = 36,                                                   -- XML
 			Height = 36,                                                  -- XML
-
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- XML
 			OffsetY = -1,                                                 -- XML
