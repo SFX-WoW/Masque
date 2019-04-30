@@ -21,7 +21,7 @@ local _, Core = ...
 local error, type = error, type
 
 ----------------------------------------
--- Locals
+-- Internal
 ---
 
 -- @ Core\Utility
@@ -31,7 +31,10 @@ local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 -- @ Core\Core
 local SkinRegion = Core.SkinRegion
 
--- Storage
+----------------------------------------
+-- Locals
+---
+
 local Cache = {}
 
 ----------------------------------------
@@ -46,14 +49,13 @@ local function RemoveGloss(Button)
 		Region:SetTexture()
 		Region:Hide()
 
-		-- Cache the region.
 		Cache[#Cache + 1] = Region
 		Button.__MSQ_Gloss = nil
 	end
 end
 
--- Adds a 'Gloss' region to a button.
-local function AddGloss(Button, Skin, Color, xScale, yScale)
+-- Skins or creates the 'Gloss' region of a button.
+local function SkinGloss(Button, Skin, Color, xScale, yScale)
 	local Region = Button.__MSQ_Gloss
 
 	if not Region then
@@ -70,17 +72,12 @@ local function AddGloss(Button, Skin, Color, xScale, yScale)
 	end
 
 	Region:SetParent(Button)
-
 	Region:SetTexture(Skin.Texture)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetVertexColor(GetColor(Color or Skin.Color))
-
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
-
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
-
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	if Button.__MSQ_Empty then
@@ -94,10 +91,13 @@ end
 -- Region
 ---
 
--- Add or removes a 'Gloss' region.
+-- Skins or removes a 'Gloss' region.
 function SkinRegion.Gloss(Enabled, Button, Skin, Color, xScale, yScale)
+	local bType = Button.__MSQ_bType
+	Skin = (bType and Skin[bType]) or Skin
+
 	if Enabled and not Skin.Hide and Skin.Texture then
-		AddGloss(Button, Skin, Color, xScale, yScale)
+		SkinGloss(Button, Skin, Color, xScale, yScale)
 	else
 		RemoveGloss(Button)
 	end
