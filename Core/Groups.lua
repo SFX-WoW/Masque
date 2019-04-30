@@ -6,7 +6,7 @@
 	* File...: Core\Groups.lua
 	* Author.: StormFX, JJSheets
 
-	Groups
+	Group Setup
 
 ]]
 
@@ -21,11 +21,15 @@ local MASQUE, Core = ...
 local error, setmetatable, type = error, setmetatable, type
 
 ----------------------------------------
--- Locals
+-- Internal
 ---
 
 -- @ Core\Group
 local Group_MT = Core.Group_MT
+
+----------------------------------------
+-- Locals
+---
 
 local Groups = {}
 local GetGroup
@@ -60,7 +64,6 @@ local function NewGroup(ID, Addon, Group, StaticID)
 		Group = Group,
 		Buttons = {},
 		SubList = (not Group and {}) or nil,
-		Regions  = (Addon and {}) or nil,
 		StaticID = (Group and StaticID) or nil,
 	}
 
@@ -120,13 +123,13 @@ function Core.API:Group(Addon, Group, StaticID, Deprecated)
 			error("Bad argument to API method 'Group'. 'Addon' must be a string.", 2)
 		end
 		return
-
 	elseif Group and type(Group) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'Group'. 'Group' must be a string.", 2)
 		end
 		return
-
+	elseif Group == "MicroMenu" then
+		return
 	elseif type(StaticID) ~= "string" then
 		if type(Deprecated) == "string" then
 			StaticID = Deprecated
