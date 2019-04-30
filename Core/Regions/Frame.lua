@@ -8,11 +8,11 @@
 
 	Frame Regions
 
-	* See Skins\Regions.lua for region defaults.
+	* See Skins\Default.lua for region defaults.
 
 ]]
 
--- GLOBALS: hooksecurefunc
+-- GLOBALS:
 
 local _, Core = ...
 
@@ -23,8 +23,17 @@ local _, Core = ...
 local type = type
 
 ----------------------------------------
--- Locals
+-- WoW API
 ---
+
+local hooksecurefunc = hooksecurefunc
+
+----------------------------------------
+-- Internal
+---
+
+-- @ Skins\Default
+local Default = Core.Skins.Default.Cooldown
 
 -- @ Core\Utility
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
@@ -33,24 +42,23 @@ local GetColor, GetScale = Core.GetColor, Core.GetScale
 -- @ Core\Core
 local SkinRegion = Core.SkinRegion
 
-local Swipe = {
-	Circle = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe-Circle]],
-	Square = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe]],
-}
-local SwipeColor = {
-	LoC = {0.2, 0, 0, 0.8},
-	Normal = {0, 0, 0, 0.8},
-}
-local Edge = {
-	LoC = [[Interface\AddOns\Masque\Textures\Cooldown\Edge-LoC]],
-	Normal = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
-}
+----------------------------------------
+-- Locals
+---
+
+local DEF_COLOR = Default.Color
+
+local MSQ_EDGE = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]]
+local MSQ_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Cooldown\Edge-LoC]]
+
+local MSQ_SWIPE = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe]]
+local MSQ_SWIPE_CIRCLE = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe-Circle]]
 
 ----------------------------------------
 -- Frame
 ---
 
--- Skins a frame region of a button.
+-- Sets the size and points of a frame.
 local function SkinFrame(Region, Button, Skin, xScale, yScale)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
@@ -60,16 +68,16 @@ end
 -- Hooks
 ---
 
--- Hook to counter color changes.
+-- Counters color changes triggered by LoC events.
 local function Hook_SetSwipeColor(Region, r, g, b)
-	if Region.__SwipeHook or Region.__MSQ_UnHook then
+	if Region.__SwipeHook or not Region.__MSQ_Color then
 		return
 	end
 
 	Region.__SwipeHook = true
 
 	if r == 0.17 and g == 0 and b == 0 then
-		Region:SetSwipeColor(GetColor(SwipeColor.LoC))
+		Region:SetSwipeColor(0.2, 0, 0, 0.8)
 	else
 		Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
 	end
@@ -77,18 +85,18 @@ local function Hook_SetSwipeColor(Region, r, g, b)
 	Region.__SwipeHook = nil
 end
 
--- Hook to counter texture changes.
+-- Counters texture changes triggered by LoC events.
 local function Hook_SetEdgeTexture(Region, Texture)
-	if Region.__EdgeHook or Region.__MSQ_UnHook then
+	if Region.__EdgeHook or not Region.__MSQ_Color then
 		return
 	end
 
 	Region.__EdgeHook = true
 
 	if Texture == [[Interface\Cooldown\edge-LoC]] then
-		Region:SetEdgeTexture(Edge.LoC)
+		Region:SetEdgeTexture(MSQ_EDGE_LOC)
 	else
-		Region:SetEdgeTexture(Edge.Normal)
+		Region:SetEdgeTexture(MSQ_EDGE)
 	end
 
 	Region.__EdgeHook = nil
@@ -98,39 +106,40 @@ end
 -- Cooldown
 ---
 
--- Skins the 'Cooldown' frame of a button.
+-- Skins the 'Cooldown' or 'ChargeCooldown' frame of a button.
 local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale)
-	local Shape = Button.__MSQ_Shape
-	local UnHook = Button.__MSQ_UnHook
+	local bType = Button.__MSQ_bType
+	Skin = (bType and Skin[bType]) or Skin
 
-	if UnHook then
-		Region:SetSwipeTexture(0, 0, 0)
-		Region:SetEdgeTexture([[Interface\Cooldown\edge]])
+	local UseCircle = Button.__MSQ_Shape == "Circle"
 
-	else
+	if Button.__MSQ_Enabled then
 		if Region:GetDrawSwipe() then
-			Region:SetSwipeTexture(Skin.Texture or Swipe[Shape])
-			Region.__MSQ_Color = Color or Skin.Color or SwipeColor.Normal
+			Region.__MSQ_Color = Color or Skin.Color or DEF_COLOR
 
-			if not Region.__MSQ_SwipeHook then
-				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
-				Region.__MSQ_SwipeHook = true
-			end
-
+			Region:SetSwipeTexture(Skin.Texture or (UseCircle and MSQ_SWIPE_CIRCLE) or MSQ_SWIPE)
 			Hook_SetSwipeColor(Region)
+			Hook_SetEdgeTexture(Region)
 
-			if not Region.__MSQ_EdgeHook then
+			if not Region.__MSQ_Hooked then
+				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
 				hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
-				Region.__MSQ_EdgeHook = true
+				Region.__MSQ_Hooked = true
 			end
+		else
+			Region:SetEdgeTexture(MSQ_EDGE)
+		end
+	else
+		Region.__MSQ_Color = nil
+
+		if Region:GetDrawSwipe() then
+			Region:SetSwipeTexture(0, 0, 0, 0.8)
 		end
 
-		Hook_SetEdgeTexture(Region)
+		Region:SetEdgeTexture([[Interface\Cooldown\edge]])
 	end
 
-	Region:SetUseCircularEdge(Shape == "Circle")
-
-	Region.__MSQ_UnHook = UnHook
+	Region:SetUseCircularEdge(UseCircle)
 	SkinFrame(Region, Button, Skin, xScale, yScale)
 end
 
@@ -140,8 +149,6 @@ end
 
 -- Updates the 'ChargeCooldown' frame of a button.
 local function UpdateCharge(Button)
-	if Button.__MSQ_UnHook then return end
-
 	local Region = Button.chargeCooldown
 	local Skin = Button.__MSQ_ChargeSkin
 
@@ -150,8 +157,13 @@ local function UpdateCharge(Button)
 	end
 
 	SkinCooldown(Region, Button, Skin, nil, GetScale(Button))
+
+	if not Button.__MSQ_Enabled then
+		Button.__MSQ_ChargeSkin = nil
+	end
 end
 
+-- @ FrameXML\ActionButton.lua
 hooksecurefunc("StartChargeCooldown", UpdateCharge)
 
 ----------------------------------------
@@ -165,7 +177,7 @@ SkinRegion.Cooldown = SkinCooldown
 -- API
 ---
 
--- Wrapper for UpdateCharge(), for add-ons not using the native API.
+-- Allows add-ons to update the 'ChargeCooldown' region when not using the native API.
 function Core.API:UpdateCharge(Button)
 	if type(Button) ~= "table" then
 		return
