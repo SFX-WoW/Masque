@@ -6,4 +6,6 @@
 	<Script file="Classic.lua"/>
 	<Script file="Dream.lua"/>
 	<Script file="Zoomed.lua"/>
+
+	<Include file="Addons\Addons.xml"/>
 </Ui>
