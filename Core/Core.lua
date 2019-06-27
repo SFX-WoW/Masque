@@ -10,8 +10,6 @@
 
 ]]
 
--- GLOBALS:
-
 local _, Core = ...
 
 ----------------------------------------
@@ -39,7 +37,7 @@ local oTypes = {
 function Core.GetType(Button, oType)
 	local Type
 
-	if oType then
+	if not oType then
 		if type(Button) == "table" then
 			Type = Button.GetObjectType and Button:GetObjectType()
 
@@ -50,7 +48,6 @@ function Core.GetType(Button, oType)
 			Button.__MSQ_oType = Type
 		end
 	else
-		oType = Button.__MSQ_oType
 		Type = "Legacy"
 
 		if oType == "CheckButton" then
