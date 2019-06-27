@@ -142,11 +142,12 @@ end
 -- Toggles debug mode.
 function Core.ToggleDebug()
 	local db = Core.db.profile
+	local Debug = not db.Debug
 
-	db.Debug = not db.Debug
-	Core.Debug = db.Debug
+	db.Debug = Debug
+	Core.Debug = Debug
 
-	if db.Debug then
+	if Debug then
 		print("|cffffff99"..L["Masque debug mode enabled."].."|r")
 	else
 		print("|cffffff99"..L["Masque debug mode disabled."].."|r")
