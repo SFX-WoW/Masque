@@ -7,6 +7,10 @@
 
 -- GLOBALS: GameTooltip, GetLocale, LibStub, UIParent
 
+----------------------------------------
+-- Locals
+---
+
 local Type, Version = "SFX-Info-URL", 1
 local AceGUI = LibStub and LibStub("AceGUI-3.0")
 
@@ -20,7 +24,7 @@ if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 local max = math.max
 
 ----------------------------------------
--- WoW
+-- WoW API
 ---
 
 local CreateFrame = CreateFrame
@@ -126,7 +130,6 @@ do
 	local function Button_OnClick(self)
 		-- Explicit Call
 		EditBox:ClearFocus()
-
 		EditBox:SetParent(self)
 
 		local obj = self.obj
@@ -144,7 +147,6 @@ do
 		local Multi = ((Height > 14) and true) or false
 
 		EditBox:SetMultiLine(Multi)
-
 		EditBox:Show()
 		EditBox:SetFocus()
 		EditBox.obj = obj
@@ -163,11 +165,9 @@ do
 	local function Widget_OnAcquire(self)
 		-- Default to disabled.
 		self:SetDisabled(true)
-
 		self:SetLabel()
 		self:SetColon()
 		self:SetText()
-
 		self:SetFullWidth(true)
 	end
 
@@ -180,7 +180,6 @@ do
 	-- Widget:SetDisabled()
 	local function Widget_SetDisabled(self, Disabled)
 		self.disabled = Disabled
-
 		local Info = self.Info
 
 		-- Disable Copy
@@ -205,12 +204,10 @@ do
 			if not EditBox then
 				EditBox = CreateFrame("EditBox", "AceGUI-3.0_SFX-InfoRow_EditBox", self.frame)
 				EditBox:SetAutoFocus(true)
-
 				EditBox:SetFontObject("GameFontHighlight")
 				EditBox:SetJustifyH("LEFT")
 				EditBox:SetJustifyV("TOP")
 				EditBox:SetHeight(14)
-
 				EditBox:SetBackdrop({
 					bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
 					edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
@@ -219,7 +216,6 @@ do
 				EditBox:SetBackdropColor(0, 0, 0, 0.5)
 				EditBox:SetBackdropBorderColor(1, 1, 1, 0.2)
 				EditBox:SetTextInsets(2, 1, 1, 1)
-
 				EditBox:SetScript("OnEnter", EditBox_OnEnter)
 				EditBox:SetScript("OnLeave", EditBox_OnLeave)
 				EditBox:SetScript("OnTextChanged", EditBox_OnTextChanged)
@@ -249,7 +245,6 @@ do
 
 			Button.obj = self
 			Button.Value = self:GetText()
-
 			Button:ClearAllPoints()
 			Button:SetAllPoints(Info)
 			Button:Show()
@@ -264,6 +259,7 @@ do
 	local function Widget_SetLabel(self, Text)
 		Text = Text or ""
 		self.Label:SetText(Text)
+
 		if Text == "" then
 			self:SetColon(Text)
 		end
