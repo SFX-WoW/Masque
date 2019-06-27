@@ -1,6 +1,6 @@
-## 8.1.5 (Alpha-3)
+## 8.2.0 (Beta)
 
-_**Warning:** This is an alpha version and may contain bugs._
+_**Warning:** This is an beta version and may contain bugs._
 
 ### General
 
@@ -47,7 +47,8 @@ _**Warning:** This is an alpha version and may contain bugs._
   - _Masque_ will use this value to determine which regions to search for, if unavailable in the `Regions` (`ButtonData`) table, and which regions to apply skins to when skinning a button.
   - The following are valid values:
     - `"Legacy"` - This is fall-back type for backwards compatibility. It supports most regions previously supported by _Masque_. Only use this value if the other types don't cover all necessary regions.
-    - `"Action"` - Supports regions available in `ActionButtonTemplate` and its derivatives (`PetAction`, etc).
+    - `"Action"` - Supports regions available in `ActionButtonTemplate` and its derivatives.
+    - `"Pet"` - Supports regions available in `PetActionButtonTemplate`.
     - `"Item"` - Supports regions available in `ItemButtonTemplate` and its derivatives (`ContaineFrameItem`, etc).
       - `Border` is still available due to the skinning limitatons of `IconBorder`.
     - `"Aura"` - Supports regions available in `AuraButtonTemplate` plus `Border`.
@@ -83,7 +84,7 @@ _**Warning:** This is an alpha version and may contain bugs._
     - `"IconBorder"` - Texture, Size, Position
     - `"SlotHighlight"` - Texture, Color, Size, Position
     - `"IconOverlay"` - Size, Position
-    - `"NewItem"` - Size, Position
+    - `"NewItem"` - Texture, Size, Position
     - `"SearchOverlay"` - Texture and/or Color, Size, Position
     - `"ContextOverlay"` - Texture and/or Color, Size, Position
 - Skins can now use the following settings:
@@ -100,12 +101,13 @@ _**Warning:** This is an alpha version and may contain bugs._
   - `SearchOverlay`
   - `ContextOverlay`
 - Using a `Gloss` or `Shadow` texture no longer requires a `Normal` texture.
-- The `Border` layer can now have nested skins for each button type. (See the Group API section above for a list of types)
+- Most layers can now have nested skins for each button type. (See the Group API section above for a list of types)
 - Most regions have been restored to their default positions. This will require updates to most skins.
 - Most skin settings now have default values stored internally by _Masque_. Any settings not specified will fall back to these values.
 
 ### Bug Fixes/Improvements
 
+- _Masque_ will now block groups named "MicroMenu" as those buttons are not supported.
 - _Masque_ will now exit out of some hooks after a button has been removed from its group.
 - _Masque_ no longer adjusts the frame levels of buttons or their child frames.
 - Functions registered as callbacks without an `arg` `table` will no longer pass `false` in place of `arg`.
