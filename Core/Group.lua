@@ -10,8 +10,6 @@
 
 ]]
 
--- GLOBALS:
-
 local MASQUE, Core = ...
 
 ----------------------------------------
@@ -81,7 +79,7 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 	end
 
 	if not Type or not RegTypes[Type] then
-		Type = self.Type or GetType(Button)
+		Type = self.Type or GetType(Button, oType)
 	end
 
 	Button.__MSQ_bType = Type
