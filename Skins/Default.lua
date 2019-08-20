@@ -405,7 +405,7 @@ Core.AddSkin("Default", {
 		Height = 36,
 		Point = "CENTER",
 		OffsetX = 0,
-		OffsetY = -1,
+		OffsetY = 0,
 	},
 	ChargeCooldown = {
 		Width = 36,
