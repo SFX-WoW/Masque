@@ -335,7 +335,7 @@ Core.AddSkin("Dream", {
 		Height = 34,
 		Point = "CENTER",
 		OffsetX = 0,
-		OffsetY = -1,
+		OffsetY = 0,
 	},
 	ChargeCooldown = {
 		Width = 34,
