@@ -400,15 +400,15 @@ Core.AddSkin("Classic", {
 	},
 	Cooldown = {
 		Color = {0, 0, 0, 0.8},
-		Width = 32,
-		Height = 32,
+		Width = 33,
+		Height = 33,
 		Point = "CENTER",
-		OffsetX = 0,
-		OffsetY = -1,
+		OffsetX = -0.5,
+		OffsetY = 0.5,
 	},
 	ChargeCooldown = {
-		Width = 32,
-		Height = 32,
+		Width = 34,
+		Height = 34,
 		SetAllPoints = true,
 	},
 })
