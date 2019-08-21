@@ -179,6 +179,7 @@ function SkinRegion.Normal(Region, Button, Skin, Color, xScale, yScale)
 		return
 	end
 
+	Region:SetAlpha(1) -- Counter BT4 fix.
 	SetEmpty(Button)
 
 	if not Button.__MSQ_Enabled then
@@ -188,7 +189,6 @@ function SkinRegion.Normal(Region, Button, Skin, Color, xScale, yScale)
 		Button.__MSQ_Random = nil
 	end
 
-	Region:SetAlpha(1)
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
