@@ -25,137 +25,137 @@ local L = Core.Locale
 -- About Masque
 ---
 
--- L["About Masque"] = "About Masque"
--- L["API"] = "API"
--- L["For more information, please visit one of the sites listed below."] = "For more information, please visit one of the sites listed below."
--- L["Masque is a skinning engine for button-based add-ons."] = "Masque is a skinning engine for button-based add-ons."
--- L["Select to view."] = "Select to view."
--- L["You must have an add-on that supports Masque installed to use it."] = "You must have an add-on that supports Masque installed to use it."
+L["About Masque"] = "О Masque"
+L["API"] = "API"
+L["For more information, please visit one of the sites listed below."] = "Для получения подробной информации, пожалуйста посетите один из сайтов расположенных ниже."
+L["Masque is a skinning engine for button-based add-ons."] = "Masque - это аддон для изменения внешнего вида кнопок."
+L["Select to view."] = "Выберите, чтобы посмотреть."
+L["You must have an add-on that supports Masque installed to use it."] = "У Вас должны быть установлены аддоны, поддерживающие Masque"
 
 ----------------------------------------
 -- Classic Skin
 ---
 
--- L["An improved version of the game's default button style."] = "An improved version of the game's default button style."
+L["An improved version of the game's default button style."] = "Улучшенная версия стандартных кнопок"
 
 ----------------------------------------
 -- Core Settings
 ---
 
--- L["About"] = "About"
--- L["Click to load Masque's options."] = "Click to load Masque's options."
--- L["Load Options"] = "Load Options"
--- L["Masque's options are load on demand. Click the button below to load them."] = "Masque's options are load on demand. Click the button below to load them."
--- L["This section will allow you to view information about Masque and any skins you have installed."] = "This section will allow you to view information about Masque and any skins you have installed."
+L["About"] = "Об аддоне"
+L["Click to load Masque's options."] = "Нажмите для загрузки настроек Masque."
+L["Load Options"] = "Загрузить настройки"
+L["Masque's options are load on demand. Click the button below to load them."] = "Настройки Masque загружены не полностью. Нажмите на кнопку ниже, чтобы загрузить их до конца."
+L["This section will allow you to view information about Masque and any skins you have installed."] = "Этот раздел позволяет смотреть информацию о Masque и любом скине, который установлен."
 
 ----------------------------------------
 -- Developer Settings
 ---
 
 L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Заставляет Masque выдавать ошибки Lua, с чем бы они не были связаны: аддоном или скином."
--- L["Clean Database"] = "Clean Database"
--- L["Click to purge the settings of all unused add-ons and groups."] = "Click to purge the settings of all unused add-ons and groups."-- L["Debug Mode"] = "Debug Mode"
+L["Clean Database"] = "Очистить базу"
+L["Click to purge the settings of all unused add-ons and groups."] = "Нажмите для очистки настроек всех неиспользованных аддонов и групп."
 L["Debug Mode"] = "Режим отладки"
--- L["Developer"] = "Developer"
--- L["Developer Settings"] = "Developer Settings"
+L["Developer"] = "Разработка"
+L["Developer Settings"] = "Настройки разработчика"
 L["Masque debug mode disabled."] = "Режим отладки Masque отключен."
 L["Masque debug mode enabled."] = "Режим отладки Masque включен."
--- L["This action cannot be undone. Continue?"] = "This action cannot be undone. Continue?"
--- L["This section will allow you to adjust settings that affect working with Masque's API."] = "This section will allow you to adjust settings that affect working with Masque's API."
+L["This action cannot be undone. Continue?"] = "Действие необратимо. Продолжить?"
+L["This section will allow you to adjust settings that affect working with Masque's API."] = "Этот раздел позволяет настраивать Masque для работы с API."
 
 ----------------------------------------
 -- Dream Skin
 ---
 
--- L["A square skin with trimmed icons and a semi-transparent background."] = "A square skin with trimmed icons and a semi-transparent background."
+L["A square skin with trimmed icons and a semi-transparent background."] = "Квадратный скин с обрезанными иконками и полупрозрачным фоном."
 
 ----------------------------------------
 -- General Settings
 ---
 
--- L["General Settings"] = "General Settings"
--- L["This section will allow you to adjust Masque's interface and performance settings."] = "This section will allow you to adjust Masque's interface and performance settings."
+L["General Settings"] = "Общие настройки"
+L["This section will allow you to adjust Masque's interface and performance settings."] = "Этот раздел позволяет изменять настройки интерфейса и производительности Masque."
 
 ----------------------------------------
 -- Installed Skins
 ---
 
--- L["Author"] = "Author"
--- L["Authors"] = "Authors"
--- L["Click for details."] = "Click for details."
--- L["Compatible"] = "Compatible"
--- L["Description"] = "Description"
--- L["Incompatible"] = "Incompatible"
--- L["Installed Skins"] = "Installed Skins"
--- L["No description available."] = "No description available."
--- L["Status"] = "Status"
--- L["The status of this skin is unknown."] = "The status of this skin is unknown."
--- L["This section provides information on any skins you have installed."] = "This section provides information on any skins you have installed."
--- L["This skin is compatible with Masque."] = "This skin is compatible with Masque."
--- L["This skin is outdated and is incompatible with Masque."] = "This skin is outdated and is incompatible with Masque."
--- L["This skin is outdated but is still compatible with Masque."] = "This skin is outdated but is still compatible with Masque."
--- L["Unknown"] = "Unknown"
--- L["Version"] = "Version"
--- L["Website"] = "Website"
--- L["Websites"] = "Websites"
+L["Author"] = "Автор"
+L["Authors"] = "Авторы"
+L["Click for details."] = "Нажмите для подробностей."
+L["Compatible"] = "Совместим"
+L["Description"] = "Описание"
+L["Incompatible"] = "Несовместим"
+L["Installed Skins"] = "Установленные скины"
+L["No description available."] = "Нет описания."
+L["Status"] = "Статус"
+L["The status of this skin is unknown."] = "Статус скина неизвестен."
+L["This section provides information on any skins you have installed."] = "В этом разделе показана информация об установленных скинах."
+L["This skin is compatible with Masque."] = "Скин совместим с Masque."
+L["This skin is outdated and is incompatible with Masque."] = "Скин устарел и несовместим с Masque."
+L["This skin is outdated but is still compatible with Masque."] = "Скин устарел, но всё ещё совместим с Masque."
+L["Unknown"] = "Неизвестно"
+L["Version"] = "Версия"
+L["Website"] = "Сайт"
+L["Websites"] = "Сайты"
 
 ----------------------------------------
 -- Interface Settings
 ---
 
 L["Enable the Minimap icon."] = "Отображать иконку у миникарты."
--- L["Interface"] = "Interface"
--- L["Interface Settings"] = "Interface Settings"
+L["Interface"] = "Интерфейс"
+L["Interface Settings"] = "Настройки интерфейса"
 L["Minimap Icon"] = "Иконка у миникарты"
--- L["Stand-Alone GUI"] = "Stand-Alone GUI"
--- L["This section will allow you to adjust settings that affect Masque's interface."] = "This section will allow you to adjust settings that affect Masque's interface."
--- L["Use a resizable, stand-alone options window."] = "Use a resizable, stand-alone options window."
+L["Stand-Alone GUI"] = "Внешний фрейм настроек"
+L["This section will allow you to adjust settings that affect Masque's interface."] = "Этот раздел позволяет настраивать то, как Masque влияет на интерфейс."
+L["Use a resizable, stand-alone options window."] = "Использовать отдельное окно настроек."
 
 ----------------------------------------
 -- LDB Launcher
 ---
 
--- L["Click to open Masque's settings."] = "Click to open Masque's settings."
+L["Click to open Masque's settings."] = "Нажмите для открытия настроек Masque."
 
 ----------------------------------------
 -- Performance Settings
 ---
 
--- L["Click to load reload the interface."] = "Click to load reload the interface."
--- L["Load the skin information panel."] = "Load the skin information panel."
--- L["Performance"] = "Performance"
--- L["Performance Settings"] = "Performance Settings"
--- L["Reload Interface"] = "Reload Interface"
--- L["Requires an interface reload."] = "Requires an interface reload."
--- L["Skin Information"] = "Skin Information"
--- L["This section will allow you to adjust settings that affect Masque's performance."] = "This section will allow you to adjust settings that affect Masque's performance."
+L["Click to load reload the interface."] = "Нажмите для перезагрузки интерфейса."
+L["Load the skin information panel."] = "Загрузить информационную панель скинов."
+L["Performance"] = "Производительность"
+L["Performance Settings"] = "Настройки производительности"
+L["Reload Interface"] = "Перезагрузить интерфейс"
+L["Requires an interface reload."] = "Требует перезагрузки интерфейса"
+L["Skin Information"] = "Информация о скинах"
+L["This section will allow you to adjust settings that affect Masque's performance."] = "Этот раздел позволяет настраивать то, как Masque влияет на производительность."
 
 ----------------------------------------
 -- Profile Settings
 ---
 
--- L["Profile Settings"] = "Profile Settings"
+L["Profile Settings"] = "Настройки профиля"
 
 ----------------------------------------
 -- Skin Settings
 ---
 
-L["Backdrop"] = "Настройки фона"
+L["Backdrop"] = "Фон"
 L["Checked"] = "При выделении"
 L["Color"] = "Цвет"
 L["Colors"] = "Цвета"
--- L["Cooldown"] = "Cooldown"
+L["Cooldown"] = "Анимация перезарядки способности"
 L["Disable"] = "Отключить"
 L["Disable the skinning of this group."] = "Отключить скины для этой группы."
 L["Disabled"] = "Отключенный"
 L["Enable"] = "Включить"
 L["Enable the Backdrop texture."] = "Включить настройки фона текстуры."
--- L["Enable the Gloss texture."] = "Enable the Gloss texture."
--- L["Enable the Shadow texture."] = "Enable the Shadow texture."
+L["Enable the Gloss texture."] = "Включить настройки глянцевой текстуры."
+L["Enable the Shadow texture."] = "Включить настройки текстуры тени."
 L["Flash"] = "Сверкание"
 L["Global"] = "Общее"
--- L["Global Settings"] = "Global Settings"
-L["Gloss"] = "Настройки глянца"
+L["Global Settings"] = "Настройки"
+L["Gloss"] = "Глянец"
 L["Highlight"] = "При наведении"
 L["Normal"] = "Нормальный"
 L["Pushed"] = "При нажатии"
@@ -163,25 +163,25 @@ L["Reset all skin options to the defaults."] = "Установить значе�
 L["Reset Skin"] = "Сбросить цвета"
 L["Set the color of the Backdrop texture."] = "Установить цвет фона текстуры."
 L["Set the color of the Checked texture."] = "Установить цвет текстуры при выделении."
--- L["Set the color of the Cooldown animation."] = "Set the color of the Cooldown animation."
+L["Set the color of the Cooldown animation."] = "Установить цвет анимации перезарядки способностей."
 L["Set the color of the Disabled texture."] = "Установить цвет отключенной текстуры."
 L["Set the color of the Flash texture."] = "Установить цвет текстуры с подсветкой."
 L["Set the color of the Gloss texture."] = "Задать цвет для глянца текстур."
 L["Set the color of the Highlight texture."] = "Установить цвет текстуры при наведении."
 L["Set the color of the Normal texture."] = "Установить нормальный цвет текстуры."
 L["Set the color of the Pushed texture."] = "Установить цвет текстуры при нажатии."
--- L["Set the color of the Shadow texture."] = "Set the color of the Shadow texture."
+L["Set the color of the Shadow texture."] = "Установить цвет тени."
 L["Set the skin for this group."] = "Установить скин для данной группы."
--- L["Shadow"] = "Shadow"
+L["Shadow"] = "Тень"
 L["Skin"] = "Скины"
--- L["Skin Settings"] = "Skin Settings"
--- L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "This section will allow you to adjust the skin settings of all buttons registered to %s."
--- L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."] = "This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."
--- L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."] = "This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."
+L["Skin Settings"] = "Настройки скинов"
+L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "Этот раздел позволяет менять настройки сразу для всех кнопок %s."
+L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."] = "Этот раздел позволяет менять настройки сразу для всех кнопок %s. Изменения будут важнее любых, сделанных в подгруппах этого аддона."
+L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."] = "Этот раздел позволяет менять настройки сразу для всех кнопок. Изменения будут важнее любых, сделанных где-либо ещё."
 L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."] = "Этот раздел позволяет настроить скины для панелей команд аддонов и групп аддонов, использующих Masque."
 
 ----------------------------------------
 -- Zoomed Skin
 ---
 
--- L["A square skin with zoomed icons and a semi-transparent background."] = "A square skin with zoomed icons and a semi-transparent background."
+L["A square skin with zoomed icons and a semi-transparent background."] = "Квадратный скин с увеличенными иконками и полупрозрачным фоном."
