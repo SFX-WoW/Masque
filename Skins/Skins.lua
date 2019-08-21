@@ -89,6 +89,7 @@ Core.Skins = setmetatable(Skins, {
 Core.SkinList = SkinList
 Core.AddSkin = AddSkin
 Core.__Empty = __Empty
+Core.__Hidden = Hidden
 
 Core.LoadSkin = setmetatable({}, {
 	__call = function(self, id)
