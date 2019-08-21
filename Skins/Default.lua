@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
-	please see the World of Warcraft website.
+	please see the included License.txt file.
 
 	* File...: Skins\Default.lua
 	* Author.: Blizzard Entertainment
@@ -26,7 +26,7 @@ local L = Core.Locale
 
 Core.AddSkin("Default", {
 	Shape = "Square",
-	Masque_Version = 80100,
+	Masque_Version = Core.API_VERSION,
 
 	-- Info
 	Description = L["The default button style."],
@@ -344,6 +344,7 @@ Core.AddSkin("Default", {
 		OffsetY = 0,
 	},
 	SearchOverlay = {
+		-- TexCoords = {0, 1, 0, 1},
 		Color = {0, 0, 0, 0.8},
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
@@ -357,6 +358,7 @@ Core.AddSkin("Default", {
 		SetAllPoints = true,
 	},
 	ContextOverlay = {
+		-- TexCoords = {0, 1, 0, 1},
 		Color = {0, 0, 0, 0.8},
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
