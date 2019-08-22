@@ -1,4 +1,4 @@
-## 8.2.0 (Beta)
+## 8.2.5 (Beta)
 
 _**Warning:** This is an beta version and may contain bugs._
 
@@ -6,6 +6,12 @@ _**Warning:** This is an beta version and may contain bugs._
 
 - _Masque_ now has a new icon.
 - This update contains extensive changes that will require add-on, skin and localization updates. Please make sure that your add-ons and skins have been updated _before_ reporting issues.
+
+### Classic
+
+- Tentative _Classic_ support. Please download the appropriate package.
+- Dual-Spec options are disabled for _Classic_.
+- The `ContextOverlay` region is disabled for _Classic_.
 
 ### Options
 
@@ -27,7 +33,7 @@ _**Warning:** This is an beta version and may contain bugs._
 - The "Zoomed" skin now has a background. (#44)
 - The handling of Cooldown and Charge frames has been improved:
   - Added new, higher-quality, default textures that will change according to the shape set by the skin.
-    - Only "Square" and "Circle" are supported.
+    - _Note: Only "Square" and "Circle" are supported._
 
 ### Core API
 
@@ -72,7 +78,7 @@ _**Warning:** This is an beta version and may contain bugs._
   - `Authors` - An _indexed_ `table` list of author names.
   - `Website` - A `string` value for the website URL.
   - `Websites` - An _indexed_ `table` list of website URLs.
-  - `Group` - A `string` name of the group the skin belongs to, when using skin variations. This will be automatically created for templated skins.
+  - `Group` - A `string` name of the group the skin belongs to, when using skin variations.
   - `Title` - A `string` title to be displayed instead of the `SkinID`. Requires `Group` to be set.
   - `Order` - An `number` indicating the order the skins should be displayed in. Requires `Group` to be set.
 - Skins can now use custom Cooldown swipe textures.
