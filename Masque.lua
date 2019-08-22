@@ -58,6 +58,10 @@ do
 		"https://www.curseforge.com/wow/addons/masque",
 		"https://www.wowinterface.com/downloads/info12097",
 	}
+
+	-- Client Version
+	Core.WOW_RETAIL = (select(4, GetBuildInfo()) > 20000) and true or nil
+
 end
 
 ----------------------------------------

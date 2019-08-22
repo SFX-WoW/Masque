@@ -216,12 +216,6 @@ do
 			Iterate = true,
 			UseColor = true,
 		},
-		ContextOverlay = {
-			Key = "ItemContextOverlay",
-			Type = "Texture",
-			Iterate = true,
-			UseColor = true,
-		},
 		Name = {
 			Key = "Name",
 			Name = "Name",
@@ -249,6 +243,19 @@ do
 			Type = "Cooldown",
 		},
 	}
+
+	----------------------------------------
+	-- Retail Only
+	---
+
+	if Core.WOW_RETAIL then
+		Legacy.ContextOverlay = {
+			Key = "ItemContextOverlay",
+			Type = "Texture",
+			Iterate = true,
+			UseColor = true,
+		}
+	end
 
 	----------------------------------------
 	-- "Action" Type

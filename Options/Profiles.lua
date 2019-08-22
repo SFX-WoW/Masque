@@ -36,7 +36,7 @@ local Setup = Core.Setup
 -- Creates the 'Profile Settings' group/panel.
 function Setup.Profiles(self)
 	-- @ Locales\enUS
-	local L = Core.Locale
+	local L = self.Locale
 
 	local Options = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	Options.name = L["Profile Settings"]
@@ -52,9 +52,11 @@ function Setup.Profiles(self)
 	end
 
 	-- LibDualSpec-1.0
-	local LDS = LibStub("LibDualSpec-1.0", true)
-	if LDS then
-		LDS:EnhanceOptions(Options, self.db)
+	if self.WOW_RETAIL then
+		local LDS = LibStub("LibDualSpec-1.0", true)
+		if LDS then
+			LDS:EnhanceOptions(Options, self.db)
+		end
 	end
 
 	self.Options.args.Profiles = Options

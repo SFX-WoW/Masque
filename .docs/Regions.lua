@@ -778,6 +778,7 @@ local Regions = {
 		---
 
 		-- @ContainerItemButton
+		-- Unavailable in Classic.
 		JunkIcon = {
 			Key = "JunkIcon",
 			Type = "Texture",
@@ -906,6 +907,7 @@ local Regions = {
 		---
 
 		-- @ItemButton
+		-- Unavailable in Classic.
 		ItemContextOverlay = {
 			Key = "ItemContextOverlay",
 			Type = "Texture",
