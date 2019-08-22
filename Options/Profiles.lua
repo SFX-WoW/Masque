@@ -52,11 +52,9 @@ function Setup.Profiles(self)
 	end
 
 	-- LibDualSpec-1.0
-	if self.WOW_RETAIL then
-		local LDS = LibStub("LibDualSpec-1.0", true)
-		if LDS then
-			LDS:EnhanceOptions(Options, self.db)
-		end
+	local LDS = self.WOW_RETAIL and LibStub("LibDualSpec-1.0", true)
+	if LDS then
+		LDS:EnhanceOptions(Options, self.db)
 	end
 
 	self.Options.args.Profiles = Options

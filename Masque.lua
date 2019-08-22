@@ -31,6 +31,10 @@ local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 -- @ Locales\enUS
 local L = Core.Locale
 
+-- Client Version
+local WOW_RETAIL = (select(4, GetBuildInfo()) > 20000) and true or nil
+Core.WOW_RETAIL = WOW_RETAIL
+
 ----------------------------------------
 -- API
 ---
@@ -58,10 +62,6 @@ do
 		"https://www.curseforge.com/wow/addons/masque",
 		"https://www.wowinterface.com/downloads/info12097",
 	}
-
-	-- Client Version
-	Core.WOW_RETAIL = (select(4, GetBuildInfo()) > 20000) and true or nil
-
 end
 
 ----------------------------------------
@@ -100,7 +100,7 @@ function Masque:OnInitialize()
 	db.RegisterCallback(Core, "OnProfileReset", "Update")
 	Core.db = db
 
-	local LDS = LibStub("LibDualSpec-1.0", true)
+	local LDS = WOW_RETAIL and LibStub("LibDualSpec-1.0", true)
 	if LDS then
 		LDS:EnhanceDatabase(Core.db, MASQUE)
 	end
