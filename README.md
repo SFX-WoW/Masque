@@ -1,5 +1,5 @@
 [![Build Status][Badge-Travis]][Travis]
-[![Release][Badge-Release]][Release]
+[![Stable][Badge-Stable]][Stable]
 [![Pre-Release][Badge-Pre-Release]][Pre-Release]
 [![Discord][Badge-Discord]][Discord]
 [![Patreon][Badge-Patreon]][Patreon]
@@ -56,7 +56,7 @@ If you would like to help translate _Masque_, please use the [localization syste
 [Contribute Directly]: https://github.com/StormFX/Masque (Translate on GitHub)
 
 [Travis]: https://travis-ci.org/StormFX/Masque (Latest Build)
-[Release]: https://github.com/StormFX/Masque/releases/latest (Latest Release)
+[Stable]: https://github.com/StormFX/Masque/releases/latest (Latest Stable Release)
 [Pre-Release]: https://github.com/StormFX/Masque/releases (Latest Pre-Release)
 [Discord]: https://discord.gg/DDVqkd6 (Discord)
 [Patreon]: https://www.patreon.com/stormfx (Donate via Patreon)
@@ -65,7 +65,7 @@ If you would like to help translate _Masque_, please use the [localization syste
 [Images]: #
 
 [Badge-Travis]: https://img.shields.io/travis/StormFX/Masque/master.svg?label=Build&style=flat-square
-[Badge-Release]: https://img.shields.io/github/release/StormFX/Masque.svg?label=Release&style=flat-square
+[Badge-Stable]: https://img.shields.io/github/release/StormFX/Masque.svg?label=Stable&style=flat-square
 [Badge-Pre-Release]: https://img.shields.io/github/tag-pre/StormFX/Masque.svg?label=Pre-Release&style=flat-square
 [Badge-Discord]: https://img.shields.io/badge/Discord-StormFX-7289da.svg?style=flat-square
 [Badge-Patreon]: https://img.shields.io/badge/Patreon-Donate-f96854.svg?style=flat-square
