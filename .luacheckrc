@@ -48,6 +48,7 @@ read_globals = {
 	-- WoW API
 	"CreateFrame",
 	"GetAddOnMetadata",
+	"GetBuildInfo",
 	"GetLocale",
 	"InCombatLockdown",
 	"InterfaceOptionsFrame",
