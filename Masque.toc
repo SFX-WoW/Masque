@@ -9,7 +9,7 @@
 ## Version: @project-version@
 ## Author: StormFX, JJSheets
 ## SavedVariables: MasqueDB
-## OptionalDeps: Ace3, LibDBIcon-1.0, LibDualSpec-1.0
+## OptionalDeps: Ace3, LibDBIcon-1.0
 
 ## X-Website: https://github.com/StormFX/Masque
 ## X-Category: Interface Enhancements
