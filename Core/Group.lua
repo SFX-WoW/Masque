@@ -23,7 +23,7 @@ local error, pairs, type = error, pairs, type
 ---
 
 -- @ Skins\Skins
-local Skins, LoadSkin = Core.Skins, Core.LoadSkin
+local Skins = Core.Skins
 
 -- @ Skins\Regions
 local RegTypes = Core.RegTypes
@@ -409,12 +409,6 @@ function GMT:__Update(IsNew)
 	end
 
 	if IsNew then
-		local Addon = self.Addon
-
-		if Addon and not self.Group then
-			LoadSkin(Addon)
-		end
-
 		-- Queue the group if PLAYER_LOGIN hasn't fired and the skin hasn't loaded.
 		if Core.Queue and not self.Queued and not Skins[db.SkinID] then
 			Core.Queue(self)
