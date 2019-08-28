@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
-	please see the included License.txt file.
+	please see the included License.txt file or visit https://github.com/StormFX/Masque.
 
 	* File...: Core\Group.lua
 	* Author.: StormFX, JJSheets
@@ -67,7 +67,7 @@ end
 
 -- Adds or reassigns a button to the group.
 function GMT:AddButton(Button, Regions, Type, Strict)
-	local oType = GetType(Button, true)
+	local oType = GetType(Button)
 
 	if not oType then
 		if Core.Debug then
@@ -78,12 +78,13 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 		Strict = true
 	end
 
+	Type = Type or Button.__MSQ_bType
+
 	if not Type or not RegTypes[Type] then
-		Type = self.Type or GetType(Button, oType)
+		Type = GetType(Button, oType)
 	end
 
 	Button.__MSQ_bType = Type
-	self.Type = Type
 
 	local Parent = Group[Button]
 
