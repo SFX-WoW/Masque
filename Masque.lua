@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
-	please see the included License.txt file.
+	please see the included License.txt file or visit https://github.com/StormFX/Masque.
 
 	* File...: Masque.lua
 	* Author.: StormFX
@@ -107,6 +107,7 @@ function Masque:OnInitialize()
 
 	SLASH_MASQUE1 = "/msq"
 	SLASH_MASQUE2 = "/masque"
+
 	SlashCmdList["MASQUE"] = function(Cmd, ...)
 		if Cmd == "debug" then
 			Core.ToggleDebug()

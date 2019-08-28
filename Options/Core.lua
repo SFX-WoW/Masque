@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
-	please see the included License.txt file.
+	please see the included License.txt file or visit https://github.com/StormFX/Masque.
 
 	* File...: Options/Core.lua
 	* Author.: StormFX
@@ -143,7 +143,6 @@ function Core:ToggleOptions()
 		else
 			ACD:Open(MASQUE)
 		end
-
 	-- Toggle the Interface Options frame.
 	else
 		if ACD_Open then
