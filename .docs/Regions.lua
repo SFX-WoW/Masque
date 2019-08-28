@@ -16,7 +16,7 @@ local Regions = {
 		-- Backdrop                                                       --[1]--[DONE]
 		---
 
-		-- @MultiBarButton
+		-- @ MultiBarButtonTemplate, MultiActionBars.xml
 		-- * Used only on MultiBar buttons.
 		Backdrop = {
 			Name = "FloatingBG",
@@ -48,7 +48,7 @@ local Regions = {
 		-- Icon                                                           --[2]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		Icon = {
 			Key = "icon",
 			Name = "Icon",
@@ -57,8 +57,8 @@ local Regions = {
 			TexCoords = {0, 1, 0, 1},                                     -- Default
 			DrawLayer = "BACKGROUND",                                     -- XML
 			DrawLevel = 0,                                                -- XML
-			Width = 36,                                                   -- In-Game
-			Height = 36,                                                  -- In-Game
+			Width = 36,                                                   -- Inherited
+			Height = 36,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -68,7 +68,7 @@ local Regions = {
 		-- Normal                                                         --[3]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button, ActionButtonTemplate.xml
 		-- * Visible in default state.
 		-- * Hidden in the "pushed" state.
 		Normal = {
@@ -105,7 +105,7 @@ local Regions = {
 		-- Disabled                                                       --[4]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button
 		-- * Visible in the "disabled" state.
 		-- * Unused.
 		Disabled = {
@@ -118,7 +118,7 @@ local Regions = {
 		-- Pushed                                                         --[5]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button, ActionButtonTemplate.xml
 		-- * Visible in the "pushed" state.
 		Pushed = {
 			Func = "GetPushedTexture",
@@ -130,8 +130,8 @@ local Regions = {
 			BlendMode = "BLEND",                                          -- Default
 			DrawLayer = "ARTWORK",                                        -- Default
 			DrawLevel = 0,                                                -- Default
-			Width = 36,                                                   -- In-Game
-			Height = 36,                                                  -- In-Game
+			Width = 36,                                                   -- Inherited
+			Height = 36,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -141,7 +141,7 @@ local Regions = {
 		-- Flash                                                          --[6]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		-- * Flashes in the "active" state.
 		Flash = {
 			Key = "Flash",
@@ -154,8 +154,8 @@ local Regions = {
 			BlendMode = "BLEND",                                          -- Default
 			DrawLayer = "ARTWORK",                                        -- XML
 			DrawLevel = 1,                                                -- XML
-			Width = 36,                                                   -- In-Game
-			Height = 36,                                                  -- In-Game
+			Width = 36,                                                   -- Inherited
+			Height = 36,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -165,7 +165,7 @@ local Regions = {
 		-- HotKey                                                         --[7]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		HotKey = {
 			Key = "HotKey",
 			Name = "HotKey",
@@ -188,7 +188,7 @@ local Regions = {
 		-- Count                                                          --[8]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		Count = {
 			Key = "Count",
 			Name = "Count",
@@ -211,7 +211,7 @@ local Regions = {
 		-- Checked                                                        --[10]--[DONE]
 		---
 
-		-- @CheckButton
+		-- @ CheckButton, ActionButtonTemplate.xml
 		-- * Visible in the "checked" state.
 		Checked = {
 			Func = "GetCheckedTexture",
@@ -223,8 +223,8 @@ local Regions = {
 			BlendMode = "ADD",                                            -- XML
 			DrawLayer = "OVERLAY",                                        -- In-Game
 			DrawLevel = 0,                                                -- Default
-			Width = 36,                                                   -- In-Game
-			Height = 36,                                                  -- In-Game
+			Width = 36,                                                   -- Inherited
+			Height = 36,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -234,7 +234,7 @@ local Regions = {
 		-- Border                                                         --[9]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		-- * Equipped Item Border
 		Border = {
 			Key = "Border",
@@ -258,7 +258,7 @@ local Regions = {
 		-- Name                                                          --[11]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		Name = {
 			Key = "Name",
 			Name = "Name",
@@ -281,7 +281,7 @@ local Regions = {
 		-- NewAction                                                      --[12]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		NewAction = {
 			Key = "NewActionTexture",
 			Type = "Texture",
@@ -309,7 +309,7 @@ local Regions = {
 		-- SpellHighlight                                                 --[13]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		SpellHighlight = {
 			Key = "SpellHighlightTexture",
 			Type = "Texture",
@@ -337,7 +337,7 @@ local Regions = {
 		-- AutoCastable                                                   --[14]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		AutoCastable = {
 			Key = "AutoCastable",
 			Type = "Texture",
@@ -359,7 +359,7 @@ local Regions = {
 		-- Highlight                                                      --[15]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button, ActionButtonTemplate.xml
 		-- * Visible on mouse-over.
 		Highlight = {
 			Func = "GetHighlightTexture",
@@ -371,8 +371,8 @@ local Regions = {
 			BlendMode = "ADD",                                            -- XML
 			DrawLayer = "HIGHLIGHT",                                      -- In-Game
 			DrawLevel = 0,                                                -- Default
-			Width = 36,                                                   -- In-Game
-			Height = 36,                                                  -- In-Game
+			Width = 36,                                                   -- Inherited
+			Height = 36,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -382,7 +382,7 @@ local Regions = {
 		-- AutoCastShine                                                  --[F1]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		AutoCastShine = {
 			Key = "AutoCastShine",
 			Name = "Shine",
@@ -399,7 +399,7 @@ local Regions = {
 		-- Cooldown                                                       --[F2]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
 		Cooldown = {
 			Key = "cooldown",
 			Name = "Cooldown",
@@ -419,7 +419,7 @@ local Regions = {
 		-- ChargeCooldown                                                 --[F3]--[DONE]
 		---
 
-		-- @ActionButton
+		-- @ ActionButton.lua
 		ChargeCooldown = {
 			Key = "chargeCooldown",
 			Type = "Frame",
@@ -444,7 +444,7 @@ local Regions = {
 		-- Icon                                                           --[1]--[DONE]
 		---
 
-		-- @AuraButton
+		-- @ AuraButton, BuffFrame.xml
 		Icon = {
 			Name = "Icon",
 			Type = "Texture",
@@ -452,8 +452,8 @@ local Regions = {
 			TexCoords = {0, 1, 0, 1},                                     -- Default
 			DrawLayer = "BACKGROUND",                                     -- XML
 			DrawLevel = 0,                                                -- Default
-			Width = 30,                                                   -- In-Game
-			Height = 30,                                                  -- In-Game
+			Width = 30,                                                   -- Inherited
+			Height = 30,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -463,7 +463,7 @@ local Regions = {
 		-- Count                                                          --[2]--[DONE]
 		---
 
-		-- @AuraButton
+		-- @ AuraButton, BuffFrame.xml
 		Count = {
 			Key = "count",
 			Name = "Count",
@@ -486,7 +486,7 @@ local Regions = {
 		-- Duration                                                       --[3]--[DONE]
 		---
 
-		-- @AuraButton
+		-- @ AuraButton, BuffFrame.xml
 		Duration = {
 			Key = "duration",
 			Name = "Duration",
@@ -510,7 +510,7 @@ local Regions = {
 		-- DebuffBorder                                                   --[4]--[DONE]
 		---
 
-		-- @DebuffButton
+		-- @ DebuffButtonTemplate, BuffFrame.xml
 		DebuffBorder = {
 			Name = "Border",
 			Type = "Texture",
@@ -531,7 +531,7 @@ local Regions = {
 		-- EnchantBorder                                                  --[4]--[DONE]
 		---
 
-		-- @TempEnchantButton
+		-- @ TempEnchantButtonTemplate, BuffFrame.xml
 		EnchantBorder = {
 			Name = "Border",
 			Type = "Texture",
@@ -553,7 +553,7 @@ local Regions = {
 		-- Normal                                                         --[X]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button
 		-- * Unused.
 		Normal = {
 			Func = "GetNormalTexture",
@@ -565,7 +565,7 @@ local Regions = {
 		-- Pushed                                                         --[X]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button
 		-- * Unused.
 		Pushed = {
 			Func = "GetPushedTexture",
@@ -577,7 +577,7 @@ local Regions = {
 		-- Disabled                                                       --[X]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button
 		-- * Unused.
 		Disabled = {
 			Func = "GetDisabledTexture",
@@ -589,7 +589,7 @@ local Regions = {
 		-- Highlight                                                      --[X]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button
 		-- * Unused.
 		Highlight = {
 			Func = "GetHighlightTexture",
@@ -612,7 +612,7 @@ local Regions = {
 		-- Icon                                                           --[1]--[DONE]
 		---
 
-		-- @ItemButton
+		-- @ ItemButton, ItemButtonTemplate.xml
 		Icon = {
 			Key = "icon",
 			Name = "IconTexture",
@@ -621,8 +621,8 @@ local Regions = {
 			TexCoords = {0, 1, 0, 1},                                     -- Default
 			DrawLayer = "BORDER",                                         -- XML
 			DrawLevel = 0,                                                -- Default
-			Width = 37,                                                   -- In-Game
-			Height = 37,                                                  -- In-Game
+			Width = 37,                                                   -- Inherited
+			Height = 37,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -632,7 +632,7 @@ local Regions = {
 		-- Normal                                                         --[2]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button, ItemButtonTemplate.xml
 		-- * Visible in default state.
 		-- * Hidden in the "pushed" state.
 		Normal = {
@@ -658,7 +658,7 @@ local Regions = {
 		-- Pushed                                                         --[3]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button, ItemButtonTemplate.xml
 		-- * Visible in the "pushed" state.
 		Pushed = {
 			Func = "GetPushedTexture",
@@ -670,8 +670,8 @@ local Regions = {
 			BlendMode = "BLEND",                                          -- Default
 			DrawLayer = "ARTWORK",                                        -- Default
 			DrawLevel = 0,                                                -- Default
-			Width = 37,                                                   -- In-Game
-			Height = 37,                                                  -- In-Game
+			Width = 37,                                                   -- Inherited
+			Height = 37,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -681,7 +681,7 @@ local Regions = {
 		-- Count                                                          --[4]--[DONE]
 		---
 
-		-- @ItemButton
+		-- @ ItemButton, ItemButtonTemplate.xml
 		Count = {
 			Key = "count",
 			Name = "Count",
@@ -704,7 +704,7 @@ local Regions = {
 		-- IconBorder                                                     --[5]--[DONE]
 		---
 
-		-- @ItemButton
+		-- @ ItemButton, ItemButtonTemplate.xml
 		IconBorder = {
 			Key = "IconBorder",
 			Type = "Texture",
@@ -726,7 +726,7 @@ local Regions = {
 		-- SlotHighlight                                                   --[6]--[DONE]
 		---
 
-		-- @BagSlotItemButton
+		-- @ BagSlotButton, MainMenuBarBagButtons.xml
 		SlotHighlight = {
 			Key = "SlotHighlightTexture",
 			Type = "Texture",
@@ -747,7 +747,7 @@ local Regions = {
 		-- IconOverlay                                                    --[7]--[DONE]
 		---
 
-		-- @ItemButton
+		-- @ ItemButton, ItemButtonTemplate.xml
 		IconOverlay = {
 			Key = "IconOverlay",
 			Type = "Texture",
@@ -777,8 +777,7 @@ local Regions = {
 		-- JunkIcon                                                       --[8]--[DONE]
 		---
 
-		-- @ContainerItemButton
-		-- Unavailable in Classic.
+		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
 		JunkIcon = {
 			Key = "JunkIcon",
 			Type = "Texture",
@@ -806,7 +805,7 @@ local Regions = {
 		-- UpgradeIcon                                                    --[9]--[DONE]
 		---
 
-		-- @ContainerItemButton
+		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
 		UpgradeIcon = {
 			Key = "JunkIcon",
 			Type = "Texture",
@@ -834,7 +833,7 @@ local Regions = {
 		-- QuestIcon                                                      --[10]--[DONE]
 		---
 
-		-- @ContainerItemButton
+		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
 		QuestIcon = {
 			Key = "IconQuestTexture",
 			Type = "Texture",
@@ -857,7 +856,7 @@ local Regions = {
 		-- NewItem                                                        --[11]--[DONE]
 		---
 
-		-- @ContainerItemButton
+		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
 		NewItem = {
 			Key = "NewItemTexture",
 			Type = "Texture",
@@ -885,7 +884,7 @@ local Regions = {
 		-- SearchOverlay                                                  --[12]--[DONE]
 		---
 
-		-- @ItemButton
+		-- @ ItemButton, ItemButtonTemplate.xml
 		SearchOverlay = {
 			Key = "searchOverlay",
 			Name = "SearchOverlay",
@@ -906,7 +905,7 @@ local Regions = {
 		-- ItemContextOverlay                                             --[13]--[DONE]
 		---
 
-		-- @ItemButton
+		-- @ ItemButton, ItemButtonTemplate.xml
 		-- Unavailable in Classic.
 		ItemContextOverlay = {
 			Key = "ItemContextOverlay",
@@ -927,7 +926,7 @@ local Regions = {
 		-- Highlight                                                      --[14]--[DONE]
 		---
 
-		-- @Button
+		-- @ Button, , ItemButtonTemplate.xml
 		-- * Visible on mouse-over.
 		Highlight = {
 			Func = "GetHighlightTexture",
@@ -939,8 +938,8 @@ local Regions = {
 			BlendMode = "ADD",                                            -- XML
 			DrawLayer = "HIGHLIGHT",                                      -- In-Game
 			DrawLevel = 0,                                                -- Default
-			Width = 37,                                                   -- In-Game
-			Height = 37,                                                  -- In-Game
+			Width = 37,                                                   -- Inherited
+			Height = 37,                                                  -- Inherited
 			Point = "TOPLEFT",                                            -- Default
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
@@ -950,7 +949,7 @@ local Regions = {
 		-- Cooldown                                                       --[F2]--[DONE]
 		---
 
-		-- @ContainerItemButton
+		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
 		Cooldown = {
 			Name = "Cooldown",
 			Type = "Frame",
