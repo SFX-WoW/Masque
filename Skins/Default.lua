@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
-	please see the included License.txt file.
+	please see the included License.txt file or visit https://github.com/StormFX/Masque.
 
 	* File...: Skins\Default.lua
 	* Author.: Blizzard Entertainment
@@ -84,8 +84,8 @@ Core.AddSkin("Default", {
 			BlendMode = "BLEND",
 			DrawLayer = "ARTWORK",
 			DrawLevel = 0,
-			Width = 64,
-			Height = 64,
+			Width = 65,
+			Height = 65,
 			Point = "CENTER",
 			OffsetX = 0,
 			OffsetY = -1,
@@ -153,7 +153,7 @@ Core.AddSkin("Default", {
 			Height = 10,
 			Point = "TOPRIGHT",
 			OffsetX = 4,
-			OffsetY = -3.5,
+			OffsetY = -4,
 		},
 	},
 	Count = {
@@ -213,15 +213,14 @@ Core.AddSkin("Default", {
 		OffsetX = 0,
 		OffsetY = 0,
 		Item = {
-			Texture = [[Interface\Common\WhiteIconFrame]],
-			RelicTexture = [[Interface\Artifacts\RelicIconFrame]],
+			Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 			-- TexCoords = {0, 1, 0, 1},
 			-- Color = {1, 1, 1, 1},
-			BlendMode = "BLEND",
+			BlendMode = "ADD",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 0,
-			Width = 36,
-			Height = 36,
+			Width = 66,
+			Height = 66,
 			Point = "CENTER",
 			OffsetX = 0,
 			OffsetY = 0,
@@ -233,8 +232,8 @@ Core.AddSkin("Default", {
 			BlendMode = "BLEND",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 0,
-			Width = 32,
-			Height = 32,
+			Width = 40,
+			Height = 38,
 			Point = "CENTER",
 			OffsetX = 0,
 			OffsetY = 0,
@@ -246,8 +245,8 @@ Core.AddSkin("Default", {
 			BlendMode = "BLEND",
 			DrawLayer = "OVERLAY",
 			DrawLevel = 0,
-			Width = 32,
-			Height = 32,
+			Width = 38,
+			Height = 38,
 			Point = "CENTER",
 			OffsetX = 0,
 			OffsetY = 0,
