@@ -69,7 +69,7 @@ local function AddSkin(SkinID, SkinData, Internal)
 	SkinData.SkinID = SkinID
 	Skins[SkinID] = SkinData
 
-	if not Internal then
+	if not SkinData.Disable then
 		SkinList[SkinID] = SkinID
 	end
 end
@@ -90,15 +90,6 @@ Core.SkinList = SkinList
 Core.AddSkin = AddSkin
 Core.__Empty = __Empty
 Core.__Hidden = Hidden
-
-Core.LoadSkin = setmetatable({}, {
-	__call = function(self, id)
-		local func = id and self[id]
-		if func then
-			func(Core)
-		end
-	end,
-})
 
 ----------------------------------------
 -- API

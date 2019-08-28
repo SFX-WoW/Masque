@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
-	please see the included License.txt file.
+	please see the included License.txt file or visit https://github.com/StormFX/Masque.
 
 	* File...: Core\Options.lua
 	* Author.: StormFX
@@ -428,13 +428,13 @@ function Setup.Skins(self)
 	local Addons = Global.SubList
 
 	for aID, aObj in pairs(Addons) do
-	args[aID] = GetOptions(aObj)
-		local aargs = args[aID].args
+		args[aID] = GetOptions(aObj)
 
+		local aargs = args[aID].args
 		local Groups = aObj.SubList
 
 		for gID, gObj in pairs(Groups) do
-		aargs[gID] = GetOptions(gObj)
+			aargs[gID] = GetOptions(gObj)
 		end
 	end
 
@@ -462,13 +462,10 @@ function Core:UpdateSkinOptions(obj, Delete)
 
 	if Delete then
 		args[ID] = nil
-
 	elseif not args[ID] then
 		args[ID] = GetOptions(obj)
-
 	elseif Group and (args[ID].name ~= Group) then
 		args[ID].name = Group
-
 	else
 		return
 	end

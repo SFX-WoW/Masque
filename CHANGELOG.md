@@ -1,4 +1,4 @@
-## 8.2.5 (Beta)
+## 8.2.5 (Beta 2)
 
 _**Warning:** This is an beta version and may contain bugs._
 
@@ -45,6 +45,9 @@ _**Warning:** This is an beta version and may contain bugs._
 - The signature for callbacks has been updated. The new signature is as follows:
   - If `arg` is passed when registered: `Callback(arg, Group, SkinID, Backdrop, Shadow, Gloss, Colors, Disabled)`
   - If no `arg` is passed when registered: `Callback(Group, SkinID, Backdrop, Shadow, Gloss, Colors, Disabled)`
+- Add-on authors can now add a "default" skin that _Masque_ will apply when buttons or groups from the add-on are disabled or removed.
+  - The skin _must_ be named the same as the add-on.
+  - The skin can be disabled in _Masque_'s GUI by setting the root skin attribute `Disable = true`.
 
 ### Group API
 
