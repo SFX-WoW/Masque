@@ -12,12 +12,14 @@ _Masque_ is an add-on for [World of Warcraft] that provides a skinning engine fo
 
 Install the package through your preferred add-on manager. You can also install the add-on manually using the following steps:
 
-1. Download the package from one of the following sites:
+1. Download the desired package from one of the following sites:
     - [GitHub]
     - [WoW Ace]
     - [CurseForge]
     - [WoW Interface]
-2. Extract the package to your `World of Warcraft\_retail_\Interface\AddOns` directory.
+2. Extract the package to the appropriate directory:
+    - Retail: `World of Warcraft\_retail_\Interface\AddOns`
+    - Classic: `World of Warcraft\_classic_\Interface\AddOns`
 
 ## Options
 
@@ -55,7 +57,7 @@ If you would like to help translate _Masque_, please use the [localization syste
 [Contribute Directly]: https://github.com/StormFX/Masque (Translate on GitHub)
 
 [Travis]: https://travis-ci.org/StormFX/Masque (Latest Build)
-[Latest]: https://github.com/StormFX/Masque/releases/latest (Latest Release)
+[Latest]: https://github.com/StormFX/Masque/releases (Latest Release)
 [Discord]: https://discord.gg/DDVqkd6 (Discord)
 [Patreon]: https://www.patreon.com/stormfx (Donate via Patreon)
 [PayPal]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EELAK9TC4W4KQ (Donate via PayPal)
