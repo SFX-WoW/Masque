@@ -31,6 +31,7 @@ _**Warning:** This is an beta version and may contain bugs._
 - The "Blizzard" skin has been renamed to "Classic".
 - The "Classic", "Dream" and "Zoomed" skins have all been updated, including a slight increase in size to be more in line with the default button size.
 - The "Zoomed" skin now has a background. (#44)
+- A new skin, "Default", is available that resembles the default button style(s). This skin will be applied when skinning is disabled for a button or group, unless the add-on has supplied its own default skin.
 - The handling of Cooldown and Charge frames has been improved:
   - Added new, higher-quality, default textures that will change according to the shape set by the skin.
     - _Note: Only "Square" and "Circle" are supported._
@@ -51,20 +52,20 @@ _**Warning:** This is an beta version and may contain bugs._
 
 ### Group API
 
-- The `AddButton()` Group method now has a third, `string` parameter, `"Type"`, that will tell _Masque_ the type of button being passed.
+- The `:AddButton()` Group method now has a third, `string` parameter, `"Type"`, that will tell _Masque_ the type of button being passed.
   - If not passed, _Masque_ will attempt to determine the `"Type"` by checking for specific regions. If none are found, it will default to `"Legacy"`.
-  - _Masque_ will use this value to determine which regions to search for, if unavailable in the `Regions` (`ButtonData`) table, and which regions to apply skins to when skinning a button.
+  - _Masque_ will use this value to determine which regions to search for, if unavailable in the `Regions` (formerly `ButtonData`) table, and which regions to apply skins to when skinning a button.
   - The following are valid values:
     - `"Legacy"` - This is fall-back type for backwards compatibility. It supports most regions previously supported by _Masque_. Only use this value if the other types don't cover all necessary regions.
     - `"Action"` - Supports regions available in `ActionButtonTemplate` and its derivatives.
     - `"Pet"` - Supports regions available in `PetActionButtonTemplate`.
-    - `"Item"` - Supports regions available in `ItemButtonTemplate` and its derivatives (`ContaineFrameItem`, etc).
+    - `"Item"` - Supports regions available in `ItemButtonTemplate` and its derivatives (`ContainerFrameItem`, etc).
       - `Border` is still available due to the skinning limitatons of `IconBorder`.
     - `"Aura"` - Supports regions available in `AuraButtonTemplate` plus `Border`.
       - Can be used for generic "Aura" buttons.
     - `"Debuff"` - Same as `"Aura"`, but a different default texture with no skin color support.
     - `"Enchant"` - Same as `"Aura"`, but a different default texture and supports skin colors.
-- The `AddButton()` Group method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause _Masque_ to skip locating missing regions.
+- The `:AddButton()` Group method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause _Masque_ to skip locating missing regions.
 - Groups can now be renamed.
   - Only sub-groups with static IDs support this feature. (See the Core API section above)
   - A new method, `:SetName("Name")`, is available that will replace the group's `Group` field and update _Masque_'s options.
@@ -84,7 +85,7 @@ _**Warning:** This is an beta version and may contain bugs._
   - `Group` - A `string` name of the group the skin belongs to, when using skin variations.
   - `Title` - A `string` title to be displayed instead of the `SkinID`. Requires `Group` to be set.
   - `Order` - An `number` indicating the order the skins should be displayed in. Requires `Group` to be set.
-- Skins can now use custom Cooldown swipe textures.
+- Skins can now use custom `Cooldown` swipe textures.
 - Skins can now customize the following button regions:
   - _ActionButton_
     - `"NewAction"` - Texture, Color, Size, Position
