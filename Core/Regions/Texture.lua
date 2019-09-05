@@ -28,15 +28,15 @@ local Defaults = Core.Skins.Default
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
+-- @ Core\Regions\Mask
+local SkinMask = Core.SkinMask
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
 -- Skins a texture region of a button.
-function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
+function Core.SkinTexture(Region, Button, Layer, Skin, Color, xScale, yScale)
 	if Skin.Hide then
 		Region:SetTexture()
 		Region:Hide()
@@ -100,4 +100,9 @@ function SkinRegion.Texture(Region, Button, Layer, Skin, Color, xScale, yScale)
 
 	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default.SetAllPoints)
 	SetPoints(Region, Button, Skin, Default, SetAllPoints)
+
+	-- Mask
+	if Config.CanMask then
+		SkinMask(Button, Region, Skin, xScale, yScale)
+	end
 end

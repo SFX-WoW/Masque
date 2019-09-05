@@ -31,8 +31,12 @@ local RegTypes = Core.RegTypes
 -- @ Core\Utility
 local GetScale = Core.GetScale
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
+-- @ Core\Regions\*
+local SkinMask, SkinBackdrop, SkinIcon = Core.SkinMask, Core.SkinBackdrop, Core.SkinIcon
+local SkinShadow, SkinNormal, SkinTexture = Core.SkinShadow, Core.SkinNormal, Core.SkinTexture
+local SkinGloss, SkinText, SkinIconBorder = Core.SkinGloss, Core.SkinText, Core.SkinIconBorder
+local SkinNewItem, SkinFrame, UpdateSpellAlert = Core.SkinNewItem, Core.SkinFrame, Core.UpdateSpellAlert
+local SkinCooldown = Core.SkinCooldown
 
 ----------------------------------------
 -- Locals
@@ -50,7 +54,7 @@ local function GetShape(Shape)
 end
 
 ----------------------------------------
--- Button
+-- Core
 ---
 
 -- Applies a skin to a button and its associated layers.
@@ -77,6 +81,14 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	local xScale, yScale = GetScale(Button)
 
+	-- Mask
+	local Mask = Skin.Mask
+
+	if Mask then
+		Mask = (bType and Mask[bType]) or Mask
+		SkinMask(Button, nil, Mask, xScale, yScale)
+	end
+
 	-- Backdrop
 	local FloatingBG = Button.FloatingBG or Regions.Backdrop
 
@@ -84,24 +96,24 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		Backdrop = (FloatingBG and true) or false
 	end
 
-	SkinRegion("Backdrop", Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
+	SkinBackdrop(Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 
 	-- Icon
 	local Icon = Regions.Icon
 
 	if Icon then
-		SkinRegion("Icon", Icon, Button, Skin.Icon, xScale, yScale)
+		SkinIcon(Icon, Button, Skin.Icon, xScale, yScale)
 	end
 
 	-- Shadow
 	Shadow = (Shadow and not Disabled) or false
-	SkinRegion("Shadow", Shadow, Button, Skin.Shadow, Colors.Shadow, xScale, yScale)
+	SkinShadow(Shadow, Button, Skin.Shadow, Colors.Shadow, xScale, yScale)
 
 	-- Normal
 	local Normal = Regions.Normal
 
 	if Normal ~= false then
-		SkinRegion("Normal", Normal, Button, Skin.Normal, Colors.Normal, xScale, yScale)
+		SkinNormal(Normal, Button, Skin.Normal, Colors.Normal, xScale, yScale)
 	end
 
 	-- FontStrings and Textures
@@ -114,9 +126,9 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 			if Region then
 				if Type == "FontString" then
-					SkinRegion("Text", Region, Button, Layer, Skin[Layer], xScale, yScale)
+					SkinText(Region, Button, Layer, Skin[Layer], xScale, yScale)
 				else
-					SkinRegion(Type, Region, Button, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
+					SkinTexture(Region, Button, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
 				end
 			end
 		end
@@ -126,25 +138,25 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local IconBorder = Regions.IconBorder
 
 	if IconBorder then
-		SkinRegion("IconBorder", IconBorder, Button, Skin.IconBorder, xScale, yScale)
+		SkinIconBorder(IconBorder, Button, Skin.IconBorder, xScale, yScale)
 	end
 
 	-- Gloss
 	Gloss = (Gloss and not Disabled) or false
-	SkinRegion("Gloss", Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
+	SkinGloss(Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
 
 	-- NewItem
 	local NewItem = Regions.NewItem
 
 	if NewItem then
-		SkinRegion("NewItem", NewItem, Button, Skin.NewItem, xScale, yScale)
+		SkinNewItem(NewItem, Button, Skin.NewItem, xScale, yScale)
 	end
 
 	-- Cooldown
 	local Cooldown = Regions.Cooldown
 
 	if Cooldown then
-		SkinRegion("Cooldown", Cooldown, Button, Skin.Cooldown, Colors.Cooldown, xScale, yScale)
+		SkinCooldown(Cooldown, Button, Skin.Cooldown, Colors.Cooldown, xScale, yScale)
 	end
 
 	-- ChargeCooldown
@@ -154,16 +166,16 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	Button.__MSQ_ChargeSkin = ChargeSkin
 
 	if Charge then
-		SkinRegion("Cooldown", Charge, Button, ChargeSkin, nil, xScale, yScale)
+		SkinCooldown(Charge, Button, ChargeSkin, nil, xScale, yScale)
 	end
 
 	-- AutoCastShine
 	local Shine = Regions.AutoCastShine
 
 	if Shine then
-		SkinRegion("Frame", Shine, Button, Skin.AutoCastShine, xScale, yScale)
+		SkinFrame(Shine, Button, Skin.AutoCastShine, xScale, yScale)
 	end
 
 	-- SpellAlert
-	SkinRegion("SpellAlert", Button)
+	UpdateSpellAlert(Button)
 end
