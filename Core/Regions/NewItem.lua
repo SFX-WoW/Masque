@@ -31,9 +31,6 @@ local Default = Core.Skins.Default.NewItem
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
-
 ----------------------------------------
 -- Locals
 ---
@@ -69,11 +66,11 @@ local function Hook_SetAtlas(Region, Atlas)
 end
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
 -- Skins the 'NewItem' region of a button.
-function SkinRegion.NewItem(Region, Button, Skin, xScale, yScale)
+function Core.SkinNewItem(Region, Button, Skin, xScale, yScale)
 	local Atlas = Region.__MSQ_Atlas or Region:GetAtlas() or DEF_ATLAS
 	local Texture = Skin.Texture
 

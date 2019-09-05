@@ -26,9 +26,6 @@ local error, type = error, type
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
-
 ----------------------------------------
 -- Locals
 ---
@@ -86,11 +83,11 @@ local function SkinShadow(Button, Skin, Color, xScale, yScale)
 end
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
 -- Add or removes a 'Shadow' region.
-function SkinRegion.Shadow(Enabled, Button, Skin, Color, xScale, yScale)
+function Core.SkinShadow(Enabled, Button, Skin, Color, xScale, yScale)
 	local bType = Button.__MSQ_bType
 	Skin = (bType and Skin[bType]) or Skin
 
