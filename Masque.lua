@@ -57,7 +57,7 @@ do
 		"|cff999999JJSheets|r",
 	}
 	Core.Websites = {
-		"https://github.com/stormfx/masque",
+		"https://github.com/StormFX/Masque",
 		"https://www.wowace.com/projects/masque",
 		"https://www.curseforge.com/wow/addons/masque",
 		"https://www.wowinterface.com/downloads/info12097",

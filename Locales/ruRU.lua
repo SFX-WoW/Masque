@@ -10,7 +10,7 @@
 	[ Notes ]
 
 	To help with translations, use the localization system on WoWAce (https://www.wowace.com/projects/masque/localization)
-	or contribute directly on GitHub (https://github.com/stormfx/masque).
+	or contribute directly on GitHub (https://github.com/StormFX/Masque).
 
 ]]
 
