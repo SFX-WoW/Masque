@@ -37,9 +37,6 @@ local Default = Core.Skins.Default.Cooldown
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetColor, GetScale = Core.GetColor, Core.GetScale
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
-
 ----------------------------------------
 -- Locals
 ---
@@ -165,11 +162,11 @@ end
 hooksecurefunc("StartChargeCooldown", UpdateCharge)
 
 ----------------------------------------
--- Regions
+-- Core
 ---
 
-SkinRegion.Frame = SkinFrame
-SkinRegion.Cooldown = SkinCooldown
+Core.SkinFrame = SkinFrame
+Core.SkinCooldown = SkinCooldown
 
 ----------------------------------------
 -- API

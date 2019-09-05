@@ -24,9 +24,6 @@ local Defaults = Core.Skins.Default
 -- @ Core\Utility
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
-
 ----------------------------------------
 -- Hook
 ---
@@ -43,11 +40,11 @@ local function Hook_SetPoint(Region, ...)
 end
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
 -- Skins a text layer of a button.
-function SkinRegion.Text(Region, Button, Layer, Skin, xScale, yScale)
+function Core.SkinText(Region, Button, Layer, Skin, xScale, yScale)
 	local bType = Button.__MSQ_bType
 	local Default = Defaults[Layer]
 

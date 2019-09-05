@@ -115,20 +115,6 @@ function Core.GetRegion(Button, Info)
 end
 
 ----------------------------------------
--- Region Skinner
----
-
--- Metatable to call region-skinning functions.
-Core.SkinRegion = setmetatable({}, {
-	__call = function(self, Region, ...)
-		local func = Region and self[Region]
-		if func then
-			func(...)
-		end
-	end,
-})
-
-----------------------------------------
 -- Group Queue
 ---
 

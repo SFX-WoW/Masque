@@ -26,9 +26,6 @@ local error, type = error, type
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
-
 ----------------------------------------
 -- Locals
 ---
@@ -86,11 +83,11 @@ local function SkinGloss(Button, Skin, Color, xScale, yScale)
 end
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
 -- Skins or removes a 'Gloss' region.
-function SkinRegion.Gloss(Enabled, Button, Skin, Color, xScale, yScale)
+function Core.SkinGloss(Enabled, Button, Skin, Color, xScale, yScale)
 	local bType = Button.__MSQ_bType
 	Skin = (bType and Skin[bType]) or Skin
 

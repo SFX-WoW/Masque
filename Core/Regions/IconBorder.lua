@@ -31,9 +31,6 @@ local Default = Core.Skins.Default.IconBorder
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetTexCoords = Core.GetTexCoords
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
-
 ----------------------------------------
 -- Locals
 ---
@@ -69,11 +66,11 @@ local function Hook_SetTexture(Region, Texture)
 end
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
 -- Skins the 'IconBorder' region of a button.
-function SkinRegion.IconBorder(Region, Button, Skin, xScale, yScale)
+function Core.SkinIconBorder(Region, Button, Skin, xScale, yScale)
 	local Texture = Region.__MSQ_Texture or Region:GetTexture()
 	local SkinTexture = Skin.Texture
 

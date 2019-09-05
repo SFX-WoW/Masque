@@ -22,15 +22,15 @@ local _, Core = ...
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetTexCoords = Core.GetTexCoords
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
+-- @ Core\Regions\Mask
+local SkinMask = Core.SkinMask
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
--- Skins 'Icon' region of a button.
-function SkinRegion.Icon(Region, Button, Skin, xScale, yScale)
+-- Skins the 'Icon' region of a button.
+function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 	Button.__MSQ_Icon = Region
 
 	local bType = Button.__MSQ_bType
@@ -42,26 +42,6 @@ function SkinRegion.Icon(Region, Button, Skin, xScale, yScale)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
-	local Mask = Region.__MSQ_Mask
-	local SkinMask = Skin.Mask
-
-	if SkinMask then
-		if not Mask then
-			Mask = Button:CreateMaskTexture()
-			Region.__MSQ_Mask = Mask
-		end
-
-		Mask:SetTexture(SkinMask)
-		Mask:SetAllPoints(Region)
-
-		if not Mask.active then
-			Region:AddMaskTexture(Mask)
-			Mask.active = true
-		end
-	else
-		if Mask and Mask.active then
-			Region:RemoveMaskTexture(Mask)
-			Mask.active = false
-		end
-	end
+	-- Mask
+	SkinMask(Button, Region, Skin, xScale, yScale)
 end

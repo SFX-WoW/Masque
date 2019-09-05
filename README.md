@@ -12,7 +12,7 @@ _Masque_ is an add-on for [World of Warcraft] that provides a skinning engine fo
 
 Install the package through your preferred add-on manager. You can also install the add-on manually using the following steps:
 
-1. Download the desired package from one of the following sites:
+1. Download the package from one of the following sites:
     - [GitHub]
     - [WoW Ace]
     - [CurseForge]

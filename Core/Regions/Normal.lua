@@ -37,9 +37,6 @@ local Default = Core.Skins.Default.Normal
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 
--- @ Core\Core
-local SkinRegion = Core.SkinRegion
-
 ----------------------------------------
 -- Locals
 ---
@@ -123,11 +120,11 @@ local function Hook_SetNormalTexture(Button, Texture)
 end
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
 -- Skins the 'Normal' layer of a button.
-function SkinRegion.Normal(Region, Button, Skin, Color, xScale, yScale)
+function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	Region = Region or Button:GetNormalTexture()
 
 	local Custom = Base[Button]
@@ -140,6 +137,7 @@ function SkinRegion.Normal(Region, Button, Skin, Color, xScale, yScale)
 		end
 
 		if not Region then return end
+
 	-- States Disabled
 	else
 		if Region then

@@ -77,10 +77,10 @@ end
 hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 
 ----------------------------------------
--- Region
+-- Core
 ---
 
-Core.SkinRegion.SpellAlert = UpdateSpellAlert
+Core.UpdateSpellAlert = UpdateSpellAlert
 
 ----------------------------------------
 -- API
