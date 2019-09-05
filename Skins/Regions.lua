@@ -23,6 +23,7 @@ local _, Core = ...
 -- * UseColor -> Use :SetColorTexture() if the skin provides a color but no texture.
 -- * Hide -> Region will be hidden if it exists.
 -- * CanHide -> Allow the region to be hidden.
+-- * CanMask -> Allow the region to be masked.
 -- * NoColor -> Do not allow color changes.
 -- * NoTexture -> Do not allow texture changes.
 
@@ -36,18 +37,21 @@ do
 			Name = "FloatingBG",
 			Type = "Texture",
 			CanHide = true,
+			CanMask = true,
 			UseColor = true,
 		},
 		Icon = {
 			Key = "icon",
 			Name = "Icon",
 			Type = "Texture",
+			CanMask = true,
 			NoColor = true,
 			NoTexture = true,
 			Item = {
 				Key = "icon",
 				Name = "IconTexture",
 				Type = "Texture",
+				CanMask = true,
 				NoColor = true,
 				NoTexture = true,
 			},
@@ -86,6 +90,7 @@ do
 		Pushed = {
 			Func = "GetPushedTexture",
 			Type = "Texture",
+			CanMask = true,
 			Iterate = true,
 			UseColor = true,
 		},
@@ -93,6 +98,7 @@ do
 			-- Key = "Flash", -- Conflics with item buttons.
 			Name = "Flash",
 			Type = "Texture",
+			CanMask = true,
 			Iterate = true,
 			UseColor = true,
 		},
@@ -213,6 +219,7 @@ do
 			Key = "searchOverlay",
 			Name = "SearchOverlay",
 			Type = "Texture",
+			CanMask = true,
 			Iterate = true,
 			UseColor = true,
 		},
@@ -226,9 +233,11 @@ do
 		Highlight = {
 			Func = "GetHighlightTexture",
 			Type = "Texture",
+			CanMask = true,
 			Iterate = true,
-		}, -- Only used by Pet buttons.
-		AutoCastShine = {
+			UseColor = true,
+		},
+		AutoCastShine = { -- Only used by Pet buttons.
 			--Key = "AutoCastShine", -- Causes issues with Pet bars.
 			Name = "Shine",
 			Type = "Frame",
@@ -252,6 +261,7 @@ do
 		Legacy.ContextOverlay = {
 			Key = "ItemContextOverlay",
 			Type = "Texture",
+			CanMask = true,
 			Iterate = true,
 			UseColor = true,
 		}
