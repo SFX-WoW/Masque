@@ -1,4 +1,4 @@
-## 8.2.5 (Beta 2)
+## 8.2.5 (Beta 3)
 
 _**Warning:** This is an beta version and may contain bugs._
 
@@ -104,10 +104,23 @@ _**Warning:** This is an beta version and may contain bugs._
   - `RelPoint` `string` - The point of the button where `Point` will be anchored. Defaults to `Point`.
   - `SetAllPoints` `boolean` - Fits the region to the button.
   - For details on these settings, check the API documentation online.
-- The following regions can now use the `boolean` `UseColor` setting that, when set to `true`, will cause _Masque_ to use a color square instead of a texture:
+- Skins can now specify a per-button mask that can be applied to multiple regions.
+  - Declare the mask at the root level of the skin, like any other layer: `Mask = { ... },`
+  - Masks accept the following attributes, relative to the _button_ where applicable:
+    - `Texture`
+    - `Width`
+    - `Height`
+    - `Point`
+    - `RePoint`
+    - `OffsetX`
+    - `OffsetY`
+    - `SetAllPoints`
+  - To use the mask on valid layers, simply add the `UseMask = true,` attribute/value pair to those layers.
+- The following regions can now use the `boolean` `UseColor` setting that, when set to `true`, will cause _Masque_ to use a color instead of a texture. Additionally, these regions can now use masks.
   - `Backdrop`
   - `Pushed`
   - `Flash`
+  - `Highlight`
   - `SearchOverlay`
   - `ContextOverlay`
 - Using a `Gloss` or `Shadow` texture no longer requires a `Normal` texture.
