@@ -255,29 +255,6 @@ local Regions = {
 		},
 
 		----------------------------------------
-		-- Name                                                          --[11]--[DONE]
-		---
-
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
-		Name = {
-			Key = "Name",
-			Name = "Name",
-			Type = "Text",
-
-			FontObject = "GameFontHighlightSmallOutline",                 -- XML
-			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
-			JustifyH = "CENTER",                                          -- Default
-			JustifyV = "MIDDLE",                                          -- Default
-			DrawLayer = "OVERLAY",                                        -- XML
-			DrawLevel = 0,                                                -- Default
-			Width = 36,                                                   -- XML
-			Height = 10,                                                  -- XML
-			Point = "BOTTOM",                                             -- XML
-			OffsetX = 0,                                                  -- XML
-			OffsetY = 2,                                                  -- XML
-		},
-
-		----------------------------------------
 		-- NewAction                                                      --[12]--[DONE]
 		---
 
@@ -353,6 +330,29 @@ local Regions = {
 			Point = "CENTER",                                             -- XML
 			OffsetX = 0,                                                  -- Default
 			OffsetY = 0,                                                  -- Default
+		},
+
+		----------------------------------------
+		-- Name                                                          --[11]--[DONE]
+		---
+
+		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		Name = {
+			Key = "Name",
+			Name = "Name",
+			Type = "Text",
+
+			FontObject = "GameFontHighlightSmallOutline",                 -- XML
+			Color = {1, 1, 1, 1},                                         -- XML (FontObject)
+			JustifyH = "CENTER",                                          -- Default
+			JustifyV = "MIDDLE",                                          -- Default
+			DrawLayer = "OVERLAY",                                        -- XML
+			DrawLevel = 0,                                                -- Default
+			Width = 36,                                                   -- XML
+			Height = 10,                                                  -- XML
+			Point = "BOTTOM",                                             -- XML
+			OffsetX = 0,                                                  -- XML
+			OffsetY = 2,                                                  -- XML
 		},
 
 		----------------------------------------

@@ -40,7 +40,7 @@ Core.WOW_RETAIL = WOW_RETAIL
 ---
 
 do
-	local VERSION = 80100
+	local VERSION = 80200
 	Core.API = LibStub:NewLibrary(MASQUE, VERSION)
 
 	----------------------------------------
