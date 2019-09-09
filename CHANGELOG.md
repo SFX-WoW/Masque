@@ -65,7 +65,7 @@
       - Can be used for generic "Aura" buttons.
     - `"Debuff"` - Same as `"Aura"`, but a different `Border` texture with no color support.
     - `"Enchant"` - Same as `"Aura"`, but a different `Border` texture with color support.
-	- Custom types are also supported, as mentioned above.
+    - Custom types are also supported, as mentioned above.
 - The `:AddButton()` Group method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause _Masque_ to skip locating missing regions. This value is always `true` if a `frame` object is passed.
 - Groups can now be renamed.
   - Only sub-groups with static IDs support this feature. (See the Core API section above)
