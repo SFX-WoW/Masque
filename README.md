@@ -37,7 +37,7 @@ For bug reports and suggestions, please use the [issue tracker] on GitHub.
 
 ## Localization
 
-If you would like to help translate _Masque_, please use the [localization system] on WoW Ace or [contribute directly] on GitHub.
+To help translate this add-on, please use the [localization system] on WoW Ace or [contribute directly] on GitHub.
 
 [Links]: #
 
