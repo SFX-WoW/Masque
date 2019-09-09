@@ -1,6 +1,4 @@
-## 8.2.5 (Beta 4)
-
-_**Warning:** This is an beta version and may contain bugs._
+## 8.2.5
 
 ### General
 
@@ -9,14 +7,15 @@ _**Warning:** This is an beta version and may contain bugs._
 
 ### Classic
 
-- Tentative _Classic_ support. Please download the appropriate package.
-- Dual-Spec options are disabled for _Classic_.
-- The `ContextOverlay` region is disabled for _Classic_.
+- Added _Classic_ support. Please download the appropriate package.
+  - Dual-Spec options are disabled for _Classic_.
+  - The `ContextOverlay` region is disabled for _Classic_.
 
 ### Options
 
 - The options window has been updated.
   - The primary panel under the _"Masque"_ header is now an information display and contains information about _Masque_ and any installed skins.
+    - This option can be disabled in the "Performance Settings" panel.
   - The "Addons" panel has been more appropriately named "Skin Settings".
   - A new "General Settings" panel is available that contains interface and performance settings for _Masque_.
 - The font size for all options panels has been increased.
@@ -38,7 +37,7 @@ _**Warning:** This is an beta version and may contain bugs._
 
 ### Core API
 
-- API Version updated to 80200.
+- API Version updated to `80200`.
 - A new API method, `:DefaultSkin()`, is available that will return the default skin.
 - A new API method, `:GetShadow({Button})`, is available that will return the `Shadow` region for a button.
 - A new API method, `:SetEmpty({Button} [, IsEmpty])`, is available that will tell _Masque_ whether a button has an icon, allowing it to apply different skin settings.
@@ -61,12 +60,13 @@ _**Warning:** This is an beta version and may contain bugs._
     - `"Action"` - Supports regions available in `ActionButtonTemplate` and its derivatives.
     - `"Pet"` - Supports regions available in `PetActionButtonTemplate`.
     - `"Item"` - Supports regions available in `ItemButtonTemplate` and its derivatives (`ContainerFrameItem`, etc).
-      - `Border` is still available due to the skinning limitatons of `IconBorder`.
+      - `Border` is still available for compatibility.
     - `"Aura"` - Supports regions available in `AuraButtonTemplate` plus `Border`.
       - Can be used for generic "Aura" buttons.
-    - `"Debuff"` - Same as `"Aura"`, but a different default texture with no skin color support.
-    - `"Enchant"` - Same as `"Aura"`, but a different default texture and supports skin colors.
-- The `:AddButton()` Group method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause _Masque_ to skip locating missing regions.
+    - `"Debuff"` - Same as `"Aura"`, but a different `Border` texture with no color support.
+    - `"Enchant"` - Same as `"Aura"`, but a different `Border` texture with color support.
+	- Custom types are also supported, as mentioned above.
+- The `:AddButton()` Group method now has a fourth, `boolean` parameter, `Strict`, that if set to `true` will cause _Masque_ to skip locating missing regions. This value is always `true` if a `frame` object is passed.
 - Groups can now be renamed.
   - Only sub-groups with static IDs support this feature. (See the Core API section above)
   - A new method, `:SetName("Name")`, is available that will replace the group's `Group` field and update _Masque_'s options.
@@ -131,7 +131,6 @@ _**Warning:** This is an beta version and may contain bugs._
 
 ### Bug Fixes/Improvements
 
-- _Masque_ will now block groups named "MicroMenu" as those buttons are not supported.
 - _Masque_ will now exit out of some hooks after a button has been removed from its group.
 - _Masque_ no longer adjusts the frame levels of buttons or their child frames.
 - Functions registered as callbacks without an `arg` `table` will no longer pass `false` in place of `arg`.
