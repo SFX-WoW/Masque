@@ -52,9 +52,9 @@ To help translate this add-on, please use the [localization system] on WoW Ace o
 [Skin List]: https://github.com/StormFX/Masque/wiki/Skin-List (Masque Skin List)
 [Masque on Facebook]: https://www.facebook.com/masqueui (Masque on Facebook)
 
-[Issue Tracker]: https://github.com/StormFX/Masque/issues (Report an Issue)
-[Localization System]: https://www.wowace.com/projects/masque/localization (Translate on WoW Ace)
-[Contribute Directly]: https://github.com/StormFX/Masque (Translate on GitHub)
+[issue tracker]: https://github.com/StormFX/Masque/issues (Report an Issue)
+[localization system]: https://www.wowace.com/projects/masque/localization (Translate on WoW Ace)
+[contribute directly]: https://github.com/StormFX/Masque (Translate on GitHub)
 
 [Travis]: https://travis-ci.org/StormFX/Masque (Latest Build)
 [Latest]: https://github.com/StormFX/Masque/releases (Latest Release)
