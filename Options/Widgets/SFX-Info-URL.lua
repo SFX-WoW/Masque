@@ -1,7 +1,10 @@
 --[[
 
-	Copyright (c) StormFX 2018-2019. All rights reserved.
-	See https://github.com/StormFX/AceGUI-3.0_SFX-Widgets for more information.
+	This file is part of 'AceGUI-3.0: SFX Widgets', an add-on for World of Warcraft. For license information,
+	please see the included License.txt file or visit https://github.com/StormFX/AceGUI-3.0_SFX-Widgets.
+
+	* File...: SFX-Info-URL.lua
+	* Author.: StormFX
 
 ]]
 
