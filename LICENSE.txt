@@ -8,7 +8,7 @@ the following permissions:
   without restrictions.
 
 * Permission to modify or reuse portions of this add-on and to distribute such
-  derivative works as long as the name of this add-on and/or its authors are not
+  derivative works as long as the name of this add-on and/or its author(s) are not
   used in the works in such a way that conflicts with this add-on or its author(s),
   outside of attributing credit.
 
