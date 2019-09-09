@@ -126,8 +126,6 @@ function Core.API:Group(Addon, Group, StaticID, Deprecated)
 			error("Bad argument to API method 'Group'. 'Group' must be a string.", 2)
 		end
 		return
-	elseif Group == "MicroMenu" then
-		return
 	elseif type(StaticID) ~= "string" then
 		if type(Deprecated) == "string" then
 			StaticID = Deprecated
