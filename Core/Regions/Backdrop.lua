@@ -65,6 +65,7 @@ end
 
 -- Skins or creates the 'Backdrop' region of a button.
 local function SkinBackdrop(Region, Button, Skin, Color, xScale, yScale)
+	Button.FloatingBG = Region
 	Region = Region or Button.__MSQ_Backdrop
 
 	if not Region then
@@ -77,8 +78,8 @@ local function SkinBackdrop(Region, Button, Skin, Color, xScale, yScale)
 			Region = Button:CreateTexture()
 		end
 
+		Button.__MSQ_Backdrop = Region
 	end
-	Button.__MSQ_Backdrop = Region
 
 	Region:SetParent(Button)
 	Color = Color or Skin.Color
