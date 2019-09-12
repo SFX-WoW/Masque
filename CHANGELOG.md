@@ -1,3 +1,9 @@
+## 8.2.6
+
+### Bug Fixes
+
+- Fixed an issue causing some regions to not have the proper alpha or color.
+
 ## 8.2.5
 
 ### General
