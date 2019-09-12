@@ -46,6 +46,14 @@ local Legacy = {
 		CanMask = true,
 		NoColor = true,
 		NoTexture = true,
+		Aura = {
+			Key = "Icon",
+			Name = "Icon",
+			Type = "Texture",
+			CanMask = true,
+			NoColor = true,
+			NoTexture = true,
+		},
 		Item = {
 			Key = "icon",
 			Name = "IconTexture",
@@ -65,13 +73,6 @@ local Legacy = {
 		Name = "NormalTexture",
 		Type = "Texture",
 		CanHide = true,
-		Item = {
-			--Key = "NormalTexture",
-			Func = "GetNormalTexture",
-			Name = "NormalTexture",
-			Type = "Texture",
-			CanHide = true,
-		},
 		Pet = {
 			--Key = "NormalTexture",
 			Func = "GetNormalTexture",
@@ -153,23 +154,11 @@ local Legacy = {
 			Iterate = true,
 			NoColor = true,
 		},
-		Debuff = {
-			Name = "Border",
-			Type = "Texture",
-			Iterate = true,
-			NoColor = true,
-		},
 		Enchant = {
-			Name = "Border",
-			Type = "Texture",
-			Iterate = true,
-		},
-		Item = {
 			Key = "Border",
 			Name = "Border",
 			Type = "Texture",
 			Iterate = true,
-			NoColor = true,
 		},
 	},
 	IconBorder = {
@@ -326,7 +315,7 @@ local Item = {
 	Disabled = Legacy.Disabled,
 	Pushed = Legacy.Pushed,
 	IconBorder = Legacy.IconBorder,
-	Border = Legacy.Border.Item, -- Backwards-Compatibility
+	Border = Legacy.Border, -- Backwards-Compatibility
 	SlotHighlight = Legacy.SlotHighlight,
 	IconOverlay = Legacy.IconOverlay,
 	-- JunkIcon = Legacy.JunkIcon,
@@ -346,7 +335,7 @@ local Item = {
 ---
 
 local Aura = {
-	Icon = Legacy.Icon,
+	Icon = Legacy.Icon.Aura,
 	Normal = Legacy.Normal, -- Unused
 	Disabled = Legacy.Disabled, -- Unused
 	Pushed = Legacy.Pushed, -- Unused
@@ -363,11 +352,11 @@ local Aura = {
 ---
 
 local Debuff = {
-	Icon = Legacy.Icon,
+	Icon = Legacy.Icon.Aura,
 	Normal = Legacy.Normal, -- Unused
 	Disabled = Legacy.Disabled, -- Unused
 	Pushed = Legacy.Pushed, -- Unused
-	Border = Legacy.Border.Debuff,
+	Border = Legacy.Border,
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
 	Highlight = Legacy.Highlight, -- Unused
@@ -380,7 +369,7 @@ local Debuff = {
 ---
 
 local Enchant = {
-	Icon = Legacy.Icon,
+	Icon = Legacy.Icon.Aura,
 	Normal = Legacy.Normal, -- Unused
 	Disabled = Legacy.Disabled, -- Unused
 	Pushed = Legacy.Pushed, -- Unused
