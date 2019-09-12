@@ -144,8 +144,12 @@
 
 ### Feedback
 
-For bug reports and suggestions, please use the [issue tracker](https://github.com/StormFX/Masque/issues "Report an Issue") on GitHub.
+For bug reports and suggestions, please use the [issue tracker] on GitHub.
 
 ### Localization
 
-To help translate _Masque_, please use the [localization system](https://www.wowace.com/projects/masque/localization "Translate on WoW Ace") on WoW Ace or [contribute directly](https://github.com/StormFX/Masque "Translate on GitHub") on GitHub.
+To help translate this add-on, please use the [localization system] on WoW Ace or [contribute directly] on GitHub.
+
+[issue tracker]: https://github.com/StormFX/Masque/issues (Report an Issue)
+[localization system]: https://www.wowace.com/projects/masque/localization (Translate on WoW Ace)
+[contribute directly]: https://github.com/StormFX/Masque (Translate on GitHub)

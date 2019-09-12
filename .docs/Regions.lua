@@ -1,4 +1,22 @@
--- 8.1.5.29737
+--[[
+
+	* File...: .docs\Regions.lua
+	* Author.: StormFX
+	* Build..: 8.2.5.31599
+
+	Table of defaults for all regions skinned by Masque.
+
+	* Ref....:
+
+		* ActionButton.lua                        8.1.0.28724
+		* ActionButtonTemplate.xml                7.2.0.23835
+		* BuffFrame.xml                           8.2.5.31337
+		* ContainerFrame.xml                      8.1.5.29701
+		* ItemButtonTemplate.xml                  8.2.0.30920
+		* MainMenuBarBagButtons.xml               8.2.0.30920
+		* MultiActionBars.xml                     8.0.1.27101
+
+]]
 
 local Regions = {
 
@@ -16,7 +34,7 @@ local Regions = {
 		-- Backdrop                                                       --[1]--[DONE]
 		---
 
-		-- @ MultiBarButtonTemplate, MultiActionBars.xml
+		-- @ MultiBarButtonTemplate
 		-- * Used only on MultiBar buttons.
 		Backdrop = {
 			Name = "FloatingBG",
@@ -48,7 +66,7 @@ local Regions = {
 		-- Icon                                                           --[2]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		Icon = {
 			Key = "icon",
 			Name = "Icon",
@@ -68,7 +86,7 @@ local Regions = {
 		-- Normal                                                         --[3]--[DONE]
 		---
 
-		-- @ Button, ActionButtonTemplate.xml
+		-- @ Button
 		-- * Visible in default state.
 		-- * Hidden in the "pushed" state.
 		Normal = {
@@ -118,7 +136,7 @@ local Regions = {
 		-- Pushed                                                         --[5]--[DONE]
 		---
 
-		-- @ Button, ActionButtonTemplate.xml
+		-- @ Button
 		-- * Visible in the "pushed" state.
 		Pushed = {
 			Func = "GetPushedTexture",
@@ -141,7 +159,7 @@ local Regions = {
 		-- Flash                                                          --[6]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		-- * Flashes in the "active" state.
 		Flash = {
 			Key = "Flash",
@@ -165,7 +183,7 @@ local Regions = {
 		-- HotKey                                                         --[7]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		HotKey = {
 			Key = "HotKey",
 			Name = "HotKey",
@@ -188,7 +206,7 @@ local Regions = {
 		-- Count                                                          --[8]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		Count = {
 			Key = "Count",
 			Name = "Count",
@@ -211,7 +229,7 @@ local Regions = {
 		-- Checked                                                        --[10]--[DONE]
 		---
 
-		-- @ CheckButton, ActionButtonTemplate.xml
+		-- @ CheckButton
 		-- * Visible in the "checked" state.
 		Checked = {
 			Func = "GetCheckedTexture",
@@ -234,7 +252,7 @@ local Regions = {
 		-- Border                                                         --[9]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		-- * Equipped Item Border
 		Border = {
 			Key = "Border",
@@ -258,7 +276,7 @@ local Regions = {
 		-- NewAction                                                      --[12]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		NewAction = {
 			Key = "NewActionTexture",
 			Type = "Texture",
@@ -286,7 +304,7 @@ local Regions = {
 		-- SpellHighlight                                                 --[13]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		SpellHighlight = {
 			Key = "SpellHighlightTexture",
 			Type = "Texture",
@@ -314,7 +332,7 @@ local Regions = {
 		-- AutoCastable                                                   --[14]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		AutoCastable = {
 			Key = "AutoCastable",
 			Type = "Texture",
@@ -336,7 +354,7 @@ local Regions = {
 		-- Name                                                          --[11]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		Name = {
 			Key = "Name",
 			Name = "Name",
@@ -359,7 +377,7 @@ local Regions = {
 		-- Highlight                                                      --[15]--[DONE]
 		---
 
-		-- @ Button, ActionButtonTemplate.xml
+		-- @ Button
 		-- * Visible on mouse-over.
 		Highlight = {
 			Func = "GetHighlightTexture",
@@ -382,7 +400,7 @@ local Regions = {
 		-- AutoCastShine                                                  --[F1]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		AutoCastShine = {
 			Key = "AutoCastShine",
 			Name = "Shine",
@@ -399,7 +417,7 @@ local Regions = {
 		-- Cooldown                                                       --[F2]--[DONE]
 		---
 
-		-- @ ActionButtonTemplate, ActionButtonTemplate.xml
+		-- @ ActionButtonTemplate
 		Cooldown = {
 			Key = "cooldown",
 			Name = "Cooldown",
@@ -444,8 +462,9 @@ local Regions = {
 		-- Icon                                                           --[1]--[DONE]
 		---
 
-		-- @ AuraButton, BuffFrame.xml
+		-- @ AuraButton
 		Icon = {
+			Key = "Icon",                                                 -- XML, Added: 8.2.5.31337
 			Name = "Icon",
 			Type = "Texture",
 
@@ -463,7 +482,7 @@ local Regions = {
 		-- Count                                                          --[2]--[DONE]
 		---
 
-		-- @ AuraButton, BuffFrame.xml
+		-- @ AuraButton
 		Count = {
 			Key = "count",
 			Name = "Count",
@@ -486,7 +505,7 @@ local Regions = {
 		-- Duration                                                       --[3]--[DONE]
 		---
 
-		-- @ AuraButton, BuffFrame.xml
+		-- @ AuraButton
 		Duration = {
 			Key = "duration",
 			Name = "Duration",
@@ -510,8 +529,9 @@ local Regions = {
 		-- DebuffBorder                                                   --[4]--[DONE]
 		---
 
-		-- @ DebuffButtonTemplate, BuffFrame.xml
+		-- @ DebuffButtonTemplate
 		DebuffBorder = {
+			Key = "Border",                                               -- XML, Added: 8.2.5.31337
 			Name = "Border",
 			Type = "Texture",
 			Texture = [[Interface\Buttons\UI-Debuff-Overlays]],           -- XML
@@ -531,8 +551,9 @@ local Regions = {
 		-- EnchantBorder                                                  --[4]--[DONE]
 		---
 
-		-- @ TempEnchantButtonTemplate, BuffFrame.xml
+		-- @ TempEnchantButtonTemplate
 		EnchantBorder = {
+			Key = "Border",                                               -- XML, Added: 8.2.5.31337
 			Name = "Border",
 			Type = "Texture",
 
@@ -612,7 +633,7 @@ local Regions = {
 		-- Icon                                                           --[1]--[DONE]
 		---
 
-		-- @ ItemButton, ItemButtonTemplate.xml
+		-- @ ItemButton
 		Icon = {
 			Key = "icon",
 			Name = "IconTexture",
@@ -632,7 +653,7 @@ local Regions = {
 		-- Normal                                                         --[2]--[DONE]
 		---
 
-		-- @ Button, ItemButtonTemplate.xml
+		-- @ Button
 		-- * Visible in default state.
 		-- * Hidden in the "pushed" state.
 		Normal = {
@@ -658,7 +679,7 @@ local Regions = {
 		-- Pushed                                                         --[3]--[DONE]
 		---
 
-		-- @ Button, ItemButtonTemplate.xml
+		-- @ Button
 		-- * Visible in the "pushed" state.
 		Pushed = {
 			Func = "GetPushedTexture",
@@ -681,7 +702,7 @@ local Regions = {
 		-- Count                                                          --[4]--[DONE]
 		---
 
-		-- @ ItemButton, ItemButtonTemplate.xml
+		-- @ ItemButton
 		Count = {
 			Key = "count",
 			Name = "Count",
@@ -704,7 +725,7 @@ local Regions = {
 		-- IconBorder                                                     --[5]--[DONE]
 		---
 
-		-- @ ItemButton, ItemButtonTemplate.xml
+		-- @ ItemButton
 		IconBorder = {
 			Key = "IconBorder",
 			Type = "Texture",
@@ -726,7 +747,7 @@ local Regions = {
 		-- SlotHighlight                                                   --[6]--[DONE]
 		---
 
-		-- @ BagSlotButton, MainMenuBarBagButtons.xml
+		-- @ BagSlotButton
 		SlotHighlight = {
 			Key = "SlotHighlightTexture",
 			Type = "Texture",
@@ -747,7 +768,7 @@ local Regions = {
 		-- IconOverlay                                                    --[7]--[DONE]
 		---
 
-		-- @ ItemButton, ItemButtonTemplate.xml
+		-- @ ItemButton
 		IconOverlay = {
 			Key = "IconOverlay",
 			Type = "Texture",
@@ -777,7 +798,7 @@ local Regions = {
 		-- JunkIcon                                                       --[8]--[DONE]
 		---
 
-		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
+		-- @ ContainerFrameItemButtonTemplate
 		JunkIcon = {
 			Key = "JunkIcon",
 			Type = "Texture",
@@ -805,7 +826,7 @@ local Regions = {
 		-- UpgradeIcon                                                    --[9]--[DONE]
 		---
 
-		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
+		-- @ ContainerFrameItemButtonTemplate
 		UpgradeIcon = {
 			Key = "JunkIcon",
 			Type = "Texture",
@@ -833,7 +854,7 @@ local Regions = {
 		-- QuestIcon                                                      --[10]--[DONE]
 		---
 
-		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
+		-- @ ContainerFrameItemButtonTemplate
 		QuestIcon = {
 			Key = "IconQuestTexture",
 			Type = "Texture",
@@ -856,7 +877,7 @@ local Regions = {
 		-- NewItem                                                        --[11]--[DONE]
 		---
 
-		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
+		-- @ ContainerFrameItemButtonTemplate
 		NewItem = {
 			Key = "NewItemTexture",
 			Type = "Texture",
@@ -884,7 +905,7 @@ local Regions = {
 		-- SearchOverlay                                                  --[12]--[DONE]
 		---
 
-		-- @ ItemButton, ItemButtonTemplate.xml
+		-- @ ItemButton
 		SearchOverlay = {
 			Key = "searchOverlay",
 			Name = "SearchOverlay",
@@ -905,7 +926,7 @@ local Regions = {
 		-- ItemContextOverlay                                             --[13]--[DONE]
 		---
 
-		-- @ ItemButton, ItemButtonTemplate.xml
+		-- @ ItemButton
 		-- Unavailable in Classic.
 		ItemContextOverlay = {
 			Key = "ItemContextOverlay",
@@ -926,7 +947,7 @@ local Regions = {
 		-- Highlight                                                      --[14]--[DONE]
 		---
 
-		-- @ Button, , ItemButtonTemplate.xml
+		-- @ Button
 		-- * Visible on mouse-over.
 		Highlight = {
 			Func = "GetHighlightTexture",
@@ -949,7 +970,7 @@ local Regions = {
 		-- Cooldown                                                       --[F2]--[DONE]
 		---
 
-		-- @ ContainerFrameItemButtonTemplate, ContainerFrame.xml
+		-- @ ContainerFrameItemButtonTemplate
 		Cooldown = {
 			Name = "Cooldown",
 			Type = "Frame",

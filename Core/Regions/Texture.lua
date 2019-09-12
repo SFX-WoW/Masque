@@ -62,6 +62,7 @@ function Core.SkinTexture(Region, Button, Layer, Skin, Color, xScale, yScale)
 
 		if Skin.UseColor and UseColor then
 			Region:SetTexture()
+			Region:SetVertexColor(1, 1, 1, 1)
 			Region:SetColorTexture(GetColor(Color))
 		elseif Texture then
 			Region:SetTexture(Texture)
@@ -89,6 +90,7 @@ function Core.SkinTexture(Region, Button, Layer, Skin, Color, xScale, yScale)
 				end
 			elseif UseColor then
 				Region:SetTexture()
+				Region:SetVertexColor(1, 1, 1, 1)
 				Region:SetColorTexture(GetColor(Default.Color))
 			end
 		end
