@@ -1,3 +1,13 @@
+## 8.2.8
+
+### General
+
+- Updated esES/MX, ptBR and zhTW.
+
+### Bug Fixes
+
+- Fixed an update being called when it shouldn't.
+
 ## 8.2.7
 
 ### Bug Fixes
