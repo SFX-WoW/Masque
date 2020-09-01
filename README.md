@@ -1,8 +1,5 @@
-[![Build Status][Badge-Travis]][Travis]
 [![Latest][Badge-Latest]][Latest]
 [![Discord][Badge-Discord]][Discord]
-[![Patreon][Badge-Patreon]][Patreon]
-[![PayPal][Badge-PayPal]][PayPal]
 
 ## About
 
@@ -56,16 +53,10 @@ To help translate this add-on, please use the [localization system] on WoW Ace o
 [localization system]: https://www.wowace.com/projects/masque/localization (Translate on WoW Ace)
 [contribute directly]: https://github.com/StormFX/Masque (Translate on GitHub)
 
-[Travis]: https://travis-ci.org/StormFX/Masque (Latest Build)
 [Latest]: https://github.com/StormFX/Masque/releases (Latest Release)
 [Discord]: https://discord.gg/DDVqkd6 (Discord)
-[Patreon]: https://www.patreon.com/stormfx (Donate via Patreon)
-[PayPal]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EELAK9TC4W4KQ (Donate via PayPal)
 
 [Images]: #
 
-[Badge-Travis]: https://img.shields.io/travis/StormFX/Masque/master?label=Build&style=flat-square
 [Badge-Latest]: https://img.shields.io/github/v/release/StormFX/Masque?include_prereleases&label=Latest&style=flat-square
 [Badge-Discord]: https://img.shields.io/badge/Discord-StormFX-7289da?style=flat-square
-[Badge-Patreon]: https://img.shields.io/badge/Patreon-Donate-f96854?style=flat-square
-[Badge-PayPal]: https://img.shields.io/badge/PayPal-Donate-009CDE?style=flat-square
