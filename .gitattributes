@@ -2,11 +2,11 @@
 .gitattributes export-ignore
 .gitignore export-ignore
 
-# Travis
-.travis.yml export-ignore
+# GitHub
+.github export-ignore
 
-# Curse
+# Lint
+.luacheckrc export-ignore
+
+# Packager
 .pkgmeta export-ignore
-
-# Docs
-.docs export-ignore
