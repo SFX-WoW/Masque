@@ -1,7 +1,7 @@
 --[[
 
-	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
-	please see the included License.txt file or visit https://github.com/StormFX/Masque.
+	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
+	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
 
 	* File...: Masque.lua
 	* Author.: StormFX
@@ -57,7 +57,7 @@ do
 		"|cff999999JJSheets|r",
 	}
 	Core.Websites = {
-		"https://github.com/StormFX/Masque",
+		"https://github.com/SFX-WoW/Masque",
 		"https://www.wowace.com/projects/masque",
 		"https://www.curseforge.com/wow/addons/masque",
 		"https://www.wowinterface.com/downloads/info12097",

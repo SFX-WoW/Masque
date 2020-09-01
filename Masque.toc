@@ -11,7 +11,7 @@
 ## SavedVariables: MasqueDB
 ## OptionalDeps: Ace3, LibDBIcon-1.0, LibDualSpec-1.0
 
-## X-Website: https://github.com/StormFX/Masque
+## X-Website: https://github.com/SFX-WoW/Masque
 ## X-Category: Interface Enhancements
 ## X-Curse-Project-ID: 13592
 ## X-WoWI-ID: 12097

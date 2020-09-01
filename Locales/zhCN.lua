@@ -1,7 +1,7 @@
 --[[
 
-	This file is part of 'Masque', an add-on for World of Warcraft. For license information,
-	please see the included License.txt file or visit https://github.com/StormFX/Masque.
+	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
+	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
 
 	* File...: Locales\zhCN.lua
 
@@ -10,7 +10,7 @@
 	[ Notes ]
 
 	To help with translations, use the localization system on WoWAce (https://www.wowace.com/projects/masque/localization)
-	or contribute directly on GitHub (https://github.com/StormFX/Masque).
+	or contribute directly on GitHub (https://github.com/SFX-WoW/Masque).
 
 ]]
 
