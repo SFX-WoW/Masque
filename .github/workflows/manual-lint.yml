@@ -1,0 +1,19 @@
+name: Manual Lint
+on: workflow_dispatch
+
+jobs:
+  lint:
+    name: Process Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone Project
+        uses: actions/checkout@v1
+
+      - name: Install Luacheck
+        run: |
+          sudo apt-get install luarocks
+          luarocks install --local luacheck
+
+      - name: Run Luacheck
+        run: /home/runner/.luarocks/bin/luacheck . -q
