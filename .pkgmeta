@@ -6,20 +6,36 @@ externals:
   Libs/AceDB-3.0: https://repos.wowace.com/wow/ace3/trunk/AceDB-3.0
   Libs/AceDBOptions-3.0: https://repos.wowace.com/wow/ace3/trunk/AceDBOptions-3.0
   Libs/AceGUI-3.0: https://repos.wowace.com/wow/ace3/trunk/AceGUI-3.0
+  Libs/AceGUI-3.0_SFX-Widgets: https://github.com/SFX-WoW/AceGUI-3.0_SFX-Widgets.git
   Libs/LibDBIcon-1.0: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
   Libs/LibDualSpec-1.0: https://repos.wowace.com/wow/libdualspec-1-0
+
+embedded-libraries:
+  - libstub
+  - callbackhandler
+  - libdatabroker-1-1
+
+required-dependencies:
+  - ace3
+  - libdbicon-1-0
+  - sfx-widgets
+
+optional-dependencies:
+  - libdualspec-1-0
 
 manual-changelog:
   filename: CHANGELOG.md
   markup-type: markdown
 
 ignore:
-  - .docs\
+  - .github
   - .gitattributes
   - .gitignore
   - .luacheckrc
-  - .travis.yml
-  - CONTRIBUTING.md
+  - .pkgmeta
+  - .pkgmeta-classic
+  - CHANGELOG.md
+  - LICENSE.txt
+  - README.md
 
-tools-used:
-  - libdatabroker-1-1
+wowi-archive-previous: no
