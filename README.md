@@ -40,23 +40,23 @@ To help translate this add-on, please use the [localization system] on WoW Ace o
 
 [World of Warcraft]: https://worldofwarcraft.com (World of Warcraft)
 
-[GitHub]: https://github.com/StormFX/Masque (Download from GitHub)
+[GitHub]: https://github.com/SFX-WoW/Masque (Download from GitHub)
 [WoW Ace]: https://www.wowace.com/projects/masque (Download from WoW Ace)
 [CurseForge]: https://www.curseforge.com/wow/addons/masque (Download from CurseForge)
 [WoW Interface]: https://www.wowinterface.com/downloads/info12097 (Download from WoW Interface)
 
-[Masque Wiki]: https://github.com/StormFX/Masque/wiki (Masque Wiki)
-[Skin List]: https://github.com/StormFX/Masque/wiki/Skin-List (Masque Skin List)
+[Masque Wiki]: https://github.com/SFX-WoW/Masque/wiki (Masque Wiki)
+[Skin List]: https://github.com/SFX-WoW/Masque/wiki/Skin-List (Masque Skin List)
 [Masque on Facebook]: https://www.facebook.com/masqueui (Masque on Facebook)
 
-[issue tracker]: https://github.com/StormFX/Masque/issues (Report an Issue)
+[issue tracker]: https://github.com/SFX-WoW/Masque/issues (Report an Issue)
 [localization system]: https://www.wowace.com/projects/masque/localization (Translate on WoW Ace)
-[contribute directly]: https://github.com/StormFX/Masque (Translate on GitHub)
+[contribute directly]: https://github.com/SFX-WoW/Masque (Translate on GitHub)
 
-[Latest]: https://github.com/StormFX/Masque/releases (Latest Release)
+[Latest]: https://github.com/SFX-WoW/Masque/releases (Latest Release)
 [Discord]: https://discord.gg/DDVqkd6 (Discord)
 
 [Images]: #
 
-[Badge-Latest]: https://img.shields.io/github/v/release/StormFX/Masque?include_prereleases&label=Latest&style=flat-square
+[Badge-Latest]: https://img.shields.io/github/v/release/SFX-WoW/Masque?include_prereleases&label=Latest&style=flat-square
 [Badge-Discord]: https://img.shields.io/badge/Discord-StormFX-7289da?style=flat-square
