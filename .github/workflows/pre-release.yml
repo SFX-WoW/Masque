@@ -29,7 +29,7 @@ jobs:
       - name: Package Release for Classic
         uses: BigWigsMods/packager@master
         with:
-          args: -g 1.13.5
+          args: -g 1.13.5 -m .pkgmeta-classic
 
       - name: Package Release for Retail
         uses: BigWigsMods/packager@master
