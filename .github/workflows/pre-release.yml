@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          sudo apt-get install luarocks pandoc
+          sudo apt-get install luarocks
           luarocks install --local luacheck
 
       - name: Run Luacheck
