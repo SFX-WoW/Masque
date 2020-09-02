@@ -10,9 +10,7 @@ std = 'lua51'
 
 exclude_files = {
 	".luacheckrc",
-	".docs",
 	"Libs",
-	"Options/Widgets/",
 }
 
 ----------------------------------------
