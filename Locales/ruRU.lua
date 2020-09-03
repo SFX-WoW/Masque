@@ -46,6 +46,7 @@ L["About"] = "Об аддоне"
 L["Click to load Masque's options."] = "Нажмите для загрузки настроек Masque."
 L["Load Options"] = "Загрузить настройки"
 L["Masque's options are load on demand. Click the button below to load them."] = "Настройки Masque загружены не полностью. Нажмите на кнопку ниже, чтобы загрузить их до конца."
+-- L["This action will increase memory usage."] = "This action will increase memory usage."
 L["This section will allow you to view information about Masque and any skins you have installed."] = "Этот раздел позволяет смотреть информацию о Masque и любом скине, который установлен."
 
 ----------------------------------------

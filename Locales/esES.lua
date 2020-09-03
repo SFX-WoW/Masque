@@ -47,6 +47,7 @@ L["About"] = "Acerca de"
 L["Click to load Masque's options."] = "Haz clic para cargar las opciones de Masque."
 L["Load Options"] = "Cargar opciones"
 L["Masque's options are load on demand. Click the button below to load them."] = "Las opciones de Masque se cargan bajo demanda. Haz clic abajo para cargarlas."
+-- L["This action will increase memory usage."] = "This action will increase memory usage."
 -- L["This section will allow you to view information about Masque and any skins you have installed."] = "This section will allow you to view information about Masque and any skins you have installed."
 
 ----------------------------------------
