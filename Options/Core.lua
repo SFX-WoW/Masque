@@ -41,6 +41,9 @@ function Setup.Core(self)
 	-- @ Locales\enUS
 	local L = self.Locale
 
+	-- @ Masque
+	local CRLF = Core.CRLF
+
 	local Options = {
 		type = "group",
 		name = MASQUE,
@@ -52,14 +55,14 @@ function Setup.Core(self)
 				args = {
 					Head = {
 						type = "description",
-						name = "|cffffcc00Masque - "..L["About"].."|r\n",
+						name = "|cffffcc00Masque - "..L["About"].."|r"..CRLF,
 						fontSize = "medium",
 						hidden = self.GetStandAlone,
 						order = 0,
 					},
 					Desc = {
 						type = "description",
-						name = L["This section will allow you to view information about Masque and any skins you have installed."].."\n",
+						name = L["This section will allow you to view information about Masque and any skins you have installed."]..CRLF,
 						fontSize = "medium",
 						hidden = function() return not Core.OptionsLoaded end,
 						order = 1,
@@ -74,20 +77,19 @@ function Setup.Core(self)
 						args = {
 							Desc = {
 								type = "description",
-								name = L["Masque's options are load on demand. Click the button below to load them."].."\n",
+								name = L["Masque's options are load on demand. Click the button below to load them."]..CRLF,
 								fontSize = "medium",
 								order = 0,
 							},
 							Button = {
 								type = "execute",
 								name = L["Load Options"],
-								desc = L["Click to load Masque's options."],
+								confirm = true,
 								confirmText = L["This action will increase memory usage."].."\n",
 								desc = L["Click to load Masque's options."],
 								func = function()
 									if Setup.LoD then Setup("LoD") end
 									-- Force a sub-panel refresh.
-									-- Call the main panel first to prevent an error in AceConfigDialog-3.0.
 									InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
 									InterfaceOptionsFrame_OpenToCategory(Core.SkinOptionsPanel)
 									InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)

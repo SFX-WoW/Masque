@@ -30,6 +30,9 @@ function Setup.General(self)
 	-- @ Locales\enUS
 	local L = self.Locale
 
+	-- @ Masque
+	local CRLF = Core.CRLF
+
 	local Reload = "\n|cff0099ff"..L["Requires an interface reload."].."|r"
 	local Tooltip = "|cffffffff"..L["Select to view."].."|r"
 
@@ -40,14 +43,14 @@ function Setup.General(self)
 		args = {
 			Head = {
 				type = "description",
-				name = "|cffffcc00Masque - "..L["General Settings"].."|r\n",
+				name = "|cffffcc00Masque - "..L["General Settings"].."|r"..CRLF,
 				fontSize = "medium",
 				hidden = self.GetStandAlone,
 				order = 0,
 			},
 			Desc = {
 				type = "description",
-				name = L["This section will allow you to adjust Masque's interface and performance settings."].."\n",
+				name = L["This section will allow you to adjust Masque's interface and performance settings."]..CRLF,
 				fontSize = "medium",
 				order = 1,
 			},
@@ -59,13 +62,13 @@ function Setup.General(self)
 				args = {
 					Head = {
 						type = "description",
-						name = "|cffffcc00"..L["Interface Settings"].."|r\n",
+						name = "|cffffcc00"..L["Interface Settings"].."|r"..CRLF,
 						fontSize = "medium",
 						order = 0,
 					},
 					Desc = {
 						type = "description",
-						name = L["This section will allow you to adjust settings that affect Masque's interface."].."\n",
+						name = L["This section will allow you to adjust settings that affect Masque's interface."]..CRLF,
 						fontSize = "medium",
 						order = 1,
 					},
@@ -103,13 +106,13 @@ function Setup.General(self)
 				args = {
 					Head = {
 						type = "description",
-						name = "|cffffcc00"..L["Performance Settings"].."|r\n",
+						name = "|cffffcc00"..L["Performance Settings"].."|r"..CRLF,
 						fontSize = "medium",
 						order = 1,
 					},
 					Desc = {
 						type = "description",
-						name = L["This section will allow you to adjust settings that affect Masque's performance."].."\n",
+						name = L["This section will allow you to adjust settings that affect Masque's performance."]..CRLF,
 						fontSize = "medium",
 						order = 2,
 					},
@@ -146,13 +149,13 @@ function Setup.General(self)
 				args = {
 					Head = {
 						type = "description",
-						name = "|cffffcc00"..L["Developer Settings"].."|r\n",
+						name = "|cffffcc00"..L["Developer Settings"].."|r"..CRLF,
 						fontSize = "medium",
 						order = 0,
 					},
 					Desc = {
 						type = "description",
-						name = L["This section will allow you to adjust settings that affect working with Masque's API."].."\n",
+						name = L["This section will allow you to adjust settings that affect working with Masque's API."]..CRLF,
 						fontSize = "medium",
 						order = 1,
 					},

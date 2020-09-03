@@ -35,6 +35,9 @@ local L = Core.Locale
 local WOW_RETAIL = (select(4, GetBuildInfo()) > 20000) and true or nil
 Core.WOW_RETAIL = WOW_RETAIL
 
+-- Classic-Compatible New Line
+Core.CRLF = "\n "
+
 ----------------------------------------
 -- API
 ---
