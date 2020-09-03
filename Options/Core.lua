@@ -82,6 +82,8 @@ function Setup.Core(self)
 								type = "execute",
 								name = L["Load Options"],
 								desc = L["Click to load Masque's options."],
+								confirmText = L["This action will increase memory usage."].."\n",
+								desc = L["Click to load Masque's options."],
 								func = function()
 									if Setup.LoD then Setup("LoD") end
 									-- Force a sub-panel refresh.
