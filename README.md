@@ -6,17 +6,7 @@
 
 **Masque** is an add-on for [World of Warcraft] that provides a skinning engine for button-based add-ons.
 
-## Requirements
-
-### Compatible Add-on
-
-**Masque** is a library at its a core. Therefore, it requires that you install an add-on that supports it. **Masque** does not support the default interface.
-
-You can find a list of add-ons that support **Masque** on the [wiki].
-
-### Libraries
-
-**Masque** requires a number of third-party libraries. These are included by default.
+Because **Masque** functions primarily as a library, it requires that you install an add-on that supports it. You can find a list of add-ons that support **Masque** [here][Wiki].
 
 ## Installation
 
@@ -24,7 +14,7 @@ Install the package through your preferred add-on manager. Alternatively, you ca
 
 ## Options
 
-To access **Masque**'s options, use the **`/msq`** or **`/masque`** chat commands. You can also access the options via the **Interface Options Window** or by clicking on **Masque**'s icon in a **DataBroker** display.
+To access **Masque**'s options, use the **`/msq`** or **`/masque`** chat commands. You can also access the options via the _Interface Options Window_ or by clicking on **Masque**'s icon in a _DataBroker_ display.
 
 ## Feedback
 
