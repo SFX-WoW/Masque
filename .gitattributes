@@ -10,3 +10,4 @@
 
 # Packager
 .pkgmeta export-ignore
+.pkgmeta-classic export-ignore
