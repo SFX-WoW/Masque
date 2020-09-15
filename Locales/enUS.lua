@@ -10,6 +10,8 @@
 
 ]]
 
+-- GLOBALS: GetLocale, setmetatable
+
 local _, Core = ...
 
 -- Locales Table
