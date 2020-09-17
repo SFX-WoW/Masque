@@ -79,13 +79,10 @@ If you'd like to support the development of this and other projects, you can use
 
 ## [Links][Top] ![Top][SVG-Top]
 
-- Project Pages
-  - [CurseForge][CurseForge]
-  - [WoW Ace][WoW Ace]
-  - [WoW Interface]
 - [Wiki][Wiki]
-  - ~~Add-On List~~
-  - ~~Skin List~~
+- [CurseForge][CurseForge]
+- [WoW Ace][WoW Ace]
+- [WoW Interface]
 
 [Links]: #
 
