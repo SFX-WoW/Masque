@@ -11,17 +11,10 @@ externals:
   Libs/LibDualSpec-1.0: https://repos.wowace.com/wow/libdualspec-1-0
 
 embedded-libraries:
-  - libstub
   - callbackhandler
   - libdatabroker-1-1
-
-required-dependencies:
-  - ace3
-  - libdbicon-1-0
+  - libstub
   - sfx-widgets
-
-optional-dependencies:
-  - libdualspec-1-0
 
 manual-changelog:
   filename: CHANGELOG.md
