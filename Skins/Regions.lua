@@ -15,20 +15,20 @@ local _, Core = ...
 ----------------------------------------
 -- Region Settings
 
--- * Key -> The button key that holds the region reference.
--- * Func -> The string suffix of the global key that holds the region reference.
--- * Name -> The string name of the button method that returns the region reference.
--- * Type -> Must match the game's internal type, for validation.
+-- * Key - The string button key that holds the region reference.
+-- * Func - The string name of the button method that returns the region reference.
+-- * Name - The string suffix of the global key that holds the region reference.
+-- * Type - Must match the game's internal type, for validation.
 
--- * UseColor -> Use :SetColorTexture() if the skin provides a color but no texture.
--- * Hide -> Region will be hidden if it exists.
--- * CanHide -> Allow the region to be hidden.
--- * CanMask -> Allow the region to be masked.
--- * NoColor -> Do not allow color changes.
--- * NoTexture -> Do not allow texture changes.
+-- * UseColor - Use :SetColorTexture() if the skin provides a color but no texture.
+-- * Hide - Region will be hidden if it exists.
+-- * CanHide - Allow the region to be hidden.
+-- * CanMask - Allow the region to be masked.
+-- * NoColor - Do not allow color changes.
+-- * NoTexture - Do not allow texture changes.
 
--- * Ignore -> Ignore when looking for regions. @ Core\Group
--- * Iterate -> Include in iteration. @ Core\Button
+-- * Ignore - Ignore when looking for regions. @ Core\Group
+-- * Iterate - Include in iteration. @ Core\Button
 ---
 
 local Legacy = {
