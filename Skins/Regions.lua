@@ -32,6 +32,7 @@ local _, Core = ...
 ---
 
 local Legacy = {
+	-- BACKGROUND -1
 	Backdrop = {
 		Name = "FloatingBG",
 		Type = "Texture",
@@ -39,6 +40,7 @@ local Legacy = {
 		CanMask = true,
 		UseColor = true,
 	},
+	-- BACKGROUND 0
 	Icon = {
 		Key = "icon",
 		Name = "Icon",
@@ -63,10 +65,12 @@ local Legacy = {
 			NoTexture = true,
 		},
 	},
+	-- ARTWORK -1
 	Shadow = {
 		Ignore = true,
 		CanHide = true,
 	},
+	-- ARTWORK 0
 	Normal = {
 		--Key = "NormalTexture", -- Conflicts with some add-ons.
 		Func = "GetNormalTexture",
@@ -94,6 +98,7 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
+	-- ARTWORK 1
 	Flash = {
 		-- Key = "Flash", -- Conflics with item buttons.
 		Name = "Flash",
@@ -102,6 +107,7 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
+	-- ARTWORK
 	HotKey = {
 		Key = "HotKey",
 		Name = "HotKey",
@@ -137,6 +143,7 @@ local Legacy = {
 		Iterate = true,
 		NoColor = true,
 	},
+	-- OVERLAY 0
 	Checked = {
 		Func = "GetCheckedTexture",
 		Type = "Texture",
@@ -175,12 +182,12 @@ local Legacy = {
 		Ignore = true,
 		CanHide = true,
 	},
-	IconOverlay = {
-		Key = "IconOverlay",
+	-- OVERLAY 1
+	AutoCastable = { -- Only used by Pet buttons.
+		--Key = "AutoCastable", -- Causes issues with Pet bars.
+		Name = "AutoCastable",
 		Type = "Texture",
 		Iterate = true,
-		NoColor = true,
-		NoTexture = true,
 	},
 	NewAction = {
 		Key = "NewActionTexture",
@@ -192,17 +199,20 @@ local Legacy = {
 		Type = "Texture",
 		Iterate = true,
 	},
-	AutoCastable = { -- Only used by Pet buttons.
-		--Key = "AutoCastable", -- Causes issues with Pet bars.
-		Name = "AutoCastable",
+	IconOverlay = {
+		Key = "IconOverlay",
 		Type = "Texture",
 		Iterate = true,
+		NoColor = true,
+		NoTexture = true,
 	},
+	-- OVERLAY 2
 	NewItem = {
 		Key = "NewItemTexture",
 		Type = "Texture",
 		NoColor = true,
 	},
+	-- OVERLAY 4
 	SearchOverlay = {
 		Key = "searchOverlay",
 		Name = "SearchOverlay",
@@ -211,6 +221,7 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
+	-- OVERLAY
 	Name = {
 		Key = "Name",
 		Name = "Name",
@@ -218,6 +229,7 @@ local Legacy = {
 		Iterate = true,
 		NoColor = true,
 	},
+	-- HIGHLIGHT 0
 	Highlight = {
 		Func = "GetHighlightTexture",
 		Type = "Texture",
@@ -225,6 +237,7 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
+	-- FRAME
 	AutoCastShine = { -- Only used by Pet buttons.
 		--Key = "AutoCastShine", -- Causes issues with Pet bars.
 		Name = "Shine",
@@ -246,6 +259,7 @@ local Legacy = {
 ---
 
 if Core.WOW_RETAIL then
+	-- OVERLAY 4
 	Legacy.ContextOverlay = {
 		Key = "ItemContextOverlay",
 		Type = "Texture",
@@ -266,13 +280,13 @@ local Action = {
 	Disabled = Legacy.Disabled, -- Unused
 	Pushed = Legacy.Pushed,
 	Flash = Legacy.Flash,
-	Checked = Legacy.Checked,
 	HotKey = Legacy.HotKey,
 	Count = Legacy.Count,
+	Checked = Legacy.Checked,
 	Border = Legacy.Border,
+	AutoCastable = Legacy.AutoCastable,
 	NewAction = Legacy.NewAction,
 	SpellHighlight = Legacy.SpellHighlight,
-	AutoCastable = Legacy.AutoCastable,
 	Name = Legacy.Name,
 	Highlight = Legacy.Highlight,
 	AutoCastShine = Legacy.AutoCastShine,
@@ -291,13 +305,13 @@ local Pet = {
 	Disabled = Legacy.Disabled, -- Unused
 	Pushed = Legacy.Pushed,
 	Flash = Legacy.Flash,
-	Checked = Legacy.Checked,
 	HotKey = Legacy.HotKey,
 	Count = Legacy.Count,
+	Checked = Legacy.Checked,
 	Border = Legacy.Border,
+	AutoCastable = Legacy.AutoCastable,
 	NewAction = Legacy.NewAction,
 	SpellHighlight = Legacy.SpellHighlight,
-	AutoCastable = Legacy.AutoCastable,
 	Name = Legacy.Name,
 	Highlight = Legacy.Highlight,
 	AutoCastShine = Legacy.AutoCastShine,

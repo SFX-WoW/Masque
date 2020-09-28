@@ -260,9 +260,6 @@ Core.AddSkin("Classic", {
 		-- SetAllPoints = true,
 	},
 	-- Gloss = {Hide = true},
-	-- IconOverlay = Default.IconOverlay,
-	-- NewAction = Default.NewAction,
-	-- SpellHighlight = Default.SpellHighlight,
 	AutoCastable = {
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -278,6 +275,9 @@ Core.AddSkin("Classic", {
 		OffsetY = -0.5,
 		-- SetAllPoints = nil,
 	},
+	-- NewAction = Default.NewAction,
+	-- SpellHighlight = Default.SpellHighlight,
+	-- IconOverlay = Default.IconOverlay,
 	NewItem = {
 		-- Atlas = "bags-glow-white",
 		-- Color = {1, 1, 1, 1},
