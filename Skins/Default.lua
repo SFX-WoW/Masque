@@ -24,7 +24,9 @@ local L = Core.Locale
 -- Default
 ---
 
-Core.AddSkin("Default", {
+Core.SkinList.Default = "Default"
+Core.Skins.Default = {
+	SkinID = "Default",
 	Shape = "Square",
 	Masque_Version = Core.API_VERSION,
 
@@ -475,4 +477,4 @@ Core.AddSkin("Default", {
 		-- OffsetY = 0,
 		SetAllPoints = true,
 	},
-})
+}
