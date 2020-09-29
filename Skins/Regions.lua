@@ -233,6 +233,12 @@ local Legacy = {
 		UseColor = true,
 	},
 	-- [ OVERLAY (5) ]
+	JunkIcon = {
+		Key = "JunkIcon",
+		Type = "Texture",
+		Iterate = true,
+	},
+	-- [ OVERLAY (*) ]
 	Name = {
 		Key = "Name",
 		Name = "Name",
@@ -344,12 +350,12 @@ local Item = {
 	IconBorder = Legacy.IconBorder,
 	SlotHighlight = Legacy.SlotHighlight,
 	IconOverlay = Legacy.IconOverlay,
-	-- UpgradeIcon = Legacy.UpgradeIcon,
+	UpgradeIcon = Legacy.UpgradeIcon,
 	-- QuestIcon = Legacy.QuestIcon,
 	NewItem = Legacy.NewItem,
 	SearchOverlay = Legacy.SearchOverlay,
 	ContextOverlay = Legacy.ContextOverlay,
-	-- JunkIcon = Legacy.JunkIcon,
+	JunkIcon = Legacy.JunkIcon,
 	Highlight = Legacy.Highlight,
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
