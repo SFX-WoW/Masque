@@ -32,7 +32,7 @@ local _, Core = ...
 ---
 
 local Legacy = {
-	-- BACKGROUND -1
+	-- [ BACKGROUND (-1) ]
 	Backdrop = {
 		Name = "FloatingBG",
 		Type = "Texture",
@@ -40,7 +40,7 @@ local Legacy = {
 		CanMask = true,
 		UseColor = true,
 	},
-	-- BACKGROUND 0
+	-- [ BACKGROUND (0) ]
 	Icon = {
 		Key = "icon",
 		Name = "Icon",
@@ -65,12 +65,12 @@ local Legacy = {
 			NoTexture = true,
 		},
 	},
-	-- ARTWORK -1
+	-- [ ARTWORK (-1) ]
 	Shadow = {
 		Ignore = true,
 		CanHide = true,
 	},
-	-- ARTWORK 0
+	-- [ ARTWORK (0) ]
 	Normal = {
 		--Key = "NormalTexture", -- Conflicts with some add-ons.
 		Func = "GetNormalTexture",
@@ -98,7 +98,7 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
-	-- ARTWORK 1
+	-- [ ARTWORK (1) ]
 	Flash = {
 		-- Key = "Flash", -- Conflics with item buttons.
 		Name = "Flash",
@@ -107,7 +107,11 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
-	-- ARTWORK
+	-- FlyoutBorder = {}, -- Unsupported
+	-- FlyoutBorderShadow = {}, -- Unsupported
+	-- [ ARTWORK (2) ]
+	-- FlyoutArrow = {}, -- Unsupported
+	-- [ ARTWORK (*) ]
 	HotKey = {
 		Key = "HotKey",
 		Name = "HotKey",
@@ -143,7 +147,7 @@ local Legacy = {
 		Iterate = true,
 		NoColor = true,
 	},
-	-- OVERLAY 0
+	-- [ OVERLAY (0) ]
 	Checked = {
 		Func = "GetCheckedTexture",
 		Type = "Texture",
@@ -182,7 +186,7 @@ local Legacy = {
 		Ignore = true,
 		CanHide = true,
 	},
-	-- OVERLAY 1
+	-- [ OVERLAY (1) ]
 	AutoCastable = { -- Only used by Pet buttons.
 		--Key = "AutoCastable", -- Causes issues with Pet bars.
 		Name = "AutoCastable",
@@ -206,13 +210,15 @@ local Legacy = {
 		NoColor = true,
 		NoTexture = true,
 	},
-	-- OVERLAY 2
+	-- LevelLinkLockIcon = {}, -- Unsupported, no reason to.
+	-- [ OVERLAY (2) ]
+	-- IconOverlay2 = {}, -- 9.0
 	NewItem = {
 		Key = "NewItemTexture",
 		Type = "Texture",
 		NoColor = true,
 	},
-	-- OVERLAY 4
+	-- [ OVERLAY (4) ]
 	SearchOverlay = {
 		Key = "searchOverlay",
 		Name = "SearchOverlay",
@@ -221,7 +227,7 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
-	-- OVERLAY
+	-- [ OVERLAY (5) ]
 	Name = {
 		Key = "Name",
 		Name = "Name",
@@ -229,7 +235,7 @@ local Legacy = {
 		Iterate = true,
 		NoColor = true,
 	},
-	-- HIGHLIGHT 0
+	-- [ HIGHLIGHT (0) ]
 	Highlight = {
 		Func = "GetHighlightTexture",
 		Type = "Texture",
@@ -237,7 +243,7 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
-	-- FRAME
+	-- [ FRAME ]
 	AutoCastShine = { -- Only used by Pet buttons.
 		--Key = "AutoCastShine", -- Causes issues with Pet bars.
 		Name = "Shine",
@@ -259,7 +265,7 @@ local Legacy = {
 ---
 
 if Core.WOW_RETAIL then
-	-- OVERLAY 4
+	-- [ OVERLAY (4) ]
 	Legacy.ContextOverlay = {
 		Key = "ItemContextOverlay",
 		Type = "Texture",
@@ -328,17 +334,17 @@ local Item = {
 	Normal = Legacy.Normal,
 	Disabled = Legacy.Disabled,
 	Pushed = Legacy.Pushed,
-	IconBorder = Legacy.IconBorder,
+	Count = Legacy.Count,
 	Border = Legacy.Border, -- Backwards-Compatibility
+	IconBorder = Legacy.IconBorder,
 	SlotHighlight = Legacy.SlotHighlight,
 	IconOverlay = Legacy.IconOverlay,
-	-- JunkIcon = Legacy.JunkIcon,
 	-- UpgradeIcon = Legacy.UpgradeIcon,
 	-- QuestIcon = Legacy.QuestIcon,
 	NewItem = Legacy.NewItem,
 	SearchOverlay = Legacy.SearchOverlay,
 	ContextOverlay = Legacy.ContextOverlay,
-	Count = Legacy.Count,
+	-- JunkIcon = Legacy.JunkIcon,
 	Highlight = Legacy.Highlight,
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
@@ -353,9 +359,9 @@ local Aura = {
 	Normal = Legacy.Normal, -- Unused
 	Disabled = Legacy.Disabled, -- Unused
 	Pushed = Legacy.Pushed, -- Unused
-	Border = Legacy.Border.Aura,
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
+	Border = Legacy.Border.Aura,
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
@@ -370,9 +376,9 @@ local Debuff = {
 	Normal = Legacy.Normal, -- Unused
 	Disabled = Legacy.Disabled, -- Unused
 	Pushed = Legacy.Pushed, -- Unused
-	Border = Legacy.Border,
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
+	Border = Legacy.Border,
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
@@ -387,9 +393,9 @@ local Enchant = {
 	Normal = Legacy.Normal, -- Unused
 	Disabled = Legacy.Disabled, -- Unused
 	Pushed = Legacy.Pushed, -- Unused
-	Border = Legacy.Border.Enchant,
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
+	Border = Legacy.Border.Enchant,
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
