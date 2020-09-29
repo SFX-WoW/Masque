@@ -65,7 +65,7 @@ Core.Skins.Default = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	-- Shadow = {Hide = true},
+	Shadow = {Hide = true},
 	Normal = {
 		Texture = [[Interface\Buttons\UI-Quickslot2]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -123,7 +123,7 @@ Core.Skins.Default = {
 			-- SetAllPoints = nil,
 		},
 	},
-	-- Disabled = {Hide = true},
+	Disabled = {Hide = true},
 	Pushed = {
 		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -317,7 +317,7 @@ Core.Skins.Default = {
 		OffsetY = 0,
 		-- SetAllPoints = true,
 	},
-	-- Gloss = {Hide = true},
+	Gloss = {Hide = true},
 	AutoCastable = {
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 		-- TexCoords = {0, 1, 0, 1},
