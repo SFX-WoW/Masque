@@ -211,6 +211,11 @@ local Legacy = {
 		NoTexture = true,
 	},
 	-- LevelLinkLockIcon = {}, -- Unsupported, no reason to.
+	UpgradeIcon = {
+		Key = "UpgradeIcon",
+		Type = "Texture",
+		Iterate = true,
+	},
 	-- [ OVERLAY (2) ]
 	-- IconOverlay2 = {}, -- 9.0
 	NewItem = {
