@@ -23,7 +23,7 @@ local pairs, type = pairs, type
 ---
 
 -- @ Skins\Skins
-local Skins, __Empty = Core.Skins, Core.__Empty
+local Skins = Core.Skins
 
 -- @ Skins\Regions
 local RegTypes = Core.RegTypes
@@ -41,6 +41,8 @@ local SkinCooldown = Core.SkinCooldown
 ----------------------------------------
 -- Locals
 ---
+
+local __Empty = {}
 
 -- List of valid shapes.
 local Shapes = {
