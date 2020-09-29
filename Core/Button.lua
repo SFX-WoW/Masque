@@ -35,8 +35,8 @@ local GetScale = Core.GetScale
 local SkinMask, SkinBackdrop, SkinIcon = Core.SkinMask, Core.SkinBackdrop, Core.SkinIcon
 local SkinShadow, SkinNormal, SkinTexture = Core.SkinShadow, Core.SkinNormal, Core.SkinTexture
 local SkinGloss, SkinText, SkinIconBorder = Core.SkinGloss, Core.SkinText, Core.SkinIconBorder
-local SkinNewItem, SkinFrame, UpdateSpellAlert = Core.SkinNewItem, Core.SkinFrame, Core.UpdateSpellAlert
-local SkinCooldown = Core.SkinCooldown
+local SkinNewItem, SkinQuestBorder, SkinFrame = Core.SkinNewItem, Core.SkinQuestBorder, Core.SkinFrame
+local UpdateSpellAlert, SkinCooldown = Core.UpdateSpellAlert, Core.SkinCooldown
 
 ----------------------------------------
 -- Locals
@@ -152,6 +152,13 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	if NewItem then
 		SkinNewItem(NewItem, Button, Skin.NewItem, xScale, yScale)
+	end
+
+	-- QuestBorder
+	local QuestBorder = Regions.QuestBorder
+
+	if QuestBorder then
+		SkinQuestBorder(QuestBorder, Button, Skin.QuestBorder, xScale, yScale)
 	end
 
 	-- Cooldown

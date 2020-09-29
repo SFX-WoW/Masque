@@ -223,6 +223,13 @@ local Legacy = {
 		Type = "Texture",
 		NoColor = true,
 	},
+	QuestBorder = {
+		Name = "IconQuestTexture",
+		Type = "Texture",
+		--Iterate = true,
+		--NoColor = true,
+		--NoTexture = true,
+	},
 	-- [ OVERLAY (4) ]
 	SearchOverlay = {
 		Key = "searchOverlay",
@@ -351,7 +358,7 @@ local Item = {
 	SlotHighlight = Legacy.SlotHighlight,
 	IconOverlay = Legacy.IconOverlay,
 	UpgradeIcon = Legacy.UpgradeIcon,
-	-- QuestIcon = Legacy.QuestIcon,
+	QuestBorder = Legacy.QuestBorder,
 	NewItem = Legacy.NewItem,
 	SearchOverlay = Legacy.SearchOverlay,
 	ContextOverlay = Legacy.ContextOverlay,
