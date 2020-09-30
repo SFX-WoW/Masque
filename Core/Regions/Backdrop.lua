@@ -101,7 +101,7 @@ local function SkinBackdrop(Region, Button, Skin, Color, xScale, yScale)
 	Region:Show()
 
 	-- Mask
-	SkinMask(Button, Region, Skin, xScale, yScale)
+	SkinMask(Region, Button, Skin, xScale, yScale)
 end
 
 ----------------------------------------

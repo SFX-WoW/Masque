@@ -105,6 +105,6 @@ function Core.SkinTexture(Region, Button, Layer, Skin, Color, xScale, yScale)
 
 	-- Mask
 	if Config.CanMask then
-		SkinMask(Button, Region, Skin, xScale, yScale)
+		SkinMask(Region, Button, Skin, xScale, yScale)
 	end
 end

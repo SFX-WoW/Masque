@@ -43,5 +43,5 @@ function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	-- Mask
-	SkinMask(Button, Region, Skin, xScale, yScale)
+	SkinMask(Region, Button, Skin, xScale, yScale)
 end

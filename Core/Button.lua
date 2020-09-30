@@ -87,8 +87,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local Mask = Skin.Mask
 
 	if Mask then
-		Mask = (bType and Mask[bType]) or Mask
-		SkinMask(Button, nil, Mask, xScale, yScale)
+		SkinMask(nil, Button, Mask, xScale, yScale)
 	end
 
 	-- Backdrop
