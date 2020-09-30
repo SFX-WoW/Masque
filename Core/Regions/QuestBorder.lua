@@ -35,8 +35,8 @@ local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 -- Locals
 ---
 
-local DEF_BORDER = Default.Border
-local DEF_TEXTURE = Default.Texture
+local DEFAULT_TEXTURE = Default.Texture
+local BORDER_TEXTURE = Default.Border
 
 ----------------------------------------
 -- Hook
@@ -53,12 +53,12 @@ local function Hook_SetTexture(Region, Texture)
 	local Skin = Region.__MSQ_Skin
 	local SkinTexture = Skin.Texture
 
-	if Texture == DEF_TEXTURE then
+	if Texture == DEFAULT_TEXTURE then
 		SkinTexture = SkinTexture or Texture
 		Region.__MSQ_Texture = Texture
 	else
-		SkinTexture = Skin.Border or DEF_BORDER
-		Region.__MSQ_Texture = DEF_BORDER
+		SkinTexture = Skin.Border or BORDER_TEXTURE
+		Region.__MSQ_Texture = BORDER_TEXTURE
 	end
 
 	Region:SetTexture(SkinTexture)
