@@ -23,7 +23,7 @@
 ### API
 
 - `API_Version` increased to `90000`.
-- Added support for the follow item button regions:
+- Added support for the following ItemButton regions:
   - `JunkIcon`
   - `QuestBorder`
   - `UpgradeIcon`
