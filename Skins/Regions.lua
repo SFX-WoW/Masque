@@ -11,6 +11,7 @@
 ]]
 
 local _, Core = ...
+local WOW_RETAIL = Core.WOW_RETAIL
 
 ----------------------------------------
 -- Region Settings
@@ -49,7 +50,7 @@ local Legacy = {
 		NoColor = true,
 		NoTexture = true,
 		Aura = {
-			Key = "Icon",
+			Key = (WOW_RETAIL and "Icon") or nil, -- Retail Only
 			Name = "Icon",
 			Type = "Texture",
 			CanMask = true,
@@ -165,8 +166,15 @@ local Legacy = {
 			Iterate = true,
 			NoColor = true,
 		},
+		Debuff = {
+			Key = (WOW_RETAIL and "Border") or nil, -- Retail Only
+			Name = "Border",
+			Type = "Texture",
+			Iterate = true,
+			NoColor = true,
+		},
 		Enchant = {
-			Key = "Border",
+			Key = (WOW_RETAIL and "Border") or nil, -- Retail Only
 			Name = "Border",
 			Type = "Texture",
 			Iterate = true,
@@ -282,7 +290,7 @@ local Legacy = {
 -- Retail Only
 ---
 
-if Core.WOW_RETAIL then
+if WOW_RETAIL then
 	-- [ OVERLAY (4) ]
 	Legacy.ContextOverlay = {
 		Key = "ItemContextOverlay",
@@ -353,9 +361,10 @@ local Item = {
 	Disabled = Legacy.Disabled,
 	Pushed = Legacy.Pushed,
 	Count = Legacy.Count,
+	Checked = (not WOW_RETAIL and Legacy.Checked) or nil, -- Classic Only
 	Border = Legacy.Border, -- Backwards-Compatibility
 	IconBorder = Legacy.IconBorder,
-	SlotHighlight = Legacy.SlotHighlight,
+	SlotHighlight = (WOW_RETAIL and Legacy.SlotHighlight) or nil, -- Retail Only
 	IconOverlay = Legacy.IconOverlay,
 	UpgradeIcon = Legacy.UpgradeIcon,
 	QuestBorder = Legacy.QuestBorder,
@@ -396,7 +405,7 @@ local Debuff = {
 	Pushed = Legacy.Pushed, -- Unused
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
-	Border = Legacy.Border,
+	Border = Legacy.Border.Debuff,
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
