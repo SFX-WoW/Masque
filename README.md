@@ -1,6 +1,9 @@
 [![Build][SVG-Build]][Build]
 [![API][SVG-API]][API-Version]
 [![Discord][SVG-Discord]][Discord]
+[![Sponsor][SVG-Sponsor]][Sponsor]
+[![PayPal][SVG-PayPal]][PayPal]
+[![Patreon][SVG-Patreon]][Patreon]
 
 <details>
 <summary><strong>Contents</strong></summary><p>
@@ -15,7 +18,6 @@
 - [Credits](#Credits "Go to Credits")
 - [Feedback](#Feedback "Go to Feedback")
 - [Localization](#Localization "Go to Localization")
-- [Support](#Support "Go to Support")
 - [Links](#Links "Go to Links")
 
 </p></details>
@@ -54,8 +56,8 @@ To access Masque's options, use the `/msq` or `/masque` chat commands. You can a
 
 Install the package through your preferred add-on manager or extract the archive to your add-ons directory.
 
-- Classic: `World of Warcraft\_classic_\Interface\AddOns`
-- Retail: `World of Warcraft\_retail_\Interface\AddOns`
+- **Classic:** `World of Warcraft\_classic_\Interface\AddOns`
+- **Retail:** `World of Warcraft\_retail_\Interface\AddOns`
 
 ## [Credits][Top]
 
@@ -69,13 +71,6 @@ For bug reports and suggestions, use the [issue tracker]. Direct any questions o
 
 To help translate this add-on, use the [localization system] on WoW Ace. Alternatively, you can use the [issue tracker].
 
-## [Support][Top]
-
-If you'd like to support the development of this and other projects, you can use one of the options below.
-
-- [Donate via PayPal][Donate]
-- [Sponsor on GitHub][Sponsor]
-
 ## [Links][Top]
 
 - [Wiki][Wiki]
@@ -85,9 +80,12 @@ If you'd like to support the development of this and other projects, you can use
 
 [Links]: #
 
-[API-Version]: https://github.com/SFX-WoW/Masque/wiki/API-Version (API Version)
 [Build]: https://github.com/SFX-WoW/Masque/actions?query=workflow%3ARelease (Build Status)
+[API-Version]: https://github.com/SFX-WoW/Masque/wiki/API-Version (API Version)
 [Discord]: https://discord.gg/DDVqkd6 (Discord)
+[Sponsor]: https://github.com/sponsors/StormFX (Sponsor on GitHub)
+[PayPal]: https://www.paypal.me/stormfxi (Donate via PayPal)
+[Patreon]: https://www.patreon.com/stormfx (Become a Patron)
 
 [Top]: #Top (Top of the Page)
 
@@ -98,9 +96,6 @@ If you'd like to support the development of this and other projects, you can use
 [Localization System]: https://www.wowace.com/projects/masque/localization (Translate on WoW Ace)
 [Wiki]: https://github.com/SFX-WoW/Masque/wiki (Masque Wiki)
 
-[Donate]: https://www.paypal.me/stormfxi (Donate via PayPal)
-[Sponsor]: https://github.com/sponsors/StormFX (Sponsor on GitHub)
-
 [CurseForge]: https://www.curseforge.com/wow/addons/masque (View on CurseForge)
 [GitHub]: https://github.com/SFX-WoW/Masque (Download from GitHub)
 [WoW Ace]: https://www.wowace.com/projects/masque (Download from WoW Ace)
@@ -108,6 +103,9 @@ If you'd like to support the development of this and other projects, you can use
 
 [Images]: #
 
-[SVG-API]: https://img.shields.io/endpoint?url=https://wow.stormfx.com/img/svg/masque-api.json
 [SVG-Build]: https://img.shields.io/github/workflow/status/SFX-WoW/Masque/Release?label=Build&logo=github&logoColor=fff&style=flat-square
+[SVG-API]: https://img.shields.io/endpoint?url=https://wow.stormfx.com/img/svg/masque-api.json
 [SVG-Discord]: https://img.shields.io/badge/Discord-7289DA?logo=discord&logoColor=fff&style=flat-square
+[SVG-Sponsor]: https://img.shields.io/badge/Sponsor-555?logo=github&logoColor=fff&style=flat-square
+[SVG-PayPal]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/paypal.json
+[SVG-Patreon]: https://img.shields.io/badge/Patreon-f96854?logo=patreon&logoColor=fff&style=flat-square
