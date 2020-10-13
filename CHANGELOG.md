@@ -1,34 +1,21 @@
-## 8.3.1
+## 9.0.0
 
 ### General
 
-- (Hopefully) fixed an issue with duplicate libraries.
-- Updated ruRU. (Doomstep_)
-
-### Classic
-
-- ItemButtons should now correctly use the `Checked` texture instead of the `SlotHighlight` texture that _Retail_ uses.
+- Updated the `Interface` version for _Retail_ to `90001`.
 
 ### Skins
 
-#### All Skins
-
-- Added support for the new regions.
-
-#### Classic, Dream & Zoomed
-
-- Reduced the size of the `JunkIcon`, `QuestBorder` and `UpgradeIcon` regions.
-- The `UpgradeIcon` region was adjusted to be above the `IconOverlay` texture used for Azerite and corrupted items.
+- Added generic `Backdrop` textures for the following button types:
+  - `Action`
+  - `Aura`/`Buff`
+  - `Debuff`
+  - `Enchant`
+  - `Item`
+  - `Pet`
+  - _**Note:** Skin authors must reference these textures in their skins if they want to use them._
 
 ### API
 
-- `API_Version` increased to `90000`.
-- Added support for the following ItemButton regions:
-  - `JunkIcon`
-  - `QuestBorder`
-  - `UpgradeIcon`
-
-### Skin API
-
-- Regions that are undeclared and cannot be hidden will use the settings of the "Default" skin. This improves compatibility between Masque and older skins.
-- Masks specified at the button or region level can now be either a `string` texture path or a `table` of settings.
+- Masque will no longer override the `SetPoint` method of the `HotKey` region.
+- Increased the `API_VERSION` to `90001`.
