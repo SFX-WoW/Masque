@@ -10,8 +10,6 @@
 
 ]]
 
--- GLOBALS: LibStub, GetAddOnMetadata
-
 local MASQUE, Core = ...
 
 assert(LibStub, MASQUE.." requires LibStub.")

@@ -12,8 +12,6 @@
 
 ]]
 
--- GLOBALS: LibStub
-
 local MASQUE, Core = ...
 
 ----------------------------------------

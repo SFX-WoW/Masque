@@ -12,8 +12,6 @@
 
 ]]
 
--- GLOBALS: hooksecurefunc
-
 local _, Core = ...
 
 ----------------------------------------

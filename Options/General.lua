@@ -10,8 +10,6 @@
 
 ]]
 
--- GLOBALS: LibStub, ReloadUI
-
 local MASQUE, Core = ...
 
 ----------------------------------------

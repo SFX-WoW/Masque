@@ -14,8 +14,6 @@
 
 ]]
 
--- GLOBALS: GetLocale
-
 if GetLocale() ~= "zhTW" then return end
 
 local _, Core = ...

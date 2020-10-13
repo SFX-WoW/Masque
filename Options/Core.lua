@@ -10,8 +10,6 @@
 
 ]]
 
--- GLOBALS: LibStub, InterfaceOptionsFrame, InterfaceOptionsFrame_OpenToCategory, InterfaceOptionsFrame_Show
-
 local MASQUE, Core = ...
 
 ----------------------------------------
