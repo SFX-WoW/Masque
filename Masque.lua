@@ -41,7 +41,7 @@ Core.CRLF = "\n "
 ---
 
 do
-	local VERSION = 90000
+	local VERSION = 90001
 	Core.API = LibStub:NewLibrary(MASQUE, VERSION)
 
 	----------------------------------------
