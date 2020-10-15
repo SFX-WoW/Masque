@@ -1,21 +1,13 @@
-## 9.0.0
+## 9.0.1
 
 ### General
 
-- Updated the `Interface` version for _Retail_ to `90001`.
+- Increased the resolution of the included `Backdrop` textures.
 
-### Skins
+### Localization
 
-- Added generic `Backdrop` textures for the following button types:
-  - `Action`
-  - `Aura`/`Buff`
-  - `Debuff`
-  - `Enchant`
-  - `Item`
-  - `Pet`
-  - _**Note:** Skin authors must reference these textures in their skins if they want to use them._
+- Added a phrase to `zhCN`. (Ananhaid)
 
-### API
+### Bug Fixes
 
-- Masque will no longer override the `SetPoint` method of the `HotKey` region.
-- Increased the `API_VERSION` to `90001`.
+- Fixed a conflict between the `Backdrop` and `Mask` regions.
