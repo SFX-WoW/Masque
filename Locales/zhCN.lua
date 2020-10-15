@@ -44,7 +44,7 @@ L["About"] = "关于"
 L["Click to load Masque's options."] = "点击载入 Masque 选项。"
 L["Load Options"] = "载入选项"
 L["Masque's options are load on demand. Click the button below to load them."] = "Masque 选项是按需载入。点击下面按钮加载它们。"
--- L["This action will increase memory usage."] = "This action will increase memory usage."
+L["This action will increase memory usage."] = "此操作将增加内存使用。"
 L["This section will allow you to view information about Masque and any skins you have installed."] = "此部分将允许查看关于 Masque 的信息或任意一款已安装的皮肤。"
 
 ----------------------------------------
