@@ -286,7 +286,7 @@ Core.AddSkin("Dream", {
 		-- Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
-		DrawLevel = 2,
+		DrawLevel = 3, --1
 		Width = 16,
 		Height = 17,
 		Point = "TOPLEFT",
