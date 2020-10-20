@@ -211,6 +211,11 @@ local Legacy = {
 		Type = "Texture",
 		Iterate = true,
 	},
+	UpgradeIcon = {
+		Key = "UpgradeIcon",
+		Type = "Texture",
+		Iterate = true,
+	},
 	IconOverlay = {
 		Key = "IconOverlay",
 		Type = "Texture",
@@ -218,14 +223,14 @@ local Legacy = {
 		NoColor = true,
 		NoTexture = true,
 	},
-	-- LevelLinkLockIcon = {}, -- Unsupported, no reason to.
-	UpgradeIcon = {
-		Key = "UpgradeIcon",
+	-- [ OVERLAY (2) ]
+	IconOverlay2 = {
+		Key = "IconOverlay",
 		Type = "Texture",
 		Iterate = true,
+		NoColor = true,
+		NoTexture = true,
 	},
-	-- [ OVERLAY (2) ]
-	-- IconOverlay2 = {}, -- 9.0
 	NewItem = {
 		Key = "NewItemTexture",
 		Type = "Texture",
@@ -238,6 +243,7 @@ local Legacy = {
 		--NoColor = true,
 		--NoTexture = true,
 	},
+	-- LevelLinkLockIcon = {}, -- Unsupported, no reason to.
 	-- [ OVERLAY (4) ]
 	SearchOverlay = {
 		Key = "searchOverlay",
@@ -365,8 +371,9 @@ local Item = {
 	Border = Legacy.Border, -- Backwards-Compatibility
 	IconBorder = Legacy.IconBorder,
 	SlotHighlight = (WOW_RETAIL and Legacy.SlotHighlight) or nil, -- Retail Only
-	IconOverlay = Legacy.IconOverlay,
 	UpgradeIcon = Legacy.UpgradeIcon,
+	IconOverlay = Legacy.IconOverlay,
+	IconOverlay2 = Legacy.IconOverlay2,
 	QuestBorder = Legacy.QuestBorder,
 	NewItem = Legacy.NewItem,
 	SearchOverlay = Legacy.SearchOverlay,

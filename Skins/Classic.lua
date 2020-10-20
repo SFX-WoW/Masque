@@ -277,7 +277,6 @@ Core.AddSkin("Classic", {
 	},
 	-- NewAction = Default.NewAction,
 	-- SpellHighlight = Default.SpellHighlight,
-	-- IconOverlay = Default.IconOverlay,
 	UpgradeIcon = {
 		Atlas = "bags-greenarrow",
 		-- Color = {1, 1, 1, 1},
@@ -292,6 +291,8 @@ Core.AddSkin("Classic", {
 		OffsetY = -1,
 		-- SetAllPoints = nil,
 	},
+	-- IconOverlay = Default.IconOverlay,
+	-- IconOverlay2 = Default.IconOverlay2,
 	NewItem = {
 		-- Atlas = "bags-glow-white",
 		-- Color = {1, 1, 1, 1},
