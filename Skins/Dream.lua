@@ -101,7 +101,7 @@ Core.AddSkin("Dream", {
 	HotKey = {
 		JustifyH = "RIGHT",
 		JustifyV = "MIDDLE",
-		DrawLayer = "ARTWORK",
+		DrawLayer = "OVERLAY",
 		Width = 36,
 		Height = 10,
 		Point = "TOPRIGHT",
@@ -112,7 +112,7 @@ Core.AddSkin("Dream", {
 	Count = {
 		JustifyH = "RIGHT",
 		JustifyV = "MIDDLE",
-		DrawLayer = "ARTWORK",
+		DrawLayer = "OVERLAY",
 		Width = 36,
 		Height = 10,
 		Point = "BOTTOMRIGHT",
@@ -123,7 +123,7 @@ Core.AddSkin("Dream", {
 	Duration = {
 		JustifyH = "CENTER",
 		JustifyV = "MIDDLE",
-		DrawLayer = "ARTWORK",
+		DrawLayer = "OVERLAY",
 		Width = 36,
 		Height = 10,
 		Point = "TOP",
