@@ -180,7 +180,7 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 	Region:Show()
 
-	if not Button.__MSQ_NormalHook then
+	if Button.__MSQ_EmptyType and not Button.__MSQ_NormalHook then
 		hooksecurefunc(Button, "SetNormalTexture", Hook_SetNormalTexture)
 		Button.__MSQ_NormalHook = true
 	end

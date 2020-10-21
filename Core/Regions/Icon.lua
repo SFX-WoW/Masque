@@ -105,17 +105,21 @@ function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 	-- Mask
 	SkinMask(Region, Button, Skin, xScale, yScale)
 
-	-- Hooks
 	if not Button.__MSQ_Enabled then
 		Region.__MSQ_Button = nil
-	elseif not Region.__MSQ_Hooked then
-		hooksecurefunc(Region, "Hide", Hook_Hide)
-		hooksecurefunc(Region, "Show", Hook_Show)
-		Region.__MSQ_Hooked = true
 	end
 
-	-- Empty Status
-	SetEmpty(Button, not Region:IsShown())
+	if Button.__MSQ_EmptyType then
+		-- Empty Status
+		SetEmpty(Button, not Region:IsShown())
+
+		-- Hooks
+		if not Region.__MSQ_Hooked then
+			hooksecurefunc(Region, "Hide", Hook_Hide)
+			hooksecurefunc(Region, "Show", Hook_Show)
+			Region.__MSQ_Hooked = true
+		end
+	end
 end
 
 ----------------------------------------
