@@ -436,7 +436,7 @@ local Enchant = {
 }
 
 ----------------------------------------
--- Types Table
+-- Types Tables
 ---
 
 local Types = {
@@ -450,21 +450,28 @@ local Types = {
 	Enchant = Enchant,
 }
 
+local EmptyTypes = {
+	Action = true,
+	Pet = true,
+	Item = true,
+}
+
 ----------------------------------------
 -- Core
 ---
 
 Core.RegTypes = Types
+Core.EmptyTypes = EmptyTypes
 
 ----------------------------------------
 -- API
 ---
 
 -- Adds a custom button type.
-function Core.API:AddType(Type, List)
-	if type(Type) ~= "string" or Types[Type] then
+function Core.API:AddType(Name, List, Type)
+	if type(Name) ~= "string" or Types[Name] then
 		if Core.Debug then
-			error("Bad argument to API method 'AddType'. 'Type' must be a unique string.", 2)
+			error("Bad argument to API method 'AddType'. 'Name' must be a unique string.", 2)
 		end
 		return
 	elseif type(List) ~= "table" or #List < 1 then
@@ -478,8 +485,13 @@ function Core.API:AddType(Type, List)
 
 	for i = 1, #List do
 		local Key = List[i]
-		Cache[Key] = Legacy[Key]
+		local Root = Legacy[Key]
+
+		if Root then
+			Cache[Key] = (Type and Root[Type]) or Root
+		end
 	end
 
-	Types[Type] = Cache
+	Types[Name] = Cache
+	EmptyTypes[Name] = (Type and EmptyTypes[Type]) or nil
 end
