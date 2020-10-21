@@ -136,7 +136,7 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	end
 
 	local bType = Button.__MSQ_bType
-	Skin = (bType and Skin[bType]) or Skin
+	Skin = Skin[bType] or Skin
 
 	Color = Color or Skin.Color or DEF_COLOR
 

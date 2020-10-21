@@ -94,7 +94,7 @@ function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 
 	-- Skin
 	local bType = Button.__MSQ_bType
-	Skin = (bType and Skin[bType]) or Skin
+	Skin = Skin[bType] or Skin
 
 	Region:SetParent(Button)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
