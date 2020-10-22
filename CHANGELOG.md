@@ -2,9 +2,11 @@
 
 ### Skins
 
+- Lowered the level of the `JunkIcon` for the _Classic_, _Dream_ and _Zoomed_ skins.
 - Relaxed the restrictions on skin compatibilty checks to be more in line with their actual compatibility level.
   - The [skin list](https://github.com/SFX-WoW/Masque/wiki/Skin-List) has been updated accordingly.
 - Updated the level of the `HotKey`, `Count` and `Duration` regions so that they appear above other regions.
+- Updated the size of the contextual overlays for _Dream_ and _Zoomed_.
 
 ### API
 
