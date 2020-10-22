@@ -205,7 +205,7 @@ Core.AddSkin("Zoomed", {
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
-		-- SetAllPoints = true,
+		-- SetAllPoints = nil,
 	},
 	-- Gloss = Default.Gloss,
 	AutoCastable = {
@@ -266,7 +266,7 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	IconOverlay = {
-		Atlas = "AzeriteIconFrame",
+		-- Atlas = "AzeriteIconFrame",
 		-- Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
@@ -280,7 +280,7 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	IconOverlay2 = {
-		Atlas = "ConduitIconFrame-Corners",
+		-- Atlas = "ConduitIconFrame-Corners",
 		-- Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",

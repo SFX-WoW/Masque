@@ -80,7 +80,7 @@ Core.AddSkin("Classic", {
 		RelPoint = "CENTER",
 		OffsetX = 0.5,
 		OffsetY = -0.5,
-		-- UseStates = true,
+		-- UseStates = nil,
 		-- SetAllPoints = nil,
 		Pet = {
 			Texture = "Interface\\Buttons\\UI-Quickslot2",
@@ -98,7 +98,7 @@ Core.AddSkin("Classic", {
 			RelPoint = "CENTER",
 			OffsetX = 0.5,
 			OffsetY = -0.5,
-			-- UseStates = true,
+			-- UseStates = nil,
 			-- SetAllPoints = nil,
 		},
 	},
@@ -257,7 +257,7 @@ Core.AddSkin("Classic", {
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
-		-- SetAllPoints = true,
+		-- SetAllPoints = nil,
 	},
 	-- Gloss = Default.Gloss,
 	AutoCastable = {
@@ -382,6 +382,6 @@ Core.AddSkin("Classic", {
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
-		-- SetAllPoints = true,
+		-- SetAllPoints = nil,
 	},
 })

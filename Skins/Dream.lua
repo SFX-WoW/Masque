@@ -235,7 +235,7 @@ Core.AddSkin("Dream", {
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
-		-- SetAllPoints = true,
+		-- SetAllPoints = nil,
 	},
 	-- Gloss = Default.Gloss,
 	AutoCastable = {
@@ -296,7 +296,7 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 	},
 	IconOverlay = {
-		Atlas = "AzeriteIconFrame",
+		-- Atlas = "AzeriteIconFrame",
 		-- Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
@@ -310,7 +310,7 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 	},
 	IconOverlay2 = {
-		Atlas = "ConduitIconFrame-Corners",
+		-- Atlas = "ConduitIconFrame-Corners",
 		-- Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
@@ -366,7 +366,7 @@ Core.AddSkin("Dream", {
 		OffsetX = 0,
 		OffsetY = 0,
 		UseColor = true,
-		-- SetAllPoints = true,
+		-- SetAllPoints = nil,
 	},
 	ContextOverlay = {
 		-- Texture = nil,
@@ -381,7 +381,7 @@ Core.AddSkin("Dream", {
 		OffsetX = 0,
 		OffsetY = 0,
 		UseColor = true,
-		-- SetAllPoints = true,
+		-- SetAllPoints = nil,
 	},
 	JunkIcon = {
 		Atlas = "bags-junkcoin",
@@ -441,6 +441,6 @@ Core.AddSkin("Dream", {
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
-		-- SetAllPoints = true,
+		-- SetAllPoints = nil,
 	},
 })
