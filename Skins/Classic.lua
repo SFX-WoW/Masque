@@ -156,6 +156,17 @@ Core.AddSkin("Classic", {
 		RelPoint = "BOTTOMRIGHT",
 		OffsetX = -1.5,
 		OffsetY = 3,
+		Item = {
+			JustifyH = "RIGHT",
+			JustifyV = "MIDDLE",
+			DrawLayer = "ARTWORK",
+			Width = 36,
+			Height = 10,
+			Point = "BOTTOMRIGHT",
+			RelPoint = "BOTTOMRIGHT",
+			OffsetX = -1.5,
+			OffsetY = 3,
+		},
 	},
 	Duration = {
 		JustifyH = "CENTER",

@@ -89,6 +89,17 @@ Core.AddSkin("Zoomed", {
 		RelPoint = "BOTTOMRIGHT",
 		OffsetX = -1,
 		OffsetY = 2,
+		Item = {
+			JustifyH = "RIGHT",
+			JustifyV = "MIDDLE",
+			DrawLayer = "ARTWORK",
+			Width = 36,
+			Height = 10,
+			Point = "BOTTOMRIGHT",
+			RelPoint = "BOTTOMRIGHT",
+			OffsetX = -1,
+			OffsetY = 2,
+		},
 	},
 	Duration = {
 		JustifyH = "CENTER",
