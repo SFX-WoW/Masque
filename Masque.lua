@@ -78,13 +78,14 @@ function Masque:OnInitialize()
 			StandAlone = false,
 			Groups = {
 				["*"] = {
-					Inherit = true,
-					Disabled = false,
-					SkinID = "Classic",
 					Backdrop = false,
-					Shadow = false,
-					Gloss = false,
 					Colors = {},
+					Disabled = false,
+					Gloss = false,
+					Inherit = true,
+					Pulse = true,
+					Shadow = false,
+					SkinID = "Classic",
 				},
 			},
 			LDB = {

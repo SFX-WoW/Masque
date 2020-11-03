@@ -41,7 +41,7 @@ local SkinButton = Core.SkinButton
 local Callback = Core.Callback
 
 -- @ Core\Regions\*
-local SetTextureColor = Core.SetTextureColor
+local SetPulse, SetTextureColor = Core.SetPulse, Core.SetTextureColor
 
 ----------------------------------------
 -- Locals
@@ -150,7 +150,7 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 	local db = self.db
 
 	if not db.Disabled and not self.Queued then
-		SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors)
+		SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Pulse)
 	end
 end
 
@@ -222,7 +222,7 @@ function GMT:ReSkin(Silent)
 
 	if not db.Disabled then
 		for Button, Regions in pairs(self.Buttons) do
-			SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors)
+			SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Pulse)
 		end
 
 		if not Silent then
@@ -313,6 +313,7 @@ function GMT:__Reset()
 	self.db.Backdrop = false
 	self.db.Shadow = false
 	self.db.Gloss = false
+	self.db.Pulse = true
 
 	for Layer in pairs(self.db.Colors) do
 		self.db.Colors[Layer] = nil
@@ -451,6 +452,7 @@ function GMT:__Update(IsNew)
 			db.Backdrop = p_db.Backdrop
 			db.Shadow = p_db.Shadow
 			db.Gloss = p_db.Gloss
+			db.Pulse = p_db.Pulse
 
 			local Colors = db.Colors
 			local p_Colors = p_db.Colors

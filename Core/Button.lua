@@ -49,7 +49,7 @@ local __Empty = {}
 ---
 
 -- Applies a skin to a button and its associated layers.
-function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors)
+function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, Pulse)
 	if not Button then return end
 
 	local bType = Button.__MSQ_bType
@@ -61,6 +61,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		local Addon = Button.__MSQ_Addon or false
 		Skin = Skins[Addon] or Skins.Default
 		Disabled = true
+		Pulse = true
 	end
 
 	Button.__MSQ_Enabled = (not Disabled and true) or nil
@@ -153,7 +154,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local Cooldown = Regions.Cooldown
 
 	if Cooldown then
-		SkinCooldown(Cooldown, Button, Skin.Cooldown, Colors.Cooldown, xScale, yScale)
+		SkinCooldown(Cooldown, Button, Skin.Cooldown, Colors.Cooldown, xScale, yScale, Pulse)
 	end
 
 	-- ChargeCooldown
@@ -163,7 +164,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	Button.__MSQ_ChargeSkin = ChargeSkin
 
 	if Charge then
-		SkinCooldown(Charge, Button, ChargeSkin, nil, xScale, yScale)
+		SkinCooldown(Charge, Button, ChargeSkin, nil, xScale, yScale, Pulse)
 	end
 
 	-- AutoCastShine

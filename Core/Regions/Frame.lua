@@ -102,7 +102,7 @@ end
 ---
 
 -- Skins the 'Cooldown' or 'ChargeCooldown' frame of a button.
-local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale)
+local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 	local bType = Button.__MSQ_bType
 	Skin = Skin[bType] or Skin
 
@@ -134,6 +134,7 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale)
 		Region:SetEdgeTexture([[Interface\Cooldown\edge]])
 	end
 
+	Region:SetDrawBling(Pulse)
 	Region:SetUseCircularEdge(UseCircle)
 	SkinFrame(Region, Button, Skin, xScale, yScale)
 end
@@ -173,6 +174,21 @@ function Core.SetCooldownColor(Region, Button, Skin, Color)
 
 		Region.__MSQ_Color = Color or Skin.Color or DEF_COLOR
 		Hook_SetSwipeColor(Region)
+	end
+end
+
+-- Updates the pulse effects on a button's cooldowns.
+function Core.SetPulse(Button, Pulse)
+	local Regions = Button.__Regions
+
+	local Cooldown = Regions and Regions.Cooldown
+	local ChargeCooldown = Regions and Regions.ChargeCooldown
+
+	if Cooldown then
+		Cooldown:SetDrawBling(Pulse)
+	end
+	if ChargeCooldown then
+		ChargeCooldown:SetDrawBling(Pulse)
 	end
 end
 
