@@ -436,6 +436,7 @@ Core.AddSkin("Dream", {
 	},
 	Cooldown = {
 		-- Texture = nil,
+		-- PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 30,
 		Height = 30,
@@ -446,6 +447,7 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = {
+		-- PulseTexture = [[Interface\Cooldown\star4]],
 		Width = 30,
 		Height = 30,
 		Point = "CENTER",

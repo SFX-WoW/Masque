@@ -42,6 +42,7 @@ local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 ---
 
 local DEF_COLOR = Default.Color
+local DEF_PULSE = Default.PulseTexture
 
 local MSQ_EDGE = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]]
 local MSQ_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Cooldown\Edge-LoC]]
@@ -134,6 +135,7 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 		Region:SetEdgeTexture([[Interface\Cooldown\edge]])
 	end
 
+	Region:SetBlingTexture(Skin.PulseTexture or DEF_PULSE)
 	Region:SetDrawBling(Pulse)
 	Region:SetUseCircularEdge(UseCircle)
 	SkinFrame(Region, Button, Skin, xScale, yScale)
