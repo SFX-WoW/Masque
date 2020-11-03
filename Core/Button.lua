@@ -32,28 +32,17 @@ local RegTypes = Core.RegTypes
 local GetScale = Core.GetScale
 
 -- @ Core\Regions\*
-local SkinMask, SkinBackdrop, SkinIcon = Core.SkinMask, Core.SkinBackdrop, Core.SkinIcon
-local SkinShadow, SkinNormal, SkinTexture = Core.SkinShadow, Core.SkinNormal, Core.SkinTexture
-local SkinGloss, SkinText, SkinIconBorder = Core.SkinGloss, Core.SkinText, Core.SkinIconBorder
-local SkinNewItem, SkinQuestBorder, SkinFrame = Core.SkinNewItem, Core.SkinQuestBorder, Core.SkinFrame
-local UpdateSpellAlert, SkinCooldown = Core.UpdateSpellAlert, Core.SkinCooldown
+local SkinBackdrop, SkinCooldown, SkinFrame = Core.SkinBackdrop, Core.SkinCooldown, Core.SkinFrame
+local SkinGloss, SkinIcon, SkinIconBorder = Core.SkinGloss, Core.SkinIcon, Core.SkinIconBorder
+local SkinMask, SkinNewItem, SkinNormal = Core.SkinMask, Core.SkinNewItem, Core.SkinNormal
+local SkinQuestBorder, SkinShadow, SkinText = Core.SkinQuestBorder, Core.SkinShadow, Core.SkinText
+local SkinTexture, UpdateSpellAlert = Core.SkinTexture, Core.UpdateSpellAlert
 
 ----------------------------------------
 -- Locals
 ---
 
 local __Empty = {}
-
--- List of valid shapes.
-local Shapes = {
-	Circle = "Circle",
-	Square = "Square",
-}
-
--- Validates and returns a shape.
-local function GetShape(Shape)
-	return (Shape and Shapes[Shape]) or "Square"
-end
 
 ----------------------------------------
 -- Core
@@ -75,7 +64,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	Button.__MSQ_Enabled = (not Disabled and true) or nil
-	Button.__MSQ_Shape = GetShape(Skin.Shape)
+	Button.__MSQ_Shape = Skin.Shape
 
 	if Disabled or type(Colors) ~= "table" then
 		Colors = __Empty
@@ -127,9 +116,9 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 			if Region then
 				if Type == "FontString" then
-					SkinText(Region, Button, Layer, Skin[Layer], xScale, yScale)
+					SkinText(Layer, Region, Button, Skin[Layer], xScale, yScale)
 				else
-					SkinTexture(Region, Button, Layer, Skin[Layer], Colors[Layer], xScale, yScale)
+					SkinTexture(Layer, Region, Button, Skin[Layer], Colors[Layer], xScale, yScale)
 				end
 			end
 		end

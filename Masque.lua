@@ -96,9 +96,9 @@ function Masque:OnInitialize()
 	}
 
 	local db = LibStub("AceDB-3.0"):New("MasqueDB", Defaults, true)
-	db.RegisterCallback(Core, "OnProfileChanged", "Update")
-	db.RegisterCallback(Core, "OnProfileCopied", "Update")
-	db.RegisterCallback(Core, "OnProfileReset", "Update")
+	db.RegisterCallback(Core, "OnProfileChanged", "UpdateProfile")
+	db.RegisterCallback(Core, "OnProfileCopied", "UpdateProfile")
+	db.RegisterCallback(Core, "OnProfileReset", "UpdateProfile")
 	Core.db = db
 
 	local LDS = WOW_RETAIL and LibStub("LibDualSpec-1.0", true)
@@ -161,7 +161,7 @@ function Core.ToggleDebug()
 end
 
 -- Updates on profile activity.
-function Core:Update()
+function Core:UpdateProfile()
 	self.Debug = self.db.profile.Debug
 
 	local Global = self.GetGroup()

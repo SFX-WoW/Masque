@@ -88,10 +88,10 @@ do
 		local Layer = Info[#Info]
 
 		if Layer == "Color" then
-			Layer = Info[#Info-1]
+			Layer = Info[#Info - 1]
 		end
 
-		Info.arg:SetColor(Layer, r, g, b, a)
+		Info.arg:__SetColor(Layer, r, g, b, a)
 	end
 
 	----------------------------------------
@@ -115,9 +115,9 @@ do
 	-- Sets the disabled state of a group.
 	local function SetDisabled(Info, Value)
 		if Value then
-			Info.arg:Disable()
+			Info.arg:__Disable()
 		else
-			Info.arg:Enable()
+			Info.arg:__Enable()
 		end
 	end
 

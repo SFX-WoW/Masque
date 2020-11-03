@@ -25,8 +25,8 @@ local Settings = Core.RegTypes.Legacy
 local Defaults = Core.Skins.Default
 
 -- @ Core\Utility
-local GetSize, SetPoints = Core.GetSize, Core.SetPoints
-local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
+local GetColor, GetSize = Core.GetColor, Core.GetSize
+local GetTexCoords, SetPoints = Core.GetTexCoords, Core.SetPoints
 
 -- @ Core\Regions\Mask
 local SkinMask = Core.SkinMask
@@ -36,7 +36,7 @@ local SkinMask = Core.SkinMask
 ---
 
 -- Skins a texture region of a button.
-function Core.SkinTexture(Region, Button, Layer, Skin, Color, xScale, yScale)
+function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 	if Skin.Hide then
 		Region:SetTexture()
 		Region:Hide()
@@ -104,5 +104,24 @@ function Core.SkinTexture(Region, Button, Layer, Skin, Color, xScale, yScale)
 	-- Mask
 	if Config.CanMask then
 		SkinMask(Region, Button, Skin, xScale, yScale)
+	end
+end
+
+-- Sets the color of a texture region.
+function Core.SetTextureColor(Layer, Region, Button, Skin, Color)
+	if Region then
+		local bType = Button.__MSQ_bType
+		local Config = Settings[Layer]
+
+		Skin = Skin[bType] or Skin
+		Config = Config[bType] or Config
+		Color = Color or Skin.Color
+
+		if Skin.UseColor and Config.UseColor then
+			Region:SetVertexColor(1, 1, 1, 1)
+			Region:SetColorTexture(GetColor(Color))
+		else
+			Region:SetVertexColor(GetColor(Color))
+		end
 	end
 end

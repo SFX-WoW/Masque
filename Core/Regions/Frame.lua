@@ -34,8 +34,8 @@ local hooksecurefunc = hooksecurefunc
 local Default = Core.Skins.Default.Cooldown
 
 -- @ Core\Utility
-local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 local GetColor, GetScale = Core.GetColor, Core.GetScale
+local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 
 ----------------------------------------
 -- Locals
@@ -164,6 +164,17 @@ hooksecurefunc("StartChargeCooldown", UpdateCharge)
 ----------------------------------------
 -- Core
 ---
+
+-- Sets the color of the 'Cooldown' region.
+function Core.SetCooldownColor(Region, Button, Skin, Color)
+	if Region and Button.__MSQ_Enabled then
+		local bType = Button.__MSQ_bType
+		Skin = Skin[bType] or Skin
+
+		Region.__MSQ_Color = Color or Skin.Color or DEF_COLOR
+		Hook_SetSwipeColor(Region)
+	end
+end
 
 Core.SkinFrame = SkinFrame
 Core.SkinCooldown = SkinCooldown

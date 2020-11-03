@@ -138,11 +138,9 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	local bType = Button.__MSQ_bType
 	Skin = Skin[bType] or Skin
 
-	Color = Color or Skin.Color or DEF_COLOR
-
 	Button.__MSQ_Normal = Region
 	Button.__MSQ_NormalSkin = Skin
-	Button.__MSQ_NormalColor = Color
+	Button.__MSQ_NormalColor = Color or Skin.Color or DEF_COLOR
 
 	if Skin.Hide then
 		if Region then
@@ -189,6 +187,19 @@ end
 ----------------------------------------
 -- Core
 ---
+
+-- Sets the color of the 'Normal' region.
+function Core.SetNormalColor(Region, Button, Skin, Color)
+	Region = Region or Button.__MSQ_Normal
+
+	if Region then
+		local bType = Button.__MSQ_bType
+		Skin = Skin[bType] or Skin
+
+		Button.__MSQ_NormalColor = Color or Skin.Color or DEF_COLOR
+		UpdateNormal(Button)
+	end
+end
 
 Core.UpdateNormal = UpdateNormal
 
