@@ -377,6 +377,7 @@ Core.AddSkin("Classic", {
 	},
 	Cooldown = {
 		-- Texture = nil,
+		-- EdgeTexture = [[Interface\Cooldown\edge]],
 		-- PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 32,
@@ -388,6 +389,7 @@ Core.AddSkin("Classic", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = {
+		-- EdgeTexture = [[Interface\Cooldown\edge]],
 		-- PulseTexture = [[Interface\Cooldown\star4]],
 		Width = 32,
 		Height = 32,

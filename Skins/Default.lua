@@ -516,6 +516,7 @@ Core.Skins.Default = {
 	},
 	Cooldown = {
 		-- Texture = nil,
+		EdgeTexture = [[Interface\Cooldown\edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 36,
@@ -527,6 +528,7 @@ Core.Skins.Default = {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = {
+		EdgeTexture = [[Interface\Cooldown\edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Width = 36,
 		Height = 36,

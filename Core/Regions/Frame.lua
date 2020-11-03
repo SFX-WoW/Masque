@@ -92,7 +92,7 @@ local function Hook_SetEdgeTexture(Region, Texture)
 	if Texture == [[Interface\Cooldown\edge-LoC]] then
 		Region:SetEdgeTexture(MSQ_EDGE_LOC)
 	else
-		Region:SetEdgeTexture(MSQ_EDGE)
+		Region:SetEdgeTexture(Region.__MSQ_Edge or MSQ_EDGE)
 	end
 
 	Region.__EdgeHook = nil
@@ -107,13 +107,19 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 	local bType = Button.__MSQ_bType
 	Skin = Skin[bType] or Skin
 
-	local UseCircle = Button.__MSQ_Shape == "Circle"
+	local IsRound = false
+
+	if (Button.__MSQ_Shape == "Circle") or Skin.IsRound then
+		IsRound = true
+	end
 
 	if Button.__MSQ_Enabled then
+		-- Swipe
 		if Region:GetDrawSwipe() then
 			Region.__MSQ_Color = Color or Skin.Color or DEF_COLOR
+			Region.__MSQ_Edge = Skin.EdgeTexture or MSQ_EDGE
 
-			Region:SetSwipeTexture(Skin.Texture or (UseCircle and MSQ_SWIPE_CIRCLE) or MSQ_SWIPE)
+			Region:SetSwipeTexture(Skin.Texture or (IsRound and MSQ_SWIPE_CIRCLE) or MSQ_SWIPE)
 			Hook_SetSwipeColor(Region)
 			Hook_SetEdgeTexture(Region)
 
@@ -122,8 +128,10 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 				hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
 				Region.__MSQ_Hooked = true
 			end
+
+		-- Edge Only
 		else
-			Region:SetEdgeTexture(MSQ_EDGE)
+			Region:SetEdgeTexture(Skin.EdgeTexture or MSQ_EDGE)
 		end
 	else
 		Region.__MSQ_Color = nil
@@ -137,7 +145,7 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 
 	Region:SetBlingTexture(Skin.PulseTexture or DEF_PULSE)
 	Region:SetDrawBling(Pulse)
-	Region:SetUseCircularEdge(UseCircle)
+	Region:SetUseCircularEdge(IsRound)
 	SkinFrame(Region, Button, Skin, xScale, yScale)
 end
 
