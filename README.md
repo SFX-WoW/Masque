@@ -1,5 +1,5 @@
 [![Build][SVG-Build]][Build]
-[![API][SVG-API]][API-Version]
+[![API_VERSION][SVG-API]][API_VERSION]
 [![Discord][SVG-Discord]][Discord]
 [![Twitter][SVG-Twitter]][Twitter]
 [![Facebook][SVG-Facebook]][Facebook]
@@ -86,7 +86,7 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
 [Links]: #
 
 [Build]: https://github.com/SFX-WoW/Masque/actions?query=workflow%3ARelease (Build Status)
-[API-Version]: https://github.com/SFX-WoW/Masque/wiki/API-Version (API Version)
+[API_VERSION]: https://github.com/SFX-WoW/Masque/wiki/API_VERSION (API_VERSION)
 [Discord]: https://discord.gg/DDVqkd6 (Join the Discord)
 [Twitter]: https://twitter.com/stormfxi (Follow on Twitter)
 [Facebook]: https://www.facebook.com/stormfxi (Follow on Facebook)
