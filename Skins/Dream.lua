@@ -24,8 +24,8 @@ local L = Core.Locale
 
 Core.AddSkin("Dream", {
 	Template = "Default",
+	-- API_VERSION = Default.API_VERSION,
 	-- Shape = Default.Shape,
-	-- Masque_Version = Default.Masque_Version,
 
 	-- Info
 	Description = L["A square skin with trimmed icons and a semi-transparent background."],

@@ -72,10 +72,12 @@ local function AddSkin(SkinID, SkinData)
 	end
 
 	SkinData.SkinID = SkinID
-	Skins[SkinID] = SkinData
+	SkinData.API_VERSION = SkinData.API_VERSION or SkinData.Masque_Version
 
 	local Shape = SkinData.Shape
 	SkinData.Shape = GetShape(Shape)
+
+	Skins[SkinID] = SkinData
 
 	if not SkinData.Disable then
 		SkinList[SkinID] = SkinID

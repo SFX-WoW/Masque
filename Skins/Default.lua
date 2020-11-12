@@ -27,8 +27,8 @@ local L = Core.Locale
 Core.SkinList.Default = "Default"
 Core.Skins.Default = {
 	SkinID = "Default",
+	API_VERSION = Core.API_VERSION,
 	Shape = "Square",
-	Masque_Version = Core.API_VERSION,
 
 	-- Info
 	Description = L["The default button style."],

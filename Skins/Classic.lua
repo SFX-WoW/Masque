@@ -24,8 +24,8 @@ local L = Core.Locale
 
 Core.AddSkin("Classic", {
 	Template = "Default",
+	-- API_VERSION = Default.API_VERSION,
 	-- Shape = Default.Shape,
-	-- Masque_Version = Default.Masque_Version,
 
 	-- Info
 	Description = L["An improved version of the game's default button style."],
