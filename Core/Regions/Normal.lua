@@ -57,18 +57,19 @@ local function UpdateNormal(Button, IsEmpty)
 
 	if Normal and (Skin and not Skin.Hide) then
 		local Texture = Button.__MSQ_Random or Skin.Texture or DEF_TEXTURE
+		local Coords = Skin.TexCoords
 		local Color = Button.__MSQ_NormalColor or DEF_COLOR
 
-		-- Allow texture changes for types that can be empty.
+		-- Empty settings for types that can be empty.
 		if Button.__MSQ_EmptyType and IsEmpty then
-			Normal:SetTexture(Skin.EmptyTexture or Texture)
-			Normal:SetTexCoord(GetTexCoords(Skin.EmptyCoords or Skin.TexCoords))
-			Normal:SetVertexColor(GetColor(Skin.EmptyColor or Color))
-		else
-			Normal:SetTexture(Texture)
-			Normal:SetTexCoord(GetTexCoords(Skin.TexCoords))
-			Normal:SetVertexColor(GetColor(Color))
+			Texture = Skin.EmptyTexture or Texture
+			Coords = Skin.EmptyCoords or Coords
+			Color = Skin.EmptyColor or Color
 		end
+
+		Normal:SetTexture(Texture)
+		Normal:SetTexCoord(GetTexCoords(Coords))
+		Normal:SetVertexColor(GetColor(Color))
 	end
 end
 

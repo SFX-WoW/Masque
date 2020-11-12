@@ -514,7 +514,7 @@ end
 ---
 
 GMT.Disable = NoOp
-GMT.Disable = NoOp
+GMT.Enable = NoOp
 GMT.SetColor = NoOp
 
 ----------------------------------------

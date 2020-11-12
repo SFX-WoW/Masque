@@ -37,18 +37,19 @@ local SkinMask = Core.SkinMask
 
 -- Skins a texture region of a button.
 function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
-	if Skin.Hide then
+	local bType = Button.__MSQ_bType
+	local Config = Settings[Layer]
+
+	Skin = Skin[bType] or Skin
+	Config = Config[bType] or Config
+
+	if Config.CanHide and Skin.Hide then
 		Region:SetTexture()
 		Region:Hide()
 		return
 	end
 
-	local bType = Button.__MSQ_bType
-	local Config = Settings[Layer]
 	local Default = Defaults[Layer]
-
-	Skin = Skin[bType] or Skin
-	Config = Config[bType] or Config
 	Default = Default[bType] or Default
 
 	if not Config.NoTexture then
