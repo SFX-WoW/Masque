@@ -53,7 +53,7 @@ local L = Core.Locale
 
 L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Veranlasst Masque Lua-Fehler auszugeben, wann immer es ein Problem mit einem Addon oder einer Optik gibt."
 -- L["Clean Database"] = "Clean Database"
--- L["Click to purge the settings of all unused add-ons and groups."] = "Click to purge the settings of all unused add-ons and groups."-- L["Debug Mode"] = "Debug Mode"
+-- L["Click to purge the settings of all unused add-ons and groups."] = "Click to purge the settings of all unused add-ons and groups."
 L["Debug Mode"] = "Debugmodus"
 -- L["Developer"] = "Developer"
 -- L["Developer Settings"] = "Developer Settings"
@@ -139,7 +139,7 @@ L["Profile Settings"] = "Profileinstellungen."
 -- Skin Settings
 ---
 
-L["Backdrop"] = "Hintergruneinstellungen"
+L["Backdrop"] = "Hintergrund Einstellungen"
 L["Checked"] = "Ausgewählt"
 L["Color"] = "Farbe"
 L["Colors"] = "Farben"
@@ -157,6 +157,7 @@ L["Global"] = "Global"
 L["Gloss"] = "Glanzeinstellungen"
 L["Highlight"] = "Hervorheben"
 L["Normal"] = "Normal"
+-- L["Pulse"] = "Pulse"
 L["Pushed"] = "Gedrückt"
 L["Reset all skin options to the defaults."] = "Setzt alle Optikoptionen auf Standard zurück."
 L["Reset Skin"] = "Optik zurücksetzen"
@@ -172,6 +173,7 @@ L["Set the color of the Pushed texture."] = "Lege die Farbe der Gedrückt-Textur
 -- L["Set the color of the Shadow texture."] = "Set the color of the Shadow texture."
 L["Set the skin for this group."] = "Lege die Optik dieser Gruppe fest"
 -- L["Shadow"] = "Shadow"
+-- L["Show the pulse effect when a cooldown finishes."] = "Show the pulse effect when a cooldown finishes."
 L["Skin"] = "Optik"
 -- L["Skin Settings"] = "Skin Settings"
 -- L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "This section will allow you to adjust the skin settings of all buttons registered to %s."
