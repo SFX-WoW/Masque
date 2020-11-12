@@ -8,7 +8,16 @@
 
 - Added an option to toggle the pulse effect on cooldown regions.
 
-### Skins
+### API
+
+- Increased the `API_VERSION` to `90002`.
+
+### Group API
+
+- The `:ReSkin()` method now accepts a button as a parameter that will cause only that button to be refreshed.
+- The `:Disable()`, `:Enable()` and `:SetColor()` methods have been deprecated for external use.
+
+### Skin API
 
 - Added support for custom edge textures via the `EdgeTexture` attribute for cooldown regions.
   - `String` path to a custom edge texture.
@@ -18,10 +27,11 @@
   - Defaults to the game's "star" texture.
   - This texture cannot be recolored.
 - Added an `IsRound` option to `Cooldown` regions that tells Masque to use circular textures.
+- The `Masque_Version` attribute has been deprecated in favor of an `API_VERSION` attribute, for consistency.
 
-### API
+### Localization
 
-- Increased the `API_VERSION` to `90002`.
+- Updated zhTW. (RainbowUI)
 
 ### Bug Fixes
 
