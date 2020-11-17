@@ -1,9 +1,10 @@
-## 9.0.3
+## 9.0.4
 
 ### General
 
 - Improved the handling of skin setting changes.
 - Updated the `Interface` version for Retail to `90002`.
+- Updated SFX Widgets.
 
 ### GUI
 
