@@ -3,6 +3,7 @@
 ### General
 
 - Improved the handling of skin setting changes.
+- Updated the `Interface` version for Retail to `90002`.
 
 ### GUI
 
@@ -28,6 +29,7 @@
   - This texture cannot be recolored.
 - Added an `IsRound` option to `Cooldown` regions that tells Masque to use circular textures.
 - The `Masque_Version` attribute has been deprecated in favor of an `API_VERSION` attribute, for consistency.
+- The third parameter, `Replace`, of the `:AddSkin()` method has been deprecated, as it's unnecessary.
 
 ### Localization
 
