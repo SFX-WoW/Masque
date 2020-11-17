@@ -118,9 +118,7 @@ function API:AddSkin(SkinID, SkinData, Replace)
 		return
 	end
 
-	if Skins[SkinID] and not Replace then
-		return
-	end
+	if Skins[SkinID] then return end
 
 	if type(SkinData) ~= "table" then
 		if Debug then
