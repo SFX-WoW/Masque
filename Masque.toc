@@ -1,11 +1,7 @@
-#@retail@
 ## Interface: 90005
-#@end-retail@
-#@non-retail@
-# ## Interface: 11306
-#@end-non-retail@
-## Title: Masque
+## Interface-Classic: 11307
 
+## Title: Masque
 ## Notes: A skinning engine for button-based add-ons.
 ## Notes-esMX: Un sistema de cambio de apariencia para los add-ons de botones.
 ## Notes-esES: Un sistema de cambio de apariencia para los add-ons de botones.
