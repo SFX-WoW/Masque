@@ -21,6 +21,7 @@
 ## X-Website: https://github.com/SFX-WoW/Masque
 ## X-Category: Interface Enhancements
 ## X-Curse-Project-ID: 13592
+## X-Wago-ID: kRNLgpGo
 ## X-WoWI-ID: 12097
 
 # Libraries
