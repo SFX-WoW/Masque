@@ -6,30 +6,28 @@ on:
 
 jobs:
   package:
-    name: Package Releases
+    name: Package Pre-Releases
     runs-on: ubuntu-latest
 
     env:
       CF_API_KEY: ${{ secrets.CF_API_KEY }}
-      WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
       GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+      WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
 
     steps:
       - name: Clone Project
         uses: actions/checkout@v1
 
-      - name: Install Dependencies
+      - name: Install & Run LuaCheck
         run: |
           sudo apt-get install luarocks
           luarocks install --local luacheck
+          /home/runner/.luarocks/bin/luacheck . -q
 
-      - name: Run Luacheck
-        run: /home/runner/.luarocks/bin/luacheck . -q
+      - name: Package Release for Retail
+        uses: BigWigsMods/packager@master
 
       - name: Package Release for Classic
         uses: BigWigsMods/packager@master
         with:
-          args: -g 1.13.5 -m .pkgmeta-classic
-
-      - name: Package Release for Retail
-        uses: BigWigsMods/packager@master
+          args: -g classic
