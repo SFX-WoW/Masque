@@ -32,3 +32,8 @@ jobs:
         uses: BigWigsMods/packager@master
         with:
           args: -g classic
+
+      - name: Package Release for BC Classic
+        uses: BigWigsMods/packager@master
+        with:
+          args: -g bc
