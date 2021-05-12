@@ -2,27 +2,8 @@
 [![API_VERSION][SVG-API]][API_VERSION]
 [![Discord][SVG-Discord]][Discord]
 [![Twitter][SVG-Twitter]][Twitter]
-[![Facebook][SVG-Facebook]][Facebook]
 [![Sponsor][SVG-Sponsor]][Sponsor]
 [![PayPal][SVG-PayPal]][PayPal]
-[![Patreon][SVG-Patreon]][Patreon]
-
-<details>
-<summary><strong>Contents</strong></summary><p>
-
-- [About](#About "Go to About")
-- [Features](#Features "Go to Features")
-  - [Library](#Library "Go to Add-On Library")
-  - [GUI](#GUI "Go to GUI")
-- [Requirements](#Requirements "Go to Requirements")
-- [Options](#Options "Go to Options")
-- [Installation](#Installation "Go to Installation")
-- [Credits](#Credits "Go to Credits")
-- [Feedback](#Feedback "Go to Feedback")
-- [Localization](#Localization "Go to Localization")
-- [Links](#Links "Go to Links")
-
-</p></details>
 
 ## [About][Top]
 
@@ -79,8 +60,10 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
   - [Documentation][Wiki]
   - [Skin List](https://github.com/SFX-WoW/Masque/wiki/Skin-List "View the Skin List")
 - **Mirrors**
-  - [CurseForge][CurseForge]
-  - [WoW Ace][WoW Ace]
+  - [GitHub]
+  - [CurseForge]
+  - [Wago.io]
+  - [WoW Ace]
   - [WoW Interface]
 
 [Links]: #
@@ -89,10 +72,8 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
 [API_VERSION]: https://github.com/SFX-WoW/Masque/wiki/API_VERSION (API_VERSION)
 [Discord]: https://discord.gg/DDVqkd6 (Join the Discord)
 [Twitter]: https://twitter.com/stormfxi (Follow on Twitter)
-[Facebook]: https://www.facebook.com/stormfxi (Follow on Facebook)
 [Sponsor]: https://github.com/sponsors/StormFX (Sponsor on GitHub)
 [PayPal]: https://www.paypal.me/stormfxi (Donate via PayPal)
-[Patreon]: https://www.patreon.com/stormfx (Become a Patron)
 
 [Top]: #Top (Top of the Page)
 
@@ -105,6 +86,7 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
 
 [CurseForge]: https://www.curseforge.com/wow/addons/masque (View on CurseForge)
 [GitHub]: https://github.com/SFX-WoW/Masque (Download from GitHub)
+[Wago.io]: https://addons.wago.io/addons/masque (View on Wago.io)
 [WoW Ace]: https://www.wowace.com/projects/masque (Download from WoW Ace)
 [WoW Interface]: https://www.wowinterface.com/downloads/info12097 (Download from WoW Interface)
 
@@ -112,9 +94,7 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
 
 [SVG-Build]: https://img.shields.io/github/workflow/status/SFX-WoW/Masque/Release?label=Build&logo=github&logoColor=fff&style=flat-square
 [SVG-API]: https://img.shields.io/endpoint?url=https://wow.stormfx.com/img/svg/masque-api.json
-[SVG-Discord]: https://img.shields.io/badge/Discord-7289DA?logo=discord&logoColor=fff&style=flat-square
-[SVG-Twitter]: https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=fff&style=flat-square
-[SVG-Facebook]: https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=fff&style=flat-square
-[SVG-Sponsor]: https://img.shields.io/badge/Sponsor-555?logo=github&logoColor=fff&style=flat-square
+[SVG-Discord]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/discord.json
+[SVG-Twitter]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/twitter.json
+[SVG-Sponsor]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/github-sponsor.json
 [SVG-PayPal]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/paypal.json
-[SVG-Patreon]: https://img.shields.io/badge/Patreon-f96854?logo=patreon&logoColor=fff&style=flat-square
