@@ -59,8 +59,9 @@ do
 	}
 	Core.Websites = {
 		"https://github.com/SFX-WoW/Masque",
-		"https://www.wowace.com/projects/masque",
 		"https://www.curseforge.com/wow/addons/masque",
+		"https://addons.wago.io/addons/masque",
+		"https://www.wowace.com/projects/masque",
 		"https://www.wowinterface.com/downloads/info12097",
 	}
 end
