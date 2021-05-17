@@ -24,6 +24,9 @@
 # Libraries
 Libs\Libs.xml
 
+# Retail Only
+Libs\LibDualSpec-1.0\LibDualSpec-1.0.lua
+
 # Locales
 Locales\Locales.xml
 

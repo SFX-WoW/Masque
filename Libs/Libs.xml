@@ -10,7 +10,4 @@
 	<Include file="AceGUI-3.0_SFX-Widgets\AceGUI-3.0_SFX-Widgets.xml"/>
 	<Include file="AceConfig-3.0\AceConfig-3.0.xml"/>
 	<Script file="LibDBIcon-1.0\LibDBIcon-1.0.lua"/>
-	<!--@retail@-->
-	<Script file="LibDualSpec-1.0\LibDualSpec-1.0.lua"/>
-	<!--@end-retail@-->
 </Ui>
