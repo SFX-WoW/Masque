@@ -47,8 +47,9 @@ function Setup.Core(self)
 	-- @ Locales\enUS
 	local L = self.Locale
 
-	-- @ Masque
-	local CRLF = Core.CRLF
+	-- Necessary for UI consistency across game versions.
+	local CRLF = "\n "
+	self.CRLF = CRLF
 
 	local Options = {
 		type = "group",
