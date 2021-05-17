@@ -1,4 +1,4 @@
-## Interface: 90005
+## Interface: 20501
 
 ## Title: Masque
 ## Notes: A skinning engine for button-based add-ons.
@@ -11,7 +11,7 @@
 ## Version: @project-version@
 ## Author: StormFX, JJSheets
 ## SavedVariables: MasqueDB
-## OptionalDeps: Ace3, AceGUI-3.0_SFX-Widgets, LibDBIcon-1.0, LibDualSpec-1.0
+## OptionalDeps: Ace3, AceGUI-3.0_SFX-Widgets, LibDBIcon-1.0
 
 ## X-Website: https://github.com/SFX-WoW/Masque
 ## X-Category: Interface Enhancements
@@ -21,9 +21,6 @@
 
 # Libraries
 Libs\Libs.xml
-
-# Retail Only
-Libs\LibDualSpec-1.0\LibDualSpec-1.0.lua
 
 # Locales
 Locales\Locales.xml
