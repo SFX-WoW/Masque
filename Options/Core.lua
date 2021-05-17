@@ -27,6 +27,14 @@ local InterfaceOptionsFrame_Show = InterfaceOptionsFrame_Show
 local ACD = LibStub("AceConfigDialog-3.0")
 
 ----------------------------------------
+-- Locals
+---
+
+-- Necessary for UI consistency across game versions.
+local CRLF = "\n "
+Core.CRLF = CRLF
+
+----------------------------------------
 -- Setup
 ---
 
@@ -46,10 +54,6 @@ Core.Setup = setmetatable(Setup, {
 function Setup.Core(self)
 	-- @ Locales\enUS
 	local L = self.Locale
-
-	-- Necessary for UI consistency across game versions.
-	local CRLF = "\n "
-	self.CRLF = CRLF
 
 	local Options = {
 		type = "group",
