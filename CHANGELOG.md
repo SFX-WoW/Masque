@@ -1,16 +1,13 @@
-## 9.0.5
+## 9.0.6
 
 ### General
 
-- Updated the `Interface` version for Classic to `11306`.
-- Updated the `Interface` version for Retail to `90005`.
-- Updated SFX Widgets.
-
-### Localization
-
-- Updated deDE. (Bullseiify)
-- Updated frFR. (Maglore85)
+- Added support for _Burning Crusade Classic_.
+- Added support for Wago.io.
+- Updated the `Interface` version for Classic to `11307`.
+- Updated the libraries.
 
 ### Bug Fixes
 
-- Fixed an erroneously-named key in the `Regions` table.
+- Fixed an `nil` error when a generic frame is passed. (#137).
+- Updated the logic for determining whether `LibDualSpec-1.0` should be enabled.
