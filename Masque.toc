@@ -1,4 +1,6 @@
 ## Interface: 90005
+## Interface-BCC: 20501
+## Interface-Classic: 11307
 
 ## Title: Masque
 ## Notes: A skinning engine for button-based add-ons.
@@ -21,9 +23,9 @@
 
 # Libraries
 Libs\Libs.xml
-
-# Retail Only
+#@retail@
 Libs\LibDualSpec-1.0\LibDualSpec-1.0.lua
+#@end-retail@
 
 # Locales
 Locales\Locales.xml
