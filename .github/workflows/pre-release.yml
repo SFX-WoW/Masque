@@ -25,15 +25,15 @@ jobs:
           luarocks install --local luacheck
           /home/runner/.luarocks/bin/luacheck . -q
 
-      - name: Package Release for Retail
+      - name: Package Pre-Release for Retail
         uses: BigWigsMods/packager@master
 
-      - name: Package Release for Classic
+      - name: Package Pre-Release for Classic
         uses: BigWigsMods/packager@master
         with:
           args: -g classic
 
-      - name: Package Release for BC Classic
+      - name: Package Pre-Release for BC Classic
         uses: BigWigsMods/packager@master
         with:
-          args: -g bc
+          args: -g bcc
