@@ -39,8 +39,9 @@ To access Masque's options, use the `/msq` or `/masque` chat commands. You can a
 
 Install the package through your preferred add-on manager or extract the archive to your add-ons directory.
 
-- **Classic:** `World of Warcraft\_classic_\Interface\AddOns`
 - **Retail:** `World of Warcraft\_retail_\Interface\AddOns`
+- **Classic:** `World of Warcraft\_classic_era_\Interface\AddOns`
+- **BC Classic:** `World of Warcraft\_classic_\Interface\AddOns`
 
 ## [Credits][Top]
 
