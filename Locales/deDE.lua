@@ -23,7 +23,7 @@ local L = Core.Locale
 -- About Masque
 ---
 
--- L["About Masque"] = "About Masque"
+L["About Masque"] = "Über Masque"
 L["API"] = "API"
 -- L["For more information, please visit one of the sites listed below."] = "For more information, please visit one of the sites listed below."
 -- L["Masque is a skinning engine for button-based add-ons."] = "Masque is a skinning engine for button-based add-ons."
@@ -34,14 +34,14 @@ L["API"] = "API"
 -- Classic Skin
 ---
 
--- L["An improved version of the game's default button style."] = "An improved version of the game's default button style."
+L["An improved version of the game's default button style."] = "Eine optisch verbesserte Version der Standardschaltflächen des Spiels."
 
 ----------------------------------------
 -- Core Settings
 ---
 
--- L["About"] = "About"
--- L["Click to load Masque's options."] = "Click to load Masque's options."
+L["About"] = "Über"
+L["Click to load Masque's options."] = "Klicken, um die Masque-Optionen zu laden."
 -- L["Load Options"] = "Load Options"
 -- L["Masque's options are load on demand. Click the button below to load them."] = "Masque's options are load on demand. Click the button below to load them."
 -- L["This action will increase memory usage."] = "This action will increase memory usage."
@@ -52,8 +52,8 @@ L["This section will allow you to view information about Masque and any skins yo
 ---
 
 L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Veranlasst Masque Lua-Fehler auszugeben, wann immer es ein Problem mit einem Addon oder einer Optik gibt."
--- L["Clean Database"] = "Clean Database"
--- L["Click to purge the settings of all unused add-ons and groups."] = "Click to purge the settings of all unused add-ons and groups."
+L["Clean Database"] = "Datenbank bereinigen"
+L["Click to purge the settings of all unused add-ons and groups."] = "Klicken, um die Einstellungen von allen ungenutzten Add-Ons und Gruppen zu bereinigen."
 L["Debug Mode"] = "Debugmodus"
 L["Developer"] = "Entwickler"
 L["Developer Settings"] = "Entwicklereinstellungen"
@@ -81,7 +81,7 @@ L["General Settings"] = "Allgemeine Einstellungen"
 
 L["Author"] = "Autor"
 L["Authors"] = "Autoren"
--- L["Click for details."] = "Click for details."
+L["Click for details."] = "Klicken, um Details anzuzeigen."
 L["Compatible"] = "Kompatibel"
 L["Description"] = "Beschreibung"
 L["Incompatible"] = "Inkompatibel"
@@ -92,8 +92,8 @@ L["The status of this skin is unknown."] = "Der Status dieser Optik ist unbekann
 -- L["This section provides information on any skins you have installed."] = "This section provides information on any skins you have installed."
 L["This skin is compatible with Masque."] = "Diese Optik ist mit Masque kompatibel."
 L["This skin is outdated and is incompatible with Masque."] = "Diese Optik ist veraltet und nicht mit Masque kompatibel."
--- L["This skin is outdated but is still compatible with Masque."] = "This skin is outdated but is still compatible with Masque."
--- L["Unknown"] = "Unknown"
+L["This skin is outdated but is still compatible with Masque."] = "Dieser Skin ist veraltet, aber noch immer mit Masque kompatibel."
+L["Unknown"] = "Unbekannt"
 L["Version"] = "Version"
 L["Website"] = "Webseite"
 L["Websites"] = "Webseiten"
@@ -114,17 +114,17 @@ L["Minimap Icon"] = "Minikartensymbol"
 -- LDB Launcher
 ---
 
--- L["Click to open Masque's settings."] = "Click to open Masque's settings."
+L["Click to open Masque's settings."] = "Klicken, um die Masque-Einstellungen zu öffnen."
 
 ----------------------------------------
 -- Performance Settings
 ---
 
--- L["Click to load reload the interface."] = "Click to load reload the interface."
+L["Click to load reload the interface."] = "Klicken, um die Benutzeroberfläche neu zu laden."
 -- L["Load the skin information panel."] = "Load the skin information panel."
--- L["Performance"] = "Performance"
--- L["Performance Settings"] = "Performance Settings"
--- L["Reload Interface"] = "Reload Interface"
+L["Performance"] = "Leistung"
+L["Performance Settings"] = "Leistungseinstellungen"
+L["Reload Interface"] = "Benutzeroberfläche neu laden."
 -- L["Requires an interface reload."] = "Requires an interface reload."
 L["Skin Information"] = "Optikinformation"
 -- L["This section will allow you to adjust settings that affect Masque's performance."] = "This section will allow you to adjust settings that affect Masque's performance."
@@ -153,7 +153,7 @@ L["Enable the Backdrop texture."] = "Aktiviert die Hintergrundtextur."
 -- L["Enable the Shadow texture."] = "Enable the Shadow texture."
 L["Flash"] = "Leuchten"
 L["Global"] = "Global"
--- L["Global Settings"] = "Global Settings"
+L["Global Settings"] = "Globale Einstellungen"
 L["Gloss"] = "Glanz"
 L["Highlight"] = "Hervorheben"
 L["Normal"] = "Normal"
@@ -172,7 +172,7 @@ L["Set the color of the Normal texture."] = "Lege die Farbe der Normal-Textur fe
 L["Set the color of the Pushed texture."] = "Lege die Farbe der Gedrückt-Textur fest"
 -- L["Set the color of the Shadow texture."] = "Set the color of the Shadow texture."
 L["Set the skin for this group."] = "Lege die Optik dieser Gruppe fest"
--- L["Shadow"] = "Shadow"
+L["Shadow"] = "Schatten"
 -- L["Show the pulse effect when a cooldown finishes."] = "Show the pulse effect when a cooldown finishes."
 L["Skin"] = "Optik"
 L["Skin Settings"] = "Optikeinstellungen"
