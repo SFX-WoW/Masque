@@ -1,13 +1,10 @@
-## 9.0.6
+## 9.1.0
 
 ### General
 
-- Added support for _Burning Crusade Classic_.
-- Added support for Wago.io.
-- Updated the `Interface` version for Classic to `11307`.
-- Updated the libraries.
+- Updated the `Interface` version for _Retail_ to `90100`.
 
-### Bug Fixes
+### Localization
 
-- Fixed an `nil` error when a generic frame is passed. (#137).
-- Updated the logic for determining whether `LibDualSpec-1.0` should be enabled.
+- Updated deDE. (Quil)
+- Updated ruRU. (Vitality_Spirit)
