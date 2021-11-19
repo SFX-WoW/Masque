@@ -6,7 +6,7 @@ on:
 
 jobs:
   package:
-    name: Package Pre-Releases
+    name: Package Pre-Release
     runs-on: ubuntu-latest
 
     env:
@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Clone Project
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Install & Run LuaCheck
         run: |
@@ -25,15 +25,5 @@ jobs:
           luarocks install --local luacheck
           /home/runner/.luarocks/bin/luacheck . -q
 
-      - name: Package Pre-Release for Retail
-        uses: BigWigsMods/packager@master
-
-      - name: Package Pre-Release for Classic
-        uses: BigWigsMods/packager@master
-        with:
-          args: -g classic
-
-      - name: Package Pre-Release for BC Classic
-        uses: BigWigsMods/packager@master
-        with:
-          args: -g bcc
+      - name: Build Package
+        uses: BigWigsMods/packager@multitoc
