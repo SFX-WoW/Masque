@@ -74,7 +74,7 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
 [Discord]: https://discord.gg/DDVqkd6 (Join the Discord)
 [Twitter]: https://twitter.com/stormfxi (Follow on Twitter)
 [Sponsor]: https://github.com/sponsors/StormFX (Sponsor on GitHub)
-[PayPal]: https://www.paypal.me/stormfxi (Donate via PayPal)
+[PayPal]: https://www.paypal.com/donate/?hosted_button_id=EELAK9TC4W4KQ (Donate via PayPal)
 
 [Top]: #Top (Top of the Page)
 
