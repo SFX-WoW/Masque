@@ -1,0 +1,15 @@
+# Calls a workflow that builds an alpha release.
+
+name: Build Release (Alpha)
+
+on:
+  push:
+    tags:
+      - '**-alpha**'
+    paths-ignore:
+      - '.github/**'
+
+jobs:
+  package:
+    name: Package Release
+    uses: SFX-WoW/shared/.github/workflows/build-alpha.yml@main

@@ -1,17 +1,10 @@
+# Calls a linting workflow when triggered.
+
 name: Manual Lint
+
 on: workflow_dispatch
 
 jobs:
-  lint:
-    name: Process Files
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Clone Project
-        uses: actions/checkout@v2
-
-      - name: Install & Run LuaCheck
-        run: |
-          sudo apt-get install luarocks
-          luarocks install --local luacheck
-          /home/runner/.luarocks/bin/luacheck . -q
+  linter:
+    name: Linter
+    uses: SFX-WoW/shared/.github/workflows/lint.yml@main
