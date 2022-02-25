@@ -1,4 +1,4 @@
-Copyright (c) 2008 JJSheets, 2009-2021 StormFX. All rights reserved.
+Copyright (c) 2008 JJSheets, 2009-2022 StormFX. All rights reserved.
 
 The contents of this software (the "add-on"), excluding third-party resources,
 fall under the aforementioned copyright. The author(s) of this add-on hereby grant
@@ -15,9 +15,8 @@ the following permissions:
 * Permission to include this add-on with other works not derived from this add-on
   for the purpose of creating "user interface compilations" or "addon packs" for
   the "World of Warcraft" game client and to distribute such collective works on
-  websites operated by "Curse, Inc" or "ZAM Network, LLC" (including curse.com,
-  curseforge.com, wowace.com and wowinterface.com) as long as the add-on is
-  distributed intact and unmodified.
+  curseforge.com and wowinterface.com, as long as the add-on is distributed intact
+  and unmodified.
 
 * This add-on may not be redistributed by itself or in any other way, in whole
   or in part, modified or unmodified, without specific prior written permission
