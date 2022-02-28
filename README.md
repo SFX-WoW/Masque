@@ -69,7 +69,7 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
 
 [Links]: #
 
-[Build]: https://github.com/SFX-WoW/Masque/actions?query=workflow%3ARelease (Build Status)
+[Build]: https://github.com/SFX-WoW/Masque/actions/workflows/build-release.yml (Build Status)
 [API_VERSION]: https://github.com/SFX-WoW/Masque/wiki/API_VERSION (API_VERSION)
 [Discord]: https://discord.gg/DDVqkd6 (Join the Discord)
 [Twitter]: https://twitter.com/stormfxi (Follow on Twitter)
@@ -93,7 +93,7 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
 
 [Images]: #
 
-[SVG-Build]: https://img.shields.io/github/workflow/status/SFX-WoW/Masque/Release?label=Build&logo=github&logoColor=fff&style=flat-square
+[SVG-Build]: https://img.shields.io/github/workflow/status/SFX-WoW/Masque/Build%20Release?label=Build&logo=github&logoColor=fff&style=flat-square
 [SVG-API]: https://img.shields.io/endpoint?url=https://wow.stormfx.com/img/svg/masque-api.json
 [SVG-Discord]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/discord.json
 [SVG-Twitter]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/twitter.json
