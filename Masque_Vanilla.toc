@@ -1,4 +1,4 @@
-## Interface: 11402
+## Interface: 11403
 
 ## Title: Masque
 ## Notes: A skinning engine for button-based add-ons.
