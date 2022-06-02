@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
-	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
+	documentation and license information, please visit https://github.com/SFX-WoW/Masque.
 
 	* File...: Options\LDB.lua
 	* Author.: StormFX

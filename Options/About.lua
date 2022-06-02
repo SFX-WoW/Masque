@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
-	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
+	documentation and license information, please visit https://github.com/SFX-WoW/Masque.
 
 	* File...: Options\About.lua
 	* Author.: StormFX
@@ -13,7 +13,7 @@
 local _, Core = ...
 
 ----------------------------------------
--- Lua
+-- Lua API
 ---
 
 local tostring = tostring
@@ -48,16 +48,17 @@ function Setup.About(self)
 		order = 3,
 		args = {
 			Head = {
-				type = "description",
-				name = "|cffffcc00"..L["About Masque"].."|r"..CRLF,
-				fontSize = "medium",
+				type = "header",
+				name = L["About Masque"],
 				order = 1,
+				disabled = true,
+				dialogControl = "SFX-Header",
 			},
 			Desc = {
 				type = "description",
 				name = Desc,
-				fontSize = "medium",
 				order = 2,
+				fontSize = "medium",
 			},
 			Info = {
 				type = "group",
