@@ -1,8 +1,9 @@
-## 9.2.1
+## 9.2.5
 
 ### Release Notes
 
-- Updated the `Interface` version for _Classic_ to `11403`.
-- Updated the `Interface` version for _TBC Classic_ to `20504`.
+- Added _Discord_ and _Supporter_ information to the _About_ panel.
+- Updated the options panels to use new header widgets.
+- Updated the `Interface` version for _Retail_ to `90205`.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
