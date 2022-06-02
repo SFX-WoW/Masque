@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local tostring = tostring
+local concat, tostring = table.concat, tostring
 
 ----------------------------------------
 -- Locals
@@ -24,6 +24,20 @@ local tostring = tostring
 
 -- @ Options\Core
 local Setup = Core.Setup
+
+----------------------------------------
+-- Supporters
+---
+
+local COLOR_1 = "|cff0070dd"
+--local COLOR_2 = "|cffa335ee"
+--local COLOR_3 = "|cffff8000"
+
+local Supporters = {
+	-- [1]
+	COLOR_1.."Amenitra|r",
+	COLOR_1.."S9th|r",
+}
 
 ----------------------------------------
 -- Setup
@@ -126,6 +140,23 @@ function Setup.About(self)
 		Order = Order + 1
 	end
 
+	-- Populate the Discord field.
+	args.Discord = {
+		type = "input",
+		name = "Discord",
+		arg  = self.Discord,
+		order = Order,
+		dialogControl = "SFX-Info-URL",
+	}
+	Order = Order + 1
+
+	args["SPC"..Order] = {
+		type = "description",
+		name = " ",
+		order = Order,
+	}
+	Order = Order + 1
+
 	-- Populate the Website fields.
 	Count = #Websites
 	if Count > 0 then
@@ -146,7 +177,18 @@ function Setup.About(self)
 			name = " ",
 			order = Order,
 		}
+		Order = Order + 1
 	end
+
+	-- Populate the Supporters field.
+	args.Supporters = {
+		type = "input",
+		name = L["Supporters"],
+		arg  = concat(Supporters, ", "),
+		order = Order,
+		disabled = true,
+		dialogControl = "SFX-Info",
+	}
 
 	self.Options.args.Core.args.About = Options
 

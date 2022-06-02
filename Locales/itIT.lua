@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
-	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
+	documentation and license information, please visit https://github.com/SFX-WoW/Masque.
 
 	* File...: Locales\itIT.lua
 
@@ -13,6 +13,8 @@
 	or contribute directly on GitHub (https://github.com/SFX-WoW/Masque).
 
 ]]
+
+-- GLOBALS: GetLocale
 
 if GetLocale() ~= "itIT" then return end
 
@@ -28,6 +30,7 @@ local L = Core.Locale
 -- L["For more information, please visit one of the sites listed below."] = "For more information, please visit one of the sites listed below."
 -- L["Masque is a skinning engine for button-based add-ons."] = "Masque is a skinning engine for button-based add-ons."
 -- L["Select to view."] = "Select to view."
+-- L["Supporters"] = "Supporters"
 -- L["You must have an add-on that supports Masque installed to use it."] = "You must have an add-on that supports Masque installed to use it."
 
 ----------------------------------------

@@ -1,7 +1,7 @@
 --[[
 
 	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
-	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
+	documentation and license information, please visit https://github.com/SFX-WoW/Masque.
 
 	* File...: Locales\esES.lua
 
@@ -13,6 +13,8 @@
 	or contribute directly on GitHub (https://github.com/SFX-WoW/Masque).
 
 ]]
+
+-- GLOBALS: GetLocale
 
 local Locale = GetLocale()
 if Locale ~= "esMX" and Locale ~= "esES" then return end
@@ -29,6 +31,7 @@ L["API"] = "API"
 L["For more information, please visit one of the sites listed below."] = "Para más información, visita uno de los sitios listados a continuación."
 L["Masque is a skinning engine for button-based add-ons."] = "Masque es un sistema de cambio de apariencia para los addons de botones."
 L["Select to view."] = "Selecciona para ver."
+-- L["Supporters"] = "Supporters"
 -- L["You must have an add-on that supports Masque installed to use it."] = "You must have an add-on that supports Masque installed to use it."
 
 ----------------------------------------
