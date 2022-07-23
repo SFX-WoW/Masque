@@ -45,7 +45,7 @@ Install the package through your preferred add-on manager or extract the archive
 
 ## [Credits][Top]
 
-- JJ Sheets for the original project.
+- [JJ Sheets](https://www.curseforge.com/members/_ForgeUser463 "JJ Sheets @ CurseForge") for the original project.
 
 ## [Feedback][Top]
 
@@ -53,7 +53,7 @@ For bug reports and suggestions, use the [issue tracker]. Direct any questions o
 
 ## [Localization][Top]
 
-To help translate this add-on, use the [localization system] on WoW Ace. Alternatively, you can use the [issue tracker].
+To help translate this add-on, use the [localization system] on CurseForge. Alternatively, you can use the [issue tracker].
 
 ## [Links][Top]
 
@@ -64,7 +64,6 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
   - [GitHub]
   - [CurseForge]
   - [Wago.io]
-  - [WoW Ace]
   - [WoW Interface]
 
 [Links]: #
@@ -78,17 +77,16 @@ To help translate this add-on, use the [localization system] on WoW Ace. Alterna
 
 [Top]: #Top (Top of the Page)
 
-[LibStub]: https://www.wowace.com/projects/libstub (View on WoW Ace)
+[LibStub]: https://www.curseforge.com/wow/addons/libstub (LibStub @ CurseForge)
 [World of Warcraft]: https://worldofwarcraft.com (World of Warcraft)
 
 [Issue Tracker]: https://github.com/SFX-WoW/Masque/issues (Report an Issue)
-[Localization System]: https://www.wowace.com/projects/masque/localization (Translate on WoW Ace)
+[Localization System]: https://www.curseforge.com/wow/addons/masque/localization (Translate on CurseForge)
 [Wiki]: https://github.com/SFX-WoW/Masque/wiki (Masque Wiki)
 
 [CurseForge]: https://www.curseforge.com/wow/addons/masque (View on CurseForge)
 [GitHub]: https://github.com/SFX-WoW/Masque (Download from GitHub)
 [Wago.io]: https://addons.wago.io/addons/masque (View on Wago.io)
-[WoW Ace]: https://www.wowace.com/projects/masque (Download from WoW Ace)
 [WoW Interface]: https://www.wowinterface.com/downloads/info12097 (Download from WoW Interface)
 
 [Images]: #
