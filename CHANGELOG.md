@@ -1,7 +1,7 @@
-## 9.2.6
+## 9.2.7
 
 ### Release Notes
 
-- Added Wrath of the Lich King Classic support.
+- Updated the `Interface` version for _Retail_ to `90207`.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
