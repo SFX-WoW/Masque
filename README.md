@@ -1,3 +1,4 @@
+<a name="Top"></a>
 [![Build][SVG-Build]][Build]
 [![API_VERSION][SVG-API]][API_VERSION]
 [![Discord][SVG-Discord]][Discord]
@@ -41,7 +42,7 @@ Install the package through your preferred add-on manager or extract the archive
 
 - **Retail:** `World of Warcraft\_retail_\Interface\AddOns`
 - **Classic:** `World of Warcraft\_classic_era_\Interface\AddOns`
-- **BC Classic:** `World of Warcraft\_classic_\Interface\AddOns`
+- **Wrath Classic:** `World of Warcraft\_classic_\Interface\AddOns`
 
 ## [Credits][Top]
 
@@ -66,7 +67,7 @@ To help translate this add-on, use the [localization system] on CurseForge. Alte
   - [Wago.io]
   - [WoW Interface]
 
-[Links]: #
+[//]: # (Links)
 
 [Build]: https://github.com/SFX-WoW/Masque/actions/workflows/build-release.yml (Build Status)
 [API_VERSION]: https://github.com/SFX-WoW/Masque/wiki/API_VERSION (API_VERSION)
@@ -89,7 +90,7 @@ To help translate this add-on, use the [localization system] on CurseForge. Alte
 [Wago.io]: https://addons.wago.io/addons/masque (View on Wago.io)
 [WoW Interface]: https://www.wowinterface.com/downloads/info12097 (Download from WoW Interface)
 
-[Images]: #
+[//]: # (Images)
 
 [SVG-Build]: https://img.shields.io/github/workflow/status/SFX-WoW/Masque/Build%20Release?label=Build&logo=github&logoColor=fff&style=flat-square
 [SVG-API]: https://img.shields.io/endpoint?url=https://wow.stormfx.com/img/svg/masque-api.json
