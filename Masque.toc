@@ -2,6 +2,7 @@
 
 ## Title: Masque
 ## Notes: A skinning engine for button-based add-ons.
+## Notes-deDE: Eine Engine, um das Erscheinungsbild von schaltflächenbasierte Add-ons anzupassen.
 ## Notes-esMX: Un sistema de cambio de apariencia para los add-ons de botones.
 ## Notes-esES: Un sistema de cambio de apariencia para los add-ons de botones.
 ## Notes-ruRU: Основа для аддонов, изменяющих внешний вид кнопок.
