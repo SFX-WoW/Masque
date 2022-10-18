@@ -21,14 +21,11 @@ local _, Core = ...
 local type = type
 
 ----------------------------------------
--- WoW API
----
-
-local hooksecurefunc = hooksecurefunc
-
-----------------------------------------
 -- Internal
 ---
+
+-- @ Masque
+local Masque = Core.AddOn
 
 -- @ Skins\Default
 local Default = Core.Skins.Default.Cooldown
@@ -124,8 +121,8 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 			Hook_SetEdgeTexture(Region)
 
 			if not Region.__MSQ_Hooked then
-				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
-				hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
+				Masque:SecureHook(Region, "SetSwipeColor", Hook_SetSwipeColor)
+				Masque:SecureHook(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
 				Region.__MSQ_Hooked = true
 			end
 
@@ -134,6 +131,12 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 			Region:SetEdgeTexture(Skin.EdgeTexture or MSQ_EDGE)
 		end
 	else
+		if Region.__MSQ_Hooked then
+			Masque:UnHook(Region, "SetSwipeColor", Hook_SetSwipeColor)
+			Masque:UnHook(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
+			Region.__MSQ_Hooked = nil
+		end
+
 		Region.__MSQ_Color = nil
 
 		if Region:GetDrawSwipe() then
@@ -170,7 +173,7 @@ local function UpdateCharge(Button)
 end
 
 -- @ FrameXML\ActionButton.lua
-hooksecurefunc("StartChargeCooldown", UpdateCharge)
+Masque:SecureHook("StartChargeCooldown", UpdateCharge)
 
 ----------------------------------------
 -- Core

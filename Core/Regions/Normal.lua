@@ -21,14 +21,11 @@ local _, Core = ...
 local error, type = error, type
 
 ----------------------------------------
--- WoW API
----
-
-local hooksecurefunc, random = hooksecurefunc, random
-
-----------------------------------------
 -- Internal
 ---
+
+-- @ Masque
+local Masque = Core.AddOn
 
 -- @ Skins\Default
 local Default = Core.Skins.Default.Normal
@@ -41,8 +38,8 @@ local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
 -- Locals
 ---
 
-local DEF_TEXTURE = Default.Texture
 local DEF_COLOR = Default.Color
+local DEF_TEXTURE = Default.Texture
 
 ----------------------------------------
 -- UpdateNormal
@@ -81,7 +78,7 @@ end
 -- * The behavior of changing the texture when a button is empty is only used
 --   by default UI in the case of Pet buttons. Some add-ons still use this
 --   behavior for other button types, so it needs to be countered.
-local function Hook_SetNormalTexture(Button, Texture)
+local function Hook_SetNormal(Button, Texture)
 	local Skin = Button.__MSQ_NormalSkin
 	if not Skin then return end
 
@@ -107,7 +104,7 @@ end
 -- Core
 ---
 
--- Skins the 'Normal' layer of a button and sets up the hooks.
+-- Skins the `Normal` layer of a button and sets up any necessary hooks.
 function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	local IsButton = Button.GetNormalTexture
 	local Custom = Button.__MSQ_NewNormal
@@ -164,10 +161,11 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 
 	-- Counter the BT4 fix above.
 	Region:SetAlpha(1)
-
 	UpdateNormal(Button)
 
-	if not Button.__MSQ_Enabled then
+	local Disabled = not Button.__MSQ_Enabled
+
+	if Disabled then
 		Button.__MSQ_Normal = nil
 		Button.__MSQ_NormalSkin = nil
 		Button.__MSQ_NormalColor = nil
@@ -176,13 +174,24 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or 0)
-	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+	if not Skin.UseAtlasSize then
+		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+	end
+
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 	Region:Show()
 
-	if IsButton and Button.__MSQ_EmptyType and not Button.__MSQ_NormalHook then
-		hooksecurefunc(Button, "SetNormalTexture", Hook_SetNormalTexture)
+	local Hooked = Button.__MSQ_NormalHook
+
+	if IsButton and Button.__MSQ_EmptyType and not Hooked and not Disabled then
+		Masque:SecureHook(Button, "SetNormalAtlas", Hook_SetNormal)
+		Masque:SecureHook(Button, "SetNormalTexture", Hook_SetNormal)
 		Button.__MSQ_NormalHook = true
+	elseif Disabled then
+		Masque:UnHook(Button, "SetNormalAtlas")
+		Masque:UnHook(Button, "SetNormalTexture")
+		Button.__MSQ_NormalHook = nil
 	end
 end
 

@@ -7,6 +7,7 @@ externals:
   Libs/AceDBOptions-3.0: https://repos.wowace.com/wow/ace3/trunk/AceDBOptions-3.0
   Libs/AceGUI-3.0: https://repos.wowace.com/wow/ace3/trunk/AceGUI-3.0
   Libs/AceGUI-3.0_SFX-Widgets: https://github.com/SFX-WoW/AceGUI-3.0_SFX-Widgets.git
+  Libs/AceHook-3.0: https://repos.wowace.com/wow/ace3/trunk/AceHook-3.0
   Libs/LibDBIcon-1.0: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
   Libs/LibDualSpec-1.0: https://repos.wowace.com/wow/libdualspec-1-0
 

@@ -15,14 +15,11 @@
 local _, Core = ...
 
 ----------------------------------------
--- WoW API
----
-
-local hooksecurefunc = hooksecurefunc
-
-----------------------------------------
 -- Internal
 ---
+
+-- @ Masque
+local Masque = Core.AddOn
 
 -- @ Skins\Default
 local Default = Core.Skins.Default.NewItem
@@ -83,10 +80,14 @@ function Core.SkinNewItem(Region, Button, Skin, xScale, yScale)
 		Region:SetVertexColor(GetColor(Colors[Atlas]))
 
 		if not Region.__MSQ_Hooked then
-			hooksecurefunc(Region, "SetAtlas", Hook_SetAtlas)
+			Masque:SecureHook(Region, "SetAtlas", Hook_SetAtlas)
 			Region.__MSQ_Hooked = true
 		end
 	else
+		if Masque:IsHooked(Region, "SetAtlas") then
+			Masque:UnHook(Region, "SetAtlas")
+		end
+
 		Region.__MSQ_Skin = nil
 		Region.__MSQ_Atlas = nil
 

@@ -22,6 +22,9 @@ local pairs, type = pairs, type
 -- Internal
 ---
 
+-- @ Masque
+local Masque = Core.AddOn
+
 -- @ Skins\Skins
 local Skins = Core.Skins
 

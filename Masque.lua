@@ -24,7 +24,8 @@ local print = print
 -- Locals
 ---
 
-local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
+local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE, "AceHook-3.0")
+Core.AddOn = Masque
 
 -- @ Locales\enUS
 local L = Core.Locale
@@ -138,6 +139,11 @@ end
 -- Wrapper for the DB:CopyProfile method.
 function Masque:CopyProfile(Name, Silent)
 	Core.db:CopyProfile(Name, Silent)
+end
+
+-- Disable
+function Masque:OnDisable()
+	self:UnHookAll()
 end
 
 -- Wrapper for the DB:SetProfile method.

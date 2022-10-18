@@ -72,7 +72,7 @@ local function UpdateSpellAlert(Button)
 end
 
 -- @ FrameXML\ActionButton.lua
-hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
+Core.AddOn:SecureHook("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 
 ----------------------------------------
 -- Core
