@@ -46,8 +46,11 @@ function Core.NoOp() end
 function Core.SetPoints(Region, Button, Skin, Default, SetAllPoints)
 	Region:ClearAllPoints()
 
+	local Anchor = Skin.Anchor
+	Anchor = Anchor and Button[Anchor]
+
 	if SetAllPoints then
-		Region:SetAllPoints(Button)
+		Region:SetAllPoints(Anchor or Button)
 	else
 		local Point = Skin.Point
 		local RelPoint = Skin.RelPoint or Point
@@ -71,7 +74,7 @@ function Core.SetPoints(Region, Button, Skin, Default, SetAllPoints)
 			OffsetY = Default.OffsetY or 0
 		end
 
-		Region:SetPoint(Point, Button, RelPoint, OffsetX or 0, OffsetY or 0)
+		Region:SetPoint(Point, Anchor or Button, RelPoint, OffsetX or 0, OffsetY or 0)
 	end
 end
 
