@@ -30,9 +30,11 @@ local Skins = Core.Skins
 
 -- @ Skins\Regions
 local RegTypes = Core.RegTypes
+local AuraTypes = Core.AuraTypes
+local ItemTypes = Core.ItemTypes
 
 -- @ Core\Utility
-local GetScale = Core.GetScale
+local GetScale, GetTypeSkin = Core.GetScale, Core.GetTypeSkin
 
 -- @ Core\Regions\*
 local SkinBackdrop, SkinCooldown, SkinFrame = Core.SkinBackdrop, Core.SkinCooldown, Core.SkinFrame
@@ -68,6 +70,8 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	Button.__MSQ_Enabled = (not Disabled and true) or nil
+	Button.__MSQ_IsAura = AuraTypes[bType]
+	Button.__MSQ_IsItem = ItemTypes[bType]
 	Button.__MSQ_Shape = Skin.Shape
 
 	if Disabled or type(Colors) ~= "table" then
@@ -80,6 +84,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local Mask = Skin.Mask
 
 	if Mask then
+		Mask = GetTypeSkin(Button, bType, Mask)
 		SkinMask(nil, Button, Mask, xScale, yScale)
 	end
 

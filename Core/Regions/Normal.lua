@@ -31,8 +31,8 @@ local Masque = Core.AddOn
 local Default = Core.Skins.Default.Normal
 
 -- @ Core\Utility
-local GetSize, SetPoints = Core.GetSize, Core.SetPoints
-local GetColor, GetTexCoords = Core.GetColor, Core.GetTexCoords
+local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
+local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
 
 ----------------------------------------
 -- Locals
@@ -134,9 +134,7 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 		Button.__MSQ_NewNormal = Region
 	end
 
-	local bType = Button.__MSQ_bType
-	Skin = Skin[bType] or Skin
-
+	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 	Button.__MSQ_Normal = Region
 	Button.__MSQ_NormalSkin = Skin
 	Button.__MSQ_NormalColor = Color or Skin.Color or DEF_COLOR
@@ -204,9 +202,7 @@ function Core.SetNormalColor(Region, Button, Skin, Color)
 	Region = Region or Button.__MSQ_Normal
 
 	if Region then
-		local bType = Button.__MSQ_bType
-		Skin = Skin[bType] or Skin
-
+		Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 		Button.__MSQ_NormalColor = Color or Skin.Color or DEF_COLOR
 		UpdateNormal(Button)
 	end

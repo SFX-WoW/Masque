@@ -29,6 +29,7 @@ local Masque = Core.AddOn
 
 -- @ Core\Utility
 local GetSize, GetTexCoords, SetPoints = Core.GetSize, Core.GetTexCoords, Core.SetPoints
+local GetTypeSkin = Core.GetTypeSkin
 
 -- @ Core\Regions\Mask
 local SkinMask = Core.SkinMask
@@ -87,10 +88,7 @@ end
 function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 	Button.__MSQ_Icon = Region
 	Region.__MSQ_Button = Button
-
-	-- Skin
-	local bType = Button.__MSQ_bType
-	Skin = Skin[bType] or Skin
+	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 
 	Region:SetParent(Button)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))

@@ -25,8 +25,8 @@ local Masque = Core.AddOn
 local Default = Core.Skins.Default.QuestBorder
 
 -- @ Core\Utility
-local GetColor, GetSize = Core.GetColor, Core.GetSize
-local GetTexCoords, SetPoints = Core.GetTexCoords, Core.SetPoints
+local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
+local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
 
 ----------------------------------------
 -- Locals
@@ -70,6 +70,8 @@ end
 function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
 	local Texture = Region.__MSQ_Texture or Region:GetTexture()
 	local Disabled = not Button.__MSQ_Enabled
+	
+	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 
 	if not Disabled then
 		Region.__MSQ_Skin = Skin

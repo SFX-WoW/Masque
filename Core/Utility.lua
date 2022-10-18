@@ -112,3 +112,18 @@ function Core.GetTexCoords(Coords)
 		return 0, 1, 0, 1
 	end
 end
+
+----------------------------------------
+-- Type Skin
+---
+
+-- Returns a skin based on the button type.
+function Core.GetTypeSkin(Button, Type, Skin)
+	if Button.__MSQ_IsAura then
+		return Skin[Type] or Skin.Aura or Skin
+	elseif Button.__MSQ_IsItem then
+		return Skin[Type] or Skin.Item or Skin
+	else
+		return Skin[Type] or Skin
+	end
+end

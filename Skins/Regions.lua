@@ -34,6 +34,7 @@ local WOW_RETAIL = Core.WOW_RETAIL
 
 local Legacy = {
 	-- [ BACKGROUND (-1) ]
+	-- Only provided by default for MultiActionBars in Classic.
 	Backdrop = {
 		Name = "FloatingBG",
 		Type = "Texture",
@@ -441,12 +442,14 @@ local Pet = {
 local Types = {
 	Legacy = Legacy,
 	Action = Action,
-	Pet = Pet,
-	Item = Item,
 	Aura = Aura,
+	Backpack = Item,
+	Bag = Item,
 	Buff = Aura,
 	Debuff = Debuff,
 	Enchant = Enchant,
+	Item = Item,
+	Pet = Pet,
 }
 
 local EmptyTypes = {
@@ -461,6 +464,17 @@ local EmptyTypes = {
 
 Core.RegTypes = Types
 Core.EmptyTypes = EmptyTypes
+Core.AuraTypes = {
+	Aura = true,
+	Buff = true,
+	Debuff = true,
+	Enchant = true,
+}
+Core.ItemTypes = {
+	Backpack = true,
+	Bag = true,
+	Item = true,
+}
 
 ----------------------------------------
 -- API

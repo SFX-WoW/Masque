@@ -23,8 +23,8 @@ local error, type = error, type
 ---
 
 -- @ Core\Utility
-local GetColor, GetSize = Core.GetColor, Core.GetSize
-local GetTexCoords, SetPoints = Core.GetTexCoords, Core.SetPoints
+local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
+local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
 
 ----------------------------------------
 -- Locals
@@ -91,17 +91,14 @@ function Core.SetShadowColor(Region, Button, Skin, Color)
 	Region = Region or Button.__MSQ_Shadow
 
 	if Region then
-		local bType = Button.__MSQ_bType
-		Skin = Skin[bType] or Skin
-
+		Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 		Region:SetVertexColor(GetColor(Color or Skin.Color))
 	end
 end
 
 -- Add or removes a 'Shadow' region.
 function Core.SkinShadow(Enabled, Button, Skin, Color, xScale, yScale)
-	local bType = Button.__MSQ_bType
-	Skin =  Skin[bType] or Skin
+	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 
 	if Enabled and not Skin.Hide and Skin.Texture then
 		AddShadow(Button, Skin, Color, xScale, yScale)

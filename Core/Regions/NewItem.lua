@@ -25,8 +25,8 @@ local Masque = Core.AddOn
 local Default = Core.Skins.Default.NewItem
 
 -- @ Core\Utility
-local GetColor, GetSize = Core.GetColor, Core.GetSize
-local GetTexCoords, SetPoints = Core.GetTexCoords, Core.SetPoints
+local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
+local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
 
 ----------------------------------------
 -- Locals
@@ -68,6 +68,8 @@ end
 
 -- Skins the 'NewItem' region of a button.
 function Core.SkinNewItem(Region, Button, Skin, xScale, yScale)
+	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+
 	local Atlas = Region.__MSQ_Atlas or Region:GetAtlas() or DEF_ATLAS
 	local Texture = Skin.Texture
 

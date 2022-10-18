@@ -25,8 +25,8 @@ local Settings = Core.RegTypes.Legacy
 local Defaults = Core.Skins.Default
 
 -- @ Core\Utility
-local GetColor, GetSize = Core.GetColor, Core.GetSize
-local GetTexCoords, SetPoints = Core.GetTexCoords, Core.SetPoints
+local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
+local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
 
 -- @ Core\Regions\Mask
 local SkinMask = Core.SkinMask
@@ -40,7 +40,7 @@ function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 	local bType = Button.__MSQ_bType
 	local Config = Settings[Layer]
 
-	Skin = Skin[bType] or Skin
+	Skin = GetTypeSkin(Button, bType, Skin)
 	Config = Config[bType] or Config
 
 	if Config.CanHide and Skin.Hide then
@@ -50,7 +50,7 @@ function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 	end
 
 	local Default = Defaults[Layer]
-	Default = Default[bType] or Default
+	Default = GetTypeSkin(Button, bType, Default)
 
 	if not Config.NoTexture then
 		local Texture = Skin.Texture
@@ -59,6 +59,7 @@ function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 		local SetColor = not Config.NoColor
 		local UseColor = Config.UseColor
 
+		-- Skin
 		if Skin.UseColor and UseColor then
 			Region:SetTexture()
 			Region:SetVertexColor(1, 1, 1, 1)
@@ -96,8 +97,12 @@ function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 	end
 
 	Region:SetBlendMode(Skin.BlendMode or Default.BlendMode or "BLEND")
-	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer, Skin.DrawLevel or Default.DrawLevel or 0)
-	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
+	if Layer == "Highlight" then
+		Region:SetDrawLayer("HIGHLIGHT", Skin.DrawLevel or Default.DrawLevel or 0)
+	else
+		Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer, Skin.DrawLevel or Default.DrawLevel or 0)
+	end
 
 	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default.SetAllPoints)
 	SetPoints(Region, Button, Skin, Default, SetAllPoints)
@@ -114,7 +119,7 @@ function Core.SetTextureColor(Layer, Region, Button, Skin, Color)
 		local bType = Button.__MSQ_bType
 		local Config = Settings[Layer]
 
-		Skin = Skin[bType] or Skin
+		Skin = GetTypeSkin(Button, bType, Skin)
 		Config = Config[bType] or Config
 		Color = Color or Skin.Color
 

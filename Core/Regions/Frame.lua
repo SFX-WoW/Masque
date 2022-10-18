@@ -31,8 +31,8 @@ local Masque = Core.AddOn
 local Default = Core.Skins.Default.Cooldown
 
 -- @ Core\Utility
-local GetColor, GetScale = Core.GetColor, Core.GetScale
-local GetSize, SetPoints = Core.GetSize, Core.SetPoints
+local GetColor, GetScale, GetSize = Core.GetColor, Core.GetScale, Core.GetSize
+local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
 
 ----------------------------------------
 -- Locals
@@ -101,9 +101,7 @@ end
 
 -- Skins the 'Cooldown' or 'ChargeCooldown' frame of a button.
 local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
-	local bType = Button.__MSQ_bType
-	Skin = Skin[bType] or Skin
-
+	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 	local IsRound = false
 
 	if (Button.__MSQ_Shape == "Circle") or Skin.IsRound then
@@ -182,9 +180,7 @@ Masque:SecureHook("StartChargeCooldown", UpdateCharge)
 -- Sets the color of the 'Cooldown' region.
 function Core.SetCooldownColor(Region, Button, Skin, Color)
 	if Region and Button.__MSQ_Enabled then
-		local bType = Button.__MSQ_bType
-		Skin = Skin[bType] or Skin
-
+		Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 		Region.__MSQ_Color = Color or Skin.Color or DEF_COLOR
 		Hook_SetSwipeColor(Region)
 	end
