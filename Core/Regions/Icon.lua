@@ -103,8 +103,8 @@ function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 		Region.__MSQ_Button = nil
 
 		if Region.__MSQ_Hooked then
-			Masque:UnHook(Region, "Hide", Hook_Hide)
-			Masque:UnHook(Region, "Show", Hook_Show)
+			Masque:Unhook(Region, "Hide", Hook_Hide)
+			Masque:Unhook(Region, "Show", Hook_Show)
 			Region.__MSQ_Hooked = nil
 		end
 	elseif Button.__MSQ_EmptyType then

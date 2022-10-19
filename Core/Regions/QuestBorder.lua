@@ -97,6 +97,6 @@ function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
 	if not Hooked and not Disabled then
 		Masque:SecureHook(Region, "SetTexture", Hook_SetTexture)
 	elseif Disabled then
-		Masque:UnHook(Region, "SetTexture")
+		Masque:Unhook(Region, "SetTexture")
 	end
 end

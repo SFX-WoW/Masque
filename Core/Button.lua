@@ -172,7 +172,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 			local Hooked = Masque:IsHooked(Button, Method)
 
 			if Hooked and Disabled then
-				Masque:UnHook(Button, Method)
+				Masque:Unhook(Button, Method)
 				Button.__MSQ_ArtHook = nil
 			elseif not Hooked then
 				Masque:SecureHook(Button, Method, Hook)

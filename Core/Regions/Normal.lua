@@ -194,8 +194,8 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 		Masque:SecureHook(Button, "SetNormalTexture", Hook_SetNormal)
 		Button.__MSQ_NormalHook = true
 	elseif Disabled then
-		Masque:UnHook(Button, "SetNormalAtlas")
-		Masque:UnHook(Button, "SetNormalTexture")
+		Masque:Unhook(Button, "SetNormalAtlas")
+		Masque:Unhook(Button, "SetNormalTexture")
 		Button.__MSQ_NormalHook = nil
 	end
 end

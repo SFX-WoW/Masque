@@ -82,7 +82,7 @@ function Core.SkinIconBorder(Region, Button, Skin, xScale, yScale)
 		end
 	else
 		if Masque:IsHooked(Region, "SetTexture") then
-			Masque:UnHook(Region, "SetTexture")
+			Masque:Unhook(Region, "SetTexture")
 		end
 
 		Region.__MSQ_Skin = nil

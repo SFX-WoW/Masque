@@ -87,7 +87,7 @@ function Core.SkinNewItem(Region, Button, Skin, xScale, yScale)
 		end
 	else
 		if Masque:IsHooked(Region, "SetAtlas") then
-			Masque:UnHook(Region, "SetAtlas")
+			Masque:Unhook(Region, "SetAtlas")
 		end
 
 		Region.__MSQ_Skin = nil
