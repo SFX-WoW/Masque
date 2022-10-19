@@ -35,14 +35,14 @@ local WOW_VERSION = select(4, GetBuildInfo()) or 0
 Core.WOW_VERSION = WOW_VERSION
 
 -- Retail
-Core.WOW_RETAIL = (WOW_VERSION > 90000 and true) or nil
+Core.WOW_RETAIL = (WOW_VERSION >= 100000 and true) or nil
 
 ----------------------------------------
 -- API
 ---
 
 do
-	local VERSION = 90002
+	local VERSION = 100000
 	Core.API = LibStub:NewLibrary(MASQUE, VERSION)
 
 	----------------------------------------
@@ -63,7 +63,6 @@ do
 		"https://github.com/SFX-WoW/Masque",
 		"https://www.curseforge.com/wow/addons/masque",
 		"https://addons.wago.io/addons/masque",
-		"https://www.wowace.com/projects/masque",
 		"https://www.wowinterface.com/downloads/info12097",
 	}
 end

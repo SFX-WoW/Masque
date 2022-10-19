@@ -27,6 +27,7 @@ local Masque = Core.AddOn
 
 -- @ Skins\Skins
 local Skins = Core.Skins
+local DEFAULT_SKIN = Core.DEFAULT_SKIN
 
 -- @ Skins\Regions
 local RegTypes = Core.RegTypes
@@ -49,6 +50,38 @@ local SkinTexture, UpdateSpellAlert = Core.SkinTexture, Core.UpdateSpellAlert
 
 local __Empty = {}
 
+-- Hook to counter 10.0 `Action` button texture changes.
+local function Hook_UpdateArt(Button, HideDivider)
+	local Pushed = Button.PushedTexture
+	if not Pushed then return end
+
+	local SlotArt, SlotBackground = Button.SlotArt, Button.SlotBackground
+
+	if SlotArt then SlotArt:Hide() end
+	if SlotBackground then SlotBackground:Hide() end
+
+	SkinTexture("Pushed", Pushed, Button.__MSQ_Skin.Pushed, Button, Button.__MSQ_PushedColor, GetScale(Button))
+end
+
+-- Hook to counter 10.0 `Bag` button texture changes.
+local function Hook_UpdateTextures(Button)
+	local Pushed = Button:GetPushedTexture()
+	local Highlight = Button:GetHighlightTexture()
+	local SlotHighlight = Button.SlotHighlightTexture
+
+	local xScale, yScale = GetScale(Button)
+
+	SkinTexture("Pushed", Pushed, Button.__MSQ_Skin.Pushed, Button, Button.__MSQ_PushedColor, xScale, yScale)
+	SkinTexture("Highlight", Highlight, Button.__MSQ_Skin.Highlight, Button, Button.__MSQ_HighlightColor, xScale, yScale)
+	SkinTexture("SlotHighlight", SlotHighlight, Button.__MSQ_Skin.SlotHighlight, Button, Button.__MSQ_SlotHighlightColor, xScale, yScale)
+end
+
+-- List of methods to hook.
+local Hook_Methods = {
+	UpdateArt = Hook_UpdateArt,
+	UpdateTextures = Hook_UpdateTextures,
+}
+
 ----------------------------------------
 -- Core
 ---
@@ -64,7 +97,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		Skin = Skins[SkinID] or Skins.Classic
 	else
 		local Addon = Button.__MSQ_Addon or false
-		Skin = Skins[Addon] or Skins.Default
+		Skin = Skins[Addon] or DEFAULT_SKIN
 		Disabled = true
 		Pulse = true
 	end
@@ -129,6 +162,21 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 				else
 					SkinTexture(Layer, Region, Button, Skin[Layer], Colors[Layer], xScale, yScale)
 				end
+			end
+		end
+	end
+
+	-- Update Hooks
+	for Method, Hook in pairs(Hook_Methods) do
+		if Button[Method] then
+			local Hooked = Masque:IsHooked(Button, Method)
+
+			if Hooked and Disabled then
+				Masque:UnHook(Button, Method)
+				Button.__MSQ_ArtHook = nil
+			elseif not Hooked then
+				Masque:SecureHook(Button, Method, Hook)
+				Button.__MSQ_ArtHook = true
 			end
 		end
 	end

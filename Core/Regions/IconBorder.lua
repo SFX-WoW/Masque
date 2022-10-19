@@ -22,7 +22,7 @@ local _, Core = ...
 local Masque = Core.AddOn
 
 -- @ Skins\Default
-local Default = Core.Skins.Default.IconBorder
+local Default = Core.DEFAULT_SKIN.IconBorder
 
 -- @ Core\Utility
 local GetSize, GetTexCoords, SetPoints = Core.GetSize, Core.GetTexCoords, Core.SetPoints

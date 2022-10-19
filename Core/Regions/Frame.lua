@@ -28,7 +28,7 @@ local type = type
 local Masque = Core.AddOn
 
 -- @ Skins\Default
-local Default = Core.Skins.Default.Cooldown
+local Default = Core.DEFAULT_SKIN.Cooldown
 
 -- @ Core\Utility
 local GetColor, GetScale, GetSize = Core.GetColor, Core.GetScale, Core.GetSize

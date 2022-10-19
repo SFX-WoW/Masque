@@ -23,7 +23,7 @@ local L = Core.Locale
 ---
 
 Core.AddSkin("Zoomed", {
-	Template = "Default",
+	Template = "Default (Classic)",
 	-- API_VERSION = Default.API_VERSION,
 	-- Shape = Default.Shape,
 

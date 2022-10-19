@@ -19,6 +19,12 @@ local _, Core = ...
 local type = type
 
 ----------------------------------------
+-- Locals
+---
+
+local SCALE_SIZE = (Core.WOW_RETAIL and 45) or 36
+
+----------------------------------------
 -- Color
 ---
 
@@ -84,8 +90,8 @@ end
 
 -- Returns the x and y scale of a button.
 function Core.GetScale(Button)
-	local x = (Button:GetWidth() or 36) / 36
-	local y = (Button:GetHeight() or 36) / 36
+	local x = (Button:GetWidth() or SCALE_SIZE) / SCALE_SIZE
+	local y = (Button:GetHeight() or SCALE_SIZE) / SCALE_SIZE
 	return x, y
 end
 
@@ -95,8 +101,8 @@ end
 
 -- Returns a height and width.
 function Core.GetSize(Width, Height, xScale, yScale)
-	local w = (Width or 36) * xScale
-	local h = (Height or 36) * yScale
+	local w = (Width or SCALE_SIZE) * xScale
+	local h = (Height or SCALE_SIZE) * yScale
 	return w, h
 end
 

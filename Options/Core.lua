@@ -34,6 +34,8 @@ local ACD = LibStub("AceConfigDialog-3.0")
 local CRLF = "\n "
 Core.CRLF = CRLF
 
+local WOW_RETAIL = Core.WOW_RETAIL
+
 ----------------------------------------
 -- Setup
 ---
@@ -100,9 +102,13 @@ function Setup.Core(self)
 								func = function()
 									if Setup.LoD then Setup("LoD") end
 									-- Force a sub-panel refresh.
-									InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
-									InterfaceOptionsFrame_OpenToCategory(Core.SkinOptionsPanel)
-									InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
+									if WOW_RETAIL then
+										SettingsFrame:OpenToCategory(MASQUE)
+									else
+										InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
+										InterfaceOptionsFrame_OpenToCategory(Core.SkinOptionsPanel)
+										InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
+									end
 									Core.Options.args.Core.args.Load = nil -- GC
 								end,
 								order = 1,
@@ -147,13 +153,18 @@ end
 function Core:ToggleOptions()
 	if Setup.LoD then Setup("LoD") end
 
-	local IOF_Open = InterfaceOptionsFrame:IsShown()
+	local f = WOW_RETAIL and SettingsPanel or InterfaceOptionsFrame
+	local IOF_Open = f:IsShown()
 	local ACD_Open = ACD.OpenFrames[MASQUE]
 
 	-- Toggle the stand-alone GUI if enabled.
 	if self.db.profile.StandAlone then
 		if IOF_Open then
-			InterfaceOptionsFrame_Show()
+			if WOW_RETAIL then
+				f:Close()
+			else
+				InterfaceOptionsFrame_Show()
+			end
 		elseif ACD_Open then
 			ACD:Close(MASQUE)
 		else
@@ -164,11 +175,19 @@ function Core:ToggleOptions()
 		if ACD_Open then
 			ACD:Close(MASQUE)
 		elseif IOF_Open then
-			InterfaceOptionsFrame_Show()
+			if WOW_RETAIL then
+				f:Close()
+			else
+				InterfaceOptionsFrame_Show()
+			end
 		else
-			-- Call twice to make sure the IOF opens to the proper category.
-			InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
-			InterfaceOptionsFrame_OpenToCategory(self.SkinOptionsPanel)
+			if WOW_RETAIL then
+				f:OpenToCategory(MASQUE)
+			else
+				-- Call twice to make sure the IOF opens to the proper category.
+				InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
+				InterfaceOptionsFrame_OpenToCategory(self.SkinOptionsPanel)
+			end
 		end
 	end
 end

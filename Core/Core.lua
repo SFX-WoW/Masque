@@ -27,13 +27,13 @@ function Core.GetRegion(Button, Info)
 	local Key, Region = Info.Key, nil
 
 	if Key then
-		local Value = Key and Button[Key]
+		local Obj = Key and Button[Key]
 
-		if Value and type(Value) == "table" then
-			local Type = Value.GetObjectType and Value:GetObjectType()
+		if Obj and type(Obj) == "table" then
+			local Type = Obj.GetObjectType and Obj:GetObjectType()
 
 			if Type == Info.Type then
-				Region = Value
+				Region = Obj
 			end
 		end
 	end
@@ -83,22 +83,37 @@ do
 			Type = "Legacy"
 
 			if oType == "CheckButton" then
+				local bName = Button.GetName and Button:GetName()
+
 				if Button.HotKey then
 					Type = "Action"
-
-					local bName = Button.GetName and Button:GetName()
 
 					if bName and bName:find("Pet") then
 						Type = "Pet"
 					end
+
+				-- Classic bag buttons are checkbuttons.
+				elseif Button.IconBorder then
+					if bName and bName:find("Backpack") then
+						Type = "Backpack"
+					else
+						Type = "Bag"
+					end
 				end
 			elseif oType == "Button" then
+				local bName = Button.GetName and Button:GetName()
+
 				if Button.IconBorder then
-					Type = "Item"
+					if bName and bName:find("Backpack") then
+						Type = "Backpack"
+					elseif bName and bName:find("Bag") then
+						Type = "Bag"
+					else
+						Type = "Item"
+					end
 				elseif Button.duration then
 					Type = "Aura"
 
-					local bName = Button.GetName and Button:GetName()
 					local Border = bName and _G[bName.."Border"]
 
 					if Border then

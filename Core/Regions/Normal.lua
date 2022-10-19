@@ -28,7 +28,7 @@ local error, type = error, type
 local Masque = Core.AddOn
 
 -- @ Skins\Default
-local Default = Core.Skins.Default.Normal
+local Default = Core.DEFAULT_SKIN.Normal
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
@@ -53,19 +53,23 @@ local function UpdateNormal(Button, IsEmpty)
 	local Skin = Button.__MSQ_NormalSkin
 
 	if Normal and (Skin and not Skin.Hide) then
+		local Atlas = Skin.Atlas
 		local Texture = Button.__MSQ_Random or Skin.Texture or DEF_TEXTURE
 		local Coords = Skin.TexCoords
 		local Color = Button.__MSQ_NormalColor or DEF_COLOR
 
+		if Atlas then
+			Normal:SetAtlas(Atlas, Skin.UseAtlasSize)
+		elseif Texture then
+			Normal:SetTexture(Texture)
+			Normal:SetTexCoord(GetTexCoords(Coords))
+		end
+
 		-- Empty settings for types that can be empty.
 		if Button.__MSQ_EmptyType and IsEmpty then
-			Texture = Skin.EmptyTexture or Texture
-			Coords = Skin.EmptyCoords or Coords
 			Color = Skin.EmptyColor or Color
 		end
 
-		Normal:SetTexture(Texture)
-		Normal:SetTexCoord(GetTexCoords(Coords))
 		Normal:SetVertexColor(GetColor(Color))
 	end
 end
@@ -74,10 +78,13 @@ end
 -- Hook
 ---
 
--- Counters changes to a button's 'Normal' texture.
+-- Counters changes to a button's 'Normal' Texture or Atlas.
 -- * The behavior of changing the texture when a button is empty is only used
---   by default UI in the case of Pet buttons. Some add-ons still use this
+--   by Classic UI in the case of Pet buttons. Some add-ons still use this
 --   behavior for other button types, so it needs to be countered.
+-- * In Dragonflight, the UpdateButtonArt method swaps the `Normal` Atlas for one with
+--   Edit Mode indicators, so we need to counter that, too.
+-- * See `UpdateNormal` above.
 local function Hook_SetNormal(Button, Texture)
 	local Skin = Button.__MSQ_NormalSkin
 	if not Skin then return end

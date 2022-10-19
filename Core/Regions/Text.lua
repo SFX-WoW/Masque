@@ -19,7 +19,7 @@ local _, Core = ...
 ---
 
 -- @ Skins\Default
-local Defaults = Core.Skins.Default
+local Defaults = Core.DEFAULT_SKIN
 
 -- @ Core\Utility
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
