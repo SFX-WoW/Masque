@@ -77,7 +77,7 @@ function Masque:OnInitialize()
 		profile = {
 			Debug = false,
 			SkinInfo = true,
-			StandAlone = false,
+			StandAlone = true,
 			Groups = {
 				["*"] = {
 					Backdrop = false,
@@ -142,7 +142,7 @@ end
 
 -- Disable
 function Masque:OnDisable()
-	self:UnHookAll()
+	self:UnhookAll()
 end
 
 -- Wrapper for the DB:SetProfile method.
