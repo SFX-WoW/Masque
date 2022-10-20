@@ -2,7 +2,7 @@
 
 ### Release Notes
 
-**Notice:** This release is an _alpha_ release and therefore may contain unexpected bugs and/or errors. Please report any issues appropriately on [GitHub](https://github.com/SFX-WoW/Masque "Masque @ GitHub"). 
+**Notice:** This release is an _alpha_ release and therefore may contain unexpected bugs and/or errors. Please report any issues appropriately on [GitHub](https://github.com/SFX-WoW/Masque "Masque @ GitHub").
 
 - This release is only compatible with _Dragonflight_ and the _Classic_ versions of the game. It does _not_ support _Shadowlands_.
 - This release is based on the PTR build so may not behave the same on the Beta.
@@ -41,6 +41,7 @@
 
 #### Bug Fixes
 
+- Fixed an issue that prevented bag buttons from being properly detected as item buttons.
 - Fixed an issue with `LibDualSpec-1.0` being unavailable in _Wrath Classic_.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
