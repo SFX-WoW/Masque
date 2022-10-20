@@ -130,8 +130,8 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 		end
 	else
 		if Region.__MSQ_Hooked then
-			Masque:Unhook(Region, "SetSwipeColor", Hook_SetSwipeColor)
-			Masque:Unhook(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
+			Masque:Unhook(Region, "SetSwipeColor")
+			Masque:Unhook(Region, "SetEdgeTexture")
 			Region.__MSQ_Hooked = nil
 		end
 
