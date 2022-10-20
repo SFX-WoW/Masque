@@ -50,35 +50,76 @@ local SkinTexture, UpdateSpellAlert = Core.SkinTexture, Core.UpdateSpellAlert
 
 local __Empty = {}
 
--- Hook to counter 10.0 `Action` button texture changes.
-local function Hook_UpdateArt(Button, HideDivider)
-	local Pushed = Button.PushedTexture
-	if not Pushed then return end
-
+-- Function to toggle the button art.
+local function SetButtonArt(Button)
 	local SlotArt, SlotBackground = Button.SlotArt, Button.SlotBackground
 
-	if SlotArt then SlotArt:Hide() end
-	if SlotBackground then SlotBackground:Hide() end
+	if Button.__MSQ_Enabled then
+		if SlotArt then
+			SlotArt:SetTexture()
+			SlotArt:Hide()
+		end
+		if SlotBackground then
+			SlotBackground:SetTexture()
+			SlotBackground:Hide()
+		end
+	else
+		if SlotArt then
+			SlotArt:SetAtlas("UI-HUD-ActionBar-IconFrame-Slot")
+		end
+		if SlotBackground then
+			SlotBackground:SetAtlas("UI-HUD-ActionBar-IconFrame-Background")
+		end
+	end
+end
 
-	SkinTexture("Pushed", Pushed, Button.__MSQ_Skin.Pushed, Button, Button.__MSQ_PushedColor, GetScale(Button))
+-- Hook to counter 10.0 `Action` button texture changes.
+local function Hook_UpdateArt(Button, HideDivider)
+	SetButtonArt(Button)
+
+	local Pushed, Skin = Button.PushedTexture, Button.__MSQ_Skin
+
+	if Pushed and Skin then
+		SkinTexture("Pushed", Pushed, Skin.Pushed, Button, Button.__MSQ_PushedColor, GetScale(Button))
+	end
 end
 
 -- Hook to counter 10.0 `Bag` button texture changes.
 local function Hook_UpdateTextures(Button)
-	local Pushed = Button:GetPushedTexture()
-	local Highlight = Button:GetHighlightTexture()
-	local SlotHighlight = Button.SlotHighlightTexture
+	local Skin = Button.__MSQ_Skin
 
-	local xScale, yScale = GetScale(Button)
+	if Skin then
+		local Pushed = Button:GetPushedTexture()
+		local Highlight = Button:GetHighlightTexture()
+		local SlotHighlight = Button.SlotHighlightTexture
 
-	SkinTexture("Pushed", Pushed, Button.__MSQ_Skin.Pushed, Button, Button.__MSQ_PushedColor, xScale, yScale)
-	SkinTexture("Highlight", Highlight, Button.__MSQ_Skin.Highlight, Button, Button.__MSQ_HighlightColor, xScale, yScale)
-	SkinTexture("SlotHighlight", SlotHighlight, Button.__MSQ_Skin.SlotHighlight, Button, Button.__MSQ_SlotHighlightColor, xScale, yScale)
+		local xScale, yScale = GetScale(Button)
+
+		if Pushed then
+			SkinTexture("Pushed", Pushed, Skin.Pushed, Button, Button.__MSQ_PushedColor, xScale, yScale)
+		end
+		if Highlight then
+			SkinTexture("Highlight", Highlight, Skin.Highlight, Button, Button.__MSQ_HighlightColor, xScale, yScale)
+		end
+		if SlotHighlight then
+			SkinTexture("SlotHighlight", SlotHighlight, Skin.SlotHighlight, Button, Button.__MSQ_SlotHighlightColor, xScale, yScale)
+		end
+	end
+end
+
+-- Hook to counter 10.0 `HotKey` position changes.
+local function Hook_UpdateHotkeys(Button, ActionButtonType)
+	local HotKey, Skin = Button.HotKey, Button.__MSQ_Skin
+
+	if (HotKey and HotKey:GetText() ~= "") and Skin then
+		SkinText("HotKey", HotKey, Button, Skin.HotKey, GetScale(Button))
+	end
 end
 
 -- List of methods to hook.
 local Hook_Methods = {
 	UpdateArt = Hook_UpdateArt,
+	UpdateHotKeys = Hook_UpdateHotKeys,
 	UpdateTextures = Hook_UpdateTextures,
 }
 
@@ -95,9 +136,11 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	if SkinID then
 		Skin = Skins[SkinID] or Skins.Classic
+		Button.__MSQ_Skin = Skin
 	else
 		local Addon = Button.__MSQ_Addon or false
 		Skin = Skins[Addon] or DEFAULT_SKIN
+		Button.__MSQ_Skin = nil
 		Disabled = true
 		Pulse = true
 	end
@@ -166,14 +209,19 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		end
 	end
 
+	-- Set the button art.
+	SetButtonArt(Button)
+
 	-- Update Hooks
 	for Method, Hook in pairs(Hook_Methods) do
 		if Button[Method] then
 			local Hooked = Masque:IsHooked(Button, Method)
 
-			if Hooked and Disabled then
-				Masque:Unhook(Button, Method)
-				Button.__MSQ_ArtHook = nil
+			if Disabled then
+				if Hooked then
+					Masque:Unhook(Button, Method)
+					Button.__MSQ_ArtHook = nil
+				end
 			elseif not Hooked then
 				Masque:SecureHook(Button, Method, Hook)
 				Button.__MSQ_ArtHook = true
