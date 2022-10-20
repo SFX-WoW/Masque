@@ -3,16 +3,18 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
 	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
 
-	* File...: Skins\Default.lua
+	* File...: Skins\Default_Classic.lua
 	* Author.: Blizzard Entertainment
 
-	'Default (Classic)' Skin
+	'Default' Skin (Classic)
 
 	* Note: Some attributes are modified for internal consistency.
 
 ]]
 
 local _, Core = ...
+
+if Core.WOW_RETAIL then return end
 
 ----------------------------------------
 -- Locals
@@ -24,7 +26,7 @@ local L = Core.Locale
 -- Default (Classic)
 ---
 
-local SkinID = "Default (Classic)"
+local SkinID = "Default"
 Core.SkinList[SkinID] = SkinID
 
 local Skin = {
@@ -83,8 +85,8 @@ local Skin = {
 		Height = 66,
 		Point = "CENTER",
 		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = -1,
+		OffsetX = 0.5,
+		OffsetY = -0.5,
 		UseStates = true,
 		-- SetAllPoints = nil,
 		Pet = {
@@ -99,8 +101,8 @@ local Skin = {
 			Height = 65,
 			Point = "CENTER",
 			RelPoint = "CENTER",
-			OffsetX = 0,
-			OffsetY = -1,
+			OffsetX = 0.5,
+			OffsetY = -0.5,
 			UseStates = true,
 			-- SetAllPoints = nil,
 		},
@@ -116,8 +118,8 @@ local Skin = {
 			Height = 64,
 			Point = "CENTER",
 			RelPoint = "CENTER",
-			OffsetX = 0,
-			OffsetY = -1,
+			OffsetX = 0.5,
+			OffsetY = -0.5,
 			UseStates = true,
 			-- SetAllPoints = nil,
 		},
