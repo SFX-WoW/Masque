@@ -6,6 +6,7 @@ on:
   push:
     tags:
       - '**-alpha**'
+      - '**-Alpha**'
     paths-ignore:
       - '.github/**'
 
