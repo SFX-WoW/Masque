@@ -138,7 +138,7 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 		Region.__MSQ_Color = nil
 
 		if Region:GetDrawSwipe() then
-			Region:SetSwipeTexture(0, 0, 0, 0.8)
+			Region:SetSwipeTexture("", 0, 0, 0, 0.8)
 		end
 
 		Region:SetEdgeTexture([[Interface\Cooldown\edge]])
