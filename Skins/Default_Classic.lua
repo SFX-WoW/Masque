@@ -14,8 +14,6 @@
 
 local _, Core = ...
 
-if Core.WOW_RETAIL then return end
-
 ----------------------------------------
 -- Locals
 ---
@@ -26,7 +24,7 @@ local L = Core.Locale
 -- Default (Classic)
 ---
 
-local SkinID = "Default"
+local SkinID = "Default (Classic)"
 Core.SkinList[SkinID] = SkinID
 
 local Skin = {
@@ -41,7 +39,6 @@ local Skin = {
 
 	-- Skin
 	-- Mask = nil,
-	-- [BACKGROUND, -1]
 	Backdrop = {
 		Texture = [[Interface\Buttons\UI-Quickslot]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -58,21 +55,19 @@ local Skin = {
 		-- UseColor = nil,
 		-- SetAllPoints = nil,
 	},
-	-- [BACKGROUND, 0]
 	Icon = {
 		-- TexCoords = {0, 1, 0, 1},
 		DrawLayer = "BACKGROUND",
 		DrawLevel = 0,
 		Width = 36,
 		Height = 36,
-		Point = "TOPLEFT",
-		RelPoint = "TOPLEFT",
+		Point = "CENTER",
+		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
 	Shadow = {Hide = true},
-	-- [ARTWORK, 0]
 	Normal = {
 		Texture = [[Interface\Buttons\UI-Quickslot2]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -134,14 +129,13 @@ local Skin = {
 		DrawLevel = 0,
 		Width = 36,
 		Height = 36,
-		Point = "TOPLEFT",
-		RelPoint = "TOPLEFT",
+		Point = "CENTER",
+		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
 		-- UseColor = nil,
 		-- SetAllPoints = nil,
 	},
-	-- [ARTWORK, 1]
 	Flash = {
 		Texture = [[Interface\Buttons\UI-QuickslotRed]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -151,20 +145,20 @@ local Skin = {
 		DrawLevel = 1,
 		Width = 36,
 		Height = 36,
-		Point = "TOPLEFT",
-		RelPoint = "TOPLEFT",
+		Point = "CENTER",
+		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
 		-- UseColor = nil,
 		-- SetAllPoints = nil,
 	},
-	-- [ARTWORK, 2]
 	HotKey = {
 		JustifyH = "RIGHT",
 		JustifyV = "MIDDLE",
 		DrawLayer = "ARTWORK",
 		Width = 36,
 		Height = 10,
+		Anchor = "icon",
 		Point = "TOPLEFT",
 		RelPoint = "TOPLEFT",
 		OffsetX = -2,
@@ -176,9 +170,10 @@ local Skin = {
 		DrawLayer = "ARTWORK",
 		Width = 36,
 		Height = 10,
+		Anchor = "icon",
 		Point = "BOTTOMRIGHT",
 		RelPoint = "BOTTOMRIGHT",
-		OffsetX = -5,
+		OffsetX = -2,
 		OffsetY = 2,
 		Item = {
 			JustifyH = "RIGHT",
@@ -203,7 +198,6 @@ local Skin = {
 		OffsetX = 0,
 		OffsetY = -1.5,
 	},
-	-- [OVERLAY, 0]
 	Checked = {
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -213,8 +207,8 @@ local Skin = {
 		DrawLevel = 0,
 		Width = 36,
 		Height = 36,
-		Point = "TOPLEFT",
-		RelPoint = "TOPLEFT",
+		Point = "CENTER",
+		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
 		-- SetAllPoints = nil,
@@ -225,10 +219,11 @@ local Skin = {
 		DrawLayer = "OVERLAY",
 		Width = 36,
 		Height = 10,
+		Anchor = "icon",
 		Point = "BOTTOM",
 		RelPoint = "BOTTOM",
 		OffsetX = 0,
-		OffsetY = 2,
+		OffsetY = 1,
 	},
 	Border = {
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
@@ -307,7 +302,6 @@ local Skin = {
 		SetAllPoints = true,
 	},
 	Gloss = {Hide = true},
-	-- [OVERLAY, 1]
 	NewAction = {
 		Atlas = "bags-newitem",
 		UseAtlasSize = false,
@@ -475,7 +469,6 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	-- [HIGHLIGHT, 0]
 	Highlight = {
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -485,14 +478,13 @@ local Skin = {
 		DrawLevel = 0,
 		Width = 36,
 		Height = 36,
-		Point = "TOPLEFT",
-		RelPoint = "TOPLEFT",
+		Point = "CENTER",
+		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
 		-- UseColor = nil,
 		-- SetAllPoints = nil,
 	},
-	-- [FRAMES]
 	AutoCastShine = {
 		Width = 28, -- 34
 		Height = 28, -- 34
@@ -520,11 +512,11 @@ local Skin = {
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Width = 36,
 		Height = 36,
-		-- Point = "CENTER",
-		-- RelPoint = "CENTER",
-		-- OffsetX = 0,
-		-- OffsetY = 0,
-		SetAllPoints = true,
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = true,
 	},
 }
 
