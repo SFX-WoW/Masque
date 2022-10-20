@@ -254,7 +254,7 @@ local Skin = {
 			-- SetAllPoints = nil,
 		},
 		Item = {
-			Texture = "Interface\Buttons\UI-Quickslot-Depress",
+			Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 			-- TexCoords = {0, 1, 0, 1},
 			Color = {1, 1, 1, 1},
 			-- EmptyColor = {1, 1, 1, 1},

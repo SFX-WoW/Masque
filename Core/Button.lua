@@ -108,7 +108,7 @@ local function Hook_UpdateTextures(Button)
 end
 
 -- Hook to counter 10.0 `HotKey` position changes.
-local function Hook_UpdateHotkeys(Button, ActionButtonType)
+local function Hook_UpdateHotKeys(Button, ActionButtonType)
 	local HotKey, Skin = Button.HotKey, Button.__MSQ_Skin
 
 	if (HotKey and HotKey:GetText() ~= "") and Skin then

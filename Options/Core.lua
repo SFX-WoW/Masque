@@ -103,7 +103,7 @@ function Setup.Core(self)
 									if Setup.LoD then Setup("LoD") end
 									-- Force a sub-panel refresh.
 									if WOW_RETAIL then
-										SettingsFrame:OpenToCategory(MASQUE)
+										SettingsPanel:OpenToCategory(MASQUE)
 									else
 										InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
 										InterfaceOptionsFrame_OpenToCategory(Core.SkinOptionsPanel)
