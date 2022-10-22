@@ -14,8 +14,6 @@
 
 ]]
 
--- GLOBALS: GetLocale
-
 if GetLocale() ~= "frFR" then return end
 
 local _, Core = ...

@@ -14,8 +14,6 @@
 
 ]]
 
--- GLOBALS: GetLocale
-
 local Locale = GetLocale()
 if Locale ~= "esMX" and Locale ~= "esES" then return end
 

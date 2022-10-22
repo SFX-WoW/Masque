@@ -13,7 +13,7 @@
 local _, Core = ...
 
 ----------------------------------------
--- Lua
+-- Lua API
 ---
 
 local error, setmetatable, type = error, setmetatable, type
