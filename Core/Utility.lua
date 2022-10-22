@@ -22,7 +22,7 @@ local type = type
 -- Locals
 ---
 
-local SCALE_SIZE = (Core.WOW_RETAIL and 45) or 36
+local SCALE_SIZE = 36
 
 ----------------------------------------
 -- Color
