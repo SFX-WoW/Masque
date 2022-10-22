@@ -7,14 +7,18 @@
 - This release is only compatible with _Dragonflight_ and the _Classic_ versions of the game. It does _not_ support _Shadowlands_.
 - This release is based on the PTR build so may not behave the same on the Beta.
 - The _Dragonflight_ UI is currently buggy so users may experience odd errors or warnings until the developers fix them.
-- Item buttons will need additional tweaks that cannot be completed until a bag add-on is updated for _Dragonflight_.
+
+#### Known Issues
+
+- Item buttons need additional tweaks that cannot be completed until a bag add-on is updated for _Dragonflight_.
+- The default size of action buttons was increased by 25% in Dragonflight and will affect skins for those buttons in a similar fashion.
 
 #### General
 
 - Added support for the _Dragonflight_ (PTR) changes.
 - Added a new default skin that mimics the new interface in _Dragonflight_.
 - Removed the _TBC Classic_ ToC file.
-- The stand-alone Options window is now enabled by default due to taint issues with the new Settings panel.
+- The stand-alone _Options_ window is now enabled by default due to taint issues with the new _Settings_ panel.
 - Update _Masque_'s icon.
 - Updated the `Interface` version for _Retail_ to `100000`.
 
@@ -37,11 +41,10 @@
     - `Buff`
     - `Debuff`
     - `Enchant`
-- Masque now uses `AceHook-3.0` and will unhook regions when no longer needed.
 
 #### Bug Fixes
 
-- Fixed an issue that prevented bag buttons from being properly detected as item buttons.
+- Fixed an issue that prevented bag buttons from being properly detected as item buttons in _Classic_.
 - Fixed an issue with `LibDualSpec-1.0` being unavailable in _Wrath Classic_.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
