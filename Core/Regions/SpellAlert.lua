@@ -15,7 +15,7 @@
 local _, Core = ...
 
 ----------------------------------------
--- Lua
+-- Lua API
 ---
 
 local error, type = error, type
@@ -72,7 +72,7 @@ local function UpdateSpellAlert(Button)
 end
 
 -- @ FrameXML\ActionButton.lua
-Core.AddOn:SecureHook("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
+hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 
 ----------------------------------------
 -- Core

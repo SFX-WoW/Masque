@@ -15,17 +15,20 @@
 local _, Core = ...
 
 ----------------------------------------
--- Lua
+-- Lua API
 ---
 
 local error, type = error, type
 
 ----------------------------------------
--- Internal
+-- WoW API
 ---
 
--- @ Masque
-local Masque = Core.AddOn
+local hooksecurefunc = hooksecurefunc
+
+----------------------------------------
+-- Internal
+---
 
 -- @ Core\Utility
 local GetSize, GetTexCoords, SetPoints = Core.GetSize, Core.GetTexCoords, Core.SetPoints
@@ -88,6 +91,8 @@ end
 function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 	Button.__MSQ_Icon = Region
 	Region.__MSQ_Button = Button
+
+	-- Skin
 	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 
 	Region:SetParent(Button)
@@ -101,20 +106,16 @@ function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 
 	if not Button.__MSQ_Enabled then
 		Region.__MSQ_Button = nil
+	end
 
-		if Region.__MSQ_Hooked then
-			Masque:Unhook(Region, "Hide", Hook_Hide)
-			Masque:Unhook(Region, "Show", Hook_Show)
-			Region.__MSQ_Hooked = nil
-		end
-	elseif Button.__MSQ_EmptyType then
+	if Button.__MSQ_EmptyType then
 		-- Empty Status
 		SetEmpty(Button, not Region:IsShown())
 
 		-- Hooks
 		if not Region.__MSQ_Hooked then
-			Masque:SecureHook(Region, "Hide", Hook_Hide)
-			Masque:SecureHook(Region, "Show", Hook_Show)
+			hooksecurefunc(Region, "Hide", Hook_Hide)
+			hooksecurefunc(Region, "Show", Hook_Show)
 			Region.__MSQ_Hooked = true
 		end
 	end

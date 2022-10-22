@@ -15,11 +15,14 @@
 local _, Core = ...
 
 ----------------------------------------
--- Internal
+-- WoW API
 ---
 
--- @ Masque
-local Masque = Core.AddOn
+local hooksecurefunc = hooksecurefunc
+
+----------------------------------------
+-- Internal
+---
 
 -- @ Skins\Default
 local Default = Core.DEFAULT_SKIN.IconBorder
@@ -76,15 +79,7 @@ function Core.SkinIconBorder(Region, Button, Skin, xScale, yScale)
 		Region.__MSQ_Texture = Texture
 
 		Hook_SetTexture(Region, Texture)
-
-		if not Masque:IsHooked(Region, "SetTexture") then
-			Masque:SecureHook(Region, "SetTexture", Hook_SetTexture)
-		end
 	else
-		if Masque:IsHooked(Region, "SetTexture") then
-			Masque:Unhook(Region, "SetTexture")
-		end
-
 		Region.__MSQ_Skin = nil
 		Region.__MSQ_Texture = nil
 
@@ -96,4 +91,9 @@ function Core.SkinIconBorder(Region, Button, Skin, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+
+	if not Region.__MSQ_Hooked then
+		hooksecurefunc(Region, "SetTexture", Hook_SetTexture)
+		Region.__MSQ_Hooked = true
+	end
 end

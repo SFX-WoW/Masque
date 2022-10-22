@@ -15,17 +15,20 @@
 local _, Core = ...
 
 ----------------------------------------
--- Lua
+-- Lua API
 ---
 
 local type = type
 
 ----------------------------------------
--- Internal
+-- WoW API
 ---
 
--- @ Masque
-local Masque = Core.AddOn
+local hooksecurefunc = hooksecurefunc
+
+----------------------------------------
+-- Internal
+---
 
 -- @ Skins\Default
 local Default = Core.DEFAULT_SKIN.Cooldown
@@ -40,6 +43,8 @@ local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
 
 local DEF_COLOR = Default.Color
 local DEF_PULSE = Default.PulseTexture
+local DEF_EDGE = Default.EdgeTexture
+local DEF_EDGE_LOC = [[Interface\Cooldown\edge-LoC]]
 
 local MSQ_EDGE = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]]
 local MSQ_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Cooldown\Edge-LoC]]
@@ -86,7 +91,7 @@ local function Hook_SetEdgeTexture(Region, Texture)
 
 	Region.__EdgeHook = true
 
-	if Texture == [[Interface\Cooldown\edge-LoC]] then
+	if Texture == DEF_EDGE_LOC then
 		Region:SetEdgeTexture(MSQ_EDGE_LOC)
 	else
 		Region:SetEdgeTexture(Region.__MSQ_Edge or MSQ_EDGE)
@@ -109,7 +114,7 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 	end
 
 	if Button.__MSQ_Enabled then
-		-- Swipe
+		-- Cooldown
 		if Region:GetDrawSwipe() then
 			Region.__MSQ_Color = Color or Skin.Color or DEF_COLOR
 			Region.__MSQ_Edge = Skin.EdgeTexture or MSQ_EDGE
@@ -119,29 +124,23 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 			Hook_SetEdgeTexture(Region)
 
 			if not Region.__MSQ_Hooked then
-				Masque:SecureHook(Region, "SetSwipeColor", Hook_SetSwipeColor)
-				Masque:SecureHook(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
+				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
+				hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
 				Region.__MSQ_Hooked = true
 			end
 
-		-- Edge Only
+		-- ChargeCooldown
 		else
 			Region:SetEdgeTexture(Skin.EdgeTexture or MSQ_EDGE)
 		end
 	else
-		if Region.__MSQ_Hooked then
-			Masque:Unhook(Region, "SetSwipeColor")
-			Masque:Unhook(Region, "SetEdgeTexture")
-			Region.__MSQ_Hooked = nil
-		end
-
 		Region.__MSQ_Color = nil
 
 		if Region:GetDrawSwipe() then
 			Region:SetSwipeTexture("", 0, 0, 0, 0.8)
 		end
 
-		Region:SetEdgeTexture([[Interface\Cooldown\edge]])
+		Region:SetEdgeTexture(DEF_EDGE)
 	end
 
 	Region:SetBlingTexture(Skin.PulseTexture or DEF_PULSE)
@@ -171,7 +170,7 @@ local function UpdateCharge(Button)
 end
 
 -- @ FrameXML\ActionButton.lua
-Masque:SecureHook("StartChargeCooldown", UpdateCharge)
+hooksecurefunc("StartChargeCooldown", UpdateCharge)
 
 ----------------------------------------
 -- Core

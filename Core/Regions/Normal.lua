@@ -15,17 +15,20 @@
 local _, Core = ...
 
 ----------------------------------------
--- Lua
+-- Lua API
 ---
 
 local error, type = error, type
 
 ----------------------------------------
--- Internal
+-- WoW API
 ---
 
--- @ Masque
-local Masque = Core.AddOn
+local hooksecurefunc, random = hooksecurefunc, random
+
+----------------------------------------
+-- Internal
+---
 
 -- @ Skins\Default
 local Default = Core.DEFAULT_SKIN.Normal
@@ -58,16 +61,19 @@ local function UpdateNormal(Button, IsEmpty)
 		local Coords = Skin.TexCoords
 		local Color = Button.__MSQ_NormalColor or DEF_COLOR
 
+		-- Empty settings for types that can be empty.
+		if Button.__MSQ_EmptyType and IsEmpty then
+			Atlas = Skin.EmptyAtlas or Atlas
+			Texture = Skin.EmptyTexture or Texture
+			Coords = Skin.EmptyCoords or Coords
+			Color = Skin.EmptyColor or Color
+		end
+
 		if Atlas then
 			Normal:SetAtlas(Atlas, Skin.UseAtlasSize)
 		elseif Texture then
 			Normal:SetTexture(Texture)
 			Normal:SetTexCoord(GetTexCoords(Coords))
-		end
-
-		-- Empty settings for types that can be empty.
-		if Button.__MSQ_EmptyType and IsEmpty then
-			Color = Skin.EmptyColor or Color
 		end
 
 		Normal:SetVertexColor(GetColor(Color))
@@ -168,9 +174,7 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	Region:SetAlpha(1)
 	UpdateNormal(Button)
 
-	local Disabled = not Button.__MSQ_Enabled
-
-	if Disabled then
+	if not Button.__MSQ_Enabled then
 		Button.__MSQ_Normal = nil
 		Button.__MSQ_NormalSkin = nil
 		Button.__MSQ_NormalColor = nil
@@ -187,16 +191,10 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 	Region:Show()
 
-	local Hooked = Button.__MSQ_NormalHook
-
-	if IsButton and Button.__MSQ_EmptyType and not Hooked and not Disabled then
-		Masque:SecureHook(Button, "SetNormalAtlas", Hook_SetNormal)
-		Masque:SecureHook(Button, "SetNormalTexture", Hook_SetNormal)
+	if IsButton and Button.__MSQ_EmptyType and not Button.__MSQ_NormalHook then
+		hooksecurefunc(Button, "SetNormalAtlas", Hook_SetNormal)
+		hooksecurefunc(Button, "SetNormalTexture", Hook_SetNormal)
 		Button.__MSQ_NormalHook = true
-	elseif Disabled then
-		Masque:Unhook(Button, "SetNormalAtlas")
-		Masque:Unhook(Button, "SetNormalTexture")
-		Button.__MSQ_NormalHook = nil
 	end
 end
 

@@ -13,17 +13,20 @@
 local _, Core = ...
 
 ----------------------------------------
--- Lua
+-- Lua API
 ---
 
 local pairs, type = pairs, type
 
 ----------------------------------------
--- Internal
+-- WoW API
 ---
 
--- @ Masque
-local Masque = Core.AddOn
+local hooksecurefunc = hooksecurefunc
+
+----------------------------------------
+-- Internal
+---
 
 -- @ Skins\Skins
 local Skins = Core.Skins
@@ -76,6 +79,10 @@ end
 -- Hook to counter 10.0 `Action` button texture changes.
 local function Hook_UpdateArt(Button, HideDivider)
 	SetButtonArt(Button)
+	
+	if not Button.__MSQ_Enabled then
+		return
+	end
 
 	local Pushed, Skin = Button.PushedTexture, Button.__MSQ_Skin
 
@@ -86,6 +93,10 @@ end
 
 -- Hook to counter 10.0 `Bag` button texture changes.
 local function Hook_UpdateTextures(Button)
+	if not Button.__MSQ_Enabled then
+		return
+	end
+
 	local Skin = Button.__MSQ_Skin
 
 	if Skin then
@@ -212,19 +223,15 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	-- Set the button art.
 	SetButtonArt(Button)
 
-	-- Update Hooks
+	-- Hooks
 	for Method, Hook in pairs(Hook_Methods) do
 		if Button[Method] then
-			local Hooked = Masque:IsHooked(Button, Method)
+			local Key = "__MSQ_"..Method
+			local Hooked = Button[Key]
 
-			if Disabled then
-				if Hooked then
-					Masque:Unhook(Button, Method)
-					Button.__MSQ_ArtHook = nil
-				end
-			elseif not Hooked then
-				Masque:SecureHook(Button, Method, Hook)
-				Button.__MSQ_ArtHook = true
+			if not Hooked and not Disabled then
+				hooksecurefunc(Button, Method, Hook)
+				Button[Key] = true
 			end
 		end
 	end

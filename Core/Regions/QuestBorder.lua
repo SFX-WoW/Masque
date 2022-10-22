@@ -15,11 +15,14 @@
 local _, Core = ...
 
 ----------------------------------------
--- Internal
+-- WoW API
 ---
 
--- @ Masque
-local Masque = Core.AddOn
+local hooksecurefunc = hooksecurefunc
+
+----------------------------------------
+-- Internal
+---
 
 -- @ Skins\Default
 local Default = Core.DEFAULT_SKIN.QuestBorder
@@ -69,11 +72,9 @@ end
 -- Skins the 'QuestBorder' region of a button.
 function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
 	local Texture = Region.__MSQ_Texture or Region:GetTexture()
-	local Disabled = not Button.__MSQ_Enabled
-	
 	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 
-	if not Disabled then
+	if Button.__MSQ_Enabled then
 		Region.__MSQ_Skin = Skin
 		Region.__MSQ_Texture = Texture
 
@@ -92,11 +93,8 @@ function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
-	local Hooked = Masque:IsHooked(Region, "SetTexture")
-
-	if not Hooked and not Disabled then
-		Masque:SecureHook(Region, "SetTexture", Hook_SetTexture)
-	elseif Disabled then
-		Masque:Unhook(Region, "SetTexture")
+	if not Region.__MSQ_Hooked then
+		hooksecurefunc(Region, "SetTexture", Hook_SetTexture)
+		Region.__MSQ_Hooked = true
 	end
 end
