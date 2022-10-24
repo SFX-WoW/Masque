@@ -35,6 +35,14 @@ function Core.SkinMask(Region, Button, Skin, xScale, yScale)
 
 	-- Region
 	if Region then
+		local CircleMask = Button.CircleMask
+
+		-- Disable the bag mask in 10.0 so we can use our own.
+		if CircleMask and not Button.__MSQ_NoBagMask then
+			Region:RemoveMaskTexture(CircleMask)
+			Button.__MSQ_NoBagMask = true
+		end
+
 		local SkinMask = Skin.Mask
 
 		-- Button Mask
