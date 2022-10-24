@@ -184,7 +184,10 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local Mask = Skin.Mask
 
 	if Mask then
-		Mask = GetTypeSkin(Button, bType, Mask)
+		if type(Mask) == "table" then
+			Mask = GetTypeSkin(Button, bType, Mask)
+		end
+
 		SkinMask(nil, Button, Mask, xScale, yScale)
 	end
 
