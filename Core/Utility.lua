@@ -97,7 +97,7 @@ end
 
 -- Returns a height and width.
 function Core.GetSize(Width, Height, xScale, yScale, ReSize)
-	local ScaleSize = (Resize and 45) or 36
+	local ScaleSize = (ReSize and 45) or 36
 	local w = (Width or ScaleSize) * xScale
 	local h = (Height or ScaleSize) * yScale
 	return w, h
