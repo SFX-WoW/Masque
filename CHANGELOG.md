@@ -10,30 +10,39 @@
 
 #### Known Issues
 
-- Item buttons need additional tweaks that cannot be completed until a bag add-on is updated for _Dragonflight_.
-- The default size of action buttons was increased by 25% in Dragonflight and will affect skins for those buttons in a similar fashion.
+- Item buttons are still a work in progress.
+- Pet buttons for Bartender4 may not skin correctly.
 
 #### General
 
 - Added support for the _Dragonflight_ (PTR) changes.
-- Added a new default skin that mimics the new interface in _Dragonflight_.
 - Removed the _TBC Classic_ ToC file.
-- The stand-alone _Options_ window is now enabled by default due to taint issues with the new _Settings_ panel.
+- The stand-alone _Options_ window is now enabled by default.
 - Update _Masque_'s icon.
 - Updated the `Interface` version for _Retail_ to `100000`.
+- Update the _Supporters_ panel.
 
-#### Localization
+#### Skins
 
-- Added a missing `deDE` entry.
-- Updated `koKR`. (Netaras)
+- Added a new `Default` skin that mimics the new interface in _Dragonflight_.
+  - Note: This skin is unavailable in _Classic_ due to missing assets.
+- The original `Default` skin has been renamed to `Default (Classic)`.
+- Updated all skins to support various changes.
 
 #### API
 
-- Added skin support for the `Anchor` attribute which allows a layer to be anchored to a region (eg, the icon) rather than the button. The value of this attribute must be a string that matches a region key for the button.
-- Added two new button types, `Backpack` and `Bag`.
-- Improved the type-handling for buttons so that the base type will act as a fallback for sub-types. The hierarchy is as follows:
+- Added skin support for the `Anchor` attribute which allows a layer to be anchored to a region (eg, the `icon`) rather than the button. The value of this attribute must be a string that matches a region key for the button.
+  - This helps to alleviate issues with the positioning of text regions on buttons that are larger than their skin.
+- Added four new button types, `Backpack`, `Bag`, `Possess` and `Stance`.
+- Added atlas support to various regions.
+- Implemented a fail-safe for buttons that qualify as a sub-type but are passed as a base type.
+- Implemented a fail-safe for add-ons that use custom `Normal` textures.
+- Improved the skinning of masks.
+- Improved the type-handling for buttons so that the base type will act as a fallback for sub-types. This will remove the need for skins to declare sub-types that have the same skin settings as the base type. The hierarchy is as follows:
   - `Action`
     - `Pet`
+    - `Possess`
+    - `Stance`
   - `Item`
     - `Backpack`
     - `Bag`
@@ -41,6 +50,11 @@
     - `Buff`
     - `Debuff`
     - `Enchant`
+
+#### Localization
+
+- Added a missing `deDE` entry.
+- Updated `koKR`. (Netaras)
 
 #### Bug Fixes
 
