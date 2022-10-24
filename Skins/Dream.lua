@@ -121,17 +121,6 @@ Core.AddSkin("Dream", {
 		RelPoint = "BOTTOMRIGHT",
 		OffsetX = 0,
 		OffsetY = 2,
-		Item = {
-			JustifyH = "RIGHT",
-			JustifyV = "MIDDLE",
-			DrawLayer = "ARTWORK",
-			Width = 36,
-			Height = 10,
-			Point = "BOTTOMRIGHT",
-			RelPoint = "BOTTOMRIGHT",
-			OffsetX = -3,
-			OffsetY = 4,
-		},
 	},
 	Duration = {
 		JustifyH = "CENTER",
