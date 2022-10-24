@@ -55,6 +55,7 @@
 
 - Added a missing `deDE` entry.
 - Updated `koKR`. (Netaras)
+- Updated `zhTW`. (BNS333)
 
 #### Bug Fixes
 
