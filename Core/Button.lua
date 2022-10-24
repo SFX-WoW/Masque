@@ -82,11 +82,11 @@ end
 
 -- Hook to counter 10.0 `Action` button texture changes.
 local function Hook_UpdateArt(Button, HideDivider)
+	if Button.__MSQ_Exit_UpdateArt then return end
+
 	SetButtonArt(Button)
-	
-	if not Button.__MSQ_Enabled then
-		return
-	end
+
+	if not Button.__MSQ_Enabled then return end
 
 	local Pushed, Skin = Button.PushedTexture, Button.__MSQ_Skin
 
@@ -95,11 +95,20 @@ local function Hook_UpdateArt(Button, HideDivider)
 	end
 end
 
+-- Hook to counter 10.0 `HotKey` position changes.
+local function Hook_UpdateHotKeys(Button, ActionButtonType)
+	if Button.__MSQ_Exit_UpdateHotKeys then return end
+
+	local HotKey, Skin = Button.HotKey, Button.__MSQ_Skin
+
+	if (HotKey and HotKey:GetText() ~= "") and Skin then
+		SkinText("HotKey", HotKey, Button, Skin.HotKey, GetScale(Button))
+	end
+end
+
 -- Hook to counter 10.0 `Bag` button texture changes.
 local function Hook_UpdateTextures(Button)
-	if not Button.__MSQ_Enabled then
-		return
-	end
+	if Button.__MSQ_Exit_UpdateTextures then return end
 
 	local Skin = Button.__MSQ_Skin
 
@@ -119,15 +128,6 @@ local function Hook_UpdateTextures(Button)
 		if SlotHighlight then
 			SkinTexture("SlotHighlight", SlotHighlight, Skin.SlotHighlight, Button, Button.__MSQ_SlotHighlightColor, xScale, yScale)
 		end
-	end
-end
-
--- Hook to counter 10.0 `HotKey` position changes.
-local function Hook_UpdateHotKeys(Button, ActionButtonType)
-	local HotKey, Skin = Button.HotKey, Button.__MSQ_Skin
-
-	if (HotKey and HotKey:GetText() ~= "") and Skin then
-		SkinText("HotKey", HotKey, Button, Skin.HotKey, GetScale(Button))
 	end
 end
 
@@ -246,11 +246,17 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	for Method, Hook in pairs(Hook_Methods) do
 		if Button[Method] then
 			local Key = "__MSQ_"..Method
-			local Hooked = Button[Key]
+			local ExitKey = "__MSQ_Exit_"..Method
 
-			if not Hooked and not Disabled then
-				hooksecurefunc(Button, Method, Hook)
-				Button[Key] = true
+			if Disabled then
+				Button[ExitKey] = true
+			else
+				if not Button[Key] then
+					hooksecurefunc(Button, Method, Hook)
+					Button[Key] = true
+				end
+
+				Button[ExitKey] = nil
 			end
 		end
 	end
