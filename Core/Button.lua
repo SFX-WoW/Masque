@@ -28,14 +28,15 @@ local hooksecurefunc = hooksecurefunc
 -- Internal
 ---
 
--- @ Skins\Skins
-local Skins = Core.Skins
+-- @ Skins\Default(_Classic)
 local DEFAULT_SKIN = Core.DEFAULT_SKIN
 
+-- @ Skins\Skins
+local Skins = Core.Skins
+
 -- @ Skins\Regions
-local RegTypes = Core.RegTypes
-local AuraTypes = Core.AuraTypes
-local ItemTypes = Core.ItemTypes
+local ActionTypes, AuraTypes, EmptyTypes = Core.ActionTypes, Core.AuraTypes, Core.EmptyTypes
+local ItemTypes, RegTypes = Core.ItemTypes, Core.RegTypes
 
 -- @ Core\Utility
 local GetScale, GetTypeSkin = Core.GetScale, Core.GetTypeSkin
@@ -157,9 +158,12 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	Button.__MSQ_Enabled = (not Disabled and true) or nil
+	Button.__MSQ_Shape = Skin.Shape
 	Button.__MSQ_IsAura = AuraTypes[bType]
 	Button.__MSQ_IsItem = ItemTypes[bType]
-	Button.__MSQ_Shape = Skin.Shape
+
+	local EmptyType = EmptyTypes[bType]
+	Button.__MSQ_EmptyType = EmptyType
 
 	if Disabled or type(Colors) ~= "table" then
 		Colors = __Empty

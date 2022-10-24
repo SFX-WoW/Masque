@@ -26,7 +26,7 @@ local error, pairs, type = error, pairs, type
 local Skins = Core.Skins
 
 -- @ Skins\Regions
-local EmptyTypes, RegTypes = Core.EmptyTypes, Core.RegTypes
+local BaseTypes, RegTypes = Core.BaseTypes, Core.RegTypes
 
 -- @ Core\Utility
 local GetColor, GetScale, NoOp = Core.GetColor, Core.GetScale, Core.NoOp
@@ -101,8 +101,7 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 		Type = GetType(Button, oType)
 	end
 
-	Button.__MSQ_bType = Type or false
-	Button.__MSQ_EmptyType = EmptyTypes[Type]
+	Button.__MSQ_bType = Type
 
 	Regions = Regions or Button.__Regions
 
