@@ -16,7 +16,6 @@ local MASQUE, Core = ...
 -- WoW API
 ---
 
-local InterfaceOptionsFrame = InterfaceOptionsFrame
 local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
 local InterfaceOptionsFrame_Show = InterfaceOptionsFrame_Show
 
@@ -101,13 +100,15 @@ function Setup.Core(self)
 								desc = L["Click to load Masque's options."],
 								func = function()
 									if Setup.LoD then Setup("LoD") end
+
 									-- Force a sub-panel refresh.
-									if WOW_RETAIL then
-										SettingsPanel:OpenToCategory(MASQUE)
+									if SettingsPanel then
+										SettingsPanel:OpenToCategory(self.OptionsPanels.Core)
 									else
-										InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
-										InterfaceOptionsFrame_OpenToCategory(Core.SkinOptionsPanel)
-										InterfaceOptionsFrame_OpenToCategory(Core.OptionsPanel)
+										local Frames = Core.OptionsPanels.Frames
+
+										InterfaceOptionsFrame_OpenToCategory(Frames.Skins)
+										InterfaceOptionsFrame_OpenToCategory(Frames.Core)
 									end
 									Core.Options.args.Core.args.Load = nil -- GC
 								end,
@@ -125,7 +126,9 @@ function Setup.Core(self)
 	self.Options = Options
 
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(MASQUE, self.Options)
-	self.OptionsPanel = ACD:AddToBlizOptions(MASQUE, MASQUE, nil, "Core")
+
+	local Path = "Core"
+	self:AddOptionsPanel(Path, ACD:AddToBlizOptions(MASQUE, MASQUE, nil, Path))
 
 	-- GC
 	Setup.Core = nil
@@ -149,22 +152,32 @@ end
 -- Core
 ---
 
+-- Adds options panel info.
+function Core:AddOptionsPanel(Path, Frame, Name)
+	local Panels = self.OptionsPanels
+
+	if not Panels then
+		Panels = {Frames = {}}
+		self.OptionsPanels = Panels
+	end
+
+	local Frames = Panels.Frames
+
+	Frames[Path] = Frame
+	Panels[Path] = Name
+end
+
 -- Toggles the Interface/ACD options frame.
 function Core:ToggleOptions()
 	if Setup.LoD then Setup("LoD") end
 
-	local f = WOW_RETAIL and SettingsPanel or InterfaceOptionsFrame
-	local IOF_Open = f:IsShown()
+	local IOF_Open = InterfaceOptionsFrame and InterfaceOptionsFrame:IsShown()
 	local ACD_Open = ACD.OpenFrames[MASQUE]
 
 	-- Toggle the stand-alone GUI if enabled.
 	if self.db.profile.StandAlone then
 		if IOF_Open then
-			if WOW_RETAIL then
-				f:Close()
-			else
-				InterfaceOptionsFrame_Show()
-			end
+			InterfaceOptionsFrame_Show()
 		elseif ACD_Open then
 			ACD:Close(MASQUE)
 		else
@@ -175,18 +188,16 @@ function Core:ToggleOptions()
 		if ACD_Open then
 			ACD:Close(MASQUE)
 		elseif IOF_Open then
-			if WOW_RETAIL then
-				f:Close()
-			else
-				InterfaceOptionsFrame_Show()
-			end
+			InterfaceOptionsFrame_Show()
 		else
 			if WOW_RETAIL then
-				f:OpenToCategory(MASQUE)
+				SettingsPanel:OpenToCategory(self.OptionsPanels.Core)
 			else
+				local Frames = self.OptionsPanels.Frames
+
 				-- Call twice to make sure the IOF opens to the proper category.
-				InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
-				InterfaceOptionsFrame_OpenToCategory(self.SkinOptionsPanel)
+				InterfaceOptionsFrame_OpenToCategory(Frames.Core)
+				InterfaceOptionsFrame_OpenToCategory(Frames.Skins)
 			end
 		end
 	end
