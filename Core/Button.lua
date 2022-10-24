@@ -28,6 +28,9 @@ local hooksecurefunc = hooksecurefunc
 -- Internal
 ---
 
+-- @ Masque
+local WOW_RETAIL = Core.WOW_RETAIL
+
 -- @ Skins\Default(_Classic)
 local DEFAULT_SKIN = Core.DEFAULT_SKIN
 
@@ -159,8 +162,14 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	Button.__MSQ_Enabled = (not Disabled and true) or nil
 	Button.__MSQ_Shape = Skin.Shape
+
+	-- Set/remove type flags.
+	Button.__MSQ_IsAction = ActionTypes[bType]
 	Button.__MSQ_IsAura = AuraTypes[bType]
 	Button.__MSQ_IsItem = ItemTypes[bType]
+
+	-- Flag Retail `Action` buttons.
+	Button.__MSQ_ReSize = (WOW_RETAIL and ActionTypes[bType]) or nil
 
 	local EmptyType = EmptyTypes[bType]
 	Button.__MSQ_EmptyType = EmptyType
@@ -180,13 +189,16 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- Backdrop
-	local FloatingBG = Button.FloatingBG or Regions.Backdrop
+	-- * Only buttons that can be seen while empty need backdrops.
+	if EmptyType then
+		local FloatingBG = Button.FloatingBG or Regions.Backdrop
 
-	if Disabled then
-		Backdrop = (FloatingBG and true) or false
+		if Disabled then
+			Backdrop = (FloatingBG and true) or false
+		end
+
+		SkinBackdrop(Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 	end
-
-	SkinBackdrop(Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 
 	-- Icon
 	local Icon = Regions.Icon

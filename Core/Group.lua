@@ -32,7 +32,7 @@ local BaseTypes, RegTypes = Core.BaseTypes, Core.RegTypes
 local GetColor, GetScale, NoOp = Core.GetColor, Core.GetScale, Core.NoOp
 
 -- @ Core\Core
-local GetType, GetRegion = Core.GetType, Core.GetRegion
+local GetRegion, GetSubType, GetType = Core.GetRegion, Core.GetSubType, Core.GetType
 
 -- @ Core\Button
 local SkinButton = Core.SkinButton
@@ -97,12 +97,18 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 
 	Type = Type or Button.__MSQ_bType
 
+	local Checked
+
 	if not Type or not RegTypes[Type] then
 		Type = GetType(Button, oType)
+		Checked = true
+	end
+
+	if BaseTypes[Type] and not Checked then
+		Type = GetSubType(Button, Type)
 	end
 
 	Button.__MSQ_bType = Type
-
 	Regions = Regions or Button.__Regions
 
 	local Parent = Group[Button]

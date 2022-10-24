@@ -65,6 +65,43 @@ do
 		Frame = true,
 	}
 
+	-- Function to check for a sub-type.
+	local function GetSubType(Button, Type)
+		if not Button then return end
+
+		local Name = Button.GetName and Button:GetName()
+		local SubType = Type
+
+		if Type == "Action" then
+			if Name then
+				if Name:find("Pet") then
+					SubType = "Pet"
+				elseif Name:find("Possess") then
+					SubType = "Possess"
+				elseif Name:find("Stance") then
+					SubType = "Stance"
+				end
+			end
+		elseif Type == "Aura" then
+			local Border = Button.Border or (Name and _G[Name.."Border"])
+
+			if Border then
+				SubType = (Button.symbol and "Debuff") or "Enchant"
+			end
+		elseif Type == "Item" then
+			if Name then
+				if Name:find("Backpack") then
+					SubType = "Backpack"
+				elseif Name:find("Bag") then
+					SubType = "Bag"
+				end
+			end
+		end
+		return SubType
+	end
+
+	Core.GetSubType = GetSubType
+
 	-- Returns a button's object or internal type.
 	function Core.GetType(Button, oType)
 		local Type
@@ -83,46 +120,26 @@ do
 			Type = "Legacy"
 
 			if oType == "CheckButton" then
-				local bName = Button.GetName and Button:GetName()
-
+				-- Action
 				if Button.HotKey then
-					Type = "Action"
+					Type = GetSubType(Button, "Action")
 
-					if bName and bName:find("Pet") then
-						Type = "Pet"
-					end
-
-				-- Classic bag buttons are checkbuttons.
+				-- Item
+				-- * Classic bag buttons are CheckButtons.
 				elseif Button.IconBorder then
-					if bName and bName:find("Backpack") then
-						Type = "Backpack"
-					else
-						Type = "Bag"
-					end
+					Type = GetSubType(Button, "Item")
 				end
 			elseif oType == "Button" then
-				local bName = Button.GetName and Button:GetName()
-
+				-- Item
 				if Button.IconBorder then
-					if bName and bName:find("Backpack") then
-						Type = "Backpack"
-					elseif bName and bName:find("Bag") then
-						Type = "Bag"
-					else
-						Type = "Item"
-					end
+					Type = GetSubType(Button, "Item")
+
+				-- Aura
 				elseif Button.duration then
-					Type = "Aura"
-
-					local Border = bName and _G[bName.."Border"]
-
-					if Border then
-						Type = (Button.symbol and "Debuff") or "Enchant"
-					end
+					Type = GetSubType(Button, "Aura")
 				end
 			end
 		end
-
 		return Type
 	end
 end
