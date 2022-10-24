@@ -121,8 +121,15 @@ end
 function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	local IsButton = Button.GetNormalTexture
 	local Custom = Button.__MSQ_NewNormal
+	local Normal = IsButton and Button:GetNormalTexture()
 
-	Region = Region or (IsButton and Button:GetNormalTexture())
+	-- Catch add-ons using a custom `Normal` texture.
+	if (Region and Normal) and Region ~= Normal then
+		Normal:SetTexture()
+		Normal:Hide()
+	else
+		Region = Region or Normal
+	end
 
 	-- States Enabled
 	if Skin.UseStates then
@@ -185,7 +192,7 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or 0)
 
 	if not Skin.UseAtlasSize then
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button.__MSQ_ReSize))
 	end
 
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
