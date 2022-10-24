@@ -31,7 +31,7 @@ local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 
 -- Skins a button or region mask.
 function Core.SkinMask(Region, Button, Skin, xScale, yScale)
-	local ButtonMask = Button.__MSQ_Mask
+	local ButtonMask = Button.__MSQ_Mask or Button.IconMask
 
 	-- Region
 	if Region then
