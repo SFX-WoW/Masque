@@ -141,7 +141,7 @@ function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 	end
 
 	if Resize then
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button.__MSQ_ReSize))
 	end
 
 	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default.SetAllPoints)

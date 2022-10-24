@@ -112,7 +112,7 @@ local function AddBackdrop(Region, Button, Skin, Color, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or -1)
 
 	if not UseAtlasSize then
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button.__MSQ_ReSize))
 	end
 
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)

@@ -59,7 +59,7 @@ function Core.SkinMask(Region, Button, Skin, xScale, yScale)
 
 			if type(SkinMask) == "table" then
 				RegionMask:SetTexture(SkinMask.Texture, Skin.WrapH, Skin.WrapV)
-				RegionMask:SetSize(GetSize(SkinMask.Width, SkinMask.Height, xScale, yScale))
+				RegionMask:SetSize(GetSize(SkinMask.Width, SkinMask.Height, xScale, yScale, Button.__MSQ_ReSize))
 				SetPoints(RegionMask, Region, Skin, nil, SkinMask.SetAllPoints)
 			else
 				RegionMask:SetTexture(SkinMask)
@@ -84,11 +84,11 @@ function Core.SkinMask(Region, Button, Skin, xScale, yScale)
 			if Skin.Atlas then
 				ButtonMask:SetAtlas(Skin.Atlas, Skin.UseAtlasSize)
 				if not Skin.UseAtlasSize then
-					ButtonMask:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+					ButtonMask:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button.__MSQ_ReSize))
 				end
 			else
 				ButtonMask:SetTexture(Skin.Texture, Skin.WrapH, Skin.WrapV)
-				ButtonMask:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+				ButtonMask:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button.__MSQ_ReSize))
 			end
 			SetPoints(ButtonMask, Button, Skin, nil, Skin.SetAllPoints)
 		else

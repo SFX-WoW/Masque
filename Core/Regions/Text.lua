@@ -39,6 +39,6 @@ function Core.SkinText(Layer, Region, Button, Skin, xScale, yScale)
 	Region:SetJustifyH(Skin.JustifyH or Default.JustifyH)
 	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
 	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
-	Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale))
+	Region:SetSize(GetSize(Skin.Width, Skin.Height or 10, xScale, yScale, Button.__MSQ_ReSize))
 	SetPoints(Region, Button, Skin, Default)
 end
