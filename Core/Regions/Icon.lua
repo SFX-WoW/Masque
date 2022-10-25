@@ -87,6 +87,8 @@ end
 -- Core
 ---
 
+Core.SetEmpty = SetEmpty
+
 -- Skins the 'Icon' region of a button.
 function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 	Button.__MSQ_Icon = Region
