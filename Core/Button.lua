@@ -80,8 +80,12 @@ local function SetButtonArt(Button)
 	end
 end
 
--- Hook to counter 10.0 `Action` button texture changes.
-local function Hook_UpdateArt(Button, HideDivider)
+----------------------------------------
+-- Hooks
+---
+
+-- Hook to counter 10.0 Action button texture changes.
+local function Hook_UpdateButtonArt(Button, HideDivider)
 	if Button.__MSQ_Exit_UpdateArt then return end
 
 	SetButtonArt(Button)
@@ -95,7 +99,7 @@ local function Hook_UpdateArt(Button, HideDivider)
 	end
 end
 
--- Hook to counter 10.0 `HotKey` position changes.
+-- Hook to counter 10.0 HotKey position changes.
 local function Hook_UpdateHotKeys(Button, ActionButtonType)
 	if Button.__MSQ_Exit_UpdateHotKeys then return end
 
@@ -106,7 +110,7 @@ local function Hook_UpdateHotKeys(Button, ActionButtonType)
 	end
 end
 
--- Hook to counter 10.0 `Bag` button texture changes.
+-- Hook to counter 10.0 Bag button texture changes.
 local function Hook_UpdateTextures(Button)
 	if Button.__MSQ_Exit_UpdateTextures then return end
 
@@ -133,7 +137,7 @@ end
 
 -- List of methods to hook.
 local Hook_Methods = {
-	UpdateArt = Hook_UpdateArt,
+	UpdateButtonArt = Hook_UpdateButtonArt,
 	UpdateHotKeys = Hook_UpdateHotKeys,
 	UpdateTextures = Hook_UpdateTextures,
 }
@@ -240,7 +244,9 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- Set the button art.
-	SetButtonArt(Button)
+	if Button.UpdateButtonArt then
+		SetButtonArt(Button)
+	end
 
 	-- Hooks
 	for Method, Hook in pairs(Hook_Methods) do
