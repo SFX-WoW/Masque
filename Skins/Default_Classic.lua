@@ -18,7 +18,7 @@ local _, Core = ...
 -- Locals
 ---
 
-local L = Core.Locale
+local L, Hidden = Core.Locale, Core.__Hidden
 
 ----------------------------------------
 -- Default (Classic)
@@ -54,6 +54,7 @@ local Skin = {
 		OffsetY = 0,
 		-- UseColor = nil,
 		-- SetAllPoints = nil,
+		Item = Hidden,
 	},
 	Icon = {
 		-- TexCoords = {0, 1, 0, 1},
@@ -67,7 +68,7 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	Shadow = {Hide = true},
+	Shadow = Hidden,
 	Normal = {
 		Texture = [[Interface\Buttons\UI-Quickslot2]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -119,7 +120,7 @@ local Skin = {
 			-- SetAllPoints = nil,
 		},
 	},
-	Disabled = {Hide = true},
+	Disabled = Hidden,
 	Pushed = {
 		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -291,7 +292,7 @@ local Skin = {
 		OffsetY = 0,
 		SetAllPoints = true,
 	},
-	Gloss = {Hide = true},
+	Gloss = Hidden,
 	NewAction = {
 		Atlas = "bags-newitem",
 		UseAtlasSize = false,

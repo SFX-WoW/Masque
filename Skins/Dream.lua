@@ -16,7 +16,7 @@ local _, Core = ...
 -- Locals
 ---
 
-local L = Core.Locale
+local L, Hidden = Core.Locale, Core.__Hidden
 
 ----------------------------------------
 -- Dream
@@ -64,7 +64,7 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 	},
 	-- Shadow = Default.Shadow,
-	Normal = Core.__Hidden,
+	Normal = Hidden,
 	-- Disabled = Default.Disabled,
 	Pushed = {
 		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],

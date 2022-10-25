@@ -20,7 +20,7 @@ if not Core.WOW_RETAIL then return end
 -- Locals
 ---
 
-local L = Core.Locale
+local L, Hidden = Core.Locale, Core.__Hidden
 
 ----------------------------------------
 -- Default
@@ -123,7 +123,7 @@ local Skin = {
 			-- SetAllPoints = nil,
 		},
 	},
-	Shadow = {Hide = true},
+	Shadow = Hidden,
 	Normal = {
 		Atlas = "UI-HUD-ActionBar-IconFrame",
 		UseAtlasSize = false,
@@ -140,9 +140,7 @@ local Skin = {
 		OffsetY = 0,
 		UseStates = true,
 		-- SetAllPoints = nil,
-		Aura = {
-			Hide = true,
-		},
+		Aura = Hidden,
 		Backpack = {
 			Atlas = "bag-main",
 			EmptyAtlas = "bag-main",
@@ -197,7 +195,7 @@ local Skin = {
 			-- SetAllPoints = nil,
 		},
 	},
-	Disabled = {Hide = true},
+	Disabled = Hidden,
 	Pushed = {
 		Atlas = "UI-HUD-ActionBar-IconFrame-Down",
 		UseAtlasSize = false,
@@ -506,7 +504,7 @@ local Skin = {
 			-- SetAllPoints = nil,
 		},
 	},
-	Gloss = {Hide = true},
+	Gloss = Hidden,
 	NewAction = {
 		Atlas = "UI-HUD-ActionBar-IconFrame-Mouseover",
 		UseAtlasSize = true,
