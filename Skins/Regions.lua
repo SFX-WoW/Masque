@@ -12,6 +12,7 @@
 
 local _, Core = ...
 local WOW_RETAIL = Core.WOW_RETAIL
+local WOW_CLASSIC = not WOW_RETAIL
 
 ----------------------------------------
 -- Region Settings
@@ -378,7 +379,7 @@ local Item = {
 	Disabled = Legacy.Disabled,
 	Pushed = Legacy.Pushed,
 	Count = Legacy.Count,
-	Checked = (not WOW_RETAIL and Legacy.Checked) or nil, -- Classic Only
+	Checked = (WOW_CLASSIC and Legacy.Checked) or nil, -- Classic Only
 	Border = Legacy.Border, -- Backwards-Compatibility
 	IconBorder = Legacy.IconBorder,
 	SlotHighlight = (WOW_RETAIL and Legacy.SlotHighlight) or nil, -- Retail Only
@@ -424,7 +425,7 @@ local EmptyTypes = {
 	Action = true,
 	Bag = true,
 	Pet = true,
-	Item = true,
+	Item = (WOW_CLASSIC and true) or nil,
 }
 
 ----------------------------------------
