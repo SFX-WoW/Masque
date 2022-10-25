@@ -44,6 +44,9 @@ local ItemTypes, RegTypes = Core.ItemTypes, Core.RegTypes
 -- @ Core\Utility
 local GetScale, GetTypeSkin = Core.GetScale, Core.GetTypeSkin
 
+-- @ Core\Regions\Icon
+local SetEmpty = Core.SetEmpty
+
 -- @ Core\Regions\*
 local SkinBackdrop, SkinCooldown, SkinFrame = Core.SkinBackdrop, Core.SkinCooldown, Core.SkinFrame
 local SkinGloss, SkinIcon, SkinIconBorder = Core.SkinGloss, Core.SkinIcon, Core.SkinIconBorder
@@ -56,6 +59,28 @@ local SkinTexture, UpdateSpellAlert = Core.SkinTexture, Core.UpdateSpellAlert
 ---
 
 local __Empty = {}
+
+----------------------------------------
+-- SetIconBackdrop
+---
+
+-- Function to toggle the icon backdrops.
+local function SetIconBackdrop(Button)
+	local Icon = Button:GetItemButtonIconTexture()
+	local IconID = Icon:GetTexture()
+
+	if (IconID == 4701874) or (IconID == [[Interface\ContainerFrame\BagsItemSlot2x]]) then
+		Icon:SetAlpha(0)
+		SetEmpty(Button, true)
+	else
+		Icon:SetAlpha(1)
+		SetEmpty(Button)
+	end
+end
+
+----------------------------------------
+-- SetButtonArt
+---
 
 -- Function to toggle the button art.
 local function SetButtonArt(Button)
@@ -135,11 +160,19 @@ local function Hook_UpdateTextures(Button)
 	end
 end
 
+-- Hook to counter 10.0 Icon backdrops.
+local function Hook_SetItemButtonTexture(Button, Texture)
+	if Button.__MSQ_Exit_SetItemButtonTexture then return end
+
+	SetIconBackdrop(Button)
+end
+
 -- List of methods to hook.
 local Hook_Methods = {
 	UpdateButtonArt = Hook_UpdateButtonArt,
 	UpdateHotKeys = Hook_UpdateHotKeys,
 	UpdateTextures = Hook_UpdateTextures,
+	SetItemButtonTexture = Hook_SetItemButtonTexture,
 }
 
 ----------------------------------------
@@ -246,6 +279,11 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	-- Set the button art.
 	if Button.UpdateButtonArt then
 		SetButtonArt(Button)
+	end
+
+	-- Toggle Icon backdrops.
+	if Button.SetItemButtonTexture then
+		SetIconBackdrop(Button)
 	end
 
 	-- Hooks
