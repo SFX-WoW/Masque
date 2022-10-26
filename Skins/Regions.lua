@@ -405,13 +405,14 @@ local Types = {
 	Action = Action,
 	Aura = Aura,
 	Backpack = Item,
-	Bag = Item,
+	BagSlot = Item,
 	Buff = Aura,
 	Debuff = Debuff,
 	Enchant = Enchant,
 	Item = Item,
 	Pet = Action,
 	Possess = Action,
+	ReagentBag = Item,
 	Stance = Action,
 }
 
@@ -423,9 +424,11 @@ local BaseTypes = {
 
 local EmptyTypes = {
 	Action = true,
-	Bag = true,
+	Backpack = true,
+	BagSlot = true,
 	Pet = true,
-	Item = (WOW_CLASSIC and true) or nil,
+	ReagentBag = true,
+	Item = true,
 }
 
 ----------------------------------------
@@ -450,8 +453,9 @@ Core.AuraTypes = {
 }
 Core.ItemTypes = {
 	Backpack = true,
-	Bag = true,
+	BagSlot = true,
 	Item = true,
+	ReagentBag = true,
 }
 
 ----------------------------------------
