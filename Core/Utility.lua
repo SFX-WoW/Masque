@@ -125,7 +125,11 @@ function Core.GetTypeSkin(Button, Type, Skin)
 	if Button.__MSQ_IsAura then
 		return Skin[Type] or Skin.Aura or Skin
 	elseif Button.__MSQ_IsItem then
-		return Skin[Type] or Skin.Item or Skin
+		if Type == "ReagentBag" then
+			return Skin.ReagentBag or Skin.BagSlot or Skin.Item or Skin
+		else
+			return Skin[Type] or Skin.Item or Skin
+		end
 	else
 		return Skin[Type] or Skin
 	end
