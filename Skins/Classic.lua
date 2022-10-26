@@ -140,8 +140,8 @@ Core.AddSkin("Classic", {
 		Anchor = "Icon",
 		Point = "TOPRIGHT",
 		RelPoint = "TOPRIGHT",
-		OffsetX = 1,
-		OffsetY = -2,
+		OffsetX = 0,
+		OffsetY = 0,
 	},
 	Count = {
 		JustifyH = "RIGHT",
@@ -152,8 +152,8 @@ Core.AddSkin("Classic", {
 		Anchor = "Icon",
 		Point = "BOTTOMRIGHT",
 		RelPoint = "BOTTOMRIGHT",
-		OffsetX = 1,
-		OffsetY = 2,
+		OffsetX = 0,
+		OffsetY = 0,
 	},
 	Duration = {
 		JustifyH = "CENTER",
