@@ -175,6 +175,9 @@ local function Hook_UpdateTextures(Button)
 
 		local xScale, yScale = GetScale(Button)
 
+		if Normal then
+			SkinNormal(Normal, Button, Skin.Normal, Button.__MSQ_NormalColor, xScale, yScale)
+		end
 		if Pushed then
 			SkinTexture("Pushed", Pushed, Button, Skin.Pushed, Button.__MSQ_PushedColor, xScale, yScale)
 		end
