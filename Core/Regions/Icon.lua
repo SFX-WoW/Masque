@@ -69,6 +69,20 @@ end
 -- Hooks
 ---
 
+-- Types of buttons to hook.
+local IconHook = {
+	Action = true,
+	Pet = true,
+}
+
+-- We don't need to hook these in Retail. 
+-- @ Core\Button Hooks
+if not Core.WOW_RETAIL then
+	IconHook.Backpack = true
+	IconHook.BagSlot = true
+	IconHook.Item = true
+end
+
 -- Sets a button's empty state to empty.
 local function Hook_Hide(Region)
 	local Button = Region.__MSQ_Button
@@ -93,11 +107,13 @@ Core.SetEmpty = SetEmpty
 
 -- Skins the 'Icon' region of a button.
 function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
+	local bType = Button.__MSQ_bType
+
 	Button.__MSQ_Icon = Region
 	Region.__MSQ_Button = Button
 
 	-- Skin
-	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+	Skin = GetTypeSkin(Button, bType, Skin)
 
 	Region:SetParent(Button)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
@@ -114,10 +130,11 @@ function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 
 	if Button.__MSQ_EmptyType then
 		-- Empty Status
-		SetEmpty(Button, not Region:IsShown())
+		local IsEmpty = not Region:IsShown() or Region:GetAlpha() == 0
+		SetEmpty(Button, IsEmpty)
 
 		-- Hooks
-		if not Region.__MSQ_Hooked then
+		if IconHook[bType] and not Region.__MSQ_Hooked then
 			hooksecurefunc(Region, "Hide", Hook_Hide)
 			hooksecurefunc(Region, "Show", Hook_Show)
 			Region.__MSQ_Hooked = true
