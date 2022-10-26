@@ -83,20 +83,24 @@ do
 				end
 			end
 		elseif bType == "Item" then
-			-- Retail Bag Buttons
-			if Button.SlotHighlightTexture then
-				if Name and Name:find("Backpack") then
-					SubType = "Backpack"
-				else
-					SubType = "Bag"
-				end
+			if Name then
+				-- Retail Bag Buttons
+				if Button.SlotHighlightTexture then
+					if Name:find("Backpack") then
+						SubType = "Backpack"
+					elseif Name:find("CharacterBag") then
+						SubType = "BagSlot"
+					elseif Name:find("ReagentBag") then
+						SubType = "ReagentBag"
+					end
 
-			-- Classic Bag Buttons
-			elseif Button.__MSQ_oType == "CheckButton" then
-				if Name and Name:find("Backpack") then
-					SubType = "Backpack"
-				else
-					SubType = "Bag"
+				-- Classic Bag Buttons
+				elseif Button.__MSQ_oType == "CheckButton" then
+					if Name:find("Backpack") then
+						SubType = "Backpack"
+					elseif Name:find("CharacterBag") then
+						SubType = "BagSlot"
+					end
 				end
 			end
 		elseif bType == "Aura" then
