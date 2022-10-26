@@ -46,8 +46,8 @@ function Core.NoOp() end
 function Core.SetPoints(Region, Button, Skin, Default, SetAllPoints)
 	Region:ClearAllPoints()
 
-	local Anchor = Skin.Anchor
-	Anchor = Anchor and Button[Anchor]
+	local Anchor, Regions = Skin.Anchor, Button.__Regions
+	Anchor = (Anchor and Regions) and Regions[Anchor]
 
 	if SetAllPoints then
 		Region:SetAllPoints(Anchor or Button)
