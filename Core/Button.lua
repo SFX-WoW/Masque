@@ -158,6 +158,17 @@ local function Hook_UpdateTextures(Button)
 	local Skin = Button.__MSQ_Skin
 
 	if Skin then
+		local IsEmpty
+		local BagID = Button.GetBagID and Button:GetBagID()
+
+		if BagID then
+			local Size = ContainerFrame_GetContainerNumSlots(BagID)
+			IsEmpty = (Size and Size == 0) or nil
+		end
+
+		SetEmpty(Button, IsEmpty, true)
+
+		local Normal = Button:GetNormalTexture()
 		local Pushed = Button:GetPushedTexture()
 		local Highlight = Button:GetHighlightTexture()
 		local SlotHighlight = Button.SlotHighlightTexture
