@@ -45,7 +45,7 @@ local UpdateNormal = Core.UpdateNormal
 ---
 
 -- Sets a button's empty state and updates its regions.
-local function SetEmpty(Button, IsEmpty)
+local function SetEmpty(Button, IsEmpty, Skip)
 	IsEmpty = (IsEmpty and true) or nil
 	Button.__MSQ_Empty = IsEmpty
 
@@ -60,7 +60,9 @@ local function SetEmpty(Button, IsEmpty)
 		if Gloss then Gloss:Show() end
 	end
 
-	UpdateNormal(Button, IsEmpty)
+	if not Skip then
+		UpdateNormal(Button, IsEmpty)
+	end
 end
 
 ----------------------------------------
