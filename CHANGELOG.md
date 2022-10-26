@@ -1,21 +1,19 @@
-## 10.0.0-Alpha
+## 10.0.0-Beta
 
 ### Release Notes
 
-**Notice:** This release is an _alpha_ release and therefore may contain unexpected bugs and/or errors. Please report any issues appropriately on [GitHub](https://github.com/SFX-WoW/Masque "Masque @ GitHub").
-
-- This release is only compatible with _Dragonflight_ and the _Classic_ versions of the game. It does _not_ support _Shadowlands_.
-- This release is based on the PTR build so may not behave the same on the Beta.
-- The _Dragonflight_ UI is currently buggy so users may experience odd errors or warnings until the developers fix them.
+**Notice:** This release is an _Beta_ release and therefore may contain unexpected bugs and/or errors. Please report any issues appropriately on [GitHub](https://github.com/SFX-WoW/Masque "Masque @ GitHub").
 
 #### Known Issues
 
-- Item buttons are still a work in progress.
-- Pet buttons for Bartender4 may not skin correctly.
+- _**Bartender4**_
+  - Pet Bar buttons may not skin correctly when using the new "Default" skin.
+  - _Bartender4_ will migrate your layout to compensate for the size increase of action buttons. A side effect of this is that buttons skinned with _Masque_ may be scaled smaller (or larger). To correct this, users will need to adjust the scale and padding in _Bartender4_ and then reposition those bars.
+- These notes will be updated as needed.
 
 #### General
 
-- Added support for the _Dragonflight_ (PTR) changes.
+- Added support for _Dragonflight_.
 - Removed the _TBC Classic_ ToC file.
 - The stand-alone _Options_ window is now enabled by default.
 - Update _Masque_'s icon.
@@ -24,16 +22,19 @@
 
 #### Skins
 
-- Added a new `Default` skin that mimics the new interface in _Dragonflight_.
+- Added a new "Default" skin that mimics the new interface in _Dragonflight_.
   - Note: This skin is unavailable in _Classic_ due to missing assets.
-- The original `Default` skin has been renamed to `Default (Classic)`.
+- Most skins will need to be updated. Most notably is the remove of the Backpack icon in Dragonflight. Skin authors will need to create a custom `Normal` texture for that. An example is available in the "Default (Classic)" skin.
+- The original "Default" skin has been renamed to "Default (Classic)".
+  - Note: Skin authors using the old "Default" skin as a template will need to update their skins.
 - Updated all skins to support various changes.
 
 #### API
 
-- Added skin support for the `Anchor` attribute which allows a layer to be anchored to a region (eg, the `icon`) rather than the button. The value of this attribute must be a string that matches a region key for the button.
+- API version increased to `100000`.
+- Added skin support for the `Anchor` attribute which allows a layer to be anchored to a region (eg, the icon) rather than the button. The value of this attribute must be a string that matches a table key for the regions table or the button itself.
   - This helps to alleviate issues with the positioning of text regions on buttons that are larger than their skin.
-- Added four new button types, `Backpack`, `Bag`, `Possess` and `Stance`.
+- Added five new button types, `Backpack`, `BagSlot`, `Possess`, `ReagentBag` and `Stance`.
 - Added atlas support to various regions.
 - Implemented a fail-safe for buttons that qualify as a sub-type but are passed as a base type.
 - Implemented a fail-safe for add-ons that use custom `Normal` textures.
@@ -45,11 +46,13 @@
     - `Stance`
   - `Item`
     - `Backpack`
-    - `Bag`
+    - `BagSlot`
+    - `ReagentBag`
   - `Aura`
     - `Buff`
     - `Debuff`
     - `Enchant`
+  - In addtion, the `ReagentBag` type will fallback to the `BagSlot` type before falling back to `Item`.
 
 #### Localization
 
