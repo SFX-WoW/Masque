@@ -61,24 +61,6 @@ local SkinTexture, UpdateSpellAlert = Core.SkinTexture, Core.UpdateSpellAlert
 local __Empty = {}
 
 ----------------------------------------
--- SetIconBackdrop
----
-
--- Function to toggle the icon backdrops.
-local function SetIconBackdrop(Button)
-	local Icon = Button:GetItemButtonIconTexture()
-	local IconID = Icon:GetTexture()
-
-	if (IconID == 4701874) or (IconID == [[Interface\ContainerFrame\BagsItemSlot2x]]) then
-		Icon:SetAlpha(0)
-		SetEmpty(Button, true)
-	else
-		Icon:SetAlpha(1)
-		SetEmpty(Button)
-	end
-end
-
-----------------------------------------
 -- SetButtonArt
 ---
 
@@ -106,8 +88,42 @@ local function SetButtonArt(Button)
 end
 
 ----------------------------------------
+-- SetIconBackdrop
+---
+
+local IsBackground = {
+	[136511] = true,
+	["Interface\\PaperDoll\\UI-PaperDoll-Slot-Bag"] = true,
+	[4701874] = true,
+	["Interface\\ContainerFrame\\BagsItemSlot2x"] = true,
+}
+
+-- Function to toggle the icon backdrops.
+local function SetIconBackdrop(Button)
+	local Icon = Button:GetItemButtonIconTexture()
+	local IconID = Icon:GetTexture()
+	local IsEmpty
+
+	if IsBackground[IconID] then
+		Icon:SetAlpha(0)
+		IsEmpty = true
+	else
+		Icon:SetAlpha(1)
+	end
+
+	SetEmpty(Button, IsEmpty, true)
+end
+
+----------------------------------------
 -- Hooks
 ---
+
+-- Hook to counter 10.0 Icon backdrops.
+local function Hook_SetItemButtonTexture(Button, Texture)
+	if Button.__MSQ_Exit_SetItemButtonTexture then return end
+
+	SetIconBackdrop(Button)
+end
 
 -- Hook to counter 10.0 Action button texture changes.
 local function Hook_UpdateButtonArt(Button, HideDivider)
@@ -160,19 +176,12 @@ local function Hook_UpdateTextures(Button)
 	end
 end
 
--- Hook to counter 10.0 Icon backdrops.
-local function Hook_SetItemButtonTexture(Button, Texture)
-	if Button.__MSQ_Exit_SetItemButtonTexture then return end
-
-	SetIconBackdrop(Button)
-end
-
 -- List of methods to hook.
 local Hook_Methods = {
+	SetItemButtonTexture = Hook_SetItemButtonTexture,
 	UpdateButtonArt = Hook_UpdateButtonArt,
 	UpdateHotKeys = Hook_UpdateHotKeys,
 	UpdateTextures = Hook_UpdateTextures,
-	SetItemButtonTexture = Hook_SetItemButtonTexture,
 }
 
 ----------------------------------------
@@ -276,14 +285,19 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		end
 	end
 
+	-- Toggle Icon backdrops.
+	if Button.SetItemButtonTexture then
+		SetIconBackdrop(Button)
+	end
+
 	-- Set the button art.
 	if Button.UpdateButtonArt then
 		SetButtonArt(Button)
 	end
 
-	-- Toggle Icon backdrops.
-	if Button.SetItemButtonTexture then
-		SetIconBackdrop(Button)
+	-- Set the button art.
+	if Button.UpdateTextures then
+		Hook_UpdateTextures(Button)
 	end
 
 	-- Hooks
