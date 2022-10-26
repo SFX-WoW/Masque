@@ -165,13 +165,13 @@ local function Hook_UpdateTextures(Button)
 		local xScale, yScale = GetScale(Button)
 
 		if Pushed then
-			SkinTexture("Pushed", Pushed, Skin.Pushed, Button, Button.__MSQ_PushedColor, xScale, yScale)
+			SkinTexture("Pushed", Pushed, Button, Skin.Pushed, Button.__MSQ_PushedColor, xScale, yScale)
 		end
 		if Highlight then
-			SkinTexture("Highlight", Highlight, Skin.Highlight, Button, Button.__MSQ_HighlightColor, xScale, yScale)
+			SkinTexture("Highlight", Highlight, Button, Skin.Highlight, Button.__MSQ_HighlightColor, xScale, yScale)
 		end
 		if SlotHighlight then
-			SkinTexture("SlotHighlight", SlotHighlight, Skin.SlotHighlight, Button, Button.__MSQ_SlotHighlightColor, xScale, yScale)
+			SkinTexture("SlotHighlight", SlotHighlight, Button, Skin.SlotHighlight, Button.__MSQ_SlotHighlightColor, xScale, yScale)
 		end
 	end
 end
