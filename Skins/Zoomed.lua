@@ -17,6 +17,7 @@ local _, Core = ...
 ---
 
 local L, Hidden = Core.Locale, Core.__Hidden
+local WOW_RETAIL = Core.WOW_RETAIL
 
 ----------------------------------------
 -- Zoomed
@@ -64,9 +65,43 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	-- Shadow = Default.Shadow,
-	Normal = Hidden,
+	Normal = {
+		Hide = true,
+		Backpack = (WOW_RETAIL and {
+			Texture = [[Interface\Icons\inv_misc_bag_08]],
+			TexCoords = {0.07, 0.93, 0.07, 0.93},
+			-- Color = {1, 1, 1, 1},
+			-- EmptyColor = {1, 1, 1, 1},
+			BlendMode = "BLEND",
+			DrawLayer = "ARTWORK",
+			DrawLevel = 0,
+			Width = 36,
+			Height = 36,
+			Point = "CENTER",
+			RelPoint = "CENTER",
+			OffsetX = 0,
+			OffsetY = 0,
+			-- UseStates = true,
+			-- SetAllPoints = nil,
+		}) or nil,
+	},
 	-- Disabled = Default.Disabled,
-	-- Pushed = Default.Pushed,
+	Pushed = {
+		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
+		-- TexCoords = {0, 1, 0, 1},
+		-- Color = {1, 1, 1, 1},
+		BlendMode = "BLEND",
+		DrawLayer = "ARTWORK",
+		DrawLevel = 1,
+		Width = 38,
+		Height = 38,
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- UseColor = nil,
+		-- SetAllPoints = nil,
+	},
 	-- Flash = Default.Flash,
 	HotKey = {
 		JustifyH = "RIGHT",

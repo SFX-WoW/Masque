@@ -17,6 +17,7 @@ local _, Core = ...
 ---
 
 local L, Hidden = Core.Locale, Core.__Hidden
+local WOW_RETAIL = Core.WOW_RETAIL
 
 ----------------------------------------
 -- Dream
@@ -64,7 +65,26 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 	},
 	-- Shadow = Default.Shadow,
-	Normal = Hidden,
+	Normal = {
+		Hide = true,
+		Backpack = (WOW_RETAIL and {
+			Texture = [[Interface\Icons\inv_misc_bag_08]],
+			TexCoords = {0.08, 0.92, 0.08, 0.92},
+			-- Color = {1, 1, 1, 1},
+			-- EmptyColor = {1, 1, 1, 1},
+			BlendMode = "BLEND",
+			DrawLayer = "ARTWORK",
+			DrawLevel = 0,
+			Width = 30,
+			Height = 30,
+			Point = "CENTER",
+			RelPoint = "CENTER",
+			OffsetX = 0,
+			OffsetY = 0,
+			-- UseStates = true,
+			-- SetAllPoints = nil,
+		}) or nil,
+	},
 	-- Disabled = Default.Disabled,
 	Pushed = {
 		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
