@@ -428,7 +428,6 @@ local BaseTypes = {
 
 local EmptyTypes = {
 	Action = true,
-	Backpack = true,
 	BagSlot = true,
 	Pet = true,
 	ReagentBag = true,
