@@ -261,7 +261,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- Icon/SlotIcon
 	if bType == "Backpack" and WOW_RETAIL then
-		SkinSlotIcon(Enabled, Button, Skin.SlotIcon, Color, xScale, yScale)
+		SkinSlotIcon(Enabled, Button, Skin.SlotIcon, Colors.SlotIcon, xScale, yScale)
 	else
 		local Icon = Regions.Icon
 
