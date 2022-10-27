@@ -299,36 +299,39 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		end
 	end
 
-	-- Toggle Icon backdrops.
-	if Button.SetItemButtonTexture then
-		SetIconBackdrop(Button)
-	end
+	-- Dragonflight Stuff
+	if WOW_RETAIL then
+		-- Toggle Icon backdrops.
+		if Button.SetItemButtonTexture then
+			SetIconBackdrop(Button)
+		end
 
-	-- Set the button art.
-	if Button.UpdateButtonArt then
-		SetButtonArt(Button)
-	end
+		-- Set the button art.
+		if Button.UpdateButtonArt then
+			SetButtonArt(Button)
+		end
 
-	-- Set the button art.
-	if Button.UpdateTextures then
-		Hook_UpdateTextures(Button)
-	end
+		-- Set the button art.
+		if Button.UpdateTextures then
+			Hook_UpdateTextures(Button)
+		end
 
-	-- Hooks
-	for Method, Hook in pairs(Hook_Methods) do
-		if Button[Method] then
-			local Key = "__MSQ_"..Method
-			local ExitKey = "__MSQ_Exit_"..Method
+		-- Hooks
+		for Method, Hook in pairs(Hook_Methods) do
+			if Button[Method] then
+				local Key = "__MSQ_"..Method
+				local ExitKey = "__MSQ_Exit_"..Method
 
-			if Disabled then
-				Button[ExitKey] = true
-			else
-				if not Button[Key] then
-					hooksecurefunc(Button, Method, Hook)
-					Button[Key] = true
+				if Disabled then
+					Button[ExitKey] = true
+				else
+					if not Button[Key] then
+						hooksecurefunc(Button, Method, Hook)
+						Button[Key] = true
+					end
+
+					Button[ExitKey] = nil
 				end
-
-				Button[ExitKey] = nil
 			end
 		end
 	end
