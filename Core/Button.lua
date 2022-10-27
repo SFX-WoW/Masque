@@ -251,16 +251,13 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- Backdrop
-	-- * Only buttons that can be seen while empty need backdrops.
-	if EmptyType then
-		local FloatingBG = Button.FloatingBG or Regions.Backdrop
+	local FloatingBG = Button.FloatingBG or Regions.Backdrop
 
-		if Disabled then
-			Backdrop = (FloatingBG and true) or false
-		end
-
-		SkinBackdrop(Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
+	if Disabled then
+		Backdrop = (FloatingBG and true) or false
 	end
+
+	SkinBackdrop(Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 
 	-- Icon/SlotIcon
 	if bType == "Backpack" and WOW_RETAIL then
