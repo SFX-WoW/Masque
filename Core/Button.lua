@@ -51,8 +51,8 @@ local SetEmpty = Core.SetEmpty
 local SkinBackdrop, SkinCooldown, SkinFrame = Core.SkinBackdrop, Core.SkinCooldown, Core.SkinFrame
 local SkinGloss, SkinIcon, SkinIconBorder = Core.SkinGloss, Core.SkinIcon, Core.SkinIconBorder
 local SkinMask, SkinNewItem, SkinNormal = Core.SkinMask, Core.SkinNewItem, Core.SkinNormal
-local SkinQuestBorder, SkinShadow, SkinText = Core.SkinQuestBorder, Core.SkinShadow, Core.SkinText
-local SkinTexture, UpdateSpellAlert = Core.SkinTexture, Core.UpdateSpellAlert
+local SkinQuestBorder, SkinShadow, SkinSlotIcon = Core.SkinQuestBorder, Core.SkinShadow, Core.SkinSlotIcon
+local SkinText, SkinTexture, UpdateSpellAlert = Core.SkinText, Core.SkinTexture, Core.UpdateSpellAlert
 
 ----------------------------------------
 -- Locals
@@ -262,11 +262,15 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		SkinBackdrop(Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop, xScale, yScale)
 	end
 
-	-- Icon
-	local Icon = Regions.Icon
+	-- Icon/SlotIcon
+	if bType == "Backpack" and WOW_RETAIL then
+		SkinSlotIcon(Enabled, Button, Skin.SlotIcon, Color, xScale, yScale)
+	else
+		local Icon = Regions.Icon
 
-	if Icon then
-		SkinIcon(Icon, Button, Skin.Icon, xScale, yScale)
+		if Icon then
+			SkinIcon(Icon, Button, Skin.Icon, xScale, yScale)
+		end
 	end
 
 	-- Shadow

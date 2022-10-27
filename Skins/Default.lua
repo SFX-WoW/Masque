@@ -167,6 +167,7 @@ local Skin = {
 			-- SetAllPoints = nil,
 		},
 	},
+	SlotIcon = Hidden,
 	Shadow = Hidden,
 	Normal = {
 		Atlas = "UI-HUD-ActionBar-IconFrame",
