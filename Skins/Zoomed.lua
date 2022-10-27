@@ -99,8 +99,8 @@ Core.AddSkin("Zoomed", {
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
-		-- UseColor = nil,
 		-- SetAllPoints = nil,
+		-- UseColor = nil,
 	},
 	-- Flash = Default.Flash,
 	HotKey = {
@@ -212,7 +212,6 @@ Core.AddSkin("Zoomed", {
 		},
 		Item = {
 			Texture = [[Interface\Common\WhiteIconFrame]],
-			RelicTexture = [[Interface\Artifacts\RelicIconFrame]],
 			-- TexCoords = {0, 1, 0, 1},
 			-- Color = {1, 1, 1, 1},
 			BlendMode = "ADD",
@@ -350,8 +349,8 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	QuestBorder = {
-		Border = [[Interface\ContainerFrame\UI-Icon-QuestBorder]],
-		Texture = [[Interface\ContainerFrame\UI-Icon-QuestBang]],
+		Border = [[Interface\ContainerFrame\UI-Icon-QuestBang]],
+		Texture = [[Interface\ContainerFrame\UI-Icon-QuestBorder]],
 		Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",

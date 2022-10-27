@@ -220,7 +220,9 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		Pulse = true
 	end
 
-	Button.__MSQ_Enabled = (not Disabled and true) or nil
+	local Enabled = not Disabled
+
+	Button.__MSQ_Enabled = (Enabled and true) or nil
 	Button.__MSQ_Shape = Skin.Shape
 
 	-- Set/remove type flags.
@@ -271,7 +273,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- Shadow
-	Shadow = (Shadow and not Disabled) or false
+	Shadow = (Shadow and Enabled) or false
 	SkinShadow(Shadow, Button, Skin.Shadow, Colors.Shadow, xScale, yScale)
 
 	-- Normal
@@ -341,7 +343,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	end
 
 	-- Gloss
-	Gloss = (Gloss and not Disabled) or false
+	Gloss = (Gloss and Enabled) or false
 	SkinGloss(Gloss, Button, Skin.Gloss, Colors.Gloss, xScale, yScale)
 
 	-- NewItem

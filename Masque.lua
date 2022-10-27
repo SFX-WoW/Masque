@@ -104,6 +104,7 @@ function Masque:OnInitialize()
 	Core.db = db
 
 	local LDS = (WOW_VERSION > 30000) and LibStub("LibDualSpec-1.0", true)
+
 	if LDS then
 		LDS:EnhanceDatabase(Core.db, MASQUE)
 		Core.USE_LDS = true
