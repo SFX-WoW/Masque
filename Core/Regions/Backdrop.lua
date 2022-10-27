@@ -150,7 +150,7 @@ function Core.SkinBackdrop(Enabled, Region, Button, Skin, Color, xScale, yScale)
 	local bType = Button.__MSQ_bType
 	Skin = GetTypeSkin(Button, bType, Skin)
 
-	if Enabled and not Skin.Hide and EmptyTypes[bType] then
+	if Enabled and not Skin.Hide then
 		AddBackdrop(Region, Button, Skin, Color, xScale, yScale)
 	else
 		RemoveBackdrop(Region, Button)
