@@ -230,9 +230,6 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	Button.__MSQ_IsAura = AuraTypes[bType]
 	Button.__MSQ_IsItem = ItemTypes[bType]
 
-	-- Flag Retail `Action` buttons.
-	Button.__MSQ_ReSize = (WOW_RETAIL and ActionTypes[bType]) or nil
-
 	local EmptyType = EmptyTypes[bType]
 	Button.__MSQ_EmptyType = EmptyType
 
