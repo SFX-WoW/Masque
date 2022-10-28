@@ -66,7 +66,7 @@ Core.AddSkin("Dream", {
 	},
 	SlotIcon = {
 		Texture = [[Interface\Icons\INV_Misc_Bag_08]],
-		-- TexCoords = {0, 1, 0, 1},
+		TexCoords = {0.08, 0.92, 0.08, 0.92},
 		Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
 		DrawLayer = "BACKGROUND",

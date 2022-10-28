@@ -66,7 +66,7 @@ Core.AddSkin("Zoomed", {
 	},
 	SlotIcon = {
 		Texture = [[Interface\Icons\INV_Misc_Bag_08]],
-		-- TexCoords = {0, 1, 0, 1},
+		TexCoords = {0.07, 0.93, 0.07, 0.93},
 		Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
 		DrawLayer = "BACKGROUND",
