@@ -9,7 +9,7 @@
 
 	[ Notes ]
 
-	To help with translations, use the localization system on WoWAce (https://www.wowace.com/projects/masque/localization)
+	To help with translations, use the localization system on CurseForge (https://www.curseforge.com/wow/addons/masque/localization)
 	or contribute directly on GitHub (https://github.com/SFX-WoW/Masque).
 
 ]]
@@ -47,6 +47,18 @@ L["Load Options"] = "Загрузить настройки"
 L["Masque's options are load on demand. Click the button below to load them."] = "Настройки Masque загружены не полностью. Нажмите на кнопку ниже, чтобы загрузить их до конца."
 L["This action will increase memory usage."] = "Это действие увеличит использование памяти."
 L["This section will allow you to view information about Masque and any skins you have installed."] = "Этот раздел позволяет смотреть информацию о Masque и любом скине, который установлен."
+
+----------------------------------------
+-- Default Classic Skin
+---
+
+-- L["The default Classic button style."] = "The default Classic button style."
+
+----------------------------------------
+-- Default Skin
+---
+
+-- L["The default button style."] = "The default button style."
 
 ----------------------------------------
 -- Developer Settings
@@ -103,6 +115,7 @@ L["Websites"] = "Сайты"
 -- Interface Settings
 ---
 
+-- L["Classic Scaling"] = "Classic Scaling"
 L["Enable the Minimap icon."] = "Отображать иконку у миникарты."
 L["Interface"] = "Интерфейс"
 L["Interface Settings"] = "Настройки интерфейса"
@@ -110,6 +123,7 @@ L["Minimap Icon"] = "Иконка у миникарты"
 L["Stand-Alone GUI"] = "Внешний фрейм настроек"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "Этот раздел позволяет настраивать то, как Masque влияет на интерфейс."
 L["Use a resizable, stand-alone options window."] = "Использовать отдельное окно настроек."
+-- L["Use the old scaling method for action buttons."] = "Use the old scaling method for action buttons."
 
 ----------------------------------------
 -- LDB Launcher
