@@ -78,7 +78,6 @@ local IconHook = {
 -- We don't need to hook these in Retail. 
 -- @ Core\Button Hooks
 if not Core.WOW_RETAIL then
-	IconHook.Backpack = true
 	IconHook.BagSlot = true
 	IconHook.Item = true
 end
