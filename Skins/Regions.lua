@@ -455,7 +455,6 @@ local EmptyTypes = {
 Core.RegTypes = Types
 Core.BaseTypes = BaseTypes
 Core.EmptyTypes = EmptyTypes
-Core.CustomTypes = CustomTypes
 
 Core.ActionTypes = {
 	Action = true,
