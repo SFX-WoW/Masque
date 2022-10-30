@@ -220,10 +220,20 @@ do
 					disabled = GetDisabled,
 					order = 3,
 				},
+				Reset = {
+					type = "execute",
+					name = L["Reset Skin"],
+					desc = L["Reset all skin options to the defaults."],
+					func = Reset,
+					arg = obj,
+					width = "full",
+					disabled = GetDisabled,
+					order = 4,
+				},
 				Spacer = {
 					type = "description",
 					name = " ",
-					order = 4,
+					order = 5,
 				},
 				Backdrop = {
 					type = "group",
@@ -231,7 +241,7 @@ do
 					arg = obj,
 					inline = true,
 					hidden = GetHidden,
-					order = 5,
+					order = 6,
 					args = {
 						Backdrop = {
 							type = "toggle",
@@ -262,7 +272,7 @@ do
 					arg = obj,
 					inline = true,
 					hidden = GetHidden,
-					order = 6,
+					order = 7,
 					args = {
 						Shadow = {
 							type = "toggle",
@@ -293,7 +303,7 @@ do
 					arg = obj,
 					inline = true,
 					hidden = GetHidden,
-					order = 7,
+					order = 8,
 					args = {
 						Gloss = {
 							type = "toggle",
@@ -324,7 +334,7 @@ do
 					arg = obj,
 					inline = true,
 					disabled = GetDisabled,
-					order = 8,
+					order = 9,
 					args = {
 						Color = {
 							type = "color",
@@ -355,7 +365,7 @@ do
 					set = SetColor,
 					inline = true,
 					disabled = GetDisabled,
-					order = 9,
+					order = 10,
 					args = {
 						Normal = {
 							type = "color",
