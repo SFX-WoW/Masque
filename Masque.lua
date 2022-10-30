@@ -85,8 +85,10 @@ function Masque:OnInitialize()
 					Gloss = false,
 					Inherit = true,
 					Pulse = true,
+					Scale = 1,
 					Shadow = false,
 					SkinID = "Classic",
+					UseScale = false,
 				},
 			},
 			LDB = {

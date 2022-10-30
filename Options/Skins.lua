@@ -136,6 +136,11 @@ do
 		return Parent and Parent.db.Disabled
 	end
 
+	-- Gets the disabled state of the Scale option.
+	local function GetDisabledScale(Info)
+		return not Info.arg.db.UseScale
+	end
+
 	----------------------------------------
 	-- Hidden
 	---
@@ -410,15 +415,37 @@ do
 						},
 					},
 				},
-				Reset = {
-					type = "execute",
-					name = L["Reset Skin"],
-					desc = L["Reset all skin options to the defaults."],
-					func = Reset,
-					arg = obj,
-					width = "full",
-					disabled = GetDisabled,
-					order = -1,
+				Scale = {
+					type = "group",
+					name = L["Scale"],
+					--arg = obj,
+					inline = true,
+					order = 11,
+					args = {
+						UseScale = {
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Enable skin scaling."],
+							get = GetOption,
+							set = SetOption,
+							arg = obj,
+							disabled = GetDisabled,
+							order = 1,
+						},
+						Scale = {
+							type = "range",
+							name = L["Scale"],
+							desc = L["Adjust the scale of this group's skin."],
+							get = GetOption,
+							set = SetOption,
+							arg = obj,
+							min = 0.75,
+							max = 1.25,
+							step = 0.01,
+							disabled = GetDisabledScale,
+							order = 2,
+						},
+					},
 				},
 			},
 		}

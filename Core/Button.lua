@@ -203,7 +203,7 @@ local Hook_Methods = {
 }
 
 -- Applies a skin to a button and its associated layers.
-function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, Pulse)
+function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, Scale, Pulse)
 	if not Button then return end
 
 	local bType = Button.__MSQ_bType
@@ -223,6 +223,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local Enabled = not Disabled
 
 	Button.__MSQ_Enabled = (Enabled and true) or nil
+	Button.__MSQ_Scale = Scale
 	Button.__MSQ_Shape = Skin.Shape
 
 	-- Set/remove type flags.
