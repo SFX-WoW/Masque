@@ -168,7 +168,7 @@ local function Hook_UpdateButtonArt(Button, HideDivider)
 	local Pushed, Skin = Button.PushedTexture, Button.__MSQ_Skin
 
 	if Pushed and Skin then
-		SkinTexture("Pushed", Pushed, Button, Skin.Pushed, Button.__MSQ_PushedColor, xScale, yScale)
+		SkinTexture("Pushed", Pushed, Button, Skin.Pushed, Button.__MSQ_PushedColor, GetScale(Button))
 	end
 end
 
