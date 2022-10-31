@@ -115,7 +115,6 @@ L["Description"] = "Descrição"
 -- Interface Settings
 ---
 
--- L["Classic Scaling"] = "Classic Scaling"
 L["Enable the Minimap icon."] = "Ativa o ícone do minimapa."
 -- L["Interface"] = "Interface"
 -- L["Interface Settings"] = "Interface Settings"
@@ -123,7 +122,6 @@ L["Minimap Icon"] = "Ícone do Minimapa"
 -- L["Stand-Alone GUI"] = "Stand-Alone GUI"
 -- L["This section will allow you to adjust settings that affect Masque's interface."] = "This section will allow you to adjust settings that affect Masque's interface."
 -- L["Use a resizable, stand-alone options window."] = "Use a resizable, stand-alone options window."
--- L["Use the old scaling method for action buttons."] = "Use the old scaling method for action buttons."
 
 ----------------------------------------
 -- LDB Launcher
@@ -154,6 +152,7 @@ L["Click to load reload the interface."] = "Clique para carregar a interface."
 -- Skin Settings
 ---
 
+-- L["Adjust the scale of this group's skin."] = "Adjust the scale of this group's skin."
 L["Backdrop"] = "Fundo"
 L["Checked"] = "Marcado"
 L["Color"] = "Cor"
@@ -163,6 +162,7 @@ L["Disable"] = "Desativar"
 L["Disable the skinning of this group."] = "Desatica a skin deste grupo."
 L["Disabled"] = "Desativado"
 L["Enable"] = "Ativar"
+-- L["Enable skin scaling."] = "Enable skin scaling."
 L["Enable the Backdrop texture."] = "Ativa a textura de fundo."
 L["Enable the Gloss texture."] = "Ativa a textura do Brilho."
 L["Enable the Shadow texture."] = "Ativa a textura de Sombra."
@@ -176,6 +176,7 @@ L["Normal"] = "Normal"
 L["Pushed"] = "Pressionado"
 L["Reset all skin options to the defaults."] = "Redefine todas as opções da skin para seus padrões."
 L["Reset Skin"] = "Redefinir Skin"
+-- L["Scale"] = "Scale"
 L["Set the color of the Backdrop texture."] = "Define a cor da textura de fundo."
 L["Set the color of the Checked texture."] = "Define a cor da textura de marcado."
 -- L["Set the color of the Cooldown animation."] = "Set the color of the Cooldown animation."
