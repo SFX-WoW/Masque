@@ -327,7 +327,7 @@ local Skin = {
 			-- SetAllPoints = nil,
 		},
 		ReagentBag = {
-			Atlas = "bag-border",
+			Atlas = "bag-reagent-border",
 			UseAtlasSize = false,
 			-- Color = {1, 1, 1, 1},
 			-- EmptyColor = {1, 1, 1, 1},
