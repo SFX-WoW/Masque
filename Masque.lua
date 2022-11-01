@@ -127,13 +127,10 @@ end
 -- PLAYER_LOGIN Event
 function Masque:OnEnable()
 	local Setup = Core.Setup
+
 	if Setup then
 		Setup("Core")
 		Setup("LDB")
-
-		if Core.WOW_RETAIL then
-			Setup("LoD")
-		end
 	end
 
 	if Core.Queue then
