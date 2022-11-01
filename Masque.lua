@@ -131,7 +131,7 @@ function Masque:OnEnable()
 		Setup("Core")
 		Setup("LDB")
 
-		if Core.WOW_RETAIL and not Core.db.profile.StandAlone then
+		if Core.WOW_RETAIL then
 			Setup("LoD")
 		end
 	end
