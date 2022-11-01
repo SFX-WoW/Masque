@@ -48,13 +48,13 @@ L["This section will allow you to view information about Masque and any skins yo
 -- Default Classic Skin
 ---
 
--- L["The default Classic button style."] = "The default Classic button style."
+L["The default Classic button style."] = "預設的經典按鈕樣式。"
 
 ----------------------------------------
 -- Default Skin
 ---
 
--- L["The default button style."] = "The default button style."
+L["The default button style."] = "預設按鈕樣式。"
 
 ----------------------------------------
 -- Developer Settings
@@ -148,7 +148,7 @@ L["Profile Settings"] = "設定檔設定"
 -- Skin Settings
 ---
 
--- L["Adjust the scale of this group's skin."] = "Adjust the scale of this group's skin."
+L["Adjust the scale of this group's skin."] = "調整群組外觀的縮放。"
 L["Backdrop"] = "背景設定"
 L["Checked"] = "已勾選"
 L["Color"] = "顏色"
@@ -158,7 +158,7 @@ L["Disable"] = "停用"
 L["Disable the skinning of this group."] = "停用這個群組的按鈕外觀。"
 L["Disabled"] = "已停用"
 L["Enable"] = "啟用"
--- L["Enable skin scaling."] = "Enable skin scaling."
+L["Enable skin scaling."] = "啟用外觀縮放。"
 L["Enable the Backdrop texture."] = "啟用背景材質。"
 L["Enable the Gloss texture."] = "啟用光澤材質。"
 L["Enable the Shadow texture."] = "啟用陰影材質。"
@@ -172,7 +172,7 @@ L["Pulse"] = "脈衝"
 L["Pushed"] = "按下"
 L["Reset all skin options to the defaults."] = "重置所有外觀選項為預設值。"
 L["Reset Skin"] = "重置外觀"
--- L["Scale"] = "Scale"
+L["Scale"] = "縮放"
 L["Set the color of the Backdrop texture."] = "設定背景材質顏色。"
 L["Set the color of the Checked texture."] = "設定已勾選材質顏色。"
 L["Set the color of the Cooldown animation."] = "設定冷卻倒數動畫顏色。"
