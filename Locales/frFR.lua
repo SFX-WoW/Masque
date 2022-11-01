@@ -42,10 +42,6 @@ L["API"] = "API"
 ---
 
 L["About"] = "À propos"
--- L["Click to load Masque's options."] = "Click to load Masque's options."
-L["Load Options"] = "Options de chargement"
--- L["Masque's options are load on demand. Click the button below to load them."] = "Masque's options are load on demand. Click the button below to load them."
--- L["This action will increase memory usage."] = "This action will increase memory usage."
 -- L["This section will allow you to view information about Masque and any skins you have installed."] = "This section will allow you to view information about Masque and any skins you have installed."
 
 ----------------------------------------

@@ -42,10 +42,6 @@ L["An improved version of the game's default button style."] = "Eine optisch ver
 ---
 
 L["About"] = "Über"
-L["Click to load Masque's options."] = "Klicken, um die Masque-Optionen zu laden."
--- L["Load Options"] = "Load Options"
--- L["Masque's options are load on demand. Click the button below to load them."] = "Masque's options are load on demand. Click the button below to load them."
--- L["This action will increase memory usage."] = "This action will increase memory usage."
 L["This section will allow you to view information about Masque and any skins you have installed."] = "Dieser Abschnitt zeigt dir Infomationen über Masque und aller installierten Skins."
 
 ----------------------------------------

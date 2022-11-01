@@ -42,10 +42,6 @@ L["An improved version of the game's default button style."] = "遊戲預設按�
 ---
 
 L["About"] = "關於"
-L["Click to load Masque's options."] = "點擊來載入Masque的選項。"
-L["Load Options"] = "載入選項"
-L["Masque's options are load on demand. Click the button below to load them."] = "Masque的選項是需求時才載入。點擊下面的按鈕來載入它。"
-L["This action will increase memory usage."] = "這個動作會增加記憶體的使用量。"
 L["This section will allow you to view information about Masque and any skins you have installed."] = "此部分允許您查看有關Masque和已安裝的任何外觀的訊息。"
 
 ----------------------------------------

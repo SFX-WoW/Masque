@@ -42,10 +42,6 @@ L["An improved version of the game's default button style."] = "게임의 기본
 ---
 
 L["About"] = "정보"
-L["Click to load Masque's options."] = "Masque 옵션을 불러오려면 클릭하세요."
-L["Load Options"] = "불러오기 옵션"
-L["Masque's options are load on demand. Click the button below to load them."] = "Masque의 옵션은 주문형 불러오기입니다. 불러려면 아래 버튼을 클릭하세요."
-L["This action will increase memory usage."] = "이 작업은 메모리 사용량을 증가시킵니다."
 L["This section will allow you to view information about Masque and any skins you have installed."] = "여기는 Masque 및 설치한 스킨에 대한 정보를 볼 수 있습니다."
 
 ----------------------------------------
