@@ -40,6 +40,9 @@ local API_VERSION = 100002
 local WOW_VERSION = select(4, GetBuildInfo()) or 0
 local WOW_RETAIL = (WOW_VERSION >= 100000 and true) or nil
 
+-- Default Skin
+local DEFAULT_SKIN_ID = (WOW_RETAIL and "Blizzard Modern") or "Blizzard Classic"
+
 ----------------------------------------
 -- Core
 ---
@@ -120,7 +123,7 @@ function Masque:OnInitialize()
 					Pulse = true,
 					Scale = 1,
 					Shadow = false,
-					SkinID = "Classic",
+					SkinID = DEFAULT_SKIN_ID,
 					UseScale = false,
 				},
 			},

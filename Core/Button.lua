@@ -31,7 +31,7 @@ local ContainerFrame_GetContainerNumSlots, hooksecurefunc = ContainerFrame_GetCo
 -- @ Masque
 local WOW_RETAIL = Core.WOW_RETAIL
 
--- @ Skins\Default(_Classic)
+-- @ Skins\Blizzard(_Classic)
 local DEFAULT_SKIN = Core.DEFAULT_SKIN
 
 -- @ Skins\Skins
@@ -209,7 +209,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local Skin, Disabled
 
 	if SkinID then
-		Skin = Skins[SkinID] or Skins.Classic
+		Skin = Skins[SkinID] or DEFAULT_SKIN
 		Button.__MSQ_Skin = Skin
 	else
 		local Addon = Button.__MSQ_Addon or false
