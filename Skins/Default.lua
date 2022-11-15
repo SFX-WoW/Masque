@@ -8,7 +8,9 @@
 
 	'Default' Skin
 
-	* Note: Some attributes are modified for internal consistency.
+	Notes:
+	* Emulates the default Dragonflight button style.
+	* Some attributes are modified for internal consistency.
 
 ]]
 
@@ -17,10 +19,14 @@ local _, Core = ...
 if not Core.WOW_RETAIL then return end
 
 ----------------------------------------
--- Locals
+-- Internal
 ---
 
-local L, Hidden = Core.Locale, Core.__Hidden
+-- @ Locales\enUS
+local L = Core.Locale
+
+-- @ Skins\Skins
+local Hidden = Core.__Hidden
 
 ----------------------------------------
 -- Default
@@ -868,5 +874,12 @@ local Skin = {
 	},
 }
 
+----------------------------------------
+-- Core
+---
+
 Core.Skins[SkinID] = Skin
+Core.SkinList[SkinID] = SkinID
+
 Core.DEFAULT_SKIN = Skin
+Core.DEFAULT_SKIN_ID = SkinID
