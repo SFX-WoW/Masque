@@ -3,10 +3,10 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
 	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
 
-	* File...: Skins\Default.lua
+	* File...: Skins\Blizzard_Modern.lua
 	* Author.: Blizzard Entertainment
 
-	'Default' Skin
+	"Blizzard Modern" Skin
 
 	Notes:
 	* Emulates the default Dragonflight button style.
@@ -29,11 +29,10 @@ local L = Core.Locale
 local Hidden = Core.__Hidden
 
 ----------------------------------------
--- Default
+-- Blizzard Modern
 ---
 
-local SkinID = "Default"
-Core.SkinList[SkinID] = SkinID
+local SkinID = "Blizzard Modern"
 
 local Skin = {
 	SkinID = SkinID,
