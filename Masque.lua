@@ -21,49 +21,82 @@ assert(LibStub, MASQUE.." requires LibStub.")
 local print = print
 
 ----------------------------------------
+-- Internal
+---
+
+-- @ Locales\enUS
+local L = Core.Locale
+
+----------------------------------------
 -- Locals
 ---
 
 local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 
--- @ Locales\enUS
-local L = Core.Locale
+-- API Version
+local API_VERSION = 100002
 
--- Game Version
+-- Client Version
 local WOW_VERSION = select(4, GetBuildInfo()) or 0
-Core.WOW_VERSION = WOW_VERSION
-
--- Retail
-Core.WOW_RETAIL = (WOW_VERSION >= 100000 and true) or nil
+local WOW_RETAIL = (WOW_VERSION >= 100000 and true) or nil
 
 ----------------------------------------
--- API
+-- Core
 ---
 
-do
-	local VERSION = 100000
-	Core.API = LibStub:NewLibrary(MASQUE, VERSION)
+-- API
+Core.API_VERSION = API_VERSION
+Core.OLD_VERSION = 70200
 
-	----------------------------------------
-	-- Internal
-	---
+Core.API = LibStub:NewLibrary(MASQUE, API_VERSION)
 
-	Core.API_VERSION = VERSION
-	Core.OLD_VERSION = 70200
+-- Client Version
+Core.WOW_VERSION = WOW_VERSION
+Core.WOW_RETAIL = WOW_RETAIL
 
-	-- Core Info
-	Core.Version = GetAddOnMetadata(MASQUE, "Version")
-	Core.Authors = {
-		"StormFX",
-		"|cff999999JJSheets|r",
-	}
-	Core.Discord = "https://discord.gg/DDVqkd6"
-	Core.Websites = {
-		"https://github.com/SFX-WoW/Masque",
-		"https://www.curseforge.com/wow/addons/masque",
-		"https://addons.wago.io/addons/masque",
-		"https://www.wowinterface.com/downloads/info12097",
-	}
+-- Add-On Info
+Core.Version = GetAddOnMetadata(MASQUE, "Version")
+Core.Discord = "https://discord.gg/DDVqkd6"
+
+Core.Authors = {
+	"StormFX",
+	"|cff999999JJSheets|r",
+}
+Core.Websites = {
+	"https://github.com/SFX-WoW/Masque",
+	"https://www.curseforge.com/wow/addons/masque",
+	"https://addons.wago.io/addons/masque",
+	"https://www.wowinterface.com/downloads/info12097",
+}
+
+-- Toggles debug mode.
+function Core.ToggleDebug()
+	local db = Core.db.profile
+	local Debug = not db.Debug
+
+	db.Debug = Debug
+	Core.Debug = Debug
+
+	if Debug then
+		print("|cffffff99"..L["Masque debug mode enabled."].."|r")
+	else
+		print("|cffffff99"..L["Masque debug mode disabled."].."|r")
+	end
+end
+
+-- Updates on profile activity.
+function Core:UpdateProfile()
+	self.Debug = self.db.profile.Debug
+
+	local Global = self.GetGroup()
+	Global:__Update()
+
+	self.Setup("Info")
+
+	local LDBI = LibStub("LibDBIcon-1.0", true)
+	if LDBI then
+		LDBI:Refresh(MASQUE, Core.db.profile.LDB)
+	end
 end
 
 ----------------------------------------
@@ -146,38 +179,4 @@ end
 -- Wrapper for the DB:SetProfile method.
 function Masque:SetProfile(Name)
 	Core.db:SetProfile(Name)
-end
-
-----------------------------------------
--- Core
----
-
--- Toggles debug mode.
-function Core.ToggleDebug()
-	local db = Core.db.profile
-	local Debug = not db.Debug
-
-	db.Debug = Debug
-	Core.Debug = Debug
-
-	if Debug then
-		print("|cffffff99"..L["Masque debug mode enabled."].."|r")
-	else
-		print("|cffffff99"..L["Masque debug mode disabled."].."|r")
-	end
-end
-
--- Updates on profile activity.
-function Core:UpdateProfile()
-	self.Debug = self.db.profile.Debug
-
-	local Global = self.GetGroup()
-	Global:__Update()
-
-	self.Setup("Info")
-
-	local LDBI = LibStub("LibDBIcon-1.0", true)
-	if LDBI then
-		LDBI:Refresh(MASQUE, Core.db.profile.LDB)
-	end
 end
