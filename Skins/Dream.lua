@@ -454,7 +454,7 @@ Core.AddSkin("Dream", {
 	},
 	Cooldown = {
 		-- Texture = nil,
-		EdgeTexture = [[Interface\Cooldown\edge]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 30,
@@ -466,7 +466,7 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = {
-		EdgeTexture = [[Interface\Cooldown\edge]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Width = 30,
 		Height = 30,

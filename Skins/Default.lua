@@ -850,7 +850,7 @@ local Skin = {
 	},
 	Cooldown = {
 		-- Texture = nil,
-		EdgeTexture = [[Interface\Cooldown\edge]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 32,
@@ -862,7 +862,7 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = {
-		EdgeTexture = [[Interface\Cooldown\edge]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Width = 31,
 		Height = 31,
