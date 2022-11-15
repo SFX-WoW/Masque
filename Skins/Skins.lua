@@ -168,7 +168,7 @@ end
 
 -- Retrieves the default skin.
 function API:GetDefaultSkin()
-	return "Classic"
+	return Core.DEFAULT_SKIN_ID, Core.DEFAULT_SKIN
 end
 
 -- Retrieves the skin data for the specified skin.
