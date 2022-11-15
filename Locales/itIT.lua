@@ -32,10 +32,22 @@ local L = Core.Locale
 -- L["You must have an add-on that supports Masque installed to use it."] = "You must have an add-on that supports Masque installed to use it."
 
 ----------------------------------------
--- Classic Skin
+-- Blizzard Classic Skin
 ---
 
--- L["An improved version of the game's default button style."] = "An improved version of the game's default button style."
+-- L["The default Classic button style."] = "The default Classic button style."
+
+----------------------------------------
+-- Blizzard Modern Skin
+---
+
+-- L["The default Dragonflight button style."] = "The default Dragonflight button style."
+
+----------------------------------------
+-- Classic Redux Skin
+---
+
+-- L["A modified version of the Classic button style."] = "A modified version of the Classic button style."
 
 ----------------------------------------
 -- Core Settings
@@ -43,18 +55,6 @@ local L = Core.Locale
 
 -- L["About"] = "About"
 -- L["This section will allow you to view information about Masque and any skins you have installed."] = "This section will allow you to view information about Masque and any skins you have installed."
-
-----------------------------------------
--- Default Classic Skin
----
-
--- L["The default Classic button style."] = "The default Classic button style."
-
-----------------------------------------
--- Default Skin
----
-
--- L["The default button style."] = "The default button style."
 
 ----------------------------------------
 -- Developer Settings
@@ -156,7 +156,6 @@ L["Colors"] = "Colori"
 L["Cooldown"] = "Cooldown"
 L["Disable"] = "Disabilita"
 L["Disable the skinning of this group."] = "Disabilita lo skinning per questo gruppo."
-L["Disabled"] = "Disabilitato"
 L["Enable"] = "Abilita"
 -- L["Enable skin scaling."] = "Enable skin scaling."
 L["Enable the Backdrop texture."] = "Abilita la texture di sfondo."
@@ -176,7 +175,6 @@ L["Reset Skin"] = "Reimposta Skin"
 L["Set the color of the Backdrop texture."] = "Imposta il colore della texture di sfondo."
 L["Set the color of the Checked texture."] = "Imposta il colore della texture controllata."
 L["Set the color of the Cooldown animation."] = "Imposta il colore dell'animazione del coldown"
-L["Set the color of the Disabled texture."] = "Imposta il colore della texture disabilitata."
 L["Set the color of the Flash texture."] = "Imposta il colore della texture lampeggiante."
 L["Set the color of the Gloss texture."] = "Imposta il colore della texture gloss."
 L["Set the color of the Highlight texture."] = "Imposta il colore della texture evidenziata."

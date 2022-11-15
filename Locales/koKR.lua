@@ -32,10 +32,22 @@ L["Supporters"] = "후원자"
 L["You must have an add-on that supports Masque installed to use it."] = "Masque를 사용하려면 Masque를 지원하는 애드온이 설치되어 있어야 합니다."
 
 ----------------------------------------
--- Classic Skin
+-- Blizzard Classic Skin
 ---
 
-L["An improved version of the game's default button style."] = "게임의 기본 버튼 스타일을 개선한 버전입니다."
+L["The default Classic button style."] = "기본 클래식 버튼 스타일입니다."
+
+----------------------------------------
+-- Blizzard Modern Skin
+---
+
+L["The default Dragonflight button style."] = "기본 버튼 스타일입니다."
+
+----------------------------------------
+-- Classic Redux Skin
+---
+
+L["A modified version of the Classic button style."] = "게임의 기본 버튼 스타일을 개선한 버전입니다."
 
 ----------------------------------------
 -- Core Settings
@@ -43,18 +55,6 @@ L["An improved version of the game's default button style."] = "게임의 기본
 
 L["About"] = "정보"
 L["This section will allow you to view information about Masque and any skins you have installed."] = "여기는 Masque 및 설치한 스킨에 대한 정보를 볼 수 있습니다."
-
-----------------------------------------
--- Default Classic Skin
----
-
-L["The default Classic button style."] = "기본 클래식 버튼 스타일입니다."
-
-----------------------------------------
--- Default Skin
----
-
-L["The default button style."] = "기본 버튼 스타일입니다."
 
 ----------------------------------------
 -- Developer Settings
@@ -156,7 +156,6 @@ L["Colors"] = "색상"
 L["Cooldown"] = "재사용 대기시간"
 L["Disable"] = "비활성화"
 L["Disable the skinning of this group."] = "이 그룹의 스킨 씌우기를 비활성화합니다."
-L["Disabled"] = "비활성화된 버튼"
 L["Enable"] = "활성화"
 -- L["Enable skin scaling."] = "Enable skin scaling."
 L["Enable the Backdrop texture."] = "바탕 텍스쳐를 활성화합니다."
@@ -176,7 +175,6 @@ L["Reset Skin"] = "스킨 초기화"
 L["Set the color of the Backdrop texture."] = "배경 텍스처의 색상을 설정합니다."
 L["Set the color of the Checked texture."] = "선택된 버튼 텍스처의 색상을 변경합니다."
 L["Set the color of the Cooldown animation."] = "재사용 대기시간 애니메이션의 색상을 설정합니다."
-L["Set the color of the Disabled texture."] = "비활성화된 버튼 텍스처의 색상을 변경합니다."
 L["Set the color of the Flash texture."] = "번쩍임 텍스처의 색상을 변경합니다."
 L["Set the color of the Gloss texture."] = "광택 효과 텍스처의 색상을 변경합니다."
 L["Set the color of the Highlight texture."] = "강조된 버튼 텍스처의 색상을 변경합니다."
