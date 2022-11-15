@@ -123,7 +123,7 @@ L["Use a resizable, stand-alone options window."] = "크기 조정 가능한 독
 -- LDB Launcher
 ---
 
--- L["Click to open Masque's settings."] = "Click to open Masque's settings."
+L["Click to open Masque's settings."] = "클릭으로 Masque 설정을 엽니다."
 
 ----------------------------------------
 -- Performance Settings
@@ -148,7 +148,7 @@ L["Profile Settings"] = "프로필 설정"
 -- Skin Settings
 ---
 
--- L["Adjust the scale of this group's skin."] = "Adjust the scale of this group's skin."
+L["Adjust the scale of this group's skin."] = "이 그룹의 스킨 크기 비율을 조정합니다."
 L["Backdrop"] = "배경"
 L["Checked"] = "선택된 버튼"
 L["Color"] = "색상"
@@ -171,7 +171,7 @@ L["Pulse"] = "맥박"
 L["Pushed"] = "눌려진 버튼"
 L["Reset all skin options to the defaults."] = "모든 스킨 옵션을 기본값으로 재설정합니다."
 L["Reset Skin"] = "스킨 초기화"
--- L["Scale"] = "Scale"
+L["Scale"] = "크기 비율"
 L["Set the color of the Backdrop texture."] = "배경 텍스처의 색상을 설정합니다."
 L["Set the color of the Checked texture."] = "선택된 버튼 텍스처의 색상을 변경합니다."
 L["Set the color of the Cooldown animation."] = "재사용 대기시간 애니메이션의 색상을 설정합니다."
