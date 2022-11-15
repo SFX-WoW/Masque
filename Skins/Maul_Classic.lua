@@ -3,10 +3,10 @@
 	This file is part of 'Masque', an add-on for World of Warcraft. For bug reports,
 	suggestions and license information, please visit https://github.com/SFX-WoW/Masque.
 
-	* File...: Skins\Classic.lua
+	* File...: Skins\Maul_Classic.lua
 	* Author.: StormFX, Maul, Blizzard Entertainment
 
-	'Classic' Skin
+	"Maul Classic" Skin
 
 ]]
 
@@ -23,7 +23,7 @@ local L = Core.Locale
 -- Classic
 ---
 
-Core.AddSkin("Classic", {
+Core.AddSkin("Maul Classic", {
 	Template = "Blizzard Classic",
 	-- API_VERSION = Template.API_VERSION,
 	-- Shape = Template.Shape,
