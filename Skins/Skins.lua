@@ -110,7 +110,7 @@ Core.Skins = setmetatable(Skins, {
 		if Legacy[SkinID] then
 			return self["Blizzard Classic"]
 		elseif SkinID == "Classic" then
-			return self["Maul Classic"]
+			return self["Classic Redux"]
 		end
 	end
 })
