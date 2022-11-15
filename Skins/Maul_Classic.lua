@@ -29,7 +29,7 @@ Core.AddSkin("Maul Classic", {
 	-- Shape = Template.Shape,
 
 	-- Info
-	Description = L["An improved version of the game's default button style."],
+	Description = L["A modified version of the Classic button style."],
 	-- Version = Template.Version,
 	Authors = {"StormFX", "|cff999999Maul|r", "|cff999999Blizzard Entertainment|r"},
 	Websites = Core.Websites,

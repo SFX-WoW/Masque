@@ -40,7 +40,7 @@ local Skin = {
 	Shape = "Square",
 
 	-- Info
-	Description = L["The default button style."],
+	Description = L["The default Dragonflight button style."],
 	Version = Core.Version,
 	Author = "|cff0099ffBlizzard Entertainment|r",
 
