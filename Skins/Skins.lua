@@ -32,6 +32,13 @@ local Layers = Core.RegTypes.Legacy
 local Skins, SkinList = {}, {}
 local Hidden = {Hide = true}
 
+-- Legacy Skin IDs
+local Legacy = {
+	["Blizzard"] = true,
+	["Default"] = true,
+	["Default (Classic)"] = true,
+}
+
 ----------------------------------------
 -- Functions
 ---
@@ -46,10 +53,17 @@ end
 
 -- Adds data to the skin tables.
 local function AddSkin(SkinID, SkinData)
+	local Skin_API = SkinData.API_VERSION or SkinData.Masque_Version
 	local Template = SkinData.Template
 	local Default = Core.DEFAULT_SKIN
 
 	if Template then
+		-- Only do this for skins using the Dragonflight skin as a template.
+		-- All other template IDs are handled by the `Skins` metatable.
+		if Skin_API == 100000 and Template == "Default" then
+			Template = "Blizzard Modern"		
+		end
+
 		setmetatable(SkinData, {__index = Skins[Template]})
 	end
 
@@ -72,7 +86,7 @@ local function AddSkin(SkinID, SkinData)
 	end
 
 	SkinData.SkinID = SkinID
-	SkinData.API_VERSION = SkinData.API_VERSION or SkinData.Masque_Version
+	SkinData.API_VERSION = Skin_API
 
 	local Shape = SkinData.Shape
 	SkinData.Shape = GetShape(Shape)
@@ -92,9 +106,11 @@ Core.__Hidden = Hidden
 Core.AddSkin = AddSkin
 
 Core.Skins = setmetatable(Skins, {
-	__index = function(self, id)
-		if id == "Blizzard" then
-			return self.Classic
+	__index = function(self, SkinID)
+		if Legacy[SkinID] then
+			return self["Blizzard Classic"]
+		elseif SkinID == "Classic" then
+			return self["Maul Classic"]
 		end
 	end
 })
