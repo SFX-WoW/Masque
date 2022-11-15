@@ -24,7 +24,7 @@ local L = Core.Locale
 ---
 
 Core.AddSkin("Classic", {
-	Template = "Default (Classic)",
+	Template = "Blizzard Classic",
 	-- API_VERSION = Template.API_VERSION,
 	-- Shape = Template.Shape,
 

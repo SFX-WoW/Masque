@@ -27,7 +27,7 @@ local Hidden = Core.__Hidden
 ---
 
 Core.AddSkin("Dream", {
-	Template = "Default (Classic)",
+	Template = "Blizzard Classic",
 	-- API_VERSION = Template.API_VERSION,
 	-- Shape = Template.Shape,
 
