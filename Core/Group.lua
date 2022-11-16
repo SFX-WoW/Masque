@@ -75,7 +75,7 @@ local function FireCB(self)
 	local db = self.db
 
 	if self.Callback then
-		Callback(self.ID, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
+		Callback(self.Callback, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
 	elseif self.Addon then
 		Callback(self.Addon, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
 	end
@@ -256,7 +256,7 @@ function GMT:ReSkin(arg)
 end
 
 -- Registers a group-specific callback.
-function GMT:SetCallback(func, arg)
+function GMT:SetCallback(func, arg, selfCB)
 	if self.ID == MASQUE then return end
 
 	if type(func) ~= "function" then
@@ -272,7 +272,7 @@ function GMT:SetCallback(func, arg)
 	end
 
 	Callback:Register(self.ID, func, arg or false)
-	self.Callback = true
+	self.Callback = (selfCB and self) or self.ID
 end
 
 -- Renames the group.
