@@ -53,10 +53,11 @@ local function MigrateDB()
 		local GetSkinID = Core.GetSkinID
 
 		for _, gDB in pairs(db.Groups) do
+			local SkinID = gDB.SkinID
 			local NewID = GetSkinID(SkinID)
 
 			-- Client-Specific Skin
-			if gDB.SkinID == "Default" then
+			if SkinID == "Default" then
 				gDB.SkinID = Core.DEFAULT_SKIN_ID
 
 			-- Other
