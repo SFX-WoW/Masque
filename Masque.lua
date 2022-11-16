@@ -40,8 +40,35 @@ local API_VERSION = 100002
 local WOW_VERSION = select(4, GetBuildInfo()) or 0
 local WOW_RETAIL = (WOW_VERSION >= 100000 and true) or nil
 
--- Default Skin
-local DEFAULT_SKIN_ID = (WOW_RETAIL and "Blizzard Modern") or "Blizzard Classic"
+----------------------------------------
+-- Utility
+---
+
+-- Function to migrate the DB.
+local function MigrateDB()
+	local db = Core.db.profile
+
+	-- SkinID Migration @ 100002
+	if db.API_VERSION < 100002 then
+		local GetSkinID = Core.GetSkinID
+
+		for _, gDB in pairs(db.Groups) do
+			local NewID = GetSkinID(SkinID)
+
+			-- Client-Specific Skin
+			if gDB.SkinID == "Default" then
+				gDB.SkinID = Core.DEFAULT_SKIN_ID
+
+			-- Other
+			elseif NewID then
+				gDB.SkinID = NewID
+			end
+		end
+	end
+
+	-- Update the API version.
+	db.API_VERSION = API_VERSION
+end
 
 ----------------------------------------
 -- Core
@@ -91,9 +118,14 @@ end
 function Core:UpdateProfile()
 	self.Debug = self.db.profile.Debug
 
+	-- Profile Migration
+	MigrateDB()
+
+	-- Skins and Skin Options
 	local Global = self.GetGroup()
 	Global:__Update()
 
+	-- Info Panel
 	self.Setup("Info")
 
 	local LDBI = LibStub("LibDBIcon-1.0", true)
@@ -110,6 +142,7 @@ end
 function Masque:OnInitialize()
 	local Defaults = {
 		profile = {
+			API_VERSION = 0,
 			Debug = false,
 			SkinInfo = true,
 			StandAlone = true,
@@ -123,7 +156,7 @@ function Masque:OnInitialize()
 					Pulse = true,
 					Scale = 1,
 					Shadow = false,
-					SkinID = DEFAULT_SKIN_ID,
+					SkinID = Core.DEFAULT_SKIN_ID,
 					UseScale = false,
 				},
 			},
@@ -162,6 +195,8 @@ end
 
 -- PLAYER_LOGIN Event
 function Masque:OnEnable()
+	MigrateDB()
+
 	local Setup = Core.Setup
 
 	if Setup then

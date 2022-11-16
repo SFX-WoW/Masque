@@ -33,15 +33,21 @@ local Skins, SkinList = {}, {}
 local Hidden = {Hide = true}
 
 -- Legacy Skin IDs
-local Legacy = {
-	["Blizzard"] = true,
-	["Default"] = true,
-	["Default (Classic)"] = true,
+local LegacyIDs = {
+	["Blizzard"] = "Blizzard Classic",
+	["Classic"] = "Classic Redux",
+	["Default"] = "Blizzard Classic",
+	["Default (Classic)"] = "Blizzard Classic",
 }
 
 ----------------------------------------
 -- Functions
 ---
+
+-- Returns the ID of a renamed skin.
+local function GetSkinID(SkinID)
+	return LegacyIDs[SkinID]
+end
 
 -- Returns a valid shape.
 local function GetShape(Shape)
@@ -104,13 +110,14 @@ end
 
 Core.__Hidden = Hidden
 Core.AddSkin = AddSkin
+Core.GetSkinID = GetSkinID
 
 Core.Skins = setmetatable(Skins, {
 	__index = function(self, SkinID)
-		if Legacy[SkinID] then
-			return self["Blizzard Classic"]
-		elseif SkinID == "Classic" then
-			return self["Classic Redux"]
+		local NewID = GetSkinID(SkinID)
+
+		if NewID then
+			return self[NewID]
 		end
 	end
 })
