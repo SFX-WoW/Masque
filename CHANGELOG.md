@@ -6,14 +6,13 @@
 
 ### Skins
 
-- Added a minimum text height to prevent text regions from wrapping if the height is not set.
-- Due to some ambiguity with some included skins, the skin names have been revisited and are as follows: (#280)
+- Due to some ambiguity with the naming of some included skins, those names have been revisited and are as follows: (#280)
   - "_Default_" (Dragonflight) is now "_Blizzard Modern_".
   - "_Default (Classic)_" is now "_Blizzard Classic_".
   - "_Classic_" is now "_Classic Redux_".
 - Due to the name changes, a fail-safe has been implemented for skins that have yet to be updated to use the new names in their template field. This will allow those skins to continue to function. (#280)
 - The default skins for new profiles will now be the "_Blizzard_" variant for the respective client. (#281)
-- Users who use one of the renamed skins will have their settings migrated automatically to reference the new names. (#284)
+- Users who use one of the renamed skins will have their saved variables migrated automatically to reference the new names. (#284)
 
 ### API
 
