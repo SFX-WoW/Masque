@@ -1,38 +1,33 @@
-## 10.0.1 Release Notes
+## 10.0.2 Release Notes
 
 ### General
 
-- Added a new per-group skin scaling option that allows users to increase or reduce the size of the skin by up to 25%. (#264)
-  - **Note:** This does _not_ change the size of the buttons, only the skin relative to the button.
-- Masque will now fully load its options when the Options/Settings panel is opened.
-  - **Note:** This should prevent issues with some of _Masque_'s options panels not loading correctly.
-- Moved the `Reset Skin` button to just below the `Skin` drop-down menu.
-- Removed the `Classic Scaling` option.
-- Removed the `Load Options` button and its associated elements.
-- Reverted to the scaling method used prior to _Dragonflight_. This should alleviate scaling issues a lot of people are having. (#264)
+- Updated the `Interface` version for _Retail_ to `100002`. (#286)
 
 ### Skins
 
-- Added atlas support to the `Shadow` region.
-- Fine-tuned item buttons in the `Default` and `Default (Classic)` skins.
-- Reduced the size of the new `Default` skin so that it scales properly. (#273)
+- Added a minimum text height to prevent text regions from wrapping if the height is not set.
+- Due to some ambiguity with some included skins, the skin names have been revisited and are as follows: (#280)
+  - "_Default_" (Dragonflight) is now "_Blizzard Modern_".
+  - "_Default (Classic)_" is now "_Blizzard Classic_".
+  - "_Classic_" is now "_Classic Redux_".
+- Due to the name changes, a fail-safe has been implemented for skins that have yet to be updated to use the new names in their template field. This will allow those skins to continue to function. (#280)
+- The default skins for new profiles will now be the "_Blizzard_" variant for the respective client. (#281)
+- Users who use one of the renamed skins will have their settings migrated automatically to reference the new names. (#284)
+
+### API
+
+- The `GetDefaultSkin` API method will now return the skin table along with the `SkinID` of the default skin.  (#283)
+- The `SetCallback` Group API method now accepts a third `boolean` parameter that will cause the callback to return the group object rather than the `string` ID as the first parameter. (#285)
 
 ### Localization
 
-- Added three new scale-related phrases.
-- Removed phrases related to the `Classic Scaling` option.
-- Removed phrases related to the `Load Options` button.
-- Updated `koKR`. (Netaras)
-- Updated `zhTW`. (BNS333)
+- Updated `koKR`. (Netaras) (#278)
 
 ### Bug Fixes
 
-- Fixed an issue that caused the `Cooldown` to be off by one pixel in the `Default (Classic)` skin. (#265)
-- Fixed an issue that could cause a mask to fail to be removed from a button if the skin wasn't using it.
-- Fixed an issue that could cause a region's texture coordinates to not be reset when using an atlas. (#276)
-- Fixed an issue that could cause an error in add-ons using the default buttons. (#266)
-- Fixed the `HotKey` alignment in the `Default (Classic)` skin. (#268)
-- Fixed the reagent bag using the wrong `Pushed` texture.
-- The `HotKey` and `Duration` text regions should no longer extend beyond the button in the base skins. (#274)
+- Fixed an issue that allowed text regions with spaces to wrap to new lines.
+- Fixed an issue that caused the edge texture for the _Blizzard Modern_ skin to be too large. (#279)
+- Fixed an issue that caused some skins to use the wrong edge texture. (#282)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
