@@ -1,32 +1,15 @@
-## 10.0.2 Release Notes
+## 10.0.3-Beta Release Notes
 
-### General
+### Interface
 
-- Updated the `Interface` version for _Retail_ to `100002`. (#286)
+- Added an **Alternate Sorting** option to **General Settings** / **Interface** that causes skins included with _Masque_ to be listed above third-party skins in **Skin** drop-down. (#290)
 
 ### Skins
 
-- Due to some ambiguity with the naming of some included skins, those names have been revisited and are as follows: (#280)
-  - "_Default_" (Dragonflight) is now "_Blizzard Modern_".
-  - "_Default (Classic)_" is now "_Blizzard Classic_".
-  - "_Classic_" is now "_Classic Redux_".
-- Due to the name changes, a fail-safe has been implemented for skins that have yet to be updated to use the new names in their template field. This will allow those skins to continue to function. (#280)
-- The default skins for new profiles will now be the "_Blizzard_" variant for the respective client. (#281)
-- Users who use one of the renamed skins will have their saved variables migrated automatically to reference the new names. (#284)
-
-### API
-
-- The `GetDefaultSkin` API method will now return the skin table along with the `SkinID` of the default skin.  (#283)
-- The `SetCallback` Group API method now accepts a third `boolean` parameter that will cause the callback to return the group object rather than the `string` ID as the first parameter. (#285)
+- Added a texture to the `Cooldown` region for "_Blizzard Modern_" to prevent the corners from overlapping the `Normal` texture. (#289)
 
 ### Localization
 
-- Updated `koKR`. (Netaras) (#278)
-
-### Bug Fixes
-
-- Fixed an issue that allowed text regions with spaces to wrap to new lines.
-- Fixed an issue that caused the edge texture for the _Blizzard Modern_ skin to be too large. (#279)
-- Fixed an issue that caused some skins to use the wrong edge texture. (#282)
+- Added two new phrases.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
