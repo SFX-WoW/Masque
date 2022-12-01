@@ -285,7 +285,6 @@ local Skin = {
 			Atlas = "bag-main",
 			UseAtlasSize = false,
 			-- Color = {1, 1, 1, 1},
-			-- EmptyColor = {1, 1, 1, 1},
 			BlendMode = "BLEND",
 			DrawLayer = "ARTWORK",
 			DrawLevel = 0,
@@ -302,7 +301,6 @@ local Skin = {
 			Atlas = "bag-border",
 			UseAtlasSize = false,
 			-- Color = {1, 1, 1, 1},
-			-- EmptyColor = {1, 1, 1, 1},
 			BlendMode = "BLEND",
 			DrawLayer = "ARTWORK",
 			DrawLevel = 0,
@@ -319,7 +317,6 @@ local Skin = {
 			Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
 			-- TexCoords = {0, 1, 0, 1},
 			-- Color = {1, 1, 1, 1},
-			-- EmptyColor = {1, 1, 1, 1},
 			BlendMode = "BLEND",
 			DrawLayer = "ARTWORK",
 			DrawLevel = 0,
@@ -335,7 +332,6 @@ local Skin = {
 			Atlas = "bag-reagent-border",
 			UseAtlasSize = false,
 			-- Color = {1, 1, 1, 1},
-			-- EmptyColor = {1, 1, 1, 1},
 			BlendMode = "BLEND",
 			DrawLayer = "ARTWORK",
 			DrawLevel = 0,
@@ -468,14 +464,14 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	SlotHighlight = {
-		Texture = [[Interface\Buttons\CheckButtonHilight]],
-		-- TexCoords = {0, 1, 0, 1},
+		Atlas = "bag-border-highlight",
+		UseAtlasSize = false,
 		-- Color = {1, 1, 1, 1},
-		BlendMode = "ADD",
-		DrawLayer = "OVERLAY",
-		DrawLevel = 6,
-		Width = 30,
-		Height = 30,
+		BlendMode = "BLEND",
+		DrawLayer = "ARTWORK",
+		DrawLevel = 0,
+		Width = 36,
+		Height = 36,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
@@ -485,7 +481,6 @@ local Skin = {
 			Atlas = "bag-main-highlight",
 			UseAtlasSize = false,
 			-- Color = {1, 1, 1, 1},
-			-- EmptyColor = {1, 1, 1, 1},
 			BlendMode = "BLEND",
 			DrawLayer = "ARTWORK",
 			DrawLevel = 0,
@@ -496,22 +491,6 @@ local Skin = {
 			OffsetX = 0,
 			OffsetY = 0,
 			-- SetAllPoints = nil,
-		},
-		BagSlot = {
-			Atlas = "bag-border-highlight",
-			UseAtlasSize = false,
-			-- Color = {1, 1, 1, 1},
-			-- EmptyColor = {1, 1, 1, 1},
-			BlendMode = "BLEND",
-			DrawLayer = "ARTWORK",
-			DrawLevel = 0,
-			Width = 36,
-			Height = 36,
-			Point = "CENTER",
-			RelPoint = "CENTER",
-			OffsetX = 0,
-			OffsetY = 0,
-			SetAllPoints = true,
 		},
 	},
 	Name = {
@@ -879,8 +858,7 @@ local Skin = {
 -- Core
 ---
 
-Core.Skins[SkinID] = Skin
-Core.SkinList[SkinID] = SkinID
+Core.AddSkin(SkinID, Skin, true)
 
 Core.DEFAULT_SKIN = Skin
 Core.DEFAULT_SKIN_ID = SkinID
