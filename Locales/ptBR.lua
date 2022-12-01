@@ -111,6 +111,8 @@ L["Description"] = "Descrição"
 -- Interface Settings
 ---
 
+-- L["Alternate Sorting"] = "Alternate Sorting"
+-- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
 L["Enable the Minimap icon."] = "Ativa o ícone do minimapa."
 -- L["Interface"] = "Interface"
 -- L["Interface Settings"] = "Interface Settings"

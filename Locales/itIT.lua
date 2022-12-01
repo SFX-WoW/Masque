@@ -111,6 +111,8 @@ L["Masque debug mode enabled."] = "Modalità Debug Masque Abilitata."
 -- Interface Settings
 ---
 
+-- L["Alternate Sorting"] = "Alternate Sorting"
+-- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
 L["Enable the Minimap icon."] = "Abilita l'icona della minimappa"
 -- L["Interface"] = "Interface"
 -- L["Interface Settings"] = "Interface Settings"

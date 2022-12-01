@@ -111,6 +111,8 @@ L["Websites"] = "Sites Internet"
 -- Interface Settings
 ---
 
+-- L["Alternate Sorting"] = "Alternate Sorting"
+-- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
 L["Enable the Minimap icon."] = "Active l'icône de la minicarte."
 L["Interface"] = "Interface"
 L["Interface Settings"] = "Paramètres d'interface"

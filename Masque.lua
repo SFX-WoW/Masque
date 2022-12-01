@@ -144,6 +144,7 @@ function Masque:OnInitialize()
 	local Defaults = {
 		profile = {
 			API_VERSION = 0,
+			AltSort = false,
 			Debug = false,
 			SkinInfo = true,
 			StandAlone = true,

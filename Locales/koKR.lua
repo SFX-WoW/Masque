@@ -111,6 +111,8 @@ L["Websites"] = "웹사이트"
 -- Interface Settings
 ---
 
+-- L["Alternate Sorting"] = "Alternate Sorting"
+-- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
 L["Enable the Minimap icon."] = "미니맵 아이콘을 활성화 합니다."
 L["Interface"] = "인터페이스"
 L["Interface Settings"] = "인터페이스 설정"
