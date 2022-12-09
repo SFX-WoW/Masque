@@ -2,7 +2,7 @@
 
 ### Interface
 
-- Added an **Alternate Sorting** option to **General Settings** / **Interface** that causes skins included with _Masque_ to be listed above third-party skins in **Skin** drop-down. (#290)
+- Added an **Alternate Sorting** option to **General Settings** / **Interface** that causes skins included with _Masque_ to be listed above third-party skins in the **Skin** drop-down. (#290)
 
 ### Skins
 
@@ -10,6 +10,6 @@
 
 ### Localization
 
-- Added two new phrases.
+- Added phrases for the **Alternate Sorting** option.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
