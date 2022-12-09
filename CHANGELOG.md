@@ -1,4 +1,4 @@
-## 10.0.3-Beta Release Notes
+## 10.0.3 Release Notes
 
 ### Interface
 
