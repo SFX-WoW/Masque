@@ -1,15 +1,18 @@
-## 10.0.3 Release Notes
+## 10.0.4 Release Notes
 
-### Interface
+### API
 
-- Added an **Alternate Sorting** option to **General Settings** / **Interface** that causes skins included with _Masque_ to be listed above third-party skins in the **Skin** drop-down. (#290)
+- Add-on authors can now assign a `"Notes"` field to groups that will be displayed in the **Skin Settings** panel for the group, above the **Disable** option, and in the tooltip for the group. (#291)
 
-### Skins
+### Bug Fixes
 
-- Added a texture to the `Cooldown` region for "_Blizzard Modern_" to prevent the corners from overlapping the `Normal` texture. (#289)
+- Fixed an issue causing the `Normal` texture to be resized on skins using button states. (#292)
+- Fixed an issue causing text regions to not be skinned properly on `Aura` type buttons. (#293)
+- Fixed an issue preventing the `Icon` mask from being used on `Aura` type buttons for the _Blizzard Modern_ skin. (#294)
 
 ### Localization
 
-- Added phrases for the **Alternate Sorting** option.
+- Updated `koKR`. (Netaras) (#295)
+- Updated `zhTW`. (RainbowUI) (#296)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
