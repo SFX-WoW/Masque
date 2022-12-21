@@ -92,7 +92,7 @@ To help translate this add-on, use the [localization system] on CurseForge. Alte
 
 [//]: # (Images)
 
-[SVG-Build]: https://img.shields.io/github/workflow/status/SFX-WoW/Masque/Build%20Release?label=Build&logo=github&logoColor=fff&style=flat-square
+[SVG-Build]: https://img.shields.io/github/actions/workflow/status/SFX-WoW/Masque/build-release.yml?label=Build&logo=github&logoColor=fff&style=flat-square
 [SVG-API]: https://img.shields.io/endpoint?url=https://wow.stormfx.com/img/svg/masque-api.json
 [SVG-Discord]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/discord.json
 [SVG-Twitter]: https://img.shields.io/endpoint?url=https://www.stormfx.com/img/svg/twitter.json
