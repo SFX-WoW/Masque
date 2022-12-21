@@ -182,7 +182,7 @@ local function GetOptions(obj, Order)
 	return {
 		type = "group",
 		name = Name,
-		desc = Notes or "|cffffffff"..L["Select to view."].."|r",
+		desc = Notes or ("|cffffffff"..L["Select to view."].."|r"),
 		order = Order,
 		args = {
 			Head = {
