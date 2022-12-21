@@ -41,13 +41,13 @@ L["The default Classic button style."] = "기본 클래식 버튼 스타일입�
 -- Blizzard Modern Skin
 ---
 
-L["The default Dragonflight button style."] = "기본 버튼 스타일입니다."
+L["The default Dragonflight button style."] = "기본 용군단 버튼 스타일입니다."
 
 ----------------------------------------
 -- Classic Redux Skin
 ---
 
-L["A modified version of the Classic button style."] = "게임의 기본 버튼 스타일을 개선한 버전입니다."
+L["A modified version of the Classic button style."] = "클래식 버튼 스타일을 개선한 버전입니다."
 
 ----------------------------------------
 -- Core Settings
@@ -111,8 +111,8 @@ L["Websites"] = "웹사이트"
 -- Interface Settings
 ---
 
--- L["Alternate Sorting"] = "Alternate Sorting"
--- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
+L["Alternate Sorting"] = "대체 정렬"
+L["Causes the skins included with Masque to be listed above third-party skins."] = "Masque에 포함된 스킨이 타사 스킨 위에 나열되도록 합니다."
 L["Enable the Minimap icon."] = "미니맵 아이콘을 활성화 합니다."
 L["Interface"] = "인터페이스"
 L["Interface Settings"] = "인터페이스 설정"
