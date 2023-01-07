@@ -233,24 +233,33 @@ end
 function GMT:ReSkin(arg)
 	local db = self.db
 
-	if not db.Disabled then
-		if type(arg) == "table" then
-			local Regions = self.Buttons[arg]
+	if type(arg) == "table" then
+		local Regions = self.Buttons[arg]
 
-			if Regions then
+		if Regions then
+			if not db.Disabled then
 				SkinButton(arg, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Scale, db.Pulse)
+			else
+				SkinButton(arg, Regions, false)
 			end
-		else
-			local SkinID, Backdrop, Shadow = db.SkinID, db.Backdrop, db.Shadow
-			local Gloss, Colors, Pulse = db.Gloss, db.Colors, db.Pulse
+		end
+	else
+		local SkinID, Backdrop, Shadow = db.SkinID, db.Backdrop, db.Shadow
+		local Gloss, Colors, Pulse = db.Gloss, db.Colors, db.Pulse
 
+		if not db.Disabled then
 			for Button, Regions in pairs(self.Buttons) do
 				SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, db.Scale, Pulse)
+				SkinButton(Button, Regions, false)
 			end
+		else
+			for Button, Regions in pairs(self.Buttons) do
+				SkinButton(Button, Regions, false)
+			end
+		end
 
-			if not arg then
-				FireCB(self)
-			end
+		if not arg then
+			FireCB(self)
 		end
 	end
 end
