@@ -162,8 +162,12 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 
 	local db = self.db
 
-	if not db.Disabled and not self.Queued then
-		SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Scale, db.Pulse)
+	if not self.Queued then
+		if Parent and not Parent.db.Disabled and db.Disabled then
+			SkinButton(Button, Regions, false)
+		elseif not db.Disabled then
+			SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Scale, db.Pulse)
+		end
 	end
 end
 
