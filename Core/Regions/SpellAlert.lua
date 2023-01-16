@@ -41,7 +41,9 @@ local Alerts = {
 
 -- Hook to update the 'SpellAlert' animation.
 local function UpdateSpellAlert(Button)
-	local Region = Button.overlay
+	-- Retail: Button.SpellActivationAlert
+	-- Classic: Button.overlay
+	local Region = Button.SpellActivationAlert or Button.overlay
 
 	if not Region or not Region.spark then
 		return
