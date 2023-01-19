@@ -74,6 +74,7 @@ local Legacy = {
 	},
 	SlotIcon = {
 		CanHide = true,
+		CanMask = true,
 		Ignore = true,
 	},
 	-- [ ARTWORK (-1) ]
@@ -84,7 +85,7 @@ local Legacy = {
 	-- [ ARTWORK (0) ]
 	Normal = {
 		Func = "GetNormalTexture",
-		--Key = "NormalTexture", -- Conflicts with some add-ons. TEST
+		--Key = "NormalTexture", -- Conflicts with some add-ons and button types.
 		Name = "NormalTexture",
 		Type = "Texture",
 		CanHide = true,
@@ -106,7 +107,7 @@ local Legacy = {
 	},
 	-- [ ARTWORK (1) ]
 	Flash = {
-		-- Key = "Flash", -- Conflicts with item buttons. TEST
+		-- Key = "Flash", -- Conflicts with item buttons.
 		Name = "Flash",
 		Type = "Texture",
 		CanMask = true,
@@ -236,14 +237,8 @@ local Legacy = {
 		Iterate = true,
 	},
 	-- [ OVERLAY (2) ]
-	IconOverlay2 = {
-		Key = "IconOverlay",
-		Type = "Texture",
-		Iterate = true,
-		NoColor = true,
-		NoTexture = true,
-	},
 	QuestBorder = {
+		Key = (WOW_RETAIL and "IconQuestTexture") or nil, -- Retail Only
 		Name = "IconQuestTexture",
 		Type = "Texture",
 	},
@@ -255,14 +250,6 @@ local Legacy = {
 	-- LevelLinkLockIcon = {}, -- Unsupported
 	-- [ OVERLAY (4) ]
 	SearchOverlay = {
-		Key = "searchOverlay",
-		Name = "SearchOverlay",
-		Type = "Texture",
-		CanMask = true,
-		Iterate = true,
-		UseColor = true,
-	},
-	ContextOverlay = {
 		Key = "searchOverlay",
 		Name = "SearchOverlay",
 		Type = "Texture",
@@ -284,10 +271,17 @@ local Legacy = {
 		CanMask = true,
 		Iterate = true,
 		UseColor = true,
+		Item = {
+			Func = "GetHighlightTexture",
+			Type = "Texture",
+			CanMask = true,
+			Iterate = true,
+			UseColor = true,
+		},
 	},
 	-- [ FRAME ]
 	AutoCastShine = { -- Only used by Pet buttons.
-		--Key = "AutoCastShine", -- Causes issues with Pet bars. TEST
+		--Key = "AutoCastShine", -- Causes issues with Pet bars.
 		Name = "Shine",
 		Type = "Frame",
 	},
@@ -295,6 +289,10 @@ local Legacy = {
 		Key = "cooldown",
 		Name = "Cooldown",
 		Type = "Cooldown",
+		Item = {
+			Name = "Cooldown",
+			Type = "Cooldown",
+		},
 	},
 	ChargeCooldown = {
 		Key = "chargeCooldown",
@@ -415,8 +413,8 @@ local Item = {
 	SearchOverlay = Legacy.SearchOverlay,
 	ContextOverlay = Legacy.ContextOverlay,
 	JunkIcon = Legacy.JunkIcon,
-	Highlight = Legacy.Highlight,
-	Cooldown = Legacy.Cooldown,
+	Highlight = Legacy.Highlight.Item,
+	Cooldown = Legacy.Cooldown.Item,
 	ChargeCooldown = Legacy.ChargeCooldown,
 }
 
