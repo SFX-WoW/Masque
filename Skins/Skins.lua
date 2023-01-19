@@ -47,17 +47,33 @@ local LegacyIDs = {
 -- Functions
 ---
 
--- Returns the ID of a renamed skin.
-local function GetSkinID(SkinID)
-	return LegacyIDs[SkinID]
-end
-
 -- Returns a valid shape.
 local function GetShape(Shape)
 	if type(Shape) ~= "string" then
 		Shape = "Square"
 	end
 	return Shape
+end
+
+-- Returns the ID of a renamed skin.
+local function GetSkinID(SkinID)
+	return LegacyIDs[SkinID]
+end
+
+-- Returns a region skin, validating legacy or missing skin data.
+local function GetLayer(Layer, SkinData)
+	local Skin = SkinData[Layer]
+
+	-- AutoCastShine Frame
+	if Layer == "AutoCastShine" then
+		Skin = Skin or SkinData.Shine or SkinData.AutoCast
+
+	-- ChargeCooldown Frame
+	elseif Layer == "ChargeCooldown" then
+		Skin = Skin or SkinData.Cooldown
+	end
+
+	return Skin
 end
 
 -- Sorts the `SkinOrder` table, for display in drop-downs.
@@ -78,23 +94,16 @@ local function AddSkin(SkinID, SkinData, Base)
 	local Default = Core.DEFAULT_SKIN
 
 	if Template then
-		-- Only do this for skins using the Dragonflight skin as a template.
-		-- All other template IDs are handled by the `Skins` metatable.
+		-- Only do this for skins using "Default" to reference "Blizzard Modern".
 		if Skin_API == 100000 and Template == "Default" then
-			Template = "Blizzard Modern"		
+			Template = "Blizzard Modern"
 		end
 
 		setmetatable(SkinData, {__index = Skins[Template]})
 	end
 
 	for Layer, Info in pairs(Layers) do
-		local Skin = SkinData[Layer]
-
-		if Layer == "AutoCastShine" then
-			Skin = Skin or SkinData.Shine or SkinData.AutoCast
-		elseif Layer == "ChargeCooldown" then
-			Skin = Skin or SkinData.Cooldown
-		end
+		local Skin = GetLayer(Layer, SkinData)
 
 		if (type(Skin) ~= "table") or (Skin.Hide and not Info.CanHide) then
 			Skin = Default[Layer]
