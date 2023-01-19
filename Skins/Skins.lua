@@ -71,6 +71,24 @@ local function GetLayer(Layer, SkinData)
 	-- ChargeCooldown Frame
 	elseif Layer == "ChargeCooldown" then
 		Skin = Skin or SkinData.Cooldown
+
+	-- DebuffBorder, added in 10.0.5
+	elseif Layer == "DebuffBorder" then
+		if type(Skin) ~= "table" then
+			local Border = SkinData.Border
+			if type(Border) == "table" then
+				Skin = Border.Debuff or Border
+			end
+		end
+
+	-- TempEnchantBorder, added in 10.0.5
+	elseif Layer == "EnchantBorder" then
+		if type(Skin) ~= "table" then
+			local Border = SkinData.Border
+			if type(Border) == "table" then
+				Skin = Border.Enchant or Border
+			end
+		end
 	end
 
 	return Skin

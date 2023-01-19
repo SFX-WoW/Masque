@@ -14,7 +14,7 @@ local _, Core = ...
 local WOW_RETAIL = Core.WOW_RETAIL
 local WOW_CLASSIC = not WOW_RETAIL
 
--- REMOVE => 10.0.5
+-- REMOVE >= 10.0.5
 local RETAIL_PTR = Core.WOW_VERSION == 100005
 
 ----------------------------------------
@@ -133,8 +133,10 @@ local Legacy = {
 		Iterate = true,
 		NoColor = true,
 		Aura = {
-			Key = (RETAIL_PTR and "Count") or "count", -- 10.0.5 -> "Count"
-			Name = (not RETAIL_PTR and "Count") or nil, -- 10.0.5 -> nil
+			Key = (RETAIL_PTR and "Count") or "count", -- [REMOVE >= 10.0.5]
+			-- Key = (WOW_RETAIL and "Count") or "count", -- Retail -> "Count", Classic -> "count" [ADD >= 10.0.5]
+			Name = (not RETAIL_PTR and "Count") or nil, -- [REMOVE >= 10.0.5]
+			-- Name = (WOW_CLASSIC and "Count") or nil, -- Classic Only [ADD >= 10.0.5]
 			Type = "FontString",
 			Iterate = true,
 			NoColor = true,
@@ -148,8 +150,10 @@ local Legacy = {
 		},
 	},
 	Duration = {
-		Key = (RETAIL_PTR and "Duration") or "duration", -- 10.0.5 -> "Duration"
-		Name = (not RETAIL_PTR and "Duration") or nil, -- 10.0.5 -> nil
+		Key = (RETAIL_PTR and "Duration") or "duration", -- [REMOVE >= 10.0.5]
+		-- Key = (WOW_RETAIL and "Duration") or "duration", -- Retail -> "Duration", Classic -> "duration" [ADD >= 10.0.5]
+		Name = (not RETAIL_PTR and "Duration") or nil, -- [REMOVE >= 10.0.5]
+		-- Name = (WOW_CLASSIC and "Duration") or nil, -- Classic Only [ADD >= 10.0.5]
 		Type = "FontString",
 		Iterate = true,
 		NoColor = true,
@@ -185,19 +189,30 @@ local Legacy = {
 			Iterate = true,
 			NoColor = true,
 		},
-		Debuff = {
-			Key = (WOW_RETAIL and "Border") or nil, -- Retail Only
+		Debuff = { -- Classic Only
+			Key = (WOW_RETAIL and "Border") or nil, -- Retail Only [REMOVE >= 10.0.5]
 			Name = "Border",
 			Type = "Texture",
 			Iterate = true,
 			NoColor = true,
 		},
-		Enchant = {
-			Key = (WOW_RETAIL and "Border") or nil, -- Retail Only
+		Enchant = { -- Classic Only
+			Key = (WOW_RETAIL and "Border") or nil, -- Retail Only [REMOVE >= 10.0.5]
 			Name = "Border",
 			Type = "Texture",
 			Iterate = true,
 		},
+	},
+	DebuffBorder = { -- Retail Only
+		Key = "DebuffBorder",
+		Type = "Texture",
+		Iterate = true,
+		NoColor = true,
+	},
+	EnchantBorder = { -- Retail Only
+		Key = "TempEnchantBorder",
+		Type = "Texture",
+		Iterate = true,
 	},
 	IconBorder = {
 		Key = "IconBorder",
@@ -360,6 +375,10 @@ local Aura = {
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
 	Border = Legacy.Border.Aura,
+	DebuffBorder = (RETAIL_PTR and Legacy.DebuffBorder) or nil, -- [REMOVE >= 10.0.5]
+	-- DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- [ADD >= 10.0.5]
+	EnchantBorder = (RETAIL_PTR and Legacy.EnchantBorder) or nil, -- [REMOVE >= 10.0.5]
+	-- EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- [ADD >= 10.0.5]
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
@@ -373,6 +392,10 @@ local Debuff = {
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
 	Border = Legacy.Border.Debuff,
+	DebuffBorder = (RETAIL_PTR and Legacy.DebuffBorder) or nil, -- [REMOVE >= 10.0.5]
+	-- DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- [ADD >= 10.0.5]
+	EnchantBorder = (RETAIL_PTR and Legacy.EnchantBorder) or nil, -- [REMOVE >= 10.0.5]
+	-- EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- [ADD >= 10.0.5]
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
@@ -386,6 +409,10 @@ local Enchant = {
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
 	Border = Legacy.Border.Enchant,
+	DebuffBorder = (RETAIL_PTR and Legacy.DebuffBorder) or nil, -- [REMOVE >= 10.0.5]
+	-- DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- [ADD >= 10.0.5]
+	EnchantBorder = (RETAIL_PTR and Legacy.EnchantBorder) or nil, -- [REMOVE >= 10.0.5]
+	-- EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- [ADD >= 10.0.5]
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,

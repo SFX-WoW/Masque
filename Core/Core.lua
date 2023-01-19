@@ -93,10 +93,20 @@ local function GetSubType(Button, bType)
 		end
 
 	elseif bType == "Aura" then
-		local Border = Button.Border or (Name and _G[Name.."Border"])
+		if Button.DebuffBorder then
+			SubType = Button.auraType or "Aura"
 
-		if Border then
-			SubType = (Button.symbol and "Debuff") or "Enchant"
+			if SubType == "DeadlyDebuff" then
+				SubType = "Debuff"
+			elseif SubType == "TempEnchant" then
+				SubType = "Enchant"
+			end
+		else
+			local Border = Button.Border or (Name and _G[Name.."Border"])
+
+			if Border then
+				SubType = (Button.symbol and "Debuff") or "Enchant"
+			end
 		end
 	end
 
@@ -133,7 +143,7 @@ function Core.GetType(Button, bType)
 				bType = GetSubType(Button, "Item")
 
 			-- Aura
-			elseif Button.duration then
+			elseif Button.duration or Button.Duration then
 				bType = GetSubType(Button, "Aura")
 			end
 		end
