@@ -14,6 +14,9 @@ local _, Core = ...
 local WOW_RETAIL = Core.WOW_RETAIL
 local WOW_CLASSIC = not WOW_RETAIL
 
+-- REMOVE => 10.0.5
+local RETAIL_PTR = Core.WOW_VERSION == 100005
+
 ----------------------------------------
 -- Region Settings
 
@@ -35,7 +38,8 @@ local WOW_CLASSIC = not WOW_RETAIL
 
 local Legacy = {
 	-- [ BACKGROUND (-1) ]
-	-- Only provided by default for MultiActionBars in Classic.
+	-- [CLASSIC_ONLY]
+	-- Only used on MultiBar buttons.
 	Backdrop = {
 		Name = "FloatingBG",
 		Type = "Texture",
@@ -79,8 +83,8 @@ local Legacy = {
 	},
 	-- [ ARTWORK (0) ]
 	Normal = {
-		--Key = "NormalTexture", -- Conflicts with some add-ons.
 		Func = "GetNormalTexture",
+		--Key = "NormalTexture", -- Conflicts with some add-ons. TEST
 		Name = "NormalTexture",
 		Type = "Texture",
 		CanHide = true,
@@ -94,6 +98,7 @@ local Legacy = {
 	},
 	Pushed = {
 		Func = "GetPushedTexture",
+		Key = (WOW_RETAIL and "PushedTexture") or nil, -- Retail Only
 		Type = "Texture",
 		CanMask = true,
 		Iterate = true,
@@ -101,7 +106,7 @@ local Legacy = {
 	},
 	-- [ ARTWORK (1) ]
 	Flash = {
-		-- Key = "Flash", -- Conflics with item buttons.
+		-- Key = "Flash", -- Conflicts with item buttons. TEST
 		Name = "Flash",
 		Type = "Texture",
 		CanMask = true,
@@ -127,8 +132,8 @@ local Legacy = {
 		Iterate = true,
 		NoColor = true,
 		Aura = {
-			Key = "count",
-			Name = "Count",
+			Key = (RETAIL_PTR and "Count") or "count", -- 10.0.5 -> "Count"
+			Name = (not RETAIL_PTR and "Count") or nil, -- 10.0.5 -> nil
 			Type = "FontString",
 			Iterate = true,
 			NoColor = true,
@@ -142,8 +147,8 @@ local Legacy = {
 		},
 	},
 	Duration = {
-		Key = "duration",
-		Name = "Duration",
+		Key = (RETAIL_PTR and "Duration") or "duration", -- 10.0.5 -> "Duration"
+		Name = (not RETAIL_PTR and "Duration") or nil, -- 10.0.5 -> nil
 		Type = "FontString",
 		Iterate = true,
 		NoColor = true,
@@ -151,6 +156,7 @@ local Legacy = {
 	-- [ OVERLAY (0) ]
 	Checked = {
 		Func = "GetCheckedTexture",
+		Key = (WOW_RETAIL and "CheckedTexture") or nil, -- Retail Only
 		Type = "Texture",
 		Iterate = true,
 	},
@@ -212,9 +218,8 @@ local Legacy = {
 		Type = "Texture",
 		Iterate = true,
 	},
-	AutoCastable = { -- Only used by Pet buttons.
+	AutoCastable = {
 		Key = "AutoCastable",
-		-- Name = "AutoCastable",
 		Type = "Texture",
 		Iterate = true,
 	},
@@ -247,7 +252,7 @@ local Legacy = {
 		Type = "Texture",
 		NoColor = true,
 	},
-	-- LevelLinkLockIcon = {}, -- Unsupported, no reason to.
+	-- LevelLinkLockIcon = {}, -- Unsupported
 	-- [ OVERLAY (4) ]
 	SearchOverlay = {
 		Key = "searchOverlay",
@@ -273,6 +278,7 @@ local Legacy = {
 	},
 	-- [ HIGHLIGHT (0) ]
 	Highlight = {
+		Key = (WOW_RETAIL and "HighlightTexture") or nil, -- Retail Only
 		Func = "GetHighlightTexture",
 		Type = "Texture",
 		CanMask = true,
@@ -281,7 +287,7 @@ local Legacy = {
 	},
 	-- [ FRAME ]
 	AutoCastShine = { -- Only used by Pet buttons.
-		--Key = "AutoCastShine", -- Causes issues with Pet bars.
+		--Key = "AutoCastShine", -- Causes issues with Pet bars. TEST
 		Name = "Shine",
 		Type = "Frame",
 	},
