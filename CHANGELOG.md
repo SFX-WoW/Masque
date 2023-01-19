@@ -1,18 +1,25 @@
-## 10.0.4 Release Notes
+## 10.0.5-Beta
+
+### General
+
+- Updated the `Interface` version for _Wrath Classic_ to `30401. (#304),
 
 ### API
 
-- Add-on authors can now assign a `"Notes"` field to groups that will be displayed in the **Skin Settings** panel for the group, above the **Disable** option, and in the tooltip for the group. (#291)
+- Added support for two new regions added to `AuraButtonTemplate` 10.0.5:
+  - `DebuffBorder` - Replaces the `Border` region for buttons based on `DebuffButtonTemplate`, which is removed in 10.0.5.
+  - `EnchantBorder` - Replaces the `Border` region for buttons based on `TempEnchantButtonTemplate`, which is removed in 10.0.5.
+  - Compatibility code between the live and PTR servers will be removed when 10.0.5 goes live.
+- Further improvements to type-handling.
+- Updated various region settings.
 
 ### Bug Fixes
 
-- Fixed an issue causing the `Normal` texture to be resized on skins using button states. (#292)
-- Fixed an issue causing text regions to not be skinned properly on `Aura` type buttons. (#293)
-- Fixed an issue preventing the `Icon` mask from being used on `Aura` type buttons for the _Blizzard Modern_ skin. (#294)
+- Fixed an issue causing spell alerts to not be skinned properly.
+- Fixed an issue causing buttons moved from an enabled group to a disabled group to not be unskinned properly. (#299)
 
 ### Localization
 
-- Updated `koKR`. (Netaras) (#295)
-- Updated `zhTW`. (RainbowUI) (#296)
+- Updated `ruRU`. (Hollicsh) (#306)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
