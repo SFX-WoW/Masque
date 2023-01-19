@@ -201,6 +201,7 @@ local Legacy = {
 			Name = "Border",
 			Type = "Texture",
 			Iterate = true,
+			NoColor = true,
 		},
 	},
 	DebuffBorder = { -- Retail Only
@@ -213,6 +214,7 @@ local Legacy = {
 		Key = "TempEnchantBorder",
 		Type = "Texture",
 		Iterate = true,
+		NoColor = true,
 	},
 	IconBorder = {
 		Key = "IconBorder",
