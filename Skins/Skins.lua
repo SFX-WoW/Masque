@@ -32,7 +32,6 @@ local Layers = Core.RegTypes.Legacy
 
 local AddedSkins, BaseSkins = {}, {}
 local Skins, SkinList, SkinOrder = {}, {}, {}
-
 local Hidden = {Hide = true}
 
 -- Legacy Skin IDs
@@ -41,6 +40,42 @@ local LegacyIDs = {
 	["Classic"] = "Classic Redux",
 	["Default"] = "Blizzard Classic",
 	["Default (Classic)"] = "Blizzard Classic",
+}
+
+-- Layers that need to be validated for older skins.
+local vLayers = {
+	-- Using "Shine" or "AutoCast"
+	["AutoCastShine"] = function(Skin)
+		return Skin.AutoCastShine or Skin.Shine or Skin.AutoCast
+	end,
+	-- "ChargeCoolDown" Undefined
+	["ChargeCooldown"] = function(Skin)
+		return Skin.ChargeCooldown or Skin.Cooldown
+	end,
+	-- Using Border.Debuff / "DebuffBorder" Undefined
+	["DebuffBorder"] = function(Skin)
+		local Border = Skin.Border
+		if type(Border) == "table" then
+			Border = Border.Debuff or Border
+		end
+		return Border
+	end,
+	-- Using Border.Enchant / "EnchantBorder" Undefined
+	["EnchantBorder"] = function(Skin)
+		local Border = Skin.Border
+		if type(Border) == "table" then
+			Border = Border.Enchant or Border
+		end
+		return Border
+	end,
+	-- Using Border.Item / "IconBorder" Undefined
+	["IconBorder"] = function(Skin)
+		local Border = Skin.Border
+		if type(Border) == "table" then
+			Border = Border.Item or Border
+		end
+		return Border
+	end,
 }
 
 ----------------------------------------
@@ -60,40 +95,6 @@ local function GetSkinID(SkinID)
 	return LegacyIDs[SkinID]
 end
 
--- Returns a region skin, validating legacy or missing skin data.
-local function GetLayer(Layer, SkinData)
-	local Skin = SkinData[Layer]
-
-	-- AutoCastShine Frame
-	if Layer == "AutoCastShine" then
-		Skin = Skin or SkinData.Shine or SkinData.AutoCast
-
-	-- ChargeCooldown Frame
-	elseif Layer == "ChargeCooldown" then
-		Skin = Skin or SkinData.Cooldown
-
-	-- DebuffBorder, added in 10.0.5
-	elseif Layer == "DebuffBorder" then
-		if type(Skin) ~= "table" then
-			local Border = SkinData.Border
-			if type(Border) == "table" then
-				Skin = Border.Debuff or Border
-			end
-		end
-
-	-- TempEnchantBorder, added in 10.0.5
-	elseif Layer == "EnchantBorder" then
-		if type(Skin) ~= "table" then
-			local Border = SkinData.Border
-			if type(Border) == "table" then
-				Skin = Border.Enchant or Border
-			end
-		end
-	end
-
-	return Skin
-end
-
 -- Sorts the `SkinOrder` table, for display in drop-downs.
 local function SortSkins()
 	t_sort(AddedSkins)
@@ -107,9 +108,15 @@ end
 
 -- Adds data to the skin tables.
 local function AddSkin(SkinID, SkinData, Base)
+	-- Legacy Layer Validation
+	for Layer, GetLayer in pairs(vLayers) do
+		if not SkinData[Layer] then
+			SkinData[Layer] = GetLayer(SkinData)
+		end
+	end
+
 	local Skin_API = SkinData.API_VERSION or SkinData.Masque_Version
 	local Template = SkinData.Template
-	local Default = Core.DEFAULT_SKIN
 
 	if Template then
 		-- Only do this for skins using "Default" to reference "Blizzard Modern".
@@ -119,6 +126,8 @@ local function AddSkin(SkinID, SkinData, Base)
 
 		setmetatable(SkinData, {__index = Skins[Template]})
 	end
+
+	local Default = Core.DEFAULT_SKIN
 
 	for Layer, Info in pairs(Layers) do
 		local Skin = GetLayer(Layer, SkinData)
