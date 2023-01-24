@@ -130,9 +130,12 @@ local function AddSkin(SkinID, SkinData, Base)
 	local Default = Core.DEFAULT_SKIN
 
 	for Layer, Info in pairs(Layers) do
-		local Skin = GetLayer(Layer, SkinData)
+		local Skin = SkinData[Layer]
+		local sType = type(Skin)
 
-		if (type(Skin) ~= "table") or (Skin.Hide and not Info.CanHide) then
+		if sType == "string" then
+			Skin = SkinData[Skin]
+		elseif (sType ~= "table") or (Skin.Hide and not Info.CanHide) then
 			Skin = Default[Layer]
 		elseif Info.Hide then
 			Skin = Hidden
