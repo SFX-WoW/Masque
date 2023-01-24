@@ -14,9 +14,6 @@ local _, Core = ...
 local WOW_RETAIL = Core.WOW_RETAIL
 local WOW_CLASSIC = not WOW_RETAIL
 
--- REMOVE >= 10.0.5
-local RETAIL_PTR = Core.WOW_VERSION == 100005
-
 ----------------------------------------
 -- Region Settings
 
@@ -133,10 +130,8 @@ local Legacy = {
 		Iterate = true,
 		NoColor = true,
 		Aura = {
-			Key = (RETAIL_PTR and "Count") or "count", -- [REMOVE >= 10.0.5]
-			-- Key = (WOW_RETAIL and "Count") or "count", -- Retail -> "Count", Classic -> "count" [ADD >= 10.0.5]
-			Name = (not RETAIL_PTR and "Count") or nil, -- [REMOVE >= 10.0.5]
-			-- Name = (WOW_CLASSIC and "Count") or nil, -- Classic Only [ADD >= 10.0.5]
+			Key = (WOW_RETAIL and "Count") or "count", -- Retail -> "Count", Classic -> "count"
+			Name = (WOW_CLASSIC and "Count") or nil, -- Classic Only
 			Type = "FontString",
 			Iterate = true,
 			NoColor = true,
@@ -150,10 +145,8 @@ local Legacy = {
 		},
 	},
 	Duration = {
-		Key = (RETAIL_PTR and "Duration") or "duration", -- [REMOVE >= 10.0.5]
-		-- Key = (WOW_RETAIL and "Duration") or "duration", -- Retail -> "Duration", Classic -> "duration" [ADD >= 10.0.5]
-		Name = (not RETAIL_PTR and "Duration") or nil, -- [REMOVE >= 10.0.5]
-		-- Name = (WOW_CLASSIC and "Duration") or nil, -- Classic Only [ADD >= 10.0.5]
+		Key = (WOW_RETAIL and "Duration") or "duration", -- Retail -> "Duration", Classic -> "duration"
+		Name = (WOW_CLASSIC and "Duration") or nil, -- Classic Only
 		Type = "FontString",
 		Iterate = true,
 		NoColor = true,
@@ -190,14 +183,12 @@ local Legacy = {
 			NoColor = true,
 		},
 		Debuff = { -- Classic Only
-			Key = (WOW_RETAIL and "Border") or nil, -- Retail Only [REMOVE >= 10.0.5]
 			Name = "Border",
 			Type = "Texture",
 			Iterate = true,
 			NoColor = true,
 		},
 		Enchant = { -- Classic Only
-			Key = (WOW_RETAIL and "Border") or nil, -- Retail Only [REMOVE >= 10.0.5]
 			Name = "Border",
 			Type = "Texture",
 			Iterate = true,
@@ -377,10 +368,8 @@ local Aura = {
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
 	Border = Legacy.Border.Aura,
-	DebuffBorder = (RETAIL_PTR and Legacy.DebuffBorder) or nil, -- [REMOVE >= 10.0.5]
-	-- DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- [ADD >= 10.0.5]
-	EnchantBorder = (RETAIL_PTR and Legacy.EnchantBorder) or nil, -- [REMOVE >= 10.0.5]
-	-- EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- [ADD >= 10.0.5]
+	DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- Retail Only
+	EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- Retail Only
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
@@ -394,10 +383,7 @@ local Debuff = {
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
 	Border = Legacy.Border.Debuff,
-	DebuffBorder = (RETAIL_PTR and Legacy.DebuffBorder) or nil, -- [REMOVE >= 10.0.5]
-	-- DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- [ADD >= 10.0.5]
-	EnchantBorder = (RETAIL_PTR and Legacy.EnchantBorder) or nil, -- [REMOVE >= 10.0.5]
-	-- EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- [ADD >= 10.0.5]
+	DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- Retail Only
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
@@ -411,10 +397,7 @@ local Enchant = {
 	Count = Legacy.Count.Aura,
 	Duration = Legacy.Duration,
 	Border = Legacy.Border.Enchant,
-	DebuffBorder = (RETAIL_PTR and Legacy.DebuffBorder) or nil, -- [REMOVE >= 10.0.5]
-	-- DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- [ADD >= 10.0.5]
-	EnchantBorder = (RETAIL_PTR and Legacy.EnchantBorder) or nil, -- [REMOVE >= 10.0.5]
-	-- EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- [ADD >= 10.0.5]
+	EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- Retail Only
 	Highlight = Legacy.Highlight, -- Unused
 	Cooldown = Legacy.Cooldown,
 	ChargeCooldown = Legacy.ChargeCooldown,
