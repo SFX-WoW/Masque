@@ -137,6 +137,7 @@ local Skin = {
 		OffsetY = -0.5,
 		-- SetAllPoints = nil,
 		UseStates = true,
+		Aura = Hidden,
 		Item = {
 			Texture = [[Interface\Buttons\UI-Quickslot2]],
 			-- EmptyTexture = "Interface\\Buttons\\UI-Quickslot2",

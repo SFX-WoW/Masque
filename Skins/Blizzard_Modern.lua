@@ -145,7 +145,7 @@ local Skin = {
 			OffsetX = 0,
 			OffsetY = 0,
 			-- SetAllPoints = nil,
-			UseMask = true,
+			-- UseMask = true,
 		},
 		BagSlot = {
 			-- TexCoords = {0, 1, 0, 1},
@@ -192,6 +192,7 @@ local Skin = {
 		OffsetY = -0.5,
 		-- SetAllPoints = nil,
 		-- UseStates = true,
+		Aura = Hidden,
 		Backpack = {
 			Atlas = "bag-main",
 			-- EmptyAtlas = "bag-main",
