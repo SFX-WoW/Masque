@@ -447,8 +447,8 @@ local Skin = {
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
 		DrawLevel = 1,
-		Width = 58, -- 70
-		Height = 58, -- 70
+		Width = (WOW_CLASSIC and 58) or 62, -- 70
+		Height = (WOW_CLASSIC and 58) or 62, -- 70
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
@@ -594,11 +594,11 @@ local Skin = {
 		-- UseColor = nil,
 	},
 	AutoCastShine = {
-		Width = 28, -- 34
-		Height = 28, -- 34
+		Width = (WOW_CLASSIC and 34) or 30,
+		Height = (WOW_CLASSIC and 34) or 30,
 		Point = "CENTER",
 		RelPoint = "CENTER",
-		OffsetX = 0,
+		OffsetX = (WOW_CLASSIC and 0) or 1,
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
