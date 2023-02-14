@@ -433,8 +433,8 @@ local Skin = {
 			Anchor = "Icon",
 			Point = "BOTTOMRIGHT",
 			RelPoint = "BOTTOMRIGHT",
-			OffsetX = -2,
-			OffsetY = 1,
+			OffsetX = -5,
+			OffsetY = 2,
 		},
 	},
 	Duration = {

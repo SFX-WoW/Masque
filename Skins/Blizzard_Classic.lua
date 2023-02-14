@@ -25,6 +25,7 @@ local L = Core.Locale
 
 -- @ Skins\Skins
 local Hidden = Core.__Hidden
+local WOW_CLASSIC = not Core.WOW_RETAIL
 
 ----------------------------------------
 -- Blizzard Classic
@@ -212,11 +213,21 @@ local Skin = {
 		DrawLayer = "OVERLAY",
 		Width = 36,
 		Height = 0,
-		Anchor = "Icon",
 		Point = "TOPRIGHT",
 		RelPoint = "TOPRIGHT",
 		OffsetX = -2,
-		OffsetY = -2,
+		OffsetY = -1,
+		Pet = {
+			JustifyH = "RIGHT",
+			JustifyV = "MIDDLE",
+			DrawLayer = "OVERLAY",
+			Width = 36,
+			Height = 0,
+			Point = "TOPRIGHT",
+			RelPoint = "TOPRIGHT",
+			OffsetX = 4,
+			OffsetY = -2,
+		},
 	},
 	Count = {
 		JustifyH = "RIGHT",
@@ -224,7 +235,6 @@ local Skin = {
 		DrawLayer = "OVERLAY",
 		Width = 0,
 		Height = 0,
-		Anchor = "Icon",
 		Point = "BOTTOMRIGHT",
 		RelPoint = "BOTTOMRIGHT",
 		OffsetX = -2,
@@ -235,11 +245,10 @@ local Skin = {
 			DrawLayer = "OVERLAY",
 			Width = 0,
 			Height = 0,
-			Anchor = "Icon",
 			Point = "BOTTOMRIGHT",
 			RelPoint = "BOTTOMRIGHT",
-			OffsetX = -2,
-			OffsetY = 1,
+			OffsetX = -5,
+			OffsetY = 2,
 		},
 	},
 	Duration = {
@@ -248,11 +257,10 @@ local Skin = {
 		DrawLayer = "OVERLAY",
 		Width = 36,
 		Height = 0,
-		Anchor = "Icon",
 		Point = "TOP",
 		RelPoint = "BOTTOM",
 		OffsetX = 0,
-		OffsetY = -2,
+		OffsetY = 0,
 	},
 	Checked = {
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
@@ -290,7 +298,6 @@ local Skin = {
 		DrawLayer = "OVERLAY",
 		Width = 36,
 		Height = 0,
-		Anchor = "Icon",
 		Point = "BOTTOM",
 		RelPoint = "BOTTOM",
 		OffsetX = 0,
