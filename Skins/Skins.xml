@@ -6,5 +6,6 @@
 	<Script file="Blizzard_Modern.lua"/>
 	<Script file="Classic_Redux.lua"/>
 	<Script file="Dream.lua"/>
+	<Script file="Modern_Enhanced.lua"/>
 	<Script file="Zoomed.lua"/>
 </Ui>
