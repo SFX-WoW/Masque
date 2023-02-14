@@ -32,9 +32,9 @@ Core.AddSkin("Zoomed", {
 	-- Shape = Template.Shape,
 
 	-- Info
+	Authors = Core.Authors,
 	Description = L["A square skin with zoomed icons and a semi-transparent background."],
 	-- Version = Template.Version,
-	Authors = Core.Authors,
 	Websites = Core.Websites,
 
 	-- Skin

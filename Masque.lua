@@ -38,7 +38,7 @@ local API_VERSION = 100005
 
 -- Client Version
 local WOW_VERSION = select(4, GetBuildInfo()) or 0
-local WOW_RETAIL = (WOW_VERSION >= 100000 and true) or nil
+local WOW_RETAIL = (WOW_VERSION > 100000 and true) or nil
 
 ----------------------------------------
 -- Utility

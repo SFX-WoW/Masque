@@ -24,14 +24,14 @@ local L = Core.Locale
 ---
 
 Core.AddSkin("Classic Redux", {
-	Template = "Blizzard Classic",
 	-- API_VERSION = Template.API_VERSION,
 	-- Shape = Template.Shape,
+	Template = "Blizzard Classic",
 
 	-- Info
+	Authors = {"StormFX", "|cff999999Maul|r", "|cff999999Blizzard Entertainment|r"},
 	Description = L["A modified version of the Classic button style."],
 	-- Version = Template.Version,
-	Authors = {"StormFX", "|cff999999Maul|r", "|cff999999Blizzard Entertainment|r"},
 	Websites = Core.Websites,
 
 	-- Skin

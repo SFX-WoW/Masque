@@ -144,11 +144,9 @@ local function AddSkin(SkinID, SkinData, Base)
 		SkinData[Layer] = Skin
 	end
 
-	SkinData.SkinID = SkinID
 	SkinData.API_VERSION = Skin_API
-
-	local Shape = SkinData.Shape
-	SkinData.Shape = GetShape(Shape)
+	SkinData.Shape = GetShape(SkinData.Shape)
+	SkinData.SkinID = SkinID
 
 	Skins[SkinID] = SkinData
 

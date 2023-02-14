@@ -27,14 +27,14 @@ local Hidden = Core.__Hidden
 ---
 
 Core.AddSkin("Dream", {
-	Template = "Blizzard Classic",
 	-- API_VERSION = Template.API_VERSION,
 	-- Shape = Template.Shape,
+	Template = "Blizzard Classic",
 
 	-- Info
+	Authors = Core.Authors,
 	Description = L["A square skin with trimmed icons and a semi-transparent background."],
 	-- Version = Template.Version,
-	Authors = Core.Authors,
 	Websites = Core.Websites,
 
 	-- Skin

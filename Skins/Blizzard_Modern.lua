@@ -35,9 +35,9 @@ local Hidden = Core.__Hidden
 local SkinID = "Blizzard Modern"
 
 local Skin = {
-	SkinID = SkinID,
 	API_VERSION = Core.API_VERSION,
 	Shape = "Square",
+	SkinID = SkinID,
 
 	-- Info
 	Description = L["The default Dragonflight button style."],
@@ -179,7 +179,7 @@ local Skin = {
 		Atlas = "UI-HUD-ActionBar-IconFrame",
 		-- EmptyAtlas = "UI-HUD-ActionBar-IconFrame",
 		UseAtlasSize = false,
-		-- Color = {1, 1, 1, 0},
+		-- Color = {1, 1, 1, 1},
 		-- EmptyColor = {1, 1, 1, 0.5},
 		BlendMode = "BLEND",
 		DrawLayer = "ARTWORK",

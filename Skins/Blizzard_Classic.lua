@@ -35,6 +35,7 @@ local SkinID = "Blizzard Classic"
 local Skin = {
 	API_VERSION = Core.API_VERSION,
 	Shape = "Square",
+	SkinID = SkinID,
 
 	-- Info
 	Description = L["The default Classic button style."],
