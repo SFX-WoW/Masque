@@ -1,36 +1,24 @@
-## 10.0.5
-
-### General
-
-- Updated the `Interface` version for **Retail** to `100005`. (#305)
-- Updated the `Interface` version for **Wrath Classic** to `30401`. (#304)
-- Updated the supporters list.
+## 10.0.6
 
 ### API
 
-- Added support for two new regions added to `AuraButtonTemplate` in 10.0.5 (#302):
-  - `DebuffBorder` - Replaces the `Border` region for buttons based on `DebuffButtonTemplate`, which was removed in 10.0.5.
-  - `EnchantBorder` - Replaces the `Border` region for buttons based on `TempEnchantButtonTemplate`, which was removed in 10.0.5.
-  - Masque will check for older definitions (Eg: `Border.Debuff` or `Border`) to maintain compatibility with skins missing these layers and **Classic**.
-- Further improvements to type-handling.
-- Increased the `API_VERSION` to `100005`.
-- In an effort to reduce redundancy in skins, skin layers can now reference other layers by passing the `string` name of the referenced layer instead of a definition table. Eg:
-  - If `Border` is defined as `Border = { ... }`, `DebuffBorder` can be defined as `DebuffBorder = "Border"` to tell **Masque** to use the `Border` table for `DebuffBorder`.
-  - Note that this is only useful for layers with the identical definition tables.
-  - A better example can be seen in the **Dream** skin.
-- Updated various region settings.
+- Increased the `API_VERSION` to `100006`.
+- Removed the `Checked` restriction on `Item` buttons to account for `CheckButton`s that inherit from `ItemButtonTemplate`. (#309)
 
 ### Skins
 
-- Updated all skins for the changed listed above.
+- Added a new skin, **Modern Enhanced**, that applies the `Action` button style to `Aura` buttons and includes its own custom `Gloss` texture. (#314)
+- Reverted the custom modifications to **Blizzard Modern** that allowed `Aura` buttons to use the `Action` button style. (#313)
 
 ### Bug Fixes
 
-- Fixed an issue causing spell alerts to not be skinned properly.
-- Fixed an issue causing buttons moved from an enabled group to a disabled group to not be unskinned properly. (#299)
+- Fixed a scaling issue for `AutoCastable` and `AutoCastShine` when using **Blizzard Classic** on the **Classic** client. (#312)
+- Fixed a scaling issue with `Aura` borders. (#311)
+- Fixed the `Count` position for **Blizzard Modern**. (#310)
+- Fixed the `Count`, `Duration` and `HotKey` positions for **Blizzard Classic**. (#310)
 
 ### Localization
 
-- Updated `ruRU`. (Hollicsh) (#306)
+- Added a new phrase for the **Modern Enhanced** skin.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
