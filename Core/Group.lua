@@ -224,15 +224,15 @@ function GMT:RemoveButton(Button)
 end
 
 -- Reskins the group with its current settings.
-function GMT:ReSkin(arg)
+function GMT:ReSkin(Button)
 	local db = self.db
 
 	if not db.Disabled then
-		if type(arg) == "table" then
-			local Regions = self.Buttons[arg]
+		if type(Button) == "table" then
+			local Regions = self.Buttons[Button]
 
 			if Regions then
-				SkinButton(arg, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Scale, db.Pulse)
+				SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Scale, db.Pulse)
 			end
 		else
 			local SkinID, Backdrop, Shadow = db.SkinID, db.Backdrop, db.Shadow
@@ -240,10 +240,6 @@ function GMT:ReSkin(arg)
 
 			for Button, Regions in pairs(self.Buttons) do
 				SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, db.Scale, Pulse)
-			end
-
-			if not arg then
-				FireCB(self)
 			end
 		end
 	end
@@ -265,8 +261,9 @@ function GMT:SetCallback(func, arg, selfCB)
 		return
 	end
 
-	Callback:Register(self.ID, func, arg or false)
-	self.Callback = (selfCB and self) or self.ID
+	self.__arg = arg
+	self.__carg = (selfCB and self) or self.ID
+	self.__func = func
 end
 
 -- Renames the group.
