@@ -264,6 +264,14 @@ function GMT:SetCallback(func, arg, selfCB)
 	self.__arg = arg
 	self.__carg = (selfCB and self) or self.ID
 	self.__func = func
+
+	local Warn = Core.db.profile.CB_Warn
+	local Addon = self.Addon
+
+	if Warn[Addon] then
+		print("|cffff8800Masque Warning:|r", Addon, "called the deprecated API method, |cff000099'SetCallback'|r.  Please notify the author or post in the relevant issue on the Masque project page.")
+		Warn[Addon] = false
+	end
 end
 
 -- Renames the group.

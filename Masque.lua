@@ -145,6 +145,9 @@ function Masque:OnInitialize()
 		profile = {
 			API_VERSION = 0,
 			AltSort = false,
+			CB_Warn = {
+				["*"] = true
+			},
 			Debug = false,
 			SkinInfo = true,
 			StandAlone = true,
