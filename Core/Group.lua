@@ -580,14 +580,6 @@ function GMT:__Update(IsNew)
 end
 
 ----------------------------------------
--- Deprecated
----
-
-GMT.Disable = NoOp
-GMT.Enable = NoOp
-GMT.SetColor = NoOp
-
-----------------------------------------
 -- Core
 ---
 
