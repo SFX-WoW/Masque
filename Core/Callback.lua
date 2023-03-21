@@ -86,7 +86,7 @@ function Core.API:Register(Addon, func, arg)
 	local Warn = Core.db.profile.CB_Warn
 
 	if Warn[Addon] then
-		print("|cffff8800Masque Warning:|r", ao, "called the deprecated API method, '|cff0099ffRegister|r'.  Please notify the author or post in the relevant issue on the Masque project page.")
+		print("|cffff8800Masque Warning:|r", Addon, "called the deprecated API method, '|cff0099ffRegister|r'.  Please notify the author or post in the relevant issue on the Masque project page.")
 		Warn[Addon] = false
 	end
 end
