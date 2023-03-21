@@ -67,21 +67,6 @@ local C_Layers = {
 }
 
 ----------------------------------------
--- Functions
----
-
--- Fires the callback for the add-on or group.
-local function FireCB(self)
-	local db = self.db
-
-	if self.Callback then
-		Callback(self.Callback, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
-	elseif self.Addon then
-		Callback(self.Addon, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
-	end
-end
-
-----------------------------------------
 -- Group Metatable
 ---
 
@@ -295,7 +280,7 @@ function GMT:__Disable(Silent)
 	end
 
 	if not Silent then
-		FireCB(self)
+		self:__FireCB("Disabled", true)
 	end
 
 	local Subs = self.SubList
@@ -312,6 +297,7 @@ end
 function GMT:__Enable()
 	self.db.Disabled = false
 	self:ReSkin()
+	self:__FireCB("Disabled", false)
 
 	local Subs = self.SubList
 
@@ -319,6 +305,40 @@ function GMT:__Enable()
 		for _, Sub in pairs(Subs) do
 			Sub:__Enable()
 		end
+	end
+end
+
+-- Fires the callback.
+-- * This methods is intended for internal use only.
+-- * Update this in 10.1.0 to remove deprecated callback logic.
+function GMT:__FireCB(Option, Value)
+	local ao = self.Addon or false -- Remove in 10.1.0
+	local arg = self.__arg
+	local carg = self.__carg -- Remove in 10.1.0
+	local func = self.__func
+
+	-- Deprecated Callback logic - Remove in 10.1.0
+	if carg then
+		local db = self.db
+
+		if arg then
+			func(arg, carg, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
+		else
+			func(carg, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
+		end
+
+	-- New Callback Logic
+	elseif func then
+		if arg then
+			func(arg, self, Option, Value)
+		else
+			func(self, Option, Value)
+		end
+
+	-- Deprecated Callback logic - Remove in 10.1.0
+	elseif ao then
+		local db = self.db
+		Callback(ao, self.Group, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Disabled)
 	end
 end
 
@@ -337,6 +357,7 @@ function GMT:__Reset()
 	end
 
 	self:ReSkin()
+	self:__FireCB("Reset", true)
 
 	local Subs = self.SubList
 
@@ -395,7 +416,8 @@ function GMT:__Set(Option, Value)
 		return
 	end
 
-	-- SubGroups
+	self:__FireCB(Option, Value)
+
 	local Subs = self.SubList
 
 	if Subs then
