@@ -189,6 +189,26 @@ function GMT:GetOptions(Order)
 	return Core.GetOptions(self, Order)
 end
 
+-- Registers a group-specific callback.
+function GMT:RegisterCallback(func, arg)
+	if self.ID == MASQUE then return end
+
+	if type(func) ~= "function" then
+		if Core.Debug then
+			error("Bad argument to Group method 'RegisterCallback'. 'func' must be a function.", 2)
+		end
+		return
+	elseif arg and type(arg) ~= "table" then
+		if Core.Debug then
+			error("Bad argument to Group method 'RegisterCallback'. 'arg' must be a table or nil.", 2)
+		end
+		return
+	end
+
+	self.__arg = arg
+	self.__func = func
+end
+
 -- Removes a button from the group and applies the default skin.
 function GMT:RemoveButton(Button)
 	if Button then
