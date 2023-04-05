@@ -16,7 +16,7 @@
 
 ## X-Category: Interface Enhancements
 ## X-Credits: JJSheets
-## X-Discord: https://discord.gg/DDVqkd6
+## X-Discord: https://discord.gg/7MTWRgDzz8
 ## X-Website: https://github.com/SFX-WoW/Masque
 
 ## X-Curse-Project-ID: 13592

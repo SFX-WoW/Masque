@@ -71,7 +71,7 @@ To help translate this add-on, use the [localization system] on CurseForge. Alte
 
 [Build]: https://github.com/SFX-WoW/Masque/actions/workflows/build-release.yml (Build Status)
 [API_VERSION]: https://github.com/SFX-WoW/Masque/wiki/API_VERSION (API_VERSION)
-[Discord]: https://discord.gg/DDVqkd6 (Join the Discord)
+[Discord]: https://discord.gg/7MTWRgDzz8 (Join the Discord)
 [Twitter]: https://twitter.com/stormfxi (Follow on Twitter)
 [Sponsor]: https://github.com/sponsors/StormFX (Sponsor on GitHub)
 [PayPal]: https://www.paypal.com/donate/?hosted_button_id=EELAK9TC4W4KQ (Donate via PayPal)
