@@ -93,7 +93,7 @@ L["Authors"] = "제작자"
 L["Click for details."] = "자세한 내용을 보려면 클릭하세요."
 L["Compatible"] = "호환"
 L["Description"] = "설명"
-L["Incompatible"] = "호환 불가"
+L["Incompatible"] = "호환되지 않음"
 L["Installed Skins"] = "설치된 스킨"
 L["No description available."] = "가능한 설명이 없습니다."
 L["Status"] = "상태"
@@ -113,11 +113,11 @@ L["Websites"] = "웹사이트"
 
 L["Alternate Sorting"] = "대체 정렬"
 L["Causes the skins included with Masque to be listed above third-party skins."] = "Masque에 포함된 스킨이 타사 스킨 위에 나열되도록 합니다."
-L["Enable the Minimap icon."] = "미니맵 아이콘을 활성화 합니다."
+L["Enable the Minimap icon."] = "미니맵 아이콘을 활성화합니다."
 L["Interface"] = "인터페이스"
 L["Interface Settings"] = "인터페이스 설정"
 L["Minimap Icon"] = "미니맵 아이콘"
-L["Stand-Alone GUI"] = "독립형 GUI"
+L["Stand-Alone GUI"] = "독립 실행형 GUI"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "여기는 Masque 인터페이스에 영향을 주는 설정을 조정할 수 있습니다."
 L["Use a resizable, stand-alone options window."] = "크기 조정 가능한 독립 실행형 옵션 창을 사용합니다."
 
@@ -126,6 +126,12 @@ L["Use a resizable, stand-alone options window."] = "크기 조정 가능한 독
 ---
 
 L["Click to open Masque's settings."] = "클릭으로 Masque 설정을 엽니다."
+
+----------------------------------------
+-- Modern Enhanced Skin
+---
+
+L["An enhanced version of the Dragonflight button style."] = "용군단 버튼 스타일의 향상된 버전입니다."
 
 ----------------------------------------
 -- Performance Settings
@@ -159,20 +165,20 @@ L["Cooldown"] = "재사용 대기시간"
 L["Disable"] = "비활성화"
 L["Disable the skinning of this group."] = "이 그룹의 스킨 씌우기를 비활성화합니다."
 L["Enable"] = "활성화"
--- L["Enable skin scaling."] = "Enable skin scaling."
-L["Enable the Backdrop texture."] = "바탕 텍스쳐를 활성화합니다."
--- L["Enable the Gloss texture."] = "Enable the Gloss texture."
--- L["Enable the Shadow texture."] = "Enable the Shadow texture."
+L["Enable skin scaling."] = "스킨 크기 비율을 활성화합니다."
+L["Enable the Backdrop texture."] = "배경 텍스처를 활성화합니다."
+L["Enable the Gloss texture."] = "광택 텍스처를 활성화합니다."
+L["Enable the Shadow texture."] = "그림자 텍스처를 활성화합니다."
 L["Flash"] = "번쩍임"
-L["Global"] = "공통"
-L["Global Settings"] = "공통 설정"
+L["Global"] = "전역"
+L["Global Settings"] = "전역 설정"
 L["Gloss"] = "광택 효과 설정"
 L["Highlight"] = "강조된 버튼"
-L["Normal"] = "평상 시 버튼"
+L["Normal"] = "일반"
 L["Pulse"] = "맥박"
 L["Pushed"] = "눌려진 버튼"
 L["Reset all skin options to the defaults."] = "모든 스킨 옵션을 기본값으로 재설정합니다."
-L["Reset Skin"] = "스킨 초기화"
+L["Reset Skin"] = "스킨 재설정"
 L["Scale"] = "크기 비율"
 L["Set the color of the Backdrop texture."] = "배경 텍스처의 색상을 설정합니다."
 L["Set the color of the Checked texture."] = "선택된 버튼 텍스처의 색상을 변경합니다."
