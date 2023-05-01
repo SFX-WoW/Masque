@@ -33,7 +33,7 @@ function Setup.LDB(self)
 		self.LDBO = LDB:NewDataObject(MASQUE, {
 			type  = "launcher",
 			label = MASQUE,
-			icon  = "Interface\\Addons\\Masque\\Textures\\Icon",
+			icon  = "Interface\\Addons\\Masque\\Textures\\LDB",
 			OnClick = function(Tip, Button)
 				if Button == "LeftButton" or Button == "RightButton" then
 					Core:ToggleOptions()
