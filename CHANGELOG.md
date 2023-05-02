@@ -2,7 +2,7 @@
 
 ### General
 
-- Added a global function to toggle **Masque**'s options, used by the new `AddonCompartment` API. (#323)
+- Added an entry for **Masque** in the new `AddonCompartment`. (#323)
 - Added an `IconTexture` for the **AddOns** menu. (#323)
 - Updated the `Interface` version for **Retail** to `100100`. (#322)
 - Updated the `X-Discord` ToC entry.
