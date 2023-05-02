@@ -194,3 +194,11 @@ end
 function Core.GetArg(Info, ...)
 	return Info.arg
 end
+
+----------------------------------------
+-- Global
+---
+
+function Masque_ToggleOptions()
+	Core:ToggleOptions()
+end
