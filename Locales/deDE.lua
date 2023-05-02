@@ -128,6 +128,12 @@ L["Minimap Icon"] = "Minikartensymbol"
 L["Click to open Masque's settings."] = "Klicken, um die Masque-Einstellungen zu öffnen."
 
 ----------------------------------------
+-- Modern Enhanced Skin
+---
+
+-- L["An enhanced version of the Dragonflight button style."] = "An enhanced version of the Dragonflight button style."
+
+----------------------------------------
 -- Performance Settings
 ---
 

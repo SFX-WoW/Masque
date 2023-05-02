@@ -128,6 +128,12 @@ L["Use a resizable, stand-alone options window."] = "使用可调整大小的独
 L["Click to open Masque's settings."] = "点击打开 Masque 设置。"
 
 ----------------------------------------
+-- Modern Enhanced Skin
+---
+
+-- L["An enhanced version of the Dragonflight button style."] = "An enhanced version of the Dragonflight button style."
+
+----------------------------------------
 -- Performance Settings
 ---
 
