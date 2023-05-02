@@ -1,10 +1,13 @@
 ## Interface: 11403
 
 ## Author: StormFX, JJSheets
-## OptionalDeps: Ace3, AceGUI-3.0_SFX-Widgets, LibDBIcon-1.0, LibDualSpec-1.0
-## SavedVariables: MasqueDB
 ## Title: Masque
 ## Version: @project-version@
+
+## AddonCompartmentFunc: Masque_ToggleOptions
+## IconTexture: Interface\AddOns\Masque\Textures\Icon
+## OptionalDeps: Ace3, AceGUI-3.0_SFX-Widgets, LibDBIcon-1.0, LibDualSpec-1.0
+## SavedVariables: MasqueDB
 
 ## Notes: A skinning engine for button-based add-ons.
 ## Notes-deDE: Eine Engine, um das Erscheinungsbild von schaltflächenbasierte Add-ons anzupassen.
