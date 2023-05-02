@@ -61,6 +61,7 @@ local function NewGroup(ID, Addon, Group, StaticID)
 		Addon = Addon,
 		Group = Group,
 		Buttons = {},
+		Callbacks = {},
 		SubList = (not Group and {}) or nil,
 		StaticID = (Group and StaticID) or nil,
 	}
