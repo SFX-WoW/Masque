@@ -1,34 +1,27 @@
-## 10.0.7
+## 10.1.0
 
 ### General
 
-- Updated the `Interface` version for **Retail** to `100007`. (#318)
+- Added a global function to toggle **Masque**'s options, used by the new `AddonCompartment` API. (#323)
+- Added an `IconTexture` for the **AddOns** menu. (#323)
+- Updated the `Interface` version for **Retail** to `100100`. (#322)
+- Updated the `X-Discord` ToC entry.
 
 ### API
 
-- Increased the `API_VERSION` to `100007`.
-- Removed some deprecated methods that haven't been functional for quite some time.
-- Reworked the callback system. (#317) (See below)
+- Increased the `API_VERSION` to `100100`.
+- The `Register` API and `SetCallback` Group API methods have been deprecated and no longer function. They will still print warnings when called.
 
-### Callback Overhaul
+### Callback Update
 
-- Added a new Group API method, `RegisterCallback`, that is now the recommended way of registering a callback.
-  - Authors are encouraged to register callbacks at the group level moving forward, as this allows more refined filtering.
-  - A [wiki page](https://github.com/SFX-WoW/Masque/wiki/RegisterCallback) has been added for this method.
-- Added a one-time, per-add-on, per-profile warning for add-ons using the deprecated methods to help with the transition.
-  - Users can report these warning to the add-on author directly or by posting in the [relevant issue](https://github.com/SFX-WoW/Masque/issues/319) on Masque's project page.
-- The Group API method `SetCallback` is now deprecated and will be removed in 10.1.0.
-- The Group API method `ReSkin` no longer fires callbacks. These are now handled by the settings updater.
-- The API method `Register` is now deprecated and will be removed in 10.1.0.
-- When a callback is fired, it will now only return the group object, the `string` name of the setting that was changed and the value it was changed to.
-  - This eliminates unnecessary table access when only a single value has changed and allows authors to target specific settings.
+- The **Group** callback API via `RegisterCallback` has been improved so that authors can now specify which events/options their callback is fired on. (#324)
+  - More information can be found in [this issue](https://github.com/SFX-WoW/Masque/issues/324).
+  - The Wiki will be updated in the future to reflect these changes.
+  - These changes should not affect existing group callbacks registered with the `RegisterCallback`.
 
 ### Localization
 
-- Updated `esES`/`esMX`. (Yllelder7) (#320)
-
-### Bug Fixes
-
-- Fixed an issue preventing callbacks from being fired for some options. (#316)
+- Added a missing phrase to some locale files.
+- Updated `koKR`. (HanaKiki) (#321)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
