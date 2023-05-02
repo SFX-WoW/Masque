@@ -4,7 +4,6 @@
 ## Title: Masque
 ## Version: @project-version@
 
-## AddonCompartmentFunc: Masque_ToggleOptions
 ## IconTexture: Interface\AddOns\Masque\Textures\Icon
 ## OptionalDeps: Ace3, AceGUI-3.0_SFX-Widgets, LibDBIcon-1.0, LibDualSpec-1.0
 ## SavedVariables: MasqueDB
