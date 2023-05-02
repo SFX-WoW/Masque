@@ -245,35 +245,6 @@ function GMT:ReSkin(Button)
 	end
 end
 
--- Registers a group-specific callback.
-function GMT:SetCallback(func, arg, selfCB)
-	if self.ID == MASQUE then return end
-
-	if type(func) ~= "function" then
-		if Core.Debug then
-			error("Bad argument to Group method 'SetCallback'. 'func' must be a function.", 2)
-		end
-		return
-	elseif arg and type(arg) ~= "table" then
-		if Core.Debug then
-			error("Bad argument to Group method 'SetCallback'. 'arg' must be a table or nil.", 2)
-		end
-		return
-	end
-
-	self.__arg = arg
-	self.__carg = (selfCB and self) or self.ID
-	self.__func = func
-
-	local Warn = Core.db.profile.CB_Warn
-	local Addon = self.Addon
-
-	if Warn[Addon] then
-		print("|cffff8800Masque Warning:|r", Addon, "called the deprecated API method, |cff000099'SetCallback'|r.  Please notify the author or post in the relevant issue on the Masque project page.")
-		Warn[Addon] = false
-	end
-end
-
 -- Renames the group.
 function GMT:SetName(Name)
 	if not self.StaticID then
@@ -578,6 +549,24 @@ function GMT:__Update(IsNew)
 		end
 	end
 end
+
+----------------------------------------
+-- Deprecated
+---
+
+-- Temporary function to catch add-ons using deprecated API.
+function GMT:SetCallback(...)
+	if self.ID == MASQUE then return end
+
+	local Warn = Core.db.profile.CB_Warn
+	local Addon = self.Addon or false
+
+	if Warn[Addon] then
+		print("|cffff8800Masque Warning:|r", Addon, "called the deprecated API method, |cff000099'SetCallback'|r.  Please notify the author or post in the relevant issue on the Masque project page.")
+		Warn[Addon] = false
+	end
+end
+
 
 ----------------------------------------
 -- Core
