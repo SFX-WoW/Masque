@@ -554,14 +554,13 @@ function GMT:SetCallback(...)
 	if self.ID == MASQUE then return end
 
 	local Warn = Core.db.profile.CB_Warn
-	local Addon = self.Addon or false
+	local Addon = self.Addon
 
-	if Warn[Addon] then
+	if Addon and Warn[Addon] then
 		print("|cffff8800Masque Warning:|r", Addon, "called the deprecated API method, |cff000099'SetCallback'|r.  Please notify the author or post in the relevant issue on the Masque project page.")
 		Warn[Addon] = false
 	end
 end
-
 
 ----------------------------------------
 -- Core
