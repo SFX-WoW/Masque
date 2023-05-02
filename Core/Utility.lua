@@ -146,3 +146,21 @@ function Core.GetTypeSkin(Button, Type, Skin)
 		return Skin[Type] or Skin
 	end
 end
+
+----------------------------------------
+-- API
+---
+
+-- Temporary function to catch add-ons using deprecated API.
+function Core.API:Register(Addon, ...)
+	if type(Addon) ~= "string" then
+		return
+	end
+
+	local Warn = Core.db.profile.CB_Warn
+
+	if Warn[Addon] then
+		print("|cffff8800Masque Warning:|r", Addon, "called the deprecated API method, '|cff0099ffRegister|r'.  Please notify the author or post in the relevant issue on the Masque project page.")
+		Warn[Addon] = false
+	end
+end
