@@ -31,6 +31,7 @@ Core.AddSkin("Classic Redux", {
 	-- Info
 	Authors = {"StormFX", "|cff999999Maul|r", "|cff999999Blizzard Entertainment|r"},
 	Description = L["A modified version of the Classic button style."],
+	Discord = Core.Discord,
 	-- Version = Template.Version,
 	Websites = Core.Websites,
 

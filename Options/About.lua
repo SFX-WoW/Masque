@@ -148,7 +148,7 @@ function Setup.About(self)
 	-- Populate the Discord field.
 	args.Discord = {
 		type = "input",
-		name = "Discord",
+		name = L["Discord"],
 		arg  = self.Discord,
 		order = Order,
 		dialogControl = "SFX-Info-URL",

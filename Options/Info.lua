@@ -78,6 +78,7 @@ local function GetInfoGroup(Skin, Title, Group)
 	local Version = (Skin.Version and tostring(Skin.Version)) or UNKNOWN
 	local Authors = Skin.Authors or Skin.Author or UNKNOWN
 	local Websites = Skin.Websites or Skin.Website
+	local Discord = Skin.Discord
 	local Status, Tooltip = GetStatus(Skin.API_VERSION)
 
 	-- Options Group
@@ -147,6 +148,24 @@ local function GetInfoGroup(Skin, Title, Group)
 			order = Order,
 			disabled = true,
 			dialogControl = "SFX-Info",
+		}
+		Order = Order + 1
+		args["SPC"..Order] = {
+			type = "description",
+			name = " ",
+			order = Order,
+		}
+		Order = Order + 1
+	end
+
+	-- Discord
+	if type(Discord) == "string" then
+		args.Discord = {
+			type = "input",
+			name = L["Discord"],
+			arg  = Discord,
+			order = Order,
+			dialogControl = "SFX-Info-URL",
 		}
 		Order = Order + 1
 		args["SPC"..Order] = {

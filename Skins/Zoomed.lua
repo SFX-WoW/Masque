@@ -34,6 +34,7 @@ Core.AddSkin("Zoomed", {
 	-- Info
 	Authors = Core.Authors,
 	Description = L["A square skin with zoomed icons and a semi-transparent background."],
+	Discord = Core.Discord,
 	-- Version = Template.Version,
 	Websites = Core.Websites,
 
