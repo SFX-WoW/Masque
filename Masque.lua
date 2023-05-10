@@ -168,6 +168,7 @@ function Masque:OnInitialize()
 			LDB = {
 				hide = true,
 				minimapPos = 220,
+				position = 0,
 				radius = 80,
 			},
 		},

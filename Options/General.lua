@@ -86,29 +86,42 @@ function Setup.General(self)
 						set = function(i, v) Core.db.profile.StandAlone = v end,
 						order = 3,
 					},
-					Icon = {
-						type = "toggle",
-						name = L["Minimap Icon"],
-						desc = L["Enable the Minimap icon."],
-						get = function() return not Core.db.profile.LDB.hide end,
-						set = function(i, v)
-							Core.db.profile.LDB.hide = not v
-							if not v then
-								Core.LDBI:Hide(MASQUE)
-							else
-								Core.LDBI:Show(MASQUE)
-							end
-						end,
-						order = 4,
-						disabled = function() return not Core.LDBI end,
-					},
 					Sort = {
 						type = "toggle",
 						name = L["Alternate Sorting"],
 						desc = L["Causes the skins included with Masque to be listed above third-party skins."],
 						get = function() return Core.db.profile.AltSort end,
 						set = function(i, v) Core.db.profile.AltSort = v end,
+						order = 4,
+					},
+					Icon = {
+						type = "select",
+						name = L["Menu Icon"],
+						desc = L["Select where Masque's menu icon is displayed."],
+						values = {
+							[0] = L["None"],
+							[1] = L["Minimap"],
+							[2] = L["Add-On Compartment"],
+						},
+						get = function()
+							return Core.db.profile.LDB.position or 0
+						end,
+						set = function(i, v)
+							local LDBI = Core.LDBI
+							if v == 1 then
+								LDBI:Show(MASQUE)
+								LDBI:RemoveButtonFromCompartment(MASQUE)
+							elseif v == 2 then
+								LDBI:Hide(MASQUE)
+								LDBI:AddButtonToCompartment(MASQUE)
+							else
+								LDBI:Hide(MASQUE)
+								LDBI:RemoveButtonFromCompartment(MASQUE)
+							end
+							Core.db.profile.LDB.position = v
+						end,
 						order = 5,
+						disabled = function() return not Core.LDBI end,
 					},
 				},
 			},
