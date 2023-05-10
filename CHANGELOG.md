@@ -1,27 +1,21 @@
-## 10.1.0
+## 10.1.1
 
-### General
+### Settings
 
-- Added an entry for **Masque** in the new `AddonCompartment`. (#323)
-- Added an `IconTexture` for the **AddOns** menu. (#323)
-- Updated the `Interface` version for **Retail** to `100100`. (#322)
-- Updated the `X-Discord` ToC entry.
+- Replaced the **Minimap Icon** setting with an **Icon Menu** setting, a drop-down that allows a choice between no icon (default), a minimap icon or the new add-on compartment menu.
+  - **Important:** The add-on compartment setting may cause taint, so use it at your own risk.
+- Switched to using `LibDBIcon-1.0` for add-on compartment registration, thanks to [Funkeh](https://github.com/funkydude).
 
-### API
+### Skins
 
-- Increased the `API_VERSION` to `100100`.
-- The `Register` API and `SetCallback` Group API methods have been deprecated and no longer function. They will still print warnings when called.
-
-### Callback Update
-
-- The **Group** callback API via `RegisterCallback` has been improved so that authors can now specify which events/options their callback is fired on. (#324)
-  - More information can be found in [this issue](https://github.com/SFX-WoW/Masque/issues/324).
-  - The Wiki will be updated in the future to reflect these changes.
-  - These changes should not affect existing group callbacks registered with the `RegisterCallback`.
+- Skin authors can now add a `string` **Discord** URL via the `Discord` skin field that will be displayed in the skin information panel.
 
 ### Localization
 
-- Added a missing phrase to some locale files.
-- Updated `koKR`. (HanaKiki) (#321)
+- Added some new phrases that will need to be translated.
+
+### Supporters
+
+- Added [Mayron](https://github.com/mayron) as a supporter. Thanks!
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
