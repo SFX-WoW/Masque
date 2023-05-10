@@ -93,24 +93,6 @@ function Setup.Core(self)
 	OPT_FRAME = CreateFrame("Frame", "MSQ_OPT_FRAME", SettingsPanel or InterfaceOptionsFrame)
 	OPT_FRAME:SetScript("OnShow", function() Setup("LoD") end)
 
-	-- AddonCompartment
-	if WOW_RETAIL then
-		AddonCompartmentFrame:RegisterAddon({
-			text = MASQUE,
-			icon = [[Interface\AddOns\Masque\Textures\Icon]],
-			func = function(...)
-				Core:ToggleOptions()
-			end,
-			funcOnEnter = function()
-				GameTooltip:SetOwner(AddonCompartmentFrame, "ANCHOR_TOPRIGHT")
-				GameTooltip:SetText(MASQUE)
-				GameTooltip:AddLine(L["Click to open Masque's settings."], 1, 1, 1, true)
-				GameTooltip:Show()
-			end,
-			notCheckable = true,
-		})
-	end
-
 	-- GC
 	Setup.Core = nil
 end
