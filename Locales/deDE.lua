@@ -111,12 +111,15 @@ L["Websites"] = "Webseiten"
 -- Interface Settings
 ---
 
+-- L["Add-On Compartment"] = "Add-On Compartment"
 -- L["Alternate Sorting"] = "Alternate Sorting"
 -- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
-L["Enable the Minimap icon."] = "Aktiviert das Minikartensymbol"
 L["Interface"] = "Interface"
 L["Interface Settings"] = "Interfaceeinstellungen"
-L["Minimap Icon"] = "Minikartensymbol"
+-- L["Menu Icon"] = "Menu Icon"
+-- L["Minimap"] = "Minimap"
+-- L["None"] = "None"
+-- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
 -- L["Stand-Alone GUI"] = "Stand-Alone GUI"
 -- L["This section will allow you to adjust settings that affect Masque's interface."] = "This section will allow you to adjust settings that affect Masque's interface."
 -- L["Use a resizable, stand-alone options window."] = "Use a resizable, stand-alone options window."

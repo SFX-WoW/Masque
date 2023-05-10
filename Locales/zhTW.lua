@@ -111,12 +111,15 @@ L["Websites"] = "網站"
 -- Interface Settings
 ---
 
+-- L["Add-On Compartment"] = "Add-On Compartment"
 L["Alternate Sorting"] = "另一種排序"
 L["Causes the skins included with Masque to be listed above third-party skins."] = "讓 Masque 內建的外觀排列在第三方外觀上方。"
-L["Enable the Minimap icon."] = "啟用小地圖按鈕。"
 L["Interface"] = "介面"
 L["Interface Settings"] = "介面設置"
-L["Minimap Icon"] = "小地圖按鈕"
+-- L["Menu Icon"] = "Menu Icon"
+-- L["Minimap"] = "Minimap"
+-- L["None"] = "None"
+-- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
 L["Stand-Alone GUI"] = "獨立的圖形介面"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "本部分允許您調整影響Masque介面的設置。"
 L["Use a resizable, stand-alone options window."] = "使用可調整大小的獨立選項視窗。"

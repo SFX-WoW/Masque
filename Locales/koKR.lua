@@ -111,12 +111,15 @@ L["Websites"] = "웹사이트"
 -- Interface Settings
 ---
 
+-- L["Add-On Compartment"] = "Add-On Compartment"
 L["Alternate Sorting"] = "대체 정렬"
 L["Causes the skins included with Masque to be listed above third-party skins."] = "Masque에 포함된 스킨이 타사 스킨 위에 나열되도록 합니다."
-L["Enable the Minimap icon."] = "미니맵 아이콘을 활성화합니다."
 L["Interface"] = "인터페이스"
 L["Interface Settings"] = "인터페이스 설정"
-L["Minimap Icon"] = "미니맵 아이콘"
+-- L["Menu Icon"] = "Menu Icon"
+-- L["Minimap"] = "Minimap"
+-- L["None"] = "None"
+-- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
 L["Stand-Alone GUI"] = "독립 실행형 GUI"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "여기는 Masque 인터페이스에 영향을 주는 설정을 조정할 수 있습니다."
 L["Use a resizable, stand-alone options window."] = "크기 조정 가능한 독립 실행형 옵션 창을 사용합니다."
