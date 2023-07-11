@@ -24,12 +24,12 @@ local L = Core.Locale
 ---
 
 -- L["About Masque"] = "About Masque"
--- L["API"] = "API"
--- L["For more information, please visit one of the sites listed below."] = "For more information, please visit one of the sites listed below."
--- L["Masque is a skinning engine for button-based add-ons."] = "Masque is a skinning engine for button-based add-ons."
--- L["Select to view."] = "Select to view."
--- L["Supporters"] = "Supporters"
--- L["You must have an add-on that supports Masque installed to use it."] = "You must have an add-on that supports Masque installed to use it."
+L["API"] = "API"
+L["For more information, please visit one of the sites listed below."] = "Per ulteriori informazioni, visita uno dei siti elencati di seguito."
+L["Masque is a skinning engine for button-based add-ons."] = "Masque è un sistema di gestione skin per add-on basati sui pulsanti."
+L["Select to view."] = "Seleziona per visualizzare."
+L["Supporters"] = "Sostenitori"
+L["You must have an add-on that supports Masque installed to use it."] = "Per usare Masque devi avere installato un add-on che lo supporta."
 
 ----------------------------------------
 -- Blizzard Classic Skin
@@ -47,29 +47,29 @@ local L = Core.Locale
 -- Classic Redux Skin
 ---
 
--- L["A modified version of the Classic button style."] = "A modified version of the Classic button style."
+L["A modified version of the Classic button style."] = "Una versione modificata dello stile per pulsanti Classico."
 
 ----------------------------------------
 -- Core Settings
 ---
 
 -- L["About"] = "About"
--- L["This section will allow you to view information about Masque and any skins you have installed."] = "This section will allow you to view information about Masque and any skins you have installed."
+L["This section will allow you to view information about Masque and any skins you have installed."] = "Questa sezione ti permetterà di visualizzare le informazioni su Masque e ogni skin installata."
 
 ----------------------------------------
 -- Developer Settings
 ---
 
 L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Forza Masque a visualizzare un errore Lua ogni volta che c'é un problema con un'add-on o una skin."
--- L["Clean Database"] = "Clean Database"
--- L["Click to purge the settings of all unused add-ons and groups."] = "Click to purge the settings of all unused add-ons and groups."
-L["Debug Mode"] = "Modalità  Debug"
--- L["Developer"] = "Developer"
--- L["Developer Settings"] = "Developer Settings"
+L["Clean Database"] = "Pulisci Database"
+L["Click to purge the settings of all unused add-ons and groups."] = "Clicca per pulire le impostazioni di tutti gli add-on e gruppi inutilizzati."
+L["Debug Mode"] = "Modalità Debug"
+L["Developer"] = "Sviluppatore"
+L["Developer Settings"] = "Impostazioni Sviluppatore"
 L["Masque debug mode disabled."] = "Modalità Debug Masque Disbilitata."
 L["Masque debug mode enabled."] = "Modalità Debug Masque Abilitata."
--- L["This action cannot be undone. Continue?"] = "This action cannot be undone. Continue?"
--- L["This section will allow you to adjust settings that affect working with Masque's API."] = "This section will allow you to adjust settings that affect working with Masque's API."
+L["This action cannot be undone. Continue?"] = "Questa azione non può essere annullata. Continuare?"
+L["This section will allow you to adjust settings that affect working with Masque's API."] = "Questa sezione ti permetterà di modificare le impostazioni che riguardano l'API di Masque."
 
 ----------------------------------------
 -- Dream Skin
@@ -81,86 +81,86 @@ L["Masque debug mode enabled."] = "Modalità Debug Masque Abilitata."
 -- General Settings
 ---
 
--- L["General Settings"] = "General Settings"
--- L["This section will allow you to adjust Masque's interface and performance settings."] = "This section will allow you to adjust Masque's interface and performance settings."
+L["General Settings"] = "Impostazioni Generali"
+L["This section will allow you to adjust Masque's interface and performance settings."] = "Questa sezione ti permetterà di modificare le impostazioni che riguardano l'interfaccia e le prestazioni di Masque."
 
 ----------------------------------------
 -- Installed Skins
 ---
 
--- L["Author"] = "Author"
--- L["Authors"] = "Authors"
--- L["Click for details."] = "Click for details."
--- L["Compatible"] = "Compatible"
--- L["Description"] = "Description"
--- L["Discord"] = "Discord"
--- L["Incompatible"] = "Incompatible"
--- L["Installed Skins"] = "Installed Skins"
--- L["No description available."] = "No description available."
--- L["Status"] = "Status"
--- L["The status of this skin is unknown."] = "The status of this skin is unknown."
--- L["This section provides information on any skins you have installed."] = "This section provides information on any skins you have installed."
--- L["This skin is compatible with Masque."] = "This skin is compatible with Masque."
--- L["This skin is outdated and is incompatible with Masque."] = "This skin is outdated and is incompatible with Masque."
--- L["This skin is outdated but is still compatible with Masque."] = "This skin is outdated but is still compatible with Masque."
--- L["Unknown"] = "Unknown"
--- L["Version"] = "Version"
--- L["Website"] = "Website"
--- L["Websites"] = "Websites"
+L["Author"] = "Autore"
+L["Authors"] = "Autori"
+L["Click for details."] = "Clicca per dettagli."
+L["Compatible"] = "Compatibile"
+L["Description"] = "Descrizione"
+L["Discord"] = "Discord"
+L["Incompatible"] = "Incompatibile"
+L["Installed Skins"] = "Skin Installate"
+L["No description available."] = "Descrizione non disponibile."
+L["Status"] = "Stato"
+L["The status of this skin is unknown."] = "Lo stato di questa skin è sconosciuto."
+L["This section provides information on any skins you have installed."] = "Questa sezione fornisce informazioni su ogni skin installata."
+L["This skin is compatible with Masque."] = "Questa skin è compatibile con Masque."
+L["This skin is outdated and is incompatible with Masque."] = "Questa skin è obsoleta e incompatibile con Masque."
+L["This skin is outdated but is still compatible with Masque."] = "Questa skin è obsoleta ma ancora compatibile con Masque."
+L["Unknown"] = "Sconosciuto"
+L["Version"] = "Versione"
+L["Website"] = "Sito"
+L["Websites"] = "Siti"
 
 ----------------------------------------
 -- Interface Settings
 ---
 
 -- L["Add-On Compartment"] = "Add-On Compartment"
--- L["Alternate Sorting"] = "Alternate Sorting"
--- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
--- L["Interface"] = "Interface"
--- L["Interface Settings"] = "Interface Settings"
--- L["Menu Icon"] = "Menu Icon"
--- L["Minimap"] = "Minimap"
--- L["None"] = "None"
--- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
+L["Alternate Sorting"] = "Ordinamento Alternativo"
+L["Causes the skins included with Masque to be listed above third-party skins."] = "Elenca le skin incluse con Masque prima delle skin di terze parti."
+L["Interface"] = "Interfaccia"
+L["Interface Settings"] = "Impostazioni Interfaccia"
+L["Menu Icon"] = "Pulsante Menu"
+L["Minimap"] = "Minimappa"
+L["None"] = "Nessuna"
+L["Select where Masque's menu icon is displayed."] = "Seleziona dove mostrare il pulsante per aprire il menu di Masque."
 -- L["Stand-Alone GUI"] = "Stand-Alone GUI"
--- L["This section will allow you to adjust settings that affect Masque's interface."] = "This section will allow you to adjust settings that affect Masque's interface."
+L["This section will allow you to adjust settings that affect Masque's interface."] = "Questa sezione ti permetterà di modificare le impostazioni che riguardano l'interfaccia di Masque."
 -- L["Use a resizable, stand-alone options window."] = "Use a resizable, stand-alone options window."
 
 ----------------------------------------
 -- LDB Launcher
 ---
 
--- L["Click to open Masque's settings."] = "Click to open Masque's settings."
+L["Click to open Masque's settings."] = "Clicca per aprire le impostazioni di Masque."
 
 ----------------------------------------
 -- Modern Enhanced Skin
 ---
 
--- L["An enhanced version of the Dragonflight button style."] = "An enhanced version of the Dragonflight button style."
+L["An enhanced version of the Dragonflight button style."] = "Una versione migliorata dello stile di pulsanti Dragonflight."
 
 ----------------------------------------
 -- Performance Settings
 ---
 
--- L["Click to load reload the interface."] = "Click to load reload the interface."
--- L["Load the skin information panel."] = "Load the skin information panel."
--- L["Performance"] = "Performance"
--- L["Performance Settings"] = "Performance Settings"
--- L["Reload Interface"] = "Reload Interface"
--- L["Requires an interface reload."] = "Requires an interface reload."
--- L["Skin Information"] = "Skin Information"
--- L["This section will allow you to adjust settings that affect Masque's performance."] = "This section will allow you to adjust settings that affect Masque's performance."
+L["Click to load reload the interface."] = "Clicca per ricaricare l'interfaccia."
+L["Load the skin information panel."] = "Carica il pannello di informazioni delle skin."
+L["Performance"] = "Prestazioni"
+L["Performance Settings"] = "Impostazioni Prestazioni"
+L["Reload Interface"] = "Ricarica Interfaccia"
+L["Requires an interface reload."] = "Richiede di ricaricare l'interfaccia."
+L["Skin Information"] = "Informazioni Skin"
+L["This section will allow you to adjust settings that affect Masque's performance."] = "Questa sezione ti permetterà di modificare le impostazioni che riguardano le prestazioni di Masque."
 
 ----------------------------------------
 -- Profile Settings
 ---
 
--- L["Profile Settings"] = "Profile Settings"
+L["Profile Settings"] = "Impostazioni Profili"
 
 ----------------------------------------
 -- Skin Settings
 ---
 
--- L["Adjust the scale of this group's skin."] = "Adjust the scale of this group's skin."
+L["Adjust the scale of this group's skin."] = "Regola le dimensioni di questo gruppo di skin."
 L["Backdrop"] = "Impostazioni Sfondo"
 L["Checked"] = "Controllato"
 L["Color"] = "Colore"
@@ -169,13 +169,13 @@ L["Cooldown"] = "Cooldown"
 L["Disable"] = "Disabilita"
 L["Disable the skinning of this group."] = "Disabilita lo skinning per questo gruppo."
 L["Enable"] = "Abilita"
--- L["Enable skin scaling."] = "Enable skin scaling."
+L["Enable skin scaling."] = "Attiva il ridimensionamento della skin."
 L["Enable the Backdrop texture."] = "Abilita la texture di sfondo."
 -- L["Enable the Gloss texture."] = "Enable the Gloss texture."
 -- L["Enable the Shadow texture."] = "Enable the Shadow texture."
 L["Flash"] = "Lampeggio"
 L["Global"] = "Globale"
--- L["Global Settings"] = "Global Settings"
+L["Global Settings"] = "Impostazioni Globali"
 L["Gloss"] = "Impostazioni Gloss"
 L["Highlight"] = "Evidenziato"
 L["Normal"] = "Normale"
@@ -183,7 +183,7 @@ L["Normal"] = "Normale"
 L["Pushed"] = "Forzata"
 L["Reset all skin options to the defaults."] = "Reimposta i valori predefiniti della skin. "
 L["Reset Skin"] = "Reimposta Skin"
--- L["Scale"] = "Scale"
+L["Scale"] = "Dimensione"
 L["Set the color of the Backdrop texture."] = "Imposta il colore della texture di sfondo."
 L["Set the color of the Checked texture."] = "Imposta il colore della texture controllata."
 L["Set the color of the Cooldown animation."] = "Imposta il colore dell'animazione del coldown"
@@ -194,14 +194,14 @@ L["Set the color of the Normal texture."] = "Imposta il colore della texture nor
 L["Set the color of the Pushed texture."] = "Imposta il colore della texture forzata."
 -- L["Set the color of the Shadow texture."] = "Set the color of the Shadow texture."
 L["Set the skin for this group."] = "Imposta la skin per questo gruppo."
--- L["Shadow"] = "Shadow"
+L["Shadow"] = "Ombra"
 -- L["Show the pulse effect when a cooldown finishes."] = "Show the pulse effect when a cooldown finishes."
 L["Skin"] = "Skin"
--- L["Skin Settings"] = "Skin Settings"
--- L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "This section will allow you to adjust the skin settings of all buttons registered to %s."
--- L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."] = "This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."
--- L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."] = "This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."
-L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."] = "Questa sezione vi permetterà di impostare le skin ai pulsanti degli add-on o a gruppi di add-on registrati con Masque."
+L["Skin Settings"] = "Impostazioni Skin"
+L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "Questa sezione ti permetterà di modificare le impostazioni delle skin di tutti i pulsanti registrati a %s."
+L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."] = "Questa sezione ti permetterà di modificare le impostazioni delle skin di tutti i pulsanti registrati a %s. Fare ciò sovrascriverà le impostazioni a livello di gruppo."
+L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."] = "Questa sezione ti permetterà di modificare le impostazioni delle skin di tutti i pulsanti registrati. Fare ciò sovrascriverà le impostazioni a livello di add-on."
+L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."] = "Questa sezione ti permetterà di gestire le skin dei pulsanti degli add-on o a gruppi di add-on registrati con Masque."
 
 ----------------------------------------
 -- Zoomed Skin
