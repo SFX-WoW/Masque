@@ -93,7 +93,7 @@ L["Authors"] = "作者"
 L["Click for details."] = "點擊取得細節。"
 L["Compatible"] = "相容"
 L["Description"] = "說明"
--- L["Discord"] = "Discord"
+L["Discord"] = "Discord"
 L["Incompatible"] = "不相容"
 L["Installed Skins"] = "已安裝的外觀"
 L["No description available."] = "沒有說明。"
@@ -112,15 +112,15 @@ L["Websites"] = "網站"
 -- Interface Settings
 ---
 
--- L["Add-On Compartment"] = "Add-On Compartment"
+L["Add-On Compartment"] = "插件選單"
 L["Alternate Sorting"] = "另一種排序"
 L["Causes the skins included with Masque to be listed above third-party skins."] = "讓 Masque 內建的外觀排列在第三方外觀上方。"
 L["Interface"] = "介面"
 L["Interface Settings"] = "介面設置"
--- L["Menu Icon"] = "Menu Icon"
--- L["Minimap"] = "Minimap"
--- L["None"] = "None"
--- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
+L["Menu Icon"] = "選單圖示"
+L["Minimap"] = "小地圖"
+L["None"] = "無"
+L["Select where Masque's menu icon is displayed."] = "選擇 Masque 的選單圖示要顯示在哪裡。"
 L["Stand-Alone GUI"] = "獨立的圖形介面"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "本部分允許您調整影響Masque介面的設置。"
 L["Use a resizable, stand-alone options window."] = "使用可調整大小的獨立選項視窗。"
@@ -135,7 +135,7 @@ L["Click to open Masque's settings."] = "點一下開啟按鈕外觀的設定選
 -- Modern Enhanced Skin
 ---
 
--- L["An enhanced version of the Dragonflight button style."] = "An enhanced version of the Dragonflight button style."
+L["An enhanced version of the Dragonflight button style."] = "巨龍崛起按鈕樣式的加強版。"
 
 ----------------------------------------
 -- Performance Settings
