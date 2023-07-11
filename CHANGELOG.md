@@ -1,21 +1,17 @@
-## 10.1.1
+## 10.1.5-Beta-1
 
-### Settings
+### Notice for Dragonflight
 
-- Replaced the **Minimap Icon** setting with an **Icon Menu** setting, a drop-down that allows a choice between no icon (default), a minimap icon or the new add-on compartment menu.
-  - **Important:** The add-on compartment setting may cause taint, so use it at your own risk.
-- Switched to using `LibDBIcon-1.0` for add-on compartment registration, thanks to [Funkeh](https://github.com/funkydude).
+Due to the addition of new animations and textures for Cooldowns and Spell Alerts, it will take some time before alternatives are available for non-square skins. For the time being, users are encouraged to use a square skin (Eg, **Modern**/**Modern Enhanced**).
 
-### Skins
+### General
 
-- Skin authors can now add a `string` **Discord** URL via the `Discord` skin field that will be displayed in the skin information panel.
+- Updated the `Interface` version for **Retail** to `100105`. (#331)
+- Updated the `Interface` version for **Wrath Classic** to `30402`. (#330)
 
 ### Localization
 
-- Added some new phrases that will need to be translated.
-
-### Supporters
-
-- Added [Mayron](https://github.com/mayron) as a supporter. Thanks!
+- Updated `itIT`. (Elitesparkle) (#328)
+- Updated `zhTW`. (RainbowUI) (#329)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
