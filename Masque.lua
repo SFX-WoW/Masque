@@ -202,6 +202,7 @@ end
 -- PLAYER_LOGIN Event
 function Masque:OnEnable()
 	MigrateDB()
+	Core.Debug = Core.db.profile.Debug
 
 	local Setup = Core.Setup
 
