@@ -8,8 +8,6 @@
 
 	'SpellAlert' Region
 
-	* TODO: Improve the textures.
-
 ]]
 
 local _, Core = ...
@@ -88,8 +86,7 @@ Core.UpdateSpellAlert = UpdateSpellAlert
 
 local API = Core.API
 
--- Wrapper for the Update function.
--- * Allows add-ons to call the function when not using the native API.
+-- API wrapper for the UpdateSpellAlert function.
 function API:UpdateSpellAlert(Button)
 	if type(Button) ~= "table" then
 		return
@@ -98,7 +95,11 @@ function API:UpdateSpellAlert(Button)
 	UpdateSpellAlert(Button)
 end
 
--- Adds or overwrites a 'SpellAlert' texture set.
+----------------------------------------
+-- Deprecated
+---
+
+-- Adds or overwrites a spell alert texture set.
 function API:AddSpellAlert(Shape, Glow, Ants)
 	if type(Shape) ~= "string" then
 		if Core.Debug then
@@ -107,20 +108,20 @@ function API:AddSpellAlert(Shape, Glow, Ants)
 		return
 	end
 
-	local Region = Alerts[Shape] or {}
+	local Paths = Alerts[Shape] or {}
 
 	if type(Glow) == "string" then
-		Region.Glow = Glow
+		Paths.Glow = Glow
 	end
 
 	if type(Ants) == "string" then
-		Region.Ants = Ants
+		Paths.Ants = Ants
 	end
 
-	Alerts[Shape] = Region
+	Alerts[Shape] = Paths
 end
 
--- Retrieves a 'SpellAlert' texture set.
+-- Returns a spell alert texture set.
 function API:GetSpellAlert(Shape)
 	if type(Shape) ~= "string" then
 		if Core.Debug then
@@ -129,9 +130,9 @@ function API:GetSpellAlert(Shape)
 		return
 	end
 
-	local Region = Alerts[Shape]
+	local Paths = Alerts[Shape]
 
-	if Region then
-		return Region.Glow, Region.Ants
+	if Paths then
+		return Paths.Glow, Paths.Ants
 	end
 end
