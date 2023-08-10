@@ -13,5 +13,6 @@
 	<Script file="NewItem.lua"/>
 	<Script file="QuestBorder.lua"/>
 	<Script file="Frame.lua"/>
+	<Script file="Cooldown.lua"/>
 	<Script file="SpellAlert.lua"/>
 </Ui>
