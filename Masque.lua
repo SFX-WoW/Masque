@@ -87,6 +87,13 @@ local function UpdateDB()
 	-- Update the API version.
 	db.API_VERSION = API_VERSION
 
+	-- Animations
+	local UpdateEffect = Core.UpdateEffect
+
+	for k, v in pairs(db.Effects) do
+		UpdateEffect(k, v)
+	end
+
 	-- Icon
 	Core:UpdateIconPosition()
 
@@ -197,6 +204,13 @@ function Masque:OnInitialize()
 				minimapPos = 240,
 				position = 1,
 				radius = 80,
+			},
+			Effects = {
+				Castbar = true,
+				--Cooldown = true, -- Disabled by Blizzard
+				Interrupt = true,
+				Reticle = true,
+				SpellAlert = 1,
 			},
 		},
 	}

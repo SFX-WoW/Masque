@@ -19,6 +19,22 @@ local _, Core = ...
 local error, type = error, type
 
 ----------------------------------------
+-- WoW API
+---
+
+local C_Timer_After = C_Timer.After
+
+----------------------------------------
+-- Internal
+---
+
+-- @ Core\Utility
+local GetScale, GetSize, GetTexCoords = Core.GetScale, Core.GetSize, Core.GetTexCoords
+
+-- @ Core\Regions\Frame
+local SkinFrame = Core.SkinFrame
+
+----------------------------------------
 -- Locals
 ---
 
@@ -34,31 +50,19 @@ local Alerts = {
 }
 
 ----------------------------------------
--- Update
+-- Overlay
 ---
 
--- Hook to update the 'SpellAlert' animation.
-local function UpdateSpellAlert(Button)
-	-- Retail: Button.SpellActivationAlert
-	-- Classic: Button.overlay
-	local Region = Button.SpellActivationAlert or Button.overlay
-
-	if not Region or not Region.spark then
-		return
-	end
-
+-- Skins legacy spell alerts.
+local function SkinOverlay(Region, Button, Skin)
 	local Shape = Button.__MSQ_Shape
 
 	if Region.__MSQ_Shape ~= Shape then
-		local Glow, Ants
+		local Base = Alerts.Square
+		local Paths = (Shape and Alerts[Shape]) or Base
 
-		if Shape and Alerts[Shape] then
-			Glow = Alerts[Shape].Glow or Alerts.Square.Glow
-			Ants = Alerts[Shape].Ants or Alerts.Square.Ants
-		else
-			Glow = Alerts.Square.Glow
-			Ants = Alerts.Square.Ants
-		end
+		local Ants = (Skin and Skin.Ants) or Paths.Ants or Base.Ants
+		local Glow = (Skin and Skin.Glow) or Paths.Glow or Base.Glow
 
 		Region.innerGlow:SetTexture(Glow)
 		Region.innerGlowOver:SetTexture(Glow)
@@ -68,6 +72,129 @@ local function UpdateSpellAlert(Button)
 		Region.ants:SetTexture(Ants)
 
 		Region.__MSQ_Shape = Shape
+	end
+end
+
+----------------------------------------
+-- SpellAlert
+---
+
+-- Skins modern spell alerts.
+local function SkinSpellAlert(Region, Button, Skin, xScale, yScale)
+	local Start_Flipbook = Region.ProcStartFlipbook
+	local Loop_Flipbook = Region.ProcLoopFlipbook
+
+	if Skin then
+		-- [ Alert Frame ]
+		-- Get the skin size relative to scaling.
+		local Skin_Width, Skin_Height = GetSize(Skin.Width, Skin.Height, xScale, yScale, Button)
+
+		-- Set the frame size relative to the button.
+		Skin_Width = Skin_Width * 1.4
+		Skin_Height = Skin_Height * 1.4
+
+		Region:SetSize(Skin_Width, Skin_Height)
+
+		-- [ Start Animation ]
+		local Start_Skin = Skin.Start
+		local Start_Texture = Start_Skin and Start_Skin.Texture
+
+		-- Custom
+		if Start_Texture then
+			Start_Flipbook:SetTexture(Start_Texture)
+			Start_Flipbook:SetTexCoord(GetTexCoords(Start_Skin.TexCoords))
+
+			-- Set the start texture size, relative to the button size.
+			local Scale_Width, Scale_Height = Button:GetSize()
+
+			local Width = 160 * (Skin_Width / (Scale_Width * 1.4))
+			local Height = 160 * (Skin_Height / (Scale_Height * 1.4))
+
+			Start_Flipbook:SetSize(Width, Height)
+
+		-- Default
+		else
+			Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
+			Start_Flipbook:SetSize(160, 160)
+		end
+
+		-- [ Loop Animation ]
+		local Loop_Skin = Skin.Loop
+		local Loop_Texture = Loop_Skin and Loop_Skin.Texture
+
+		-- Custom
+		if Loop_Texture then
+			Loop_Flipbook:SetTexture(Loop_Texture)
+			Loop_Flipbook:SetTexCoord(GetTexCoords(Loop_Skin.TexCoords))
+
+		-- Default
+		else
+			Loop_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
+		end
+
+	-- Default
+	else
+		local Width, Height = Button:GetSize()
+
+		Region:SetSize(Width * 1.4, Height * 1.4)
+
+		Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
+		Loop_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
+
+		-- Defaults to 150 x 150, causing visual scaling-up on transition.
+		Start_Flipbook:SetSize(160, 160) 
+	end
+
+	Region.__MSQ_Skin = Skin or true
+end
+
+----------------------------------------
+-- Update/Hook
+---
+
+-- Hook to update spell alerts.
+local function UpdateSpellAlert(Button)
+	local Region = Button.SpellActivationAlert or Button.overlay
+
+	if not Region then return end
+
+	local Skin = Button.__MSQ_Skin
+	Skin = Skin and Skin.SpellAlert
+
+	local Flash = Region.ProcStartAnim
+
+	-- New Style
+	if Flash then
+		local Active = Region.__MSQ_Skin
+
+		-- Update the skin if necessary.
+		if not Active or (Active ~= Skin) then 
+			SkinSpellAlert(Region, Button, Skin, GetScale(Button))
+		end
+
+		local Option = Core.db.profile.Effects.SpellAlert
+
+		-- Disable spell alerts completely.
+		if Option == 0 then
+			ActionButton_HideOverlayGlow(Button)
+			return
+
+		-- Hide the circular flash of the starting animation. 
+		elseif Option == 2 then
+			if Flash:IsPlaying() then
+				Region:SetAlpha(0)
+			end
+
+			C_Timer_After(0.26, function()
+				Region:SetAlpha(1)
+			end)
+		end
+
+	-- Still used by LibActionButton-1.0.
+	elseif Region.spark then
+		local Skin = Button.__MSQ_Skin
+
+		SkinOverlay(Region, Button, Skin and Skin.SpellAlert)
 	end
 end
 

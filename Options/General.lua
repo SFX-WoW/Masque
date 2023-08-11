@@ -28,6 +28,80 @@ local WOW_RETAIL = Core.WOW_RETAIL
 local GetOption, SetOption = Core.GetOption, Core.SetOption
 
 ----------------------------------------
+-- Locals
+---
+
+-- Animation Events
+local Effects = {
+	Castbar = {
+		"UNIT_SPELLCAST_CHANNEL_START",
+		"UNIT_SPELLCAST_CHANNEL_STOP",
+		"UNIT_SPELLCAST_EMPOWER_START",
+		"UNIT_SPELLCAST_EMPOWER_STOP",
+		"UNIT_SPELLCAST_START",
+		"UNIT_SPELLCAST_STOP",
+	},
+	Interrupt = {
+		"UNIT_SPELLCAST_INTERRUPTED",
+		"UNIT_SPELLCAST_SUCCEEDED",
+	},
+	Reticle = {
+		"UNIT_SPELLCAST_FAILED",
+		"UNIT_SPELLCAST_RETICLE_CLEAR",
+		"UNIT_SPELLCAST_RETICLE_TARGET",
+		"UNIT_SPELLCAST_SENT",
+	},
+	SpellAlert = {
+		"SPELL_ACTIVATION_OVERLAY_GLOW_HIDE",
+		"SPELL_ACTIVATION_OVERLAY_GLOW_SHOW",
+	},
+}
+
+-- Registers/unregisters events that trigger animations.
+local function UpdateEffect(Name, Value)
+	local Frame = _G.ActionBarActionEventsFrame
+	local Events = Effects[Name]
+
+	if Value then
+		if Name == "SpellAlert" then
+			if Value > 0 then
+				Frame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE")
+				Frame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
+			else
+				Frame:UnregisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE")
+				Frame:UnregisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
+			end
+		else
+			for i = 1, #Events do
+				local Event = Events[i]
+
+				if Event == "UNIT_SPELLCAST_SENT" then
+					Frame:RegisterEvent(Event)
+				else
+					Frame:RegisterUnitEvent(Event, "player")
+				end
+			end
+		end
+	else
+		for i = 1, #Events do
+			Frame:UnregisterEvent(Events[i])
+		end
+	end
+end
+
+local function SetEffectOption(Info, Value)
+	local Name = Info[#Info]
+
+	Core.db.profile.Effects[Name] = Value
+
+	if Name ~= "Cooldown" then
+		UpdateEffect(Name, Value)
+	end
+end
+
+Core.UpdateEffect = UpdateEffect
+
+----------------------------------------
 -- Setup
 ---
 
@@ -152,50 +226,86 @@ function Setup.General(self)
 					},
 				},
 			},
-			Performance = {
+			Effects = Core.WOW_RETAIL and {
 				type = "group",
-				name = L["Performance"],
+				name = L["Advanced"],
 				desc = Tooltip,
 				order = 3,
+				get = GetOption,
+				set = SetEffectOption,
 				args = {
 					Head = {
 						type = "header",
-						name = L["Performance Settings"],
-						order = 1,
+						name = L["Advanced Settings"],
+						order = 0,
 						disabled = true,
 						dialogControl = "SFX-Header",
 					},
 					Desc = {
 						type = "description",
-						name = L["This section will allow you to adjust settings that affect Masque's performance."]..CRLF,
-						order = 2,
+						name = L["This section will allow you to adjust button settings for the default interface."]..CRLF,
+						order = 1,
 						fontSize = "medium",
 					},
-					SkinInfo = {
-						type = "toggle",
-						name = L["Skin Information"],
-						desc = L["Load the skin information panel."]..Reload,
-						get = function() return Core.db.profile.SkinInfo end,
-						set = function(i, v)
-							Core.db.profile.SkinInfo = v
-							Core.Setup("Info")
-						end,
-						order = 3,
+					SpellAlert = {
+						type = "select",
+						name = L["Spell Alerts"],
+						desc = L["Select which spell alert animations are enabled."],
+						values = {
+							[0] = L["None"],
+							[1] = L["Flash and Loop"],
+							[2] = L["Loop Only"],
+						},
+						order = 2,
 					},
 					SPC01 = {
 						type = "description",
 						name = " ",
-						--order = 100,
+						order = 3,
 					},
-					Reload = {
-						type = "execute",
-						name = L["Reload Interface"],
-						desc = L["Click to load reload the interface."],
-						func = function() ReloadUI() end,
-						order = -1,
+					Castbar = {
+						type = "toggle",
+						name = L["Cast Animations"],
+						desc = L["Enable cast animations on action buttons."],
+						order = 4,
+					},
+					SPC02 = {
+						type = "description",
+						name = " ",
+						order = 5,
+						hidden = true,
+					},
+					Cooldown = {
+						type = "toggle",
+						name = L["Cooldown Animations"],
+						desc = L["Enable animations when action button cooldowns finish."],
+						hidden = true,
+						order = 6,
+					},
+					SPC03 = {
+						type = "description",
+						name = " ",
+						order = 7,
+					},
+					Interrupt = {
+						type = "toggle",
+						name = L["Interrupt Animations"],
+						desc = L["Enable interrupt animations on action buttons."],
+						order = 8,
+					},
+					SPC04 = {
+						type = "description",
+						name = " ",
+						order = 9,
+					},
+					Reticle = {
+						type = "toggle",
+						name = L["Targeting Reticles"],
+						desc = L["Eanble targeting reticles on action buttons."],
+						order = 10,
 					},
 				},
-			},
+			} or nil,
 			Developer = {
 				type = "group",
 				name = L["Developer"],
