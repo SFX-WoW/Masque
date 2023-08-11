@@ -18,6 +18,8 @@ local MASQUE, Core = ...
 
 -- @ Options\Core
 local Setup = Core.Setup
+local WOW_RETAIL = Core.WOW_RETAIL
+
 ----------------------------------------
 -- Libraries
 ---
@@ -61,4 +63,32 @@ function Setup.LDB(self)
 
 	-- GC
 	Setup.LDB = nil
+end
+
+-- Updates the LDB Icon position.
+function Core:UpdateIconPosition(Position)
+	if LDBI then
+		local db = Core.db.profile.LDB
+		local pos = Position or db.position
+
+		-- Minimap Icon
+		if pos == 1 then
+			LDBI:Show(MASQUE)
+			db.hide = false
+		else
+			LDBI:Hide(MASQUE)
+			db.hide = true
+		end
+
+		-- Add-On Compartment
+		if WOW_RETAIL then
+			if pos == 2 then
+				LDBI:AddButtonToCompartment(MASQUE)
+			else
+				LDBI:RemoveButtonFromCompartment(MASQUE)
+			end
+		end
+
+		db.position = pos
+	end
 end

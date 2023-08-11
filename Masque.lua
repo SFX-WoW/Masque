@@ -86,6 +86,12 @@ local function UpdateDB()
 
 	-- Update the API version.
 	db.API_VERSION = API_VERSION
+
+	-- Icon
+	Core:UpdateIconPosition()
+
+	-- Debug
+	Core.Debug = db.Developer.Debug
 end
 
 ----------------------------------------
