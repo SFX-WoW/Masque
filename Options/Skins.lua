@@ -22,17 +22,17 @@ local pairs = pairs
 -- Libraries
 ---
 
-local LIB_ACR = LibStub("AceConfigRegistry-3.0")
+local LIB_ACR = Core.LIB_ACR
 
 ----------------------------------------
 -- Internal
 ---
 
--- @ Locales\enUS
-local L = Core.Locale
-
 -- @ Masque
 local CRLF = Core.CRLF
+
+-- @ Locales\enUS
+local L = Core.Locale
 
 -- @ Skins\Skins
 local Skins, SkinList, SkinOrder = Core.Skins, Core.SkinList, Core.SkinOrder
@@ -503,7 +503,7 @@ function Setup.Skins(self)
 	self.Options.args.Skins = Options
 
 	local Path = "Skins"
-	self:AddOptionsPanel(Path, LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["Skin Settings"], MASQUE, Path))
+	self:AddOptionsPanel(Path, self.LIB_ACD:AddToBlizOptions(MASQUE, L["Skin Settings"], MASQUE, Path))
 
 	-- GC
 	Setup.Skins = nil

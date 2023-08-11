@@ -18,7 +18,7 @@ local _, Core = ...
 -- WoW API
 ---
 
-local hooksecurefunc = hooksecurefunc
+local hooksecurefunc = _G.hooksecurefunc
 
 ----------------------------------------
 -- Internal

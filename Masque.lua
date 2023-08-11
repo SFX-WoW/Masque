@@ -21,6 +21,13 @@ assert(LibStub, MASQUE.." requires LibStub.")
 local print = print
 
 ----------------------------------------
+-- Libraries
+---
+
+local LIB_DBI = LibStub("LibDBIcon-1.0", true)
+local LIB_LDS = LibStub("LibDualSpec-1.0", true)
+
+----------------------------------------
 -- Internal
 ---
 
@@ -105,6 +112,10 @@ end
 -- Core
 ---
 
+-- Libraries
+Core.LIB_DBI = LIB_DBI
+Core.LIB_LDS = LIB_LDS
+
 -- API
 Core.API_VERSION = API_VERSION
 Core.OLD_VERSION = 70200
@@ -147,11 +158,8 @@ end
 
 -- Updates settings on profile activity.
 function Core:UpdateProfile()
-	-- LibDBIcon-1.0
-	local LDBI = LibStub("LibDBIcon-1.0", true)
-
-	if LDBI then
-		LDBI:Refresh(MASQUE, Core.db.profile.LDB)
+	if LIB_DBI then
+		LIB_DBI:Refresh(MASQUE, Core.db.profile.LDB)
 	end
 
 	-- Saved Variables
@@ -225,10 +233,8 @@ function Masque:OnInitialize()
 	Core.db = db
 
 	-- LibDualSpec-1.0
-	local LDS = (WOW_VERSION > 30000) and LibStub("LibDualSpec-1.0", true)
-
-	if LDS then
-		LDS:EnhanceDatabase(Core.db, MASQUE)
+	if (WOW_VERSION > 30000) and LIB_LDS then
+		LIB_LDS:EnhanceDatabase(Core.db, MASQUE)
 	end
 
 	-- Slash Commands

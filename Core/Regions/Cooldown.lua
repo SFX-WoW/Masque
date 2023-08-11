@@ -24,7 +24,7 @@ local type = type
 -- WoW API
 ---
 
-local hooksecurefunc = hooksecurefunc
+local hooksecurefunc = _G.hooksecurefunc
 
 ----------------------------------------
 -- Internal

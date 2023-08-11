@@ -22,17 +22,17 @@ local pairs, tostring = pairs, tostring
 -- Libraries
 ---
 
-local LIB_ACR = LibStub("AceConfigRegistry-3.0")
+local LIB_ACR = Core.LIB_ACR
 
 ----------------------------------------
 -- Internal
 ---
 
--- @ Locales\enUS
-local L = Core.Locale
-
 -- @ Masque
 local OLD_VERSION = Core.OLD_VERSION
+
+-- @ Locales\enUS
+local L = Core.Locale
 
 -- @ Options\Core
 local CRLF = Core.CRLF

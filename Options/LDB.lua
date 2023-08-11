@@ -13,18 +13,20 @@
 local MASQUE, Core = ...
 
 ----------------------------------------
--- Internal
----
-
--- @ Options\Core
-local Setup = Core.Setup
-local WOW_RETAIL = Core.WOW_RETAIL
-
-----------------------------------------
 -- Libraries
 ---
 
-local LDBI = LibStub("LibDBIcon-1.0", true)
+local LIB_DBI = Core.LIB_DBI
+
+----------------------------------------
+-- Internal
+---
+
+-- @ Masque
+local WOW_RETAIL = Core.WOW_RETAIL
+
+-- @ Options\Core
+local Setup = Core.Setup
 
 ----------------------------------------
 -- Setup
@@ -55,9 +57,8 @@ function Setup.LDB(self)
 			end,
 		})
 
-		if LDBI then
-			LDBI:Register(MASQUE, self.LDBO, self.db.profile.LDB)
-			self.LDBI = true
+		if LIB_DBI then
+			LIB_DBI:Register(MASQUE, self.LDBO, self.db.profile.LDB)
 		end
 	end
 
@@ -65,27 +66,31 @@ function Setup.LDB(self)
 	Setup.LDB = nil
 end
 
--- Updates the LDB Icon position.
+----------------------------------------
+-- Core
+---
+
+-- Updates the icon position.
 function Core:UpdateIconPosition(Position)
-	if LDBI then
+	if LIB_DBI then
 		local db = Core.db.profile.LDB
 		local pos = Position or db.position
 
 		-- Minimap Icon
 		if pos == 1 then
-			LDBI:Show(MASQUE)
+			LIB_DBI:Show(MASQUE)
 			db.hide = false
 		else
-			LDBI:Hide(MASQUE)
+			LIB_DBI:Hide(MASQUE)
 			db.hide = true
 		end
 
 		-- Add-On Compartment
 		if WOW_RETAIL then
 			if pos == 2 then
-				LDBI:AddButtonToCompartment(MASQUE)
+				LIB_DBI:AddButtonToCompartment(MASQUE)
 			else
-				LDBI:RemoveButtonFromCompartment(MASQUE)
+				LIB_DBI:RemoveButtonFromCompartment(MASQUE)
 			end
 		end
 

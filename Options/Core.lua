@@ -13,17 +13,18 @@
 local MASQUE, Core = ...
 
 ----------------------------------------
--- Libraries
----
-
-local ACD = LibStub("AceConfigDialog-3.0")
-
-----------------------------------------
 -- WoW API
 ---
 
-local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
-local InterfaceOptionsFrame_Show = InterfaceOptionsFrame_Show
+local InterfaceOptionsFrame_OpenToCategory = _G.InterfaceOptionsFrame_OpenToCategory
+local InterfaceOptionsFrame_Show = _G.InterfaceOptionsFrame_Show
+
+----------------------------------------
+-- Libraries
+---
+
+local LIB_ACD = LibStub("AceConfigDialog-3.0")
+local LIB_ACR = LibStub("AceConfigRegistry-3.0")
 
 ----------------------------------------
 -- Internal
@@ -85,10 +86,10 @@ function Setup.Core(self)
 
 	self.Options = Options
 
-	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable(MASQUE, self.Options)
+	LIB_ACR:RegisterOptionsTable(MASQUE, self.Options)
 
 	local Path = "Core"
-	self:AddOptionsPanel(Path, ACD:AddToBlizOptions(MASQUE, MASQUE, nil, Path))
+	self:AddOptionsPanel(Path, LIB_ACD:AddToBlizOptions(MASQUE, MASQUE, nil, Path))
 
 	OPT_FRAME = CreateFrame("Frame", "MSQ_OPT_FRAME", SettingsPanel or InterfaceOptionsFrame)
 	OPT_FRAME:SetScript("OnShow", function() Setup("LoD") end)
@@ -119,7 +120,11 @@ end
 -- Core
 ---
 
+Core.LIB_ACD = LIB_ACD
+Core.LIB_ACR = LIB_ACR
+
 Core.CRLF = CRLF
+
 Core.Setup = setmetatable(Setup, {
 	__call = function(self, Name, ...)
 		local func = Name and self[Name]
@@ -149,22 +154,22 @@ function Core:ToggleOptions()
 	if Setup.LoD then Setup("LoD") end
 
 	local IOF_Open = InterfaceOptionsFrame and InterfaceOptionsFrame:IsShown()
-	local ACD_Open = ACD.OpenFrames[MASQUE]
+	local ACD_Open = LIB_ACD.OpenFrames[MASQUE]
 
 	-- Toggle the stand-alone GUI if enabled.
 	if self.db.profile.Interface.StandAlone then
 		if IOF_Open then
 			InterfaceOptionsFrame_Show()
 		elseif ACD_Open then
-			ACD:Close(MASQUE)
+			LIB_ACD:Close(MASQUE)
 		else
-			ACD:Open(MASQUE)
-			ACD:SelectGroup(MASQUE, "Skins", "Global")
+			LIB_ACD:Open(MASQUE)
+			LIB_ACD:SelectGroup(MASQUE, "Skins", "Global")
 		end
 	-- Toggle the Interface Options frame.
 	else
 		if ACD_Open then
-			ACD:Close(MASQUE)
+			LIB_ACD:Close(MASQUE)
 		elseif IOF_Open then
 			InterfaceOptionsFrame_Show()
 		else
@@ -185,7 +190,6 @@ end
 -- Utility
 ---
 
-
 -- Returns the 'arg' of an options group.
 function Core.GetArg(Info, ...)
 	return Info.arg
@@ -205,5 +209,5 @@ end
 
 -- Returns stand-alone options status.
 function Core.GetStandAlone()
-	return not ACD.OpenFrames[MASQUE]
+	return not LIB_ACD.OpenFrames[MASQUE]
 end

@@ -16,16 +16,26 @@ local MASQUE, Core = ...
 -- WoW API
 ---
 
-local ReloadUI = ReloadUI
+local ReloadUI = _G.ReloadUI
+
+----------------------------------------
+-- Libraries
+---
+
+local LIB_DBI = Core.LIB_DBI
 
 ----------------------------------------
 -- Internal
 ---
 
--- @ Options\Core
-local Setup = Core.Setup
+-- @ Masque
 local WOW_RETAIL = Core.WOW_RETAIL
-local GetOption, SetOption = Core.GetOption, Core.SetOption
+
+-- @ Core\Groups
+local Groups = Core.Groups
+
+-- @ Options\Core
+local GetOption, SetOption, Setup = Core.GetOption, Core.SetOption, Core.Setup
 
 ----------------------------------------
 -- Locals
@@ -56,6 +66,10 @@ local Effects = {
 		"SPELL_ACTIVATION_OVERLAY_GLOW_SHOW",
 	},
 }
+
+----------------------------------------
+-- Functions
+---
 
 -- Registers/unregisters events that trigger animations.
 local function UpdateEffect(Name, Value)
@@ -168,7 +182,7 @@ function Setup.General(self)
 						},
 						get = function(i) return Core.db.profile.LDB.position end,
 						set = function(i, v) Core:UpdateIconPosition(v) end,
-						disabled = function() return not Core.LDBI end,
+						disabled = function() return not LIB_DBI end,
 					},
 					SPC01 = {
 						type = "description",
@@ -342,7 +356,15 @@ function Setup.General(self)
 						type = "execute",
 						name = L["Clean Database"],
 						desc = L["Click to purge the settings of all unused add-ons and groups."],
-						func = Core.CleanDB,
+						func = function()
+							local db = Core.db.profile.Groups
+
+							for ID in pairs(db) do
+								if not Groups[ID] then
+									db[ID] = nil
+								end
+							end
+						end,
 						order = -1,
 						confirm = true,
 						confirmText = L["This action cannot be undone. Continue?"],
@@ -355,7 +377,7 @@ function Setup.General(self)
 	self.Options.args.General = Options
 
 	local Path = "General"
-	self:AddOptionsPanel(Path, LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["General Settings"], MASQUE, Path))
+	self:AddOptionsPanel(Path, self.LIB_ACD:AddToBlizOptions(MASQUE, L["General Settings"], MASQUE, Path))
 
 	-- GC
 	Setup.General = nil

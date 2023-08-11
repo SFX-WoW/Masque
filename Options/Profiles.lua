@@ -50,15 +50,16 @@ function Setup.Profiles(self)
 	end
 
 	-- LibDualSpec-1.0
-	local LDS = self.USE_LDS and LibStub("LibDualSpec-1.0", true)
-	if LDS then
-		LDS:EnhanceOptions(Options, self.db)
+	local LIB_LDS = self.LIB_LDS
+
+	if LIB_LDS then
+		LIB_LDS:EnhanceOptions(Options, self.db)
 	end
 
 	self.Options.args.Profiles = Options
 
 	local Path = "Profiles"
-	self:AddOptionsPanel(Path, LibStub("AceConfigDialog-3.0"):AddToBlizOptions(MASQUE, L["Profile Settings"], MASQUE, Path))
+	self:AddOptionsPanel(Path, self.LIB_ACD:AddToBlizOptions(MASQUE, L["Profile Settings"], MASQUE, Path))
 
 	-- GC
 	Setup.Profiles = nil
