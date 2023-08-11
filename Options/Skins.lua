@@ -146,7 +146,7 @@ end
 local function GetSorting(Info)
 	local Order
 
-	if Core.db.profile.AltSort then
+	if Core.db.profile.Interface.AltSort then
 		Order = SkinOrder
 	end
 

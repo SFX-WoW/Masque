@@ -148,7 +148,7 @@ end
 -- Sets the button's empty status.
 function Core.API:SetEmpty(Button, IsEmpty)
 	if type(Button) ~= "table" then
-		if Core.db.profile.Debug then
+		if Core.Debug then
 			error("Bad argument to API method 'SetEmpty'. 'Button' must be a button object.", 2)
 		end
 		return

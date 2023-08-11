@@ -44,12 +44,14 @@ local WOW_RETAIL = (WOW_VERSION > 100000 and true) or nil
 -- Utility
 ---
 
--- Function to migrate the DB.
-local function MigrateDB()
+-- Updates saved variables and related settings.
+local function UpdateDB()
 	local db = Core.db.profile
+	local Version = db.API_VERSION
 
+	-- Migrate saved variables for API updates.
 	-- SkinID Migration @ 100002
-	if db.API_VERSION < 100002 then
+	if Version < 100002 then
 		local GetSkinID = Core.GetSkinID
 
 		for _, gDB in pairs(db.Groups) do
@@ -65,6 +67,21 @@ local function MigrateDB()
 				gDB.SkinID = NewID
 			end
 		end
+
+	-- Namespace Migration @ 100105
+	elseif Version < 100105 then
+		db.Developer.Debug = db.Debug
+
+		local Interface = db.Interface
+
+		Interface.AltSort = db.AltSort
+		Interface.SkinInfo = db.SkinInfo
+		Interface.StandAlone = db.StandAlone
+
+		db.AltSort = nil
+		db.Debug = nil
+		db.SkinInfo = nil
+		db.StandAlone = nil
 	end
 
 	-- Update the API version.
@@ -102,7 +119,7 @@ Core.Websites = {
 
 -- Toggles debug mode.
 function Core.ToggleDebug()
-	local db = Core.db.profile
+	local db = Core.db.profile.Developer
 	local Debug = not db.Debug
 
 	db.Debug = Debug
@@ -115,12 +132,17 @@ function Core.ToggleDebug()
 	end
 end
 
--- Updates on profile activity.
+-- Updates settings on profile activity.
 function Core:UpdateProfile()
-	self.Debug = self.db.profile.Debug
+	-- LibDBIcon-1.0
+	local LDBI = LibStub("LibDBIcon-1.0", true)
 
-	-- Profile Migration
-	MigrateDB()
+	if LDBI then
+		LDBI:Refresh(MASQUE, Core.db.profile.LDB)
+	end
+
+	-- Saved Variables
+	UpdateDB()
 
 	-- Skins and Skin Options
 	local Global = self.GetGroup()
@@ -128,11 +150,6 @@ function Core:UpdateProfile()
 
 	-- Info Panel
 	self.Setup("Info")
-
-	local LDBI = LibStub("LibDBIcon-1.0", true)
-	if LDBI then
-		LDBI:Refresh(MASQUE, Core.db.profile.LDB)
-	end
 end
 
 ----------------------------------------
@@ -144,13 +161,12 @@ function Masque:OnInitialize()
 	local Defaults = {
 		profile = {
 			API_VERSION = 0,
-			AltSort = false,
 			CB_Warn = {
 				["*"] = true
 			},
-			Debug = false,
-			SkinInfo = true,
-			StandAlone = true,
+			Developer = {
+				Debug = false,
+			},
 			Groups = {
 				["*"] = {
 					Backdrop = false,
@@ -165,28 +181,37 @@ function Masque:OnInitialize()
 					UseScale = false,
 				},
 			},
+			Interface = {
+				AltSort = false,
+				SkinInfo = true,
+				StandAlone = true,
+			},
 			LDB = {
-				hide = true,
-				minimapPos = 220,
-				position = 0,
+				hide = false,
+				minimapPos = 240,
+				position = 1,
 				radius = 80,
 			},
 		},
 	}
 
+	-- AceDB-3.0
 	local db = LibStub("AceDB-3.0"):New("MasqueDB", Defaults, true)
+
 	db.RegisterCallback(Core, "OnProfileChanged", "UpdateProfile")
 	db.RegisterCallback(Core, "OnProfileCopied", "UpdateProfile")
 	db.RegisterCallback(Core, "OnProfileReset", "UpdateProfile")
+
 	Core.db = db
 
+	-- LibDualSpec-1.0
 	local LDS = (WOW_VERSION > 30000) and LibStub("LibDualSpec-1.0", true)
 
 	if LDS then
 		LDS:EnhanceDatabase(Core.db, MASQUE)
-		Core.USE_LDS = true
 	end
 
+	-- Slash Commands
 	SLASH_MASQUE1 = "/msq"
 	SLASH_MASQUE2 = "/masque"
 
@@ -201,18 +226,20 @@ end
 
 -- PLAYER_LOGIN Event
 function Masque:OnEnable()
-	MigrateDB()
-	Core.Debug = Core.db.profile.Debug
+	-- Saved Variables
+	UpdateDB()
 
+	-- Skin queued groups.
+	if Core.Queue then
+		Core.Queue:ReSkin()
+	end
+
+	-- Core Options
 	local Setup = Core.Setup
 
 	if Setup then
 		Setup("Core")
 		Setup("LDB")
-	end
-
-	if Core.Queue then
-		Core.Queue:ReSkin()
 	end
 end
 

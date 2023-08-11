@@ -24,6 +24,8 @@ local ReloadUI = ReloadUI
 
 -- @ Options\Core
 local Setup = Core.Setup
+local WOW_RETAIL = Core.WOW_RETAIL
+local GetOption, SetOption = Core.GetOption, Core.SetOption
 
 ----------------------------------------
 -- Setup
@@ -64,6 +66,8 @@ function Setup.General(self)
 				name = L["Interface"],
 				desc = Tooltip,
 				order = 2,
+				get = GetOption,
+				set = SetOption,
 				args = {
 					Head = {
 						type = "header",
@@ -78,50 +82,73 @@ function Setup.General(self)
 						order = 1,
 						fontSize = "medium",
 					},
-					Standlone = {
-						type = "toggle",
-						name = L["Stand-Alone GUI"],
-						desc = L["Use a resizable, stand-alone options window."],
-						get = function() return Core.db.profile.StandAlone end,
-						set = function(i, v) Core.db.profile.StandAlone = v end,
-						order = 3,
-					},
-					Sort = {
-						type = "toggle",
-						name = L["Alternate Sorting"],
-						desc = L["Causes the skins included with Masque to be listed above third-party skins."],
-						get = function() return Core.db.profile.AltSort end,
-						set = function(i, v) Core.db.profile.AltSort = v end,
-						order = 4,
-					},
 					Icon = {
 						type = "select",
 						name = L["Menu Icon"],
 						desc = L["Select where Masque's menu icon is displayed."],
+						order = 2,
 						values = {
 							[0] = L["None"],
 							[1] = L["Minimap"],
-							[2] = L["Add-On Compartment"],
+							[2] = (WOW_RETAIL and L["Add-On Compartment"]) or nil,
 						},
-						get = function()
-							return Core.db.profile.LDB.position or 0
-						end,
-						set = function(i, v)
-							local LDBI = Core.LDBI
-							if v == 1 then
-								LDBI:Show(MASQUE)
-								LDBI:RemoveButtonFromCompartment(MASQUE)
-							elseif v == 2 then
-								LDBI:Hide(MASQUE)
-								LDBI:AddButtonToCompartment(MASQUE)
-							else
-								LDBI:Hide(MASQUE)
-								LDBI:RemoveButtonFromCompartment(MASQUE)
-							end
-							Core.db.profile.LDB.position = v
-						end,
-						order = 5,
+						get = function(i) return Core.db.profile.LDB.position end,
+						set = function(i, v) Core:UpdateIconPosition(v) end,
 						disabled = function() return not Core.LDBI end,
+					},
+					SPC01 = {
+						type = "description",
+						name = " ",
+						order = 3,
+					},
+					StandAlone = {
+						type = "toggle",
+						name = L["Stand-Alone GUI"],
+						desc = L["Use a resizable, stand-alone options window."],
+						get = GetOption,
+						set = SetOption,
+						order = 4,
+					},
+					SPC02 = {
+						type = "description",
+						name = " ",
+						order = 5,
+					},
+					AltSort = {
+						type = "toggle",
+						name = L["Alternate Sorting"],
+						desc = L["Causes the skins included with Masque to be listed above third-party skins."],
+						get = GetOption,
+						set = SetOption,
+						order = 6,
+					},
+					SPC03 = {
+						type = "description",
+						name = " ",
+						order = 7,
+					},
+					SkinInfo = {
+						type = "toggle",
+						name = L["Skin Information"],
+						desc = L["Load the skin information panel."]..Reload,
+						order = 8,
+						get = GetOption,
+						set = function(i, v)
+							Core.db.profile.Interface.SkinInfo = v
+							Core.Setup("Info")
+						end,
+					},
+					SPC04 = {
+						type = "description",
+						name = " ",
+						order = 10,
+					},
+					Reload = {
+						type = "execute",
+						name = L["Reload Interface"],
+						desc = L["Click to load reload the interface."],
+						order = -1,
+						func = function() ReloadUI() end,
 					},
 				},
 			},
@@ -173,7 +200,7 @@ function Setup.General(self)
 				type = "group",
 				name = L["Developer"],
 				desc = Tooltip,
-				order = 4,
+				order = 10,
 				args = {
 					Head = {
 						type = "header",
@@ -192,14 +219,14 @@ function Setup.General(self)
 						type = "toggle",
 						name = L["Debug Mode"],
 						desc = L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."],
-						get = function() return Core.db.profile.Debug end,
+						get = GetOption,
 						set = self.ToggleDebug,
-						order = 3,
+						order = 2,
 					},
 					SPC01 = {
 						type = "description",
 						name = " ",
-						--order = 100,
+						order = 10,
 					},
 					Purge = {
 						type = "execute",

@@ -233,7 +233,7 @@ Core.UpdateNormal = UpdateNormal
 -- Retrieves the 'Normal' region of a button.
 function Core.API:GetNormal(Button)
 	if type(Button) ~= "table" then
-		if Core.db.profile.Debug then
+		if Core.Debug then
 			error("Bad argument to API method 'GetNormal'. 'Button' must be a button object.", 2)
 		end
 		return

@@ -18,6 +18,11 @@ local MASQUE, Core = ...
 
 -- @ Options\Core
 local Setup = Core.Setup
+----------------------------------------
+-- Libraries
+---
+
+local LDBI = LibStub("LibDBIcon-1.0", true)
 
 ----------------------------------------
 -- Setup
@@ -48,11 +53,9 @@ function Setup.LDB(self)
 			end,
 		})
 
-		local LDBI = LibStub("LibDBIcon-1.0", true)
-
 		if LDBI then
 			LDBI:Register(MASQUE, self.LDBO, self.db.profile.LDB)
-			self.LDBI = LDBI
+			self.LDBI = true
 		end
 	end
 

@@ -152,7 +152,7 @@ function Core:ToggleOptions()
 	local ACD_Open = ACD.OpenFrames[MASQUE]
 
 	-- Toggle the stand-alone GUI if enabled.
-	if self.db.profile.StandAlone then
+	if self.db.profile.Interface.StandAlone then
 		if IOF_Open then
 			InterfaceOptionsFrame_Show()
 		elseif ACD_Open then
@@ -185,12 +185,25 @@ end
 -- Utility
 ---
 
--- Hides or shows panel titles.
-function Core.GetStandAlone()
-	return not ACD.OpenFrames[MASQUE]
-end
 
 -- Returns the 'arg' of an options group.
 function Core.GetArg(Info, ...)
 	return Info.arg
+end
+
+-- Generic getter function.
+function Core.GetOption(Info)
+	local Parent, Name = Info[#Info-1], Info[#Info]
+	return Core.db.profile[Parent][Name]
+end
+
+-- Generic setter function.
+function Core.SetOption(Info, Value)
+	local Parent, Name = Info[#Info-1], Info[#Info]
+	Core.db.profile[Parent][Name] = Value
+end
+
+-- Returns stand-alone options status.
+function Core.GetStandAlone()
+	return not ACD.OpenFrames[MASQUE]
 end
