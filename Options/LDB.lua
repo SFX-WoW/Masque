@@ -13,6 +13,12 @@
 local MASQUE, Core = ...
 
 ----------------------------------------
+-- WoW API
+---
+
+local InCombatLockdown = _G.InCombatLockdown
+
+----------------------------------------
 -- Libraries
 ---
 
@@ -54,6 +60,10 @@ function Setup.LDB(self)
 				end
 				Tip:AddLine(MASQUE)
 				Tip:AddLine(L["Click to open Masque's settings."], 1, 1, 1)
+				
+				if InCombatLockdown() then
+					Tip:AddLine(L["Unavailable in combat."], 1, 0, 0)
+				end
 			end,
 		})
 

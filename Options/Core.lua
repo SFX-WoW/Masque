@@ -18,6 +18,7 @@ local MASQUE, Core = ...
 
 local InterfaceOptionsFrame_OpenToCategory = _G.InterfaceOptionsFrame_OpenToCategory
 local InterfaceOptionsFrame_Show = _G.InterfaceOptionsFrame_Show
+local InCombatLockdown = _G.InCombatLockdown
 
 ----------------------------------------
 -- Libraries
@@ -152,6 +153,8 @@ end
 -- Toggles the Interface/ACD options frame.
 function Core:ToggleOptions()
 	if Setup.LoD then Setup("LoD") end
+
+	if InCombatLockdown() then return end
 
 	local IOF_Open = InterfaceOptionsFrame and InterfaceOptionsFrame:IsShown()
 	local ACD_Open = LIB_ACD.OpenFrames[MASQUE]
