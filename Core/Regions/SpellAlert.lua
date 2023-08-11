@@ -22,7 +22,7 @@ local error, type = error, type
 -- WoW API
 ---
 
-local C_Timer_After = _G.C_Timer.After
+local ActionButton_HideOverlayGlow, C_Timer_After = _G.ActionButton_HideOverlayGlow, _G.C_Timer.After
 
 ----------------------------------------
 -- Internal
