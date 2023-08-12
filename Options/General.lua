@@ -103,18 +103,6 @@ local function UpdateEffect(Name, Value)
 	end
 end
 
-local function SetEffectOption(Info, Value)
-	local Name = Info[#Info]
-
-	Core.db.profile.Effects[Name] = Value
-
-	if Name ~= "Cooldown" then
-		UpdateEffect(Name, Value)
-	end
-end
-
-Core.UpdateEffect = UpdateEffect
-
 ----------------------------------------
 -- Setup
 ---
@@ -153,9 +141,9 @@ function Setup.General(self)
 				type = "group",
 				name = L["Interface"],
 				desc = Tooltip,
-				order = 2,
 				get = GetOption,
 				set = SetOption,
+				order = 2,
 				args = {
 					Head = {
 						type = "header",
@@ -174,14 +162,14 @@ function Setup.General(self)
 						type = "select",
 						name = L["Menu Icon"],
 						desc = L["Select where Masque's menu icon is displayed."],
-						order = 2,
+						get = function(i) return Core.db.profile.LDB.position end,
+						set = function(i, Value) Core:UpdateIconPosition(Value) end,
 						values = {
 							[0] = L["None"],
 							[1] = L["Minimap"],
 							[2] = (WOW_RETAIL and L["Add-On Compartment"]) or nil,
 						},
-						get = function(i) return Core.db.profile.LDB.position end,
-						set = function(i, v) Core:UpdateIconPosition(v) end,
+						order = 2,
 						disabled = function() return not LIB_DBI end,
 					},
 					SPC01 = {
@@ -193,8 +181,6 @@ function Setup.General(self)
 						type = "toggle",
 						name = L["Stand-Alone GUI"],
 						desc = L["Use a resizable, stand-alone options window."],
-						get = GetOption,
-						set = SetOption,
 						order = 4,
 					},
 					SPC02 = {
@@ -206,8 +192,6 @@ function Setup.General(self)
 						type = "toggle",
 						name = L["Alternate Sorting"],
 						desc = L["Causes the skins included with Masque to be listed above third-party skins."],
-						get = GetOption,
-						set = SetOption,
 						order = 6,
 					},
 					SPC03 = {
@@ -219,12 +203,11 @@ function Setup.General(self)
 						type = "toggle",
 						name = L["Skin Information"],
 						desc = L["Load the skin information panel."]..Reload,
-						order = 8,
-						get = GetOption,
-						set = function(i, v)
-							Core.db.profile.Interface.SkinInfo = v
+						set = function(i, Value)
+							Core.db.profile.Interface.SkinInfo = Value
 							Core.Setup("Info")
 						end,
+						order = 8,
 					},
 					SPC04 = {
 						type = "description",
@@ -234,9 +217,9 @@ function Setup.General(self)
 					Reload = {
 						type = "execute",
 						name = L["Reload Interface"],
-						desc = L["Click to load reload the interface."],
+						desc = L["Click to reload the interface."],
+						func = function(i) ReloadUI() end,
 						order = -1,
-						func = function() ReloadUI() end,
 					},
 				},
 			},
@@ -244,9 +227,17 @@ function Setup.General(self)
 				type = "group",
 				name = L["Advanced"],
 				desc = Tooltip,
-				order = 3,
 				get = GetOption,
-				set = SetEffectOption,
+				set = function(Info, Value)
+					local Name = Info[#Info]
+
+					if Name ~= "Cooldown" then
+						UpdateEffect(Name, Value)
+					end
+
+					Core.db.profile.Effects[Name] = Value
+				end,
+				order = 3,
 				args = {
 					Head = {
 						type = "header",
@@ -287,19 +278,19 @@ function Setup.General(self)
 						type = "description",
 						name = " ",
 						order = 5,
-						hidden = true,
 					},
 					Cooldown = {
 						type = "toggle",
 						name = L["Cooldown Animations"],
 						desc = L["Enable animations when action button cooldowns finish."],
-						hidden = true,
 						order = 6,
+						hidden = true,
 					},
 					SPC03 = {
 						type = "description",
 						name = " ",
 						order = 7,
+						hidden = true,
 					},
 					Interrupt = {
 						type = "toggle",
@@ -315,7 +306,7 @@ function Setup.General(self)
 					Reticle = {
 						type = "toggle",
 						name = L["Targeting Reticles"],
-						desc = L["Eanble targeting reticles on action buttons."],
+						desc = L["Enable targeting reticles on action buttons."],
 						order = 10,
 					},
 				},
@@ -356,7 +347,7 @@ function Setup.General(self)
 						type = "execute",
 						name = L["Clean Database"],
 						desc = L["Click to purge the settings of all unused add-ons and groups."],
-						func = function()
+						func = function(i)
 							local db = Core.db.profile.Groups
 
 							for ID in pairs(db) do
@@ -382,3 +373,9 @@ function Setup.General(self)
 	-- GC
 	Setup.General = nil
 end
+
+----------------------------------------
+-- Core
+---
+
+Core.UpdateEffect = UpdateEffect
