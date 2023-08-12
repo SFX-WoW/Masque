@@ -1,3 +1,14 @@
+## 10.1.5-Beta-3
+
+### Localization
+
+- Updated all localization files:
+
+### Bug Fixes
+
+- Fixed a bug that allowed code for **Retail** to be run in **Classic**, causing an error.
+- Fixed a few typos.
+
 ## 10.1.5-Beta-2
 
 ### Interface
