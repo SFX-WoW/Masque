@@ -32,6 +32,26 @@ L["Supporters"] = "후원자"
 L["You must have an add-on that supports Masque installed to use it."] = "Masque를 사용하려면 Masque를 지원하는 애드온이 설치되어 있어야 합니다."
 
 ----------------------------------------
+-- Advanced Settings
+---
+
+-- L["Advanced"] = "Advanced"
+-- L["Advanced Settings"] = "Advanced Settings"
+-- L["Cast Animations"] = "Cast Animations"
+-- L["Cooldown Animations"] = "Cooldown Animations"
+-- L["Enable animations when action button cooldowns finish."] = "Enable animations when action button cooldowns finish."
+-- L["Enable cast animations on action buttons."] = "Enable cast animations on action buttons."
+-- L["Enable interrupt animations on action buttons."] = "Enable interrupt animations on action buttons."
+-- L["Enable targeting reticles on action buttons."] = "Enable targeting reticles on action buttons."
+-- L["Flash and Loop"] = "Flash and Loop"
+-- L["Interrupt Animations"] = "Interrupt Animations"
+-- L["Loop Only"] = "Loop Only"
+-- L["Select which spell alert animations are enabled."] = "Select which spell alert animations are enabled."
+-- L["Spell Alerts"] = "Spell Alerts"
+-- L["Targeting Reticles"] = "Targeting Reticles"
+-- L["This section will allow you to adjust button settings for the default interface."] = "This section will allow you to adjust button settings for the default interface."
+
+----------------------------------------
 -- Blizzard Classic Skin
 ---
 
@@ -90,18 +110,15 @@ L["This section will allow you to adjust Masque's interface and performance sett
 
 L["Author"] = "제작자"
 L["Authors"] = "제작자"
-L["Click for details."] = "자세한 내용을 보려면 클릭하세요."
 L["Compatible"] = "호환"
 L["Description"] = "설명"
 -- L["Discord"] = "Discord"
-L["Incompatible"] = "호환되지 않음"
 L["Installed Skins"] = "설치된 스킨"
 L["No description available."] = "가능한 설명이 없습니다."
 L["Status"] = "상태"
 L["The status of this skin is unknown."] = "이 스킨의 상태는 알 수 없습니다."
 L["This section provides information on any skins you have installed."] = "여기는 설치한 스킨에 대한 정보를 제공합니다."
 L["This skin is compatible with Masque."] = "이 스킨은 Masque와 호환됩니다."
-L["This skin is outdated and is incompatible with Masque."] = "이 스킨은 구식이며 Masque와 호환되지 않습니다."
 L["This skin is outdated but is still compatible with Masque."] = "이 스킨은 구식이지만 여전히 Masque와 호환됩니다."
 L["Unknown"] = "알 수 없음"
 L["Version"] = "버전"
@@ -115,12 +132,17 @@ L["Websites"] = "웹사이트"
 -- L["Add-On Compartment"] = "Add-On Compartment"
 L["Alternate Sorting"] = "대체 정렬"
 L["Causes the skins included with Masque to be listed above third-party skins."] = "Masque에 포함된 스킨이 타사 스킨 위에 나열되도록 합니다."
+L["Click to reload the interface."] = "인터페이스를 다시 불러오려면 클릭하세요."
 L["Interface"] = "인터페이스"
 L["Interface Settings"] = "인터페이스 설정"
+L["Load the skin information panel."] = "스킨 정보 패널을 불러옵니다."
 -- L["Menu Icon"] = "Menu Icon"
 -- L["Minimap"] = "Minimap"
 -- L["None"] = "None"
+L["Reload Interface"] = "인터페이스 새로 고침"
+L["Requires an interface reload."] = "인터페이스 다시 불러와야 합니다."
 -- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
+L["Skin Information"] = "스킨 정보"
 L["Stand-Alone GUI"] = "독립 실행형 GUI"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "여기는 Masque 인터페이스에 영향을 주는 설정을 조정할 수 있습니다."
 L["Use a resizable, stand-alone options window."] = "크기 조정 가능한 독립 실행형 옵션 창을 사용합니다."
@@ -130,25 +152,13 @@ L["Use a resizable, stand-alone options window."] = "크기 조정 가능한 독
 ---
 
 L["Click to open Masque's settings."] = "클릭으로 Masque 설정을 엽니다."
+-- L["Unavailable in combat."] = "Unavailable in combat."
 
 ----------------------------------------
 -- Modern Enhanced Skin
 ---
 
 L["An enhanced version of the Dragonflight button style."] = "용군단 버튼 스타일의 향상된 버전입니다."
-
-----------------------------------------
--- Performance Settings
----
-
-L["Click to load reload the interface."] = "인터페이스를 다시 불러오려면 클릭하세요."
-L["Load the skin information panel."] = "스킨 정보 패널을 불러옵니다."
-L["Performance"] = "성능"
-L["Performance Settings"] = "성능 설정"
-L["Reload Interface"] = "인터페이스 새로 고침"
-L["Requires an interface reload."] = "인터페이스 다시 불러와야 합니다."
-L["Skin Information"] = "스킨 정보"
-L["This section will allow you to adjust settings that affect Masque's performance."] = "여기는 Masque 성능에 영향을 미치는 설정을 조정할 수 있습니다."
 
 ----------------------------------------
 -- Profile Settings

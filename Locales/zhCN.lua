@@ -32,6 +32,26 @@ L["Select to view."] = "选择来查看。"
 L["You must have an add-on that supports Masque installed to use it."] = "必须安装一个支持 Masque 的插件才能使用。"
 
 ----------------------------------------
+-- Advanced Settings
+---
+
+-- L["Advanced"] = "Advanced"
+-- L["Advanced Settings"] = "Advanced Settings"
+-- L["Cast Animations"] = "Cast Animations"
+-- L["Cooldown Animations"] = "Cooldown Animations"
+-- L["Enable animations when action button cooldowns finish."] = "Enable animations when action button cooldowns finish."
+-- L["Enable cast animations on action buttons."] = "Enable cast animations on action buttons."
+-- L["Enable interrupt animations on action buttons."] = "Enable interrupt animations on action buttons."
+-- L["Enable targeting reticles on action buttons."] = "Enable targeting reticles on action buttons."
+-- L["Flash and Loop"] = "Flash and Loop"
+-- L["Interrupt Animations"] = "Interrupt Animations"
+-- L["Loop Only"] = "Loop Only"
+-- L["Select which spell alert animations are enabled."] = "Select which spell alert animations are enabled."
+-- L["Spell Alerts"] = "Spell Alerts"
+-- L["Targeting Reticles"] = "Targeting Reticles"
+-- L["This section will allow you to adjust button settings for the default interface."] = "This section will allow you to adjust button settings for the default interface."
+
+----------------------------------------
 -- Blizzard Classic Skin
 ---
 
@@ -90,18 +110,15 @@ L["This section will allow you to adjust Masque's interface and performance sett
 
 L["Author"] = "作者"
 L["Authors"] = "作者"
-L["Click for details."] = "点击查看更多信息。"
 L["Compatible"] = "兼容"
 L["Description"] = "描述"
 -- L["Discord"] = "Discord"
-L["Incompatible"] = "不兼容"
 L["Installed Skins"] = "已安装皮肤"
 L["No description available."] = "没有可用的描述。"
 L["Status"] = "状态"
 L["The status of this skin is unknown."] = "此皮肤的状态未知。"
 L["This section provides information on any skins you have installed."] = "此部分提供所有已安装皮肤的信息。"
 L["This skin is compatible with Masque."] = "此皮肤与 Masque 兼容。"
-L["This skin is outdated and is incompatible with Masque."] = "此皮肤已过期并且与 Masque 不兼容。"
 L["This skin is outdated but is still compatible with Masque."] = "此皮肤已过期但仍与 Masque 兼容。"
 L["Unknown"] = "未知"
 L["Version"] = "版本"
@@ -115,12 +132,17 @@ L["Websites"] = "网站"
 -- L["Add-On Compartment"] = "Add-On Compartment"
 -- L["Alternate Sorting"] = "Alternate Sorting"
 -- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
+L["Click to reload the interface."] = "点击重载界面。"
 L["Interface"] = "界面"
 L["Interface Settings"] = "界面设置"
+L["Load the skin information panel."] = "载入这个皮肤信息面板。"
 -- L["Menu Icon"] = "Menu Icon"
 -- L["Minimap"] = "Minimap"
 -- L["None"] = "None"
+L["Reload Interface"] = "重载界面"
+L["Requires an interface reload."] = "需要重载当前界面。"
 -- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
+L["Skin Information"] = "皮肤信息"
 L["Stand-Alone GUI"] = "独立用户界面"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "此部分将允许调整影响 Masque 界面的设置。"
 L["Use a resizable, stand-alone options window."] = "使用可调整大小的独立选项窗口。"
@@ -130,25 +152,13 @@ L["Use a resizable, stand-alone options window."] = "使用可调整大小的独
 ---
 
 L["Click to open Masque's settings."] = "点击打开 Masque 设置。"
+-- L["Unavailable in combat."] = "Unavailable in combat."
 
 ----------------------------------------
 -- Modern Enhanced Skin
 ---
 
 -- L["An enhanced version of the Dragonflight button style."] = "An enhanced version of the Dragonflight button style."
-
-----------------------------------------
--- Performance Settings
----
-
-L["Click to load reload the interface."] = "点击重载界面。"
-L["Load the skin information panel."] = "载入这个皮肤信息面板。"
-L["Performance"] = "性能"
-L["Performance Settings"] = "性能设置"
-L["Reload Interface"] = "重载界面"
-L["Requires an interface reload."] = "需要重载当前界面。"
-L["Skin Information"] = "皮肤信息"
-L["This section will allow you to adjust settings that affect Masque's performance."] = "此部分将允许调整影响 Masque 性能的设置。"
 
 ----------------------------------------
 -- Profile Settings

@@ -32,6 +32,26 @@ L["Supporters"] = "Поддержка"
 L["You must have an add-on that supports Masque installed to use it."] = "У Вас должны быть установлены аддоны, поддерживающие Masque"
 
 ----------------------------------------
+-- Advanced Settings
+---
+
+-- L["Advanced"] = "Advanced"
+-- L["Advanced Settings"] = "Advanced Settings"
+-- L["Cast Animations"] = "Cast Animations"
+-- L["Cooldown Animations"] = "Cooldown Animations"
+-- L["Enable animations when action button cooldowns finish."] = "Enable animations when action button cooldowns finish."
+-- L["Enable cast animations on action buttons."] = "Enable cast animations on action buttons."
+-- L["Enable interrupt animations on action buttons."] = "Enable interrupt animations on action buttons."
+-- L["Enable targeting reticles on action buttons."] = "Enable targeting reticles on action buttons."
+-- L["Flash and Loop"] = "Flash and Loop"
+-- L["Interrupt Animations"] = "Interrupt Animations"
+-- L["Loop Only"] = "Loop Only"
+-- L["Select which spell alert animations are enabled."] = "Select which spell alert animations are enabled."
+-- L["Spell Alerts"] = "Spell Alerts"
+-- L["Targeting Reticles"] = "Targeting Reticles"
+-- L["This section will allow you to adjust button settings for the default interface."] = "This section will allow you to adjust button settings for the default interface."
+
+----------------------------------------
 -- Blizzard Classic Skin
 ---
 
@@ -90,18 +110,15 @@ L["This section will allow you to adjust Masque's interface and performance sett
 
 L["Author"] = "Автор"
 L["Authors"] = "Авторы"
-L["Click for details."] = "Нажмите для подробностей."
 L["Compatible"] = "Совместим"
 L["Description"] = "Описание"
 -- L["Discord"] = "Discord"
-L["Incompatible"] = "Несовместим"
 L["Installed Skins"] = "Установленные скины"
 L["No description available."] = "Нет описания."
 L["Status"] = "Статус"
 L["The status of this skin is unknown."] = "Статус скина неизвестен."
 L["This section provides information on any skins you have installed."] = "В этом разделе показана информация об установленных скинах."
 L["This skin is compatible with Masque."] = "Скин совместим с Masque."
-L["This skin is outdated and is incompatible with Masque."] = "Скин устарел и несовместим с Masque."
 L["This skin is outdated but is still compatible with Masque."] = "Скин устарел, но всё ещё совместим с Masque."
 L["Unknown"] = "Неизвестно"
 L["Version"] = "Версия"
@@ -115,12 +132,17 @@ L["Websites"] = "Сайты"
 -- L["Add-On Compartment"] = "Add-On Compartment"
 L["Alternate Sorting"] = "Альтернативная сортировка"
 L["Causes the skins included with Masque to be listed above third-party skins."] = "Приводит к тому, что скины, включенные в Masque, будут в списке выше сторонних скинов."
+L["Click to reload the interface."] = "Нажмите для перезагрузки интерфейса."
 L["Interface"] = "Интерфейс"
 L["Interface Settings"] = "Настройки интерфейса"
+L["Load the skin information panel."] = "Загрузить информационную панель скинов."
 -- L["Menu Icon"] = "Menu Icon"
 -- L["Minimap"] = "Minimap"
 -- L["None"] = "None"
+L["Reload Interface"] = "Перезагрузить интерфейс"
+L["Requires an interface reload."] = "Требует перезагрузки интерфейса"
 -- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
+L["Skin Information"] = "Информация о скинах"
 L["Stand-Alone GUI"] = "Внешний фрейм настроек"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "Этот раздел позволяет настраивать то, как Masque влияет на интерфейс."
 L["Use a resizable, stand-alone options window."] = "Использовать отдельное окно настроек."
@@ -130,25 +152,13 @@ L["Use a resizable, stand-alone options window."] = "Использовать о
 ---
 
 L["Click to open Masque's settings."] = "Нажмите для открытия настроек Masque."
+-- L["Unavailable in combat."] = "Unavailable in combat."
 
 ----------------------------------------
 -- Modern Enhanced Skin
 ---
 
 -- L["An enhanced version of the Dragonflight button style."] = "An enhanced version of the Dragonflight button style."
-
-----------------------------------------
--- Performance Settings
----
-
-L["Click to load reload the interface."] = "Нажмите для перезагрузки интерфейса."
-L["Load the skin information panel."] = "Загрузить информационную панель скинов."
-L["Performance"] = "Производительность"
-L["Performance Settings"] = "Настройки производительности"
-L["Reload Interface"] = "Перезагрузить интерфейс"
-L["Requires an interface reload."] = "Требует перезагрузки интерфейса"
-L["Skin Information"] = "Информация о скинах"
-L["This section will allow you to adjust settings that affect Masque's performance."] = "Этот раздел позволяет настраивать то, как Masque влияет на производительность."
 
 ----------------------------------------
 -- Profile Settings
