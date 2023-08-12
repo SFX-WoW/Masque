@@ -91,21 +91,20 @@ local function UpdateDB()
 		db.StandAlone = nil
 	end
 
-	-- Update the API version.
 	db.API_VERSION = API_VERSION
 
-	-- Animations
-	local UpdateEffect = Core.UpdateEffect
-
-	for k, v in pairs(db.Effects) do
-		UpdateEffect(k, v)
-	end
-
-	-- Icon
+	-- Refresh Settings
 	Core:UpdateIconPosition()
-
-	-- Debug
 	Core.Debug = db.Developer.Debug
+
+	-- Animations
+	if WOW_RETAIL then
+		local UpdateEffect = Core.UpdateEffect
+
+		for k, v in pairs(db.Effects) do
+			UpdateEffect(k, v)
+		end
+	end
 end
 
 ----------------------------------------
@@ -215,7 +214,7 @@ function Masque:OnInitialize()
 			},
 			Effects = {
 				Castbar = true,
-				--Cooldown = true, -- Disabled by Blizzard
+				-- Cooldown = true, -- Disabled by Blizzard
 				Interrupt = true,
 				Reticle = true,
 				SpellAlert = 1,
