@@ -144,6 +144,7 @@ local function SkinSpellAlert(Region, Button, Skin, xScale, yScale)
 	end
 
 	Region.__MSQ_Skin = Skin or true
+	Region.__MSQ_Scale = Button.__MSQ_Scale
 end
 
 ----------------------------------------
@@ -163,10 +164,11 @@ local function UpdateSpellAlert(Button)
 
 	-- New Style
 	if Flash then
+		local Scale = Button.__MSQ_Scale
 		local Active = Region.__MSQ_Skin
 
 		-- Update the skin if necessary.
-		if not Active or (Active ~= Skin) then 
+		if not Active or (Active ~= Skin) or (Scale ~= Region.__MSQ_Scale) then 
 			SkinSpellAlert(Region, Button, Skin, GetScale(Button))
 		end
 
