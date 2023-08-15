@@ -104,19 +104,17 @@ local function SkinSpellAlert(Region, Button, Skin, xScale, yScale)
 			Start_Flipbook:SetTexture(Start_Texture)
 			Start_Flipbook:SetTexCoord(GetTexCoords(Start_Skin.TexCoords))
 
-			-- Set the start texture size, relative to the button size.
-			local Scale_Width, Scale_Height = Button:GetSize()
-
-			local Width = 160 * (Skin_Width / (Scale_Width * 1.4))
-			local Height = 160 * (Skin_Height / (Scale_Height * 1.4))
-
-			Start_Flipbook:SetSize(Width, Height)
-
 		-- Default
 		else
 			Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
-			Start_Flipbook:SetSize(160, 160)
 		end
+
+		-- Set the start texture size, relative to the button size.
+		local Scale_Width, Scale_Height = Button:GetSize()
+		local Width = 160 * (Skin_Width / (Scale_Width * 1.4))
+		local Height = 160 * (Skin_Height / (Scale_Height * 1.4))
+
+		Start_Flipbook:SetSize(Width, Height)
 
 		-- [ Loop Animation ]
 		local Loop_Skin = Skin.Loop
