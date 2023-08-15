@@ -30,7 +30,7 @@ local hooksecurefunc = _G.hooksecurefunc
 -- Internal
 ---
 
--- @ Skins\Default
+-- @ Skins\Blizzard_*
 local Default = Core.DEFAULT_SKIN.Cooldown
 
 -- @ Core\Utility

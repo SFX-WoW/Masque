@@ -19,10 +19,14 @@ local _, Core = ...
 local type = type
 
 ----------------------------------------
--- locals
+-- Internal
 ---
 
-local ActionTypes, WOW_RETAIL = Core.ActionTypes, Core.WOW_RETAIL
+-- @ Masque
+local WOW_RETAIL = Core.WOW_RETAIL
+
+-- @ Skins\Regions
+local ActionTypes = Core.ActionTypes
 
 ----------------------------------------
 -- Functions

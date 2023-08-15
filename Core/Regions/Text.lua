@@ -18,7 +18,7 @@ local _, Core = ...
 -- Internal
 ---
 
--- @ Skins\Default
+-- @ Skins\Blizzard_*
 local Defaults = Core.DEFAULT_SKIN
 
 -- @ Core\Utility
@@ -43,5 +43,6 @@ function Core.SkinText(Layer, Region, Button, Skin, xScale, yScale)
 	Region:SetWordWrap(Wrap)
 	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
 	Region:SetSize(GetSize(Skin.Width or 36, Skin.Height or 0, xScale, yScale, Button))
+
 	SetPoints(Region, Button, Skin, Default)
 end

@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local concat, tostring = table.concat, tostring
+local table_concat, tostring = table.concat, tostring
 
 ----------------------------------------
 -- Internal
@@ -189,7 +189,7 @@ function Setup.About(self)
 	args.Supporters = {
 		type = "input",
 		name = L["Supporters"],
-		arg  = concat(Supporters, ", "),
+		arg  = table_concat(Supporters, ", "),
 		order = Order,
 		disabled = true,
 		dialogControl = "SFX-Info",

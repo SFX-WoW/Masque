@@ -18,7 +18,7 @@ local _, Core = ...
 -- Internal
 ---
 
--- @ Skins\Default
+-- @ Skins\Blizzard_*
 local Defaults = Core.DEFAULT_SKIN
 
 -- @ Skins\Regions
@@ -144,6 +144,7 @@ function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 	end
 
 	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default.SetAllPoints)
+
 	SetPoints(Region, Button, Skin, Default, SetAllPoints)
 
 	-- Mask

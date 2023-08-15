@@ -24,7 +24,7 @@ local error, type = error, type
 -- Internal
 ---
 
--- @ Skins\Default
+-- @ Skins\Blizzard_*
 local Default = Core.DEFAULT_SKIN.Backdrop
 
 -- @ Core\Utility

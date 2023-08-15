@@ -24,7 +24,7 @@ local hooksecurefunc = _G.hooksecurefunc
 -- Internal
 ---
 
--- @ Skins\Default
+-- @ Skins\Blizzard_*
 local Default = Core.DEFAULT_SKIN.QuestBorder
 
 -- @ Core\Utility
@@ -91,6 +91,7 @@ function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	if not Region.__MSQ_Hooked then

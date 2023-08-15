@@ -73,6 +73,7 @@ local function AddGloss(Button, Skin, Color, xScale, yScale)
 	Region:SetVertexColor(GetColor(Color or Skin.Color))
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
+
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	if Button.__MSQ_Empty then

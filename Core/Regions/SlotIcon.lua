@@ -55,6 +55,7 @@ local function AddSlotIcon(Button, Skin, xScale, yScale)
 	Region:SetVertexColor(GetColor(Skin.Color))
 	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+
 	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
 	SkinMask(Region, Button, Skin, xScale, yScale)
 end

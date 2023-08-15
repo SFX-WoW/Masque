@@ -25,7 +25,7 @@ local error, pairs, select, type = error, pairs, select, type
 -- @ Skins\Skins
 local Skins = Core.Skins
 
--- @ Skins\Blizzard(_Classic)
+-- @ Skins\Blizzard_*
 local DEFAULT_SKIN = Core.DEFAULT_SKIN
 
 -- @ Skins\Regions

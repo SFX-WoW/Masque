@@ -31,7 +31,7 @@ local ContainerFrame_GetContainerNumSlots, hooksecurefunc = _G.ContainerFrame_Ge
 -- @ Masque
 local WOW_RETAIL = Core.WOW_RETAIL
 
--- @ Skins\Blizzard(_Classic)
+-- @ Skins\Blizzard_*
 local DEFAULT_SKIN = Core.DEFAULT_SKIN
 
 -- @ Skins\Skins

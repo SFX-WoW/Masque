@@ -16,8 +16,8 @@ local _, Core = ...
 -- Lua API
 ---
 
-local error, setmetatable, t_insert = error, setmetatable, table.insert
-local t_sort, type = table.sort, type
+local error, setmetatable, table_insert = error, setmetatable, table.insert
+local table_sort, type = table.sort, type
 
 ----------------------------------------
 -- Internal
@@ -97,7 +97,7 @@ end
 
 -- Sorts the `SkinOrder` table, for display in drop-downs.
 local function SortSkins()
-	t_sort(AddedSkins)
+	table_sort(AddedSkins)
 
 	local c = #BaseSkins
 
@@ -152,10 +152,10 @@ local function AddSkin(SkinID, SkinData, Base)
 
 	if not SkinData.Disable then
 		if Base then
-			t_insert(BaseSkins, SkinID)
-			t_insert(SkinOrder, SkinID)
+			table_insert(BaseSkins, SkinID)
+			table_insert(SkinOrder, SkinID)
 		else
-			t_insert(AddedSkins, SkinID)
+			table_insert(AddedSkins, SkinID)
 			SortSkins()
 		end
 

@@ -22,6 +22,7 @@ local _G, type = _G, type
 -- Internal
 ---
 
+-- @ Skins\Regions
 local BaseTypes, RegTypes = Core.BaseTypes, Core.RegTypes
 
 ----------------------------------------
