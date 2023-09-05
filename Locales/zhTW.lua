@@ -35,21 +35,21 @@ L["You must have an add-on that supports Masque installed to use it."] = "必須
 -- Advanced Settings
 ---
 
--- L["Advanced"] = "Advanced"
--- L["Advanced Settings"] = "Advanced Settings"
--- L["Cast Animations"] = "Cast Animations"
--- L["Cooldown Animations"] = "Cooldown Animations"
--- L["Enable animations when action button cooldowns finish."] = "Enable animations when action button cooldowns finish."
--- L["Enable cast animations on action buttons."] = "Enable cast animations on action buttons."
--- L["Enable interrupt animations on action buttons."] = "Enable interrupt animations on action buttons."
--- L["Enable targeting reticles on action buttons."] = "Enable targeting reticles on action buttons."
--- L["Flash and Loop"] = "Flash and Loop"
--- L["Interrupt Animations"] = "Interrupt Animations"
--- L["Loop Only"] = "Loop Only"
--- L["Select which spell alert animations are enabled."] = "Select which spell alert animations are enabled."
--- L["Spell Alerts"] = "Spell Alerts"
--- L["Targeting Reticles"] = "Targeting Reticles"
--- L["This section will allow you to adjust button settings for the default interface."] = "This section will allow you to adjust button settings for the default interface."
+L["Advanced"] = "進階"
+L["Advanced Settings"] = "進階設定"
+L["Cast Animations"] = "施法動畫"
+L["Cooldown Animations"] = "冷卻動畫"
+L["Enable animations when action button cooldowns finish."] = "啟用冷卻完成動畫"
+L["Enable cast animations on action buttons."] = "啟用施法動畫"
+L["Enable interrupt animations on action buttons."] = "啟用斷法動畫"
+L["Enable targeting reticles on action buttons."] = "啟用瞄準線"
+L["Flash and Loop"] = "閃光並循環"
+L["Interrupt Animations"] = "斷法動畫"
+L["Loop Only"] = "只循環"
+L["Select which spell alert animations are enabled."] = "選擇要使用哪種提醒動畫效果。"
+L["Spell Alerts"] = "法術提醒"
+L["Targeting Reticles"] = "瞄準線"
+L["This section will allow you to adjust button settings for the default interface."] = "這裡可以調整預設介面的按鈕設定。"
 
 ----------------------------------------
 -- Blizzard Classic Skin
@@ -152,7 +152,7 @@ L["Use a resizable, stand-alone options window."] = "使用可調整大小的獨
 ---
 
 L["Click to open Masque's settings."] = "點一下開啟按鈕外觀的設定選項。"
--- L["Unavailable in combat."] = "Unavailable in combat."
+L["Unavailable in combat."] = "戰鬥中無法使用。"
 
 ----------------------------------------
 -- Modern Enhanced Skin
