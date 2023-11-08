@@ -1,13 +1,14 @@
-## 10.1.7
+## 10.2.0
 
 ### General
 
-- Updated the `Interface` version for **Retail** to `100107`. (#341)
-- Updated the `Interface` version for **Classic** to `11404`. (#340)
+- Increased the quality of the `Edge` textures. (#347)
+- Updated the `Interface` version for **Retail** to `100200`. (#346)
+- Updated the `Interface` version for **Wrath Classic** to `30403`. (#345)
 
-### Localization
+### Skins
 
-- Updated `zhTW`. (RainbowUI) (#342)
+- The **Blizzard Modern** and **Modern Enhanced** skins now use the new `Cooldown` Edge textures implemented in 10.2.0. (#347)
 
 ### Notice for Dragonflight
 
