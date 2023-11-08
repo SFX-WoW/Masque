@@ -30,6 +30,8 @@ local hooksecurefunc = _G.hooksecurefunc
 -- Internal
 ---
 
+local WOW_RETAIL = Core.WOW_RETAIL
+
 -- @ Skins\Blizzard_*
 local Default = Core.DEFAULT_SKIN.Cooldown
 
@@ -45,8 +47,8 @@ local SkinFrame = Core.SkinFrame
 
 local DEF_COLOR = Default.Color
 local DEF_PULSE = [[Interface\Cooldown\star4]]
-local DEF_EDGE = [[Interface\Cooldown\edge]]
-local DEF_EDGE_LOC = [[Interface\Cooldown\edge-LoC]]
+local DEF_EDGE = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]]) or [[Interface\Cooldown\edge]]
+local DEF_EDGE_LOC = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-LoC]]) or [[Interface\Cooldown\edge-LoC]]
 
 local MSQ_EDGE = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]]
 local MSQ_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Cooldown\Edge-LoC]]

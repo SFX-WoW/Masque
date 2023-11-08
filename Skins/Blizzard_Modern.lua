@@ -862,7 +862,7 @@ local Skin = {
 	},
 	Cooldown = {
 		Texture = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe-Modern]],
-		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
+		EdgeTexture = [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 31.5,
@@ -875,7 +875,7 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = {
-		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
+		EdgeTexture = [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Width = 31,
 		Height = 31,
