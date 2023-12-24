@@ -1,4 +1,4 @@
-Copyright (c) 2008 JJSheets, 2009-2023 StormFX. All rights reserved.
+Copyright (c) 2008 JJSheets, 2009-2024 StormFX. All rights reserved.
 
 The contents of this software (the "add-on"), excluding third-party resources,
 fall under the aforementioned copyright. The author(s) of this add-on hereby grant
