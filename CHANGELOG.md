@@ -1,17 +1,13 @@
-## 10.2.0
+## 10.2.1
 
 ### General
 
-- Increased the quality of the `Edge` textures. (#347)
-- Updated the `Interface` version for **Retail** to `100200`. (#346)
-- Updated the `Interface` version for **Wrath Classic** to `30403`. (#345)
+- Updated the `Interface` version for **Classic Era** to `11500`. (#350)
+- Updated the `AddonCompartment` logic to test against the existence of the `AddonCompartmentFrame` instead of the game flavor for the sake of future-proofing. (#352)
+- Updated the options panel logic to use the `SettingsPanel` API now that it's available in all flavors. (#351)
 
 ### Skins
 
-- The **Blizzard Modern** and **Modern Enhanced** skins now use the new `Cooldown` Edge textures implemented in 10.2.0. (#347)
-
-### Notice for Dragonflight
-
-Due to the addition of some new animations, it will take some time before alternatives are available for non-square skins. For the time being, users are encouraged to use a square skin (Eg, **Modern**/**Modern Enhanced**).
+- Made some minor adjustments to `HotKey` widths.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
