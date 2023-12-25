@@ -16,8 +16,6 @@ local MASQUE, Core = ...
 -- WoW API
 ---
 
-local InterfaceOptionsFrame_OpenToCategory = _G.InterfaceOptionsFrame_OpenToCategory
-local InterfaceOptionsFrame_Show = _G.InterfaceOptionsFrame_Show
 local InCombatLockdown = _G.InCombatLockdown
 
 ----------------------------------------
@@ -26,13 +24,6 @@ local InCombatLockdown = _G.InCombatLockdown
 
 local LIB_ACD = LibStub("AceConfigDialog-3.0")
 local LIB_ACR = LibStub("AceConfigRegistry-3.0")
-
-----------------------------------------
--- Internal
----
-
--- @ Masque
-local WOW_RETAIL = Core.WOW_RETAIL
 
 ----------------------------------------
 -- Locals
@@ -156,35 +147,28 @@ function Core:ToggleOptions()
 
 	if InCombatLockdown() then return end
 
-	local IOF_Open = InterfaceOptionsFrame and InterfaceOptionsFrame:IsShown()
-	local ACD_Open = LIB_ACD.OpenFrames[MASQUE]
-
-	-- Toggle the stand-alone GUI if enabled.
 	if self.db.profile.Interface.StandAlone then
-		if IOF_Open then
-			InterfaceOptionsFrame_Show()
-		elseif ACD_Open then
+		if SettingsPanel:IsShown() then
+			HideUIPanel(GameMenuFrame)
+			HideUIPanel(SettingsPanel)
+		end
+
+		if LIB_ACD.OpenFrames[MASQUE] then
 			LIB_ACD:Close(MASQUE)
 		else
 			LIB_ACD:Open(MASQUE)
 			LIB_ACD:SelectGroup(MASQUE, "Skins", "Global")
 		end
-	-- Toggle the Interface Options frame.
 	else
-		if ACD_Open then
+		if LIB_ACD.OpenFrames[MASQUE] then
 			LIB_ACD:Close(MASQUE)
-		elseif IOF_Open then
-			InterfaceOptionsFrame_Show()
-		else
-			if WOW_RETAIL then
-				SettingsPanel:OpenToCategory(self.OptionsPanels.Core)
-			else
-				local Frames = self.OptionsPanels.Frames
+		end
 
-				-- Call twice to make sure the IOF opens to the proper category.
-				InterfaceOptionsFrame_OpenToCategory(Frames.Core)
-				InterfaceOptionsFrame_OpenToCategory(Frames.Skins)
-			end
+		if SettingsPanel:IsShown() then
+			HideUIPanel(GameMenuFrame)
+			HideUIPanel(SettingsPanel)
+		else
+			SettingsPanel:OpenToCategory(self.OptionsPanels.Core)
 		end
 	end
 end
