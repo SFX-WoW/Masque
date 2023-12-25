@@ -16,6 +16,7 @@ local MASQUE, Core = ...
 -- WoW API
 ---
 
+local AOC_FRAME = AddonCompartmentFrame
 local InCombatLockdown = _G.InCombatLockdown
 
 ----------------------------------------
@@ -27,9 +28,6 @@ local LIB_DBI = Core.LIB_DBI
 ----------------------------------------
 -- Internal
 ---
-
--- @ Masque
-local WOW_RETAIL = Core.WOW_RETAIL
 
 -- @ Options\Core
 local Setup = Core.Setup
@@ -96,7 +94,7 @@ function Core:UpdateIconPosition(Position)
 		end
 
 		-- Add-On Compartment
-		if WOW_RETAIL then
+		if AOC_FRAME then
 			if pos == 2 then
 				LIB_DBI:AddButtonToCompartment(MASQUE)
 			else

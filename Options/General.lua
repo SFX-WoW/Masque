@@ -167,7 +167,7 @@ function Setup.General(self)
 						values = {
 							[0] = L["None"],
 							[1] = L["Minimap"],
-							[2] = (WOW_RETAIL and L["Add-On Compartment"]) or nil,
+							[2] = (AddonCompartmentFrame and L["Add-On Compartment"]) or nil,
 						},
 						order = 2,
 						disabled = function() return not LIB_DBI end,
