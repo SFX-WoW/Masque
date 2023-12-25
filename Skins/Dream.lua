@@ -111,7 +111,7 @@ Core.AddSkin("Dream", {
 		JustifyH = "RIGHT",
 		JustifyV = "MIDDLE",
 		DrawLayer = "OVERLAY",
-		Width = 36,
+		Width = 32,
 		Height = 0,
 		Anchor = "Icon",
 		Point = "TOPRIGHT",
