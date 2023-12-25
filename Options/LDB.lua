@@ -17,7 +17,7 @@ local MASQUE, Core = ...
 ---
 
 local AOC_FRAME = AddonCompartmentFrame
-local InCombatLockdown = _G.InCombatLockdown
+local InCombatLockdown = InCombatLockdown
 
 ----------------------------------------
 -- Libraries
@@ -47,6 +47,7 @@ function Setup.LDB(self)
 			type  = "launcher",
 			label = MASQUE,
 			icon  = "Interface\\Addons\\Masque\\Textures\\LDB",
+			tocname = MASQUE, -- Required by Diagnostics
 			OnClick = function(Tip, Button)
 				if Button == "LeftButton" or Button == "RightButton" then
 					Core:ToggleOptions()
@@ -58,7 +59,7 @@ function Setup.LDB(self)
 				end
 				Tip:AddLine(MASQUE)
 				Tip:AddLine(L["Click to open Masque's settings."], 1, 1, 1)
-				
+
 				if InCombatLockdown() then
 					Tip:AddLine(L["Unavailable in combat."], 1, 0, 0)
 				end

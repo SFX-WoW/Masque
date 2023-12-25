@@ -24,7 +24,7 @@ local error, type = error, type
 -- WoW API
 ---
 
-local hooksecurefunc, random = _G.hooksecurefunc, _G.random
+local hooksecurefunc, random = hooksecurefunc, random
 
 ----------------------------------------
 -- Internal

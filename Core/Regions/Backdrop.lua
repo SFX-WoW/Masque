@@ -91,7 +91,7 @@ local function AddBackdrop(Region, Button, Skin, Color, xScale, yScale)
 
 	Region:SetParent(Button)
 	Color = Color or Skin.Color
-	
+
 	local Atlas = Skin.Atlas
 	local UseAtlasSize = Skin.UseAtlasSize
 

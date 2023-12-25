@@ -22,7 +22,7 @@ local pairs, type = pairs, type
 -- WoW API
 ---
 
-local ContainerFrame_GetContainerNumSlots, hooksecurefunc = _G.ContainerFrame_GetContainerNumSlots, _G.hooksecurefunc
+local ContainerFrame_GetContainerNumSlots, hooksecurefunc = ContainerFrame_GetContainerNumSlots, hooksecurefunc
 
 ----------------------------------------
 -- Internal

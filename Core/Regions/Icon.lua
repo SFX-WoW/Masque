@@ -24,7 +24,7 @@ local error, type = error, type
 -- WoW API
 ---
 
-local hooksecurefunc = _G.hooksecurefunc
+local hooksecurefunc = hooksecurefunc
 
 ----------------------------------------
 -- Internal
@@ -75,7 +75,7 @@ local IconHook = {
 	Pet = true,
 }
 
--- We don't need to hook these in Retail. 
+-- We don't need to hook these in Retail.
 -- @ Core\Button Hooks
 if not Core.WOW_RETAIL then
 	IconHook.BagSlot = true

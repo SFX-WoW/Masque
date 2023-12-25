@@ -32,16 +32,13 @@ local DEFAULT_SKIN = Core.DEFAULT_SKIN
 local ActionTypes, RegTypes = Core.ActionTypes, Core.RegTypes
 
 -- @ Core\Utility
-local GetColor, GetScale, NoOp = Core.GetColor, Core.GetScale, Core.NoOp
+local GetColor, GetScale = Core.GetColor, Core.GetScale
 
 -- @ Core\Core
 local GetRegion, GetType = Core.GetRegion, Core.GetType
 
 -- @ Core\Button
 local SkinButton = Core.SkinButton
-
--- @ Core\Callback
-local Callback = Core.Callback
 
 -- @ Core\Regions\*
 local SetPulse, SetTextureColor = Core.SetPulse, Core.SetTextureColor
@@ -486,7 +483,7 @@ function GMT:__Update(IsNew)
 		if db.Inherit then
 			local Options = {"SkinID", "Backdrop", "Shadow", "Gloss", "Pulse", "Scale", "UseScale"}
 
-			for i, v in ipairs(Options) do
+			for _, v in ipairs(Options) do
 				db[v] = p_db[v]
 			end
 
@@ -550,7 +547,7 @@ end
 ---
 
 -- Temporary function to catch add-ons using deprecated API.
-function GMT:SetCallback(...)
+function GMT:SetCallback()
 	if self.ID == MASQUE then return end
 
 	local Warn = Core.db.profile.CB_Warn

@@ -16,7 +16,7 @@ local MASQUE, Core = ...
 -- WoW API
 ---
 
-local InCombatLockdown = _G.InCombatLockdown
+local InCombatLockdown = InCombatLockdown
 
 ----------------------------------------
 -- Libraries
@@ -29,11 +29,11 @@ local LIB_ACR = LibStub("AceConfigRegistry-3.0")
 -- Locals
 ---
 
--- Necessary for consistency across clients.
+-- Empty lines need a space.
 local CRLF = "\n "
 
--- Loader Frame
-local OPT_FRAME
+-- Options Loader Frame
+local OPT_LDR_FRAME
 
 ----------------------------------------
 -- Setup
@@ -83,8 +83,8 @@ function Setup.Core(self)
 	local Path = "Core"
 	self:AddOptionsPanel(Path, LIB_ACD:AddToBlizOptions(MASQUE, MASQUE, nil, Path))
 
-	OPT_FRAME = CreateFrame("Frame", "MSQ_OPT_FRAME", SettingsPanel or InterfaceOptionsFrame)
-	OPT_FRAME:SetScript("OnShow", function() Setup("LoD") end)
+	OPT_LDR_FRAME = CreateFrame("Frame", "MSQ_LDR_FRAME", SettingsPanel)
+	OPT_LDR_FRAME:SetScript("OnShow", function() Setup("LoD") end)
 
 	-- GC
 	Setup.Core = nil
@@ -101,8 +101,8 @@ function Setup.LoD(self)
 	Setup("Profiles")
 
 	-- GC
-	if OPT_FRAME then
-		OPT_FRAME:SetScript("OnShow", nil)
+	if OPT_LDR_FRAME then
+		OPT_LDR_FRAME:SetScript("OnShow", nil)
 	end
 
 	Setup.LoD = nil

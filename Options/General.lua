@@ -16,7 +16,7 @@ local MASQUE, Core = ...
 -- WoW API
 ---
 
-local ReloadUI = _G.ReloadUI
+local ReloadUI = ReloadUI
 
 ----------------------------------------
 -- Libraries
@@ -27,9 +27,6 @@ local LIB_DBI = Core.LIB_DBI
 ----------------------------------------
 -- Internal
 ---
-
--- @ Masque
-local WOW_RETAIL = Core.WOW_RETAIL
 
 -- @ Core\Groups
 local Groups = Core.Groups
@@ -73,7 +70,7 @@ local Effects = {
 
 -- Registers/unregisters events that trigger animations.
 local function UpdateEffect(Name, Value)
-	local Frame = _G.ActionBarActionEventsFrame
+	local Frame = ActionBarActionEventsFrame
 	local Events = Effects[Name]
 
 	if Value then
@@ -223,7 +220,7 @@ function Setup.General(self)
 					},
 				},
 			},
-			Effects = Core.WOW_RETAIL and {
+			Effects = self.WOW_RETAIL and {
 				type = "group",
 				name = L["Advanced"],
 				desc = Tooltip,

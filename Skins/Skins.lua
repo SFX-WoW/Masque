@@ -191,7 +191,7 @@ Core.SkinOrder = SkinOrder
 local API = Core.API
 
 -- Wrapper for the AddSkin function.
-function API:AddSkin(SkinID, SkinData, Replace)
+function API:AddSkin(SkinID, SkinData)
 	local Debug = Core.Debug
 
 	if type(SkinID) ~= "string" then

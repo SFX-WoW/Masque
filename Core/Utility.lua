@@ -19,16 +19,6 @@ local _, Core = ...
 local type = type
 
 ----------------------------------------
--- Internal
----
-
--- @ Masque
-local WOW_RETAIL = Core.WOW_RETAIL
-
--- @ Skins\Regions
-local ActionTypes = Core.ActionTypes
-
-----------------------------------------
 -- Functions
 ---
 
@@ -156,7 +146,7 @@ end
 ---
 
 -- Temporary function to catch add-ons using deprecated API.
-function Core.API:Register(Addon, ...)
+function Core.API:Register(Addon)
 	if type(Addon) ~= "string" then
 		return
 	end

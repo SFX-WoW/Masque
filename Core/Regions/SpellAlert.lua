@@ -22,7 +22,7 @@ local error, type = error, type
 -- WoW API
 ---
 
-local ActionButton_HideOverlayGlow, C_Timer_After = _G.ActionButton_HideOverlayGlow, _G.C_Timer.After
+local ActionButton_HideOverlayGlow, C_Timer_After = ActionButton_HideOverlayGlow, C_Timer.After
 
 ----------------------------------------
 -- Internal
@@ -30,9 +30,6 @@ local ActionButton_HideOverlayGlow, C_Timer_After = _G.ActionButton_HideOverlayG
 
 -- @ Core\Utility
 local GetScale, GetSize, GetTexCoords = Core.GetScale, Core.GetSize, Core.GetTexCoords
-
--- @ Core\Regions\Frame
-local SkinFrame = Core.SkinFrame
 
 ----------------------------------------
 -- Locals
@@ -140,7 +137,7 @@ local function SkinSpellAlert(Region, Button, Skin, xScale, yScale)
 		Loop_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
 
 		-- Defaults to 150 x 150, causing visual scaling-up on transition.
-		Start_Flipbook:SetSize(160, 160) 
+		Start_Flipbook:SetSize(160, 160)
 	end
 
 	Region.__MSQ_Skin = Skin or true
@@ -168,7 +165,7 @@ local function UpdateSpellAlert(Button)
 		local Active = Region.__MSQ_Skin
 
 		-- Update the skin if necessary.
-		if not Active or (Active ~= Skin) or (Scale ~= Region.__MSQ_Scale) then 
+		if not Active or (Active ~= Skin) or (Scale ~= Region.__MSQ_Scale) then
 			SkinSpellAlert(Region, Button, Skin, GetScale(Button))
 		end
 
@@ -179,7 +176,7 @@ local function UpdateSpellAlert(Button)
 			ActionButton_HideOverlayGlow(Button)
 			return
 
-		-- Hide the circular flash of the starting animation. 
+		-- Hide the circular flash of the starting animation.
 		elseif Option == 2 then
 			if Flash:IsPlaying() then
 				Region:SetAlpha(0)
@@ -192,14 +189,12 @@ local function UpdateSpellAlert(Button)
 
 	-- Still used by LibActionButton-1.0.
 	elseif Region.spark then
-		local Skin = Button.__MSQ_Skin
-
-		SkinOverlay(Region, Button, Skin and Skin.SpellAlert)
+		SkinOverlay(Region, Button, Skin)
 	end
 end
 
 -- @ FrameXML\ActionButton.lua
-_G.hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
+hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 
 ----------------------------------------
 -- Core
