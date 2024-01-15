@@ -157,7 +157,7 @@ local function Hook_SetItemButtonTexture(Button, Texture)
 end
 
 -- Hook to counter 10.0 Action button texture changes.
-local function Hook_UpdateButtonArt(Button, HideDivider)
+local function Hook_UpdateButtonArt(Button)
 	if Button.__MSQ_Exit_UpdateArt then return end
 
 	UpdateButtonArt(Button)
