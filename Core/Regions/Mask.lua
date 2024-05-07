@@ -25,17 +25,23 @@ local type = type
 -- @ Core\Utility
 local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 
+-- @ Skins\Regions
+local ItemTypes = Core.ItemTypes
+
 ----------------------------------------
 -- Core
 ---
 
 -- Skins a button or region mask.
 function Core.SkinMask(Region, Button, Skin, xScale, yScale)
+	local bType = Button.__MSQ_bType
+	local BagType = bType and ItemTypes[bType]
+
 	local ButtonMask = Button.__MSQ_Mask or Button.IconMask
 	local CircleMask = Button.CircleMask
 
 	-- Disable the bag slot mask in 10.0 to enable custom masks.
-	if CircleMask then
+	if BagType and CircleMask then
 		local Icon = Button.icon
 
 		if Icon then
