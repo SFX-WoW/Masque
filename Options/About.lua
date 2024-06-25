@@ -38,6 +38,7 @@ local Supporters = {
 	-- [2]
 	COLOR_2.."Qissi|r",
 	-- [3]
+	COLOR_3.."Aevari|r",
 	COLOR_3.."Amenitra|r",
 	COLOR_3.."Mayron|r",
 	COLOR_3.."S9th|r",
