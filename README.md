@@ -43,7 +43,7 @@ Install the package through your preferred add-on manager or extract the archive
 
 - **Retail:** `World of Warcraft\_retail_\Interface\AddOns`
 - **Classic:** `World of Warcraft\_classic_era_\Interface\AddOns`
-- **Wrath Classic:** `World of Warcraft\_classic_\Interface\AddOns`
+- **Cataclysm Classic:** `World of Warcraft\_classic_\Interface\AddOns`
 
 ## [Credits][Top]
 
