@@ -92,7 +92,7 @@ local FlipBooks = {
 local function GetFlipBook(...)
 	local Animations = {...}
 
-	for i, Animation in ipairs(Animations) do
+	for _, Animation in ipairs(Animations) do
 		if Animation:GetObjectType() == "FlipBook" then
 			Animation:SetParentKey("FlipAnim")
 			return Animation
@@ -201,7 +201,7 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 			-- [ Start Animation ]
 
 			local Start_Texture = Style.StartTexture
-			
+
 			if not Start_Texture then
 				Start_Texture = Loop_Texture
 				Region.__Loop_Only = true
