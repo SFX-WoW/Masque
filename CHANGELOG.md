@@ -7,7 +7,7 @@ Disclaimers:
 ### General
 
 - Switched to a single ToC file. (#365)
-- Added five new spell alerts for **Retail** that use the new animations:
+- Added five new spell alerts for **Retail** that use the new animations: (#370)
   - Circle
   - Hexagon
   - Hexagon-Rotated
