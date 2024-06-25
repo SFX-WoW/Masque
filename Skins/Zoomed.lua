@@ -29,7 +29,7 @@ local Hidden = Core.__Hidden
 Core.AddSkin("Zoomed", {
 	Template = "Blizzard Classic",
 	-- API_VERSION = Template.API_VERSION,
-	-- Shape = Template.Shape,
+	Shape = "Square",
 
 	-- Info
 	Authors = Core.Authors,
@@ -400,4 +400,8 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
+	SpellAlert = {
+		Width = 30,
+		Height = 30,
+	},
 }, true)

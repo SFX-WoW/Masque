@@ -445,7 +445,7 @@ Core.AddSkin("Dream", {
 	},
 	ChargeCooldown = "Cooldown",
 	SpellAlert = {
-		Width = 32,
-		Height = 32,
+		Width = 26,
+		Height = 26,
 	},
 }, true)

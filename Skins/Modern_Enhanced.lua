@@ -30,7 +30,7 @@ local Hidden = Core.__Hidden
 
 Core.AddSkin("Modern Enhanced", {
 	-- API_VERSION = Template.API_VERSION,
-	-- Shape = Template.Shape,
+	Shape = "Modern",
 	Template = "Blizzard Modern",
 
 	-- Info
@@ -357,4 +357,8 @@ Core.AddSkin("Modern Enhanced", {
 	-- AutoCastShine = Template.AutoCastShine,
 	-- Cooldown = Template.Cooldown,
 	-- ChargeCooldown = Template.ChargeCooldown,
+	SpellAlert = {
+		Height = 29,
+		Width = 29,
+	},
 }, true)

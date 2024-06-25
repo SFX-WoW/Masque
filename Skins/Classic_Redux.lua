@@ -25,7 +25,7 @@ local L = Core.Locale
 
 Core.AddSkin("Classic Redux", {
 	-- API_VERSION = Template.API_VERSION,
-	-- Shape = Template.Shape,
+	Shape = "Modern",
 	Template = "Blizzard Classic",
 
 	-- Info
@@ -434,4 +434,8 @@ Core.AddSkin("Classic Redux", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
+	SpellAlert = {
+		Height = 30,
+		Width = 30,
+	},
 }, true)

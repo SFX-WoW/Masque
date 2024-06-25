@@ -36,7 +36,7 @@ local SkinID = "Blizzard Modern"
 
 local Skin = {
 	API_VERSION = Core.API_VERSION,
-	Shape = "Square",
+	Shape = "Blizzard",
 	SkinID = SkinID,
 
 	-- Info
