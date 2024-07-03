@@ -24,19 +24,19 @@ local hooksecurefunc = hooksecurefunc
 -- Internal
 ---
 
--- @ Skins\Blizzard_*
-local Default = Core.DEFAULT_SKIN.QuestBorder
-
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
 local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
+
+-- @ Skins\Blizzard_*
+local DEFAULT_SKIN = Core.DEFAULT_SKIN.QuestBorder
 
 ----------------------------------------
 -- Locals
 ---
 
-local DEFAULT_TEXTURE = Default.Texture
-local BORDER_TEXTURE = Default.Border
+local DEFAULT_TEXTURE = DEFAULT_SKIN.Texture
+local DEFAULT_BORDER = DEFAULT_SKIN.Border
 
 ----------------------------------------
 -- Hook
@@ -44,25 +44,25 @@ local BORDER_TEXTURE = Default.Border
 
 -- Counters texture changes for the quest border texture.
 local function Hook_SetTexture(Region, Texture)
-	if Region.__ExitHook or not Region.__MSQ_Skin then
+	if Region.__Exit_Hook or not Region.__MSQ_Skin then
 		return
 	end
 
-	Region.__ExitHook = true
+	Region.__Exit_Hook = true
 
-	local Skin = Region.__MSQ_Skin
-	local SkinTexture = Skin.Texture
+	local Region_Skin = Region.__MSQ_Skin
+	local Skin_Texture = Region_Skin.Texture
 
 	if Texture == DEFAULT_TEXTURE then
-		SkinTexture = SkinTexture or Texture
+		Skin_Texture = Skin_Texture or Texture
 		Region.__MSQ_Texture = Texture
 	else
-		SkinTexture = Skin.Border or BORDER_TEXTURE
-		Region.__MSQ_Texture = BORDER_TEXTURE
+		Skin_Texture = Region_Skin.Border or DEFAULT_BORDER
+		Region.__MSQ_Texture = DEFAULT_BORDER
 	end
 
-	Region:SetTexture(SkinTexture)
-	Region.__ExitHook = nil
+	Region:SetTexture(Skin_Texture)
+	Region.__Exit_Hook = nil
 end
 
 ----------------------------------------
@@ -71,8 +71,9 @@ end
 
 -- Skins the 'QuestBorder' region of a button.
 function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
-	local Texture = Region.__MSQ_Texture or Region:GetTexture()
 	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+
+	local Texture = Region.__MSQ_Texture or Region:GetTexture()
 
 	if Button.__MSQ_Enabled then
 		Region.__MSQ_Skin = Skin

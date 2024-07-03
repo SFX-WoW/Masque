@@ -88,7 +88,7 @@ local FlipBooks = {
 -- Utility
 ---
 
--- Returns the flipbook animation from an animation group and sets the parent key.
+-- Returns the FlipBook animation from an animation group and sets the parent key.
 local function GetFlipBook(...)
 	local Animations = {...}
 
@@ -100,7 +100,7 @@ local function GetFlipBook(...)
 	end
 end
 
--- Applies style settings to a flipbook animation.
+-- Applies style settings to a FlipBook animation.
 local function UpdateFlipBook(Animation, Style)
 	-- Custom
 	if Style then
@@ -120,7 +120,7 @@ local function UpdateFlipBook(Animation, Style)
 	end
 end
 
--- Updates the start animation.
+-- Updates the Start animation.
 local function UpdateStartAnimation(Region)
 	local Start_Group = Region.ProcStartAnim
 	local Start_Animation = Start_Group.FlipAnim or GetFlipBook(Start_Group:GetAnimations())
@@ -141,25 +141,26 @@ end
 -- Overlay
 ---
 
--- Skins legacy spell alerts.
+-- Skins Spell Alert Overlays.
 local function SkinOverlay(Region, Button, Skin)
-	local Shape = Button.__MSQ_Shape
+	local Button_Shape = Button.__MSQ_Shape
 
-	if Region.__MSQ_Shape ~= Shape then
-		local Base = Overlays.Square
-		local Paths = (Shape and Overlays[Shape]) or Base
+	-- Update the skin if the shape has changed.
+	if Region.__MSQ_Shape ~= Button_Shape then
+		local Square_Paths = Overlays.Square
+		local Shape_Paths = (Button_Shape and Overlays[Button_Shape]) or Square_Paths
 
-		local Ants = (Skin and Skin.Ants) or Paths.Ants or Base.Ants
-		local Glow = (Skin and Skin.Glow) or Paths.Glow or Base.Glow
+		local Ants_Texture = (Skin and Skin.Ants) or Shape_Paths.Ants or Square_Paths.Ants
+		local Glow_Texture = (Skin and Skin.Glow) or Shape_Paths.Glow or Square_Paths.Glow
 
-		Region.innerGlow:SetTexture(Glow)
-		Region.innerGlowOver:SetTexture(Glow)
-		Region.outerGlow:SetTexture(Glow)
-		Region.outerGlowOver:SetTexture(Glow)
-		Region.spark:SetTexture(Glow)
-		Region.ants:SetTexture(Ants)
+		Region.ants:SetTexture(Ants_Texture)
+		Region.innerGlow:SetTexture(Glow_Texture)
+		Region.innerGlowOver:SetTexture(Glow_Texture)
+		Region.outerGlow:SetTexture(Glow_Texture)
+		Region.outerGlowOver:SetTexture(Glow_Texture)
+		Region.spark:SetTexture(Glow_Texture)
 
-		Region.__MSQ_Shape = Shape
+		Region.__MSQ_Shape = Button_Shape
 	end
 end
 
@@ -167,15 +168,16 @@ end
 -- FlipBook
 ---
 
--- Skins modern spell alerts.
+-- Skins Spell Alert FlipBooks.
 local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
-	-- ProcStart
+	-- Start Animation
 	local Start_Group = Region.ProcStartAnim
 	local Start_Animation = Start_Group.FlipAnim or GetFlipBook(Start_Group:GetAnimations())
 	local Start_Flipbook = Region.ProcStartFlipbook
 
-	-- ProcLoop
-	local Loop_Animation = Region.ProcLoop.FlipAnim
+	-- Loop Animation
+	local Loop_Group = Region.ProcLoop
+	local Loop_Animation = Loop_Group.FlipAnim or GetFlipBook(Loop_Group:GetAnimations())
 	local Loop_Flipbook = Region.ProcLoopFlipbook
 
 	if Skin then
@@ -192,15 +194,15 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 
 		-- [ Animations ]
 
-		local Shape = Button.__MSQ_Shape
-		local Style = Shape and FlipBooks[Shape]
+		local Button_Shape = Button.__MSQ_Shape
+		local FlipBook_Style = Button_Shape and FlipBooks[Button_Shape]
 
-		if Style then
-			local Loop_Texture = Style.LoopTexture
+		if FlipBook_Style then
+			local Loop_Texture = FlipBook_Style.LoopTexture
 
 			-- [ Start Animation ]
 
-			local Start_Texture = Style.StartTexture
+			local Start_Texture = FlipBook_Style.StartTexture
 
 			if not Start_Texture then
 				Start_Texture = Loop_Texture
@@ -210,20 +212,20 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 			end
 
 			Start_Flipbook:SetTexture(Start_Texture)
-			Start_Flipbook:SetVertexColor(GetColor(Style.Color))
+			Start_Flipbook:SetVertexColor(GetColor(FlipBook_Style.Color))
 
 			Start_Flipbook:ClearAllPoints()
 			Start_Flipbook:SetAllPoints()
 
-			UpdateFlipBook(Start_Animation, Style)
+			UpdateFlipBook(Start_Animation, FlipBook_Style)
 			UpdateStartAnimation(Region)
 
 			-- [ Loop Animation ]
 
 			Loop_Flipbook:SetTexture(Loop_Texture)
-			Loop_Flipbook:SetVertexColor(GetColor(Style.Color))
+			Loop_Flipbook:SetVertexColor(GetColor(FlipBook_Style.Color))
 
-			UpdateFlipBook(Loop_Animation, Style)
+			UpdateFlipBook(Loop_Animation, FlipBook_Style)
 
 		-- Default
 		else
@@ -295,46 +297,46 @@ end
 -- Update/Hook
 ---
 
--- Hook to update spell alerts.
+-- Hook to update Spell Alerts.
 local function UpdateSpellAlert(Button)
 	local Region = Button.SpellActivationAlert or Button.overlay
 
 	if not Region then return end
 
-	local Skin = Button.__MSQ_Skin
-	Skin = Skin and Skin.SpellAlert
-
-	local Start_Group = Region.ProcStartAnim
+	local Button_Skin = Button.__MSQ_Skin
+	local Region_Skin = Button_Skin and Button_Skin.SpellAlert
 
 	-- Modern Spell Alerts
-	if Start_Group then
-		local Scale = Button.__MSQ_Scale
-		local Active = Region.__MSQ_Skin
-		local Option = Core.db.profile.Effects.SpellAlert
+	if Region.ProcStartAnim then
+		-- Get the Spell Alert animation setting.
+		local Alert_Setting = Core.db.profile.Effects.SpellAlert
 
-		Region.__Skip_Start = (Option == 2 and true) or nil
+		-- Skips the Start animation. Must be set before the skin is applied.
+		Region.__Skip_Start = (Alert_Setting == 2 and true) or nil
 
-		-- Update the skin if necessary.
-		if not Active or (Active ~= Skin) or (Scale ~= Region.__MSQ_Scale) then
-			SkinFlipBook(Region, Button, Skin, GetScale(Button))
+		local Active_Skin = Region.__MSQ_Skin
 
-		-- Update the start animation.
+		-- Update the skin if the skin or scale has changed.
+		if (not Active_Skin) or (Active_Skin ~= Region_Skin) or (Region.__MSQ_Scale ~= Button.__MSQ_Scale) then
+			SkinFlipBook(Region, Button, Region_Skin, GetScale(Button))
+
+		-- Update the Start animation.
 		else
 			UpdateStartAnimation(Region)
 		end
 
-		-- Addresses a bug where the loop texture is visible during the start animation.
+		-- Prevent the Loop texture from being visible during the Start animation.
 		Region.ProcLoopFlipbook:SetAlpha(0)
 
-		-- Disable spell alerts completely.
-		if Option == 0 then
+		-- Disables Spell Alerts completely. Must be set after the skin is applied.
+		if Alert_Setting == 0 then
 			ActionButton_HideOverlayGlow(Button)
 			return
 		end
 
 	-- Classic Spell Alerts
 	elseif Region.spark then
-		SkinOverlay(Region, Button, Skin)
+		SkinOverlay(Region, Button, Region_Skin)
 	end
 end
 
@@ -373,13 +375,11 @@ function API:AddSpellAlert(Shape, Glow, Ants)
 			error("Bad argument to API method 'AddSpellAlert'. 'Shape' must be a unique string.", 2)
 		end
 		return
-
 	elseif Glow and type(Glow) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlert'. 'Glow' must be a string.", 2)
 		end
 		return
-
 	elseif Ants and type(Ants) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlert'. 'Ants' must be a string.", 2)
@@ -387,12 +387,12 @@ function API:AddSpellAlert(Shape, Glow, Ants)
 		return
 	end
 
-	local Paths = {}
+	local Shape_Paths = {}
 
-	Paths.Glow = Glow
-	Paths.Ants = Ants
+	Shape_Paths.Glow = Glow
+	Shape_Paths.Ants = Ants
 
-	Overlays[Shape] = Paths
+	Overlays[Shape] = Shape_Paths
 end
 
 -- Returns an overlay texture set.
@@ -404,10 +404,10 @@ function API:GetSpellAlert(Shape)
 		return
 	end
 
-	local Paths = Overlays[Shape]
+	local Shape_Paths = Overlays[Shape]
 
-	if Paths then
-		return Paths.Glow, Paths.Ants
+	if Shape_Paths then
+		return Shape_Paths.Glow, Shape_Paths.Ants
 	end
 end
 
@@ -415,14 +415,13 @@ end
 -- FlipBooks
 ---
 
--- Adds a custom flipbook style.
+-- Adds a custom FlipBook style.
 function API:AddSpellAlertFlipBook(Shape, Data)
 	if type(Shape) ~= "string" or FlipBooks[Shape] then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Shape' must be a unique string.", 2)
 		end
 		return
-
 	elseif type(Data) ~= "table" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Data' must be a table.", 2)
@@ -433,7 +432,7 @@ function API:AddSpellAlertFlipBook(Shape, Data)
 	FlipBooks[Shape] = Data
 end
 
--- Returns a flipbook style table.
+-- Returns a FlipBook style table.
 function API:GetSpellAlertFlipBook(Shape)
 	if type(Shape) ~= "string" then
 		if Core.Debug then

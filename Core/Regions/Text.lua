@@ -18,11 +18,11 @@ local _, Core = ...
 -- Internal
 ---
 
--- @ Skins\Blizzard_*
-local Defaults = Core.DEFAULT_SKIN
-
 -- @ Core\Utility
 local GetSize, GetTypeSkin, SetPoints = Core.GetSize, Core.GetTypeSkin, Core.SetPoints
+
+-- @ Skins\Blizzard_*
+local DEFAULT_SKIN = Core.DEFAULT_SKIN
 
 ----------------------------------------
 -- Core
@@ -31,18 +31,19 @@ local GetSize, GetTypeSkin, SetPoints = Core.GetSize, Core.GetTypeSkin, Core.Set
 -- Skins a text layer of a button.
 function Core.SkinText(Layer, Region, Button, Skin, xScale, yScale)
 	local bType = Button.__MSQ_bType
-	local Default = Defaults[Layer]
 
 	Skin = GetTypeSkin(Button, bType, Skin)
-	Default = Default[bType] or Default
 
-	local Wrap = (Skin.Wrap and true) or false
+	local Default_Skin = DEFAULT_SKIN[Layer]
+	Default_Skin = Default_Skin[bType] or Default_Skin
 
-	Region:SetJustifyH(Skin.JustifyH or Default.JustifyH)
+	local Skin_Wrap = (Skin.Wrap and true) or false
+
+	Region:SetJustifyH(Skin.JustifyH or Default_Skin.JustifyH)
 	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
-	Region:SetWordWrap(Wrap)
-	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
+	Region:SetWordWrap(Skin_Wrap)
+	Region:SetDrawLayer(Skin.DrawLayer or Default_Skin.DrawLayer)
 	Region:SetSize(GetSize(Skin.Width or 36, Skin.Height or 0, xScale, yScale, Button))
 
-	SetPoints(Region, Button, Skin, Default)
+	SetPoints(Region, Button, Skin, Default_Skin)
 end

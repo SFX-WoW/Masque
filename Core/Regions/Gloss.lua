@@ -91,7 +91,7 @@ end
 function Core.SkinGloss(Enabled, Button, Skin, Color, xScale, yScale)
 	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 
-	if Enabled and not Skin.Hide and Skin.Texture then
+	if Enabled and (not Skin.Hide) and Skin.Texture then
 		AddGloss(Button, Skin, Color, xScale, yScale)
 	else
 		RemoveGloss(Button)

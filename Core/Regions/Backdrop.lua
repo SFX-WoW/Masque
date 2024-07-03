@@ -25,7 +25,7 @@ local error, type = error, type
 ---
 
 -- @ Skins\Blizzard_*
-local Default = Core.DEFAULT_SKIN.Backdrop
+local DEFAULT_SKIN = Core.DEFAULT_SKIN.Backdrop
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
@@ -38,8 +38,8 @@ local SkinMask = Core.SkinMask
 -- Locals
 ---
 
-local DEF_COLOR = Default.Color
-local DEF_TEXTURE = Default.Texture
+local DEFAULT_COLOR = DEFAULT_SKIN.Color
+local DEFAULT_TEXTURE = DEFAULT_SKIN.Texture
 
 local Cache = {}
 
@@ -56,11 +56,11 @@ local function RemoveBackdrop(Region, Button)
 
 		if Button.__MSQ_Backdrop then
 			-- Remove the button mask.
-			local ButtonMask = Button.__MSQ_Mask
+			local Button_Mask = Button.__MSQ_Mask
 
-			if ButtonMask and Region.__MSQ_ButtonMask then
-				Region:RemoveMaskTexture(ButtonMask)
-				Region.__MSQ_ButtonMask = nil
+			if Button_Mask and Region.__MSQ_Button_Mask then
+				Region:RemoveMaskTexture(Button_Mask)
+				Region.__MSQ_Button_Mask = nil
 			end
 
 			Region:SetTexture()
@@ -92,25 +92,25 @@ local function AddBackdrop(Region, Button, Skin, Color, xScale, yScale)
 	Region:SetParent(Button)
 	Color = Color or Skin.Color
 
-	local Atlas = Skin.Atlas
+	local Skin_Atlas = Skin.Atlas
 	local UseAtlasSize = Skin.UseAtlasSize
 
 	if Skin.UseColor then
 		Region:SetTexture()
 		Region:SetVertexColor(1, 1, 1, 1)
-		Region:SetColorTexture(GetColor(Color or DEF_COLOR))
+		Region:SetColorTexture(GetColor(Color or DEFAULT_COLOR))
 	else
 		local Coords
 
-		if Atlas then
-			Region:SetAtlas(Atlas, UseAtlasSize)
+		if Skin_Atlas then
+			Region:SetAtlas(Skin_Atlas, UseAtlasSize)
 		else
 			Coords = Skin.TexCoords
-			Region:SetTexture(Skin.Texture or DEF_TEXTURE)
+			Region:SetTexture(Skin.Texture or DEFAULT_TEXTURE)
 		end
 
 		Region:SetTexCoord(GetTexCoords(Coords))
-		Region:SetVertexColor(GetColor(Color or DEF_COLOR))
+		Region:SetVertexColor(GetColor(Color or DEFAULT_COLOR))
 	end
 
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
@@ -140,17 +140,16 @@ function Core.SetBackdropColor(Region, Button, Skin, Color)
 		Color = Color or Skin.Color
 
 		if Skin.UseColor then
-			Region:SetColorTexture(GetColor(Color or DEF_COLOR))
+			Region:SetColorTexture(GetColor(Color or DEFAULT_COLOR))
 		else
-			Region:SetVertexColor(GetColor(Color or DEF_COLOR))
+			Region:SetVertexColor(GetColor(Color or DEFAULT_COLOR))
 		end
 	end
 end
 
 -- Add or removes a 'Backdrop' region.
 function Core.SkinBackdrop(Enabled, Region, Button, Skin, Color, xScale, yScale)
-	local bType = Button.__MSQ_bType
-	Skin = GetTypeSkin(Button, bType, Skin)
+	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 
 	if Enabled and not Skin.Hide then
 		AddBackdrop(Region, Button, Skin, Color, xScale, yScale)

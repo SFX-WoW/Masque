@@ -6,7 +6,7 @@
 	* File...: Core\Regions\IconBorder.lua
 	* Author.: StormFX
 
-	Texture Regions
+	IconBorder Region
 
 	* See Skins\Default.lua for region defaults.
 
@@ -25,7 +25,7 @@ local hooksecurefunc = hooksecurefunc
 ---
 
 -- @ Skins\Blizzard_*
-local Default = Core.DEFAULT_SKIN.IconBorder
+local DEFAULT_SKIN = Core.DEFAULT_SKIN.IconBorder
 
 -- @ Core\Utility
 local GetSize, GetTexCoords, SetPoints = Core.GetSize, Core.GetTexCoords, Core.SetPoints
@@ -35,8 +35,8 @@ local GetTypeSkin = Core.GetTypeSkin
 -- Locals
 ---
 
-local DEFAULT_TEXTURE = Default.Texture
-local RELIC_TEXTURE = Default.RelicTexture
+local DEFAULT_TEXTURE = DEFAULT_SKIN.Texture
+local RELIC_TEXTURE = DEFAULT_SKIN.RelicTexture
 
 ----------------------------------------
 -- Hook
@@ -44,25 +44,25 @@ local RELIC_TEXTURE = Default.RelicTexture
 
 -- Counters texture changes for artifact items.
 local function Hook_SetTexture(Region, Texture)
-	if Region.__ExitHook or not Region.__MSQ_Skin then
+	if Region.__Exit_Hook or not Region.__MSQ_Skin then
 		return
 	end
 
-	Region.__ExitHook = true
+	Region.__Exit_Hook = true
 
-	local Skin = Region.__MSQ_Skin
-	local SkinTexture = Skin.Texture
+	local Region_Skin = Region.__MSQ_Skin
+	local Skin_Texture = Region_Skin.Texture
 
 	if Texture == RELIC_TEXTURE then
-		SkinTexture = Skin.RelicTexture or SkinTexture or Texture
+		Skin_Texture = Region_Skin.RelicTexture or Skin_Texture or Texture
 		Region.__MSQ_Texture = Texture
 	else
-		SkinTexture = SkinTexture or DEFAULT_TEXTURE
+		Skin_Texture = Skin_Texture or DEFAULT_TEXTURE
 		Region.__MSQ_Texture = DEFAULT_TEXTURE
 	end
 
-	Region:SetTexture(SkinTexture)
-	Region.__ExitHook = nil
+	Region:SetTexture(Skin_Texture)
+	Region.__Exit_Hook = nil
 end
 
 ----------------------------------------
@@ -73,20 +73,20 @@ end
 function Core.SkinIconBorder(Region, Button, Skin, xScale, yScale)
 	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
 
-	local Texture = Region.__MSQ_Texture or Region:GetTexture()
+	local Region_Texture = Region.__MSQ_Texture or Region:GetTexture()
 
-	if Texture ~= DEFAULT_TEXTURE and Texture ~= RELIC_TEXTURE then
-		Texture = DEFAULT_TEXTURE
+	if Region_Texture ~= DEFAULT_TEXTURE and Region_Texture ~= RELIC_TEXTURE then
+		Region_Texture = DEFAULT_TEXTURE
 	end
 
-	Region.__MSQ_Texture = Texture
+	Region.__MSQ_Texture = Region_Texture
 
 	if Button.__MSQ_Enabled then
 		Region.__MSQ_Skin = Skin
-		Hook_SetTexture(Region, Texture)
+		Hook_SetTexture(Region, Region_Texture)
 	else
 		Region.__MSQ_Skin = nil
-		Region:SetTexture(Texture)
+		Region:SetTexture(Region_Texture)
 	end
 
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))

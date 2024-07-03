@@ -33,7 +33,7 @@ local SkinMask = Core.SkinMask
 -- Locals
 ---
 
-local DEF_TEXTURE = [[Interface\Icons\INV_Misc_Bag_08]]
+local DEFAULT_TEXTURE = [[Interface\Icons\INV_Misc_Bag_08]]
 
 ----------------------------------------
 -- Functions
@@ -49,7 +49,7 @@ local function AddSlotIcon(Button, Skin, xScale, yScale)
 	end
 
 	Region:SetParent(Button)
-	Region:SetTexture(Skin.Texture or DEF_TEXTURE)
+	Region:SetTexture(Skin.Texture or DEFAULT_TEXTURE)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetVertexColor(GetColor(Skin.Color))
@@ -67,8 +67,6 @@ local function RemoveSlotIcon(Button)
 	if Region then
 		Region:SetTexture()
 		Region:Hide()
-
-		Button.__MSQ_SlotIcon = nil
 	end
 end
 
@@ -78,7 +76,7 @@ end
 
 -- Skins or removes a 'SlotIcon' region.
 function Core.SkinSlotIcon(Enabled, Button, Skin, xScale, yScale)
-	if Enabled and not Skin.Hide and Skin.Texture then
+	if Enabled and (not Skin.Hide) and Skin.Texture then
 		AddSlotIcon(Button, Skin, xScale, yScale)
 	else
 		RemoveSlotIcon(Button)

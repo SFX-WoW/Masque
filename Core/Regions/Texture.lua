@@ -18,12 +18,6 @@ local _, Core = ...
 -- Internal
 ---
 
--- @ Skins\Blizzard_*
-local Defaults = Core.DEFAULT_SKIN
-
--- @ Skins\Regions
-local Settings = Core.RegTypes.Legacy
-
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
 local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
@@ -31,12 +25,18 @@ local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
 -- @ Core\Regions\Mask
 local SkinMask = Core.SkinMask
 
+-- @ Skins\Blizzard_*
+local DEFAULT_SKIN = Core.DEFAULT_SKIN
+
+-- @ Skins\Regions
+local Settings = Core.RegTypes.Legacy
+
 ----------------------------------------
 -- locals
 ---
 
 -- Regions we need to store the colors for.
-local StoreColor = {
+local Store_Color = {
 	Pushed = true,
 	Highlight = true,
 	SlotHighlight = true,
@@ -61,91 +61,92 @@ function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 	end
 
 	local Resize = true
-	local Default = Defaults[Layer]
-	Default = GetTypeSkin(Button, bType, Default)
+	local Default_Skin = DEFAULT_SKIN[Layer]
+
+	Default_Skin = GetTypeSkin(Button, bType, Default_Skin)
 
 	if not Config.NoTexture then
-		local Atlas = Skin.Atlas
-		local Texture = Skin.Texture
+		local Skin_Atlas = Skin.Atlas
+		local Skin_Texture = Skin.Texture
 
 		Color = Color or Skin.Color
 
-		if StoreColor[Layer] then
-			local ColorKey = "__MSQ_"..Layer.."Color"
-			Button[ColorKey] = Color
+		if Store_Color[Layer] then
+			local Color_Key = "__MSQ_"..Layer.."_Color"
+			Button[Color_Key] = Color
 		end
 
-		local SetColor = not Config.NoColor
-		local UseColor = Config.UseColor
-		local Coords
+		local Set_Color = not Config.NoColor
+		local Use_Color = Config.UseColor
+		local Skin_Coords
 
 		-- Skin
-		if Skin.UseColor and UseColor then
+		if Skin.UseColor and Use_Color then
 			Region:SetTexture()
 			Region:SetVertexColor(1, 1, 1, 1)
 			Region:SetColorTexture(GetColor(Color))
-		elseif Texture then
-			Coords = Skin.TexCoords
-			Region:SetTexture(Texture)
+		elseif Skin_Texture then
+			Skin_Coords = Skin.TexCoords
+			Region:SetTexture(Skin_Texture)
 
-			if SetColor then
+			if Set_Color then
 				Region:SetVertexColor(GetColor(Color))
 			end
-		elseif Atlas then
+		elseif Skin_Atlas then
 			local UseAtlasSize = Skin.UseAtlasSize
 
-			Region:SetAtlas(Atlas, UseAtlasSize)
+			Region:SetAtlas(Skin_Atlas, UseAtlasSize)
 			Resize = not UseAtlasSize
 
-			if SetColor then
-				Region:SetVertexColor(GetColor(Default.Color))
+			if Set_Color then
+				Region:SetVertexColor(GetColor(Default_Skin.Color))
 			end
 
 		-- Default
 		else
-			Atlas = Default.Atlas
-			Texture = Default.Texture
+			Skin_Atlas = Default_Skin.Atlas
+			Skin_Texture = Default_Skin.Texture
 
-			if Atlas then
+			if Skin_Atlas then
 				local UseAtlasSize = Skin.UseAtlasSize
-				Region:SetAtlas(Atlas, UseAtlasSize)
+				Region:SetAtlas(Skin_Atlas, UseAtlasSize)
 				Resize = not UseAtlasSize
 
-				if SetColor then
-					Region:SetVertexColor(GetColor(Default.Color))
+				if Set_Color then
+					Region:SetVertexColor(GetColor(Default_Skin.Color))
 				end
-			elseif Texture then
-				Coords = Default.TexCoords
-				Region:SetTexture(Default.Texture)
+			elseif Skin_Texture then
+				Skin_Coords = Default_Skin.TexCoords
+				Region:SetTexture(Default_Skin.Skin_Texture)
 
-				if SetColor then
-					Region:SetVertexColor(GetColor(Default.Color))
+				if Set_Color then
+					Region:SetVertexColor(GetColor(Default_Skin.Color))
 				end
-			elseif UseColor then
+			elseif Use_Color then
 				Region:SetTexture()
 				Region:SetVertexColor(1, 1, 1, 1)
-				Region:SetColorTexture(GetColor(Default.Color))
+				Region:SetColorTexture(GetColor(Default_Skin.Color))
 			end
 		end
 
-		Region:SetTexCoord(GetTexCoords(Coords))
+		Region:SetTexCoord(GetTexCoords(Skin_Coords))
 	end
 
-	Region:SetBlendMode(Skin.BlendMode or Default.BlendMode or "BLEND")
+	Region:SetBlendMode(Skin.BlendMode or Default_Skin.BlendMode or "BLEND")
 
 	if Layer == "Highlight" then
-		Region:SetDrawLayer("HIGHLIGHT", Skin.DrawLevel or Default.DrawLevel or 0)
+		Region:SetDrawLayer("HIGHLIGHT", Skin.DrawLevel or Default_Skin.DrawLevel or 0)
 	else
-		Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer, Skin.DrawLevel or Default.DrawLevel or 0)
+		Region:SetDrawLayer(Skin.DrawLayer or Default_Skin.DrawLayer, Skin.DrawLevel or Default_Skin.DrawLevel or 0)
 	end
 
 	if Resize then
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
 	end
 
-	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default.SetAllPoints)
+	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default_Skin.SetAllPoints)
 
-	SetPoints(Region, Button, Skin, Default, SetAllPoints)
+	SetPoints(Region, Button, Skin, Default_Skin, SetAllPoints)
 
 	-- Mask
 	if Config.CanMask then
