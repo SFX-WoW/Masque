@@ -54,6 +54,7 @@ local DEFAULT_EDGE_LOC = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-L
 local MASQUE_EDGE = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]]
 local MASQUE_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Cooldown\Edge-LoC]]
 
+local MASQUE_SWIPE = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe]]
 local MASQUE_SWIPE_CIRCLE = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe-Circle]]
 
 ----------------------------------------
@@ -114,7 +115,7 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 			Region.__MSQ_Color = Color or Skin.Color or DEFAULT_COLOR
 			Region.__MSQ_Edge = Skin.EdgeTexture or MASQUE_EDGE
 
-			Region:SetSwipeTexture(Skin.Texture or (IsRound and MASQUE_SWIPE_CIRCLE) or "")
+			Region:SetSwipeTexture(Skin.Texture or (IsRound and MASQUE_SWIPE_CIRCLE) or MASQUE_SWIPE)
 
 			Hook_SetSwipeColor(Region)
 			Hook_SetEdgeTexture(Region)
