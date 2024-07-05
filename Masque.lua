@@ -232,7 +232,7 @@ function Masque:OnInitialize()
 	Core.db = db
 
 	-- LibDualSpec-1.0
-	if (WOW_VERSION > 30000) and LIB_LDS then
+	if LIB_LDS then
 		LIB_LDS:EnhanceDatabase(Core.db, MASQUE)
 	end
 
