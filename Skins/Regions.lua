@@ -228,7 +228,7 @@ local Legacy = {
 		Iterate = true,
 	},
 	AutoCastable = {
-		Key = "AutoCastable",
+		Key = "AutoCastable", -- Only used by Pet buttons.
 		Type = "Texture",
 		Iterate = true,
 	},
@@ -288,6 +288,7 @@ local Legacy = {
 		},
 	},
 	-- [ FRAME ]
+	-- WoW Classic	
 	AutoCastShine = { -- Only used by Pet buttons.
 		--Key = "AutoCastShine", -- Causes issues with Pet bars.
 		Name = "Shine",

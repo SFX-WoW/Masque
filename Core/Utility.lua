@@ -52,8 +52,16 @@ end
 function Core.SetPoints(Region, Button, Skin, Default, SetAllPoints)
 	Region:ClearAllPoints()
 
-	local Anchor, Regions = Skin.Anchor, Button.__Regions
-	Anchor = (Anchor and Regions) and Regions[Anchor]
+	local Anchor_Key = Skin.Anchor
+	local Anchor
+
+	if Anchor_Key then
+		local Regions = Button.__Regions
+
+		if type(Regions) == "table" then
+			Anchor = Regions[Anchor_Key]
+		end
+	end
 
 	if SetAllPoints then
 		Region:SetAllPoints(Anchor or Button)
