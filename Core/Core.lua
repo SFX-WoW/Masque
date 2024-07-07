@@ -193,16 +193,33 @@ setmetatable(Core.Queue, {__call = Core.Queue.Add})
 
 -- Returns a region for a button that uses a template.
 function Core.GetRegion(Button, Info)
-	local Key, Region = Info.Key, nil
+	local Region_Key = Info.Key
+	local Region
 
-	if Key then
-		local Obj = Key and Button[Key]
+	-- Check for a key reference.
+	if Region_Key then
+		local Parent_Key = Info.Parent
+		local Object
 
-		if Obj and type(Obj) == "table" then
-			local Type = Obj.GetObjectType and Obj:GetObjectType()
+		-- Region Parent
+		if Parent_Key then
+			local Parent = Button[Parent_Key]
 
-			if Type == Info.Type then
-				Region = Obj
+			if type(Parent) == "table" then
+				Object = Parent[Region_Key]
+			end
+
+		-- Button Parent
+		else
+			Object = Button[Region_Key]
+		end
+
+		-- Validate the object type.
+		if type(Object) == "table" then
+			local Object_Type = Object.GetObjectType and Object:GetObjectType()
+
+			if Object_Type == Info.Type then
+				Region = Object
 			end
 		end
 	end
