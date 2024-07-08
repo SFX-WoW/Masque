@@ -389,11 +389,13 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		SkinCooldown(Charge, Button, ChargeSkin, nil, xScale, yScale, Pulse)
 	end
 
-	-- AutoCastShine
-	local Shine = Regions.AutoCastShine
+	-- AutoCast Frame
+	if bType == "Pet" then
+		local Shine = Regions.AutoCastShine
 
-	if Shine then
-		SkinFrame(Shine, Button, Skin.AutoCastShine, xScale, yScale)
+		if Shine then
+			SkinFrame(Shine, Button, Skin.AutoCastShine, xScale, yScale)
+		end
 	end
 
 	-- SpellAlert
