@@ -36,10 +36,8 @@ local WOW_RETAIL = Core.WOW_RETAIL
 local DEFAULT_SKIN = Core.DEFAULT_SKIN.Cooldown
 
 -- @ Core\Utility
-local GetColor, GetScale, GetTypeSkin = Core.GetColor, Core.GetScale, Core.GetTypeSkin
-
--- @ Core\Regions\Frame
-local SkinFrame = Core.SkinFrame
+local GetColor, GetScale, GetSize = Core.GetColor, Core.GetScale, Core.GetSize
+local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 
 ----------------------------------------
 -- Locals
@@ -145,7 +143,13 @@ local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
 	Region:SetDrawBling(Pulse)
 	Region:SetUseCircularEdge(IsRound)
 
-	SkinFrame(Region, Button, Skin, xScale, yScale)
+	local SetAllPoints = Skin.SetAllPoints
+
+	if not SetAllPoints then
+		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
+	end
+
+	SetSkinPoint(Region, Button, Skin, nil, SetAllPoints)
 end
 
 ----------------------------------------
