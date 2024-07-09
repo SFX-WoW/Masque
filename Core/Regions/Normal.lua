@@ -32,7 +32,7 @@ local hooksecurefunc, random = hooksecurefunc, random
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
+local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 
 -- @ Skins\Blizzard_*
 local DEFAULT_SKIN = Core.DEFAULT_SKIN.Normal
@@ -203,7 +203,7 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
 	end
 
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	Region:Show()
 

@@ -28,7 +28,7 @@ local hooksecurefunc = hooksecurefunc
 local DEFAULT_SKIN = Core.DEFAULT_SKIN.IconBorder
 
 -- @ Core\Utility
-local GetSize, GetTexCoords, SetPoints = Core.GetSize, Core.GetTexCoords, Core.SetPoints
+local GetSize, GetTexCoords, SetSkinPoint = Core.GetSize, Core.GetTexCoords, Core.SetSkinPoint
 local GetTypeSkin = Core.GetTypeSkin
 
 ----------------------------------------
@@ -94,7 +94,7 @@ function Core.SkinIconBorder(Region, Button, Skin, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	if not Region.__MSQ_Hooked then
 		hooksecurefunc(Region, "SetTexture", Hook_SetTexture)

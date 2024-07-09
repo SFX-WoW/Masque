@@ -49,7 +49,7 @@ end
 ---
 
 -- Clears and sets the points for a region using skin data.
-function Core.SetPoints(Region, Button, Skin, Default, SetAllPoints)
+function Core.SetSkinPoint(Region, Button, Skin, Default, SetAllPoints)
 	local Anchor
 	local Skin_Anchor = Skin.Anchor
 

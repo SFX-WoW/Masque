@@ -29,7 +29,7 @@ local DEFAULT_SKIN = Core.DEFAULT_SKIN.Backdrop
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
+local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 
 -- @ Core\Regions\Mask
 local SkinMask = Core.SkinMask
@@ -120,7 +120,7 @@ local function AddBackdrop(Region, Button, Skin, Color, xScale, yScale)
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
 	end
 
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 	Region:Show()
 
 	-- Mask

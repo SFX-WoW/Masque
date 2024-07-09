@@ -24,7 +24,7 @@ local error, type = error, type
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
+local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 
 ----------------------------------------
 -- Locals
@@ -74,7 +74,7 @@ local function AddGloss(Button, Skin, Color, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
 
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	if Button.__MSQ_Empty then
 		Region:Hide()

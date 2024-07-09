@@ -20,7 +20,7 @@ local _, Core = ...
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
+local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 
 -- @ Core\Regions\Mask
 local SkinMask = Core.SkinMask
@@ -146,7 +146,7 @@ function Core.SkinTexture(Layer, Region, Button, Skin, Color, xScale, yScale)
 
 	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default_Skin.SetAllPoints)
 
-	SetPoints(Region, Button, Skin, Default_Skin, SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, Default_Skin, SetAllPoints)
 
 	-- Mask
 	if Config.CanMask then

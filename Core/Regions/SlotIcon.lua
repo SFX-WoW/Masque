@@ -24,7 +24,7 @@ local error, type = error, type
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local SetPoints = Core.SetPoints
+local SetSkinPoint = Core.SetSkinPoint
 
 -- @ Core\Regions\Mask
 local SkinMask = Core.SkinMask
@@ -56,7 +56,7 @@ local function AddSlotIcon(Button, Skin, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 	SkinMask(Region, Button, Skin, xScale, yScale)
 end
 

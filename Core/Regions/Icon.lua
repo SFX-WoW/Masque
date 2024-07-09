@@ -31,7 +31,7 @@ local hooksecurefunc = hooksecurefunc
 ---
 
 -- @ Core\Utility
-local GetSize, GetTexCoords, SetPoints = Core.GetSize, Core.GetTexCoords, Core.SetPoints
+local GetSize, GetTexCoords, SetSkinPoint = Core.GetSize, Core.GetTexCoords, Core.SetSkinPoint
 local GetTypeSkin = Core.GetTypeSkin
 
 -- @ Core\Regions\Mask
@@ -119,7 +119,7 @@ function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
 
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	-- Mask
 	SkinMask(Region, Button, Skin, xScale, yScale)

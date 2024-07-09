@@ -26,7 +26,7 @@ local hooksecurefunc = hooksecurefunc
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
+local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 
 -- @ Skins\Blizzard_*
 local DEFAULT_SKIN = Core.DEFAULT_SKIN.QuestBorder
@@ -93,7 +93,7 @@ function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	if not Region.__MSQ_Hooked then
 		hooksecurefunc(Region, "SetTexture", Hook_SetTexture)

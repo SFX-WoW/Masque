@@ -19,7 +19,7 @@ local _, Core = ...
 ---
 
 -- @ Core\Utility
-local GetSize, GetTypeSkin, SetPoints = Core.GetSize, Core.GetTypeSkin, Core.SetPoints
+local GetSize, GetTypeSkin, SetSkinPoint = Core.GetSize, Core.GetTypeSkin, Core.SetSkinPoint
 
 -- @ Skins\Blizzard_*
 local DEFAULT_SKIN = Core.DEFAULT_SKIN
@@ -45,5 +45,5 @@ function Core.SkinText(Layer, Region, Button, Skin, xScale, yScale)
 	Region:SetDrawLayer(Skin.DrawLayer or Default_Skin.DrawLayer)
 	Region:SetSize(GetSize(Skin.Width or 36, Skin.Height or 0, xScale, yScale, Button))
 
-	SetPoints(Region, Button, Skin, Default_Skin)
+	SetSkinPoint(Region, Button, Skin, Default_Skin)
 end

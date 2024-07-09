@@ -26,7 +26,7 @@ local hooksecurefunc = hooksecurefunc
 
 -- @ Core\Utility
 local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetPoints = Core.GetTypeSkin, Core.SetPoints
+local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 
 -- @ Skins\Blizzard_*
 local DEFAULT_SKIN = Core.DEFAULT_SKIN.NewItem
@@ -121,7 +121,7 @@ function Core.SkinNewItem(Region, Button, Skin, xScale, yScale)
 		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
 	end
 
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	-- Hook
 	if not Region.__MSQ_Hooked then

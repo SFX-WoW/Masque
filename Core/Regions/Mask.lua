@@ -23,7 +23,7 @@ local type = type
 ---
 
 -- @ Core\Utility
-local GetSize, SetPoints = Core.GetSize, Core.SetPoints
+local GetSize, SetSkinPoint = Core.GetSize, Core.SetSkinPoint
 
 -- @ Skins\Regions
 local Item_Types = Core.ItemTypes
@@ -92,12 +92,12 @@ function Core.SkinMask(Region, Button, Skin, xScale, yScale)
 						Button_Mask:SetSize(GetSize(Skin_Mask.Width, Skin_Mask.Height, xScale, yScale, Button))
 					end
 
-					SetPoints(Region_Mask, Region, Skin_Mask, nil, Skin_Mask.SetAllPoints)
+					SetSkinPoint(Region_Mask, Region, Skin_Mask, nil, Skin_Mask.SetAllPoints)
 				elseif Texture then
 					Region_Mask:SetTexture(Texture, Skin_Mask.WrapH, Skin_Mask.WrapV)
 					Region_Mask:SetSize(GetSize(Skin_Mask.Width, Skin_Mask.Height, xScale, yScale, Button))
 
-					SetPoints(Region_Mask, Region, Skin_Mask, nil, Skin_Mask.SetAllPoints)
+					SetSkinPoint(Region_Mask, Region, Skin_Mask, nil, Skin_Mask.SetAllPoints)
 				end
 
 			-- Texture Path
@@ -141,12 +141,12 @@ function Core.SkinMask(Region, Button, Skin, xScale, yScale)
 					Button_Mask:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
 				end
 
-				SetPoints(Button_Mask, Button, Skin, nil, Skin.SetAllPoints)
+				SetSkinPoint(Button_Mask, Button, Skin, nil, Skin.SetAllPoints)
 			elseif Texture then
 				Button_Mask:SetTexture(Texture, Skin.WrapH, Skin.WrapV)
 				Button_Mask:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
 
-				SetPoints(Button_Mask, Button, Skin, nil, Skin.SetAllPoints)
+				SetSkinPoint(Button_Mask, Button, Skin, nil, Skin.SetAllPoints)
 			end
 
 		-- Texture Path

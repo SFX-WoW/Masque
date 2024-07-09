@@ -17,7 +17,7 @@ local _, Core = ...
 ---
 
 -- @ Core\Utility
-local GetSize, SetPoints = Core.GetSize, Core.SetPoints
+local GetSize, SetSkinPoint = Core.GetSize, Core.SetSkinPoint
 
 ----------------------------------------
 -- Frame
@@ -26,5 +26,5 @@ local GetSize, SetPoints = Core.GetSize, Core.SetPoints
 -- Sets the size and points of a frame.
 function Core.SkinFrame(Region, Button, Skin, xScale, yScale)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
-	SetPoints(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 end
