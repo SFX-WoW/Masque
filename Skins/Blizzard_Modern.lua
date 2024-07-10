@@ -851,6 +851,61 @@ local Skin = {
 			-- UseColor = nil,
 		},
 	},
+	-- [ AutoCastOverlay (Retail) ]
+	-- AB (45) / SAB (30) = 1.5
+	-- Lua @ SAB: 31 * 1.5 = 46.5
+	-- Masque: 46.5 / 1.25 = 37.2
+	-- Multiplier = 1.2 (1.5 / 1.25)
+	AutoCast_Frame = {
+		Width = 37, -- 31
+		Height = 37, -- 31
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0.5,
+		OffsetY = -0.5,
+		-- SetAllPoints = nil,
+	},
+	AutoCast_Shine = {
+		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
+		UseAtlasSize = false,
+		-- Color = {1, 1, 1, 1},
+		BlendMode = "BLEND",
+		DrawLayer = "OVERLAY",
+		DrawLevel = 0,
+		Width = 49, -- 41
+		Height = 49, -- 41
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
+	AutoCast_Mask = {
+		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
+		UseAtlasSize = false,
+		Width = 28, -- 23
+		Height = 28, -- 23
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
+	AutoCast_Corners = {
+		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
+		UseAtlasSize = false,
+		-- Color = {1, 1, 1, 1},
+		BlendMode = "BLEND",
+		DrawLayer = "OVERLAY",
+		DrawLevel = 1,
+		Width = 37, -- 31
+		Height = 37, -- 31
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		SetAllPoints = true,
+	},
 	-- [ AutoCastShine (Classic) ]
 	AutoCastShine = {
 		Width = 33, -- 40/28

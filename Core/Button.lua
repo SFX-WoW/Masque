@@ -49,7 +49,7 @@ local GetScale, GetTypeSkin = Core.GetScale, Core.GetTypeSkin
 local SetEmpty = Core.SetEmpty
 
 -- @ Core\Regions\*
-local SkinBackdrop, SkinCooldown, SkinFrame = Core.SkinBackdrop, Core.SkinCooldown, Core.SkinFrame
+local SkinAutoCast, SkinBackdrop, SkinCooldown = Core.SkinAutoCast, Core.SkinBackdrop, Core.SkinCooldown
 local SkinGloss, SkinIcon, SkinIconBorder = Core.SkinGloss, Core.SkinIcon, Core.SkinIconBorder
 local SkinMask, SkinNewItem, SkinNormal = Core.SkinMask, Core.SkinNewItem, Core.SkinNormal
 local SkinQuestBorder, SkinShadow, SkinSlotIcon = Core.SkinQuestBorder, Core.SkinShadow, Core.SkinSlotIcon
@@ -391,11 +391,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- AutoCast Frame
 	if bType == "Pet" then
-		local Shine = Regions.AutoCastShine
-
-		if Shine then
-			SkinFrame(Shine, Button, Skin.AutoCastShine, xScale, yScale)
-		end
+		SkinAutoCast(Button, Skin, xScale, yScale)
 	end
 
 	-- SpellAlert

@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 	<Script file="Mask.lua"/>
+	<Script file="AutoCast.lua"/>
 	<Script file="Backdrop.lua"/>
 	<Script file="Normal.lua"/>
 	<Script file="Icon.lua"/>
@@ -12,7 +13,6 @@
 	<Script file="IconBorder.lua"/>
 	<Script file="NewItem.lua"/>
 	<Script file="QuestBorder.lua"/>
-	<Script file="Frame.lua"/>
 	<Script file="Cooldown.lua"/>
 	<Script file="SpellAlert.lua"/>
 </Ui>
