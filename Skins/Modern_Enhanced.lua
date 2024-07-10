@@ -261,7 +261,7 @@ Core.AddSkin("Modern Enhanced", {
 	EnchantBorder = "Border",
 	-- IconBorder = Template.IconBorder,
 	Gloss = {
-		Texture = [[Interface\AddOns\Masque\Textures\Gloss\Action-Modern]],
+		Texture = [[Interface\AddOns\Masque\Textures\Modern\Gloss]],
 		-- TexCoords = {0, 1, 0, 1},
 		Color = {1, 1, 1, 0.8},
 		BlendMode = "BLEND",
@@ -354,9 +354,36 @@ Core.AddSkin("Modern Enhanced", {
 			-- UseColor = nil,
 		},
 	},
+	-- [ AutoCastShine (Classic) ]
 	-- AutoCastShine = Template.AutoCastShine,
-	-- Cooldown = Template.Cooldown,
-	-- ChargeCooldown = Template.ChargeCooldown,
+	-- [ Cooldowns ]
+	Cooldown = {
+		Texture = [[Interface\AddOns\Masque\Textures\Modern\Mask]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Modern\Edge]],
+		PulseTexture = [[Interface\Cooldown\star4]],
+		Color = {0, 0, 0, 0.8},
+		Width = 34,
+		Height = 34,
+		Anchor = "Icon",
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
+	ChargeCooldown = {
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Modern\Edge]],
+		PulseTexture = [[Interface\Cooldown\star4]],
+		Width = 31,
+		Height = 31,
+		Anchor = "Icon",
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		--SetAllPoints = true,
+	},
+	-- [ SpellAlert ]
 	SpellAlert = {
 		Height = 29,
 		Width = 29,

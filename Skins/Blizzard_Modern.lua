@@ -851,22 +851,24 @@ local Skin = {
 			-- UseColor = nil,
 		},
 	},
+	-- [ AutoCastShine (Classic) ]
 	AutoCastShine = {
-		Width = 33,
-		Height = 33,
+		Width = 33, -- 40/28
+		Height = 33, -- 40/28
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 1,
 		OffsetY = -0.5,
 		-- SetAllPoints = nil,
 	},
+	-- [ Cooldowns ]
 	Cooldown = {
-		Texture = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe-Modern]],
+		Texture = [[Interface\AddOns\Masque\Textures\Modern\Mask]],
 		EdgeTexture = [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
-		Width = 31.5,
-		Height = 31.5,
+		Width = 34,
+		Height = 34,
 		Anchor = "Icon",
 		Point = "CENTER",
 		RelPoint = "CENTER",
@@ -886,6 +888,8 @@ local Skin = {
 		OffsetY = 0,
 		--SetAllPoints = true,
 	},
+	-- [ SpellAlert ]
+	-- SpellAlert = Default.SpellAlert,
 }
 
 ----------------------------------------

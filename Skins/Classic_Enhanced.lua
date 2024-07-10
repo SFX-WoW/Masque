@@ -411,6 +411,7 @@ Core.AddSkin("Classic Enhanced", {
 		-- SetAllPoints = nil,
 		-- UseColor = nil,
 	},
+	-- [ AutoCastShine (Classic) ]
 	AutoCastShine = {
 		Width = 32,
 		Height = 32,
@@ -420,20 +421,33 @@ Core.AddSkin("Classic Enhanced", {
 		OffsetY = -0.5,
 		-- SetAllPoints = nil,
 	},
+	-- [ Cooldowns ]
 	Cooldown = {
-		-- Texture = nil,
-		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
+		Texture = [[Interface\AddOns\Masque\Textures\Modern\Mask]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Modern\Edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
-		Width = 32,
-		Height = 32,
+		Width = 34,
+		Height = 34,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	ChargeCooldown = "Cooldown",
+	ChargeCooldown = {
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Modern\Edge]],
+		PulseTexture = [[Interface\Cooldown\star4]],
+		Width = 32,
+		Height = 32,
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = true,
+	},
+	--ChargeCooldown = "Cooldown",
+	-- [ SpellAlert ]
 	SpellAlert = {
 		Height = 30,
 		Width = 30,

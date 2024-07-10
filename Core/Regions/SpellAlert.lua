@@ -38,8 +38,8 @@ local GetColor, GetScale, GetSize = Core.GetColor, Core.GetScale, Core.GetSize
 -- Classic Spell Alerts
 local Overlays = {
 	Circle = {
-		Glow = [[Interface\AddOns\Masque\Textures\SpellAlert\Classic\IconAlert-Circle]],
-		Ants = [[Interface\AddOns\Masque\Textures\SpellAlert\Classic\IconAlertAnts-Circle]],
+		Glow = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Glow]],
+		Ants = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Ants]],
 	},
 	Square = {
 		Glow = [[Interface\SpellActivationOverlay\IconAlert]],
@@ -53,31 +53,31 @@ local DEFAULT_SIZE = 64
 
 local FlipBooks = {
 	["Circle"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\SpellAlert\Circle\Loop]],
+		LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop]],
 		Color = DEFAULT_COLOR,
 		FrameHeight = DEFAULT_SIZE,
 		FrameWidth = DEFAULT_SIZE,
 	},
 	["Hexagon"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\SpellAlert\Hexagon\Loop]],
+		LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop]],
 		Color = DEFAULT_COLOR,
 		FrameHeight = DEFAULT_SIZE,
 		FrameWidth = DEFAULT_SIZE,
 	},
 	["Hexagon-Rotated"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\SpellAlert\Hexagon-Rotated\Loop]],
+		LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop]],
 		Color = DEFAULT_COLOR,
 		FrameHeight = DEFAULT_SIZE,
 		FrameWidth = DEFAULT_SIZE,
 	},
 	["Modern"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\SpellAlert\Modern\Loop]],
+		LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop]],
 		Color = DEFAULT_COLOR,
 		FrameHeight = DEFAULT_SIZE,
 		FrameWidth = DEFAULT_SIZE,
 	},
 	["Square"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\SpellAlert\Square\Loop]],
+		LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop]],
 		Color = DEFAULT_COLOR,
 		FrameHeight = DEFAULT_SIZE,
 		FrameWidth = DEFAULT_SIZE,

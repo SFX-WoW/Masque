@@ -377,6 +377,7 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	-- Highlight = Template.Highlight,
+	-- [ AutoCastShine (Classic) ]
 	AutoCastShine = {
 		Width = 36,
 		Height = 36,
@@ -386,9 +387,10 @@ Core.AddSkin("Zoomed", {
 		OffsetY = -0.5
 		-- SetAllPoints = nil,
 	},
+	-- [ Cooldowns ]
 	Cooldown = {
-		-- Texture = nil,
-		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
+		Texture = [[Interface\AddOns\Masque\Textures\Square\Mask]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Square\Edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 36,
@@ -400,6 +402,7 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
+	-- [ SpellAlert ]
 	SpellAlert = {
 		Width = 30,
 		Height = 30,

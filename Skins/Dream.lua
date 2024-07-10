@@ -421,6 +421,7 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 		-- UseColor = nil,
 	},
+	-- [ AutoCastShine (Classic) ]
 	AutoCastShine = {
 		Width = 28,
 		Height = 28,
@@ -430,9 +431,10 @@ Core.AddSkin("Dream", {
 		OffsetY = -0.5,
 		-- SetAllPoints = nil,
 	},
+	-- [ Cooldowns ]
 	Cooldown = {
-		-- Texture = nil,
-		EdgeTexture = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]],
+		Texture = [[Interface\AddOns\Masque\Textures\Square\Mask]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Square\Edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 30,
@@ -444,6 +446,7 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
+	-- [ SpellAlert ]
 	SpellAlert = {
 		Width = 26,
 		Height = 26,

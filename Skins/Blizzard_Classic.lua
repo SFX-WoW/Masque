@@ -35,7 +35,7 @@ local SkinID = "Blizzard Classic"
 
 local Skin = {
 	API_VERSION = Core.API_VERSION,
-	Shape = "Square",
+	Shape = "Blizzard",
 	SkinID = SkinID,
 
 	-- Info
@@ -594,6 +594,7 @@ local Skin = {
 		-- SetAllPoints = nil,
 		-- UseColor = nil,
 	},
+	-- [ AutoCastShine (Classic) ]
 	AutoCastShine = {
 		Width = (WOW_CLASSIC and 34) or 30,
 		Height = (WOW_CLASSIC and 34) or 30,
@@ -603,8 +604,9 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
+	-- [ Cooldowns ]
 	Cooldown = {
-		-- Texture = nil,
+		Texture = [[Interface\AddOns\Masque\Textures\Square\Mask]],
 		EdgeTexture = [[Interface\Cooldown\edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
@@ -619,14 +621,16 @@ local Skin = {
 	ChargeCooldown = {
 		EdgeTexture = [[Interface\Cooldown\edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
-		Width = 36,
-		Height = 36,
+		Width = 34,
+		Height = 34,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
 		-- SetAllPoints = true,
 	},
+	-- [ SpellAlert ]
+	-- SpellAlert = Default.SpellAlert,
 }
 
 ----------------------------------------

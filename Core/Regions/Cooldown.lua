@@ -49,11 +49,11 @@ local DEFAULT_PULSE = [[Interface\Cooldown\star4]]
 local DEFAULT_EDGE = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]]) or [[Interface\Cooldown\edge]]
 local DEFAULT_EDGE_LOC = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-LoC]]) or [[Interface\Cooldown\edge-LoC]]
 
-local MASQUE_EDGE = [[Interface\AddOns\Masque\Textures\Cooldown\Edge]]
-local MASQUE_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Cooldown\Edge-LoC]]
+local MASQUE_EDGE = [[Interface\AddOns\Masque\Textures\Square\Edge]]
+local MASQUE_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Square\Edge-LoC]]
 
-local MASQUE_SWIPE = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe]]
-local MASQUE_SWIPE_CIRCLE = [[Interface\AddOns\Masque\Textures\Cooldown\Swipe-Circle]]
+local MASQUE_SWIPE = [[Interface\AddOns\Masque\Textures\Square\Mask]]
+local MASQUE_SWIPE_CIRCLE = [[Interface\AddOns\Masque\Textures\Circle\Mask]]
 
 ----------------------------------------
 -- Hooks
