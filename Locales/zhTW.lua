@@ -64,7 +64,7 @@ L["The default Classic button style."] = "預設的經典按鈕樣式。"
 L["The default Dragonflight button style."] = "預設的巨龍崛起按鈕樣式。"
 
 ----------------------------------------
--- Classic Redux Skin
+-- Classic Enhanced Skin
 ---
 
 L["A modified version of the Classic button style."] = "經典按鈕樣式的修改版。"

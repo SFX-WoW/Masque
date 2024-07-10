@@ -64,7 +64,7 @@ L["You must have an add-on that supports Masque installed to use it."] = "Per us
 -- L["The default Dragonflight button style."] = "The default Dragonflight button style."
 
 ----------------------------------------
--- Classic Redux Skin
+-- Classic Enhanced Skin
 ---
 
 L["A modified version of the Classic button style."] = "Una versione modificata dello stile per pulsanti Classico."

@@ -64,7 +64,7 @@ L["The default Classic button style."] = "Классический стиль к
 L["The default Dragonflight button style."] = "Стиль кнопки Dragonflight по умолчанию."
 
 ----------------------------------------
--- Classic Redux Skin
+-- Classic Enhanced Skin
 ---
 
 L["A modified version of the Classic button style."] = "Улучшенная версия стандартных кнопок"

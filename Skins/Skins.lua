@@ -37,7 +37,7 @@ local Hidden = {Hide = true}
 -- Legacy Skin IDs
 local LegacyIDs = {
 	["Blizzard"] = "Blizzard Classic",
-	["Classic"] = "Classic Redux",
+	["Classic"] = "Classic Enhanced",
 	["Default"] = "Blizzard Classic",
 	["Default (Classic)"] = "Blizzard Classic",
 }

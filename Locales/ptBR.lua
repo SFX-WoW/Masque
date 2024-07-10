@@ -64,7 +64,7 @@ L["For more information, please visit one of the sites listed below."] = "Para m
 -- L["The default Dragonflight button style."] = "The default Dragonflight button style."
 
 ----------------------------------------
--- Classic Redux Skin
+-- Classic Enhanced Skin
 ---
 
 L["A modified version of the Classic button style."] = "Uma versão aprimorada do estilo de botão padrão do jogo."

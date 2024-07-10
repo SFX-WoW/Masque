@@ -64,7 +64,7 @@ L["The default Classic button style."] = "기본 클래식 버튼 스타일입�
 L["The default Dragonflight button style."] = "기본 용군단 버튼 스타일입니다."
 
 ----------------------------------------
--- Classic Redux Skin
+-- Classic Enhanced Skin
 ---
 
 L["A modified version of the Classic button style."] = "클래식 버튼 스타일을 개선한 버전입니다."

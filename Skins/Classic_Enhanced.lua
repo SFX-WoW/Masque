@@ -6,7 +6,7 @@
 	* File...: Skins\Maul_Classic.lua
 	* Author.: StormFX, Maul, Blizzard Entertainment
 
-	"Classic Redux" Skin
+	"Classic Enhanced" Skin
 
 ]]
 
@@ -20,10 +20,10 @@ local _, Core = ...
 local L = Core.Locale
 
 ----------------------------------------
--- Classic Redux
+-- Classic Enhanced
 ---
 
-Core.AddSkin("Classic Redux", {
+Core.AddSkin("Classic Enhanced", {
 	-- API_VERSION = Template.API_VERSION,
 	Shape = "Modern",
 	Template = "Blizzard Classic",
