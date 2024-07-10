@@ -410,16 +410,6 @@ Core.AddSkin("Zoomed", {
 	},
 	-- [ AutoCastShine (Classic) ]
 	AutoCastShine = {
-		Width = 28,
-		Height = 28,
-		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0.5,
-		OffsetY = -0.5,
-		-- SetAllPoints = nil,
-	},
-	-- [ AutoCastShine (Classic) ]
-	AutoCastShine = {
 		Width = 36,
 		Height = 36,
 		Point = "CENTER",
