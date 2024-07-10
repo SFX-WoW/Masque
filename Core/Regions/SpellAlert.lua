@@ -48,7 +48,7 @@ local Overlays = {
 }
 
 -- Modern Spell Alerts
-local DEFAULT_COLOR = {1, 0.9, 0.5}
+local DEFAULT_COLOR = {1, 0.9, 0.4, 1}
 local DEFAULT_SIZE = 64
 
 local FlipBooks = {
