@@ -1,8 +1,8 @@
-## 10.2.8-Beta2
+## 10.2.8
 
 #### Disclaimers
 
-- This is a beta and may have bugs.
+- This release may have bugs.
 - Skins may need to be updated to work properly.
 
 ### General
@@ -17,6 +17,14 @@
 
 - Added five new spell minimalistic spell alert textures for **Retail** that will be applied to non-default skins that specify one the natively-supported shapes.
 - Added five new pet `AutoCast` animation texture masks for **The War Within** that skin authors can use to fit their skin(s).
+- Added support for the new `AutoCast` animations in **The War Within**. These animations consist of the following regions:
+  - `AutoCast_Frame` - The frame that the textures are parented to. This should never need to be manipulated.
+  - `AutoCast_Shine` - This is the content texture that gets animated. Accepts standard texture attributes.
+  - `AutoCast_Mask` - This is the mask applied to `AutoCast_Shine` to show specific regions of the texture. Accepts standard `Mask` attributes.
+    - **Note:** As mentioned above, five mask shapes are included with **Masque**.
+  - `AutCast_Corners` - This is corner texture. Accepts standard texture attributes.
+  - An example of implementation can be seen in any of my custom skins.
+  - Any region not specified with fallback to the default region, making skinning these regions optional.
 - All texture paths except for `Textures\Backdrop` have been updated to align with their respective shapes. Eg:
   - `Textures\Cooldown\Swipe-Circle` is now `Textures\Circle\Mask`.
 - **Masque** now natively supports five shapes usable by skin authors. These shapes are:
@@ -33,6 +41,7 @@
   - `Edge`
   - `Edge-LoC`
 - Renamed **Classic Redux** to **Classic Enhanced**.
+- Updated all `Cooldown` settings to use appropriate masks.
 
 ### API
 
