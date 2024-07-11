@@ -861,8 +861,8 @@ local Skin = {
 		Height = 37, -- 31
 		Point = "CENTER",
 		RelPoint = "CENTER",
-		OffsetX = 0.5,
-		OffsetY = -0.5,
+		OffsetX = 0,
+		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
 	AutoCast_Shine = {
@@ -922,18 +922,6 @@ local Skin = {
 		EdgeTexture = [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
-		Width = 34,
-		Height = 34,
-		Anchor = "Icon",
-		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
-	ChargeCooldown = {
-		EdgeTexture = [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]],
-		PulseTexture = [[Interface\Cooldown\star4]],
 		Width = 31,
 		Height = 31,
 		Anchor = "Icon",
@@ -941,8 +929,9 @@ local Skin = {
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
-		--SetAllPoints = true,
+		-- SetAllPoints = nil,
 	},
+	ChargeCooldown = "Cooldown",
 	-- [ SpellAlert ]
 	-- SpellAlert = Default.SpellAlert,
 }
