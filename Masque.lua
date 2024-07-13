@@ -219,6 +219,9 @@ function Masque:OnInitialize()
 				Reticle = true,
 				SpellAlert = 1,
 			},
+			SpellAlert = {
+				Style = "Masque Thin",
+			},
 		},
 	}
 

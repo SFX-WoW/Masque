@@ -180,7 +180,9 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 	local Loop_Animation = Loop_Group.FlipAnim or GetFlipBook(Loop_Group:GetAnimations())
 	local Loop_Flipbook = Region.ProcLoopFlipbook
 
-	if Skin then
+	local Alert_Style = Core.db.profile.SpellAlert.Style
+
+	if Skin and (Alert_Style ~= "Blizzard") then
 		-- [ Alert Frame ]
 
 		-- Get the skin size relative to scaling.
@@ -315,9 +317,11 @@ local function UpdateSpellAlert(Button)
 		Region.__Skip_Start = (Alert_Setting == 2 and true) or nil
 
 		local Active_Skin = Region.__MSQ_Skin
+		local Skin_Changed = (not Active_Skin) or (Active_Skin ~= Region_Skin)
+		local Scale_Changed = Region.__MSQ_Scale ~= Button.__MSQ_Scale
 
 		-- Update the skin if the skin or scale has changed.
-		if (not Active_Skin) or (Active_Skin ~= Region_Skin) or (Region.__MSQ_Scale ~= Button.__MSQ_Scale) then
+		if (Skin_Changed or Scale_Changed) then
 			SkinFlipBook(Region, Button, Region_Skin, GetScale(Button))
 
 		-- Update the Start animation.
