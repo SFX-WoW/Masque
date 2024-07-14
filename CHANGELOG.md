@@ -1,7 +1,7 @@
-## 10.2.9
+## 10.2.10
 
-### General
+### Bug Fixes
 
-- Added an option to use **Blizzard**'s default spell alerts.
+- Fixed an issue with custom spell alerts that have no start animation. (#380)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
