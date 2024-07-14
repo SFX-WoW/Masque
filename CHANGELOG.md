@@ -1,6 +1,6 @@
 ## 10.2.10
 
-### Bug Fixes
+### Bug Fix
 
 - Fixed an issue with custom spell alerts that have no start animation. (#380)
 
