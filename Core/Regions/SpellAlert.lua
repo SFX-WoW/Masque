@@ -208,6 +208,8 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 
 			-- Verify there's a start animation.
 			if Start_Flipbook and Start_Animation then
+				local Start_Texture = FlipBook_Style.StartTexture
+
 				if not Start_Texture then
 					Start_Texture = Loop_Texture
 					Region.__Loop_Only = true
