@@ -125,15 +125,17 @@ local function UpdateStartAnimation(Region)
 	local Start_Group = Region.ProcStartAnim
 	local Start_Animation = Start_Group.FlipAnim or GetFlipBook(Start_Group:GetAnimations())
 
-	-- Disable the start animation.
-	if Region.__Skip_Start or Region.__Loop_Only then
-		Start_Animation:SetDuration(0)
-		Region.ProcStartFlipbook:Hide()
+	if Start_Animation then
+		-- Disable the start animation.
+		if Region.__Skip_Start or Region.__Loop_Only then
+			Start_Animation:SetDuration(0)
+			Region.ProcStartFlipbook:Hide()
 
-	-- Enable the start animation.
-	else
-		Start_Animation:SetDuration(0.7)
-		Region.ProcStartFlipbook:Show()
+		-- Enable the start animation.
+		else
+			Start_Animation:SetDuration(0.7)
+			Region.ProcStartFlipbook:Show()
+		end
 	end
 end
 
@@ -204,23 +206,24 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 
 			-- [ Start Animation ]
 
-			local Start_Texture = FlipBook_Style.StartTexture
+			-- Verify there's a start animation.
+			if Start_Flipbook and Start_Animation then
+				if not Start_Texture then
+					Start_Texture = Loop_Texture
+					Region.__Loop_Only = true
+				else
+					Region.__Loop_Only = nil
+				end
 
-			if not Start_Texture then
-				Start_Texture = Loop_Texture
-				Region.__Loop_Only = true
-			else
-				Region.__Loop_Only = nil
+				Start_Flipbook:SetTexture(Start_Texture)
+				Start_Flipbook:SetVertexColor(GetColor(FlipBook_Style.Color))
+
+				Start_Flipbook:ClearAllPoints()
+				Start_Flipbook:SetAllPoints()
+
+				UpdateFlipBook(Start_Animation, FlipBook_Style)
+				UpdateStartAnimation(Region)
 			end
-
-			Start_Flipbook:SetTexture(Start_Texture)
-			Start_Flipbook:SetVertexColor(GetColor(FlipBook_Style.Color))
-
-			Start_Flipbook:ClearAllPoints()
-			Start_Flipbook:SetAllPoints()
-
-			UpdateFlipBook(Start_Animation, FlipBook_Style)
-			UpdateStartAnimation(Region)
 
 			-- [ Loop Animation ]
 
@@ -235,21 +238,24 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 
 			-- [ Start Animation ]
 
-			Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
-			Start_Flipbook:SetVertexColor(1, 1, 1)
+			-- Verify there's a start animation.
+			if Start_Flipbook and Start_Animation then
+				Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
+				Start_Flipbook:SetVertexColor(1, 1, 1)
 
-			Start_Flipbook:ClearAllPoints()
-			Start_Flipbook:SetPoint("CENTER")
+				Start_Flipbook:ClearAllPoints()
+				Start_Flipbook:SetPoint("CENTER")
 
-			-- Texture size relative to the button size.
-			local Scale_Width, Scale_Height = Button:GetSize()
-			local Width = 160 * (Skin_Width / (Scale_Width * 1.4))
-			local Height = 160 * (Skin_Height / (Scale_Height * 1.4))
+				-- Texture size relative to the button size.
+				local Scale_Width, Scale_Height = Button:GetSize()
+				local Width = 160 * (Skin_Width / (Scale_Width * 1.4))
+				local Height = 160 * (Skin_Height / (Scale_Height * 1.4))
 
-			Start_Flipbook:SetSize(Width, Height)
+				Start_Flipbook:SetSize(Width, Height)
 
-			UpdateFlipBook(Start_Animation)
-			UpdateStartAnimation(Region)
+				UpdateFlipBook(Start_Animation)
+				UpdateStartAnimation(Region)
+			end
 
 			-- [ Loop Animation ]
 
@@ -271,17 +277,20 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 
 		-- [ Start Animation ]
 
-		Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
-		Start_Flipbook:SetVertexColor(1, 1, 1)
+		-- Verify there's a start animation.
+		if Start_Flipbook and Start_Animation then
+			Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
+			Start_Flipbook:SetVertexColor(1, 1, 1)
 
-		Start_Flipbook:ClearAllPoints()
-		Start_Flipbook:SetPoint("CENTER")
+			Start_Flipbook:ClearAllPoints()
+			Start_Flipbook:SetPoint("CENTER")
 
-		-- Defaults to 150 x 150, causing visual scaling-up on transition.
-		Start_Flipbook:SetSize(160, 160)
+			-- Defaults to 150 x 150, causing visual scaling-up on transition.
+			Start_Flipbook:SetSize(160, 160)
 
-		UpdateFlipBook(Start_Animation)
-		UpdateStartAnimation(Region)
+			UpdateFlipBook(Start_Animation)
+			UpdateStartAnimation(Region)
+		end
 
 		-- [ Loop Animation ]
 
