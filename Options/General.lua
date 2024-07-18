@@ -277,6 +277,7 @@ function Setup.General(self)
 								desc = L["Select the spell alert style."]..Reload,
 								values = {
 									[0] = L["None"],
+									["Classic"] = L["Classic"],
 									["Thin"] = L["Thin"],
 								},
 								order = 2,

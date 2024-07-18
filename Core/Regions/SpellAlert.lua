@@ -52,7 +52,34 @@ local DEFAULT_COLOR = {1, 0.9, 0.4, 1}
 local DEFAULT_SIZE = 64
 
 local FlipBooks = {
-	["Masque Thin"] = {
+	["Classic"] = {
+		["Circle"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Classic]],
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+		["Hexagon"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Classic]],
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+		["Hexagon-Rotated"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Classic]],
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+		["Modern"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Classic]],
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+		["Square"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Classic]],
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+	},
+	["Thin"] = {
 		["Circle"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop]],
 			Color = DEFAULT_COLOR,
