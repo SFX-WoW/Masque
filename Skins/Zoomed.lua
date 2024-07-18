@@ -435,7 +435,15 @@ Core.AddSkin("Zoomed", {
 	ChargeCooldown = "Cooldown",
 	-- [ SpellAlert ]
 	SpellAlert = {
-		Width = 30,
-		Height = 30,
+		Width = 40,
+		Height = 40,
+		Classic = {
+			Height = 34,
+			Width = 34,
+		},
+		Thin = {
+			Height = 30,
+			Width = 30,
+		},
 	},
 }, true)

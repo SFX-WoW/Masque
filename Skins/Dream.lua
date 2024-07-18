@@ -28,7 +28,7 @@ local Hidden = Core.__Hidden
 
 Core.AddSkin("Dream", {
 	-- API_VERSION = Template.API_VERSION,
-	-- Shape = Template.Shape,
+	Shape = "Square",
 	Template = "Blizzard Classic",
 
 	-- Info
@@ -479,7 +479,15 @@ Core.AddSkin("Dream", {
 	ChargeCooldown = "Cooldown",
 	-- [ SpellAlert ]
 	SpellAlert = {
-		Width = 26,
-		Height = 26,
+		Width = 34,
+		Height = 34,
+		Classic = {
+			Height = 28,
+			Width = 28,
+		},
+		Thin = {
+			Height = 26,
+			Width = 26,
+		},
 	},
 }, true)

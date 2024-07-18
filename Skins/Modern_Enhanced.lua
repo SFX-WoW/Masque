@@ -405,7 +405,15 @@ Core.AddSkin("Modern Enhanced", {
 	ChargeCooldown = "Cooldown",
 	-- [ SpellAlert ]
 	SpellAlert = {
-		Height = 29,
-		Width = 29,
+		Height = 38,
+		Width = 38,
+		Classic = {
+			Height = 30,
+			Width = 30,
+		},
+		Thin = {
+			Height = 29,
+			Width = 29,
+		},
 	},
 }, true)
