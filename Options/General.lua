@@ -275,11 +275,7 @@ function Setup.General(self)
 								type = "select",
 								name = L["Spell Alert Style"],
 								desc = L["Select the spell alert style."]..Reload,
-								values = {
-									[0] = L["None"],
-									["Classic"] = L["Classic"],
-									["Thin"] = L["Thin"],
-								},
+								values = Core.FlipBook_List,
 								order = 2,
 							},
 						},

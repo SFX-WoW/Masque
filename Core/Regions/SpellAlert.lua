@@ -113,6 +113,12 @@ local FlipBooks = {
 	},
 }
 
+local FlipBook_List = {
+	[0] = "None",
+	["Classic"] = "Classic",
+	["Thin"] = "Thin",
+}
+
 ----------------------------------------
 -- Utility
 ---
@@ -417,6 +423,7 @@ hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateSpellAlert)
 -- Core
 ---
 
+Core.FlipBook_List = FlipBook_List
 Core.UpdateSpellAlert = UpdateSpellAlert
 
 ----------------------------------------
@@ -486,8 +493,13 @@ end
 ---
 
 -- Adds a custom FlipBook style.
-function API:AddSpellAlertFlipBook(Shape, Data)
-	if type(Shape) ~= "string" or FlipBooks[Shape] then
+function API:AddSpellAlertFlipBook(Style, Shape, Data)
+	if type(Style) ~= "string" then
+		if Core.Debug then
+			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Shape' must be a unique string.", 2)
+		end
+		return
+	elseif type(Shape) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Shape' must be a unique string.", 2)
 		end
@@ -499,17 +511,34 @@ function API:AddSpellAlertFlipBook(Shape, Data)
 		return
 	end
 
-	FlipBooks[Shape] = Data
+	local Style_Data = FlipBooks[Style] or {}
+
+	if Style_Data[Shape] then
+		if Core.Debug then
+			error("Bad argument to API method 'AddSpellAlertFlipBook'. A style for this shape already exists.", 2)
+		end
+		return
+	end
+
+	FlipBooks[Style][Shape] = Data
+	FlipBook_List[Style] = FlipBook_List[Style] or Style
 end
 
 -- Returns a FlipBook style table.
-function API:GetSpellAlertFlipBook(Shape)
-	if type(Shape) ~= "string" then
+function API:GetSpellAlertFlipBook(Style, Shape)
+	if type(Style) ~= "string" then
+		if Core.Debug then
+			error("Bad argument to API method 'GetSpellAlertFlipBook'. 'Style' must be a string.", 2)
+		end
+		return
+	elseif type(Shape) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'GetSpellAlertFlipBook'. 'Shape' must be a string.", 2)
 		end
 		return
 	end
 
-	return FlipBooks[Shape]
+	local Style_Data = FlipBooks[Style]
+
+	return Style_Data and Style_Data[Shape]
 end
