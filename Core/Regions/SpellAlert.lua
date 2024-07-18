@@ -52,35 +52,37 @@ local DEFAULT_COLOR = {1, 0.9, 0.4, 1}
 local DEFAULT_SIZE = 64
 
 local FlipBooks = {
-	["Circle"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop]],
-		Color = DEFAULT_COLOR,
-		FrameHeight = DEFAULT_SIZE,
-		FrameWidth = DEFAULT_SIZE,
-	},
-	["Hexagon"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop]],
-		Color = DEFAULT_COLOR,
-		FrameHeight = DEFAULT_SIZE,
-		FrameWidth = DEFAULT_SIZE,
-	},
-	["Hexagon-Rotated"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop]],
-		Color = DEFAULT_COLOR,
-		FrameHeight = DEFAULT_SIZE,
-		FrameWidth = DEFAULT_SIZE,
-	},
-	["Modern"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop]],
-		Color = DEFAULT_COLOR,
-		FrameHeight = DEFAULT_SIZE,
-		FrameWidth = DEFAULT_SIZE,
-	},
-	["Square"] = {
-		LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop]],
-		Color = DEFAULT_COLOR,
-		FrameHeight = DEFAULT_SIZE,
-		FrameWidth = DEFAULT_SIZE,
+	["Masque Thin"] = {
+		["Circle"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop]],
+			Color = DEFAULT_COLOR,
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+		["Hexagon"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop]],
+			Color = DEFAULT_COLOR,
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+		["Hexagon-Rotated"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop]],
+			Color = DEFAULT_COLOR,
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+		["Modern"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop]],
+			Color = DEFAULT_COLOR,
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
+		["Square"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop]],
+			Color = DEFAULT_COLOR,
+			FrameHeight = DEFAULT_SIZE,
+			FrameWidth = DEFAULT_SIZE,
+		},
 	},
 }
 
@@ -182,13 +184,18 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 	local Loop_Animation = Loop_Group.FlipAnim or GetFlipBook(Loop_Group:GetAnimations())
 	local Loop_Flipbook = Region.ProcLoopFlipbook
 
-	local Alert_Style = Core.db.profile.SpellAlert.Style
 
-	if Skin and (Alert_Style ~= "Blizzard") then
+	if Skin then
+		local Active_Style = Region.__MSQ_Style
+		local Style_Enabled = Active_Style and (Active_Style ~= 0)
+
+		-- Nested Skins
+		local Style_Skin = (Style_Enabled and Skin[Active_Style]) or Skin
+
 		-- [ Alert Frame ]
 
 		-- Get the skin size relative to scaling.
-		local Skin_Width, Skin_Height = GetSize(Skin.Width, Skin.Height, xScale, yScale, Button)
+		local Skin_Width, Skin_Height = GetSize(Style_Skin.Width, Style_Skin.Height, xScale, yScale, Button)
 
 		-- Set the frame size relative to the button.
 		Skin_Width = Skin_Width * 1.4
@@ -199,7 +206,15 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 		-- [ Animations ]
 
 		local Button_Shape = Button.__MSQ_Shape
-		local FlipBook_Style = Button_Shape and FlipBooks[Button_Shape]
+		local FlipBook_Style
+
+		if Button_Shape and Style_Enabled then
+			local Style_Data = FlipBooks[Active_Style]
+
+			if Style_Data then
+				FlipBook_Style = Style_Data[Button_Shape]
+			end
+		end
 
 		if FlipBook_Style then
 			local Loop_Texture = FlipBook_Style.LoopTexture
@@ -319,24 +334,37 @@ local function UpdateSpellAlert(Button)
 	local Button_Skin = Button.__MSQ_Skin
 	local Region_Skin = Button_Skin and Button_Skin.SpellAlert
 
-	-- Modern Spell Alerts
+	-- FlipBooks
 	if Region.ProcStartAnim then
 		-- Get the Spell Alert animation setting.
-		local Alert_Setting = Core.db.profile.Effects.SpellAlert
+		local Alert_DB = Core.db.profile.SpellAlert
+		local DB_State = Alert_DB.State
 
 		-- Skips the Start animation. Must be set before the skin is applied.
-		Region.__Skip_Start = (Alert_Setting == 2 and true) or nil
+		Region.__Skip_Start = (DB_State == 2 and true) or nil
 
+		-- Skin and Scale Changes
 		local Active_Skin = Region.__MSQ_Skin
 		local Skin_Changed = (not Active_Skin) or (Active_Skin ~= Region_Skin)
+
 		local Scale_Changed = Region.__MSQ_Scale ~= Button.__MSQ_Scale
 
+		-- Style and State Changes
+		local DB_Style = Alert_DB.Style
+		local Style_Changed = Region.__MSQ_Style ~= DB_Style
+
+		local State_Changed = Region.__MSQ_State ~= DB_State
+
 		-- Update the skin if the skin or scale has changed.
-		if (Skin_Changed or Scale_Changed) then
+		if (Skin_Changed or Scale_Changed or Style_Changed) then
+			Region.__MSQ_Style = DB_Style
+
 			SkinFlipBook(Region, Button, Region_Skin, GetScale(Button))
 
 		-- Update the Start animation.
-		else
+		elseif State_Changed then
+			Region.__MSQ_State = DB_State
+
 			UpdateStartAnimation(Region)
 		end
 
@@ -344,12 +372,12 @@ local function UpdateSpellAlert(Button)
 		Region.ProcLoopFlipbook:SetAlpha(0)
 
 		-- Disables Spell Alerts completely. Must be set after the skin is applied.
-		if Alert_Setting == 0 then
+		if DB_State == 0 then
 			ActionButton_HideOverlayGlow(Button)
 			return
 		end
 
-	-- Classic Spell Alerts
+	-- Overlays
 	elseif Region.spark then
 		SkinOverlay(Region, Button, Region_Skin)
 	end
