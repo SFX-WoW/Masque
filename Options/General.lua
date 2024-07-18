@@ -250,75 +250,84 @@ function Setup.General(self)
 						fontSize = "medium",
 					},
 					SpellAlert = {
-						type = "select",
-						name = L["Spell Alerts"],
-						desc = L["Select which spell alert animations are enabled."],
-						values = {
-							[0] = L["None"],
-							[1] = L["Flash and Loop"],
-							[2] = L["Loop Only"],
-						},
-						order = 2,
-					},
-					SpellAlertStyle = {
-						type = "select",
-						name = L["Spell Alert Style"],
-						desc = L["Select the spell alert style."]..Reload,
-						values = {
-							["Blizzard"] = L["Blizzard"],
-							["Masque Thin"] = L["Masque Thin"],
-						},
-						get = function(i) return Core.db.profile.SpellAlert.Style end,
-						set = function(i, v)
-							Core.db.profile.SpellAlert.Style = v
+						type = "group",
+						name = "",
+						inline = true,
+						set = function(Info, Value)
+							local Name = Info[#Info]
+
+							Core.db.profile.SpellAlert[Name] = Value
 						end,
-						order = 3,
+						order = 2,
+						args = {
+							State = {
+								type = "select",
+								name = L["Spell Alert Animations"],
+								desc = L["Select which spell alert animations are enabled."],
+								values = {
+									[0] = L["None"],
+									[1] = L["Flash and Loop"],
+									[2] = L["Loop Only"],
+								},
+								order = 1,
+							},
+							Style = {
+								type = "select",
+								name = L["Spell Alert Style"],
+								desc = L["Select the spell alert style."]..Reload,
+								values = {
+									[0] = L["None"],
+									["Thin"] = L["Thin"],
+								},
+								order = 2,
+							},
+						},
 					},
 					SPC01 = {
 						type = "description",
 						name = " ",
-						order = 4,
+						order = 3,
 					},
 					Castbar = {
 						type = "toggle",
 						name = L["Cast Animations"],
 						desc = L["Enable cast animations on action buttons."],
-						order = 5,
+						order = 4,
 					},
 					SPC02 = {
 						type = "description",
 						name = " ",
-						order = 6,
+						order = 5,
 					},
 					Cooldown = {
 						type = "toggle",
 						name = L["Cooldown Animations"],
 						desc = L["Enable animations when action button cooldowns finish."],
-						order = 7,
+						order = 6,
 						hidden = true,
 					},
 					SPC03 = {
 						type = "description",
 						name = " ",
-						order = 8,
+						order = 7,
 						hidden = true,
 					},
 					Interrupt = {
 						type = "toggle",
 						name = L["Interrupt Animations"],
 						desc = L["Enable interrupt animations on action buttons."],
-						order = 9,
+						order = 8,
 					},
 					SPC04 = {
 						type = "description",
 						name = " ",
-						order = 10,
+						order = 9,
 					},
 					Reticle = {
 						type = "toggle",
 						name = L["Targeting Reticles"],
 						desc = L["Enable targeting reticles on action buttons."],
-						order = 11,
+						order = 10,
 					},
 				},
 			} or nil,
