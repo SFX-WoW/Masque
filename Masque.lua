@@ -217,10 +217,10 @@ function Masque:OnInitialize()
 				-- Cooldown = true, -- Disabled by Blizzard
 				Interrupt = true,
 				Reticle = true,
-				SpellAlert = 1,
 			},
 			SpellAlert = {
-				Style = "Masque Thin",
+				State = 1,
+				Style = false,
 			},
 		},
 	}
