@@ -5,8 +5,8 @@ name: Build Alpha
 on:
   push:
     tags:
-      - '10.*.*-alpha*'
-      - '10.*.*-Alpha*'
+      - '*.*.*-alpha*'
+      - '*.*.*-Alpha*'
     paths-ignore:
       - '.github/**'
 

@@ -5,7 +5,7 @@ name: Build Release
 on:
   push:
     tags:
-      - '10.*.*'
+      - '*.*.*'
       - '!**-alpha**'
       - '!**-Alpha**'
     paths-ignore:
