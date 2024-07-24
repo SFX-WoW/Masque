@@ -41,7 +41,7 @@ local L = Core.Locale
 local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 
 -- API Version
-local API_VERSION = 100209
+local API_VERSION = 110000
 
 -- Client Version
 local WOW_VERSION = select(4, GetBuildInfo()) or 0
@@ -220,7 +220,7 @@ function Masque:OnInitialize()
 			},
 			SpellAlert = {
 				State = 1,
-				Style = false,
+				Style = 0,
 			},
 		},
 	}
