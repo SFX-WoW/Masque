@@ -441,6 +441,10 @@ Core.AddSkin("Zoomed", {
 			Height = 34,
 			Width = 34,
 		},
+		Modern = {
+			Height = 34,
+			Width = 34,
+		},
 		Thin = {
 			Height = 30,
 			Width = 30,

@@ -482,8 +482,12 @@ Core.AddSkin("Dream", {
 		Width = 34,
 		Height = 34,
 		Classic = {
-			Height = 28,
-			Width = 28,
+			Height = 30,
+			Width = 30,
+		},
+		Modern = {
+			Height = 29,
+			Width = 29,
 		},
 		Thin = {
 			Height = 26,

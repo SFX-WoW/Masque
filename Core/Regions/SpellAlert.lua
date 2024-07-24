@@ -79,6 +79,33 @@ local FlipBooks = {
 			FrameWidth = DEFAULT_SIZE,
 		},
 	},
+	["Modern"] = {
+		["Circle"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Modern]],
+			FrameHeight = 84,
+			FrameWidth = 84,
+		},
+		["Hexagon"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Modern]],
+			FrameHeight = 84,
+			FrameWidth = 84,
+		},
+		["Hexagon-Rotated"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Modern]],
+			FrameHeight = 84,
+			FrameWidth = 84,
+		},
+		["Modern"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Modern]],
+			FrameHeight = 84,
+			FrameWidth = 84,
+		},
+		["Square"] = {
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Modern]],
+			FrameHeight = 84,
+			FrameWidth = 84,
+		},
+	},
 	["Thin"] = {
 		["Circle"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop]],
@@ -116,6 +143,7 @@ local FlipBooks = {
 local FlipBook_List = {
 	[0] = "None",
 	["Classic"] = "Classic",
+	["Modern"] = "Modern",
 	["Thin"] = "Thin",
 }
 

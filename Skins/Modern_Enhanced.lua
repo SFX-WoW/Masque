@@ -411,6 +411,10 @@ Core.AddSkin("Modern Enhanced", {
 			Height = 30,
 			Width = 30,
 		},
+		Modern = {
+			Height = 32,
+			Width = 32,
+		},
 		Thin = {
 			Height = 29,
 			Width = 29,
