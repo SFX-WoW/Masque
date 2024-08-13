@@ -38,12 +38,12 @@ local Skin = {
 	Shape = "Blizzard",
 	SkinID = SkinID,
 
-	-- Info
+	-- [ Info ]
 	Description = L["The default Classic button style."],
 	Version = Core.Version,
 	Author = "|cff0099ffBlizzard Entertainment|r",
 
-	-- Skin
+	-- [ Skin]
 	-- Mask = nil,
 	Backdrop = {
 		Texture = [[Interface\Buttons\UI-Quickslot]],
@@ -197,7 +197,7 @@ local Skin = {
 		-- TexCoords = {0, 1, 0, 1},
 		-- Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
-		DrawLayer = "OVERLAY",
+		DrawLayer = "ARTWORK",
 		DrawLevel = 1,
 		Width = 36,
 		Height = 36,
@@ -208,54 +208,10 @@ local Skin = {
 		-- SetAllPoints = nil,
 		-- UseColor = nil,
 	},
-	HotKey = {
-		JustifyH = "RIGHT",
-		JustifyV = "MIDDLE",
-		DrawLayer = "OVERLAY",
-		Width = 32,
-		Height = 0,
-		Point = "TOPRIGHT",
-		RelPoint = "TOPRIGHT",
-		OffsetX = -2,
-		OffsetY = -1,
-		Pet = {
-			JustifyH = "RIGHT",
-			JustifyV = "MIDDLE",
-			DrawLayer = "OVERLAY",
-			Width = 36,
-			Height = 0,
-			Point = "TOPRIGHT",
-			RelPoint = "TOPRIGHT",
-			OffsetX = 4,
-			OffsetY = -2,
-		},
-	},
-	Count = {
-		JustifyH = "RIGHT",
-		JustifyV = "MIDDLE",
-		DrawLayer = "OVERLAY",
-		Width = 0,
-		Height = 0,
-		Point = "BOTTOMRIGHT",
-		RelPoint = "BOTTOMRIGHT",
-		OffsetX = -2,
-		OffsetY = 2,
-		Item = {
-			JustifyH = "RIGHT",
-			JustifyV = "MIDDLE",
-			DrawLayer = "OVERLAY",
-			Width = 0,
-			Height = 0,
-			Point = "BOTTOMRIGHT",
-			RelPoint = "BOTTOMRIGHT",
-			OffsetX = -5,
-			OffsetY = 2,
-		},
-	},
 	Duration = {
 		JustifyH = "CENTER",
 		JustifyV = "MIDDLE",
-		DrawLayer = "OVERLAY",
+		DrawLayer = "ARTWORK", -- BACKGROUND
 		Width = 36,
 		Height = 0,
 		Point = "TOP",
@@ -284,7 +240,7 @@ local Skin = {
 		-- Color = {1, 1, 1, 1},
 		BlendMode = "ADD",
 		DrawLayer = "OVERLAY",
-		DrawLevel = 0,
+		DrawLevel = 0, -- 6
 		Width = 36,
 		Height = 36,
 		Point = "CENTER",
@@ -292,17 +248,6 @@ local Skin = {
 		OffsetX = 0,
 		OffsetY = 0,
 		SetAllPoints = true,
-	},
-	Name = {
-		JustifyH = "CENTER",
-		JustifyV = "MIDDLE",
-		DrawLayer = "OVERLAY",
-		Width = 36,
-		Height = 0,
-		Point = "BOTTOM",
-		RelPoint = "BOTTOM",
-		OffsetX = 0,
-		OffsetY = 2,
 	},
 	Border = {
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
@@ -411,6 +356,21 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	Gloss = Hidden,
+	IconOverlay = {
+		Atlas = "AzeriteIconFrame",
+		UseAtlasSize = false,
+		-- Color = {1, 1, 1, 1},
+		BlendMode = "BLEND",
+		DrawLayer = "OVERLAY",
+		DrawLevel = 1,
+		Width = 36,
+		Height = 36,
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
 	NewAction = {
 		Atlas = "bags-newitem",
 		UseAtlasSize = false,
@@ -435,36 +395,6 @@ local Skin = {
 		DrawLevel = 1,
 		Width = 44,
 		Height = 44,
-		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
-	AutoCastable = {
-		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-		-- TexCoords = {0, 1, 0, 1},
-		-- Color = {1, 1, 1, 1},
-		BlendMode = "BLEND",
-		DrawLayer = "OVERLAY",
-		DrawLevel = 1,
-		Width = (WOW_CLASSIC and 58) or 62, -- 70
-		Height = (WOW_CLASSIC and 58) or 62, -- 70
-		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
-	IconOverlay = {
-		Atlas = "AzeriteIconFrame",
-		UseAtlasSize = false,
-		-- Color = {1, 1, 1, 1},
-		BlendMode = "BLEND",
-		DrawLayer = "OVERLAY",
-		DrawLevel = 1,
-		Width = 36,
-		Height = 36,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
@@ -501,21 +431,6 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	QuestBorder = {
-		Border = [[Interface\ContainerFrame\UI-Icon-QuestBang]],
-		Texture = [[Interface\ContainerFrame\UI-Icon-QuestBorder]],
-		-- Color = {1, 1, 1, 1},
-		BlendMode = "BLEND",
-		DrawLayer = "OVERLAY",
-		DrawLevel = 2,
-		Width = 36,
-		Height = 36,
-		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
 	NewItem = {
 		Atlas = "bags-glow-white",
 		UseAtlasSize = false,
@@ -531,7 +446,22 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	SearchOverlay = {
+	QuestBorder = {
+		Border = [[Interface\ContainerFrame\UI-Icon-QuestBang]],
+		Texture = [[Interface\ContainerFrame\UI-Icon-QuestBorder]],
+		-- Color = {1, 1, 1, 1},
+		BlendMode = "BLEND",
+		DrawLayer = "OVERLAY",
+		DrawLevel = 2,
+		Width = 36,
+		Height = 36,
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
+	ContextOverlay = {
 		-- Texture = nil,
 		-- TexCoords = {0, 1, 0, 1},
 		Color = {0, 0, 0, 0.8},
@@ -547,7 +477,7 @@ local Skin = {
 		UseColor = true,
 		SetAllPoints = true,
 	},
-	ContextOverlay = {
+	SearchOverlay = {
 		-- Texture = nil,
 		-- TexCoords = {0, 1, 0, 1},
 		Color = {0, 0, 0, 0.8},
@@ -578,6 +508,17 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
+	Name = {
+		JustifyH = "CENTER",
+		JustifyV = "MIDDLE",
+		DrawLayer = "OVERLAY",
+		Width = 36,
+		Height = 0,
+		Point = "BOTTOM",
+		RelPoint = "BOTTOM",
+		OffsetX = 0,
+		OffsetY = 2,
+	},
 	Highlight = {
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -604,32 +545,6 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	AutoCast_Shine = {
-		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
-		UseAtlasSize = false,
-		-- Color = {1, 1, 1, 1},
-		BlendMode = "BLEND",
-		DrawLayer = "OVERLAY",
-		DrawLevel = 0,
-		Width = 49, -- 41
-		Height = 49, -- 41
-		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
-	AutoCast_Mask = {
-		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
-		UseAtlasSize = false,
-		Width = 28, -- 23
-		Height = 28, -- 23
-		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
 	AutoCast_Corners = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
 		UseAtlasSize = false,
@@ -645,7 +560,48 @@ local Skin = {
 		OffsetY = 0,
 		SetAllPoints = true,
 	},
+	AutoCast_Mask = {
+		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
+		UseAtlasSize = false,
+		Width = 28, -- 23
+		Height = 28, -- 23
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
+	AutoCast_Shine = {
+		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
+		UseAtlasSize = false,
+		-- Color = {1, 1, 1, 1},
+		BlendMode = "BLEND",
+		DrawLayer = "OVERLAY",
+		DrawLevel = 0,
+		Width = 49, -- 41
+		Height = 49, -- 41
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
 	-- [ AutoCastShine (Classic) ]
+	AutoCastable = {
+		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
+		-- TexCoords = {0, 1, 0, 1},
+		-- Color = {1, 1, 1, 1},
+		BlendMode = "BLEND",
+		DrawLayer = "OVERLAY",
+		DrawLevel = 1,
+		Width = (WOW_CLASSIC and 58) or 62,
+		Height = (WOW_CLASSIC and 58) or 62,
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
 	AutoCastShine = {
 		Width = (WOW_CLASSIC and 34) or 30,
 		Height = (WOW_CLASSIC and 34) or 30,
@@ -655,7 +611,7 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	-- [ Cooldowns ]
+	-- [ Cooldown ]
 	Cooldown = {
 		Texture = [[Interface\AddOns\Masque\Textures\Square\Mask]],
 		EdgeTexture = [[Interface\Cooldown\edge]],
@@ -672,6 +628,51 @@ local Skin = {
 	ChargeCooldown = "Cooldown",
 	-- [ SpellAlert ]
 	-- SpellAlert = Default.SpellAlert,
+	-- [ TextOverlayContainer (Retail) ]
+	HotKey = {
+		JustifyH = "RIGHT",
+		JustifyV = "MIDDLE",
+		DrawLayer = "OVERLAY",
+		Width = 32,
+		Height = 0,
+		Point = "TOPRIGHT",
+		RelPoint = "TOPRIGHT",
+		OffsetX = -2,
+		OffsetY = -1,
+		Pet = {
+			JustifyH = "RIGHT",
+			JustifyV = "MIDDLE",
+			DrawLayer = "OVERLAY",
+			Width = 36,
+			Height = 0,
+			Point = "TOPRIGHT",
+			RelPoint = "TOPRIGHT",
+			OffsetX = 4,
+			OffsetY = -2,
+		},
+	},
+	Count = {
+		JustifyH = "RIGHT",
+		JustifyV = "MIDDLE",
+		DrawLayer = "OVERLAY", -- Aura: BACKGROUND
+		Width = 0,
+		Height = 0,
+		Point = "BOTTOMRIGHT",
+		RelPoint = "BOTTOMRIGHT",
+		OffsetX = -2,
+		OffsetY = 2,
+		Item = {
+			JustifyH = "RIGHT",
+			JustifyV = "MIDDLE",
+			DrawLayer = "OVERLAY", -- ARTWORK
+			Width = 0,
+			Height = 0,
+			Point = "BOTTOMRIGHT",
+			RelPoint = "BOTTOMRIGHT",
+			OffsetX = -5,
+			OffsetY = 2,
+		},
+	},
 }
 
 ----------------------------------------
