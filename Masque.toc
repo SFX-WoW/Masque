@@ -1,4 +1,4 @@
-## Interface: 11503, 30403, 40400, 110000, 110002
+## Interface: 11503, 30403, 40400, 110002
 
 ## Author: StormFX, JJSheets
 ## Title: Masque
