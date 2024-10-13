@@ -87,8 +87,6 @@ Core.AddSkin("Classic Enhanced", {
 	},
 	Icon = {
 		TexCoords = {0.07, 0.93, 0.07, 0.93},
-		DrawLayer = "BACKGROUND",
-		DrawLevel = 0,
 		Width = 32,
 		Height = 32,
 		Point = "CENTER",

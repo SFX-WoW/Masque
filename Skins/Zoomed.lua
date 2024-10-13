@@ -61,8 +61,6 @@ Core.AddSkin("Zoomed", {
 		TexCoords = {0.07, 0.93, 0.07, 0.93},
 		-- Color = {1, 1, 1, 1},
 		BlendMode = "BLEND",
-		DrawLayer = "BACKGROUND",
-		DrawLevel = 0,
 		Width = 36,
 		Height = 36,
 		Point = "CENTER",
