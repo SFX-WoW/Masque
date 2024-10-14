@@ -46,8 +46,10 @@ L["You must have an add-on that supports Masque installed to use it."] = "У В�
 -- L["Flash and Loop"] = "Flash and Loop"
 -- L["Interrupt Animations"] = "Interrupt Animations"
 -- L["Loop Only"] = "Loop Only"
+-- L["Select the spell alert style."] = "Select the spell alert style."
 -- L["Select which spell alert animations are enabled."] = "Select which spell alert animations are enabled."
--- L["Spell Alerts"] = "Spell Alerts"
+-- L["Spell Alert Animations"] = "Spell Alert Animations"
+-- L["Spell Alert Style"] = "Spell Alert Style"
 -- L["Targeting Reticles"] = "Targeting Reticles"
 -- L["This section will allow you to adjust button settings for the default interface."] = "This section will allow you to adjust button settings for the default interface."
 
