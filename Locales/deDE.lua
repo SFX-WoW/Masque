@@ -25,43 +25,45 @@ local L = Core.Locale
 
 L["About Masque"] = "Über Masque"
 L["API"] = "API"
--- L["For more information, please visit one of the sites listed below."] = "For more information, please visit one of the sites listed below."
--- L["Masque is a skinning engine for button-based add-ons."] = "Masque is a skinning engine for button-based add-ons."
--- L["Select to view."] = "Select to view."
--- L["Supporters"] = "Supporters"
--- L["You must have an add-on that supports Masque installed to use it."] = "You must have an add-on that supports Masque installed to use it."
+L["For more information, please visit one of the sites listed below."] = "Für mehr Informationen, besuchen sie bitte die Seiten unten."
+L["Masque is a skinning engine for button-based add-ons."] = "Masque ist eine Design-Engine für knopfbasierte Add-ons."
+L["Select to view."] = "Auswählen zum ansehen."
+L["Supporters"] = "Unterstützer "
+L["You must have an add-on that supports Masque installed to use it."] = "Sie müssen ein Addon installiert haben das Masque unterstützt um es zu benutzen. "
 
 ----------------------------------------
 -- Advanced Settings
 ---
 
--- L["Advanced"] = "Advanced"
--- L["Advanced Settings"] = "Advanced Settings"
--- L["Cast Animations"] = "Cast Animations"
--- L["Cooldown Animations"] = "Cooldown Animations"
--- L["Enable animations when action button cooldowns finish."] = "Enable animations when action button cooldowns finish."
--- L["Enable cast animations on action buttons."] = "Enable cast animations on action buttons."
--- L["Enable interrupt animations on action buttons."] = "Enable interrupt animations on action buttons."
--- L["Enable targeting reticles on action buttons."] = "Enable targeting reticles on action buttons."
--- L["Flash and Loop"] = "Flash and Loop"
--- L["Interrupt Animations"] = "Interrupt Animations"
--- L["Loop Only"] = "Loop Only"
--- L["Select which spell alert animations are enabled."] = "Select which spell alert animations are enabled."
--- L["Spell Alerts"] = "Spell Alerts"
--- L["Targeting Reticles"] = "Targeting Reticles"
--- L["This section will allow you to adjust button settings for the default interface."] = "This section will allow you to adjust button settings for the default interface."
+L["Advanced"] = "Erweitert "
+L["Advanced Settings"] = "Erweiterte Einstellungen "
+L["Cast Animations"] = "Zauber Animationen "
+L["Cooldown Animations"] = "Abklingzeit Animationen"
+L["Enable animations when action button cooldowns finish."] = "Aktivieren Sie Animationen, wenn die Abklingzeit von Aktionstasten endet.  "
+L["Enable cast animations on action buttons."] = "Aktivieren Sie Cast-Animationen auf Aktionsschaltflächen. "
+L["Enable interrupt animations on action buttons."] = "Aktivieren Sie Unterbrechungsanimationen auf Aktionsschaltflächen. "
+L["Enable targeting reticles on action buttons."] = "Aktivieren Sie Ziel Makierungen auf Aktionstasten."
+L["Flash and Loop"] = "Blinken und Wiederhohlen "
+L["Interrupt Animations"] = "Animationen unterbrechen"
+L["Loop Only"] = "Nur Wiederhohlen "
+-- L["Select the spell alert style."] = "Select the spell alert style."
+L["Select which spell alert animations are enabled."] = "Auswahl welche Zauber Warnung aktiviert sein soll. "
+-- L["Spell Alert Animations"] = "Spell Alert Animations"
+-- L["Spell Alert Style"] = "Spell Alert Style"
+L["Targeting Reticles"] = "Ziel Makierungen"
+L["This section will allow you to adjust button settings for the default interface."] = "In diesem Abschnitt können Sie die Schaltflächeneinstellungen für die Standart Benutzeroberfläche anpassen. "
 
 ----------------------------------------
 -- Blizzard Classic Skin
 ---
 
--- L["The default Classic button style."] = "The default Classic button style."
+L["The default Classic button style."] = "Das klassische Tasten Design. "
 
 ----------------------------------------
 -- Blizzard Modern Skin
 ---
 
--- L["The default Dragonflight button style."] = "The default Dragonflight button style."
+L["The default Dragonflight button style."] = "Das Standart Dragonflight Tasten Design."
 
 ----------------------------------------
 -- Classic Enhanced Skin
@@ -88,8 +90,8 @@ L["Developer"] = "Entwickler"
 L["Developer Settings"] = "Entwicklereinstellungen"
 L["Masque debug mode disabled."] = "Masque Debugmodus deaktiviert."
 L["Masque debug mode enabled."] = "Masque Debugmodus aktiviert."
--- L["This action cannot be undone. Continue?"] = "This action cannot be undone. Continue?"
--- L["This section will allow you to adjust settings that affect working with Masque's API."] = "This section will allow you to adjust settings that affect working with Masque's API."
+L["This action cannot be undone. Continue?"] = "Diese Aktion kann nicht rückgängig gemacht werden, Fortfahren? "
+L["This section will allow you to adjust settings that affect working with Masque's API."] = "In diesem Abschnitt können Sie Einstellungen vornehmen, die sich auf die Arbeit mit der API von Masque auswirken."
 
 ----------------------------------------
 -- Dream Skin
@@ -102,7 +104,7 @@ L["A square skin with trimmed icons and a semi-transparent background."] = "Eine
 ---
 
 L["General Settings"] = "Allgemeine Einstellungen"
--- L["This section will allow you to adjust Masque's interface and performance settings."] = "This section will allow you to adjust Masque's interface and performance settings."
+L["This section will allow you to adjust Masque's interface and performance settings."] = "In diesem Abschnitt können Sie die Oberfläche- und Leistungseinstellungen von Masque anpassen."
 
 ----------------------------------------
 -- Installed Skins
@@ -112,12 +114,12 @@ L["Author"] = "Autor"
 L["Authors"] = "Autoren"
 L["Compatible"] = "Kompatibel"
 L["Description"] = "Beschreibung"
--- L["Discord"] = "Discord"
+L["Discord"] = "Discord"
 L["Installed Skins"] = "Installierte Optiken"
 L["No description available."] = "Keine Beschreibung verfügbar."
 L["Status"] = "Status"
 L["The status of this skin is unknown."] = "Der Status dieser Optik ist unbekannt."
--- L["This section provides information on any skins you have installed."] = "This section provides information on any skins you have installed."
+L["This section provides information on any skins you have installed."] = "In diesem Abschnitt finden Sie Informationen zu den von Ihnen installierten Designs."
 L["This skin is compatible with Masque."] = "Diese Optik ist mit Masque kompatibel."
 L["This skin is outdated but is still compatible with Masque."] = "Dieser Skin ist veraltet, aber noch immer mit Masque kompatibel."
 L["Unknown"] = "Unbekannt"
@@ -129,36 +131,36 @@ L["Websites"] = "Webseiten"
 -- Interface Settings
 ---
 
--- L["Add-On Compartment"] = "Add-On Compartment"
--- L["Alternate Sorting"] = "Alternate Sorting"
--- L["Causes the skins included with Masque to be listed above third-party skins."] = "Causes the skins included with Masque to be listed above third-party skins."
+L["Add-On Compartment"] = "Addon Abteil  "
+L["Alternate Sorting"] = "Alternative Sortierung "
+L["Causes the skins included with Masque to be listed above third-party skins."] = "Bewirkt, dass die in Masque enthaltenen Skins vor den Skins von Drittanbietern aufgeführt werden."
 L["Click to reload the interface."] = "Klicken, um die Benutzeroberfläche neu zu laden."
 L["Interface"] = "Interface"
 L["Interface Settings"] = "Interfaceeinstellungen"
--- L["Load the skin information panel."] = "Load the skin information panel."
--- L["Menu Icon"] = "Menu Icon"
--- L["Minimap"] = "Minimap"
--- L["None"] = "None"
+L["Load the skin information panel."] = "Lade das Design Informations Fenster."
+L["Menu Icon"] = "Menü-Symbol"
+L["Minimap"] = "Minikarte"
+L["None"] = "Keine "
 L["Reload Interface"] = "Benutzeroberfläche neu laden."
--- L["Requires an interface reload."] = "Requires an interface reload."
--- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
+L["Requires an interface reload."] = "Benötigt ein Neuladen des Benutzeroberfläche"
+L["Select where Masque's menu icon is displayed."] = "Auswahl wo das Menüsymbol von Masque angezeigt wird. "
 L["Skin Information"] = "Optikinformation"
--- L["Stand-Alone GUI"] = "Stand-Alone GUI"
--- L["This section will allow you to adjust settings that affect Masque's interface."] = "This section will allow you to adjust settings that affect Masque's interface."
--- L["Use a resizable, stand-alone options window."] = "Use a resizable, stand-alone options window."
+L["Stand-Alone GUI"] = "Eigenständige Benutzeroberfläche"
+L["This section will allow you to adjust settings that affect Masque's interface."] = "In diesem Abschnitt können Sie Einstellungen vornehmen, die die Masque-Oberfläche betreffen."
+L["Use a resizable, stand-alone options window."] = "Verwenden Sie ein in der Größe veränderbares, eigenständiges Optionsfenster."
 
 ----------------------------------------
 -- LDB Launcher
 ---
 
 L["Click to open Masque's settings."] = "Klicken, um die Masque-Einstellungen zu öffnen."
--- L["Unavailable in combat."] = "Unavailable in combat."
+L["Unavailable in combat."] = "Nicht verfügbar im Kampf."
 
 ----------------------------------------
 -- Modern Enhanced Skin
 ---
 
--- L["An enhanced version of the Dragonflight button style."] = "An enhanced version of the Dragonflight button style."
+L["An enhanced version of the Dragonflight button style."] = "Eine verbesserte Version des Dragonflight Button Styles. "
 
 ----------------------------------------
 -- Profile Settings
@@ -170,7 +172,7 @@ L["Profile Settings"] = "Profileinstellungen."
 -- Skin Settings
 ---
 
--- L["Adjust the scale of this group's skin."] = "Adjust the scale of this group's skin."
+L["Adjust the scale of this group's skin."] = "Einstellung der skalierung des Gruppen Designs."
 L["Backdrop"] = "Hintergrund Einstellungen"
 L["Checked"] = "Ausgewählt"
 L["Color"] = "Farbe"
@@ -179,21 +181,21 @@ L["Cooldown"] = "Abklingzeit"
 L["Disable"] = "Deaktivieren"
 L["Disable the skinning of this group."] = "Deaktiviert die Aussehensveränderung dieser Gruppe."
 L["Enable"] = "Aktivieren"
--- L["Enable skin scaling."] = "Enable skin scaling."
+L["Enable skin scaling."] = "Aktivieren Sie die Designskalierung. "
 L["Enable the Backdrop texture."] = "Aktiviert die Hintergrundtextur."
--- L["Enable the Gloss texture."] = "Enable the Gloss texture."
--- L["Enable the Shadow texture."] = "Enable the Shadow texture."
+L["Enable the Gloss texture."] = "Aktiviere die Glanztextur."
+L["Enable the Shadow texture."] = "Schatten Texture aktivieren "
 L["Flash"] = "Leuchten"
 L["Global"] = "Global"
 L["Global Settings"] = "Globale Einstellungen"
 L["Gloss"] = "Glanz"
 L["Highlight"] = "Hervorheben"
 L["Normal"] = "Normal"
--- L["Pulse"] = "Pulse"
+L["Pulse"] = "Pulsieren "
 L["Pushed"] = "Gedrückt"
 L["Reset all skin options to the defaults."] = "Setzt alle Optikoptionen auf Standard zurück."
 L["Reset Skin"] = "Optik zurücksetzen"
--- L["Scale"] = "Scale"
+L["Scale"] = "Skalierung "
 L["Set the color of the Backdrop texture."] = "Lege die Farbe der Hintergrundtextur fest"
 L["Set the color of the Checked texture."] = "Lege die Farbe der Markiert-Textur fest"
 L["Set the color of the Cooldown animation."] = "Lege die Farbe der Abklingzeit-Animation fest."
@@ -202,14 +204,14 @@ L["Set the color of the Gloss texture."] = "Lege die Farbe der Glanz-Textur fest
 L["Set the color of the Highlight texture."] = "Lege die Farbe Hervorgehoben-Textur"
 L["Set the color of the Normal texture."] = "Lege die Farbe der Normal-Textur fest"
 L["Set the color of the Pushed texture."] = "Lege die Farbe der Gedrückt-Textur fest"
--- L["Set the color of the Shadow texture."] = "Set the color of the Shadow texture."
+L["Set the color of the Shadow texture."] = "Legen Sie die Farbe der Schatten Textur fest."
 L["Set the skin for this group."] = "Lege die Optik dieser Gruppe fest"
 L["Shadow"] = "Schatten"
--- L["Show the pulse effect when a cooldown finishes."] = "Show the pulse effect when a cooldown finishes."
+L["Show the pulse effect when a cooldown finishes."] = "Zeige den Pulseffekt, wenn eine Abklingzeit beendet ist."
 L["Skin"] = "Optik"
 L["Skin Settings"] = "Optikeinstellungen"
--- L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "This section will allow you to adjust the skin settings of all buttons registered to %s."
--- L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."] = "This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."
+L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "In diesem Abschnitt können Sie die Design-Einstellungen für alle unter %s registrierten Schaltflächen anpassen."
+L["This section will allow you to adjust the skin settings of all buttons registered to %s. This will overwrite any per-group settings."] = "In diesem Abschnitt können Sie die Design-Einstellungen für alle unter %s registrierten Schaltflächen anpassen. Dadurch werden alle gruppenbezogenen Einstellungen überschrieben."
 L["This section will allow you to adjust the skin settings of all registered buttons. This will overwrite any per-add-on settings."] = "Dieser Abschnitt ermöglicht es dir die Einstellungen der Optiken von allen registrierten Schaltflächen zu verändern. Dies wird jegliche addonspezifischen Einstellungen überschreiben."
 L["This section will allow you to skin the buttons of the add-ons and add-on groups registered with Masque."] = "Dieser Abschnitt ermöglicht es dir, das Aussehen von Buttons der Addons und Addongruppen anzupassen, die mit Masque verbunden sind."
 
