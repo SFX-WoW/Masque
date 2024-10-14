@@ -274,7 +274,7 @@ if WOW_RETAIL then
 
 		for k, v in pairs(db.Effects) do
 			UpdateEffect(k, v)
-		end	
+		end
 	end
 
 	-- Delay the registering of events until after `PLAYER_LOGIN`.
