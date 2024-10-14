@@ -3,7 +3,7 @@
 ### General
 
 - Added support for **The War Within** `11.0.5`. (#398)
-- Added support for **Cataclysm Classic** `4.4.1`.. (#398)
+- Added support for **Cataclysm Classic** `4.4.1`. (#398)
 - Updated the `Interface` version for **Classic Era** to `11504`. (#398)
 
 ### Skins
