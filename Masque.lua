@@ -96,15 +96,6 @@ local function UpdateDB()
 	-- Refresh Settings
 	Core:UpdateIconPosition()
 	Core.Debug = db.Developer.Debug
-
-	-- Animations
-	if WOW_RETAIL then
-		local UpdateEffect = Core.UpdateEffect
-
-		for k, v in pairs(db.Effects) do
-			UpdateEffect(k, v)
-		end
-	end
 end
 
 ----------------------------------------
@@ -176,7 +167,7 @@ end
 -- Add-On
 ---
 
--- ADDON_LOADED Event
+-- 'ADDON_LOADED' Event
 function Masque:OnInitialize()
 	local Defaults = {
 		profile = {
@@ -252,7 +243,7 @@ function Masque:OnInitialize()
 	end
 end
 
--- PLAYER_LOGIN Event
+-- 'PLAYER_LOGIN' Event
 function Masque:OnEnable()
 	-- Saved Variables
 	UpdateDB()
@@ -269,6 +260,26 @@ function Masque:OnEnable()
 		Setup("Core")
 		Setup("LDB")
 	end
+end
+
+-- 'PLAYER_ENTERING_WORLD' Event
+if WOW_RETAIL then
+	local MSQ_EVENTS_FRAME = CreateFrame("Frame", "MSQ_EVENTS_FRAME")
+	MSQ_EVENTS_FRAME:Hide()
+
+	local function OnEvent(...)
+		-- Animation Settings
+		local db = Core.db.profile
+		local UpdateEffect = Core.UpdateEffect
+
+		for k, v in pairs(db.Effects) do
+			UpdateEffect(k, v)
+		end	
+	end
+
+	-- Delay the registering of events until after `PLAYER_LOGIN`.
+	MSQ_EVENTS_FRAME:RegisterEvent("PLAYER_ENTERING_WORLD")
+	MSQ_EVENTS_FRAME:SetScript("OnEvent", OnEvent)
 end
 
 -- Wrapper for the DB:CopyProfile method.
