@@ -1,15 +1,25 @@
-## 11.0.1
-
-### Reminder
-
-In case you missed it, you can now select the style of spell alerts that **Masque** uses and which animations are shown in the **Retail** client. These options are found under **Masque** > **General Settings** > **Advanced**.
+## 11.0.2
 
 ### General
 
-- Updated the `Interface` version for **Retail** to `110002`. (#389)
+- Added support for **The War Within** `11.0.5`. (#398)
+- Added support for **Cataclysm Classic** `4.4.1`.. (#398)
+- Updated the `Interface` version for **Classic Era** to `11504`. (#398)
 
 ### Skins
 
-- Updated **Blizzard Classic**.
+- Skins can no longer set the `DrawLayer` or `DrawLevel` of the `Icon` region. This prevents issues with some layers appearing on top of the icon. (#401)
+  - Non-item buttons will be set to the default of `BACKGROUND`, `0`.
+  - Item buttons will be set to the default of `BORDER`, `0`.
+
+### Bug Fixes
+
+- Fixed an issue that allowed the game to override animation settings. (#396)
+
+### Localization
+
+- Added missing phrases for the animation settings. (#400)
+- Updated `deDE`. (Adurethor) (#399)
+- Updated `zhCN`. (LvWind) (#402)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
