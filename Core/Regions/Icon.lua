@@ -107,6 +107,11 @@ Core.SetEmpty = SetEmpty
 -- Skins the 'Icon' region of a button.
 function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 	local bType = Button.__MSQ_bType
+	local Layer = "BACKGROUND"
+
+	if bType == "Item" then
+		Layer = "BORDER"
+	end
 
 	Button.__MSQ_Icon = Region
 	Region.__MSQ_Button = Button
@@ -116,7 +121,7 @@ function Core.SkinIcon(Region, Button, Skin, xScale, yScale)
 
 	Region:SetParent(Button)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
+	Region:SetDrawLayer(Layer, 0)
 	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
