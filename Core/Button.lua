@@ -67,13 +67,18 @@ local Is_Background = {
 	["Interface\\ContainerFrame\\BagsItemSlot2x"] = true,
 }
 
+-- Work-around for a bug introduced in 11.1.0.
+local function GetIconTexture(Button)
+	return Button.Icon or Button.icon or _G[Button:GetName().."IconTexture"]
+end
+
 ----------------------------------------
 -- Functions
 ---
 
 -- Function to toggle the icon backdrops.
 local function SetIconBackdrop(Button, Limit)
-	local Region = Button:GetItemButtonIconTexture()
+	local Region = GetIconTexture(Button)
 
 	local Texture = Region:GetTexture()
 	local Alpha, IsEmpty = 1, nil
