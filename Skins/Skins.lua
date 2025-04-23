@@ -30,6 +30,9 @@ local Layers = Core.RegTypes.Legacy
 -- Locals
 ---
 
+local TYPE_STRING = "string"
+local TYPE_TABLE = "table"
+
 local AddedSkins, BaseSkins = {}, {}
 local Skins, SkinList, SkinOrder = {}, {}, {}
 local Hidden = {Hide = true}
@@ -55,7 +58,7 @@ local vLayers = {
 	-- Using Border.Debuff / "DebuffBorder" Undefined
 	["DebuffBorder"] = function(Skin)
 		local Border = Skin.Border
-		if type(Border) == "table" then
+		if type(Border) == TYPE_TABLE then
 			Border = Border.Debuff or Border
 		end
 		return Border
@@ -63,7 +66,7 @@ local vLayers = {
 	-- Using Border.Enchant / "EnchantBorder" Undefined
 	["EnchantBorder"] = function(Skin)
 		local Border = Skin.Border
-		if type(Border) == "table" then
+		if type(Border) == TYPE_TABLE then
 			Border = Border.Enchant or Border
 		end
 		return Border
@@ -71,7 +74,7 @@ local vLayers = {
 	-- Using Border.Item / "IconBorder" Undefined
 	["IconBorder"] = function(Skin)
 		local Border = Skin.Border
-		if type(Border) == "table" then
+		if type(Border) == TYPE_TABLE then
 			Border = Border.Item or Border
 		end
 		return Border
@@ -84,7 +87,7 @@ local vLayers = {
 
 -- Returns a valid shape.
 local function GetShape(Shape)
-	if type(Shape) ~= "string" then
+	if type(Shape) ~= TYPE_STRING then
 		Shape = "Square"
 	end
 	return Shape
@@ -133,10 +136,19 @@ local function AddSkin(SkinID, SkinData, Base)
 		local Skin = SkinData[Layer]
 		local sType = type(Skin)
 
-		if sType == "string" then
+		-- Allow a layer to use the same skin settings as another layer.
+		if sType == TYPE_STRING then
 			Skin = SkinData[Skin]
-		elseif (sType ~= "table") or (Skin.Hide and not Info.CanHide) then
+
+		-- Account for missing skin settings and older skins.
+		elseif sType ~= TYPE_TABLE then
+			Skin = (Info.HideEmpty and Hidden) or Default[Layer]
+
+		-- Prevent the hiding of regions that can't be hidden.
+		elseif (Skin.Hide and not Info.CanHide) then
 			Skin = Default[Layer]
+
+		-- Hide unused regions.
 		elseif Info.Hide then
 			Skin = Hidden
 		end
@@ -194,7 +206,7 @@ local API = Core.API
 function API:AddSkin(SkinID, SkinData)
 	local Debug = Core.Debug
 
-	if type(SkinID) ~= "string" then
+	if type(SkinID) ~= TYPE_STRING then
 		if Debug then
 			error("Bad argument to API method 'AddSkin'. 'SkinID' must be a string.", 2)
 		end
@@ -203,7 +215,7 @@ function API:AddSkin(SkinID, SkinData)
 
 	if Skins[SkinID] then return end
 
-	if type(SkinData) ~= "table" then
+	if type(SkinData) ~= TYPE_TABLE then
 		if Debug then
 			error("Bad argument to API method 'AddSkin'. 'SkinData' must be a table.", 2)
 		end
@@ -213,7 +225,7 @@ function API:AddSkin(SkinID, SkinData)
 	local Template = SkinData.Template
 
 	if Template then
-		if type(Template) ~= "string" then
+		if type(Template) ~= TYPE_STRING then
 			if Debug then
 				error(("Invalid template reference by skin '%s'. 'Template' must be a string."):format(SkinID), 2)
 			end
@@ -222,7 +234,7 @@ function API:AddSkin(SkinID, SkinData)
 
 		local Parent = Skins[Template]
 
-		if type(Parent) ~= "table"  then
+		if type(Parent) ~= TYPE_TABLE  then
 			if Debug then
 				error(("Invalid template reference by skin '%s'. Template '%s' does not exist or is not a table."):format(SkinID, Template), 2)
 			end
