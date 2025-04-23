@@ -46,10 +46,10 @@ L["Enable targeting reticles on action buttons."] = "启用动作按钮瞄准线
 L["Flash and Loop"] = "闪光并循环"
 L["Interrupt Animations"] = "打断动画"
 L["Loop Only"] = "仅循环"
--- L["Select the spell alert style."] = "Select the spell alert style."
+L["Select the spell alert style."] = "选择法术警报样式。"
 L["Select which spell alert animations are enabled."] = "选择要用哪种法术提醒动画。"
--- L["Spell Alert Animations"] = "Spell Alert Animations"
--- L["Spell Alert Style"] = "Spell Alert Style"
+L["Spell Alert Animations"] = "法术警报动画"
+L["Spell Alert Style"] = "法术警报样式"
 L["Targeting Reticles"] = "瞄准线"
 L["This section will allow you to adjust button settings for the default interface."] = "此部分可以调整默认界面的按钮设置。"
 
