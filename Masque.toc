@@ -1,4 +1,4 @@
-## Interface: 11507, 40402, 110105
+## Interface: 11507, 30404, 40402, 50500, 110107
 
 ## Author: StormFX, JJSheets
 ## Title: Masque
