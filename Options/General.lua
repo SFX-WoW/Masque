@@ -58,10 +58,6 @@ local Effects = {
 		"UNIT_SPELLCAST_RETICLE_TARGET",
 		"UNIT_SPELLCAST_SENT",
 	},
-	SpellAlert = {
-		"SPELL_ACTIVATION_OVERLAY_GLOW_HIDE",
-		"SPELL_ACTIVATION_OVERLAY_GLOW_SHOW",
-	},
 }
 
 ----------------------------------------
@@ -70,19 +66,12 @@ local Effects = {
 
 -- Registers/unregisters events that trigger animations.
 local function UpdateEffect(Name, Value)
-	local Frame = ActionBarActionEventsFrame
 	local Events = Effects[Name]
 
-	if Value then
-		if Name == "SpellAlert" then
-			if Value > 0 then
-				Frame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE")
-				Frame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
-			else
-				Frame:UnregisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE")
-				Frame:UnregisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
-			end
-		else
+	if Events then
+		local Frame = ActionBarActionEventsFrame
+
+		if Value then
 			for i = 1, #Events do
 				local Event = Events[i]
 
@@ -92,10 +81,10 @@ local function UpdateEffect(Name, Value)
 					Frame:RegisterUnitEvent(Event, "player")
 				end
 			end
-		end
-	else
-		for i = 1, #Events do
-			Frame:UnregisterEvent(Events[i])
+		else
+			for i = 1, #Events do
+				Frame:UnregisterEvent(Events[i])
+			end
 		end
 	end
 end
@@ -228,10 +217,7 @@ function Setup.General(self)
 				set = function(Info, Value)
 					local Name = Info[#Info]
 
-					if Name ~= "Cooldown" then
-						UpdateEffect(Name, Value)
-					end
-
+					UpdateEffect(Name, Value)
 					Core.db.profile.Effects[Name] = Value
 				end,
 				order = 3,
@@ -295,19 +281,6 @@ function Setup.General(self)
 						type = "description",
 						name = " ",
 						order = 5,
-					},
-					Cooldown = {
-						type = "toggle",
-						name = L["Cooldown Animations"],
-						desc = L["Enable animations when action button cooldowns finish."],
-						order = 6,
-						hidden = true,
-					},
-					SPC03 = {
-						type = "description",
-						name = " ",
-						order = 7,
-						hidden = true,
 					},
 					Interrupt = {
 						type = "toggle",

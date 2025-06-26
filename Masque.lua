@@ -92,6 +92,7 @@ local function UpdateDB()
 	end
 
 	db.API_VERSION = API_VERSION
+	db.Effects.SpellAlert = nil
 
 	-- Refresh Settings
 	Core:UpdateIconPosition()
@@ -205,7 +206,6 @@ function Masque:OnInitialize()
 			},
 			Effects = {
 				Castbar = true,
-				-- Cooldown = true, -- Disabled by Blizzard
 				Interrupt = true,
 				Reticle = true,
 			},
