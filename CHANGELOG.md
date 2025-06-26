@@ -1,12 +1,18 @@
-## 11.1.5
+## 11.1.7-Beta
 
 ### General
 
-- Updated the `Interface` version for **The War Within** to `110105`. (#411)
-- Updated the `Interface` version for **Classic Era** to `11507`. (#411)
+- Added support for **Mists of Pandaria Classic**.
+- Added support for **Wrath of the Lich King Classic**. (China)
+- Updated the `Interface` version for **The War Within** to `110107`. (#416)
 
-### Localization
+### API
 
-- Updated `zhCN`. (LvWind) (#412)
+- Updated the Spell Alert code for `11.1.7`. (#417)
+
+### Bug Fixes
+
+- Fixed a bug that could cause the spell alert texture to be scaled incorrectly.
+- Fixed a bug that could potentially cause spell alerts to only only appear on mouse-over.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
