@@ -158,7 +158,7 @@ local function GetFlipBook(...)
 end
 
 -- Applies style settings to a FlipBook animation.
-local function UpdateFlipBook(Animation, Style)
+local function UpdateAnimation(Animation, Style)
 	-- Custom
 	if Style then
 		Animation:SetFlipBookFrameHeight(Style.FrameHeight or 0)
@@ -293,7 +293,7 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 				Start_Flipbook:ClearAllPoints()
 				Start_Flipbook:SetAllPoints()
 
-				UpdateFlipBook(Start_Animation, FlipBook_Style)
+				UpdateAnimation(Start_Animation, FlipBook_Style)
 				UpdateStartAnimation(Region)
 			end
 
@@ -302,7 +302,7 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 			Loop_Flipbook:SetTexture(Loop_Texture)
 			Loop_Flipbook:SetVertexColor(GetColor(FlipBook_Style.Color))
 
-			UpdateFlipBook(Loop_Animation, FlipBook_Style)
+			UpdateAnimation(Loop_Animation, FlipBook_Style)
 
 		-- Default
 		else
@@ -325,7 +325,7 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 
 				Start_Flipbook:SetSize(Width, Height)
 
-				UpdateFlipBook(Start_Animation)
+				UpdateAnimation(Start_Animation)
 				UpdateStartAnimation(Region)
 			end
 
@@ -334,7 +334,7 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 			Loop_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
 			Loop_Flipbook:SetVertexColor(1, 1, 1)
 
-			UpdateFlipBook(Loop_Animation)
+			UpdateAnimation(Loop_Animation)
 		end
 
 	-- Default
@@ -360,7 +360,7 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 			-- Defaults to 150 x 150, causing visual scaling-up on transition.
 			Start_Flipbook:SetSize(160, 160)
 
-			UpdateFlipBook(Start_Animation)
+			UpdateAnimation(Start_Animation)
 			UpdateStartAnimation(Region)
 		end
 
@@ -369,7 +369,7 @@ local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
 		Loop_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
 		Loop_Flipbook:SetVertexColor(1, 1, 1)
 
-		UpdateFlipBook(Loop_Animation)
+		UpdateAnimation(Loop_Animation)
 	end
 
 	Region.__MSQ_Skin = Skin or true
@@ -380,13 +380,8 @@ end
 -- Updates/Hooks
 ---
 
--- Hook for Retail spell alerts.
-local function UpdateSpellAlert(Frame, Button)
-	-- Account for API calls.
-	if type(Button) ~= "table" then
-		Button = Frame
-	end
-
+-- Updates Retail spell alerts.
+local function UpdateFlipbook(Button)
 	local Region = Button.SpellActivationAlert
 
 	if (not Region) or (not Region.ProcStartAnim) then return end
@@ -419,8 +414,18 @@ local function UpdateSpellAlert(Frame, Button)
 	end
 end
 
+-- Hook for Retail spell alerts.
+local function Hook_UpdateFlipbook(Frame, Button)
+	-- Account for API calls.
+	if type(Button) ~= "table" then
+		Button = Frame
+	end
+
+	UpdateFlipbook(Button)
+end
+
 -- Hook for Classic spell alerts.
-local function UpdateOverlay(Button)
+local function Hook_UpdateOverlay(Button)
 	local Region = Button and Button.overlay
 
 	if Region and Region.spark then
@@ -434,16 +439,24 @@ end
 if Core.WOW_RETAIL then
 	-- Retail
 	-- @ Interface\AddOns\Blizzard_ActionBar\Mainline\ActionButton.lua
-	hooksecurefunc(ActionButtonSpellAlertManager, "ShowAlert", UpdateSpellAlert)
+	hooksecurefunc(ActionButtonSpellAlertManager, "ShowAlert", Hook_UpdateFlipbook)
 else
 	-- Classic
 	-- @ Interface\AddOns\Blizzard_ActionBar\Classic\ActionButton.lua
-	hooksecurefunc("ActionButton_ShowOverlayGlow", UpdateOverlay)
+	hooksecurefunc("ActionButton_ShowOverlayGlow", Hook_UpdateOverlay)
 end
 
 ----------------------------------------
 -- Core
 ---
+
+local function UpdateSpellAlert(Button)
+	if Button.overlay then
+		Hook_UpdateOverlay(Button)
+	else
+		UpdateFlipbook(Button)
+	end
+end
 
 Core.FlipBook_List = FlipBook_List
 Core.UpdateSpellAlert = UpdateSpellAlert
