@@ -1,4 +1,4 @@
-## 11.1.7-Beta
+## 11.1.7-Beta-2
 
 ### General
 
@@ -14,5 +14,6 @@
 
 - Fixed a bug that could cause the spell alert texture to be scaled incorrectly.
 - Fixed a bug that could potentially cause spell alerts to only only appear on mouse-over.
+- Fixed a bug that was preventing that classic style alerts from being skinned properly. (#419)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
