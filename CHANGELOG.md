@@ -1,23 +1,11 @@
-## 11.1.7
+## 11.2.0
 
 ### General
 
-- Added support for **Mists of Pandaria Classic**. (#416)
-- Added support for **The War Within: Ghosts of K'aresh**. (#416)
-- Added support for **Wrath of the Lich King Classic** (China). (#416)
-- Removed support for **Cataclysm Classic**. (#416)
-- Updated the `Interface` version for **The War Within** to `110107`. (#416)
-
-### API
-
-- Updated the `API_VERSION` to `110107`.
-- Updated the Spell Alert code for `11.1.7`. (#417)
-  - **Note:** Does **not** currently support the "One Button" alerts.
+- Updated the `Interface` version for **Wrath of the Lich King Classic** (China) to `30405`. (#423)
 
 ### Bug Fixes
 
-- Fixed a bug that could cause the spell alert texture to be scaled incorrectly.
-- Fixed a bug that could potentially cause spell alerts to only only appear on mouse-over.
-- Fixed a bug that was preventing that classic style alerts from being skinned properly. (#419)
+- Fixed an issue preventing the `SlotIcon` region from appearing after changing to a custom skin from a **Blizzard** skin. (#424)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
