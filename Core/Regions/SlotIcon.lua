@@ -58,6 +58,7 @@ local function AddSlotIcon(Button, Skin, xScale, yScale)
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 	SkinMask(Region, Button, Skin, xScale, yScale)
+	Region:Show()
 end
 
 -- Removes the 'SlotIcon' region from a button.
