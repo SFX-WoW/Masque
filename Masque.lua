@@ -195,6 +195,7 @@ function Masque:OnInitialize()
 			},
 			Interface = {
 				AltSort = false,
+				ProfileFontFix = true,
 				SkinInfo = true,
 				StandAlone = true,
 			},

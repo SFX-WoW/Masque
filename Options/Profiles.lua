@@ -41,11 +41,13 @@ function Setup.Profiles(self)
 	Options.order = -1
 
 	-- Font Size Fix
-	local args = Options.args
-	for _, arg in pairs(args) do
-		local type = arg.type
-		if type and type == "description" then
-			arg.fontSize = "medium"
+	if Core.db.profile.Interface.ProfileFontFix then
+		local args = Options.args
+		for _, arg in pairs(args) do
+			local type = arg.type
+			if type and type == "description" then
+				arg.fontSize = "medium"
+			end
 		end
 	end
 

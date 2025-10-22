@@ -198,7 +198,18 @@ function Setup.General(self)
 					SPC04 = {
 						type = "description",
 						name = " ",
+						order = 9,
+					},
+					ProfileFontFix = {
+						type = "toggle",
+						name = L["Profile Panel Font Fix"],
+						desc = L["Increases the font size of the text on Ace3 profile panels."]..Reload,
 						order = 10,
+					},
+					SPC05 = {
+						type = "description",
+						name = " ",
+						order = 100,
 					},
 					Reload = {
 						type = "execute",
