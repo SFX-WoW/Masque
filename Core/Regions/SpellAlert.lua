@@ -100,36 +100,31 @@ local FlipBooks = {
 			FrameWidth = 84,
 		},
 	},
-	["Thin"] = {
+	["Modern-Lite"] = {
 		["Circle"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop]],
-			Color = DEFAULT_COLOR,
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Modern-Lite]],
+			FrameHeight = 84,
+			FrameWidth = 84,
 		},
 		["Hexagon"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop]],
-			Color = DEFAULT_COLOR,
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Modern-Lite]],
+			FrameHeight = 84,
+			FrameWidth = 84,
 		},
 		["Hexagon-Rotated"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop]],
-			Color = DEFAULT_COLOR,
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Modern-Lite]],
+			FrameHeight = 84,
+			FrameWidth = 84,
 		},
 		["Modern"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop]],
-			Color = DEFAULT_COLOR,
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Modern-Lite]],
+			FrameHeight = 84,
+			FrameWidth = 84,
 		},
 		["Square"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop]],
-			Color = DEFAULT_COLOR,
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Modern-Lite]],
+			FrameHeight = 84,
+			FrameWidth = 84,
 		},
 	},
 }
@@ -138,7 +133,7 @@ local FlipBook_List = {
 	[0] = "None",
 	["Classic"] = "Classic",
 	["Modern"] = "Modern",
-	["Thin"] = "Thin",
+	["Modern-Lite"] = "Modern-Lite",
 }
 
 ----------------------------------------
