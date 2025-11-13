@@ -92,6 +92,8 @@ local function UpdateDB()
 	end
 
 	db.API_VERSION = API_VERSION
+
+	db.CB_Warn = nil
 	db.Effects.SpellAlert = nil
 
 	-- Refresh Settings
@@ -173,9 +175,6 @@ function Masque:OnInitialize()
 	local Defaults = {
 		profile = {
 			API_VERSION = 0,
-			CB_Warn = {
-				["*"] = true
-			},
 			Developer = {
 				Debug = false,
 			},
