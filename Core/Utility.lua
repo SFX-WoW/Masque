@@ -16,20 +16,15 @@ local _, Core = ...
 -- Lua API
 ---
 
-local type = type
+local _G, type = _G, type
 
 ----------------------------------------
--- Functions
+-- Miscellaneous
 ---
 
 -- An empty function.
-function Core.NoOp() end
-
--- Returns the scale factor for a button.
-local function GetScaleSize(Button)
-	local Scale = (Button and Button.__MSQ_Scale) or 1
-	return 36 / Scale
-end
+local function NoOp() end
+Core.NoOp = NoOp
 
 ----------------------------------------
 -- Color
@@ -131,7 +126,7 @@ function Core.GetSize(Width, Height, xScale, yScale, Button)
 end
 
 ----------------------------------------
--- TexCoords
+-- Texture Coordinates
 ---
 
 -- Returns a set of texture coordinates.
@@ -144,38 +139,86 @@ function Core.GetTexCoords(Coords)
 end
 
 ----------------------------------------
--- Type Skin
+-- Group Queue
 ---
 
--- Returns a skin based on the button type.
-function Core.GetTypeSkin(Button, Type, Skin)
-	if Button.__MSQ_IsAura then
-		return Skin[Type] or Skin.Aura or Skin
-	elseif Button.__MSQ_IsItem then
-		if Type == "ReagentBag" then
-			return Skin.ReagentBag or Skin.BagSlot or Skin.Item or Skin
-		else
-			return Skin[Type] or Skin.Item or Skin
+-- Self-destructing table to skin groups created prior to the PLAYER_LOGIN event.
+Core.Queue = {
+	Cache = {},
+
+	-- Adds a group to the queue.
+	Add = function(self, Group)
+		self.Cache[#self.Cache + 1] = Group
+		Group.Queued = true
+	end,
+
+	-- Re-Skins all queued groups.
+	ReSkin = function(self)
+		for i = 1, #self.Cache do
+			local Group = self.Cache[i]
+
+			Group:ReSkin(true)
+			Group.Queued = nil
 		end
-	else
-		return Skin[Type] or Skin
+
+		-- GC
+		self.Cache = nil
+		Core.Queue = nil
+	end,
+}
+
+setmetatable(Core.Queue, {__call = Core.Queue.Add})
+
+----------------------------------------
+-- Region Finder
+---
+
+-- Returns a region for a button that uses a template.
+function Core.GetRegion(Button, Info)
+	local Key = Info.Key
+
+	-- Key Reference
+	if Key then
+		local Parent = (Info.Parent and Button[Info.Parent]) or Button
+
+		if type(Parent) == "table" then
+			local Region = Parent[Key]
+
+			if type(Region) == "table" then
+				local rType = Region.GetObjectType and Region:GetObjectType()
+
+				if rType == Info.Type then
+					return Region
+				end
+			end
+		end
+	end
+
+	-- Function Reference
+	local Func = Info.Func
+
+	if Func then
+		local Method = Button[Func]
+
+		if type(Method) == "function" then
+			return Method(Button)
+		end
+	end
+
+	-- Global Reference
+	local Name = Info.Name
+
+	if Name then
+		local bName = Button.GetName and Button:GetName()
+
+		if bName then
+			return _G[bName..Name]
+		end
 	end
 end
 
 ----------------------------------------
--- API
+-- API - Deprecated
 ---
 
--- Temporary function to catch add-ons using deprecated API.
-function Core.API:Register(Addon)
-	if type(Addon) ~= "string" then
-		return
-	end
-
-	local Warn = Core.db.profile.CB_Warn
-
-	if Warn[Addon] then
-		print("|cffff8800Masque Warning:|r", Addon, "called the deprecated API method, '|cff0099ffRegister|r'.  Please notify the author or post in the relevant issue on the Masque project page.")
-		Warn[Addon] = false
-	end
-end
+Core.API.Register = NoOp
