@@ -58,71 +58,41 @@ end
 
 -- Clears and sets the point(s) for a region using skin data.
 function Core.SetSkinPoint(Region, Button, Skin, Default, SetAllPoints)
-	local Anchor
-	local Skin_Anchor = Skin.Anchor
+	local Anchor = Button
+	local Skin_Anchor = Skin and Skin.Anchor
 
 	if Skin_Anchor then
-		local Regions = Button.__Regions
+		local _mcfg = Button._MSQ_CFG
+		local Regions = _mcfg and _mcfg.Regions
 
 		if type(Regions) == "table" then
-			Anchor = Regions[Skin_Anchor]
+			Anchor = Regions[Skin_Anchor] or Button
 		end
 	end
 
 	Region:ClearAllPoints()
 
 	if SetAllPoints then
-		Region:SetAllPoints(Anchor or Button)
-	else
-		local Point = Skin.Point
-		local RelPoint = Skin.RelPoint or Point
-
-		if not Point then
-			Point = Default and Default.Point
-
-			if Point then
-				RelPoint = Default.RelPoint or Point
-			else
-				Point = "CENTER"
-				RelPoint = Point
-			end
-		end
-
-		local OffsetX = Skin.OffsetX
-		local OffsetY = Skin.OffsetY
-
-		if Default and not OffsetX and not OffsetY then
-			OffsetX = Default.OffsetX or 0
-			OffsetY = Default.OffsetY or 0
-		end
-
-		Region:SetPoint(Point, Anchor or Button, RelPoint, OffsetX or 0, OffsetY or 0)
+		Region:SetAllPoints(Anchor)
+		return
 	end
-end
 
-----------------------------------------
--- Scale
----
+	local Point, RelPoint = "CENTER", "CENTER"
+	local OffsetX, OffsetY = 0, 0
 
--- Returns the x and y scale of a button.
-function Core.GetScale(Button)
-	local ScaleSize = GetScaleSize(Button)
-	local w, h = Button:GetSize()
-	local x = (w or ScaleSize) / ScaleSize
-	local y = (h or ScaleSize) / ScaleSize
-	return x, y
-end
+	local SkinData = Skin or Default
 
-----------------------------------------
--- Size
----
+	if SkinData then
+		if SkinData.Point then
+			Point = SkinData.Point
+			RelPoint = SkinData.RelPoint or Point
+		end
 
--- Returns a height and width.
-function Core.GetSize(Width, Height, xScale, yScale, Button)
-	local ScaleSize = GetScaleSize(Button)
-	local w = (Width or ScaleSize) * xScale
-	local h = (Height or ScaleSize) * yScale
-	return w, h
+		OffsetX = SkinData.OffsetX or OffsetX
+		OffsetY = SkinData.OffsetY or OffsetY
+	end
+
+	Region:SetPoint(Point, Anchor, RelPoint, OffsetX, OffsetY)
 end
 
 ----------------------------------------
