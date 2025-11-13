@@ -15,4 +15,5 @@
 	<Script file="QuestBorder.lua"/>
 	<Script file="Cooldown.lua"/>
 	<Script file="SpellAlert.lua"/>
+	<Script file="AssistedCombat.lua"/>
 </Ui>

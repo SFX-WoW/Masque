@@ -54,6 +54,7 @@ local SkinGloss, SkinIcon, SkinIconBorder = Core.SkinGloss, Core.SkinIcon, Core.
 local SkinMask, SkinNewItem, SkinNormal = Core.SkinMask, Core.SkinNewItem, Core.SkinNormal
 local SkinQuestBorder, SkinShadow, SkinSlotIcon = Core.SkinQuestBorder, Core.SkinShadow, Core.SkinSlotIcon
 local SkinText, SkinTexture, UpdateSpellAlert = Core.SkinText, Core.SkinTexture, Core.UpdateSpellAlert
+local Update_AssistedCombatHighlight = Core.Update_AssistedCombatHighlight
 
 ----------------------------------------
 -- Locals
@@ -401,4 +402,13 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- SpellAlert
 	UpdateSpellAlert(Button)
+
+	-- Assisted Combat
+	if WOW_RETAIL then
+		local AssistedCombatHighlight = Button.AssistedCombatHighlightFrame
+
+		if AssistedCombatHighlight then
+			Update_AssistedCombatHighlight(AssistedCombatHighlight.Flipbook, Button)
+		end
+	end
 end
