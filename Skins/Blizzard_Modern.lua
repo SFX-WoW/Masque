@@ -924,8 +924,9 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
-	-- [ SpellAlert ]
+	-- [ SpellAlerts ]
 	-- SpellAlert = Default.SpellAlert,
+	-- AssistedCombatHighlight = Default.AssistedCombatHighlight,
 }
 
 ----------------------------------------

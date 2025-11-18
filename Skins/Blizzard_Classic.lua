@@ -609,7 +609,7 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	-- [ Cooldown ]
+	-- [ Cooldowns ]
 	Cooldown = {
 		Texture = [[Interface\AddOns\Masque\Textures\Square\Mask]],
 		EdgeTexture = [[Interface\Cooldown\edge]],
@@ -624,8 +624,10 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
-	-- [ SpellAlert ]
+	-- [ SpellAlerts ]
 	-- SpellAlert = Default.SpellAlert,
+	-- [ AssistedCombatHighlight ]
+	-- AssistedCombatHighlight = Default.AssistedCombatHighlight,
 	-- [ TextOverlayContainer (Retail) ]
 	HotKey = {
 		JustifyH = "RIGHT",

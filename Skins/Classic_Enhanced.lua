@@ -465,11 +465,14 @@ Core.AddSkin("Classic Enhanced", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
-	--ChargeCooldown = "Cooldown",
-	-- [ SpellAlert ]
+	-- [ SpellAlerts ]
 	SpellAlert = {
 		Height = 40,
 		Width = 40,
+		AltGlow = {
+			Height = 46.5,
+			Width = 46.5,
+		},
 		Classic = {
 			Height = 32,
 			Width = 32,
@@ -478,9 +481,13 @@ Core.AddSkin("Classic Enhanced", {
 			Height = 32,
 			Width = 32,
 		},
-		Thin = {
-			Height = 30,
-			Width = 30,
+		["Modern-Lite"] = {
+			Height = 33,
+			Width = 33,
 		},
+	},
+	AssistedCombatHighlight = {
+		Width = 46.5,
+		Height = 46.5,
 	},
 }, true)

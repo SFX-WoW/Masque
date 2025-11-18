@@ -431,10 +431,14 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
-	-- [ SpellAlert ]
+	-- [ SpellAlerts ]
 	SpellAlert = {
 		Width = 40,
 		Height = 40,
+		AltGlow = {
+			Height = 46,
+			Width = 46,
+		},
 		Classic = {
 			Height = 34,
 			Width = 34,
@@ -443,9 +447,13 @@ Core.AddSkin("Zoomed", {
 			Height = 34,
 			Width = 34,
 		},
-		Thin = {
-			Height = 30,
-			Width = 30,
+		["Modern-Lite"] = {
+			Height = 33,
+			Width = 33,
 		},
+	},
+	AssistedCombatHighlight = {
+		Width = 46,
+		Height = 46,
 	},
 }, true)

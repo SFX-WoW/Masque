@@ -475,10 +475,14 @@ Core.AddSkin("Dream", {
 		-- SetAllPoints = nil,
 	},
 	ChargeCooldown = "Cooldown",
-	-- [ SpellAlert ]
+	-- [ SpellAlerts ]
 	SpellAlert = {
 		Width = 34,
 		Height = 34,
+		AltGlow = {
+			Height = 40,
+			Width = 40,
+		},
 		Classic = {
 			Height = 30,
 			Width = 30,
@@ -487,9 +491,13 @@ Core.AddSkin("Dream", {
 			Height = 29,
 			Width = 29,
 		},
-		Thin = {
-			Height = 26,
-			Width = 26,
+		["Modern-Lite"] = {
+			Height = 28.5,
+			Width = 28.5,
 		},
+	},
+	AssistedCombatHighlight = {
+		Width = 40,
+		Height = 40,
 	},
 }, true)
