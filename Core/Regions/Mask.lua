@@ -82,7 +82,7 @@ local function Skin_RegionMask(Region, Button, Skin)
 		if Atlas then
 			local UseSize = Mask_Skin.UseAtlasSize
 
-			Region_Mask:SetAtlas(Atlas, UseAtlasSize)
+			Region_Mask:SetAtlas(Atlas, UseSize)
 
 			if not UseSize then
 				Region_Mask:SetSize(_mcfg:GetSize(Mask_Skin.Width, Mask_Skin.Height))
@@ -94,7 +94,7 @@ local function Skin_RegionMask(Region, Button, Skin)
 			Region_Mask:SetTexture(Texture, Mask_Skin.WrapH, Mask_Skin.WrapV)
 			Region_Mask:SetSize(_mcfg:GetSize(Mask_Skin.Width, Mask_Skin.Height))
 
-			SetSkinPoint(Region_Mask, Region, Mask_Skin, nil, Mask_Skin.SetAllPoints)		
+			SetSkinPoint(Region_Mask, Region, Mask_Skin, nil, Mask_Skin.SetAllPoints)
 		end
 
 	-- Texture Path
@@ -129,7 +129,7 @@ local function Skin_ButtonMask(Button, Skin)
 		if Atlas then
 			local UseSize = Skin.UseAtlasSize
 
-			Button_Mask:SetAtlas(Atlas, UseAtlasSize)
+			Button_Mask:SetAtlas(Atlas, UseSize)
 
 			if not UseSize then
 				Button_Mask:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
@@ -141,9 +141,9 @@ local function Skin_ButtonMask(Button, Skin)
 			Button_Mask:SetTexture(Texture, Skin.WrapH, Skin.WrapV)
 			Button_Mask:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
-			SetSkinPoint(Button_Mask, Button, Skin, nil, Skin.SetAllPoints)		
+			SetSkinPoint(Button_Mask, Button, Skin, nil, Skin.SetAllPoints)
 		end
-	
+
 	-- Texture Path
 	elseif sType == "string" then
 		Button_Mask:SetTexture(Skin, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")

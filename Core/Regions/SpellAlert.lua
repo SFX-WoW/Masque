@@ -22,8 +22,6 @@ local error, type = error, type
 -- Internal
 ---
 
-local WOW_RETAIL = Core.WOW_RETAIL
-
 -- @ Core\Utility
 local GetFlipBookAnimation = Core.GetFlipBookAnimation
 
@@ -223,7 +221,7 @@ local function Update_Animation(Animation, Style)
 end
 
 -- Updates a start animation.
-local function Update_StartAnimination(Region)
+local function Update_StartAnimation(Region)
 	local AnimGroup = Region and Region.ProcStartAnim
 	local FlipAnim = AnimGroup and GetFlipBookAnimation(AnimGroup)
 
@@ -416,7 +414,7 @@ local function Update_SpellActivationAlert(Button)
 	if (not Region) or (not Region.ProcStartAnim) or (not _mcfg) then return end
 
 	-- Animation Settings
-	local db = Core.db.profile.SpellAlert 
+	local db = Core.db.profile.SpellAlert
 	local State = db.State
 	local Style = db.Style
 
@@ -436,7 +434,7 @@ local function Update_SpellActivationAlert(Button)
 	end
 
 	-- Update the start animation.
-	Update_StartAnimination(Region)
+	Update_StartAnimation(Region)
 
 	-- Prevent the loop texture from being visible during the start animation.
 	Region.ProcLoopFlipbook:SetAlpha(0)

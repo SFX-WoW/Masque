@@ -255,7 +255,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	local bType = _mcfg.bType
 	local Enabled = true
-	local Skin, Disabled
+	local Skin
 
 	if SkinID then
 		Skin = Skin_Data[SkinID] or DEF_SKIN
@@ -285,6 +285,8 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	_mcfg.IsAura = AuraTypes[bType]
 	_mcfg.IsItem = ItemTypes[bType]
 	_mcfg.IsEmptyType = EmptyTypes[bType]
+
+	local Disabled = not Enabled
 
 	if Disabled or type(Colors) ~= "table" then
 		Colors = Empty_Table
