@@ -8,8 +8,6 @@
 
 	'Normal' Region
 
-	* See Skins\Default.lua for region defaults.
-
 ]]
 
 local _, Core = ...
@@ -31,58 +29,61 @@ local hooksecurefunc, random = hooksecurefunc, random
 ---
 
 -- @ Core\Utility
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 -- @ Skins\Blizzard_*
-local DEFAULT_SKIN = Core.DEFAULT_SKIN.Normal
+local DEF_SKIN = Core.DEFAULT_SKIN.Normal
 
 ----------------------------------------
 -- Locals
 ---
 
-local DEFAULT_ATLAS = DEFAULT_SKIN.Atlas
-local DEFAULT_COLOR = DEFAULT_SKIN.Color
-local DEFAULT_TEXTURE = DEFAULT_SKIN.Texture
-local USE_ATLAS_SIZE = DEFAULT_SKIN.UseAtlasSize
+local DEF_ATLAS = DEF_SKIN.Atlas
+local DEF_COLOR = DEF_SKIN.Color
+local DEF_TEXTURE = DEF_SKIN.Texture
+local DEF_USESIZE = DEF_SKIN.UseAtlasSize
 
 ----------------------------------------
--- UpdateNormal
+-- Helpers
 ---
 
 -- Updates the 'Normal' texture of a region.
-local function UpdateNormal(Button, IsEmpty)
-	IsEmpty = IsEmpty or Button.__MSQ_Empty
+local function Update_Normal(Button, IsEmpty)
+	local _mcfg = Button._MSQ_CFG
+	IsEmpty = IsEmpty or _mcfg.IsEmpty
 
-	local Region = Button.__MSQ_Normal
-	local Region_Skin = Button.__MSQ_Normal_Skin
+	local Region = _mcfg.Normal
+	local Skin = _mcfg.Skin_Normal
 
-	if Region and (Region_Skin and not Region_Skin.Hide) then
-		local Skin_Atlas = Region_Skin.Atlas
-		local Skin_Texture = Button.__MSQ_Random_Texture or Region_Skin.Texture
-		local Skin_Color = Button.__MSQ_Normal_Color or DEFAULT_COLOR
-		local Skin_Coords
+	if Region and (Skin and not Skin.Hide) then
+		local Atlas = Skin.Atlas
+		local Texture = _mcfg.Normal_Random or Skin.Texture
+		local Color = _mcfg.Color_Normal or DEF_COLOR
+		local Coords
 
-		local Use_Empty = Button.__MSQ_Empty_Type and IsEmpty
+		local UseEmpty = _mcfg.IsEmptyType and IsEmpty
 
-		Skin_Color = (Use_Empty and Region_Skin.EmptyColor) or Skin_Color
+		Color = (UseEmpty and Skin.EmptyColor) or Color
 
-		if Skin_Atlas then
-			Skin_Atlas = (Use_Empty and Region_Skin.EmptyAtlas) or Skin_Atlas
-			Region:SetAtlas(Skin_Atlas, Region_Skin.UseAtlasSize)
-		elseif Skin_Texture then
-			Skin_Texture = (Use_Empty and Region_Skin.EmptyTexture) or Skin_Texture
-			Skin_Coords = (Use_Empty and Region_Skin.EmptyCoords) or Region_Skin.TexCoords
-			Region:SetTexture(Skin_Texture)
-		elseif DEFAULT_ATLAS then
-			Region:SetAtlas(DEFAULT_ATLAS, USE_ATLAS_SIZE)
-		elseif DEFAULT_TEXTURE then
-			Skin_Coords = DEFAULT_SKIN.TexCoords
-			Region:SetTexture(DEFAULT_TEXTURE)
+		if Atlas then
+			Atlas = (UseEmpty and Skin.EmptyAtlas) or Atlas
+			Region:SetAtlas(Atlas, Skin.UseAtlasSize)
+
+		elseif Texture then
+			Texture = (UseEmpty and Skin.EmptyTexture) or Texture
+			Coords = (UseEmpty and Skin.EmptyCoords) or Skin.TexCoords
+			Region:SetTexture(Texture)
+
+		elseif DEF_ATLAS then
+			Region:SetAtlas(DEF_ATLAS, DEF_USESIZE)
+
+		elseif DEF_TEXTURE then
+			Coords = DEF_SKIN.TexCoords
+			Region:SetTexture(DEF_TEXTURE)
 		end
 
-		Region:SetTexCoord(GetTexCoords(Skin_Coords))
-		Region:SetVertexColor(GetColor(Skin_Color))
+		Region:SetTexCoord(GetTexCoords(Coords))
+		Region:SetVertexColor(GetColor(Color))
 	end
 end
 
@@ -90,19 +91,21 @@ end
 -- Hook
 ---
 
--- Counters changes to a button's 'Normal' Texture or Atlas.
+-- Counters changes to a button's 'Normal' texture.
 -- * The behavior of changing the texture when a button is empty is only used
---   by Classic UI in the case of Pet buttons. Some add-ons still use this
---   behavior for other button types, so it needs to be countered.
--- * In Dragonflight, the UpdateButtonArt method swaps the `Normal` Atlas for one with
+--   by the UI in Classic in the case of Pet buttons. Some add-ons still use this behavior
+--   for other button types, so it needs to be countered.
+-- * In Retail, the UpdateButtonArt method swaps the `Normal` atlas for one with
 --   Edit Mode indicators, so we need to counter that, too.
--- * See `UpdateNormal` above.
+-- * See `Update_Normal` above.
 local function Hook_SetNormal(Button, Texture)
-	local Region_Skin = Button.__MSQ_Normal_Skin
-	if not Region_Skin then return end
+	local _mcfg = Button._MSQ_CFG
+	local Skin = _mcfg and _mcfg.Skin_Normal
+
+	if not Skin then return end
 
 	local Normal = Button:GetNormalTexture()
-	local Region = Button.__MSQ_Normal
+	local Region = _mcfg and _mcfg.Normal
 
 	-- Hide the original texture if using a custom texture.
 	if Normal and (Normal ~= Region) then
@@ -111,34 +114,50 @@ local function Hook_SetNormal(Button, Texture)
 	end
 
 	-- Counter changes to the region being hidden.
-	if Region_Skin.Hide then
+	if Skin.Hide then
 		Region:SetTexture()
 		Region:Hide()
 	end
 
-	UpdateNormal(Button)
+	Update_Normal(Button)
 end
 
 ----------------------------------------
 -- Core
 ---
 
--- Skins the `Normal` layer of a button and sets up any necessary hooks.
-function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
+-- Internal color handler for the `Normal` region.
+function Core.SetColor_Normal(Region, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
+
+	Region = Region or _mcfg.Normal
+
+	if Region then
+		Skin = _mcfg:GetTypeSkin(Button, Skin)
+		_mcfg.Color_Normal = Color or Skin.Color or DEF_COLOR
+
+		Update_Normal(Button)
+	end
+end
+
+-- Internal skin handler for the `Normal` region.
+function Core.Skin_Normal(Region, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
 	local IsButton = Button.GetNormalTexture
 
-	local New_Normal = Button.__MSQ_New_Normal
+	local New_Normal = _mcfg.Normal_Custom
 	local Old_Normal = IsButton and Button:GetNormalTexture()
 
 	-- Catch add-ons using a custom `Normal` texture.
 	if (Region and Old_Normal) and (Region ~= Old_Normal) then
 		Old_Normal:SetTexture()
 		Old_Normal:Hide()
+
 	else
 		Region = Region or Old_Normal
 	end
 
-	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
 	-- States Enabled
 	if Skin.UseStates then
@@ -159,12 +178,12 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 		end
 
 		Region = New_Normal or Button:CreateTexture()
-		Button.__MSQ_New_Normal = Region
+		_mcfg.Normal_Custom = Region
 	end
 
-	Button.__MSQ_Normal = Region
-	Button.__MSQ_Normal_Skin = Skin
-	Button.__MSQ_Normal_Color = Color or Skin.Color or DEFAULT_COLOR
+	_mcfg.Normal = Region
+	_mcfg.Skin_Normal = Skin
+	_mcfg.Color_Normal = Color or Skin.Color or DEF_COLOR
 
 	if Skin.Hide then
 		if Region then
@@ -174,64 +193,48 @@ function Core.SkinNormal(Region, Button, Skin, Color, xScale, yScale)
 		return
 	end
 
-	local Skin_Textures = Skin.Textures
+	local Texture_List = Skin.Textures
 	local Random_Texture
 
-	if type(Skin_Textures) == "table" and #Skin_Textures > 0 then
-		local i = random(1, #Skin_Textures)
-		Random_Texture = Skin_Textures[i]
+	if (type(Texture_List) == "table") and (#Texture_List > 0) then
+		local i = random(1, #Texture_List)
+		Random_Texture = Texture_List[i]
 	end
 
-	Button.__MSQ_Random_Texture = Random_Texture
+	_mcfg.Normal_Random = Random_Texture
 
 	-- Counter the BT4 fix above.
 	Region:SetAlpha(1)
 
-	UpdateNormal(Button)
+	Update_Normal(Button)
 
-	if not Button.__MSQ_Enabled then
-		Button.__MSQ_Normal = nil
-		Button.__MSQ_Normal_Skin = nil
-		Button.__MSQ_Normal_Color = nil
-		Button.__MSQ_Random_Texture = nil
+	if not _mcfg.Enabled then
+		_mcfg.Normal = nil
+		_mcfg.Skin_Normal = nil
+		_mcfg.Color_Normal = nil
+		_mcfg.Normal_Random = nil
 	end
 
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or 0)
 
 	if not Skin.UseAtlasSize then
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
+		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	Region:Show()
 
-	if IsButton and Button.__MSQ_Empty_Type and not Button.__MSQ_Normal_Hook then
+	if IsButton and _mcfg.IsEmptyType and (not _mcfg.Normal_Hook) then
 		hooksecurefunc(Button, "SetNormalAtlas", Hook_SetNormal)
 		hooksecurefunc(Button, "SetNormalTexture", Hook_SetNormal)
 
-		Button.__MSQ_Normal_Hook = true
+		_mcfg.Normal_Hook = true
 	end
 end
 
-----------------------------------------
--- Core
----
-
--- Sets the color of the 'Normal' region.
-function Core.SetNormalColor(Region, Button, Skin, Color)
-	Region = Region or Button.__MSQ_Normal
-
-	if Region then
-		Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
-		Button.__MSQ_Normal_Color = Color or Skin.Color or DEFAULT_COLOR
-
-		UpdateNormal(Button)
-	end
-end
-
-Core.UpdateNormal = UpdateNormal
+Core.Update_Normal = Update_Normal
 
 ----------------------------------------
 -- API
@@ -246,5 +249,6 @@ function Core.API:GetNormal(Button)
 		return
 	end
 
-	return Button.__MSQ_Normal or Button:GetNormalTexture()
+	local _mcfg = Button._MSQ_CFG
+	return (_mcfg and _mcfg.Normal) or Button:GetNormalTexture()
 end

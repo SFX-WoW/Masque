@@ -23,8 +23,7 @@ local error, type = error, type
 ---
 
 -- @ Core\Utility
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 ----------------------------------------
 -- Locals
@@ -33,25 +32,13 @@ local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 local Cache = {}
 
 ----------------------------------------
--- Functions
+-- Helpers
 ---
 
--- Removes the 'Gloss' region from a button.
-local function RemoveGloss(Button)
-	local Region = Button.__MSQ_Gloss
-
-	if Region then
-		Region:SetTexture()
-		Region:Hide()
-
-		Cache[#Cache + 1] = Region
-		Button.__MSQ_Gloss = nil
-	end
-end
-
 -- Skins or creates the 'Gloss' region of a button.
-local function AddGloss(Button, Skin, Color, xScale, yScale)
-	local Region = Button.__MSQ_Gloss
+local function Add_Gloss(Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
+	local Region = _mcfg.Gloss
 
 	if not Region then
 		local i = #Cache
@@ -63,7 +50,7 @@ local function AddGloss(Button, Skin, Color, xScale, yScale)
 			Region = Button:CreateTexture()
 		end
 
-		Button.__MSQ_Gloss = Region
+		_mcfg.Gloss = Region
 	end
 
 	Region:SetParent(Button)
@@ -72,14 +59,28 @@ local function AddGloss(Button, Skin, Color, xScale, yScale)
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetVertexColor(GetColor(Color or Skin.Color))
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
-	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
+	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
-	if Button.__MSQ_Empty then
+	if _mcfg.IsEmpty then
 		Region:Hide()
 	else
 		Region:Show()
+	end
+end
+
+-- Removes the 'Gloss' region from a button.
+local function Remove_Gloss(Button)
+	local _mcfg = Button._MSQ_CFG
+	local Region = _mcfg.Gloss
+
+	if Region then
+		Region:SetTexture()
+		Region:Hide()
+
+		Cache[#Cache + 1] = Region
+		_mcfg.Gloss = nil
 	end
 end
 
@@ -87,24 +88,28 @@ end
 -- Core
 ---
 
--- Skins or removes a 'Gloss' region.
-function Core.SkinGloss(Enabled, Button, Skin, Color, xScale, yScale)
-	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+-- Internal color handler for the `Gloss` region.
+function Core.SetColor_Gloss(Region, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
 
-	if Enabled and (not Skin.Hide) and Skin.Texture then
-		AddGloss(Button, Skin, Color, xScale, yScale)
-	else
-		RemoveGloss(Button)
+	Region = Region or _mcfg.Gloss
+
+	if Region then
+		Skin = _mcfg:GetTypeSkin(Button, Skin)
+		Region:SetVertexColor(GetColor(Color or Skin.Color))
 	end
 end
 
--- Sets the color of the 'Gloss' region.
-function Core.SetGlossColor(Region, Button, Skin, Color)
-	Region = Region or Button.__MSQ_Gloss
+-- Internal skin handler for the `Gloss` region.
+function Core.Skin_Gloss(Enabled, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
 
-	if Region then
-		Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
-		Region:SetVertexColor(GetColor(Color or Skin.Color))
+	Skin = _mcfg:GetTypeSkin(Button, Skin)
+
+	if Enabled and (not Skin.Hide) and Skin.Texture then
+		Add_Gloss(Button, Skin, Color)
+	else
+		Remove_Gloss(Button)
 	end
 end
 
@@ -121,5 +126,6 @@ function Core.API:GetGloss(Button)
 		return
 	end
 
-	return Button.__MSQ_Gloss
+	local _mcfg = Button._MSQ_CFG
+	return _mcfg and _mcfg.Gloss
 end

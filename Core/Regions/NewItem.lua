@@ -8,8 +8,6 @@
 
 	'NewItem' Region
 
-	* See Skins\Default.lua for region defaults.
-
 ]]
 
 local _, Core = ...
@@ -25,18 +23,17 @@ local hooksecurefunc = hooksecurefunc
 ---
 
 -- @ Core\Utility
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 -- @ Skins\Blizzard_*
-local DEFAULT_SKIN = Core.DEFAULT_SKIN.NewItem
+local DEF_SKIN = Core.DEFAULT_SKIN.NewItem
 
 ----------------------------------------
 -- Locals
 ---
 
-local DEFAULT_ATLAS = DEFAULT_SKIN.Atlas
-local DEFAULT_COLOR = DEFAULT_SKIN.Color
+local DEF_ATLAS = DEF_SKIN.Atlas
+local DEF_COLOR = DEF_SKIN.Color
 
 local Atlas_Colors = {
 	["bags-glow-white"] = {1, 1, 1, 1},
@@ -54,24 +51,26 @@ local Atlas_Colors = {
 
 -- Counters atlas changes when using a static skin texture.
 local function Hook_SetAtlas(Region, Atlas, UseAtlasSize)
-	if Region.__Exit_Hook or not Region.__MSQ_Skin then
+	if Region._Exit_Hook or (not Region._MSQ_Skin) then
 		return
 	end
 
-	Atlas = Atlas or DEFAULT_ATLAS
-	Region.__MSQ_Atlas = Atlas
+	Atlas = Atlas or DEF_ATLAS
+	Region._MSQ_Atlas = Atlas
 
-	local Region_Skin = Region.__MSQ_Skin
-	local Skin_Atlas = Region_Skin.Atlas
-	local Skin_Texture = Region_Skin.Texture
+	local Skin = Region._MSQ_Skin
+
+	local Skin_Atlas = Skin.Atlas
+	local Skin_Texture = Skin.Texture
 	local Skin_Coords
 
 	if Skin_Atlas then
-		Region.__Exit_Hook = true
-		Region:SetAtlas(Skin_Atlas, Region_Skin.UseAtlasSize)
-		Region.__Exit_Hook = nil
+		Region._Exit_Hook = true
+		Region:SetAtlas(Skin_Atlas, Skin.UseAtlasSize)
+		Region._Exit_Hook = nil
+
 	elseif Skin_Texture then
-		Skin_Coords = Region_Skin.TexCoords
+		Skin_Coords = Skin.TexCoords
 		Region:SetTexture(Skin_Texture)
 	end
 
@@ -83,49 +82,53 @@ end
 -- Core
 ---
 
--- Skins the 'NewItem' region of a button.
-function Core.SkinNewItem(Region, Button, Skin, xScale, yScale)
-	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+-- Internal skin handler for the `NewItem` region.
+function Core.Skin_NewItem(Region, Button, Skin)
+	local _mcfg = Button._MSQ_CFG
 
-	local Region_Atlas = Region.__MSQ_Atlas or Region:GetAtlas() or DEFAULT_ATLAS
+	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
-	Region.__MSQ_Atlas = Region_Atlas
-	Region.__MSQ_Skin = Skin
+	local Region_Atlas = Region._MSQ_Atlas or Region:GetAtlas() or DEF_ATLAS
+
+	Region._MSQ_Atlas = Region_Atlas
+	Region._MSQ_Skin = Skin
 
 	local Skin_Atlas = Skin.Atlas
-	local UseAtlasSize = Skin.UseAtlasSize
+	local UseSize = Skin.UseAtlasSize
 
 	local Skin_Texture = Skin.Texture
 	local Skin_Coords
 
 	if Skin_Atlas then
 		Hook_SetAtlas(Region, Region_Atlas)
+
 	elseif Skin_Texture then
 		Skin_Coords = Skin.TexCoords
 
 		Region:SetTexture(Skin_Texture)
 		Region:SetVertexColor(GetColor(Atlas_Colors[Region_Atlas]))
-	else
-		Region.__MSQ_Skin = nil
-		UseAtlasSize = DEFAULT_SKIN.UseAtlasSize
 
-		Region:SetAtlas(Region_Atlas, UseAtlasSize)
-		Region:SetVertexColor(GetColor(DEFAULT_COLOR))
+	else
+		Region._MSQ_Skin = nil
+		UseSize = DEF_SKIN.UseAtlasSize
+
+		Region:SetAtlas(Region_Atlas, UseSize)
+		Region:SetVertexColor(GetColor(DEF_COLOR))
 	end
 
 	Region:SetTexCoord(GetTexCoords(Skin_Coords))
 	Region:SetBlendMode(Skin.BlendMode or "ADD")
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 2)
 
-	if not UseAtlasSize then
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+	if (not UseSize) then
+		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
 	-- Hook
-	if not Region.__MSQ_Hooked then
+	if not Region._MSQ_Hooked then
 		hooksecurefunc(Region, "SetAtlas", Hook_SetAtlas)
-		Region.__MSQ_Hooked = true
+		Region._MSQ_Hooked = true
 	end
 end

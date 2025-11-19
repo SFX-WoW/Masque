@@ -25,7 +25,7 @@ local error, type = error, type
 if not Core.WOW_RETAIL then return end
 
 -- @ Core\Utility
-local GetTexCoords = Core.GetTexCoords
+local GetFlipBookAnimation, GetTexCoords = Core.GetFlipBookAnimation, Core.GetTexCoords
 
 ----------------------------------------
 -- Locals
@@ -86,7 +86,7 @@ local FlipBooks = {
 }
 
 ----------------------------------------
--- Assisted Combat Highlight
+-- Helpers
 ---
 
 -- Fixes a texture glitch when an animation is stopped.
@@ -98,7 +98,7 @@ local function FixGlitch(AnimGroup)
 	end
 end
 
--- Resets an Assisted Combat Highlight flipbook to the Blizzard style.
+-- Resets an `AssistedCombatHighlight` flipbook to the Blizzard style.
 local function Reset_AssistedCombatHighlight(Region, Button)
 	local _mcfg = Button._MSQ_CFG
 
@@ -106,7 +106,7 @@ local function Reset_AssistedCombatHighlight(Region, Button)
 	Region:SetSize(_mcfg:GetSize(53, 53))
 
 	local AnimGroup = Region.Anim
-	local Animation = AnimGroup:GetAnimations()
+	local Animation = GetFlipBookAnimation(AnimGroup)
 
 	Animation:SetFlipBookFrameWidth(0)
 	Animation:SetFlipBookFrameHeight(0)
@@ -117,7 +117,7 @@ local function Reset_AssistedCombatHighlight(Region, Button)
 	_mcfg:UpdateUID("_uID_ACH", true)
 end
 
--- Skins an Assisted Combat Highlight flipbook.
+-- Skins an `AssistedCombatHighlight` flipbook.
 local function Skin_AssistedCombatHighlight(Region, Button, Skin)
 	local _mcfg = Button._MSQ_CFG
 
@@ -138,7 +138,7 @@ local function Skin_AssistedCombatHighlight(Region, Button, Skin)
 	Region:SetSize(_mcfg:GetSize(Width, Height))
 
 	local AnimGroup = Region.Anim
-	local Animation = AnimGroup:GetAnimations()
+	local Animation = GetFlipBookAnimation(AnimGroup)
 
 	-- Force the flipbook frame size.
 	Animation:SetFlipBookFrameWidth(Style.FrameWidth or MSQ_FRAME_SIZE)
@@ -154,7 +154,7 @@ end
 -- Core
 ---
 
--- Updates an Assisted Combat Highlight flipbook.
+-- Updates an `AssistedCombatHighlight` flipbook.
 local function Update_AssistedCombatHighlight(Region, Button)
 	if not Region then return end
 
@@ -162,11 +162,11 @@ local function Update_AssistedCombatHighlight(Region, Button)
 	local AnimGroup = Region.Anim
 
 	local Skin  = _mcfg.Skin
-	Skin = (Skin and Skin.AssistedCombatHighlight) or Skin
+	Skin = Skin and Skin.AssistedCombatHighlight
 
 	if _mcfg.Enabled then
 		-- Blizzard Skin
-		if _mcfg.NoEffects then
+		if _mcfg.BaseSkin then
 			if _mcfg:NeedsUpdate("_uID_ACH", true) then
 				Reset_AssistedCombatHighlight(Region, Button)
 			end
@@ -183,13 +183,14 @@ local function Update_AssistedCombatHighlight(Region, Button)
 	FixGlitch(AnimGroup)
 end
 
+-- Internal skin handler for the `AssistedCombatHighlight` region.
 Core.Update_AssistedCombatHighlight = Update_AssistedCombatHighlight
 
 ----------------------------------------
 -- Hook
 ---
 
--- Updates the Assisted Combat Highlight when created after the button is skinned.
+-- Updates the `AssistedCombatHighlight` when created after the button is skinned.
 local function Hook_AssistedCombatHighlight(Parent, Button)
 	local _mcfg = Button._MSQ_CFG
 	local Frame = Button.AssistedCombatHighlightFrame
@@ -208,7 +209,7 @@ hooksecurefunc(AssistedCombatManager, "SetAssistedHighlightFrameShown", Hook_Ass
 
 local API = Core.API
 
--- Adds a custom Assisted Combat Highlight style.
+-- Adds a custom `AssistedCombatHighlight` style.
 function API:AddAssistedCombatHighlightStyle(Shape, Data)
 	local Debug = Core.Debug
 
@@ -228,7 +229,7 @@ function API:AddAssistedCombatHighlightStyle(Shape, Data)
 	FlipBooks[Shape] = Data
 end
 
--- Returns an Assisted Combat Highlight style.
+-- Returns an `AssistedCombatHighlight` style.
 function API:GetAssistedCombatHighlightStyle(Shape)
 	if type(Shape) ~= "string" then
 		if Core.Debug then

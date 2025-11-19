@@ -8,8 +8,6 @@
 
 	'Backdrop' Region
 
-	* See Skins\Default.lua for region defaults.
-
 ]]
 
 local _, Core = ...
@@ -25,56 +23,33 @@ local error, type = error, type
 ---
 
 -- @ Skins\Blizzard_*
-local DEFAULT_SKIN = Core.DEFAULT_SKIN.Backdrop
+local DEF_SKIN = Core.DEFAULT_SKIN.Backdrop
 
 -- @ Core\Utility
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 -- @ Core\Regions\Mask
-local SkinMask = Core.SkinMask
+local Skin_Mask = Core.Skin_Mask
 
 ----------------------------------------
 -- Locals
 ---
 
-local DEFAULT_COLOR = DEFAULT_SKIN.Color
-local DEFAULT_TEXTURE = DEFAULT_SKIN.Texture
+local DEF_COLOR = DEF_SKIN.Color
+local DEF_TEXTURE = DEF_SKIN.Texture
 
 local Cache = {}
 
 ----------------------------------------
--- Functions
+-- Helpers
 ---
 
--- Removes the 'Backdrop' region from a button.
-local function RemoveBackdrop(Region, Button)
-	Region = Region or Button.__MSQ_Backdrop
-
-	if Region then
-		Region:Hide()
-
-		if Button.__MSQ_Backdrop then
-			-- Remove the button mask.
-			local Button_Mask = Button.__MSQ_Mask
-
-			if Button_Mask and Region.__MSQ_Button_Mask then
-				Region:RemoveMaskTexture(Button_Mask)
-				Region.__MSQ_Button_Mask = nil
-			end
-
-			Region:SetTexture()
-
-			Cache[#Cache + 1] = Region
-			Button.__MSQ_Backdrop = nil
-		end
-	end
-end
-
 -- Skins or creates the 'Backdrop' region of a button.
-local function AddBackdrop(Region, Button, Skin, Color, xScale, yScale)
+local function Add_Backdrop(Region, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
+
 	Button.FloatingBG = Region
-	Region = Region or Button.__MSQ_Backdrop
+	Region = Region or _mcfg.Backdrop
 
 	if not Region then
 		local i = #Cache
@@ -86,75 +61,105 @@ local function AddBackdrop(Region, Button, Skin, Color, xScale, yScale)
 			Region = Button:CreateTexture()
 		end
 
-		Button.__MSQ_Backdrop = Region
+		_mcfg.Backdrop = Region
 	end
 
 	Region:SetParent(Button)
 	Color = Color or Skin.Color
 
 	local Skin_Atlas = Skin.Atlas
-	local UseAtlasSize = Skin.UseAtlasSize
+	local UseSize = Skin.UseAtlasSize
 
 	if Skin.UseColor then
 		Region:SetTexture()
 		Region:SetVertexColor(1, 1, 1, 1)
-		Region:SetColorTexture(GetColor(Color or DEFAULT_COLOR))
+		Region:SetColorTexture(GetColor(Color or DEF_COLOR))
+
 	else
 		local Coords
 
 		if Skin_Atlas then
-			Region:SetAtlas(Skin_Atlas, UseAtlasSize)
+			Region:SetAtlas(Skin_Atlas, UseSize)
 		else
 			Coords = Skin.TexCoords
-			Region:SetTexture(Skin.Texture or DEFAULT_TEXTURE)
+			Region:SetTexture(Skin.Texture or DEF_TEXTURE)
 		end
 
 		Region:SetTexCoord(GetTexCoords(Coords))
-		Region:SetVertexColor(GetColor(Color or DEFAULT_COLOR))
+		Region:SetVertexColor(GetColor(Color or DEF_COLOR))
 	end
 
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or -1)
 
-	if not UseAtlasSize then
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
+	if not UseSize then
+		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 	Region:Show()
 
 	-- Mask
-	SkinMask(Region, Button, Skin, xScale, yScale)
+	Skin_Mask(Button, Skin, Region)
+end
+
+-- Removes the 'Backdrop' region from a button.
+local function Remove_Backdrop(Region, Button)
+	local _mcfg = Button._MSQ_CFG
+	Region = Region or _mcfg.Backdrop
+
+	if not Region then return end
+
+	Region:Hide()
+
+	if _mcfg.Backdrop then
+		-- Remove the button mask.
+		local Button_Mask = _mcfg.ButtonMask
+
+		if Button_Mask and Region._MSQ_bMask then
+			Region:RemoveMaskTexture(Button_Mask)
+			Region._MSQ_bMask = nil
+		end
+
+		Region:SetTexture()
+
+		Cache[#Cache + 1] = Region
+		_mcfg.Backdrop = nil
+	end
 end
 
 ----------------------------------------
 -- Core
 ---
 
--- Sets the color of the 'Backdrop' region.
-function Core.SetBackdropColor(Region, Button, Skin, Color)
-	Region = Region or Button.__MSQ_Backdrop
+-- Internal color handler for the `Backdrop` region.
+function Core.SetColor_Backdrop(Region, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
+
+	Region = Region or _mcfg.Backdrop
 
 	if Region then
-		Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+		Skin = _mcfg:GetTypeSkin(Button, Skin)
 		Color = Color or Skin.Color
 
 		if Skin.UseColor then
-			Region:SetColorTexture(GetColor(Color or DEFAULT_COLOR))
+			Region:SetColorTexture(GetColor(Color or DEF_COLOR))
 		else
-			Region:SetVertexColor(GetColor(Color or DEFAULT_COLOR))
+			Region:SetVertexColor(GetColor(Color or DEF_COLOR))
 		end
 	end
 end
 
--- Add or removes a 'Backdrop' region.
-function Core.SkinBackdrop(Enabled, Region, Button, Skin, Color, xScale, yScale)
-	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+-- Internal skin handler for the `Backdrop` region.
+function Core.Skin_Backdrop(Enabled, Region, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
 
-	if Enabled and not Skin.Hide then
-		AddBackdrop(Region, Button, Skin, Color, xScale, yScale)
+	Skin = _mcfg:GetTypeSkin(Button, Skin)
+
+	if Enabled and (not Skin.Hide) then
+		Add_Backdrop(Region, Button, Skin, Color)
 	else
-		RemoveBackdrop(Region, Button)
+		Remove_Backdrop(Region, Button)
 	end
 end
 
@@ -171,5 +176,6 @@ function Core.API:GetBackdrop(Button)
 		return
 	end
 
-	return Button.FloatingBG or Button.__MSQ_Backdrop
+	local _mcfg = Button._MSQ_CFG
+	return Button.FloatingBG or (_mcfg and _mcfg.Backdrop)
 end

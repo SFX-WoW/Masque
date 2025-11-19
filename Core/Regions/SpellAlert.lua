@@ -16,144 +16,194 @@ local _, Core = ...
 -- Lua API
 ---
 
-local error, ipairs, type = error, ipairs, type
+local error, type = error, type
 
 ----------------------------------------
 -- Internal
 ---
 
+local WOW_RETAIL = Core.WOW_RETAIL
+
 -- @ Core\Utility
-local GetColor, GetScale, GetSize = Core.GetColor, Core.GetScale, Core.GetSize
+local GetFlipBookAnimation = Core.GetFlipBookAnimation
 
 ----------------------------------------
 -- Locals
 ---
 
--- Classic Spell Alerts
+-- Default Masque Textures
+-- Size: 512 x 512
+-- Grid: 6 Rows, 5 Columns, 30 Frames
+
+-- Internal Settings
+local SIZE_ALTGLOW = 49
+local SIZE_CLASSIC = 64
+local SIZE_MODERN = 84
+
+-- Overlay Textures
 local Overlays = {
 	Circle = {
-		Glow = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Glow]],
 		Ants = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Ants]],
+		Glow = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Glow]],
 	},
 	Square = {
-		Glow = [[Interface\SpellActivationOverlay\IconAlert]],
 		Ants = [[Interface\SpellActivationOverlay\IconAlertAnts]],
+		Glow = [[Interface\SpellActivationOverlay\IconAlert]],
 	},
 }
 
--- Modern Spell Alerts
-local DEFAULT_COLOR = {1, 0.9, 0.4, 1}
-local DEFAULT_SIZE = 64
+-- AltGlow Settings
+local AltGlows = {
+	["Circle"] = {
+		Texture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-AltGlow]],
+		Width = SIZE_ALTGLOW,
+		Height = SIZE_ALTGLOW,
+	},
+	["Hexagon"] = {
+		Texture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-AltGlow]],
+		Width = SIZE_ALTGLOW,
+		Height = SIZE_ALTGLOW,
+	},
+	["Hexagon-Rotated"] = {
+		Texture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-AltGlow]],
+		Width = SIZE_ALTGLOW,
+		Height = SIZE_ALTGLOW,
+	},
+	["Modern"] = {
+		Texture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-AltGlow]],
+		Width = SIZE_ALTGLOW,
+		Height = SIZE_ALTGLOW,
+	},
+	["Square"] = {
+		Texture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-AltGlow]],
+		Width = SIZE_ALTGLOW,
+		Height = SIZE_ALTGLOW,
+	},
+}
 
+-- Flipbook Settings
 local FlipBooks = {
 	["Classic"] = {
 		["Circle"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Classic]],
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			FrameHeight = SIZE_CLASSIC,
+			FrameWidth = SIZE_CLASSIC,
 		},
 		["Hexagon"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Classic]],
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			FrameHeight = SIZE_CLASSIC,
+			FrameWidth = SIZE_CLASSIC,
 		},
 		["Hexagon-Rotated"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Classic]],
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			FrameHeight = SIZE_CLASSIC,
+			FrameWidth = SIZE_CLASSIC,
 		},
 		["Modern"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Classic]],
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			FrameHeight = SIZE_CLASSIC,
+			FrameWidth = SIZE_CLASSIC,
 		},
 		["Square"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Classic]],
-			FrameHeight = DEFAULT_SIZE,
-			FrameWidth = DEFAULT_SIZE,
+			FrameHeight = SIZE_CLASSIC,
+			FrameWidth = SIZE_CLASSIC,
 		},
 	},
 	["Modern"] = {
 		["Circle"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Modern]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 		["Hexagon"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Modern]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 		["Hexagon-Rotated"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Modern]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 		["Modern"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Modern]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 		["Square"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Modern]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 	},
 	["Modern-Lite"] = {
 		["Circle"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Modern-Lite]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 		["Hexagon"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Modern-Lite]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 		["Hexagon-Rotated"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Modern-Lite]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 		["Modern"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Modern-Lite]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 		["Square"] = {
 			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Modern-Lite]],
-			FrameHeight = 84,
-			FrameWidth = 84,
+			FrameHeight = SIZE_MODERN,
+			FrameWidth = SIZE_MODERN,
 		},
 	},
 }
 
+-- List of flipbooks.
 local FlipBook_List = {
 	[0] = "None",
 	["Classic"] = "Classic",
 	["Modern"] = "Modern",
-	["Modern-Lite"] = "Modern-Lite",
+	["Modern-Lite"] = "Modern Lite",
 }
 
 ----------------------------------------
--- Utility
+-- Helpers
 ---
 
--- Returns the FlipBook animation from an animation group and sets the parent key.
-local function GetFlipBook(...)
-	local Animations = {...}
+-- Skins a spell alert overlay.
+local function Skin_Overlay(Region, Button, Skin)
+	local _mcfg = Button._MSQ_CFG
 
-	for _, Animation in ipairs(Animations) do
-		if Animation:GetObjectType() == "FlipBook" then
-			Animation:SetParentKey("FlipAnim")
-			return Animation
-		end
+	local Shape = _mcfg.Shape or "Square"
+
+	-- Update the skin if the shape has changed.
+	if _mcfg.OverlayShape ~= Shape then
+		local Paths = Overlays[Shape] or Overlays.Square
+
+		local Ants_Texture = (Skin and Skin.Ants) or Paths.Ants
+		local Glow_Texture = (Skin and Skin.Glow) or Paths.Glow
+
+		Region.ants:SetTexture(Ants_Texture)
+		Region.innerGlow:SetTexture(Glow_Texture)
+		Region.innerGlowOver:SetTexture(Glow_Texture)
+		Region.outerGlow:SetTexture(Glow_Texture)
+		Region.outerGlowOver:SetTexture(Glow_Texture)
+		Region.spark:SetTexture(Glow_Texture)
+
+		_mcfg.OverlayShape = Shape
 	end
 end
 
--- Applies style settings to a FlipBook animation.
-local function UpdateAnimation(Animation, Style)
+-- Updates an animation.
+local function Update_Animation(Animation, Style)
 	-- Custom
 	if Style then
 		Animation:SetFlipBookFrameHeight(Style.FrameHeight or 0)
@@ -172,308 +222,295 @@ local function UpdateAnimation(Animation, Style)
 	end
 end
 
--- Updates the Start animation.
-local function UpdateStartAnimation(Region)
-	local Start_Group = Region.ProcStartAnim
-	local Start_Animation = Start_Group.FlipAnim or GetFlipBook(Start_Group:GetAnimations())
+-- Updates a start animation.
+local function Update_StartAnimination(Region)
+	local AnimGroup = Region and Region.ProcStartAnim
+	local FlipAnim = AnimGroup and GetFlipBookAnimation(AnimGroup)
 
-	if Start_Animation then
-		-- Disable the start animation.
-		if Region.__Skip_Start or Region.__Loop_Only then
-			Start_Animation:SetDuration(0)
+	if FlipAnim then
+		-- Disabled
+		if Region._No_Start or Region._Loop_Only then
+			FlipAnim:SetDuration(0)
 			Region.ProcStartFlipbook:Hide()
 
-		-- Enable the start animation.
+		-- Enabled
 		else
-			Start_Animation:SetDuration(0.7)
+			FlipAnim:SetDuration(0.7)
 			Region.ProcStartFlipbook:Show()
 		end
 	end
 end
 
-----------------------------------------
--- Overlay
----
+-- Resets spell alert flipbooks.
+local function Reset_FlipBooks(Region, Button, Width, Height)
+	Region._Loop_Only = nil
 
--- Skins Spell Alert Overlays.
-local function SkinOverlay(Region, Button, Skin)
-	local Button_Shape = Button.__MSQ_Shape
+	-- [ ProcStart ]
 
-	-- Update the skin if the shape has changed.
-	if Region.__MSQ_Shape ~= Button_Shape then
-		local Square_Paths = Overlays.Square
-		local Shape_Paths = (Button_Shape and Overlays[Button_Shape]) or Square_Paths
-
-		local Ants_Texture = (Skin and Skin.Ants) or Shape_Paths.Ants or Square_Paths.Ants
-		local Glow_Texture = (Skin and Skin.Glow) or Shape_Paths.Glow or Square_Paths.Glow
-
-		Region.ants:SetTexture(Ants_Texture)
-		Region.innerGlow:SetTexture(Glow_Texture)
-		Region.innerGlowOver:SetTexture(Glow_Texture)
-		Region.outerGlow:SetTexture(Glow_Texture)
-		Region.outerGlowOver:SetTexture(Glow_Texture)
-		Region.spark:SetTexture(Glow_Texture)
-
-		Region.__MSQ_Shape = Button_Shape
-	end
-end
-
-----------------------------------------
--- FlipBook
----
-
--- Skins Spell Alert FlipBooks.
-local function SkinFlipBook(Region, Button, Skin, xScale, yScale)
-	-- Start Animation
 	local Start_Group = Region.ProcStartAnim
-	local Start_Animation = Start_Group.FlipAnim or GetFlipBook(Start_Group:GetAnimations())
+	local Start_Animation = Start_Group and GetFlipBookAnimation(Start_Group)
 	local Start_Flipbook = Region.ProcStartFlipbook
 
-	-- Loop Animation
-	local Loop_Group = Region.ProcLoop
-	local Loop_Animation = Loop_Group.FlipAnim or GetFlipBook(Loop_Group:GetAnimations())
-	local Loop_Flipbook = Region.ProcLoopFlipbook
+	-- Verify there's a start animation.
+	if Start_Flipbook and Start_Animation then
+		Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
+		Start_Flipbook:ClearAllPoints()
+		Start_Flipbook:SetPoint("CENTER")
 
+		local Button_Width, Button_Height = Button:GetSize()
 
-	if Skin then
-		local Active_Style = Region.__MSQ_Style
-		local Style_Enabled = Active_Style and (Active_Style ~= 0)
+		-- Default + Skin Size
+		if Width and Height then
+			-- Set the frame size relative to the skin.
+			Region:SetSize(Width, Height)
 
-		-- Nested Skins
-		local Style_Skin = (Style_Enabled and Skin[Active_Style]) or Skin
+			local Width = 160 * (Width / (Button_Width * 1.4))
+			local Height = 160 * (Height / (Button_Height * 1.4))
 
-		-- [ Alert Frame ]
-
-		-- Get the skin size relative to scaling.
-		local Skin_Width, Skin_Height = GetSize(Style_Skin.Width, Style_Skin.Height, xScale, yScale, Button)
-
-		-- Set the frame size relative to the button.
-		Skin_Width = Skin_Width * 1.4
-		Skin_Height = Skin_Height * 1.4
-
-		Region:SetSize(Skin_Width, Skin_Height)
-
-		-- [ Animations ]
-
-		local Button_Shape = Button.__MSQ_Shape
-		local FlipBook_Style
-
-		if Button_Shape and Style_Enabled then
-			local Style_Data = FlipBooks[Active_Style]
-
-			if Style_Data then
-				FlipBook_Style = Style_Data[Button_Shape]
-			end
-		end
-
-		if FlipBook_Style then
-			local Loop_Texture = FlipBook_Style.LoopTexture
-
-			-- [ Start Animation ]
-
-			-- Verify there's a start animation.
-			if Start_Flipbook and Start_Animation then
-				local Start_Texture = FlipBook_Style.StartTexture
-
-				if not Start_Texture then
-					Start_Texture = Loop_Texture
-					Region.__Loop_Only = true
-				else
-					Region.__Loop_Only = nil
-				end
-
-				Start_Flipbook:SetTexture(Start_Texture)
-				Start_Flipbook:SetVertexColor(GetColor(FlipBook_Style.Color))
-
-				Start_Flipbook:ClearAllPoints()
-				Start_Flipbook:SetAllPoints()
-
-				UpdateAnimation(Start_Animation, FlipBook_Style)
-				UpdateStartAnimation(Region)
-			end
-
-			-- [ Loop Animation ]
-
-			Loop_Flipbook:SetTexture(Loop_Texture)
-			Loop_Flipbook:SetVertexColor(GetColor(FlipBook_Style.Color))
-
-			UpdateAnimation(Loop_Animation, FlipBook_Style)
+			Start_Flipbook:SetSize(Width, Height)
 
 		-- Default
 		else
-			Region.__Loop_Only = nil
-
-			-- [ Start Animation ]
-
-			-- Verify there's a start animation.
-			if Start_Flipbook and Start_Animation then
-				Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
-				Start_Flipbook:SetVertexColor(1, 1, 1)
-
-				Start_Flipbook:ClearAllPoints()
-				Start_Flipbook:SetPoint("CENTER")
-
-				-- Texture size relative to the button size.
-				local Scale_Width, Scale_Height = Button:GetSize()
-				local Width = 160 * (Skin_Width / (Scale_Width * 1.4))
-				local Height = 160 * (Skin_Height / (Scale_Height * 1.4))
-
-				Start_Flipbook:SetSize(Width, Height)
-
-				UpdateAnimation(Start_Animation)
-				UpdateStartAnimation(Region)
-			end
-
-			-- [ Loop Animation ]
-
-			Loop_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
-			Loop_Flipbook:SetVertexColor(1, 1, 1)
-
-			UpdateAnimation(Loop_Animation)
-		end
-
-	-- Default
-	else
-		Region.__Loop_Only = nil
-
-		-- [ Alert Frame ]
-
-		local Width, Height = Button:GetSize()
-
-		Region:SetSize(Width * 1.4, Height * 1.4)
-
-		-- [ Start Animation ]
-
-		-- Verify there's a start animation.
-		if Start_Flipbook and Start_Animation then
-			Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
-			Start_Flipbook:SetVertexColor(1, 1, 1)
-
-			Start_Flipbook:ClearAllPoints()
-			Start_Flipbook:SetPoint("CENTER")
+			-- Set the frame size relative to the button.
+			Region:SetSize(Button_Width * 1.4, Button_Height * 1.4)
 
 			-- Defaults to 150 x 150, causing visual scaling-up on transition.
 			Start_Flipbook:SetSize(160, 160)
 
-			UpdateAnimation(Start_Animation)
-			UpdateStartAnimation(Region)
 		end
 
-		-- [ Loop Animation ]
-
-		Loop_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
-		Loop_Flipbook:SetVertexColor(1, 1, 1)
-
-		UpdateAnimation(Loop_Animation)
+		Update_Animation(Start_Animation)
 	end
 
-	Region.__MSQ_Skin = Skin or true
-	Region.__MSQ_Scale = Button.__MSQ_Scale
+	-- [ ProcLoop ]
+
+	-- Loop Animation
+	local Loop_Group = Region.ProcLoop
+	local Loop_Animation = Loop_Group and GetFlipBookAnimation(Loop_Group)
+
+	Region.ProcLoopFlipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
+	Update_Animation(Loop_Animation)
+
+	-- [ AltGlow ]
+
+	local AltGlow = Region.ProcAltGlow
+
+	if AltGlow then
+		AltGlow:SetAtlas("UI-HUD-RotationHelper-ProcAltGlow", true)
+	end
 end
 
-----------------------------------------
--- Updates/Hooks
----
+-- Skins spell alert flipbooks.
+local function Skin_FlipBooks(Region, Button, Skin, UpdateUID)
+	local _mcfg = Button._MSQ_CFG
+	local Reset = true
+	local Width, Height
 
--- Updates Retail spell alerts.
-local function UpdateFlipbook(Button)
+	if Skin then
+		local Style = _mcfg.SpellAlertStyle
+		local Style_Enabled = Style and (Style ~= 0)
+
+		-- Nested Skins
+		local Style_Skin = (Style_Enabled and Skin[Style]) or Skin
+
+		-- [ Alert Frame ]
+
+		-- Get the frame's skin size relative to scaling.
+		Width, Height = _mcfg:GetSize(Style_Skin.Width, Style_Skin.Height)
+
+		-- Set the frame size relative to the button.
+		Width = Width * 1.4
+		Height = Height * 1.4
+
+		Region:SetSize(Width, Height)
+
+		-- [ Animations ]
+
+		local Shape = _mcfg.Shape
+		local Shape_Style
+
+		if Shape and Style_Enabled then
+			local Style_Data = FlipBooks[Style]
+
+			if Style_Data then
+				Shape_Style = Style_Data[Shape]
+			end
+		end
+
+		if Shape_Style then
+			-- Don't reset.
+			Reset = nil
+
+			local Loop_Texture = Shape_Style.LoopTexture
+
+			-- [ ProcStart ]
+
+			local Start_Group = Region.ProcStartAnim
+			local Start_Animation = Start_Group and GetFlipBookAnimation(Start_Group)
+			local Start_Flipbook = Region.ProcStartFlipbook
+
+			-- Verify there's a start animation.
+			if Start_Flipbook and Start_Animation then
+				local Start_Texture = Shape_Style.StartTexture
+
+				if Start_Texture then
+					Region._Loop_Only = nil
+				else
+					Start_Texture = Loop_Texture
+					Region._Loop_Only = true
+				end
+
+				Start_Flipbook:SetTexture(Start_Texture)
+				Start_Flipbook:ClearAllPoints()
+				Start_Flipbook:SetAllPoints()
+
+				Update_Animation(Start_Animation, Shape_Style)
+			end
+
+			-- [ ProcLoop ]
+
+			local Loop_Group = Region.ProcLoop
+			local Loop_Animation = Loop_Group and GetFlipBookAnimation(Loop_Group)
+
+			Region.ProcLoopFlipbook:SetTexture(Loop_Texture)
+			Update_Animation(Loop_Animation, Shape_Style)
+
+			-- [ AltGlow ]
+
+			local AltGlow = Region.ProcAltGlow
+
+			if AltGlow then
+				local Glow_Style = AltGlows[Shape] or AltGlows.Modern
+				local Glow_Skin = Skin.AltGlow
+
+				local Glow_Width = SIZE_ALTGLOW
+				local Glow_Height = SIZE_ALTGLOW
+
+				if Glow_Skin then
+					Glow_Width = Glow_Skin.Width or Glow_Width
+					Glow_Height = Glow_Skin.Height or Glow_Height
+				end
+
+				AltGlow:SetTexture(Glow_Style.Texture)
+				AltGlow:SetTexCoord(0, 1, 0, 1)
+				AltGlow:SetSize(_mcfg:GetSize(Glow_Width, Glow_Height))
+			end
+		end
+	end
+
+	if Reset then
+		Reset_FlipBooks(Region, Button, Width, Height)
+	end
+
+	-- Update the uID if the skin changed.
+	if UpdateUID then
+		_mcfg:UpdateUID("_uID_SAA")
+	end
+end
+
+-- Updates spell alert flipbooks.
+local function Update_SpellActivationAlert(Button)
+	local _mcfg = Button._MSQ_CFG
 	local Region = Button.SpellActivationAlert
 
-	if (not Region) or (not Region.ProcStartAnim) then return end
+	if (not Region) or (not Region.ProcStartAnim) or (not _mcfg) then return end
 
-	-- Get the animation settings.
-	local Alert_DB = Core.db.profile.SpellAlert
-	local DB_State = Alert_DB.State
+	-- Animation Settings
+	local db = Core.db.profile.SpellAlert 
+	local State = db.State
+	local Style = db.Style
 
-	-- Must be set before the skin is applied.
-	Region.__Skip_Start = (DB_State == 2 and true) or nil
-	Region.__MSQ_Style = Alert_DB.Style
+	-- Set before the skin is applied.
+	Region._No_Start = (State == 2 and true) or nil
 
-	local Button_Skin = Button.__MSQ_Skin
-	local Region_Skin = Button_Skin and Button_Skin.SpellAlert
+	local bSkin = _mcfg.Skin
+	local Skin = bSkin and bSkin.SpellAlert
 
-	-- Apply the skin.
-	-- Unfortunately this has to be called each time to prevent glitches.
-	SkinFlipBook(Region, Button, Region_Skin, GetScale(Button))
+	local Skin_Changed = _mcfg:NeedsUpdate("_uID_SAA")
+	local Style_Changed = _mcfg.SpellAlertStyle ~= Style
+
+	-- Update the flipbooks.
+	if Skin_Changed or Style_Changed then
+		_mcfg.SpellAlertStyle = Style
+		Skin_FlipBooks(Region, Button, Skin, Skin_Changed)
+	end
 
 	-- Update the start animation.
-	UpdateStartAnimation(Region)
+	Update_StartAnimination(Region)
 
-	-- Prevent the Loop texture from being visible during the Start animation.
+	-- Prevent the loop texture from being visible during the start animation.
 	Region.ProcLoopFlipbook:SetAlpha(0)
 
-	-- Disables Spell Alerts completely. Must be set after the skin is applied.
-	if DB_State == 0 then
+	-- Disable spell alerts completely.
+	-- Must be called after the skin is applied.
+	if State == 0 then
 		ActionButtonSpellAlertManager:HideAlert(Button)
 		return
 	end
+
 end
 
+----------------------------------------
+-- Hooks
+---
+
 -- Hook for Retail spell alerts.
-local function Hook_UpdateFlipbook(Frame, Button)
+local function Hook_ShowAlert(Frame, Button)
 	-- Account for API calls.
 	if type(Button) ~= "table" then
 		Button = Frame
 	end
 
-	UpdateFlipbook(Button)
+	Update_SpellActivationAlert(Button)
 end
 
 -- Hook for Classic spell alerts.
-local function Hook_UpdateOverlay(Button)
+local function Hook_ShowOverlayGlow(Button)
 	local Region = Button and Button.overlay
 
 	if Region and Region.spark then
-		local Button_Skin = Button.__MSQ_Skin
-		local Region_Skin = Button_Skin and Button_Skin.SpellAlert
+		local _mcfg = Button._MSQ_CFG
+		local bSkin = _mcfg and _mcfg.Skin
+		local Skin = bSkin and bSkin.SpellAlert
 
-		SkinOverlay(Region, Button, Region_Skin)
+		Skin_Overlay(Region, Button, Skin)
 	end
 end
 
 if Core.WOW_RETAIL then
 	-- Retail
 	-- @ Interface\AddOns\Blizzard_ActionBar\Mainline\ActionButton.lua
-	hooksecurefunc(ActionButtonSpellAlertManager, "ShowAlert", Hook_UpdateFlipbook)
+	hooksecurefunc(ActionButtonSpellAlertManager, "ShowAlert", Hook_ShowAlert)
+
 else
 	-- Classic
 	-- @ Interface\AddOns\Blizzard_ActionBar\Classic\ActionButton.lua
-	hooksecurefunc("ActionButton_ShowOverlayGlow", Hook_UpdateOverlay)
+	hooksecurefunc("ActionButton_ShowOverlayGlow", Hook_ShowOverlayGlow)
 end
 
 ----------------------------------------
 -- Core
 ---
 
-local function UpdateSpellAlert(Button)
+-- Calls the appropriate update function.
+local function Update_SpellAlert(Button)
 	if Button.overlay then
-		Hook_UpdateOverlay(Button)
+		Hook_ShowOverlayGlow(Button)
 	else
-		UpdateFlipbook(Button)
+		Update_SpellActivationAlert(Button)
 	end
 end
 
 Core.FlipBook_List = FlipBook_List
-Core.UpdateSpellAlert = UpdateSpellAlert
+
+-- Internal skin handler for the `SpellAlert` region.
+Core.Update_SpellAlert = Update_SpellAlert
 
 ----------------------------------------
 -- API
 ---
 
 local API = Core.API
-
--- API wrapper for the UpdateSpellAlert function.
-function API:UpdateSpellAlert(Button)
-	if type(Button) ~= "table" then
-		return
-	end
-
-	UpdateSpellAlert(Button)
-end
-
-----------------------------------------
--- Overlays
----
 
 -- Adds an overlay texture set.
 function API:AddSpellAlert(Shape, Glow, Ants)
@@ -482,11 +519,13 @@ function API:AddSpellAlert(Shape, Glow, Ants)
 			error("Bad argument to API method 'AddSpellAlert'. 'Shape' must be a unique string.", 2)
 		end
 		return
+
 	elseif Glow and type(Glow) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlert'. 'Glow' must be a string.", 2)
 		end
 		return
+
 	elseif Ants and type(Ants) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlert'. 'Ants' must be a string.", 2)
@@ -494,46 +533,28 @@ function API:AddSpellAlert(Shape, Glow, Ants)
 		return
 	end
 
-	local Shape_Paths = {}
+	local Paths = {}
 
-	Shape_Paths.Glow = Glow
-	Shape_Paths.Ants = Ants
+	Paths.Glow = Glow
+	Paths.Ants = Ants
 
-	Overlays[Shape] = Shape_Paths
+	Overlays[Shape] = Paths
 end
 
--- Returns an overlay texture set.
-function API:GetSpellAlert(Shape)
-	if type(Shape) ~= "string" then
-		if Core.Debug then
-			error("Bad argument to API method 'GetSpellAlert'. 'Shape' must be a string.", 2)
-		end
-		return
-	end
-
-	local Shape_Paths = Overlays[Shape]
-
-	if Shape_Paths then
-		return Shape_Paths.Glow, Shape_Paths.Ants
-	end
-end
-
-----------------------------------------
--- FlipBooks
----
-
--- Adds a custom FlipBook style.
+-- Adds a custom flipbook set.
 function API:AddSpellAlertFlipBook(Style, Shape, Data)
 	if type(Style) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Shape' must be a unique string.", 2)
 		end
 		return
+
 	elseif type(Shape) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Shape' must be a unique string.", 2)
 		end
 		return
+
 	elseif type(Data) ~= "table" then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Data' must be a table.", 2)
@@ -554,13 +575,30 @@ function API:AddSpellAlertFlipBook(Style, Shape, Data)
 	FlipBook_List[Style] = FlipBook_List[Style] or Style
 end
 
--- Returns a FlipBook style table.
+-- Returns an overlay texture set.
+function API:GetSpellAlert(Shape)
+	if type(Shape) ~= "string" then
+		if Core.Debug then
+			error("Bad argument to API method 'GetSpellAlert'. 'Shape' must be a string.", 2)
+		end
+		return
+	end
+
+	local Paths = Overlays[Shape]
+
+	if Paths then
+		return Paths.Glow, Paths.Ants
+	end
+end
+
+-- Returns a custom flipbook set.
 function API:GetSpellAlertFlipBook(Style, Shape)
 	if type(Style) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'GetSpellAlertFlipBook'. 'Style' must be a string.", 2)
 		end
 		return
+
 	elseif type(Shape) ~= "string" then
 		if Core.Debug then
 			error("Bad argument to API method 'GetSpellAlertFlipBook'. 'Shape' must be a string.", 2)
@@ -569,6 +607,14 @@ function API:GetSpellAlertFlipBook(Style, Shape)
 	end
 
 	local Style_Data = FlipBooks[Style]
-
 	return Style_Data and Style_Data[Shape]
+end
+
+-- API wrapper for the Update_SpellAlert function.
+function API:UpdateSpellAlert(Button)
+	if type(Button) ~= "table" then
+		return
+	end
+
+	Update_SpellAlert(Button)
 end

@@ -23,47 +23,49 @@ local error, type = error, type
 ---
 
 -- @ Core\Utility
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local SetSkinPoint = Core.SetSkinPoint
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 -- @ Core\Regions\Mask
-local SkinMask = Core.SkinMask
+local Skin_Mask = Core.Skin_Mask
 
 ----------------------------------------
 -- Locals
 ---
 
-local DEFAULT_TEXTURE = [[Interface\Icons\INV_Misc_Bag_08]]
+local DEF_TEXTURE = [[Interface\Icons\INV_Misc_Bag_08]]
 
 ----------------------------------------
--- Functions
+-- Helpers
 ---
 
 -- Skins or creates the 'SlotIcon' region of a button.
-local function AddSlotIcon(Button, Skin, xScale, yScale)
-	local Region = Button.__MSQ_SlotIcon
+local function Add_SlotIcon(Button, Skin)
+	local _mcfg = Button._MSQ_CFG
+	local Region = _mcfg.SlotIcon
 
 	if not Region then
 		Region = Button:CreateTexture()
-		Button.__MSQ_SlotIcon = Region
+		_mcfg.SlotIcon = Region
 	end
 
 	Region:SetParent(Button)
-	Region:SetTexture(Skin.Texture or DEFAULT_TEXTURE)
+	Region:SetTexture(Skin.Texture or DEF_TEXTURE)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetVertexColor(GetColor(Skin.Color))
 	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
-	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
-	SkinMask(Region, Button, Skin, xScale, yScale)
+	Skin_Mask(Button, Skin, Region)
+
 	Region:Show()
 end
 
 -- Removes the 'SlotIcon' region from a button.
-local function RemoveSlotIcon(Button)
-	local Region = Button.__MSQ_SlotIcon
+local function Remove_SlotIcon(Button)
+	local _mcfg = Button._MSQ_CFG
+	local Region = _mcfg.SlotIcon
 
 	if Region then
 		Region:SetTexture()
@@ -75,12 +77,12 @@ end
 -- Core
 ---
 
--- Skins or removes a 'SlotIcon' region.
-function Core.SkinSlotIcon(Enabled, Button, Skin, xScale, yScale)
+-- Internal skin handler for the `SlotIcon` region.
+function Core.Skin_SlotIcon(Enabled, Button, Skin)
 	if Enabled and (not Skin.Hide) and Skin.Texture then
-		AddSlotIcon(Button, Skin, xScale, yScale)
+		Add_SlotIcon(Button, Skin)
 	else
-		RemoveSlotIcon(Button)
+		Remove_SlotIcon(Button)
 	end
 end
 
@@ -97,5 +99,6 @@ function Core.API:GetSlotIcon(Button)
 		return
 	end
 
-	return Button.__MSQ_SlotIcon
+	local _mcfg = Button._MSQ_CFG
+	return _mcfg and _mcfg.SlotIcon
 end

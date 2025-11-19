@@ -8,8 +8,6 @@
 
 	Cooldown Frame
 
-	* See Skins\Default.lua for region defaults.
-
 ]]
 
 local _, Core = ...
@@ -33,27 +31,26 @@ local hooksecurefunc = hooksecurefunc
 local WOW_RETAIL = Core.WOW_RETAIL
 
 -- @ Skins\Blizzard_*
-local DEFAULT_SKIN = Core.DEFAULT_SKIN.Cooldown
+local DEF_SKIN = Core.DEFAULT_SKIN.Cooldown
 
 -- @ Core\Utility
-local GetColor, GetScale, GetSize = Core.GetColor, Core.GetScale, Core.GetSize
-local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
+local GetColor, SetSkinPoint = Core.GetColor, Core.SetSkinPoint
 
 ----------------------------------------
 -- Locals
 ---
 
-local DEFAULT_COLOR = DEFAULT_SKIN.Color
-local DEFAULT_PULSE = [[Interface\Cooldown\star4]]
+local DEF_COLOR = DEF_SKIN.Color
+local DEF_PULSE = [[Interface\Cooldown\star4]]
 
-local DEFAULT_EDGE = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]]) or [[Interface\Cooldown\edge]]
-local DEFAULT_EDGE_LOC = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-LoC]]) or [[Interface\Cooldown\edge-LoC]]
+local DEF_EDGE = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]]) or [[Interface\Cooldown\edge]]
+local DEF_EDGE_LOC = (WOW_RETAIL and [[Interface\Cooldown\UI-HUD-ActionBar-LoC]]) or [[Interface\Cooldown\edge-LoC]]
 
-local MASQUE_EDGE = [[Interface\AddOns\Masque\Textures\Square\Edge]]
-local MASQUE_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Square\Edge-LoC]]
+local MSQ_EDGE = [[Interface\AddOns\Masque\Textures\Square\Edge]]
+local MSQ_EDGE_LOC = [[Interface\AddOns\Masque\Textures\Square\Edge-LoC]]
 
-local MASQUE_SWIPE = [[Interface\AddOns\Masque\Textures\Square\Mask]]
-local MASQUE_SWIPE_CIRCLE = [[Interface\AddOns\Masque\Textures\Circle\Mask]]
+local MSQ_SWIPE = [[Interface\AddOns\Masque\Textures\Square\Mask]]
+local MSQ_SWIPE_CIRCLE = [[Interface\AddOns\Masque\Textures\Circle\Mask]]
 
 ----------------------------------------
 -- Hooks
@@ -61,139 +58,141 @@ local MASQUE_SWIPE_CIRCLE = [[Interface\AddOns\Masque\Textures\Circle\Mask]]
 
 -- Counters color changes triggered by LoC events.
 local function Hook_SetSwipeColor(Region, r, g, b)
-	if Region.__Swipe_Hook or not Region.__MSQ_Color then
+	local Color = Region._MSQ_Color
+
+	if Region._Swipe_Hook or (not Color) then
 		return
 	end
 
-	Region.__Swipe_Hook = true
+	Region._Swipe_Hook = true
 
 	if r == 0.17 and g == 0 and b == 0 then
 		Region:SetSwipeColor(0.2, 0, 0, 0.8)
 	else
-		Region:SetSwipeColor(GetColor(Region.__MSQ_Color))
+		Region:SetSwipeColor(GetColor(Color))
 	end
 
-	Region.__Swipe_Hook = nil
+	Region._Swipe_Hook = nil
 end
 
 -- Counters texture changes triggered by LoC events.
 local function Hook_SetEdgeTexture(Region, Texture)
-	if Region.__EdgeHook or not Region.__MSQ_Color then
+	if Region._Edge_Hook or (not Region._MSQ_Color) then
 		return
 	end
 
-	Region.__EdgeHook = true
+	Region._Edge_Hook = true
 
-	if Texture == DEFAULT_EDGE_LOC then
-		Region:SetEdgeTexture(MASQUE_EDGE_LOC)
+	if Texture == DEF_EDGE_LOC then
+		Region:SetEdgeTexture(MSQ_EDGE_LOC)
 	else
-		Region:SetEdgeTexture(Region.__MSQ_Edge or MASQUE_EDGE)
+		Region:SetEdgeTexture(Region._MSQ_Edge or MSQ_EDGE)
 	end
 
-	Region.__EdgeHook = nil
+	Region._Edge_Hook = nil
 end
 
 ----------------------------------------
--- Cooldown
+-- Helpers
 ---
 
--- Skins a cooldown frame.
-local function SkinCooldown(Region, Button, Skin, Color, xScale, yScale, Pulse)
-	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+-- Skins a `Cooldown` frame.
+local function Skin_Cooldown(Region, Button, Skin, Color, Pulse)
+	local _mcfg = Button._MSQ_CFG
 
-	local IsRound = false
+	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
-	if (Button.__MSQ_Shape == "Circle") or Skin.IsRound then
-		IsRound = true
-	end
+	local IsRound = (_mcfg.Shape == "Circle") or Skin.IsRound
 
-	if Button.__MSQ_Enabled then
+	if _mcfg.Enabled then
 		-- Cooldown
 		if Region:GetDrawSwipe() then
-			Region.__MSQ_Color = Color or Skin.Color or DEFAULT_COLOR
-			Region.__MSQ_Edge = Skin.EdgeTexture or MASQUE_EDGE
+			Region._MSQ_Color = Color or Skin.Color or DEF_COLOR
+			Region._MSQ_Edge = Skin.EdgeTexture or MSQ_EDGE
 
-			Region:SetSwipeTexture(Skin.Texture or (IsRound and MASQUE_SWIPE_CIRCLE) or MASQUE_SWIPE)
+			Region:SetSwipeTexture(Skin.Texture or (IsRound and MSQ_SWIPE_CIRCLE) or MSQ_SWIPE)
 
 			Hook_SetSwipeColor(Region)
 			Hook_SetEdgeTexture(Region)
 
-			if not Region.__MSQ_Hooked then
+			if not Region._MSQ_Hooked then
 				hooksecurefunc(Region, "SetSwipeColor", Hook_SetSwipeColor)
 				hooksecurefunc(Region, "SetEdgeTexture", Hook_SetEdgeTexture)
 
-				Region.__MSQ_Hooked = true
+				Region._MSQ_Hooked = true
 			end
 
 		-- ChargeCooldown
 		else
-			Region:SetEdgeTexture(Skin.EdgeTexture or MASQUE_EDGE)
+			Region:SetEdgeTexture(Skin.EdgeTexture or MSQ_EDGE)
 		end
+
 	else
-		Region.__MSQ_Color = nil
+		Region._MSQ_Color = nil
 
 		if Region:GetDrawSwipe() then
 			Region:SetSwipeTexture("", 0, 0, 0, 0.8)
 		end
 
-		Region:SetEdgeTexture(DEFAULT_EDGE)
+		Region:SetEdgeTexture(DEF_EDGE)
 	end
 
-	Region:SetBlingTexture(Skin.PulseTexture or DEFAULT_PULSE)
+	Region:SetBlingTexture(Skin.PulseTexture or DEF_PULSE)
 	Region:SetDrawBling(Pulse)
 	Region:SetUseCircularEdge(IsRound)
 
 	local SetAllPoints = Skin.SetAllPoints
 
 	if not SetAllPoints then
-		Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
+		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, nil, SetAllPoints)
 end
 
-----------------------------------------
--- Charge Cooldown
----
-
--- Updates a charge cooldown frame.
-local function UpdateCharge(Button)
+-- Updates a `ChargeCooldown` frame.
+local function Update_ChargeCooldown(Button)
 	local Region = Button.chargeCooldown
-	local Region_Skin = Button.__MSQ_Charge_Skin
 
-	if not Region or not Region_Skin then
-		return
-	end
+	if not Region then return end
 
-	SkinCooldown(Region, Button, Region_Skin, nil, GetScale(Button))
+	local _mcfg = Button._MSQ_CFG
+	local Skin = _mcfg and _mcfg.Skin_ChargeCooldown
 
-	if not Button.__MSQ_Enabled then
-		Button.__MSQ_Charge_Skin = nil
+	if not Skin then return end
+
+	Skin_Cooldown(Region, Button, Skin)
+
+	if not _mcfg.Enabled then
+		_mcfg.Skin_ChargeCooldown = nil
 	end
 end
 
--- @ FrameXML\ActionButton.lua
-hooksecurefunc("StartChargeCooldown", UpdateCharge)
+-- @ Interface/AddOns/Blizzard_ActionBar/*/ActionButton.lua
+hooksecurefunc("StartChargeCooldown", Update_ChargeCooldown)
 
 ----------------------------------------
 -- Core
 ---
 
-Core.SkinCooldown = SkinCooldown
+-- Internal color handler for the `Cooldown` frame.
+function Core.SetColor_Cooldown(Region, Button, Skin, Color)
+	if Region then
+		local _mcfg = Button._MSQ_CFG
 
--- Sets the swipe color of a cooldown frame.
-function Core.SetCooldownColor(Region, Button, Skin, Color)
-	if Region and Button.__MSQ_Enabled then
-		Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
-		Region.__MSQ_Color = Color or Skin.Color or DEFAULT_COLOR
+		if _mcfg.Enabled then
+			Skin = _mcfg:GetTypeSkin(Button, Skin)
+			Region._MSQ_Color = Color or Skin.Color or DEF_COLOR
 
-		Hook_SetSwipeColor(Region)
+			Hook_SetSwipeColor(Region)
+		end
 	end
 end
 
--- Updates the pulse setting for cooldown frames.
+-- Internal pulse handler for the `Cooldown` frame.
 function Core.SetPulse(Button, Pulse)
-	local Regions = Button.__Regions
+	local _mcfg = Button._MSQ_CFG
+	local Regions = _mcfg and _mcfg.Regions
 
 	local Cooldown = Regions and Regions.Cooldown
 	local ChargeCooldown = Regions and Regions.ChargeCooldown
@@ -201,20 +200,30 @@ function Core.SetPulse(Button, Pulse)
 	if Cooldown then
 		Cooldown:SetDrawBling(Pulse)
 	end
+
 	if ChargeCooldown then
 		ChargeCooldown:SetDrawBling(Pulse)
 	end
 end
 
+-- Internal skin handler for the `Cooldown` frame.
+Core.Skin_Cooldown = Skin_Cooldown
+
 ----------------------------------------
 -- API
 ---
 
--- Allows add-ons to update charge cooldown frames when not using the native API.
-function Core.API:UpdateCharge(Button)
+local API = Core.API
+
+-- API wrapper for the Update_ChargeCooldown function.
+-- Only call this if not using the native API.
+function API:UpdateChargeCooldown(Button)
 	if type(Button) ~= "table" then
 		return
 	end
 
-	UpdateCharge(Button)
+	Update_ChargeCooldown(Button)
 end
+
+-- Deprecated
+API.UpdateCharge = API.UpdateChargeCooldown

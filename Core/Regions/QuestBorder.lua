@@ -8,8 +8,6 @@
 
 	Quest Item Border Texture
 
-	* See Skins\Default.lua for region defaults.
-
 ]]
 
 local _, Core = ...
@@ -25,64 +23,66 @@ local hooksecurefunc = hooksecurefunc
 ---
 
 -- @ Core\Utility
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 -- @ Skins\Blizzard_*
-local DEFAULT_SKIN = Core.DEFAULT_SKIN.QuestBorder
+local DEF_SKIN = Core.DEFAULT_SKIN.QuestBorder
 
 ----------------------------------------
 -- Locals
 ---
 
-local DEFAULT_TEXTURE = DEFAULT_SKIN.Texture
-local DEFAULT_BORDER = DEFAULT_SKIN.Border
+local DEF_TEXTURE = DEF_SKIN.Texture
+local DEF_BORDER = DEF_SKIN.Border
 
 ----------------------------------------
 -- Hook
 ---
 
--- Counters texture changes for the quest border texture.
+-- Counters changes to a button's 'QuestBorder' texture.
 local function Hook_SetTexture(Region, Texture)
-	if Region.__Exit_Hook or not Region.__MSQ_Skin then
+	if Region._Exit_Hook or (not Region._MSQ_Skin) then
 		return
 	end
 
-	Region.__Exit_Hook = true
+	Region._Exit_Hook = true
 
-	local Region_Skin = Region.__MSQ_Skin
-	local Skin_Texture = Region_Skin.Texture
+	local Skin = Region._MSQ_Skin
+	local Skin_Texture = Skin.Texture
 
-	if Texture == DEFAULT_TEXTURE then
+	if Texture == DEF_TEXTURE then
 		Skin_Texture = Skin_Texture or Texture
-		Region.__MSQ_Texture = Texture
+		Region._MSQ_Texture = Texture
+
 	else
-		Skin_Texture = Region_Skin.Border or DEFAULT_BORDER
-		Region.__MSQ_Texture = DEFAULT_BORDER
+		Skin_Texture = Skin.Border or DEF_BORDER
+		Region._MSQ_Texture = DEF_BORDER
 	end
 
 	Region:SetTexture(Skin_Texture)
-	Region.__Exit_Hook = nil
+	Region._Exit_Hook = nil
 end
 
 ----------------------------------------
 -- Core
 ---
 
--- Skins the 'QuestBorder' region of a button.
-function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
-	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+-- Internal skin handler for the `QuestBorder` region.
+function Core.Skin_QuestBorder(Region, Button, Skin)
+	local _mcfg = Button._MSQ_CFG
 
-	local Texture = Region.__MSQ_Texture or Region:GetTexture()
+	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
-	if Button.__MSQ_Enabled then
-		Region.__MSQ_Skin = Skin
-		Region.__MSQ_Texture = Texture
+	local Texture = Region._MSQ_Texture or Region:GetTexture()
+
+	if _mcfg.Enabled then
+		Region._MSQ_Skin = Skin
+		Region._MSQ_Texture = Texture
 
 		Hook_SetTexture(Region, Texture)
 	else
-		Region.__MSQ_Skin = nil
-		Region.__MSQ_Texture = nil
+		Region._MSQ_Skin = nil
+		Region._MSQ_Texture = nil
 
 		Region:SetTexture(Texture)
 	end
@@ -91,12 +91,12 @@ function Core.SkinQuestBorder(Region, Button, Skin, xScale, yScale)
 	Region:SetVertexColor(GetColor(Skin.Color))
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
-	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale))
+	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
-	if not Region.__MSQ_Hooked then
+	if not Region._MSQ_Hooked then
 		hooksecurefunc(Region, "SetTexture", Hook_SetTexture)
-		Region.__MSQ_Hooked = true
+		Region._MSQ_Hooked = true
 	end
 end

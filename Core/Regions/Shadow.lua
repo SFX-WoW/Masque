@@ -23,8 +23,7 @@ local error, type = error, type
 ---
 
 -- @ Core\Utility
-local GetColor, GetSize, GetTexCoords = Core.GetColor, Core.GetSize, Core.GetTexCoords
-local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 ----------------------------------------
 -- Locals
@@ -33,25 +32,13 @@ local GetTypeSkin, SetSkinPoint = Core.GetTypeSkin, Core.SetSkinPoint
 local Cache = {}
 
 ----------------------------------------
--- Functions
+-- Helpers
 ---
 
--- Removes the 'Shadow' region from a button.
-local function RemoveShadow(Button)
-	local Region = Button.__MSQ_Shadow
-
-	if Region then
-		Region:SetTexture()
-		Region:Hide()
-
-		Cache[#Cache + 1] = Region
-		Button.__MSQ_Shadow = nil
-	end
-end
-
 -- Skins or creates the 'Shadow' region of a button.
-local function AddShadow(Button, Skin, Color, xScale, yScale)
-	local Region = Button.__MSQ_Shadow
+local function Add_Shadow(Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
+	local Region = _mcfg.Shadow
 
 	if not Region then
 		local i = #Cache
@@ -63,7 +50,7 @@ local function AddShadow(Button, Skin, Color, xScale, yScale)
 			Region = Button:CreateTexture()
 		end
 
-		Button.__MSQ_Shadow = Region
+		_mcfg.Shadow = Region
 	end
 
 	Region:SetParent(Button)
@@ -72,14 +59,28 @@ local function AddShadow(Button, Skin, Color, xScale, yScale)
 	Region:SetBlendMode(Skin.BlendMode or "BLEND")
 	Region:SetVertexColor(GetColor(Color or Skin.Color))
 	Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or -1)
-	Region:SetSize(GetSize(Skin.Width, Skin.Height, xScale, yScale, Button))
+	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
 	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
 
-	if Button.__MSQ_Empty then
+	if _mcfg.IsEmpty then
 		Region:Hide()
 	else
 		Region:Show()
+	end
+end
+
+-- Removes the 'Shadow' region from a button.
+local function Remove_Shadow(Button)
+	local _mcfg = Button._MSQ_CFG
+	local Region = _mcfg.Shadow
+
+	if Region then
+		Region:SetTexture()
+		Region:Hide()
+
+		Cache[#Cache + 1] = Region
+		_mcfg.Shadow = nil
 	end
 end
 
@@ -87,24 +88,28 @@ end
 -- Core
 ---
 
--- Sets the color of the 'Shadow' region.
-function Core.SetShadowColor(Region, Button, Skin, Color)
-	Region = Region or Button.__MSQ_Shadow
+-- Internal color handler for the `Shadow` region.
+function Core.SetColor_Shadow(Region, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
+
+	Region = Region or _mcfg.Shadow
 
 	if Region then
-		Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+		Skin = _mcfg:GetTypeSkin(Button, Skin)
 		Region:SetVertexColor(GetColor(Color or Skin.Color))
 	end
 end
 
--- Add or removes a 'Shadow' region.
-function Core.SkinShadow(Enabled, Button, Skin, Color, xScale, yScale)
-	Skin = GetTypeSkin(Button, Button.__MSQ_bType, Skin)
+-- Internal skin handler for the `Shadow` region.
+function Core.Skin_Shadow(Enabled, Button, Skin, Color)
+	local _mcfg = Button._MSQ_CFG
 
-	if Enabled and (not Skin.Hide) and (Skin.Atlas or Skin.Texture) then
-		AddShadow(Button, Skin, Color, xScale, yScale)
+	Skin = _mcfg:GetTypeSkin(Button, Skin)
+
+	if Enabled and (not Skin.Hide) and Skin.Texture then
+		Add_Shadow(Button, Skin, Color)
 	else
-		RemoveShadow(Button)
+		Remove_Shadow(Button)
 	end
 end
 
@@ -121,5 +126,6 @@ function Core.API:GetShadow(Button)
 		return
 	end
 
-	return Button.__MSQ_Shadow
+	local _mcfg = Button._MSQ_CFG
+	return _mcfg and _mcfg.Shadow
 end

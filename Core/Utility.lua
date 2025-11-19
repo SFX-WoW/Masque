@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local _G, type = _G, type
+local _G, ipairs, type = _G, ipairs, type
 
 ----------------------------------------
 -- Miscellaneous
@@ -25,6 +25,24 @@ local _G, type = _G, type
 -- An empty function.
 local function NoOp() end
 Core.NoOp = NoOp
+
+----------------------------------------
+-- Animation
+---
+
+-- Returns a flipbook animation from an animation group.
+function Core.GetFlipBookAnimation(AnimGroup)
+	local FlipAnim = AnimGroup.FlipAnim
+
+	if FlipAnim then return FlipAnim end
+
+	for _, Animation in ipairs({AnimGroup:GetAnimations()}) do
+		if Animation and (Animation:GetObjectType() == "FlipBook") then
+			Animation:SetParentKey("FlipAnim")
+			return Animation
+		end
+	end
+end
 
 ----------------------------------------
 -- Color
@@ -66,7 +84,7 @@ function Core.SetSkinPoint(Region, Button, Skin, Default, SetAllPoints)
 		local Regions = _mcfg and _mcfg.Regions
 
 		if type(Regions) == "table" then
-			Anchor = Regions[Skin_Anchor] or Button
+			Anchor = Regions[Skin_Anchor] or Anchor
 		end
 	end
 

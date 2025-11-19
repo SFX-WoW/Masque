@@ -32,16 +32,16 @@ local DEFAULT_SKIN = Core.DEFAULT_SKIN
 local ActionTypes, RegTypes = Core.ActionTypes, Core.RegTypes
 
 -- @ Core\Utility
-local GetColor, GetScale = Core.GetColor, Core.GetScale
+local GetColor = Core.GetColor
 
 -- @ Core\Core
-local GetRegion, GetType = Core.GetRegion, Core.GetType
+local GetMasqueConfig, GetRegion = Core.GetMasqueConfig, Core.GetRegion
 
 -- @ Core\Button
 local SkinButton = Core.SkinButton
 
 -- @ Core\Regions\*
-local SetPulse, SetTextureColor = Core.SetPulse, Core.SetTextureColor
+local SetColor_Texture, SetPulse = Core.SetColor_Texture, Core.SetPulse
 
 ----------------------------------------
 -- Locals
@@ -67,20 +67,41 @@ local C_Layers = {
 -- Group Metatable
 ---
 
+-- Frame Validation
+local IsFrame = {
+	Button = true,
+	CheckButton = true,
+	Frame = true,
+}
+
 -- Adds or reassigns a button to the group.
 function GMT:AddButton(Button, Regions, Type, Strict)
-	local oType, bType = GetType(Button, Type)
+	local FrameType
 
-	if not oType then
+	if type(Button) == "table" then
+		local oType = Button.GetObjectType and Button:GetObjectType()
+
+		if oType and IsFrame[oType] then
+			FrameType = oType
+		end
+	end
+
+	if not FrameType then
 		if Core.Debug then
 			error("Bad argument to group method 'AddButton'. 'Button' must be a Button, CheckButton or Frame object.", 2)
 		end
 		return
-	elseif oType == "Frame" then
+
+	elseif FrameType == "Frame" then
 		Strict = true
 	end
 
-	Regions = Regions or Button.__Regions
+	local _mcfg = GetMasqueConfig(Button)
+	_mcfg.oType = FrameType
+
+	local bType = _mcfg:GetType(Button, Type)
+
+	Regions = Regions or _mcfg.Regions
 
 	local Parent = Group[Button]
 
@@ -124,8 +145,9 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 	end
 
 	self.Buttons[Button] = Regions
-	Button.__Regions = Regions
-	Button.__MSQ_Addon = self.Addon
+
+	_mcfg.Regions = Regions
+	_mcfg.Addon = self.Addon
 
 	local db = self.db
 
@@ -384,18 +406,18 @@ function GMT:__Set(Option, Value)
 			db.Scale = 1
 			self:ReSkin()
 		else
-			local func = Core["Skin"..Option]
+			local func = Core["Skin_"..Option]
 
 			if func then
 				local Skin = Skins[db.SkinID] or DEFAULT_SKIN
 
 				if Option == "Backdrop" then
 					for Button, Regions in pairs(self.Buttons) do
-						func(Value, Regions.Backdrop, Button, Skin.Backdrop, db.Colors.Backdrop, GetScale(Button))
+						func(Value, Regions.Backdrop, Button, Skin.Backdrop, db.Colors.Backdrop)
 					end
 				else
 					for Button in pairs(self.Buttons) do
-						func(Value, Button, Skin[Option], db.Colors[Option], GetScale(Button))
+						func(Value, Button, Skin[Option], db.Colors[Option])
 					end
 				end
 			end
@@ -431,7 +453,7 @@ function GMT:__SetColor(Layer, r, g, b, a)
 		db.Colors[Layer] = nil
 	end
 
-	local func = Core["Set"..Layer.."Color"]
+	local func = Core["SetColor"..Layer]
 
 	if func then
 		for Button, Regions in pairs(self.Buttons) do
@@ -439,7 +461,7 @@ function GMT:__SetColor(Layer, r, g, b, a)
 		end
 	else
 		for Button, Regions in pairs(self.Buttons) do
-			SetTextureColor(Layer, Regions[Layer], Button, Skin[Layer], db.Colors[Layer])
+			SetColor_Texture(Layer, Regions[Layer], Button, Skin[Layer], db.Colors[Layer])
 		end
 	end
 
