@@ -57,19 +57,19 @@ L["You must have an add-on that supports Masque installed to use it."] = "Masque
 -- Blizzard Classic Skin
 ---
 
-L["The default Classic button style."] = "기본 클래식 버튼 스타일입니다."
+L["The default classic button style."] = "기본 클래식 버튼 스타일입니다."
 
 ----------------------------------------
 -- Blizzard Modern Skin
 ---
 
-L["The default Dragonflight button style."] = "기본 용군단 버튼 스타일입니다."
+L["The default modern button style."] = "기본 용군단 버튼 스타일입니다."
 
 ----------------------------------------
 -- Classic Enhanced Skin
 ---
 
-L["A modified version of the Classic button style."] = "클래식 버튼 스타일을 개선한 버전입니다."
+L["An enhanced version of the classic button style."] = "클래식 버튼 스타일을 개선한 버전입니다."
 
 ----------------------------------------
 -- Core Settings
@@ -162,7 +162,7 @@ L["Click to open Masque's settings."] = "클릭으로 Masque 설정을 엽니다
 -- Modern Enhanced Skin
 ---
 
-L["An enhanced version of the Dragonflight button style."] = "용군단 버튼 스타일의 향상된 버전입니다."
+L["An enhanced version of the modern button style."] = "용군단 버튼 스타일의 향상된 버전입니다."
 
 ----------------------------------------
 -- Profile Settings

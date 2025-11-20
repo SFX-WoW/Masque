@@ -57,19 +57,19 @@ L["This section will allow you to adjust button settings for the default interfa
 -- Blizzard Classic Skin
 ---
 
-L["The default Classic button style."] = "Das klassische Tasten Design. "
+L["The default classic button style."] = "Das klassische Tasten Design. "
 
 ----------------------------------------
 -- Blizzard Modern Skin
 ---
 
-L["The default Dragonflight button style."] = "Das Standart Dragonflight Tasten Design."
+L["The default modern button style."] = "Das Standart Dragonflight Tasten Design."
 
 ----------------------------------------
 -- Classic Enhanced Skin
 ---
 
-L["A modified version of the Classic button style."] = "Eine optisch verbesserte Version der Standardschaltflächen des Spiels."
+L["An enhanced version of the classic button style."] = "Eine optisch verbesserte Version der Standardschaltflächen des Spiels."
 
 ----------------------------------------
 -- Core Settings
@@ -162,7 +162,7 @@ L["Unavailable in combat."] = "Nicht verfügbar im Kampf."
 -- Modern Enhanced Skin
 ---
 
-L["An enhanced version of the Dragonflight button style."] = "Eine verbesserte Version des Dragonflight Button Styles. "
+L["An enhanced version of the modern button style."] = "Eine verbesserte Version des Dragonflight Button Styles. "
 
 ----------------------------------------
 -- Profile Settings

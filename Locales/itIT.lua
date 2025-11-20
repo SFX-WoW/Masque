@@ -57,19 +57,19 @@ L["You must have an add-on that supports Masque installed to use it."] = "Per us
 -- Blizzard Classic Skin
 ---
 
--- L["The default Classic button style."] = "The default Classic button style."
+-- L["The default classic button style."] = "The default classic button style."
 
 ----------------------------------------
 -- Blizzard Modern Skin
 ---
 
--- L["The default Dragonflight button style."] = "The default Dragonflight button style."
+-- L["The default modern button style."] = "The default modern button style."
 
 ----------------------------------------
 -- Classic Enhanced Skin
 ---
 
-L["A modified version of the Classic button style."] = "Una versione modificata dello stile per pulsanti Classico."
+L["An enhanced version of the classic button style."] = "Una versione modificata dello stile per pulsanti Classico."
 
 ----------------------------------------
 -- Core Settings
@@ -162,7 +162,7 @@ L["Click to open Masque's settings."] = "Clicca per aprire le impostazioni di Ma
 -- Modern Enhanced Skin
 ---
 
-L["An enhanced version of the Dragonflight button style."] = "Una versione migliorata dello stile di pulsanti Dragonflight."
+L["An enhanced version of the modern button style."] = "Una versione migliorata dello stile di pulsanti Dragonflight."
 
 ----------------------------------------
 -- Profile Settings

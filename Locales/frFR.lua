@@ -57,19 +57,19 @@ L["API"] = "API"
 -- Blizzard Classic Skin
 ---
 
--- L["The default Classic button style."] = "The default Classic button style."
+-- L["The default classic button style."] = "The default classic button style."
 
 ----------------------------------------
 -- Blizzard Modern Skin
 ---
 
--- L["The default Dragonflight button style."] = "The default Dragonflight button style."
+-- L["The default modern button style."] = "The default modern button style."
 
 ----------------------------------------
 -- Classic Enhanced Skin
 ---
 
--- L["A modified version of the Classic button style."] = "A modified version of the Classic button style."
+-- L["An enhanced version of the classic button style."] = "An enhanced version of the classic button style."
 
 ----------------------------------------
 -- Core Settings
@@ -162,7 +162,7 @@ L["Reload Interface"] = "Recharger l'Interface"
 -- Modern Enhanced Skin
 ---
 
--- L["An enhanced version of the Dragonflight button style."] = "An enhanced version of the Dragonflight button style."
+-- L["An enhanced version of the modern button style."] = "An enhanced version of the modern button style."
 
 ----------------------------------------
 -- Profile Settings

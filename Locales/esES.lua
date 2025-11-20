@@ -58,19 +58,19 @@ L["Select to view."] = "Selecciona para ver."
 -- Blizzard Classic Skin
 ---
 
--- L["The default Classic button style."] = "The default Classic button style."
+-- L["The default classic button style."] = "The default classic button style."
 
 ----------------------------------------
 -- Blizzard Modern Skin
 ---
 
--- L["The default Dragonflight button style."] = "The default Dragonflight button style."
+-- L["The default modern button style."] = "The default modern button style."
 
 ----------------------------------------
 -- Classic Enhanced Skin
 ---
 
-L["A modified version of the Classic button style."] = "Una versión mejorada del diseño de los botones por defecto del juego."
+L["An enhanced version of the classic button style."] = "Una versión mejorada del diseño de los botones por defecto del juego."
 
 ----------------------------------------
 -- Core Settings
@@ -163,7 +163,7 @@ L["Click to open Masque's settings."] = "Haz clic para abrir los ajustes de Masq
 -- Modern Enhanced Skin
 ---
 
-L["An enhanced version of the Dragonflight button style."] = "Una versión mejorada del estilo de los botones de Dragonflight."
+L["An enhanced version of the modern button style."] = "Una versión mejorada del estilo de los botones de Dragonflight."
 
 ----------------------------------------
 -- Profile Settings

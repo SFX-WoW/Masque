@@ -57,19 +57,19 @@ L["This section will allow you to adjust button settings for the default interfa
 -- Blizzard Classic Skin
 ---
 
-L["The default Classic button style."] = "預設的經典按鈕樣式。"
+L["The default classic button style."] = "預設的經典按鈕樣式。"
 
 ----------------------------------------
 -- Blizzard Modern Skin
 ---
 
-L["The default Dragonflight button style."] = "預設的巨龍崛起按鈕樣式。"
+L["The default modern button style."] = "預設的巨龍崛起按鈕樣式。"
 
 ----------------------------------------
 -- Classic Enhanced Skin
 ---
 
-L["A modified version of the Classic button style."] = "經典按鈕樣式的修改版。"
+L["An enhanced version of the classic button style."] = "經典按鈕樣式的修改版。"
 
 ----------------------------------------
 -- Core Settings
@@ -162,7 +162,7 @@ L["Unavailable in combat."] = "戰鬥中無法使用。"
 -- Modern Enhanced Skin
 ---
 
-L["An enhanced version of the Dragonflight button style."] = "巨龍崛起按鈕樣式的加強版。"
+L["An enhanced version of the modern button style."] = "巨龍崛起按鈕樣式的加強版。"
 
 ----------------------------------------
 -- Profile Settings
