@@ -453,7 +453,7 @@ function GMT:__SetColor(Layer, r, g, b, a)
 		db.Colors[Layer] = nil
 	end
 
-	local func = Core["SetColor"..Layer]
+	local func = Core["SetColor_"..Layer]
 
 	if func then
 		for Button, Regions in pairs(self.Buttons) do
