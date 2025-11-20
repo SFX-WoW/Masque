@@ -179,7 +179,7 @@ end
 -- Core
 ---
 
-Core.__Hidden = Hidden
+Core._Hidden = Hidden
 Core.AddSkin = AddSkin
 Core.GetSkinID = GetSkinID
 
