@@ -1,17 +1,30 @@
-## 11.2.5
+## 11.2.6-Beta
 
 ### General
 
-- Added an option to toggle the font size fix for Ace3 profile panels.
-- Added the `Category` ToC entry: **Masque**.
-  - Masque and its related add-ons will be displayed under a collapsible **Masque** category in the add-ons menu.
-- Updated the `Interface` versions: (#429)
-  - Added **Classic Era** PTR: `11508`
-  - Added **The War Within** PTR: `110207`
-  - Added **Midnight** Alpha/Beta: `120000`
-  - Restored **The Burning Crusade Classic**: `20504`
-  - Restored **Cataclysm Classic**: `40402`
-  - Updated **Mists of Pandaria Classic**: `50501`
-  - Updated **The War Within**: `110205`
+- Added support for the **Assisted Combat Highlight**. (#428)
+  - **Note:** Does **not** include single-button rotation support.
+- Reworked the **Thin** spell alert. (#430)
+  - Renamed to **Modern Lite**
+  - Now resembles the **Assisted Combat Highlight** animation, but clockwise and in gold.
+- Updated the `Interface` versions: (#431)
+  - **Classic Era**: `11508`
+  - **Mists of Pandaria Classic**: `50502`
+  - **Mists of Pandaria Classic** PTR: `50503`
+
+### API
+
+- Added three new API methods:
+  - `AddAssistedCombatHighlightStyle("Shape", {Data})`
+    - Adds a new style for the specified shape.
+  - `GetAssistedCombatHighlightStyle("Shape")`
+    - Returns the style data for the specified shape.
+  - `UpdateAssistedCombatHighlight({Button})`
+    - Updates the skin of an **Assisted Combat Highlight** animation when using third-party API.
+    - **Note:** APIs like **LibActionButton-1.0** will need to be updated.
+- Moved most per-button settings from the button root to a per-button configuration table.
+- Optimized all non-Blizzard skins.
+- Optimized most skinning and utility functions.
+- Renamed the `UpdateCharge` API method to `UpdateChargeCooldown`. The former is still functional but deprecated.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
