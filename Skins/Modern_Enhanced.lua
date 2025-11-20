@@ -35,7 +35,7 @@ Core.AddSkin("Modern Enhanced", {
 
 	-- Info
 	Authors = {"StormFX", "|cff0099ffBlizzard Entertainment|r"},
-	Description = L["An enhanced version of the Dragonflight button style."],
+	Description = L["An enhanced version of the modern button style."],
 	Discord = Core.Discord,
 	-- Version = Template.Version,
 	Websites = Core.Websites,

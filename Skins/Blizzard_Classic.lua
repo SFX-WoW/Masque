@@ -43,7 +43,7 @@ local Skin = {
 	SkinID = SkinID,
 
 	-- [ Info ]
-	Description = L["The default Classic button style."],
+	Description = L["The default classic button style."],
 	Version = Core.Version,
 	Author = "|cff0099ffBlizzard Entertainment|r",
 

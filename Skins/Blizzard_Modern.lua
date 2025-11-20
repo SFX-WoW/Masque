@@ -45,7 +45,7 @@ local Skin = {
 
 	-- Info
 	Author = "|cff0099ffBlizzard Entertainment|r",
-	Description = L["The default Retail button style."],
+	Description = L["The default modern button style."],
 	Version = Core.Version,
 
 	-- Skin
