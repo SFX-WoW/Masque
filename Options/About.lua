@@ -29,14 +29,16 @@ local Setup = Core.Setup
 -- Supporters
 ---
 
---local COLOR_1 = "|cffff8000"
-local COLOR_2 = "|cffa335ee"
-local COLOR_3 = "|cff0070dd"
+--local COLOR_1 = "|cffff8000" -- Legendary
+local COLOR_2 = "|cffa335ee" -- Epic
+local COLOR_3 = "|cff0070dd" -- Rare
 
 local Supporters = {
 	-- [1]
 	-- [2]
+	COLOR_2.."ElectricPulse|r",
 	COLOR_2.."Qissi|r",
+	COLOR_2.."SandTrout|r",
 	-- [3]
 	COLOR_3.."Aevari|r",
 	COLOR_3.."Amenitra|r",
