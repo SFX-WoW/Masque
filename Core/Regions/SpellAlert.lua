@@ -180,6 +180,8 @@ local FlipBook_List = {
 local function Skin_Overlay(Region, Button, Skin)
 	local _mcfg = Button._MSQ_CFG
 
+	if not _mcfg then return end
+
 	local Shape = _mcfg.Shape or "Square"
 
 	-- Update the skin if the shape has changed.
