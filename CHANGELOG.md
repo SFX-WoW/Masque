@@ -1,4 +1,4 @@
-## 11.2.6-Beta
+## 11.2.6-Beta-2
 
 ### General
 
@@ -11,6 +11,7 @@
   - **Classic Era**: `11508`
   - **Mists of Pandaria Classic**: `50502`
   - **Mists of Pandaria Classic** PTR: `50503`
+- Updated the **Supporters** list.
 
 ### API
 
@@ -26,5 +27,9 @@
 - Optimized all non-Blizzard skins.
 - Optimized most skinning and utility functions.
 - Renamed the `UpdateCharge` API method to `UpdateChargeCooldown`. The former is still functional but deprecated.
+
+### Bug Fixes
+- Fixed a bug that would cause outdated add-ons using the deprecated `SetCallback` group method to throw an error. (#432)
+- Fixed a missing `nil` check in `Skin_Overlay`. (#433)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
