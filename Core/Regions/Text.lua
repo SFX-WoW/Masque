@@ -13,11 +13,14 @@
 local _, Core = ...
 
 ----------------------------------------
--- Internal
+-- Lua API
 ---
 
--- @ Core\Utility
-local SetSkinPoint = Core.SetSkinPoint
+local type = type
+
+----------------------------------------
+-- Internal
+---
 
 -- @ Skins\Blizzard_*
 local DEF_SKIN = Core.DEFAULT_SKIN
@@ -43,5 +46,26 @@ function Core.Skin_Text(Layer, Region, Button, Skin)
 	Region:SetDrawLayer(Skin.DrawLayer or Def_Skin.DrawLayer)
 	Region:SetSize(_mcfg:GetSize(Skin.Width or 36, Skin.Height or 0))
 
-	SetSkinPoint(Region, Button, Skin, Def_Skin)
+	local Skin_Anchor = Skin.Anchor or Default.Anchor
+	local Anchor = Button
+
+	if Skin_Anchor then
+		local Regions = _mcfg.Regions
+
+		if type(Regions) == "table" then
+			Anchor = Regions[Skin_Anchor] or Anchor
+		end
+	end
+
+	local Point, RelPoint = Default.Point, Default.RelPoint
+	local OffsetX, OffsetY = 0, 0
+
+	if Skin then
+		Point = Skin.Point or Point
+		RelPoint = Skin.RelPoint or RelPoint
+		OffsetX = Skin.OffsetX or OffsetX
+		OffsetY = Skin.OffsetY or OffsetY
+	end
+
+	Region:SetPoint(Point, Anchor, RelPoint, OffsetX, OffsetY)
 end
