@@ -17,7 +17,7 @@ local _, Core = ...
 ---
 
 -- @ Core\Utility
-local ClearSetPoint, GetColor, GetTexCoords = Core.ClearSetPoint, Core.GetColor, Core.GetTexCoords
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, SetSkinPoint
 
 -- @ Skins\Blizzard_*
 local DEF_SKIN = Core.DEFAULT_SKIN
@@ -68,10 +68,10 @@ local function Skin_AutoCastTexture(Region, Button, Anchor, Skin, Default, IsMas
 		Region:SetSize(_mcfg:GetSize(Width, Height))
 	end
 
-	ClearSetPoint(Region, Skin.Point, Anchor, Skin.RelPoint, Skin.OffsetX, Skin.OffsetY, SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, SetAllPoints, Anchor)
 end
 
--- Skins the `AutoCast` regions Classic.
+-- Skins the Classic `AutoCast` regions.
 local function Skin_AutoCastShine(Frame, Button, Skin)
 	local _mcfg = Button._MSQ_CFG
 
@@ -88,13 +88,13 @@ local function Skin_AutoCastShine(Frame, Button, Skin)
 		Frame:SetSize(_mcfg:GetSize(Width, Height))
 	end
 
-	ClearSetPoint(Frame, Frame_Skin.Point, Button, Frame_Skin.RelPoint, Frame_Skin.OffsetX, Frame_Skin.OffsetY, SetAllPoints)
+	SetSkinPoint(Frame, Button, Skin, SetAllPoints)
 
 	-- AutoCast Corners
 	Skin_AutoCastTexture(Button.AutoCastable, Button, Button, Skin.AutoCastable, DEF_SKIN.AutoCastable)
 end
 
--- Skins the `AutoCast` regions in Retail.
+-- Skins the Retail `AutoCast` regions.
 local function Skin_AutoCastOverlay(Frame, Button, Skin)
 	local _mcfg = Button._MSQ_CFG
 
@@ -111,7 +111,7 @@ local function Skin_AutoCastOverlay(Frame, Button, Skin)
 		Frame:SetSize(_mcfg:GetSize(Width, Height))
 	end
 
-	ClearSetPoint(Frame, Frame_Skin.Point, Button, Frame_Skin.RelPoint, Frame_Skin.OffsetX, Frame_Skin.OffsetY, SetAllPoints)
+	SetSkinPoint(Frame, Button, Skin, SetAllPoints)
 
 	-- AutoCast Corners
 	Skin_AutoCastTexture(Frame.Corners, Button, Frame, Skin.AutoCast_Corners, DEF_SKIN.AutoCast_Corners)
