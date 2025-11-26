@@ -147,7 +147,7 @@ local function Skin_Cooldown(Region, Button, Skin, Color, Pulse)
 		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 	end
 
-	SetSkinPoint(Region, Button, Skin, nil, SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, SetAllPoints)
 end
 
 -- Updates a `ChargeCooldown` frame.

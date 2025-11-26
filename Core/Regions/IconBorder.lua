@@ -96,7 +96,7 @@ function Core.Skin_IconBorder(Region, Button, Skin)
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
-	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
 
 	if not Region._MSQ_Hooked then
 		hooksecurefunc(Region, "SetTexture", Hook_SetTexture)

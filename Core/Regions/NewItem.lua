@@ -124,7 +124,7 @@ function Core.Skin_NewItem(Region, Button, Skin)
 		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 	end
 
-	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
 
 	-- Hook
 	if not Region._MSQ_Hooked then

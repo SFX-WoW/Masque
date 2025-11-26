@@ -88,13 +88,13 @@ local function Skin_RegionMask(Region, Button, Skin)
 				Region_Mask:SetSize(_mcfg:GetSize(Mask_Skin.Width, Mask_Skin.Height))
 			end
 
-			SetSkinPoint(Region_Mask, Region, Mask_Skin, nil, Mask_Skin.SetAllPoints)
+			SetSkinPoint(Region_Mask, Region, Mask_Skin, Mask_Skin.SetAllPoints)
 
 		elseif Texture then
 			Region_Mask:SetTexture(Texture, Mask_Skin.WrapH, Mask_Skin.WrapV)
 			Region_Mask:SetSize(_mcfg:GetSize(Mask_Skin.Width, Mask_Skin.Height))
 
-			SetSkinPoint(Region_Mask, Region, Mask_Skin, nil, Mask_Skin.SetAllPoints)
+			SetSkinPoint(Region_Mask, Region, Mask_Skin, Mask_Skin.SetAllPoints)
 		end
 
 	-- Texture Path
@@ -135,13 +135,13 @@ local function Skin_ButtonMask(Button, Skin)
 				Button_Mask:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 			end
 
-			SetSkinPoint(Button_Mask, Button, Skin, nil, Skin.SetAllPoints)
+			SetSkinPoint(Button_Mask, Button, Skin, Skin.SetAllPoints)
 
 		elseif Texture then
 			Button_Mask:SetTexture(Texture, Skin.WrapH, Skin.WrapV)
 			Button_Mask:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
-			SetSkinPoint(Button_Mask, Button, Skin, nil, Skin.SetAllPoints)
+			SetSkinPoint(Button_Mask, Button, Skin, Skin.SetAllPoints)
 		end
 
 	-- Texture Path

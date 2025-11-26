@@ -56,7 +56,7 @@ local function Add_SlotIcon(Button, Skin)
 	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or 0)
 	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
-	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
 	Skin_Mask(Button, Skin, Region)
 
 	Region:Show()

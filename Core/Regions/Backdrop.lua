@@ -96,7 +96,7 @@ local function Add_Backdrop(Region, Button, Skin, Color)
 		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 	end
 
-	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
 	Region:Show()
 
 	-- Mask

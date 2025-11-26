@@ -61,7 +61,7 @@ local function Add_Shadow(Button, Skin, Color)
 	Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or -1)
 	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
-	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
 
 	if _mcfg.IsEmpty then
 		Region:Hide()

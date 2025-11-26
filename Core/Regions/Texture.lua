@@ -171,7 +171,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 
 	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Def_Skin.SetAllPoints)
 
-	SetSkinPoint(Region, Button, Skin, Def_Skin, SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, SetAllPoints)
 
 	-- Mask
 	if Config.CanMask then

@@ -61,7 +61,7 @@ local function Add_Gloss(Button, Skin, Color)
 	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
 	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
-	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
 
 	if _mcfg.IsEmpty then
 		Region:Hide()

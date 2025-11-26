@@ -122,7 +122,7 @@ function Core.Skin_Icon(Region, Button, Skin)
 	Region:SetDrawLayer(Layer, 0)
 	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
-	SetSkinPoint(Region, Button, Skin, nil, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
 
 	-- Mask
 	Skin_Mask(Button, Skin, Region)

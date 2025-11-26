@@ -75,9 +75,10 @@ function Core.ClearSetPoint(Region, Point, Anchor, RelPoint, OffsetX, OffsetY, S
 end
 
 -- Clears and sets the point(s) for a region using skin data.
-function Core.SetSkinPoint(Region, Button, Skin, Default, SetAllPoints)
-	local Anchor = Button
+function Core.SetSkinPoint(Region, Button, Skin, SetAllPoints, Anchor)
 	local Skin_Anchor = Skin and Skin.Anchor
+
+	Anchor = Anchor or Button
 
 	if Skin_Anchor then
 		local _mcfg = Button._MSQ_CFG
@@ -98,16 +99,11 @@ function Core.SetSkinPoint(Region, Button, Skin, Default, SetAllPoints)
 	local Point, RelPoint = "CENTER", "CENTER"
 	local OffsetX, OffsetY = 0, 0
 
-	local SkinData = Skin or Default
-
-	if SkinData then
-		if SkinData.Point then
-			Point = SkinData.Point
-			RelPoint = SkinData.RelPoint or Point
-		end
-
-		OffsetX = SkinData.OffsetX or OffsetX
-		OffsetY = SkinData.OffsetY or OffsetY
+	if Skin then
+		Point = Skin.Point or Point
+		RelPoint = Skin.RelPoint or RelPoint
+		OffsetX = Skin.OffsetX or OffsetX
+		OffsetY = Skin.OffsetY or OffsetY
 	end
 
 	Region:SetPoint(Point, Anchor, RelPoint, OffsetX, OffsetY)
