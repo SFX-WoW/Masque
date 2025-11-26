@@ -35,15 +35,15 @@ function Core.Skin_Text(Layer, Region, Button, Skin)
 
 	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
-	local Def_Skin = DEF_SKIN[Layer]
-	Def_Skin = Def_Skin[_mcfg.bType] or Def_Skin
+	local Default = DEF_SKIN[Layer]
+	Default = Default[_mcfg.bType] or Default
 
 	local Skin_Wrap = (Skin.Wrap and true) or false
 
-	Region:SetJustifyH(Skin.JustifyH or Def_Skin.JustifyH)
-	Region:SetJustifyV(Skin.JustifyV or "MIDDLE")
+	Region:SetJustifyH(Skin.JustifyH or Default.JustifyH)
+	Region:SetJustifyV(Skin.JustifyV or Default.JustifyV)
 	Region:SetWordWrap(Skin_Wrap)
-	Region:SetDrawLayer(Skin.DrawLayer or Def_Skin.DrawLayer)
+	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
 	Region:SetSize(_mcfg:GetSize(Skin.Width or 36, Skin.Height or 0))
 
 	local Skin_Anchor = Skin.Anchor or Default.Anchor
