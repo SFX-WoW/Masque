@@ -513,7 +513,7 @@ local Skin = {
 	Duration = {
 		JustifyH = "CENTER",
 		JustifyV = "MIDDLE",
-		DrawLayer = "ARTWORK", -- BACKGROUND
+		DrawLayer = "OVERLAY", -- BACKGROUND
 		Width = 36,
 		Height = 0,
 		Point = "TOP",
@@ -675,7 +675,6 @@ local Skin = {
 	ChargeCooldown = "Cooldown",
 	-- [ SpellAlerts ]
 	-- SpellAlert = Default.SpellAlert,
-	-- [ AssistedCombatHighlight ]
 	-- AssistedCombatHighlight = Default.AssistedCombatHighlight,
 }
 
