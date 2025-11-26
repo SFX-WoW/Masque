@@ -17,7 +17,7 @@ local _, Core = ...
 ---
 
 -- @ Core\Utility
-local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, SetSkinPoint
+local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 -- @ Skins\Blizzard_*
 local DEF_SKIN = Core.DEFAULT_SKIN
