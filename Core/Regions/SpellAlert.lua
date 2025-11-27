@@ -477,13 +477,14 @@ local function Hook_ShowOverlayGlow(Button)
 	end
 end
 
-if Core.WOW_RETAIL then
-	-- Retail
+-- Retail
+if ActionButtonSpellAlertManager then
 	-- @ Interface\AddOns\Blizzard_ActionBar\Mainline\ActionButton.lua
 	hooksecurefunc(ActionButtonSpellAlertManager, "ShowAlert", Hook_ShowAlert)
+end
 
-else
-	-- Classic
+-- Classic
+if ActionButton_ShowOverlayGlow then
 	-- @ Interface\AddOns\Blizzard_ActionBar\Classic\ActionButton.lua
 	hooksecurefunc("ActionButton_ShowOverlayGlow", Hook_ShowOverlayGlow)
 end
