@@ -73,14 +73,9 @@ local IsBackground = {
 -- Helpers
 ---
 
--- Work-around for a bug introduced in 11.1.0.
-local function GetIconTexture(Button)
-	return Button.Icon or Button.icon or _G[Button:GetName().."IconTexture"]
-end
-
--- Toggles the icon backdrops.
-local function SetIconBackdrop(Button, Limit)
-	local Region = GetIconTexture(Button)
+-- Toggles the `Icon` backdrops on item buttons.
+local function SetItemButtonTexture(Button, Limit)
+	local Region = Button.Icon or Button.icon or _G[Button:GetName().."IconTexture"]
 
 	local Texture = Region:GetTexture()
 	local Alpha, IsEmpty = 1, nil
@@ -94,7 +89,7 @@ local function SetIconBackdrop(Button, Limit)
 	SetEmpty(Button, IsEmpty, Limit)
 end
 
--- Toggles the button art.
+-- Toggles the button art on action buttons.
 local function UpdateButtonArt(Button)
 	local _mcfg = Button._MSQ_CFG
 	local Enabled = _mcfg and _mcfg.Enabled
@@ -123,7 +118,7 @@ local function UpdateButtonArt(Button)
 	end
 end
 
--- Updates the state textures.
+-- Updates the state textures on bag buttons.
 local function UpdateTextures(Button, Limit)
 	local _mcfg = Button._MSQ_CFG
 	local Skin = _mcfg and _mcfg.Skin
@@ -166,14 +161,16 @@ end
 -- Hooks
 ---
 
--- Hook to counter 'Icon' backdrops.
+-- Hook to counter 'Icon' backdrops for item buttons.
+-- @ Interface/AddOns/Blizzard_ItemButton/Mainline/ItemButtonTemplate.lua
 local function Hook_SetItemButtonTexture(Button, Texture)
 	if Button._MSQ_Exit_SetItemButtonTexture then return end
 
-	SetIconBackdrop(Button)
+	SetItemButtonTexture(Button)
 end
 
 -- Hook to counter action button texture changes.
+-- @ Interface/AddOns/Blizzard_ActionBar/Mainline/ActionButton.lua
 local function Hook_UpdateButtonArt(Button)
 	if Button._MSQ_Exit_UpdateButtonArt then return end
 
@@ -201,7 +198,8 @@ local function Hook_UpdateButtonArt(Button)
 	end
 end
 
--- Hook to counter hotkey position changes.
+-- Hook to counter `HotKey` position changes.
+-- @ Interface/AddOns/Blizzard_ActionBar/Mainline/ActionButton.lua
 local function Hook_UpdateHotKeys(Button, ActionButtonType)
 	if Button._MSQ_Exit_UpdateHotKeys then return end
 
@@ -218,7 +216,8 @@ local function Hook_UpdateHotKeys(Button, ActionButtonType)
 	end
 end
 
--- Hook to counter 10.0 Bag button texture changes.
+-- Hook to counter bag button state texture changes.
+-- @ Interface/AddOns/Blizzard_ActionBar/Mainline/MainMenuBarBagButtons.lua
 local function Hook_UpdateTextures(Button)
 	if Button._MSQ_Exit_UpdateTextures then return end
 
@@ -391,40 +390,40 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		end
 	end
 
-	-- [[ Retail ]]
+	-- [[ Type-Specific Functions ]]
 
-	if WOW_RETAIL then
-		-- Toggle Icon backdrops.
-		if Button.SetItemButtonTexture then
-			SetIconBackdrop(Button, true)
-		end
+	-- Toggle item button backdrops.
+	if Button.SetItemButtonTexture then
+		SetItemButtonTexture(Button, true)
+	end
 
-		-- Set the button art.
-		if Button.UpdateButtonArt then
-			UpdateButtonArt(Button)
-		end
+	-- Update action button art.
+	if Button.UpdateButtonArt then
+		UpdateButtonArt(Button)
+	end
 
-		-- Update the textures.
-		if Button.UpdateTextures then
-			UpdateTextures(Button, true)
-		end
+	-- Update bag button textures.
+	if Button.UpdateTextures then
+		UpdateTextures(Button, true)
+	end
 
-		-- Hooks
-		for Method, Hook in pairs(Hook_Methods) do
-			if Button[Method] then
-				local Hook_Key = "_MSQ_Hook_"..Method
-				local Exit_Key = "_MSQ_Exit_"..Method
+	-- [[ Hooks ]]
 
-				if Disabled then
-					Button[Exit_Key] = true
-				else
-					if not Button[Hook_Key] then
-						hooksecurefunc(Button, Method, Hook)
-						Button[Hook_Key] = true
-					end
+	for Method, Hook in pairs(Hook_Methods) do
+		if Button[Method] then
+			local Hook_Key = "_MSQ_Hook_"..Method
+			local Exit_Key = "_MSQ_Exit_"..Method
 
-					Button[Exit_Key] = nil
+			if Disabled then
+				Button[Exit_Key] = true
+
+			else
+				if not Button[Hook_Key] then
+					hooksecurefunc(Button, Method, Hook)
+					Button[Hook_Key] = true
 				end
+
+				Button[Exit_Key] = nil
 			end
 		end
 	end
@@ -460,11 +459,9 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- [[ AssistedCombatHighlight ]]
 
-	if WOW_RETAIL then
-		local AssistedCombatHighlight = Button.AssistedCombatHighlightFrame
+	local AssistedCombatHighlight = Button.AssistedCombatHighlightFrame
 
-		if AssistedCombatHighlight then
-			Update_AssistedCombatHighlight(AssistedCombatHighlight.Flipbook, Button)
-		end
+	if AssistedCombatHighlight then
+		Update_AssistedCombatHighlight(AssistedCombatHighlight.Flipbook, Button)
 	end
 end
