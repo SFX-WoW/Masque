@@ -29,6 +29,7 @@
 - Optimized all non-Blizzard skins.
 - Optimized most skinning and utility functions.
 - Renamed the `UpdateCharge` API method to `UpdateChargeCooldown`. The former is still functional but deprecated.
+- Updated the `API_VERSION` to `110207`.
 
 ### Skins
 
