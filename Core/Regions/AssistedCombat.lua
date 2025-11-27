@@ -19,10 +19,14 @@ local _, Core = ...
 local error, type = error, type
 
 ----------------------------------------
--- Internal
+-- WoW API
 ---
 
-if not Core.WOW_RETAIL then return end
+if not AssistedCombatManager then return end
+
+----------------------------------------
+-- Internal
+---
 
 -- @ Core\Utility
 local GetFlipBookAnimation, GetTexCoords = Core.GetFlipBookAnimation, Core.GetTexCoords
