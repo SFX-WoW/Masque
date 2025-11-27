@@ -91,7 +91,11 @@ local function Skin_AutoCastShine(Frame, Button, Skin)
 	SetSkinPoint(Frame, Button, Skin, SetAllPoints)
 
 	-- AutoCast Corners
-	Skin_AutoCastTexture(Button.AutoCastable, Button, Button, Skin.AutoCastable, DEF_SKIN.AutoCastable)
+	local Corners = Button.AutoCastable or Frame.Corners
+
+	if Corners then
+		Skin_AutoCastTexture(Corners, Button, Button, Skin.AutoCastable, DEF_SKIN.AutoCastable)
+	end
 end
 
 -- Skins the Retail `AutoCast` regions.
@@ -114,13 +118,17 @@ local function Skin_AutoCastOverlay(Frame, Button, Skin)
 	SetSkinPoint(Frame, Button, Skin, SetAllPoints)
 
 	-- AutoCast Corners
-	Skin_AutoCastTexture(Frame.Corners, Button, Frame, Skin.AutoCast_Corners, DEF_SKIN.AutoCast_Corners)
+	local Corners = Frame.Corners
 
-	-- AutoCast Shine Mask
-	Skin_AutoCastTexture(Frame.Mask, Button, Frame, Skin.AutoCast_Mask, DEF_SKIN.AutoCast_Mask, true)
+	if Corners then
+		Skin_AutoCastTexture(Corners, Button, Frame, Skin.AutoCast_Corners, DEF_SKIN.AutoCast_Corners)
+	end
 
 	-- AutoCast Shine
 	Skin_AutoCastTexture(Frame.Shine, Button, Frame, Skin.AutoCast_Shine, DEF_SKIN.AutoCast_Shine)
+
+	-- AutoCast Shine Mask
+	Skin_AutoCastTexture(Frame.Mask, Button, Frame, Skin.AutoCast_Mask, DEF_SKIN.AutoCast_Mask, true)
 end
 
 ----------------------------------------
@@ -129,15 +137,17 @@ end
 
 -- Internal skin handler for the `AutoCast` region.
 function Core.Skin_AutoCast(Button, Skin)
-	local AutoCastOverlay = Button.AutoCastOverlay
-	local AutoCastShine = Button.AutoCastShine
+	local Frame = Button.AutoCastOverlay or Button.AutoCastShine
 
-	-- Retail
-	if AutoCastOverlay then
-		Skin_AutoCastOverlay(AutoCastOverlay, Button, Skin)
+	if not Frame then return end
+
+	-- Modern
+	if Frame.Shine then
+		Skin_AutoCastOverlay(Frame, Button, Skin)
 
 	-- Classic
-	elseif AutoCastShine then
-		Skin_AutoCastShine(AutoCastShine, Button, Skin)
+	-- Account AutoCastShine and AutoCastOverlay
+	elseif Button.AutoCastable or Frame.Corners then
+		Skin_AutoCastShine(Frame, Button, Skin)
 	end
 end
