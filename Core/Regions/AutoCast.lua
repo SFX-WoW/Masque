@@ -146,7 +146,7 @@ function Core.Skin_AutoCast(Button, Skin)
 		Skin_AutoCastOverlay(Frame, Button, Skin)
 
 	-- Classic
-	-- Account AutoCastShine and AutoCastOverlay
+	-- Account for AutoCastShine and AutoCastOverlay
 	elseif Button.AutoCastable or Frame.Corners then
 		Skin_AutoCastShine(Frame, Button, Skin)
 	end
