@@ -67,5 +67,6 @@ function Core.Skin_Text(Layer, Region, Button, Skin)
 		OffsetY = Skin.OffsetY or OffsetY
 	end
 
+	Region:ClearAllPoints()
 	Region:SetPoint(Point, Anchor, RelPoint, OffsetX, OffsetY)
 end
