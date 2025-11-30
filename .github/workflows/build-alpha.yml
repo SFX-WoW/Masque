@@ -1,6 +1,6 @@
-# Calls a workflow that builds an alpha release.
-
 name: Build Alpha
+
+run-name: Build Alpha
 
 on:
   push:

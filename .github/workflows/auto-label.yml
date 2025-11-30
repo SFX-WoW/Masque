@@ -1,0 +1,15 @@
+name: Auto-Label
+
+run-name: Auto-Label
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  call-auto-label:
+    uses: SFX-WoW/shared/.github/workflows/auto-label.yml@main
+    with:
+      issue_body: ${{ github.event.issue.body }}
+      issue_number: ${{ github.event.issue.number }}
