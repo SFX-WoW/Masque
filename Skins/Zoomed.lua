@@ -290,7 +290,7 @@ Core.AddSkin("Zoomed", {
 	ContextOverlay = {
 		-- Texture = nil,
 		-- TexCoords = {0, 1, 0, 1},
-		-- Color = {0, 0, 0, 0.8},
+		Color = {0, 0, 0, 0.8},
 		-- BlendMode = "BLEND",
 		-- DrawLayer = "OVERLAY",
 		-- DrawLevel = 4,
