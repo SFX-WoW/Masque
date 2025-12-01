@@ -196,10 +196,14 @@ Core.Update_AssistedCombatHighlight = Update_AssistedCombatHighlight
 
 -- Updates the `AssistedCombatHighlight` when created after the button is skinned.
 local function Hook_AssistedCombatHighlight(Parent, Button)
-	local _mcfg = Button._MSQ_CFG
 	local Frame = Button.AssistedCombatHighlightFrame
 
-	if (not _mcfg) or (not Frame) then return end
+	if not Frame then return end
+
+	local _mcfg = Button._MSQ_CFG
+
+	-- Make sure `SkinButton` has been called.
+	if (not _mcfg) or (not _mcfg.Scale) then return end
 
 	Update_AssistedCombatHighlight(Frame.Flipbook, Button)
 end
