@@ -279,8 +279,10 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	_mcfg:UpdateScale(Button, Scale)
 
+	local IsActionType = ActionTypes[bType]
+
 	-- Set/remove type flags.
-	_mcfg.IsAction = ActionTypes[bType]
+	_mcfg.IsAction = IsActionType
 	_mcfg.IsAura = AuraTypes[bType]
 	_mcfg.IsItem = ItemTypes[bType]
 	_mcfg.IsEmptyType = EmptyTypes[bType]
@@ -449,7 +451,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- [[ AutoCast ]]
 
-	if bType == "Pet" then
+	if IsActionType then
 		Skin_AutoCast(Button, Skin)
 	end
 
