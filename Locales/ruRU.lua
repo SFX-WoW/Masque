@@ -36,40 +36,40 @@ L["You must have an add-on that supports Masque installed to use it."] = "У В�
 ---
 
 -- L["Advanced"] = "Advanced"
--- L["Advanced Settings"] = "Advanced Settings"
+L["Advanced Settings"] = "Расширенные настройки"
 -- L["Cast Animations"] = "Cast Animations"
--- L["Cooldown Animations"] = "Cooldown Animations"
--- L["Enable animations when action button cooldowns finish."] = "Enable animations when action button cooldowns finish."
--- L["Enable cast animations on action buttons."] = "Enable cast animations on action buttons."
--- L["Enable interrupt animations on action buttons."] = "Enable interrupt animations on action buttons."
+L["Cooldown Animations"] = "Анимации перезарядки"
+L["Enable animations when action button cooldowns finish."] = "Включить анимацию по окончании времени восстановления кнопок действий."
+L["Enable cast animations on action buttons."] = "Включить отображение анимации на кнопках действий."
+L["Enable interrupt animations on action buttons."] = "Включить анимации прерывания на кнопках действий."
 -- L["Enable targeting reticles on action buttons."] = "Enable targeting reticles on action buttons."
 -- L["Flash and Loop"] = "Flash and Loop"
 -- L["Interrupt Animations"] = "Interrupt Animations"
 -- L["Loop Only"] = "Loop Only"
--- L["Select the spell alert style."] = "Select the spell alert style."
--- L["Select which spell alert animations are enabled."] = "Select which spell alert animations are enabled."
+L["Select the spell alert style."] = "Выберите стиль оповещения о заклинании."
+L["Select which spell alert animations are enabled."] = "Выберите, какие анимации оповещений о заклинаниях включить."
 -- L["Spell Alert Animations"] = "Spell Alert Animations"
 -- L["Spell Alert Style"] = "Spell Alert Style"
 -- L["Targeting Reticles"] = "Targeting Reticles"
--- L["This section will allow you to adjust button settings for the default interface."] = "This section will allow you to adjust button settings for the default interface."
+L["This section will allow you to adjust button settings for the default interface."] = "В этом разделе вы сможете настроить параметры кнопок для интерфейса по умолчанию."
 
 ----------------------------------------
 -- Blizzard Classic Skin
 ---
 
-L["The default classic button style."] = "Классический стиль кнопки по умолчанию."
+L["The default classic button style."] = "Классический стиль кнопок по умолчанию."
 
 ----------------------------------------
 -- Blizzard Modern Skin
 ---
 
-L["The default modern button style."] = "Стиль кнопки Dragonflight по умолчанию."
+L["The default modern button style."] = "Современный стиль кнопок по умолчанию."
 
 ----------------------------------------
 -- Classic Enhanced Skin
 ---
 
-L["An enhanced version of the classic button style."] = "Улучшенная версия стандартных кнопок"
+L["An enhanced version of the classic button style."] = "Усовершенствованная версия классического стиля кнопок."
 
 ----------------------------------------
 -- Core Settings
@@ -114,7 +114,7 @@ L["Author"] = "Автор"
 L["Authors"] = "Авторы"
 L["Compatible"] = "Совместим"
 L["Description"] = "Описание"
--- L["Discord"] = "Discord"
+L["Discord"] = "Discord"
 L["Installed Skins"] = "Установленные скины"
 L["No description available."] = "Нет описания."
 L["Status"] = "Статус"
@@ -135,17 +135,17 @@ L["Websites"] = "Сайты"
 L["Alternate Sorting"] = "Альтернативная сортировка"
 L["Causes the skins included with Masque to be listed above third-party skins."] = "Приводит к тому, что скины, включенные в Masque, будут в списке выше сторонних скинов."
 L["Click to reload the interface."] = "Нажмите для перезагрузки интерфейса."
--- L["Increases the font size of the text on Ace3 profile panels."] = "Increases the font size of the text on Ace3 profile panels."
+L["Increases the font size of the text on Ace3 profile panels."] = "Увеличивает размер шрифта текста на панелях профилей Ace3."
 L["Interface"] = "Интерфейс"
 L["Interface Settings"] = "Настройки интерфейса"
 L["Load the skin information panel."] = "Загрузить информационную панель скинов."
--- L["Menu Icon"] = "Menu Icon"
--- L["Minimap"] = "Minimap"
--- L["None"] = "None"
--- L["Profile Panel Font Fix"] = "Profile Panel Font Fix"
+L["Menu Icon"] = "Значок меню"
+L["Minimap"] = "Миникарта"
+L["None"] = "Нет"
+L["Profile Panel Font Fix"] = "Исправление шрифта панели профиля"
 L["Reload Interface"] = "Перезагрузить интерфейс"
 L["Requires an interface reload."] = "Требует перезагрузки интерфейса"
--- L["Select where Masque's menu icon is displayed."] = "Select where Masque's menu icon is displayed."
+L["Select where Masque's menu icon is displayed."] = "Выберите, где будет отображаться значок меню Masque."
 L["Skin Information"] = "Информация о скинах"
 L["Stand-Alone GUI"] = "Внешний фрейм настроек"
 L["This section will allow you to adjust settings that affect Masque's interface."] = "Этот раздел позволяет настраивать то, как Masque влияет на интерфейс."
@@ -162,7 +162,7 @@ L["Click to open Masque's settings."] = "Нажмите для открытия 
 -- Modern Enhanced Skin
 ---
 
--- L["An enhanced version of the modern button style."] = "An enhanced version of the modern button style."
+L["An enhanced version of the modern button style."] = "Усовершенствованная версия современного стиля кнопок."
 
 ----------------------------------------
 -- Profile Settings
@@ -187,7 +187,7 @@ L["Enable skin scaling."] = "Включить масштабирование с�
 L["Enable the Backdrop texture."] = "Включить настройки фона текстуры."
 L["Enable the Gloss texture."] = "Включить настройки глянцевой текстуры."
 L["Enable the Shadow texture."] = "Включить настройки текстуры тени."
-L["Flash"] = "Сверкание"
+-- L["Flash"] = "Flash"
 L["Global"] = "Общее"
 L["Global Settings"] = "Настройки"
 L["Gloss"] = "Глянец"
@@ -196,7 +196,7 @@ L["Normal"] = "Нормальный"
 L["Pulse"] = "Импульс"
 L["Pushed"] = "При нажатии"
 L["Reset all skin options to the defaults."] = "Установить значения цветов по умолчанию."
-L["Reset Skin"] = "Сбросить цвета"
+L["Reset Skin"] = "Сбросить скин"
 L["Scale"] = "Масштаб"
 L["Set the color of the Backdrop texture."] = "Установить цвет фона текстуры."
 L["Set the color of the Checked texture."] = "Установить цвет текстуры при выделении."
@@ -209,7 +209,7 @@ L["Set the color of the Pushed texture."] = "Установить цвет те�
 L["Set the color of the Shadow texture."] = "Установить цвет тени."
 L["Set the skin for this group."] = "Установить скин для данной группы."
 L["Shadow"] = "Тень"
-L["Show the pulse effect when a cooldown finishes."] = "Показать пульсацию по окончании перезарядки."
+L["Show the pulse effect when a cooldown finishes."] = "Показывать эффект пульсации после окончания перезарядки."
 L["Skin"] = "Скины"
 L["Skin Settings"] = "Настройки скинов"
 L["This section will allow you to adjust the skin settings of all buttons registered to %s."] = "Этот раздел позволяет менять настройки сразу для всех кнопок %s."
