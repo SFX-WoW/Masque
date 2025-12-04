@@ -54,10 +54,7 @@ Core.AddSkin("Zoomed", {
 		-- SetAllPoints = nil,
 	},
 	Icon = {
-		Texture = [[Interface\Icons\INV_Misc_Bag_08]], -- SlotIcon
 		TexCoords = {0.07, 0.93, 0.07, 0.93},
-		-- Color = {1, 1, 1, 1}, -- SlotIcon
-		-- BlendMode = "BLEND", -- SlotIcon
 		Width = 36,
 		Height = 36,
 		-- Point = "CENTER",
@@ -66,7 +63,6 @@ Core.AddSkin("Zoomed", {
 		-- OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	SlotIcon = "Icon",
 	-- Shadow = Template.Shadow,
 	Normal = Core._Hidden,
 	-- Disabled = Template.Disabled,

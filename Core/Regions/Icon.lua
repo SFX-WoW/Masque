@@ -106,10 +106,19 @@ end
 Core.SetEmpty = SetEmpty
 
 -- Internal skin handler for the `Icon` region.
-function Core.Skin_Icon(Region, Button, Skin)
+function Core.Skin_Icon(Region, Button, Skin, Hide)
 	local _mcfg = Button._MSQ_CFG
 
 	local bType = _mcfg.bType
+
+	if bType == "Backpack" then
+		if Hide then
+			Region:SetTexture()
+		else
+			Region:SetTexture([[Interface\Icons\INV_Misc_Bag_08]])
+		end
+	end
+
 	local Layer = (bType == "Item" and "BORDER") or "BACKGROUND"
 
 	Region._MSQ_Button = Button

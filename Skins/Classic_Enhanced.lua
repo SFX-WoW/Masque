@@ -86,10 +86,7 @@ Core.AddSkin("Classic Enhanced", {
 		},
 	},
 	Icon = {
-		Texture = [[Interface\Icons\INV_Misc_Bag_08]], -- SlotIcon
 		TexCoords = {0.07, 0.93, 0.07, 0.93},
-		-- Color = {1, 1, 1, 1}, -- SlotIcon
-		-- BlendMode = "BLEND", -- SlotIcon
 		Width = 32,
 		Height = 32,
 		-- Point = "CENTER",
@@ -98,7 +95,6 @@ Core.AddSkin("Classic Enhanced", {
 		-- OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	SlotIcon = "Icon",
 	-- Shadow = Template.Shadow,
 	Normal = {
 		Texture = [[Interface\Buttons\UI-Quickslot2]],

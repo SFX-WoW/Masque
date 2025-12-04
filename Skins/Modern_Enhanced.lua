@@ -86,7 +86,6 @@ Core.AddSkin("Modern Enhanced", {
 			-- SetAllPoints = nil,
 		},
 	},
-	-- SlotIcon = Template.SlotIcon,
 	-- Shadow = Template.Shadow,
 	Normal = {
 		Atlas = "UI-HUD-ActionBar-IconFrame",

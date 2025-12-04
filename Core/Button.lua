@@ -53,9 +53,8 @@ local SetEmpty = Core.SetEmpty
 local Skin_AutoCast, Skin_Backdrop, Skin_Cooldown = Core.Skin_AutoCast, Core.Skin_Backdrop, Core.Skin_Cooldown
 local Skin_Gloss, Skin_Icon, Skin_IconBorder = Core.Skin_Gloss, Core.Skin_Icon, Core.Skin_IconBorder
 local Skin_Mask, Skin_NewItem, Skin_Normal = Core.Skin_Mask, Core.Skin_NewItem, Core.Skin_Normal
-local Skin_QuestBorder, Skin_Shadow, Skin_SlotIcon = Core.Skin_QuestBorder, Core.Skin_Shadow, Core.Skin_SlotIcon
-local Skin_Text, Skin_Texture, Update_SpellAlert = Core.Skin_Text, Core.Skin_Texture, Core.Update_SpellAlert
-local Update_AssistedCombatHighlight = Core.Update_AssistedCombatHighlight
+local Skin_QuestBorder, Skin_Shadow, Skin_Text = Core.Skin_QuestBorder, Core.Skin_Shadow, Core.Skin_Text
+local Skin_Texture, Update_SpellAlert, Update_AssistedCombatHighlight = Core.Skin_Texture, Core.Update_SpellAlert, Core.Update_AssistedCombatHighlight
 
 ----------------------------------------
 -- Locals
@@ -318,17 +317,23 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	Skin_Backdrop(Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop)
 
-	-- [[ Icon/SlotIcon ]]
+	-- [[ Icon ]]
 
-	if WOW_RETAIL and (bType == "Backpack") then
-		Skin_SlotIcon(Enabled, Button, Skin.SlotIcon)
+	local Hide_Icon
 
-	else
-		local Icon = Regions.Icon
+	if bType == "Backpack" then
+		local Normal_Skin = _mcfg:GetTypeSkin(Button, Skin.Normal)
+		local Normal_Atlas = Normal_Skin.Atlas
 
-		if Icon then
-			Skin_Icon(Icon, Button, Skin.Icon)
+		if (type(Normal_Atlas) == "string") and (Normal_Atlas:lower() == "bag-main") then
+			Hide_Icon = true
 		end
+	end
+
+	local Icon = Regions.Icon
+
+	if Icon then
+		Skin_Icon(Icon, Button, Skin.Icon, Hide_Icon)
 	end
 
 	-- [[ Shadow ]]
