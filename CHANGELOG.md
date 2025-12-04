@@ -1,21 +1,23 @@
-## 11.2.7
+## 11.2.8-Beta
 
 ### General
 
-- Updated the `Interface` versions: (#451)
-  - **Wrath of the Lich King Classic** Titan Reforged: `38000`
-  - **The Burning Crusade Classic** Anniversary Edition: `20505`
+- Updated the `Interface` versions: (#455)
+  - **The War Within**: `110207`
 
-### Localization
+### Skins
 
-- Updated `ruRU`. (ZamestoTV)(#449)
-- Updated `zhTW`. (BNS333)(#450)
+- The **Blizzard Modern** and **Modern Enhanced** skins are now available on **Classic** versions of the game. (#452)
+  - **Note**: This is pending testing and feedback.
+- **Masque** will now use the `Icon` region of the `Backpack` button instead of a custom `SlotIcon` region on **Modern** skins. (#453)
+
+### API
+
+- Added support for custom `KeyRing` type buttons. (#454)
+  - **Note**: These must be implemented as `Item` or `BagSlot` buttons and have `"KeyRing"` in their name for skinning to work properly.
+- Removed support for the `SlotIcon` region.
 
 ### Bug Fixes
-
-- Added a missing `ClearAllPoints` to the text skinning function. (#446)
-- Fixed an issue that could allow the `AssistedCombatHighlight` hook to fire on unskinned buttons. (#447)
-- Fixed an issue that restricted the `AutoCast` from being skinned on non-pet action buttons. (#448)
-- Fixed an issue with **Dream** and **Zoomed** missing colors for the context and search overlays. (#447)
+- Fixed an issue that allowed the regions of the default skins to be iterated in the `AddSkin` function.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
