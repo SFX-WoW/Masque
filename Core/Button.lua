@@ -34,6 +34,7 @@ local WOW_RETAIL = Core.WOW_RETAIL
 
 -- @ Skins\Blizzard_*
 local DEF_SKIN = Core.DEFAULT_SKIN
+local DEF_SKINID = Core.DEFAULT_SKIN_ID
 
 -- @ Skins\Skins
 local Skin_Data = Core.Skins
@@ -229,7 +230,7 @@ end
 ---
 
 -- Blizzard Skins
-local Base_Skin = {
+local BaseSkin = {
 	["Blizzard Classic"] = true,
 	["Blizzard Modern"] = true,
 }
@@ -264,6 +265,8 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		local Addon = _mcfg.Addon or false
 
 		Skin = Skin_Data[Addon] or DEF_SKIN
+		SkinID = Skin.SkinID or false
+
 		_mcfg.Skin = nil
 
 		Enabled = nil
@@ -272,8 +275,8 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- Update the basics
 	_mcfg.Shape = Skin.Shape
-	_mcfg.BaseSkin = Base_Skin[SkinID]
 	_mcfg.Enabled = Enabled
+	_mcfg.BaseSkin = BaseSkin[SkinID]
 
 	Scale = Scale or 1
 
