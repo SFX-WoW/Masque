@@ -19,6 +19,22 @@ local _, Core = ...
 local ipairs, type = _G.ipairs, _G.type
 
 ----------------------------------------
+-- Internal
+---
+
+-- @ Skins\Defaults
+local SkinBase = Core.SKIN_BASE
+
+----------------------------------------
+-- Locals
+---
+
+-- SetPoint Defaults
+local BASE_POINT = SkinBase.Point
+local BASE_RELPOINT = SkinBase.RelPoint
+local BASE_OFFSETX = SkinBase.OffSetX
+local BASE_OFFSETY = SkinBase.OffSetY
+
 -- Miscellaneous
 ---
 
@@ -83,8 +99,8 @@ function Core.SetSkinPoint(Region, Button, Skin, SetAllPoints, Anchor)
 		return
 	end
 
-	local Point, RelPoint = "CENTER", "CENTER"
-	local OffsetX, OffsetY = 0, 0
+	local Point, RelPoint = BASE_POINT, BASE_RELPOINT
+	local OffsetX, OffsetY = BASE_OFFSETX, BASE_OFFSETY
 
 	if Skin then
 		Point = Skin.Point or Point
