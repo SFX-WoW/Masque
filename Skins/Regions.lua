@@ -83,11 +83,6 @@ local Legacy = {
 	-- Handled in the button file.
 	-- SlotBackground = nil,
 	--[CUSTOM, RETAIL_ONLY]
-	SlotIcon = {
-		CanHide = true,
-		CanMask = true,
-		Ignore = true,
-	},
 
 	-- [[ ARTWORK, -1 ]]
 
@@ -543,6 +538,7 @@ local Types = {
 	Debuff = Debuff,
 	Enchant = Enchant,
 	Item = Item,
+	KeyRing = Item,
 	Pet = Action,
 	Possess = Action,
 	ReagentBag = Item,
@@ -558,9 +554,9 @@ local BaseTypes = {
 local EmptyTypes = {
 	Action = true,
 	BagSlot = true,
+	Item = true,
 	Pet = true,
 	ReagentBag = true,
-	Item = true,
 }
 
 ----------------------------------------
@@ -587,6 +583,7 @@ Core.ItemTypes = {
 	Backpack = true,
 	BagSlot = true,
 	Item = true,
+	KeyRing = true,
 	ReagentBag = true,
 }
 
