@@ -8,13 +8,14 @@
 ### Skins
 
 - The **Blizzard Modern** and **Modern Enhanced** skins are now available on **Classic** versions of the game. (#452)
-  - **Note**: This is pending testing and feedback.
+  - This is pending testing and feedback.
+  - **Maque** will still choose its default skin based on the game version.
 - **Masque** will now use the `Icon` region of the `Backpack` button instead of a custom `SlotIcon` region on **Modern** skins. (#453)
 
 ### API
 
 - Added support for custom `KeyRing` type buttons. (#454)
-  - **Note**: These must be implemented as `Item` or `BagSlot` buttons and have `"KeyRing"` in their name for skinning to work properly.
+  - These must be implemented as `Item` or `BagSlot` buttons and have `"KeyRing"` in their name for skinning to work properly.
 - Removed support for the `SlotIcon` region.
 
 ### Bug Fixes
