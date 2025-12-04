@@ -30,6 +30,40 @@ local BaseTypes, RegTypes = Core.BaseTypes, Core.RegTypes
 local BASE_SCALE = SkinBase.Scale
 local BASE_SIZE = SkinBase.Size
 
+-- Misc Strings
+local STR_BORDER = "Border"
+local TYPE_LEGACY = "Legacy"
+
+-- Object Type Strings
+local TYPE_BUTTON = "Button"
+local TYPE_CHECKBUTTON = "CheckButton"
+
+-- Action Type Strings
+local TYPE_ACTION = "Action"
+local TYPE_PET = "Pet"
+local TYPE_POSSESS = "Possess"
+local TYPE_STANCE = "Stance"
+
+-- Aura Type Strings
+local TYPE_AURA = "Aura"
+local TYPE_DEADLYDEBUFF = "DeadlyDebuff"
+local TYPE_DEBUFF = "Debuff"
+local TYPE_ENCHANT = "Enchant"
+local TYPE_TEMPENCHANT = "TempEnchant"
+
+-- Item Type Strings
+local TYPE_BACKPACK = "Backpack"
+local TYPE_BAGSLOT = "BagSlot"
+local TYPE_CHARACTERBAG = "CharacterBag"
+local TYPE_ITEM = "Item"
+local TYPE_KEYRING = "KeyRing"
+local TYPE_REAGENTBAG = "ReagentBag"
+
+-- Special Bags
+local TYPE_SPECIAL = {
+	[TYPE_KEYRING] = true,
+	[TYPE_REAGENTBAG] = true,
+}
 
 ----------------------------------------
 -- Configuration
@@ -106,40 +140,41 @@ local function GetSubType(Button, bType)
 	local bName = Button.GetName and Button:GetName()
 
 	-- Action
-	if bType == "Action" and bName then
-		if bName:find("Stance", 1, true) then return "Stance" end
-		if bName:find("Possess", 1, true) then return "Possess" end
-		if bName:find("Pet", 1, true) then return "Pet" end
+	if bType == TYPE_ACTION and bName then
+		if bName:find(TYPE_STANCE, 1, true) then return TYPE_STANCE end
+		if bName:find(TYPE_POSSESS, 1, true) then return TYPE_POSSESS end
+		if bName:find(TYPE_PET, 1, true) then return TYPE_PET end
 
 		return bType
 	end
 
 	-- Item
-	if bType == "Item" and bName then
-		if bName:find("Backpack", 1, true) then return "Backpack" end
-		if bName:find("CharacterBag", 1, true) then return "BagSlot" end
-		if bName:find("ReagentBag", 1, true) then return "ReagentBag" end
+	if bType == TYPE_ITEM and bName then
+		if bName:find(TYPE_BACKPACK, 1, true) then return TYPE_BACKPACK end
+		if bName:find(TYPE_CHARACTERBAG, 1, true) then return TYPE_BAGSLOT end
+		if bName:find(TYPE_KEYRING, 1, true) then return TYPE_KEYRING end
+		if bName:find(TYPE_REAGENTBAG, 1, true) then return TYPE_REAGENTBAG end
 
 		return bType
 	end
 
 	-- Aura
-	if bType == "Aura" then
+	if bType == TYPE_AURA then
 		-- Retail
 		if Button.DebuffBorder then
 			-- Possible Values: "Buff", "DeadlyDebuff", "Debuff" and "TempEnchant"
 			local AuraType = Button.auraType or bType
 
-			if AuraType == "DeadlyDebuff" then return "Debuff" end
-			if AuraType == "TempEnchant" then return "Enchant" end
+			if AuraType == TYPE_DEADLYDEBUFF then return TYPE_DEBUFF end
+			if AuraType == TYPE_TEMPENCHANT then return TYPE_ENCHANT end
 
 			return AuraType
 		end
 
 		-- Classic
 		-- Button.Border isn't used in Classic but add-ons may be using it.
-		if Button.Border or (bName and _G[bName.."Border"]) then
-			return (Button.symbol and "Debuff") or "Enchant"
+		if Button.Border or (bName and _G[bName..STR_BORDER]) then
+			return (Button.symbol and TYPE_DEBUFF) or TYPE_ENCHANT
 		end
 	end
 
@@ -162,30 +197,30 @@ local function GetType(self, Button, bType)
 
 	-- Invalid/Unspecified
 	else
-		if oType == "CheckButton" then
+		if oType == TYPE_CHECKBUTTON then
 			-- Action
 			if Button.HotKey then
-				bType = GetSubType(Button, "Action")
+				bType = GetSubType(Button, TYPE_ACTION)
 
 			-- Classic bag buttons are CheckButtons.
 			elseif Button.IconBorder then
-				bType = GetSubType(Button, "Item")
+				bType = GetSubType(Button, TYPE_ITEM)
 			end
 
-		elseif oType == "Button" then
+		elseif oType == TYPE_BUTTON then
 			-- Item
 			if Button.IconBorder then
-				bType = GetSubType(Button, "Item")
+				bType = GetSubType(Button, TYPE_ITEM)
 
 			-- Aura
 			elseif Button.duration or Button.Duration then
-				bType = GetSubType(Button, "Aura")
+				bType = GetSubType(Button, TYPE_AURA)
 			end
 		end
 	end
 
 	self.bType = bType
-	return bType or "Legacy"
+	return bType or TYPE_LEGACY
 end
 
 ----------------------------------------
@@ -201,8 +236,8 @@ local function GetTypeSkin(self, Button, Skin)
 	end
 
 	if self.IsItem then
-		if bType == "ReagentBag" then
-			return Skin.ReagentBag or Skin.BagSlot or Skin.Item or Skin
+		if TYPE_SPECIAL[bType] then
+			return Skin[bType] or Skin.BagSlot or Skin.Item or Skin
 
 		else
 			return Skin[bType] or Skin.Item or Skin
