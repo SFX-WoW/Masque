@@ -16,8 +16,20 @@ local _, Core = ...
 -- Internal
 ---
 
+-- @ Skins\Defaults
+local SkinBase = Core.SKIN_BASE
+
 -- @ Skins\Regions
 local BaseTypes, RegTypes = Core.BaseTypes, Core.RegTypes
+
+----------------------------------------
+-- Locals
+---
+
+-- Scale Defaults
+local BASE_SCALE = SkinBase.Scale
+local BASE_SIZE = SkinBase.Size
+
 
 ----------------------------------------
 -- Configuration
@@ -54,14 +66,14 @@ end
 
 -- Returns the x and y scale of a button.
 local function GetScale(self)
-	return self.xScale or 1, self.yScale or 1
+	return self.xScale or BASE_SCALE, self.yScale or BASE_SCALE
 end
 
 -- Updates the scales for a button.
 local function UpdateScale(self, Button, Scale)
-	Scale = Scale or 1
+	Scale = Scale or BASE_SCALE
 
-	local ScaleSize = 36 / Scale
+	local ScaleSize = BASE_SIZE / Scale
 	local Width, Height = Button:GetSize()
 
 	self.xScale = (Width or ScaleSize) / ScaleSize
