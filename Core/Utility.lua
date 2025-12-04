@@ -35,6 +35,15 @@ local BASE_RELPOINT = SkinBase.RelPoint
 local BASE_OFFSETX = SkinBase.OffSetX
 local BASE_OFFSETY = SkinBase.OffSetY
 
+-- Misc Strings
+local STR_ANIMKEY = "FlipAnim"
+
+-- Type Strings
+local TYPE_FLIPBOOK = "FlipBook"
+local TYPE_FUNCTION = "function"
+local TYPE_TABLE = "table"
+
+----------------------------------------
 -- Miscellaneous
 ---
 
@@ -53,8 +62,8 @@ function Core.GetFlipBookAnimation(AnimGroup)
 	if FlipAnim then return FlipAnim end
 
 	for _, Animation in ipairs({AnimGroup:GetAnimations()}) do
-		if Animation and (Animation:GetObjectType() == "FlipBook") then
-			Animation:SetParentKey("FlipAnim")
+		if Animation and (Animation:GetObjectType() == TYPE_FLIPBOOK) then
+			Animation:SetParentKey(STR_ANIMKEY)
 			return Animation
 		end
 	end
@@ -66,7 +75,7 @@ end
 
 -- Returns a set of color values.
 function Core.GetColor(Color, Alpha)
-	if type(Color) == "table" then
+	if type(Color) == TYPE_TABLE then
 		return Color[1] or 1, Color[2] or 1, Color[3] or 1, Alpha or Color[4] or 1
 	else
 		return 1, 1, 1, Alpha or 1
@@ -87,7 +96,7 @@ function Core.SetSkinPoint(Region, Button, Skin, SetAllPoints, Anchor)
 		local _mcfg = Button._MSQ_CFG
 		local Regions = _mcfg and _mcfg.Regions
 
-		if type(Regions) == "table" then
+		if type(Regions) == TYPE_TABLE then
 			Anchor = Regions[Skin_Anchor] or Anchor
 		end
 	end
@@ -118,7 +127,7 @@ end
 
 -- Returns a set of texture coordinates.
 function Core.GetTexCoords(Coords)
-	if type(Coords) == "table" then
+	if type(Coords) == TYPE_TABLE then
 		return Coords[1] or 0, Coords[2] or 1, Coords[3] or 0, Coords[4] or 1
 	else
 		return 0, 1, 0, 1
@@ -168,10 +177,10 @@ function Core.GetRegion(Button, Info)
 	if Key then
 		local Parent = (Info.Parent and Button[Info.Parent]) or Button
 
-		if type(Parent) == "table" then
+		if type(Parent) == TYPE_TABLE then
 			local Region = Parent[Key]
 
-			if type(Region) == "table" then
+			if type(Region) == TYPE_TABLE then
 				local rType = Region.GetObjectType and Region:GetObjectType()
 
 				if rType == Info.Type then
@@ -187,7 +196,7 @@ function Core.GetRegion(Button, Info)
 	if Func then
 		local Method = Button[Func]
 
-		if type(Method) == "function" then
+		if type(Method) == TYPE_FUNCTION then
 			return Method(Button)
 		end
 	end
