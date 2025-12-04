@@ -12,8 +12,6 @@
 
 local _, Core = ...
 
-if not Core.WOW_RETAIL then return end
-
 ----------------------------------------
 -- Internal
 ---

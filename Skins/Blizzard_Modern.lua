@@ -16,8 +16,6 @@
 
 local _, Core = ...
 
-if not Core.WOW_RETAIL then return end
-
 ----------------------------------------
 -- Internal
 ---
@@ -43,12 +41,12 @@ local Skin = {
 	Shape = "Blizzard",
 	SkinID = SkinID,
 
-	-- Info
+	-- [ Info]
 	Author = "|cff0099ffBlizzard Entertainment|r",
 	Description = L["The default modern button style."],
 	Version = Core.Version,
 
-	-- Skin
+	-- [ Skin]
 	Mask = {
 		Atlas = "UI-HUD-ActionBar-IconFrame-Mask",
 		UseAtlasSize = false,
@@ -937,5 +935,7 @@ local Skin = {
 
 Core.AddSkin(SkinID, Skin, true)
 
-Core.DEFAULT_SKIN = Skin
-Core.DEFAULT_SKIN_ID = SkinID
+if Core.WOW_RETAIL then
+	Core.DEFAULT_SKIN = Skin
+	Core.DEFAULT_SKIN_ID = SkinID
+end
