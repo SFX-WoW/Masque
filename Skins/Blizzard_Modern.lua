@@ -48,12 +48,13 @@ local Skin = {
 
 	-- [ Skin]
 	Mask = {
-		Atlas = "UI-HUD-ActionBar-IconFrame-Mask",
-		UseAtlasSize = false,
+		-- Atlas = "UI-HUD-ActionBar-IconFrame-Mask",
+		-- UseAtlasSize = false,
+		Texture = [[Interface/AddOns/Masque/Textures/Modern/Mask]],
 		WrapH = "CLAMPTOBLACKADDITIVE",
 		WrapV = "CLAMPTOBLACKADDITIVE",
-		Width = 51,
-		Height = 51,
+		Width = 33,
+		Height = 33,
 		Anchor = "Icon",
 		Point = "CENTER",
 		RelPoint = "CENTER",
