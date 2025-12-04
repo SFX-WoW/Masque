@@ -33,7 +33,7 @@ local Layers = Core.RegTypes.Legacy
 local TYPE_STRING = "string"
 local TYPE_TABLE = "table"
 
-local AddedSkins, BaseSkins = {}, {}
+local AddedSkins, CoreSkins = {}, {}
 local Skins, SkinList, SkinOrder = {}, {}, {}
 local Hidden = {Hide = true}
 
@@ -102,7 +102,7 @@ end
 local function SortSkins()
 	table_sort(AddedSkins)
 
-	local c = #BaseSkins
+	local c = #CoreSkins
 
 	for k, v in ipairs(AddedSkins) do
 		SkinOrder[k + c] = v
@@ -110,7 +110,7 @@ local function SortSkins()
 end
 
 -- Adds data to the skin tables.
-local function AddSkin(SkinID, SkinData, Base)
+local function AddSkin(SkinID, SkinData, Internal)
 	-- Legacy Layer Validation
 	for Layer, GetLayer in pairs(vLayers) do
 		if not SkinData[Layer] then
@@ -163,8 +163,8 @@ local function AddSkin(SkinID, SkinData, Base)
 	Skins[SkinID] = SkinData
 
 	if not SkinData.Disable then
-		if Base then
-			table_insert(BaseSkins, SkinID)
+		if Internal then
+			table_insert(CoreSkins, SkinID)
 			table_insert(SkinOrder, SkinID)
 		else
 			table_insert(AddedSkins, SkinID)
