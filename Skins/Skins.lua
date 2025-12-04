@@ -110,7 +110,7 @@ local function SortSkins()
 end
 
 -- Adds data to the skin tables.
-local function AddSkin(SkinID, SkinData, Internal)
+local function AddSkin(SkinID, SkinData, IsCore, IsBase)
 	-- Legacy Layer Validation
 	for Layer, GetLayer in pairs(vLayers) do
 		if not SkinData[Layer] then
@@ -130,30 +130,32 @@ local function AddSkin(SkinID, SkinData, Internal)
 		setmetatable(SkinData, {__index = Skins[Template]})
 	end
 
-	local Default = Core.DEFAULT_SKIN
+	if not IsBase then
+		local Default = Core.DEFAULT_SKIN
 
-	for Layer, Info in pairs(Layers) do
-		local Skin = SkinData[Layer]
-		local sType = type(Skin)
+		for Layer, Info in pairs(Layers) do
+			local Skin = SkinData[Layer]
+			local sType = type(Skin)
 
-		-- Allow a layer to use the same skin settings as another layer.
-		if sType == TYPE_STRING then
-			Skin = SkinData[Skin]
+			-- Allow a layer to use the same skin settings as another layer.
+			if sType == TYPE_STRING then
+				Skin = SkinData[Skin]
 
-		-- Account for missing skin settings and older skins.
-		elseif sType ~= TYPE_TABLE then
-			Skin = (Info.HideEmpty and Hidden) or Default[Layer]
+			-- Account for missing skin settings and older skins.
+			elseif sType ~= TYPE_TABLE then
+				Skin = (Info.HideEmpty and Hidden) or Default[Layer]
 
-		-- Prevent the hiding of regions that can't be hidden.
-		elseif (Skin.Hide and not Info.CanHide) then
-			Skin = Default[Layer]
+			-- Prevent the hiding of regions that can't be hidden.
+			elseif (Skin.Hide and not Info.CanHide) then
+				Skin = Default[Layer]
 
-		-- Hide unused regions.
-		elseif Info.Hide then
-			Skin = Hidden
+			-- Hide unused regions.
+			elseif Info.Hide then
+				Skin = Hidden
+			end
+
+			SkinData[Layer] = Skin
 		end
-
-		SkinData[Layer] = Skin
 	end
 
 	SkinData.API_VERSION = Skin_API
@@ -163,7 +165,7 @@ local function AddSkin(SkinID, SkinData, Internal)
 	Skins[SkinID] = SkinData
 
 	if not SkinData.Disable then
-		if Internal then
+		if IsCore then
 			table_insert(CoreSkins, SkinID)
 			table_insert(SkinOrder, SkinID)
 		else

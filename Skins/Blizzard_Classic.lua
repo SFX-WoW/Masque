@@ -673,7 +673,7 @@ local Skin = {
 -- Core
 ---
 
-Core.AddSkin(SkinID, Skin, true)
+Core.AddSkin(SkinID, Skin, true, true)
 
 Core.DEFAULT_SKIN = Skin
 Core.DEFAULT_SKIN_ID = SkinID

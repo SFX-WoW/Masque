@@ -933,7 +933,7 @@ local Skin = {
 -- Core
 ---
 
-Core.AddSkin(SkinID, Skin, true)
+Core.AddSkin(SkinID, Skin, true, true)
 
 if Core.WOW_RETAIL then
 	Core.DEFAULT_SKIN = Skin
