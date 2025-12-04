@@ -29,12 +29,8 @@ local GetContainerNumSlots = ContainerFrame_GetContainerNumSlots or C_Container.
 -- Internal
 ---
 
--- @ Masque
-local WOW_RETAIL = Core.WOW_RETAIL
-
 -- @ Skins\Blizzard_*
 local DEF_SKIN = Core.DEFAULT_SKIN
-local DEF_SKINID = Core.DEFAULT_SKIN_ID
 
 -- @ Skins\Skins
 local Skin_Data = Core.Skins
