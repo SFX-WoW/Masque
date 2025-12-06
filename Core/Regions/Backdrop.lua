@@ -16,14 +16,14 @@ local _, Core = ...
 -- Lua API
 ---
 
-local error, type = error, type
+local error, type = _G.error, _G.type
 
 ----------------------------------------
 -- Internal
 ---
 
--- @ Skins\Blizzard_*
-local DEF_SKIN = Core.DEFAULT_SKIN.Backdrop
+-- @ Skins\Defaults
+local SkinBase = Core.SKIN_BASE.Backdrop
 
 -- @ Core\Utility
 local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
@@ -35,9 +35,15 @@ local Skin_Mask = Core.Skin_Mask
 -- Locals
 ---
 
-local DEF_COLOR = DEF_SKIN.Color
-local DEF_TEXTURE = DEF_SKIN.Texture
+-- Skin Defaults
+local BASE_BLENDMODE = SkinBase.BlendMode -- "BLEND"
+local BASE_COLOR = SkinBase.Color -- {0, 0, 0, 0.5}
+local BASE_DRAWLAYER = SkinBase.DrawLayer -- "BACKGROUND"
+local BASE_DRAWLEVEL = SkinBase. DrawLevel -- -1
+local BASE_TEXTURE = SkinBase.Texture -- Masque\Textures\Backdrop\Slot-Modern
+local BASE_TEXTURES = SkinBase.Textures -- Masque\Textures\Backdrop\*
 
+-- Unused Backdrops
 local Cache = {}
 
 ----------------------------------------
@@ -73,7 +79,7 @@ local function Add_Backdrop(Region, Button, Skin, Color)
 	if Skin.UseColor then
 		Region:SetTexture()
 		Region:SetVertexColor(1, 1, 1, 1)
-		Region:SetColorTexture(GetColor(Color or DEF_COLOR))
+		Region:SetColorTexture(GetColor(Color or BASE_COLOR))
 
 	else
 		local Coords
@@ -81,16 +87,24 @@ local function Add_Backdrop(Region, Button, Skin, Color)
 		if Skin_Atlas then
 			Region:SetAtlas(Skin_Atlas, UseSize)
 		else
+			local Texture = Skin.Texture
+
+			if not Texture then
+				local bType = _mcfg.bType
+
+				Texture = BASE_TEXTURES[bType] or BASE_TEXTURE
+			end
+
 			Coords = Skin.TexCoords
-			Region:SetTexture(Skin.Texture or DEF_TEXTURE)
+			Region:SetTexture(Texture)
 		end
 
 		Region:SetTexCoord(GetTexCoords(Coords))
-		Region:SetVertexColor(GetColor(Color or DEF_COLOR))
+		Region:SetVertexColor(GetColor(Color))
 	end
 
-	Region:SetBlendMode(Skin.BlendMode or "BLEND")
-	Region:SetDrawLayer(Skin.DrawLayer or "BACKGROUND", Skin.DrawLevel or -1)
+	Region:SetBlendMode(Skin.BlendMode or BASE_BLENDMODE)
+	Region:SetDrawLayer(Skin.DrawLayer or BASE_DRAWLAYER, Skin.DrawLevel or BASE_DRAWLEVEL)
 
 	if not UseSize then
 		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
@@ -116,9 +130,9 @@ local function Remove_Backdrop(Region, Button)
 		-- Remove the button mask.
 		local Button_Mask = _mcfg.ButtonMask
 
-		if Button_Mask and Region._MSQ_bMask then
+		if Button_Mask and Region._MSQ_ButtonMask then
 			Region:RemoveMaskTexture(Button_Mask)
-			Region._MSQ_bMask = nil
+			Region._MSQ_ButtonMask = nil
 		end
 
 		Region:SetTexture()
@@ -143,9 +157,9 @@ function Core.SetColor_Backdrop(Region, Button, Skin, Color)
 		Color = Color or Skin.Color
 
 		if Skin.UseColor then
-			Region:SetColorTexture(GetColor(Color or DEF_COLOR))
+			Region:SetColorTexture(GetColor(Color or BASE_COLOR))
 		else
-			Region:SetVertexColor(GetColor(Color or DEF_COLOR))
+			Region:SetVertexColor(GetColor(Color))
 		end
 	end
 end
