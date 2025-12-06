@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local type = type
+local type = _G.type
 
 ----------------------------------------
 -- Internal
@@ -41,7 +41,7 @@ local function Skin_RegionMask(Region, Button, Skin)
 	if Skin.UseMask and Button_Mask and (not Mask_Skin) then
 		if not Region._MSQ_ButtonMask then
 			Region:AddMaskTexture(Button_Mask)
-			Region._MSQ_ButtonMask = true
+			Region._MSQ_ButtonMask = Button_Mask
 		end
 
 		return
@@ -109,7 +109,7 @@ local function Skin_RegionMask(Region, Button, Skin)
 
 	if not Region._MSQ_RegionMask then
 		Region:AddMaskTexture(Region_Mask)
-		Region._MSQ_RegionMask = true
+		Region._MSQ_RegionMask = Region_Mask
 	end
 end
 
