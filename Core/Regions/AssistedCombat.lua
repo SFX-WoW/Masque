@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local error, type = error, type
+local error, type = _G.error, _G.type
 
 ----------------------------------------
 -- WoW API
@@ -35,15 +35,26 @@ local GetFlipBookAnimation, GetTexCoords = Core.GetFlipBookAnimation, Core.GetTe
 -- Locals
 ---
 
--- Default Masque Textures
--- Size: 512 x 512
--- Grid: 6 Rows, 5 Columns, 30 Frames
+-- Type Strings
+local TYPE_STRING = "string"
+local TYPE_TABLE = "table"
+
+-- Base Strings
+local BASE_ATLAS = "RotationHelper_Ants_Flipbook"
+local BASE_UID = "_uID_ACH"
+
+-- Misc Strings
+local STR_MODERN = "Modern"
 
 -- Internal Settings
 -- Use the texture coordinates of the first frame.
 local MSQ_COORDS = {0, 0.1640625, 0, 0.1640625}
 local MSQ_FRAME_SIZE = 84
 local MSQ_SIZE = 45
+
+-- Default Masque Textures
+-- Size: 512 x 512
+-- Grid: 6 Rows, 5 Columns, 30 Frames
 
 -- FlipBook Style Cache
 local FlipBooks = {
@@ -106,7 +117,7 @@ end
 local function Reset_AssistedCombatHighlight(Region, Button)
 	local _mcfg = Button._MSQ_CFG
 
-	Region:SetAtlas("RotationHelper_Ants_Flipbook")
+	Region:SetAtlas(BASE_ATLAS)
 	Region:SetSize(_mcfg:GetSize(53, 53))
 
 	local AnimGroup = Region.Anim
@@ -118,14 +129,14 @@ local function Reset_AssistedCombatHighlight(Region, Button)
 	FixGlitch(AnimGroup)
 
 	-- Unset the uID
-	_mcfg:UpdateUID("_uID_ACH", true)
+	_mcfg:UpdateUID(BASE_UID, true)
 end
 
 -- Skins an `AssistedCombatHighlight` flipbook.
 local function Skin_AssistedCombatHighlight(Region, Button, Skin)
 	local _mcfg = Button._MSQ_CFG
 
-	local Shape = _mcfg.Shape or "Modern"
+	local Shape = _mcfg.Shape or STR_MODERN
 	local Style = FlipBooks[Shape] or FlipBooks.Modern
 
 	Region:SetTexture(Style.Texture)
@@ -151,7 +162,7 @@ local function Skin_AssistedCombatHighlight(Region, Button, Skin)
 	FixGlitch(AnimGroup)
 
 	-- Update the uID.
-	_mcfg:UpdateUID("_uID_ACH")
+	_mcfg:UpdateUID(BASE_UID)
 end
 
 ----------------------------------------
@@ -171,16 +182,16 @@ local function Update_AssistedCombatHighlight(Region, Button)
 	if _mcfg.Enabled then
 		-- Blizzard Skin
 		if _mcfg.BaseSkin then
-			if _mcfg:NeedsUpdate("_uID_ACH", true) then
+			if _mcfg:NeedsUpdate(BASE_UID, true) then
 				Reset_AssistedCombatHighlight(Region, Button)
 			end
 
 		-- Custom Skin
-		elseif _mcfg:NeedsUpdate("_uID_ACH") then
+		elseif _mcfg:NeedsUpdate(BASE_UID) then
 			Skin_AssistedCombatHighlight(Region, Button, Skin)
 		end
 
-	elseif _mcfg:NeedsUpdate("_uID_ACH", true) then
+	elseif _mcfg:NeedsUpdate(BASE_UID, true) then
 		Reset_AssistedCombatHighlight(Region, Button)
 	end
 
@@ -221,13 +232,13 @@ local API = Core.API
 function API:AddAssistedCombatHighlightStyle(Shape, Data)
 	local Debug = Core.Debug
 
-	if (type(Shape) ~= "string") or FlipBooks[Shape] then
+	if (type(Shape) ~= TYPE_STRING) or FlipBooks[Shape] then
 		if Debug then
 			error("Bad argument to API method 'AddAssistedCombatHighlightStyle'. 'Shape' must be a unique string.", 2)
 		end
 		return
 
-	elseif (type(Data) ~= "table") then
+	elseif (type(Data) ~= TYPE_TABLE) then
 		if Debug then
 			error("Bad argument to API method 'AddAssistedCombatHighlightStyle'. 'Data' must be a table.", 2)
 		end
@@ -239,7 +250,7 @@ end
 
 -- Returns an `AssistedCombatHighlight` style.
 function API:GetAssistedCombatHighlightStyle(Shape)
-	if type(Shape) ~= "string" then
+	if type(Shape) ~= TYPE_STRING then
 		if Core.Debug then
 			error("Bad argument to API method 'GetAssistedCombatHighlightStyle'. 'Shape' must be a string.", 2)
 		end
@@ -252,7 +263,7 @@ end
 -- API wrapper for the Hook_AssistedCombatHighlight function.
 -- Only call this if not using the AssistedCombatManager.
 function API:UpdateAssistedCombatHighlight(Button)
-	if type(Button) ~= "table" then
+	if type(Button) ~= TYPE_TABLE then
 		return
 	end
 
