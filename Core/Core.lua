@@ -219,8 +219,10 @@ local function GetType(self, Button, bType)
 		end
 	end
 
+	bType = bType or TYPE_LEGACY
 	self.bType = bType
-	return bType or TYPE_LEGACY
+
+	return bType
 end
 
 ----------------------------------------
