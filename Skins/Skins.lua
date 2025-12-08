@@ -16,8 +16,8 @@ local _, Core = ...
 -- Lua API
 ---
 
-local error, setmetatable, table_insert = error, setmetatable, table.insert
-local table_sort, type = table.sort, type
+local error, rawget, setmetatable = error, rawget, setmetatable
+local table_insert, table_sort, type = table.insert, table.sort, type
 
 ----------------------------------------
 -- Internal
@@ -30,12 +30,26 @@ local Layers = Core.RegTypes.Legacy
 -- Locals
 ---
 
+-- String Constants
 local TYPE_STRING = "string"
 local TYPE_TABLE = "table"
 
+local STR_SQUARE = "Square"
+
+-- Skin Storage
 local AddedSkins, CoreSkins = {}, {}
 local Skins, SkinList, SkinOrder = {}, {}, {}
 local Hidden = {Hide = true}
+
+-- Default Prototype
+local Prototype
+
+-- Unique Fields
+local UniqueKeys = {
+	Author = true,
+	Description = true,
+	Version = true,
+}
 
 -- Legacy Layer Names
 local LegacyLayers = {
@@ -80,7 +94,7 @@ local LegacyLayers = {
 -- Returns a valid shape.
 local function GetShape(Shape)
 	if type(Shape) ~= TYPE_STRING then
-		Shape = "Square"
+		Shape = STR_SQUARE
 	end
 	return Shape
 end
@@ -98,58 +112,77 @@ end
 
 -- Adds data to the skin tables.
 local function AddSkin(SkinID, SkinData, IsCore, IsBase)
-	-- Legacy Layer Validation
-	for Layer, GetLayer in pairs(vLayers) do
+	-- [ Legacy Layers ]
+
+	for Layer, GetLayer in pairs(LegacyLayers) do
 		if not SkinData[Layer] then
 			SkinData[Layer] = GetLayer(SkinData)
 		end
 	end
 
-	local Skin_API = SkinData.API_VERSION or SkinData.Masque_Version
-	local Template = SkinData.Template
+	-- [ Mandatory Metadata ]
 
-	if Template then
-		-- Only do this for skins using "Default" to reference "Blizzard Modern".
-		if Skin_API == 100000 and Template == "Default" then
-			Template = "Blizzard Modern"
+	SkinData.SkinID = SkinID
+	SkinData.Shape = GetShape(SkinData.Shape)
+	SkinData.API_VERSION = (SkinData.API_VERSION or SkinData.Masque_Version) or false
+	
+	if not IsBase then
+		-- [ Templates]
+
+		local Template = SkinData.Template
+
+		-- Skin Template
+		if Template then
+			setmetatable(SkinData, {__index = Skins[Template]})
+
+		-- Default Template
+		else
+			-- Prevent inheritance on unique fields.
+			-- Update this when unique fields are added to the default skins.
+			for Key in pairs(UniqueKeys) do
+				if SkinData[Key] == nil then
+					SkinData[Key] = false
+				end
+			end
+
+			-- Set up the prototype.
+			if not Prototype then
+				Prototype = {__index = Core.DEFAULT_SKIN}
+			end
+
+			setmetatable(SkinData, Prototype)
 		end
 
-		setmetatable(SkinData, {__index = Skins[Template]})
-	end
-
-	if not IsBase then
-		local Default = Core.DEFAULT_SKIN
+		-- [ Layer Validation]
 
 		for Layer, Info in pairs(Layers) do
-			local Skin = SkinData[Layer]
+			local Skin = rawget(SkinData, Layer)
 			local sType = type(Skin)
 
-			-- Allow a layer to use the same skin settings as another layer.
+			-- String reference to another layer.
 			if sType == TYPE_STRING then
-				Skin = SkinData[Skin]
-
-			-- Account for missing skin settings and older skins.
-			elseif sType ~= TYPE_TABLE then
-				Skin = (Info.HideEmpty and Hidden) or Default[Layer]
-
-			-- Prevent the hiding of regions that can't be hidden.
-			elseif (Skin.Hide and not Info.CanHide) then
-				Skin = Default[Layer]
+				SkinData[Layer] = SkinData[Skin]
 
 			-- Hide unused regions.
 			elseif Info.Hide then
-				Skin = Hidden
-			end
+				SkinData[Layer] = Hidden
 
-			SkinData[Layer] = Skin
+			-- Hide layers if allowed.
+			elseif (sType == TYPE_TABLE) then
+				if Skin.Hide then
+					SkinData[Layer] = (Info.CanHide and Hidden) or nil
+				end
+
+			-- Unset invalid layers.
+			elseif Skin ~= nil then
+				SkinData[Layer] = nil
+			end
 		end
 	end
 
-	SkinData.API_VERSION = Skin_API
-	SkinData.Shape = GetShape(SkinData.Shape)
-	SkinData.SkinID = SkinID
-
 	Skins[SkinID] = SkinData
+
+	-- [ UI-Related ]
 
 	if not SkinData.Disable then
 		if IsCore then
