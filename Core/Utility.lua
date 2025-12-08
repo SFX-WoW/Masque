@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local ipairs, type = _G.ipairs, _G.type
+local _G, ipairs, type = _G, ipairs, type
 
 ----------------------------------------
 -- Internal

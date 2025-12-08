@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local pairs, type = pairs, type
+local _G, pairs, type = _G, pairs, type
 
 ----------------------------------------
 -- WoW API

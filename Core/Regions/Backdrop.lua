@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local error, type = _G.error, _G.type
+local error, type = error, type
 
 ----------------------------------------
 -- Internal

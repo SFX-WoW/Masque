@@ -43,9 +43,9 @@ local Skin = {
 	SkinID = SkinID,
 
 	-- [ Info ]
+	Author = "|cff0099ffBlizzard Entertainment|r",
 	Description = L["The default classic button style."],
 	Version = Core.Version,
-	Author = "|cff0099ffBlizzard Entertainment|r",
 
 	-- [ Skin]
 	-- Mask = nil,
