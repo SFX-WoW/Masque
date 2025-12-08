@@ -37,25 +37,17 @@ local AddedSkins, CoreSkins = {}, {}
 local Skins, SkinList, SkinOrder = {}, {}, {}
 local Hidden = {Hide = true}
 
--- Legacy Skin IDs
-local LegacyIDs = {
-	["Blizzard"] = "Blizzard Classic",
-	["Classic"] = "Classic Enhanced",
-	["Default"] = "Blizzard Classic",
-	["Default (Classic)"] = "Blizzard Classic",
-}
-
--- Layers that need to be validated for older skins.
-local vLayers = {
-	-- Using "Shine" or "AutoCast"
+-- Legacy Layer Names
+local LegacyLayers = {
+	-- Using `Shine` or `AutoCast`
 	["AutoCastShine"] = function(Skin)
 		return Skin.AutoCastShine or Skin.Shine or Skin.AutoCast
 	end,
-	-- "ChargeCoolDown" Undefined
+	-- `ChargeCoolDown` Undefined
 	["ChargeCooldown"] = function(Skin)
 		return Skin.ChargeCooldown or Skin.Cooldown
 	end,
-	-- Using Border.Debuff / "DebuffBorder" Undefined
+	-- Using `Border.Debuff` / `DebuffBorder` Undefined
 	["DebuffBorder"] = function(Skin)
 		local Border = Skin.Border
 		if type(Border) == TYPE_TABLE then
@@ -63,7 +55,7 @@ local vLayers = {
 		end
 		return Border
 	end,
-	-- Using Border.Enchant / "EnchantBorder" Undefined
+	-- Using `Border.Enchant` / `EnchantBorder` Undefined
 	["EnchantBorder"] = function(Skin)
 		local Border = Skin.Border
 		if type(Border) == TYPE_TABLE then
@@ -71,7 +63,7 @@ local vLayers = {
 		end
 		return Border
 	end,
-	-- Using Border.Item / "IconBorder" Undefined
+	-- Using `Border.Item` / `IconBorder` Undefined
 	["IconBorder"] = function(Skin)
 		local Border = Skin.Border
 		if type(Border) == TYPE_TABLE then
@@ -82,7 +74,7 @@ local vLayers = {
 }
 
 ----------------------------------------
--- Functions
+-- Helpers
 ---
 
 -- Returns a valid shape.
@@ -91,11 +83,6 @@ local function GetShape(Shape)
 		Shape = "Square"
 	end
 	return Shape
-end
-
--- Returns the ID of a renamed skin.
-local function GetSkinID(SkinID)
-	return LegacyIDs[SkinID]
 end
 
 -- Sorts the `SkinOrder` table, for display in drop-downs.
@@ -183,18 +170,7 @@ end
 
 Core._Hidden = Hidden
 Core.AddSkin = AddSkin
-Core.GetSkinID = GetSkinID
-
-Core.Skins = setmetatable(Skins, {
-	__index = function(self, SkinID)
-		local NewID = GetSkinID(SkinID)
-
-		if NewID then
-			return self[NewID]
-		end
-	end
-})
-
+Core.Skins = Skins
 Core.SkinList = SkinList
 Core.SkinOrder = SkinOrder
 
