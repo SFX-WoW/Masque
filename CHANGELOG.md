@@ -1,3 +1,16 @@
+## 11.2.8-Beta-2
+
+### General
+
+- Implemented a `Defaults` table to migrate away from using the default skins as a base.
+- Optimized some code and logic.
+- Removed the migration code for **Dragonflight**.
+
+### Skins
+
+- Skins can now specify the texture used for the `Backpack` button via the `Backpack` field of the `Icon` skin table.
+- Skins without a template will now inherit missing regions from the active default skin.
+
 ## 11.2.8-Beta
 
 ### General
