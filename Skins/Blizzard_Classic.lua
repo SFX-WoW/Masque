@@ -573,7 +573,7 @@ local Skin = {
 			OffsetY = 2,
 		},
 	},
-	-- [ AutoCastShine (Classic) ]
+	-- [ AutoCast (Classic) ]
 	AutoCastable = {
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 		-- TexCoords = {0, 1, 0, 1},
@@ -598,21 +598,10 @@ local Skin = {
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
-	-- [ AutoCastOverlay (Retail) ]
+	-- [ AutoCast (Retail) ]
 	AutoCast_Frame = {
-		Width = 37, -- 31
-		Height = 37, -- 31
-		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
-	AutoCast_Mask = {
-		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
-		UseAtlasSize = false,
-		Width = 28, -- 23
-		Height = 28, -- 23
+		Width = 37,
+		Height = 37,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
@@ -626,8 +615,19 @@ local Skin = {
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
 		DrawLevel = 0,
-		Width = 49, -- 41
-		Height = 49, -- 41
+		Width = 49,
+		Height = 49,
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
+	AutoCast_Mask = {
+		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
+		UseAtlasSize = false,
+		Width = 28,
+		Height = 28,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
@@ -641,8 +641,8 @@ local Skin = {
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
 		DrawLevel = 1,
-		Width = 36, -- 31
-		Height = 36, -- 31
+		Width = 36,
+		Height = 36,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,

@@ -886,25 +886,10 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	-- [ AutoCastOverlay (Retail) ]
-	-- AB (45) / SAB (30) = 1.5
-	-- Lua @ SAB: 31 * 1.5 = 46.5
-	-- Masque: 46.5 / 1.25 = 37.2
-	-- Multiplier = 1.2 (1.5 / 1.25)
 	AutoCast_Frame = {
 		Width = 37,
 		Height = 37,
 		Point = "CENTER",
-		RelPoint = "CENTER",
-		OffsetX = 0,
-		OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
-	AutoCast_Mask = {
-		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
-		UseAtlasSize = false,
-		Width = 28,
-		Height = 28,
-		Point = "CENTER", -- TOPLEFT, 4, -4 | BOTTOMRIGHT, -4, 4
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
@@ -919,7 +904,18 @@ local Skin = {
 		DrawLevel = 0,
 		Width = 49,
 		Height = 49,
-		Point = "CENTER",-- TOPLEFT, -5, 5 | BOTTOMRIGHT, 5, -5
+		Point = "CENTER",
+		RelPoint = "CENTER",
+		OffsetX = 0,
+		OffsetY = 0,
+		-- SetAllPoints = nil,
+	},
+	AutoCast_Mask = {
+		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
+		UseAtlasSize = false,
+		Width = 28,
+		Height = 28,
+		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
 		OffsetY = 0,
