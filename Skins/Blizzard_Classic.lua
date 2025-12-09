@@ -25,7 +25,6 @@ local L = Core.Locale
 
 -- @ Skins\Skins
 local Hidden = Core._Hidden
-local WOW_CLASSIC = not Core.WOW_RETAIL
 
 ----------------------------------------
 -- Locals
@@ -581,8 +580,8 @@ local Skin = {
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
 		DrawLevel = 1,
-		Width = (WOW_CLASSIC and 58) or 62,
-		Height = (WOW_CLASSIC and 58) or 62,
+		Width = 58,
+		Height = 58,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
@@ -590,11 +589,11 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	AutoCastShine = {
-		Width = (WOW_CLASSIC and 34) or 30,
-		Height = (WOW_CLASSIC and 34) or 30,
+		Width = 34, -- 28
+		Height = 34, -- 28
 		Point = "CENTER",
 		RelPoint = "CENTER",
-		OffsetX = (WOW_CLASSIC and 0) or 1,
+		OffsetX = 0,
 		OffsetY = 0,
 		-- SetAllPoints = nil,
 	},
