@@ -125,7 +125,7 @@ local function AddSkin(SkinID, SkinData, IsCore, IsBase)
 	SkinData.SkinID = SkinID
 	SkinData.Shape = GetShape(SkinData.Shape)
 	SkinData.API_VERSION = (SkinData.API_VERSION or SkinData.Masque_Version) or false
-	
+
 	if not IsBase then
 		-- [ Templates]
 
