@@ -65,6 +65,12 @@ local Defaults = {
 		DrawLevel = -1,
 		Size = 36,
 	},
+	Icon = {
+		Backpack = [[Interface\Icons\INV_Misc_Bag_08]],
+		DrawLayer = "BACKGROUND",
+		DrawLevel = 0,
+		Size = 36,
+	},
 	Gloss = {
 		DrawLayer = "OVERLAY",
 		DrawLevel = 0,
