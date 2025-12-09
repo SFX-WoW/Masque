@@ -23,7 +23,7 @@ local error, type = error, type
 ---
 
 -- @ Skins\Defaults
-local SkinBase = Core.SKIN_BASE.Backdrop
+local SkinRoot = Core.SKIN_BASE
 
 -- @ Core\Utility
 local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
@@ -35,15 +35,18 @@ local Skin_Mask = Core.Skin_Mask
 -- Locals
 ---
 
+local SkinBase = SkinRoot.Backdrop
+
 -- Skin Defaults
-local BASE_BLENDMODE = SkinBase.BlendMode -- "BLEND"
+local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_COLOR = SkinBase.Color -- {0, 0, 0, 0.5}
-local BASE_DRAWLAYER = SkinBase.DrawLayer -- "BACKGROUND"
-local BASE_DRAWLEVEL = SkinBase. DrawLevel -- -1
+local BASE_LAYER = SkinBase.DrawLayer -- "BACKGROUND"
+local BASE_LEVEL = SkinBase. DrawLevel -- -1
+local BASE_SIZE = SkinBase.Size
 local BASE_TEXTURE = SkinBase.Texture -- Masque\Textures\Backdrop\Slot-Modern
 local BASE_TEXTURES = SkinBase.Textures -- Masque\Textures\Backdrop\*
 
--- Unused Backdrops
+-- Unused Backdrop Textures
 local Cache = {}
 
 ----------------------------------------
@@ -103,14 +106,19 @@ local function Add_Backdrop(Region, Button, Skin, Color)
 		Region:SetVertexColor(GetColor(Color))
 	end
 
-	Region:SetBlendMode(Skin.BlendMode or BASE_BLENDMODE)
-	Region:SetDrawLayer(Skin.DrawLayer or BASE_DRAWLAYER, Skin.DrawLevel or BASE_DRAWLEVEL)
+	Region:SetBlendMode(Skin.BlendMode or BASE_BLEND)
+	Region:SetDrawLayer(Skin.DrawLayer or BASE_LAYER, Skin.DrawLevel or BASE_LEVEL)
 
-	if not UseSize then
-		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
+	local SetAllPoints = Skin.SetAllPoints
+
+	if (not SetAllPoints) and (not UseSize) then
+		local Width = Skin.Width or BASE_SIZE
+		local Height = Skin.Height or BASE_SIZE
+
+		Region:SetSize(_mcfg:GetSize(Width, Height))
 	end
 
-	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, SetAllPoints)
 	Region:Show()
 
 	-- Mask

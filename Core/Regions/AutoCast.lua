@@ -26,6 +26,7 @@ local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, C
 -- Locals
 ---
 
+local BASE_BLEND = SkinBase.BlendMode
 local BASE_CLAMP = SkinBase.Clamp
 
 ----------------------------------------
@@ -78,7 +79,7 @@ local function Skin_AutoCastTexture(Region, Button, Anchor, Skin, Default, IsMas
 
 	if not IsMask then
 		Region:SetVertexColor(GetColor(Skin.Color))
-		Region:SetBlendMode(Skin.BlendMode or Default.BlendMode)
+		Region:SetBlendMode(Skin.BlendMode or BASE_BLEND)
 		Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer, Skin.DrawLevel or Default.DrawLevel)
 	end
 

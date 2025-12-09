@@ -19,6 +19,7 @@ local _, Core = ...
 -- Base Paths
 local PATH_BASE = [[Interface\AddOns\Masque\Textures\]]
 local PATH_BACKDROP = PATH_BASE..[[Backdrop\]]
+local PATH_SQUARE = PATH_BASE..[[Square\]]
 
 -- Backdrop Paths
 local BACKDROP_ACTION = PATH_BACKDROP.."Action"
@@ -31,14 +32,17 @@ local Defaults = {
 	-- Color = {1, 1, 1, 1}, -- @ Core/Utility/GetColor
 	BlendMode = "BLEND",
 	Clamp = "CLAMPTOBLACKADDITIVE",
-	Width = 36,
-	Height = 36,
+	-- Width = 36,
+	-- Height = 36,
 	Scale = 1,
 	Size = 36,
 	Point = "CENTER",
 	RelPoint = "CENTER",
 	OffsetX = 0,
 	OffsetY = 0,
+
+	-- [ Regions ]
+
 	Backdrop = {
 		Texture = PATH_BACKDROP.."Slot-Modern",
 		Textures = {
@@ -57,41 +61,32 @@ local Defaults = {
 			Stance = BACKDROP_ACTION,
 		},
 		Color = {0, 0, 0, 0.5}, -- Color Texture Only
-		BlendMode = "BLEND",
 		DrawLayer = "BACKGROUND",
 		DrawLevel = -1,
 	},
 	-- [ AutoCast (Classic) ]
 	AutoCastable = {
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
 		DrawLevel = 1,
-		-- Width = 58,
-		-- Height = 58,
 		Size = 58,
 	},
 	AutoCastShine = {
-		-- Width = 34, -- 28
-		-- Height = 34, -- 28
-		Size = 34,
+		Size = 34, -- 28
 	},
 	-- [ AutoCast (Retail) ]
 	-- AB (45) / SAB (30) = 1.5
 	-- Lua @ SAB: 31 * 1.5 = 46.5
+	-- AB (45) / 36 = 1.25
 	-- Masque: 46.5 / 1.25 = 37.2
 	-- Multiplier = 1.2 (1.5 / 1.25)
 	AutoCast_Frame = {
-		-- Width = 37, -- 31
-		-- Height = 37, -- 31
-		Size = 37,
+		Size = 37, -- 31
 	},
 	AutoCast_Mask = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
 		-- UseAtlasSize = false,
-		-- Width = 28, -- 23
-		-- Height = 28, -- 23
-		Size = 28,
+		Size = 28, -- 23
 	},
 	AutoCast_Shine = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
@@ -99,9 +94,7 @@ local Defaults = {
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
 		DrawLevel = 0,
-		-- Width = 49, -- 41
-		-- Height = 49, -- 41
-		Size = 49,
+		Size = 49, -- 41
 	},
 	AutoCast_Corners = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
@@ -109,10 +102,18 @@ local Defaults = {
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
 		DrawLevel = 1,
-		-- Width = 36, -- 31
-		-- Height = 36, -- 31
-		Size = 36,
+		Size = 36, -- 31
 		-- SetAllPoints = true,
+	},
+	-- [ Cooldown ]
+	Cooldown = {
+		Swipe = PATH_SQUARE.."Mask",
+		SwipeCircle = PATH_BASE..[[Circle\Mask]],
+		Edge = PATH_SQUARE.."Edge",
+		EdgeLoC = PATH_SQUARE.."Edge-LoC",
+		Pulse = [[Interface\Cooldown\star4]],
+		Color = {0, 0, 0, 0.8},
+		Size = 36,
 	},
 }
 
