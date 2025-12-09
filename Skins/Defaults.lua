@@ -63,6 +63,12 @@ local Defaults = {
 		Color = {0, 0, 0, 0.5}, -- Color Texture Only
 		DrawLayer = "BACKGROUND",
 		DrawLevel = -1,
+		Size = 36,
+	},
+	Gloss = {
+		DrawLayer = "OVERLAY",
+		DrawLevel = 0,
+		Size = 36,
 	},
 	-- [ AutoCast (Classic) ]
 	AutoCastable = {
