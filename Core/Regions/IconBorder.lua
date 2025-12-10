@@ -22,8 +22,8 @@ local hooksecurefunc = hooksecurefunc
 -- Internal
 ---
 
--- @ Skins\Blizzard_*
-local DEF_SKIN = Core.DEFAULT_SKIN.IconBorder
+-- @ Skins\Defaults
+local SkinRoot = Core.SKIN_BASE
 
 -- @ Core\Utility
 local GetTexCoords, SetSkinPoint = Core.GetTexCoords, Core.SetSkinPoint
@@ -32,8 +32,18 @@ local GetTexCoords, SetSkinPoint = Core.GetTexCoords, Core.SetSkinPoint
 -- Locals
 ---
 
-local DEF_TEXTURE = DEF_SKIN.Texture
-local REL_TEXTURE = DEF_SKIN.RelicTexture
+local SkinBase = SkinRoot.IconBorder
+
+-- Skin Defaults
+local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
+local BASE_LAYER = SkinBase.DrawLayer -- "OVERLAY"
+local BASE_LEVEL = SkinBase.DrawLevel -- 0
+local BASE_SIZE = SkinBase.Size -- 36
+local BASE_RELIC = SkinBase.RelicTexture -- [[Interface\Artifacts\RelicIconFrame]]
+local BASE_TEXTURE = SkinBase.Texture -- [[Interface\Common\WhiteIconFrame]]
+
+-- String Constants
+local STR_HOOK = "SetTexture"
 
 ----------------------------------------
 -- Hook
@@ -51,13 +61,13 @@ local function Hook_SetTexture(Region, Texture)
 
 	local Skin_Texture = Skin.Texture
 
-	if Texture == REL_TEXTURE then
+	if Texture == BASE_RELIC then
 		Skin_Texture = Skin.RelicTexture or Skin_Texture or Texture
 		Region._MSQ_Texture = Texture
 
 	else
-		Skin_Texture = Skin_Texture or DEF_TEXTURE
-		Region._MSQ_Texture = DEF_TEXTURE
+		Skin_Texture = Skin_Texture or BASE_TEXTURE
+		Region._MSQ_Texture = BASE_TEXTURE
 	end
 
 	Region:SetTexture(Skin_Texture)
@@ -76,8 +86,8 @@ function Core.Skin_IconBorder(Region, Button, Skin)
 
 	local Texture = Region._MSQ_Texture or Region:GetTexture()
 
-	if (Texture ~= DEF_TEXTURE) and (Texture ~= REL_TEXTURE) then
-		Texture = DEF_TEXTURE
+	if (Texture ~= BASE_TEXTURE) and (Texture ~= BASE_RELIC) then
+		Texture = BASE_TEXTURE
 	end
 
 	Region._MSQ_Texture = Texture
@@ -92,14 +102,22 @@ function Core.Skin_IconBorder(Region, Button, Skin)
 	end
 
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-	Region:SetBlendMode(Skin.BlendMode or "BLEND")
-	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 0)
-	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
+	Region:SetBlendMode(Skin.BlendMode or BASE_BLEND)
+	Region:SetDrawLayer(Skin.DrawLayer or BASE_LAYER, Skin.DrawLevel or BASE_LEVEL)
 
-	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
+	local SetAllPoints = Skin.SetAllPoints
+
+	if not SetAllPoints then
+		local Width = Skin.Width or BASE_SIZE
+		local Height = Skin.Height or BASE_SIZE
+
+		Region:SetSize(_mcfg:GetSize(Width, Height))
+	end
+
+	SetSkinPoint(Region, Button, Skin, SetAllPoints)
 
 	if not Region._MSQ_Hooked then
-		hooksecurefunc(Region, "SetTexture", Hook_SetTexture)
+		hooksecurefunc(Region, STR_HOOK, Hook_SetTexture)
 		Region._MSQ_Hooked = true
 	end
 end
