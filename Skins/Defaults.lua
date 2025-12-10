@@ -78,6 +78,13 @@ local Defaults = {
 		DrawLevel = 0,
 		Size = 36,
 	},
+	Normal = {
+		Atlas = "UI-HUD-ActionBar-IconFrame", -- Retail
+		Texture = [[Interface\Buttons\UI-Quickslot2]], -- Classic
+		DrawLayer = "ARTWORK",
+		DrawLevel = 0,
+		Size = 36,
+	},
 	Gloss = {
 		DrawLayer = "OVERLAY",
 		DrawLevel = 1,
