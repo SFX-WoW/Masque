@@ -41,10 +41,10 @@ local SkinBase = SkinRoot.Backdrop
 local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_COLOR = SkinBase.Color -- {0, 0, 0, 0.5}
 local BASE_LAYER = SkinBase.DrawLayer -- "BACKGROUND"
-local BASE_LEVEL = SkinBase. DrawLevel -- -1
-local BASE_SIZE = SkinBase.Size
-local BASE_TEXTURE = SkinBase.Texture -- Masque\Textures\Backdrop\Slot-Modern
-local BASE_TEXTURES = SkinBase.Textures -- Masque\Textures\Backdrop\*
+local BASE_LEVEL = SkinBase.DrawLevel -- -1
+local BASE_SIZE = SkinBase.Size -- 36
+local BASE_TEXTURE = SkinBase.Texture -- [[Interface\AddOns\Masque\Textures\Backdrop\Slot-Modern]]
+local BASE_TEXTURES = SkinBase.Textures -- [[Interface\AddOns\Masque\Textures\Backdrop\*]]
 
 -- Unused Backdrop Textures
 local Cache = {}
