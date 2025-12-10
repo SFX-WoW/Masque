@@ -240,7 +240,7 @@ function Core.Skin_Normal(Region, Button, Skin, Color)
 		Region:SetSize(_mcfg:GetSize(Width, Height))
 	end
 
-	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, SetAllPoints)
 
 	Region:Show()
 
