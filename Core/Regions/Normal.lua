@@ -40,7 +40,7 @@ local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, C
 -- Locals
 ---
 
-local SkinBase = SkinRoot.IconBorder
+local SkinBase = SkinRoot.Normal
 
 -- Skin Defaults
 local BASE_ATLAS = SkinBase.Atlas -- "UI-HUD-ActionBar-IconFrame"
