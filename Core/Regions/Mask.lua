@@ -22,8 +22,22 @@ local type = type
 -- Internal
 ---
 
+-- @ Skins\Defaults
+local SkinRoot = Core.SKIN_BASE
+
 -- @ Core\Utility
 local SetSkinPoint = Core.SetSkinPoint
+
+----------------------------------------
+-- Locals
+---
+
+-- @ Skins\Defaults
+local BASE_WRAP = SkinRoot.WrapMode
+
+-- Type Strings
+local TYPE_STRING = "string"
+local TYPE_TABLE = "table"
 
 ----------------------------------------
 -- Helpers
@@ -76,7 +90,7 @@ local function Skin_RegionMask(Region, Button, Skin)
 	local sType = type(Mask_Skin)
 
 	-- Skin Table
-	if sType == "table" then
+	if sType == TYPE_TABLE then
 		local Atlas, Texture = Mask_Skin.Atlas, Mask_Skin.Texture
 
 		if Atlas then
@@ -98,8 +112,8 @@ local function Skin_RegionMask(Region, Button, Skin)
 		end
 
 	-- Texture Path
-	elseif sType == "string" then
-		Region_Mask:SetTexture(Mask_Skin, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	elseif sType == TYPE_STRING then
+		Region_Mask:SetTexture(Mask_Skin, BASE_WRAP, BASE_WRAP)
 		Region_Mask:SetAllPoints(Region)
 
 	-- Exit
@@ -123,7 +137,7 @@ local function Skin_ButtonMask(Button, Skin)
 	local sType = type(Skin)
 
 	-- Skin Table
-	if sType == "table" then
+	if sType == TYPE_TABLE then
 		local Atlas, Texture = Skin.Atlas, Skin.Texture
 
 		if Atlas then
@@ -145,8 +159,8 @@ local function Skin_ButtonMask(Button, Skin)
 		end
 
 	-- Texture Path
-	elseif sType == "string" then
-		Button_Mask:SetTexture(Skin, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	elseif sType == TYPE_STRING then
+		Button_Mask:SetTexture(Skin, BASE_WRAP, BASE_WRAP)
 		Button_Mask:SetAllPoints(Button)
 	end
 end
