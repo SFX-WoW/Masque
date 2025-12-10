@@ -47,7 +47,7 @@ local Update_Normal = Core.Update_Normal
 -- Skin Defaults
 local BASE_BACKPACK = SkinBase.Backpack -- [[Interface\Icons\INV_Misc_Bag_08]]
 local BASE_LAYER = SkinBase.DrawLayer -- "BACKGROUND"
-local BASE_LEVEL = SkinBase. DrawLevel -- 0
+local BASE_LEVEL = SkinBase.DrawLevel -- 0
 local BASE_SIZE = SkinBase.Size -- 36
 
 -- String Constants

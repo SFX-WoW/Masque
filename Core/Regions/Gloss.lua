@@ -37,8 +37,11 @@ local SkinBase = SkinRoot.Gloss
 -- Skin Defaults
 local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_LAYER = SkinBase.DrawLayer -- "OVERLAY"
-local BASE_LEVEL = SkinBase. DrawLevel -- 0
+local BASE_LEVEL = SkinBase.DrawLevel -- 0
 local BASE_SIZE = SkinBase.Size -- 36
+
+-- Type Strings
+local TYPE_TABLE = "table"
 
 -- Unused Gloss Textures
 local Cache = {}
@@ -139,7 +142,7 @@ end
 
 -- Retrieves the 'Gloss' region of a button.
 function Core.API:GetGloss(Button)
-	if type(Button) ~= "table" then
+	if type(Button) ~= TYPE_TABLE then
 		if Core.Debug then
 			error("Bad argument to API method 'GetGloss'. 'Button' must be a button object.", 2)
 		end
