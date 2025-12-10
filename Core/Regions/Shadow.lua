@@ -22,6 +22,9 @@ local error, type = error, type
 -- Internal
 ---
 
+-- @ Skins\Defaults
+local SkinRoot = Core.SKIN_BASE
+
 -- @ Core\Utility
 local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
@@ -29,6 +32,18 @@ local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, C
 -- Locals
 ---
 
+local SkinBase = SkinRoot.Gloss
+
+-- Skin Defaults
+local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
+local BASE_LAYER = SkinBase.DrawLayer -- "ARTWORK"
+local BASE_LEVEL = SkinBase.DrawLevel -- -1
+local BASE_SIZE = SkinBase.Size -- 36
+
+-- Type Strings
+local TYPE_TABLE = "table"
+
+-- Unused Shadow Textures
 local Cache = {}
 
 ----------------------------------------
@@ -56,12 +71,20 @@ local function Add_Shadow(Button, Skin, Color)
 	Region:SetParent(Button)
 	Region:SetTexture(Skin.Texture)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
-	Region:SetBlendMode(Skin.BlendMode or "BLEND")
+	Region:SetBlendMode(Skin.BlendMode or BASE_BLEND)
 	Region:SetVertexColor(GetColor(Color or Skin.Color))
-	Region:SetDrawLayer(Skin.DrawLayer or "ARTWORK", Skin.DrawLevel or -1)
-	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
+	Region:SetDrawLayer(Skin.DrawLayer or BASE_LAYER, Skin.DrawLevel or BASE_LEVEL)
 
-	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
+	local SetAllPoints = Skin.SetAllPoints
+
+	if not SetAllPoints then
+		local Width = Skin.Width or BASE_SIZE
+		local Height = Skin.Height or BASE_SIZE
+
+		Region:SetSize(_mcfg:GetSize(Width, Height))
+	end
+
+	SetSkinPoint(Region, Button, Skin, SetAllPoints)
 
 	if _mcfg.IsEmpty then
 		Region:Hide()
@@ -119,7 +142,7 @@ end
 
 -- Retrieves the 'Shadow' region of a button.
 function Core.API:GetShadow(Button)
-	if type(Button) ~= "table" then
+	if type(Button) ~= TYPE_TABLE then
 		if Core.Debug then
 			error("Bad argument to API method 'GetShadow'. 'Button' must be a button object.", 2)
 		end
