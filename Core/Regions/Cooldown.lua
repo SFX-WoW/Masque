@@ -53,9 +53,9 @@ local LOC_TEXTURE ={
 }
 
 -- String Constants
+local HOOK_EDGE = "SetEdgeTexture"
+local HOOK_SWIPE = "SetSwipeColor"
 local STR_CIRCLE = "Circle"
-local STR_HOOK_EDGE = "SetEdgeTexture"
-local STR_HOOK_SWIPE = "SetSwipeColor"
 
 ----------------------------------------
 -- Hooks
@@ -123,8 +123,8 @@ local function Skin_Cooldown(Region, Button, Skin, Color, Pulse)
 			Hook_SetEdgeTexture(Region)
 
 			if not Region._MSQ_Hooked then
-				hooksecurefunc(Region, STR_HOOK_SWIPE, Hook_SetSwipeColor)
-				hooksecurefunc(Region, STR_HOOK_EDGE, Hook_SetEdgeTexture)
+				hooksecurefunc(Region, HOOK_SWIPE, Hook_SetSwipeColor)
+				hooksecurefunc(Region, HOOK_EDGE, Hook_SetEdgeTexture)
 
 				Region._MSQ_Hooked = true
 			end

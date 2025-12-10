@@ -43,7 +43,7 @@ local BASE_RELIC = SkinBase.RelicTexture -- [[Interface\Artifacts\RelicIconFrame
 local BASE_TEXTURE = SkinBase.Texture -- [[Interface\Common\WhiteIconFrame]]
 
 -- String Constants
-local STR_HOOK = "SetTexture"
+local HOOK_TEXTURE = "SetTexture"
 
 ----------------------------------------
 -- Hook
@@ -117,7 +117,7 @@ function Core.Skin_IconBorder(Region, Button, Skin)
 	SetSkinPoint(Region, Button, Skin, SetAllPoints)
 
 	if not Region._MSQ_Hooked then
-		hooksecurefunc(Region, STR_HOOK, Hook_SetTexture)
+		hooksecurefunc(Region, HOOK_TEXTURE, Hook_SetTexture)
 		Region._MSQ_Hooked = true
 	end
 end

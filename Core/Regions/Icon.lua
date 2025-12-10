@@ -50,14 +50,14 @@ local BASE_LAYER = SkinBase.DrawLayer -- "BACKGROUND"
 local BASE_LEVEL = SkinBase. DrawLevel -- 0
 local BASE_SIZE = SkinBase.Size -- 36
 
+-- String Constants
+local HOOK_HIDE = "Hide"
+local HOOK_SHOW = "Show"
+local STR_BORDER = "BORDER"
+
 -- Type Strings
 local TYPE_BACKPACK = "Backpack"
 local TYPE_ITEM = "Item"
-
--- String Constants
-local STR_BORDER = "BORDER"
-local STR_HIDE = "Hide"
-local STR_SHOW = "Show"
 
 ----------------------------------------
 -- Helpers
@@ -179,8 +179,8 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 
 		-- Hooks
 		if Hook_Icon[bType] and (not Region._MSQ_Hooked) then
-			hooksecurefunc(Region, STR_HIDE, Hook_Hide)
-			hooksecurefunc(Region, STR_SHOW, Hook_Show)
+			hooksecurefunc(Region, HOOK_HIDE, Hook_Hide)
+			hooksecurefunc(Region, HOOK_SHOW, Hook_Show)
 
 			Region._MSQ_Hooked = true
 		end

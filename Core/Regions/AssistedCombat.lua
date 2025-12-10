@@ -35,16 +35,16 @@ local GetFlipBookAnimation, GetTexCoords = Core.GetFlipBookAnimation, Core.GetTe
 -- Locals
 ---
 
--- Type Strings
-local TYPE_STRING = "string"
-local TYPE_TABLE = "table"
-
 -- Base Strings
 local BASE_ATLAS = "RotationHelper_Ants_Flipbook"
 local BASE_UID = "_uID_ACH"
 
 -- Misc Strings
 local STR_MODERN = "Modern"
+
+-- Type Strings
+local TYPE_STRING = "string"
+local TYPE_TABLE = "table"
 
 -- Internal Settings
 -- Use the texture coordinates of the first frame.
