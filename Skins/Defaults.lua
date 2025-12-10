@@ -99,6 +99,14 @@ local Defaults = {
 		DrawLevel = 2,
 		Size = 37,
 	},
+	QuestBorder = {
+		Border = [[Interface\ContainerFrame\UI-Icon-QuestBang]],
+		Texture = [[Interface\ContainerFrame\UI-Icon-QuestBorder]],
+		BlendMode = "BLEND",
+		DrawLayer = "OVERLAY",
+		DrawLevel = 2,
+		Size = 36,
+	},
 	-- [ AutoCast (Classic) ]
 	AutoCastable = {
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
