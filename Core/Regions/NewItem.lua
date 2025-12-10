@@ -22,18 +22,23 @@ local hooksecurefunc = hooksecurefunc
 -- Internal
 ---
 
+-- @ Skins\Defaults
+local SkinBase = Core.SKIN_BASE.NewItem
+
 -- @ Core\Utility
 local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
-
--- @ Skins\Blizzard_*
-local DEF_SKIN = Core.DEFAULT_SKIN.NewItem
 
 ----------------------------------------
 -- Locals
 ---
 
-local DEF_ATLAS = DEF_SKIN.Atlas
-local DEF_COLOR = DEF_SKIN.Color
+-- Skin Defaults
+local BASE_ATLAS = SkinBase.Atlas -- "bags-glow-white"
+local BASE_BLEND = SkinBase.BlendMode -- "ADD"
+local BASE_LAYER = SkinBase.DrawLayer -- "OVERLAY"
+local BASE_LEVEL = SkinBase.DrawLevel -- -2
+local BASE_SIZE = SkinBase.Size -- 37
+local BASE_USESIZE = SkinBase.UseAtlasSize -- true
 
 local Atlas_Colors = {
 	["bags-glow-white"] = {1, 1, 1, 1},
@@ -55,7 +60,7 @@ local function Hook_SetAtlas(Region, Atlas, UseAtlasSize)
 		return
 	end
 
-	Atlas = Atlas or DEF_ATLAS
+	Atlas = Atlas or BASE_ATLAS
 	Region._MSQ_Atlas = Atlas
 
 	local Skin = Region._MSQ_Skin
@@ -88,7 +93,7 @@ function Core.Skin_NewItem(Region, Button, Skin)
 
 	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
-	local Region_Atlas = Region._MSQ_Atlas or Region:GetAtlas() or DEF_ATLAS
+	local Region_Atlas = Region._MSQ_Atlas or Region:GetAtlas() or BASE_ATLAS
 
 	Region._MSQ_Atlas = Region_Atlas
 	Region._MSQ_Skin = Skin
@@ -110,21 +115,26 @@ function Core.Skin_NewItem(Region, Button, Skin)
 
 	else
 		Region._MSQ_Skin = nil
-		UseSize = DEF_SKIN.UseAtlasSize
+		UseSize = BASE_USESIZE
 
 		Region:SetAtlas(Region_Atlas, UseSize)
-		Region:SetVertexColor(GetColor(DEF_COLOR))
+		Region:SetVertexColor(1, 1, 1, 1)
 	end
 
 	Region:SetTexCoord(GetTexCoords(Skin_Coords))
-	Region:SetBlendMode(Skin.BlendMode or "ADD")
-	Region:SetDrawLayer(Skin.DrawLayer or "OVERLAY", Skin.DrawLevel or 2)
+	Region:SetBlendMode(Skin.BlendMode or BASE_BLEND)
+	Region:SetDrawLayer(Skin.DrawLayer or BASE_LAYER, Skin.DrawLevel or BASE_LEVEL)
 
-	if (not UseSize) then
-		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
+	local SetAllPoints = Skin.SetAllPoints
+
+	if (not SetAllPoints) and (not UseSize) then
+		local Width = Skin.Width or BASE_SIZE
+		local Height = Skin.Height or BASE_SIZE
+
+		Region:SetSize(_mcfg:GetSize(Width, Height))
 	end
 
-	SetSkinPoint(Region, Button, Skin, Skin.SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, SetAllPoints)
 
 	-- Hook
 	if not Region._MSQ_Hooked then

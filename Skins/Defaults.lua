@@ -70,7 +70,7 @@ local Defaults = {
 		RelicTexture = [[Interface\Artifacts\RelicIconFrame]],
 		DrawLayer = "OVERLAY",
 		DrawLevel = 0,
-		Size = 36,
+		Size = 37,
 	},
 	Icon = {
 		Backpack = [[Interface\Icons\INV_Misc_Bag_08]],
@@ -80,8 +80,17 @@ local Defaults = {
 	},
 	Gloss = {
 		DrawLayer = "OVERLAY",
-		DrawLevel = 0,
+		DrawLevel = 1,
 		Size = 36,
+	},
+	NewItem = {
+		Atlas = "bags-glow-white",
+		UseAtlasSize = true,
+		-- Color = {1, 1, 1, 1},
+		BlendMode = "ADD",
+		DrawLayer = "OVERLAY",
+		DrawLevel = 2,
+		Size = 37,
 	},
 	-- [ AutoCast (Classic) ]
 	AutoCastable = {
