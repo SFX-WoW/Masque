@@ -17,7 +17,7 @@ local _, Core = ...
 ---
 
 -- @ Skins\Defaults
-local SkinBase = Core.SKIN_BASE
+local SkinRoot = Core.SKIN_BASE
 
 -- @ Core\Utility
 local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
@@ -26,8 +26,8 @@ local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, C
 -- Locals
 ---
 
-local BASE_BLEND = SkinBase.BlendMode
-local BASE_CLAMP = SkinBase.Clamp
+local BASE_BLEND = SkinRoot.BlendMode
+local BASE_WRAP = SkinRoot.WrapMode
 
 ----------------------------------------
 -- Helpers
@@ -58,7 +58,7 @@ local function Skin_AutoCastTexture(Region, Button, Anchor, Skin, Default, IsMas
 	-- Custom
 	if Texture then
 		if IsMask then
-			Region:SetTexture(Texture, BASE_CLAMP, BASE_CLAMP)
+			Region:SetTexture(Texture, BASE_WRAP, BASE_WRAP)
 		else
 			Region:SetTexture(Texture)
 		end
@@ -100,33 +100,33 @@ end
 -- Skins the Classic `AutoCast`.
 local function Skin_AutoCastShine(Frame, Button, Skin)
 	-- Frame
-	Skin_AutoCastFrame(Frame, Button, Skin.AutoCastShine, SkinBase.AutoCastShine)
+	Skin_AutoCastFrame(Frame, Button, Skin.AutoCastShine, SkinRoot.AutoCastShine)
 
 	-- Corners
 	local Corners = Button.AutoCastable or Frame.Corners
 
 	if Corners then
-		Skin_AutoCastTexture(Corners, Button, Button, Skin.AutoCastable, SkinBase.AutoCastable)
+		Skin_AutoCastTexture(Corners, Button, Button, Skin.AutoCastable, SkinRoot.AutoCastable)
 	end
 end
 
 -- Skins the Retail `AutoCast`.
 local function Skin_AutoCastOverlay(Frame, Button, Skin)
 	-- Frame
-	Skin_AutoCastFrame(Frame, Button, Skin.AutoCast_Frame, SkinBase.AutoCast_Frame)
+	Skin_AutoCastFrame(Frame, Button, Skin.AutoCast_Frame, SkinRoot.AutoCast_Frame)
 
 	-- Corners
 	local Corners = Frame.Corners
 
 	if Corners then
-		Skin_AutoCastTexture(Corners, Button, Frame, Skin.AutoCast_Corners, SkinBase.AutoCast_Corners)
+		Skin_AutoCastTexture(Corners, Button, Frame, Skin.AutoCast_Corners, SkinRoot.AutoCast_Corners)
 	end
 
 	-- Shine
-	Skin_AutoCastTexture(Frame.Shine, Button, Frame, Skin.AutoCast_Shine, SkinBase.AutoCast_Shine)
+	Skin_AutoCastTexture(Frame.Shine, Button, Frame, Skin.AutoCast_Shine, SkinRoot.AutoCast_Shine)
 
 	-- Shine Mask
-	Skin_AutoCastTexture(Frame.Mask, Button, Frame, Skin.AutoCast_Mask, SkinBase.AutoCast_Mask, true)
+	Skin_AutoCastTexture(Frame.Mask, Button, Frame, Skin.AutoCast_Mask, SkinRoot.AutoCast_Mask, true)
 end
 
 ----------------------------------------
