@@ -112,6 +112,47 @@ local Defaults = {
 		DrawLevel = 2,
 		Size = 36,
 	},
+	Name = {
+		JustifyH = "CENTER",
+		JustifyV = "BOTTOM",
+		DrawLayer = "OVERLAY",
+		Width = 36,
+		Height = 0, -- 10
+		Anchor = "Icon",
+		Point = "BOTTOM",
+		RelPoint = "BOTTOM",
+	},
+	Duration = {
+		JustifyH = "CENTER",
+		JustifyV = "TOP",
+		DrawLayer = "OVERLAY",
+		Width = 36,
+		Height = 0,
+		Anchor = "Icon",
+		Point = "TOP",
+		RelPoint = "BOTTOM",
+	},
+	-- [ TextOverlayContainer (Retail) ]
+	HotKey = {
+		JustifyH = "RIGHT",
+		JustifyV = "TOP",
+		DrawLayer = "OVERLAY",
+		Width = 36,
+		Height = 0, -- 10
+		Anchor = "Icon",
+		Point = "TOPRIGHT",
+		RelPoint = "TOPRIGHT",
+	},
+	Count = {
+		JustifyH = "RIGHT",
+		JustifyV = "BOTTOM",
+		DrawLayer = "OVERLAY",
+		Width = 0,
+		Height = 0,
+		Anchor = "Icon",
+		Point = "BOTTOMRIGHT",
+		RelPoint = "BOTTOMRIGHT",
+	},
 	-- [ AutoCast (Classic) ]
 	AutoCastable = {
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],

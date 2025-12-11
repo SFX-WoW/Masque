@@ -22,6 +22,9 @@ local type = type
 -- Internal
 ---
 
+-- @ Skins\Defaults
+local SkinRoot = Core.SKIN_BASE
+
 -- @ Skins\Blizzard_*
 local DEF_SKIN = Core.DEFAULT_SKIN
 
@@ -35,7 +38,7 @@ function Core.Skin_Text(Layer, Region, Button, Skin)
 
 	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
-	local Default = DEF_SKIN[Layer]
+	local Default = SkinRoot[Layer]
 	Default = Default[_mcfg.bType] or Default
 
 	local Skin_Wrap = (Skin.Wrap and true) or false
@@ -44,7 +47,7 @@ function Core.Skin_Text(Layer, Region, Button, Skin)
 	Region:SetJustifyV(Skin.JustifyV or Default.JustifyV)
 	Region:SetWordWrap(Skin_Wrap)
 	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
-	Region:SetSize(_mcfg:GetSize(Skin.Width or 36, Skin.Height or 0))
+	Region:SetSize(_mcfg:GetSize(Skin.Width or Default.Width, Skin.Height or Default.Height))
 
 	local Skin_Anchor = Skin.Anchor or Default.Anchor
 	local Anchor = Button
