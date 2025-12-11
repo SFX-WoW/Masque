@@ -23,17 +23,17 @@ local _G, ipairs, type = _G, ipairs, type
 ---
 
 -- @ Skins\Defaults
-local SkinBase = Core.SKIN_BASE
+local SkinRoot = Core.SKIN_BASE
 
 ----------------------------------------
 -- Locals
 ---
 
 -- SetPoint Defaults
-local BASE_POINT = SkinBase.Point
-local BASE_RELPOINT = SkinBase.RelPoint
-local BASE_OFFSETX = SkinBase.OffSetX
-local BASE_OFFSETY = SkinBase.OffSetY
+local BASE_POINT = SkinRoot.Point
+local BASE_RELPOINT = SkinRoot.RelPoint
+local BASE_OFFSETX = SkinRoot.OffSetX
+local BASE_OFFSETY = SkinRoot.OffSetY
 
 -- Misc Strings
 local STR_ANIMKEY = "FlipAnim"
@@ -87,7 +87,7 @@ end
 ---
 
 -- Clears and sets the point(s) for a region using skin data.
-function Core.SetSkinPoint(Region, Button, Skin, SetAllPoints, Anchor)
+function Core.SetSkinPoint(Region, Button, Skin, SetAllPoints, Anchor, Default)
 	local Skin_Anchor = Skin and Skin.Anchor
 
 	Anchor = Anchor or Button
@@ -110,6 +110,12 @@ function Core.SetSkinPoint(Region, Button, Skin, SetAllPoints, Anchor)
 
 	local Point, RelPoint = BASE_POINT, BASE_RELPOINT
 	local OffsetX, OffsetY = BASE_OFFSETX, BASE_OFFSETY
+
+	-- Account for iterated layers.
+	if type(Default) == TYPE_TABLE then
+		Point = Default.Point or Point
+		RelPoint = Default.RelPoint or RelPoint
+	end
 
 	if Skin then
 		Point = Skin.Point or Point

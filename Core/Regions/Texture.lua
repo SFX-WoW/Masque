@@ -169,9 +169,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 	end
 
-	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Def_Skin.SetAllPoints)
-
-	SetSkinPoint(Region, Button, Skin, SetAllPoints)
+	SetSkinPoint(Region, Button, Skin, SetAllPoints, Button, Default)
 
 	-- Mask
 	if Config.CanMask then
