@@ -23,6 +23,9 @@ local table_insert, table_sort, type = table.insert, table.sort, type
 -- Internal
 ---
 
+-- @ Skins\Defaults
+local Hidden = Core._Hidden
+
 -- @ Skins\Regions
 local Layers = Core.RegTypes.Legacy
 
@@ -31,17 +34,17 @@ local Layers = Core.RegTypes.Legacy
 ---
 
 -- String Constants
+local STR_SQUARE = "Square"
+
+-- Type Strings
 local TYPE_STRING = "string"
 local TYPE_TABLE = "table"
-
-local STR_SQUARE = "Square"
 
 -- Skin Storage
 local AddedSkins, CoreSkins = {}, {}
 local Skins, SkinList, SkinOrder = {}, {}, {}
-local Hidden = {Hide = true}
 
--- Default Prototype
+-- Skin Prototype
 local Prototype
 
 -- Unique Fields
@@ -201,7 +204,6 @@ end
 -- Core
 ---
 
-Core._Hidden = Hidden
 Core.AddSkin = AddSkin
 Core.Skins = Skins
 Core.SkinList = SkinList

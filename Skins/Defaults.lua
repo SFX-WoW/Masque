@@ -16,6 +16,8 @@ local _, Core = ...
 -- Locals
 ---
 
+local Hidden = {Hide = true}
+
 -- Base Paths
 local PATH_BASE = [[Interface\AddOns\Masque\Textures\]]
 local PATH_BACKDROP = PATH_BASE..[[Backdrop\]]
@@ -210,4 +212,5 @@ local Defaults = {
 -- Core
 ---
 
+Core._Hidden = Hidden
 Core.SKIN_BASE = Defaults
