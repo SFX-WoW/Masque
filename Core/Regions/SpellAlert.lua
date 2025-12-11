@@ -22,12 +22,49 @@ local error, type = error, type
 -- Internal
 ---
 
+-- @ Locales\enUS
+local L = Core.Locale
+
 -- @ Core\Utility
 local GetFlipBookAnimation = Core.GetFlipBookAnimation
 
 ----------------------------------------
 -- Locals
 ---
+
+-- Base Strings
+local BASE_ALTGLOW = "UI-HUD-RotationHelper-ProcAltGlow"
+local BASE_LOOP = "UI-HUD-ActionBar-Proc-Loop-Flipbook"
+local BASE_START = "UI-HUD-ActionBar-Proc-Start-Flipbook"
+local BASE_UID = "_uID_SAA"
+
+-- Loop Strings
+local LOOP_CLASSIC = "SpellAlert-Loop-Classic"
+local LOOP_MODERN = "SpellAlert-Loop-Modern"
+local LOOP_MODLITE = "SpellAlert-Loop-Modern-Lite"
+
+-- Path Strings
+local PATH_BASE = [[Interface\AddOns\Masque\Textures\]]
+local PATH_CIRCLE = PATH_BASE..[[Circle\]]
+local PATH_HEXAGON = PATH_BASE..[[Hexagon\]]
+local PATH_HEXATED = PATH_BASE..[[Hexagon-Rotated\]]
+local PATH_MODERN = PATH_BASE..[[Modern\]]
+local PATH_SQUARE = PATH_BASE..[[Square\]]
+
+-- String Constants
+local STR_ALTGLOW = "SpellAlert-AltGlow"
+local STR_CENTER = "CENTER"
+local STR_CIRCLE = "Circle"
+local STR_CLASSIC = "Classic"
+local STR_HEXAGON = "Hexagon"
+local STR_HEXATED = "Hexagon-Rotated"
+local STR_MODERN = "Modern"
+local STR_MODLITE = "Modern-Lite"
+local STR_SQUARE = "Square"
+
+-- Type Strings
+local TYPE_STRING = "string"
+local TYPE_TABLE = "table"
 
 -- Default Masque Textures
 -- Size: 512 x 512
@@ -41,8 +78,8 @@ local SIZE_MODERN = 84
 -- Overlay Textures
 local Overlays = {
 	Circle = {
-		Ants = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Ants]],
-		Glow = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Glow]],
+		Ants = PATH_CIRCLE.."SpellAlert-Ants",
+		Glow = PATH_CIRCLE.."SpellAlert-Glow",
 	},
 	Square = {
 		Ants = [[Interface\SpellActivationOverlay\IconAlertAnts]],
@@ -52,28 +89,28 @@ local Overlays = {
 
 -- AltGlow Settings
 local AltGlows = {
-	["Circle"] = {
-		Texture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-AltGlow]],
+	[STR_CIRCLE] = {
+		Texture = PATH_CIRCLE..STR_ALTGLOW,
 		Width = SIZE_ALTGLOW,
 		Height = SIZE_ALTGLOW,
 	},
-	["Hexagon"] = {
-		Texture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-AltGlow]],
+	[STR_HEXAGON] = {
+		Texture = PATH_HEXAGON..STR_ALTGLOW,
 		Width = SIZE_ALTGLOW,
 		Height = SIZE_ALTGLOW,
 	},
-	["Hexagon-Rotated"] = {
-		Texture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-AltGlow]],
+	[STR_HEXATED] = {
+		Texture = PATH_HEXATED..STR_ALTGLOW,
 		Width = SIZE_ALTGLOW,
 		Height = SIZE_ALTGLOW,
 	},
-	["Modern"] = {
-		Texture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-AltGlow]],
+	[STR_MODERN] = {
+		Texture = PATH_MODERN..STR_ALTGLOW,
 		Width = SIZE_ALTGLOW,
 		Height = SIZE_ALTGLOW,
 	},
-	["Square"] = {
-		Texture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-AltGlow]],
+	[STR_SQUARE] = {
+		Texture = PATH_SQUARE..STR_ALTGLOW,
 		Width = SIZE_ALTGLOW,
 		Height = SIZE_ALTGLOW,
 	},
@@ -81,83 +118,83 @@ local AltGlows = {
 
 -- Flipbook Settings
 local FlipBooks = {
-	["Classic"] = {
-		["Circle"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Classic]],
+	[STR_CLASSIC] = {
+		[STR_CIRCLE] = {
+			LoopTexture = PATH_CIRCLE..LOOP_CLASSIC,
 			FrameHeight = SIZE_CLASSIC,
 			FrameWidth = SIZE_CLASSIC,
 		},
-		["Hexagon"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Classic]],
+		[STR_HEXAGON] = {
+			LoopTexture = PATH_HEXAGON..LOOP_CLASSIC,
 			FrameHeight = SIZE_CLASSIC,
 			FrameWidth = SIZE_CLASSIC,
 		},
-		["Hexagon-Rotated"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Classic]],
+		[STR_HEXATED] = {
+			LoopTexture = PATH_HEXATED..LOOP_CLASSIC,
 			FrameHeight = SIZE_CLASSIC,
 			FrameWidth = SIZE_CLASSIC,
 		},
-		["Modern"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Classic]],
+		[STR_MODERN] = {
+			LoopTexture = PATH_MODERN..LOOP_CLASSIC,
 			FrameHeight = SIZE_CLASSIC,
 			FrameWidth = SIZE_CLASSIC,
 		},
-		["Square"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Classic]],
+		[STR_SQUARE] = {
+			LoopTexture = PATH_SQUARE..LOOP_CLASSIC,
 			FrameHeight = SIZE_CLASSIC,
 			FrameWidth = SIZE_CLASSIC,
 		},
 	},
-	["Modern"] = {
-		["Circle"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Modern]],
+	[STR_MODERN] = {
+		[STR_CIRCLE] = {
+			LoopTexture = PATH_CIRCLE..LOOP_MODERN,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
-		["Hexagon"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Modern]],
+		[STR_HEXAGON] = {
+			LoopTexture = PATH_HEXAGON..LOOP_MODERN,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
-		["Hexagon-Rotated"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Modern]],
+		[STR_HEXATED] = {
+			LoopTexture = PATH_HEXATED..LOOP_MODERN,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
-		["Modern"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Modern]],
+		[STR_MODERN] = {
+			LoopTexture = PATH_MODERN..LOOP_MODERN,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
-		["Square"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Modern]],
+		[STR_SQUARE] = {
+			LoopTexture = PATH_SQUARE..LOOP_MODERN,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
 	},
-	["Modern-Lite"] = {
-		["Circle"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Circle\SpellAlert-Loop-Modern-Lite]],
+	[STR_MODLITE] = {
+		[STR_CIRCLE] = {
+			LoopTexture = PATH_CIRCLE..LOOP_MODLITE,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
-		["Hexagon"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon\SpellAlert-Loop-Modern-Lite]],
+		[STR_HEXAGON] = {
+			LoopTexture = PATH_HEXAGON..LOOP_MODLITE,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
-		["Hexagon-Rotated"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Hexagon-Rotated\SpellAlert-Loop-Modern-Lite]],
+		[STR_HEXATED] = {
+			LoopTexture = PATH_HEXATED..LOOP_MODLITE,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
-		["Modern"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Modern\SpellAlert-Loop-Modern-Lite]],
+		[STR_MODERN] = {
+			LoopTexture = PATH_MODERN..LOOP_MODLITE,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
-		["Square"] = {
-			LoopTexture = [[Interface\AddOns\Masque\Textures\Square\SpellAlert-Loop-Modern-Lite]],
+		[STR_SQUARE] = {
+			LoopTexture = PATH_SQUARE..LOOP_MODLITE,
 			FrameHeight = SIZE_MODERN,
 			FrameWidth = SIZE_MODERN,
 		},
@@ -166,10 +203,10 @@ local FlipBooks = {
 
 -- List of flipbooks.
 local FlipBook_List = {
-	[0] = "None",
-	["Classic"] = "Classic",
-	["Modern"] = "Modern",
-	["Modern-Lite"] = "Modern Lite",
+	[0] = L["None"],
+	[STR_CLASSIC] = STR_CLASSIC,
+	[STR_MODERN] = STR_MODERN,
+	[STR_MODLITE] = "Modern Lite",
 }
 
 ----------------------------------------
@@ -182,7 +219,7 @@ local function Skin_Overlay(Region, Button, Skin)
 
 	if not _mcfg then return end
 
-	local Shape = _mcfg.Shape or "Square"
+	local Shape = _mcfg.Shape or STR_SQUARE
 
 	-- Update the skin if the shape has changed.
 	if _mcfg.OverlayShape ~= Shape then
@@ -253,9 +290,9 @@ local function Reset_FlipBooks(Region, Button, Width, Height)
 
 	-- Verify there's a start animation.
 	if Start_Flipbook and Start_Animation then
-		Start_Flipbook:SetAtlas("UI-HUD-ActionBar-Proc-Start-Flipbook")
+		Start_Flipbook:SetAtlas(BASE_START)
 		Start_Flipbook:ClearAllPoints()
-		Start_Flipbook:SetPoint("CENTER")
+		Start_Flipbook:SetPoint(STR_CENTER)
 
 		local Button_Width, Button_Height = Button:GetSize()
 
@@ -288,7 +325,7 @@ local function Reset_FlipBooks(Region, Button, Width, Height)
 	local Loop_Group = Region.ProcLoop
 	local Loop_Animation = Loop_Group and GetFlipBookAnimation(Loop_Group)
 
-	Region.ProcLoopFlipbook:SetAtlas("UI-HUD-ActionBar-Proc-Loop-Flipbook")
+	Region.ProcLoopFlipbook:SetAtlas(BASE_LOOP)
 	Update_Animation(Loop_Animation)
 
 	-- [ AltGlow ]
@@ -296,7 +333,7 @@ local function Reset_FlipBooks(Region, Button, Width, Height)
 	local AltGlow = Region.ProcAltGlow
 
 	if AltGlow then
-		AltGlow:SetAtlas("UI-HUD-RotationHelper-ProcAltGlow", true)
+		AltGlow:SetAtlas(BASE_ALTGLOW, true)
 	end
 end
 
@@ -404,7 +441,7 @@ local function Skin_FlipBooks(Region, Button, Skin, UpdateUID)
 
 	-- Update the uID if the skin changed.
 	if UpdateUID then
-		_mcfg:UpdateUID("_uID_SAA")
+		_mcfg:UpdateUID(BASE_UID)
 	end
 end
 
@@ -426,7 +463,7 @@ local function Update_SpellActivationAlert(Button)
 	local bSkin = _mcfg.Skin
 	local Skin = bSkin and bSkin.SpellAlert
 
-	local Skin_Changed = _mcfg:NeedsUpdate("_uID_SAA")
+	local Skin_Changed = _mcfg:NeedsUpdate(BASE_UID)
 	local Style_Changed = _mcfg.SpellAlertStyle ~= Style
 
 	-- Update the flipbooks.
@@ -457,7 +494,7 @@ end
 -- Hook for Retail spell alerts.
 local function Hook_ShowAlert(Frame, Button)
 	-- Account for API calls.
-	if type(Button) ~= "table" then
+	if type(Button) ~= TYPE_TABLE then
 		Button = Frame
 	end
 
@@ -515,19 +552,19 @@ local API = Core.API
 
 -- Adds an overlay texture set.
 function API:AddSpellAlert(Shape, Glow, Ants)
-	if type(Shape) ~= "string" or Overlays[Shape] then
+	if type(Shape) ~= TYPE_STRING or Overlays[Shape] then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlert'. 'Shape' must be a unique string.", 2)
 		end
 		return
 
-	elseif Glow and type(Glow) ~= "string" then
+	elseif Glow and type(Glow) ~= TYPE_STRING then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlert'. 'Glow' must be a string.", 2)
 		end
 		return
 
-	elseif Ants and type(Ants) ~= "string" then
+	elseif Ants and type(Ants) ~= TYPE_STRING then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlert'. 'Ants' must be a string.", 2)
 		end
@@ -544,19 +581,19 @@ end
 
 -- Adds a custom flipbook set.
 function API:AddSpellAlertFlipBook(Style, Shape, Data)
-	if type(Style) ~= "string" then
+	if type(Style) ~= TYPE_STRING then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Shape' must be a unique string.", 2)
 		end
 		return
 
-	elseif type(Shape) ~= "string" then
+	elseif type(Shape) ~= TYPE_STRING then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Shape' must be a unique string.", 2)
 		end
 		return
 
-	elseif type(Data) ~= "table" then
+	elseif type(Data) ~= TYPE_TABLE then
 		if Core.Debug then
 			error("Bad argument to API method 'AddSpellAlertFlipBook'. 'Data' must be a table.", 2)
 		end
@@ -578,7 +615,7 @@ end
 
 -- Returns an overlay texture set.
 function API:GetSpellAlert(Shape)
-	if type(Shape) ~= "string" then
+	if type(Shape) ~= TYPE_STRING then
 		if Core.Debug then
 			error("Bad argument to API method 'GetSpellAlert'. 'Shape' must be a string.", 2)
 		end
@@ -594,13 +631,13 @@ end
 
 -- Returns a custom flipbook set.
 function API:GetSpellAlertFlipBook(Style, Shape)
-	if type(Style) ~= "string" then
+	if type(Style) ~= TYPE_STRING then
 		if Core.Debug then
 			error("Bad argument to API method 'GetSpellAlertFlipBook'. 'Style' must be a string.", 2)
 		end
 		return
 
-	elseif type(Shape) ~= "string" then
+	elseif type(Shape) ~= TYPE_STRING then
 		if Core.Debug then
 			error("Bad argument to API method 'GetSpellAlertFlipBook'. 'Shape' must be a string.", 2)
 		end
@@ -613,7 +650,7 @@ end
 
 -- API wrapper for the Update_SpellAlert function.
 function API:UpdateSpellAlert(Button)
-	if type(Button) ~= "table" then
+	if type(Button) ~= TYPE_TABLE then
 		return
 	end
 
