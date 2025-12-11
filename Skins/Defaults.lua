@@ -28,6 +28,20 @@ local BACKDROP_ACTION = PATH_BACKDROP.."Action"
 local BACKDROP_AURA = PATH_BACKDROP.."Aura"
 local BACKDROP_ITEM = PATH_BACKDROP.."Action"
 
+-- String Constants
+local STR_ADD = "ADD"
+local STR_ARTWORK = "ARTWORK"
+local STR_BOTTOM = "BOTTOM"
+local STR_BOTTOMRIGHT = "BOTTOMRIGHT"
+local STR_CENTER = "CENTER"
+local STR_BACKGROUND = "BACKGROUND"
+local STR_ICON = "Icon"
+local STR_OVERLAY = "OVERLAY"
+local STR_RIGHT = "RIGHT"
+local STR_TOP = "TOP"
+local STR_TOPLEFT = "TOPLEFT"
+local STR_TOPRIGHT = "TOPRIGHT"
+
 local Defaults = {
 	-- [ Shared ]
 	-- TexCoords = {0, 1, 0, 1}, -- @ Core/Utility/GetTexCoords
@@ -38,8 +52,8 @@ local Defaults = {
 	-- Height = 36,
 	Scale = 1,
 	Size = 36,
-	Point = "CENTER",
-	RelPoint = "CENTER",
+	Point = STR_CENTER,
+	RelPoint = STR_CENTER,
 	OffsetX = 0,
 	OffsetY = 0,
 
@@ -63,102 +77,213 @@ local Defaults = {
 			Stance = BACKDROP_ACTION,
 		},
 		Color = {0, 0, 0, 0.5}, -- Color Texture Only
-		DrawLayer = "BACKGROUND",
+		DrawLayer = STR_BACKGROUND,
 		DrawLevel = -1,
-		Size = 36,
+	},
+	Icon = {
+		Backpack = [[Interface\Icons\INV_Misc_Bag_08]],
+		DrawLayer = STR_BACKGROUND,
+		DrawLevel = 0,
+	},
+	Shadow = {
+		DrawLayer = STR_ARTWORK,
+		DrawLevel = -1,
+	},
+	Normal = {
+		Texture = [[Interface\Buttons\UI-Quickslot2]],
+		DrawLayer = STR_ARTWORK,
+		DrawLevel = 0,
+	},
+	Disabled = Hidden, -- [IT]
+	Pushed = { -- [IT]
+		Texture = [[Interface\Buttons\UI-Quickslot-Depress]],
+		DrawLayer = STR_ARTWORK,
+		DrawLevel = 0,
+	},
+	Flash = { -- [IT]
+		Texture = [[Interface\Buttons\UI-QuickslotRed]],
+		DrawLayer = STR_ARTWORK,
+		DrawLevel = 1,
+	},
+	Checked = { -- [IT]
+		Texture = [[Interface\Buttons\CheckButtonHilight]],
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 0,
+	},
+	SlotHighlight = { -- [IT]
+		Texture = [[Interface\Buttons\CheckButtonHilight]],
+		DrawLayer = STR_ARTWORK,
+		DrawLevel = 0,
+	},
+	Border = { -- [IT]
+		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 0,
+		Size = 62,
+		Debuff = {
+			Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
+			TexCoords = {0.296875, 0.5703125, 0, 0.515625},
+			DrawLayer = STR_OVERLAY,
+			DrawLevel = 0,
+			Size = 38,
+		},
+		Enchant = {
+			Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
+			DrawLayer = STR_OVERLAY,
+			DrawLevel = 0,
+			Size = 38,
+		},
+		Item = { -- Still necessary for some add-ons.
+			Texture = [[Interface\Common\WhiteIconFrame]],
+			DrawLayer = STR_OVERLAY,
+			DrawLevel = 0,
+		},
+	},
+	DebuffBorder = { -- [IT]
+		Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
+		TexCoords = {0.296875, 0.5703125, 0, 0.515625},
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 0,
+		Size = 38,
+	},
+	EnchantBorder = { -- [IT]
+		Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 0,
+		Size = 38,
 	},
 	IconBorder = {
 		Texture = [[Interface\Common\WhiteIconFrame]],
 		RelicTexture = [[Interface\Artifacts\RelicIconFrame]],
-		DrawLayer = "OVERLAY",
+		DrawLayer = STR_OVERLAY,
 		DrawLevel = 0,
-		Size = 37,
-	},
-	Icon = {
-		Backpack = [[Interface\Icons\INV_Misc_Bag_08]],
-		DrawLayer = "BACKGROUND",
-		DrawLevel = 0,
-		Size = 36,
-	},
-	Shadow = {
-		DrawLayer = "ARTWORK",
-		DrawLevel = -1,
-		Size = 36,
-	},
-	Normal = {
-		Atlas = "UI-HUD-ActionBar-IconFrame", -- Retail
-		Texture = [[Interface\Buttons\UI-Quickslot2]], -- Classic
-		DrawLayer = "ARTWORK",
-		DrawLevel = 0,
-		Size = 36,
 	},
 	Gloss = {
-		DrawLayer = "OVERLAY",
+		DrawLayer = STR_OVERLAY,
 		DrawLevel = 1,
+	},
+	NewAction = { -- [IT]
+		Atlas = "bags-newitem",
+		BlendMode = STR_ADD,
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 1,
+		Size = 44,
+	},
+	SpellHighlight = { -- [IT]
+		Atlas = "bags-newitem",
+		BlendMode = STR_ADD,
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 1,
+		Size = 44,
+	},
+	UpgradeIcon = { -- [IT]
+		Atlas = "bags-greenarrow",
+		UseAtlasSize = true,
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 1,
+		Size = 16,
+		Point = STR_TOPLEFT,
+		RelPoint = STR_TOPLEFT,
+	},
+	IconOverlay = { -- [IT]
+		Atlas = "AzeriteIconFrame",
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 1,
+		Size = 36,
+	},
+	IconOverlay2 = { -- [IT]
+		Atlas = "ConduitIconFrame-Corners",
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 2,
 		Size = 36,
 	},
 	NewItem = {
 		Atlas = "bags-glow-white",
-		UseAtlasSize = true,
-		-- Color = {1, 1, 1, 1},
-		BlendMode = "ADD",
-		DrawLayer = "OVERLAY",
+		BlendMode = STR_ADD,
+		DrawLayer = STR_OVERLAY,
 		DrawLevel = 2,
 		Size = 37,
 	},
 	QuestBorder = {
 		Border = [[Interface\ContainerFrame\UI-Icon-QuestBang]],
 		Texture = [[Interface\ContainerFrame\UI-Icon-QuestBorder]],
-		BlendMode = "BLEND",
-		DrawLayer = "OVERLAY",
+		DrawLayer = STR_OVERLAY,
 		DrawLevel = 2,
-		Size = 36,
 	},
-	Name = {
-		JustifyH = "CENTER",
-		JustifyV = "BOTTOM",
-		DrawLayer = "OVERLAY",
-		Width = 36,
-		Height = 0, -- 10
-		Anchor = "Icon",
-		Point = "BOTTOM",
-		RelPoint = "BOTTOM",
+	ContextOverlay = { -- [IT]
+		Color = {0, 0, 0, 0.8},
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 4,
+		Size = 37,
+		UseColor = true,
+	},
+	SearchOverlay = { -- [IT]
+		Color = {0, 0, 0, 0.8},
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 4,
+		Size = 37,
+		UseColor = true,
+	},
+	JunkIcon = { -- [IT]
+		Atlas = "bags-junkcoin",
+		UseAtlasSize = true,
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 5,
+		Size = 20,
+		Point = STR_TOPLEFT,
+		RelPoint = STR_TOPLEFT,
 	},
 	Duration = {
-		JustifyH = "CENTER",
-		JustifyV = "TOP",
-		DrawLayer = "OVERLAY",
+		JustifyH = STR_CENTER,
+		JustifyV = STR_TOP,
+		DrawLayer = STR_OVERLAY,
 		Width = 36,
 		Height = 0,
-		Anchor = "Icon",
-		Point = "TOP",
-		RelPoint = "BOTTOM",
+		Anchor = STR_ICON,
+		Point = STR_TOP,
+		RelPoint = STR_BOTTOM,
 	},
-	-- [ TextOverlayContainer (Retail) ]
-	HotKey = {
-		JustifyH = "RIGHT",
-		JustifyV = "TOP",
-		DrawLayer = "OVERLAY",
+	Name = {
+		JustifyH = STR_CENTER,
+		JustifyV = STR_BOTTOM,
+		DrawLayer = STR_OVERLAY,
 		Width = 36,
 		Height = 0, -- 10
-		Anchor = "Icon",
-		Point = "TOPRIGHT",
-		RelPoint = "TOPRIGHT",
+		Anchor = STR_ICON,
+		Point = STR_BOTTOM,
+		RelPoint = STR_BOTTOM,
 	},
+	Highlight = { -- [IT]
+		Texture = [[Interface\Buttons\ButtonHilight-Square]],
+		BlendMode = STR_ADD,
+		DrawLayer = "HIGHLIGHT",
+		DrawLevel = 0,
+	},
+	-- [ TextOverlayContainer (Retail) ]
 	Count = {
-		JustifyH = "RIGHT",
-		JustifyV = "BOTTOM",
-		DrawLayer = "OVERLAY",
+		JustifyH = STR_RIGHT,
+		JustifyV = STR_BOTTOM,
+		DrawLayer = STR_OVERLAY,
 		Width = 0,
 		Height = 0,
-		Anchor = "Icon",
-		Point = "BOTTOMRIGHT",
-		RelPoint = "BOTTOMRIGHT",
+		Anchor = STR_ICON,
+		Point = STR_BOTTOMRIGHT,
+		RelPoint = STR_BOTTOMRIGHT,
+	},
+	HotKey = {
+		JustifyH = STR_RIGHT,
+		JustifyV = STR_TOP,
+		DrawLayer = STR_OVERLAY,
+		Width = 36,
+		Height = 0, -- 10
+		Anchor = STR_ICON,
+		Point = STR_TOPRIGHT,
+		RelPoint = STR_TOPRIGHT,
 	},
 	-- [ AutoCast (Classic) ]
 	AutoCastable = {
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-		DrawLayer = "OVERLAY",
+		DrawLayer = STR_OVERLAY,
 		DrawLevel = 1,
 		Size = 58,
 	},
@@ -181,20 +306,14 @@ local Defaults = {
 	},
 	AutoCast_Shine = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
-		-- UseAtlasSize = false,
-		BlendMode = "BLEND",
-		DrawLayer = "OVERLAY",
+		DrawLayer = STR_OVERLAY,
 		DrawLevel = 0,
 		Size = 49, -- 41
 	},
 	AutoCast_Corners = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
-		-- UseAtlasSize = false,
-		BlendMode = "BLEND",
-		DrawLayer = "OVERLAY",
+		DrawLayer = STR_OVERLAY,
 		DrawLevel = 1,
-		Size = 36, -- 31
-		-- SetAllPoints = true,
 	},
 	-- [ Cooldown ]
 	Cooldown = {
@@ -204,7 +323,6 @@ local Defaults = {
 		EdgeLoC = PATH_SQUARE.."Edge-LoC",
 		Pulse = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
-		Size = 36,
 	},
 }
 

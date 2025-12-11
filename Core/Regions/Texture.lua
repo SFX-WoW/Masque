@@ -16,21 +16,29 @@ local _, Core = ...
 -- Internal
 ---
 
+-- @ Skins\Defaults
+local SkinRoot = Core.SKIN_BASE
+
+-- @ Skins\Regions
+local Settings = Core.RegTypes.Legacy
+
 -- @ Core\Utility
 local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint
 
 -- @ Core\Regions\Mask
 local Skin_Mask = Core.Skin_Mask
 
--- @ Skins\Blizzard_*
-local DEF_SKIN = Core.DEFAULT_SKIN
-
--- @ Skins\Regions
-local Settings = Core.RegTypes.Legacy
-
 ----------------------------------------
 -- Locals
 ---
+
+-- Skin Defaults
+local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
+local BASE_SIZE = SkinRoot.Size
+
+-- String Constants
+local STR_COLOR = "Color_"
+local STR_HIGHLIGHT = "Highlight"
 
 -- Regions that need their color stored.
 local Store_Color = {
@@ -81,9 +89,9 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 	end
 
 	local Resize = true
-	local Def_Skin = DEF_SKIN[Layer]
+	local Default = SkinRoot[Layer]
 
-	Def_Skin = _mcfg:GetTypeSkin(Button, Def_Skin)
+	Default = Default[bType] or Default
 
 	if (not Config.NoTexture) then
 		local Atlas = Skin.Atlas
@@ -92,7 +100,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 		Color = Color or Skin.Color
 
 		if Store_Color[Layer] then
-			local Key = "Color_"..Layer
+			local Key = STR_COLOR..Layer
 			_mcfg[Key] = Color
 		end
 
@@ -121,52 +129,59 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 			Resize = not UseSize
 
 			if Set_Color then
-				Region:SetVertexColor(GetColor(Def_Skin.Color))
+				Region:SetVertexColor(GetColor(Default.Color))
 			end
 
 		-- Default
 		else
-			Atlas = Def_Skin.Atlas
-			Texture = Def_Skin.Texture
+			Atlas = Default.Atlas
+			Texture = Default.Texture
 
 			if Atlas then
-				local UseSize = Def_Skin.UseAtlasSize
+				local UseSize = Default.UseAtlasSize
 
 				Region:SetAtlas(Atlas, UseSize)
 				Resize = not UseSize
 
 				if Set_Color then
-					Region:SetVertexColor(GetColor(Def_Skin.Color))
+					Region:SetVertexColor(GetColor(Default.Color))
 				end
 
 			elseif Texture then
-				Skin_Coords = Def_Skin.TexCoords
-				Region:SetTexture(Def_Skin.Texture)
+				Skin_Coords = Default.TexCoords
+				Region:SetTexture(Default.Texture)
 
 				if Set_Color then
-					Region:SetVertexColor(GetColor(Def_Skin.Color))
+					Region:SetVertexColor(GetColor(Default.Color))
 				end
 
 			elseif Use_Color then
 				Region:SetTexture()
 				Region:SetVertexColor(1, 1, 1, 1)
-				Region:SetColorTexture(GetColor(Def_Skin.Color))
+				Region:SetColorTexture(GetColor(Default.Color))
 			end
 		end
 
 		Region:SetTexCoord(GetTexCoords(Skin_Coords))
 	end
 
-	Region:SetBlendMode(Skin.BlendMode or Def_Skin.BlendMode or "BLEND")
+	Region:SetBlendMode(Skin.BlendMode or Default.BlendMode or BASE_BLEND)
 
-	if Layer == "Highlight" then
-		Region:SetDrawLayer("HIGHLIGHT", Skin.DrawLevel or Def_Skin.DrawLevel or 0)
+	if Layer == STR_HIGHLIGHT then
+		Region:SetDrawLayer(Default.DrawLayer, Skin.DrawLevel or Default.DrawLevel)
 	else
-		Region:SetDrawLayer(Skin.DrawLayer or Def_Skin.DrawLayer, Skin.DrawLevel or Def_Skin.DrawLevel or 0)
+		Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer, Skin.DrawLevel or Default.DrawLevel)
 	end
 
-	if Resize then
-		Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
+	local SetAllPoints = Skin.SetAllPoints or (not Skin.Point and Default.SetAllPoints)
+
+	if (not SetAllPoints) and Resize then
+		local Size = Default.Size or BASE_SIZE
+
+		local Width = Skin.Width or Size
+		local Height = Skin.Height or Size
+
+		Region:SetSize(_mcfg:GetSize(Width, Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, SetAllPoints, Button, Default)
