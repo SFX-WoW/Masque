@@ -32,13 +32,13 @@ local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, C
 -- Locals
 ---
 
-local SkinBase = SkinRoot.Gloss
+local SkinBase = SkinRoot.Shadow
 
 -- Skin Defaults
 local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_LAYER = SkinBase.DrawLayer -- "ARTWORK"
 local BASE_LEVEL = SkinBase.DrawLevel -- -1
-local BASE_SIZE = SkinBase.Size -- 36
+local BASE_SIZE = SkinRoot.Size -- 36
 
 -- Type Strings
 local TYPE_TABLE = "table"

@@ -38,7 +38,7 @@ local BASE_BLEND = SkinBase.BlendMode -- "ADD"
 local BASE_LAYER = SkinBase.DrawLayer -- "OVERLAY"
 local BASE_LEVEL = SkinBase.DrawLevel -- -2
 local BASE_SIZE = SkinBase.Size -- 37
-local BASE_USESIZE = SkinBase.UseAtlasSize -- true
+local BASE_USESIZE = SkinBase.UseAtlasSize -- nil
 
 local Atlas_Colors = {
 	["bags-glow-white"] = {1, 1, 1, 1},

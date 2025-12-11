@@ -42,9 +42,12 @@ local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_COLOR = SkinBase.Color -- {0, 0, 0, 0.5}
 local BASE_LAYER = SkinBase.DrawLayer -- "BACKGROUND"
 local BASE_LEVEL = SkinBase.DrawLevel -- -1
-local BASE_SIZE = SkinBase.Size -- 36
+local BASE_SIZE = SkinRoot.Size -- 36
 local BASE_TEXTURE = SkinBase.Texture -- [[Interface\AddOns\Masque\Textures\Backdrop\Slot-Modern]]
 local BASE_TEXTURES = SkinBase.Textures -- [[Interface\AddOns\Masque\Textures\Backdrop\*]]
+
+-- Type Strings
+local TYPE_TABLE = "table"
 
 -- Unused Backdrop Textures
 local Cache = {}
@@ -191,7 +194,7 @@ end
 
 -- Retrieves the 'Backdrop' region of a button.
 function Core.API:GetBackdrop(Button)
-	if type(Button) ~= "table" then
+	if type(Button) ~= TYPE_TABLE then
 		if Core.Debug then
 			error("Bad argument to API method 'GetBackdrop'. 'Button' must be a button object.", 2)
 		end

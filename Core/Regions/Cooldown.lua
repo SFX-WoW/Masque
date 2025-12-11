@@ -29,7 +29,7 @@ local hooksecurefunc = hooksecurefunc
 ---
 
 -- @ Skins\Defaults
-local SkinBase = Core.SKIN_BASE.Cooldown
+local SkinRoot = Core.SKIN_BASE
 
 -- @ Core\Utility
 local GetColor, SetSkinPoint = Core.GetColor, Core.SetSkinPoint
@@ -38,24 +38,30 @@ local GetColor, SetSkinPoint = Core.GetColor, Core.SetSkinPoint
 -- Locals
 ---
 
+local SkinBase = SkinRoot.Cooldown
+
 -- Skin Defaults
-local BASE_COLOR = SkinBase.Color
-local BASE_EDGE = SkinBase.Edge
-local BASE_EDGE_LOC = SkinBase.EdgeLoC
-local BASE_PULSE = SkinBase.Pulse
-local BASE_SWIPE = SkinBase.Swipe
-local BASE_SWIPE_CIRCLE = SkinBase.SwipeCircle
+local BASE_COLOR = SkinBase.Color -- {0, 0, 0, 0.8}
+local BASE_EDGE = SkinBase.Edge -- [[Interface\AddOns\Masque\Textures\Square\Edge]]
+local BASE_EDGE_LOC = SkinBase.EdgeLoC -- [[Interface\AddOns\Masque\Textures\Square\Edge-LoC]]
+local BASE_PULSE = SkinBase.Pulse -- [[Interface\Cooldown\star4]]
+local BASE_SIZE = SkinRoot.Size -- 36
+local BASE_SWIPE = SkinBase.Swipe -- [[Interface\AddOns\Masque\Textures\Square\Mask]]
+local BASE_SWIPE_CIRCLE = SkinBase.SwipeCircle -- [[Interface\AddOns\Masque\Textures\Circle\Mask]]
+
+-- String Constants
+local HOOK_EDGE = "SetEdgeTexture"
+local HOOK_SWIPE = "SetSwipeColor"
+local STR_CIRCLE = "Circle"
+
+-- Type Strings
+local TYPE_TABLE = "table"
 
 -- Defaiult LoC Edge Textures
 local LOC_TEXTURE ={
 	["Interface\\Cooldown\\UI-HUD-ActionBar-SecondaryCooldown"] = true,
 	["Interface\\Cooldown\\edge"] = true,
 }
-
--- String Constants
-local HOOK_EDGE = "SetEdgeTexture"
-local HOOK_SWIPE = "SetSwipeColor"
-local STR_CIRCLE = "Circle"
 
 ----------------------------------------
 -- Hooks
@@ -151,10 +157,8 @@ local function Skin_Cooldown(Region, Button, Skin, Color, Pulse)
 	local SetAllPoints = Skin.SetAllPoints
 
 	if not SetAllPoints then
-		local BaseSize = SkinBase.Size
-
-		local Width = Skin.Width or BaseSize
-		local Height = Skin.Height or BaseSize
+		local Width = Skin.Width or BASE_SIZE
+		local Height = Skin.Height or BASE_SIZE
 
 		Region:SetSize(_mcfg:GetSize(Width, Height))
 	end
@@ -230,7 +234,7 @@ local API = Core.API
 -- API wrapper for the Update_ChargeCooldown function.
 -- Only call this if not using the native API.
 function API:UpdateChargeCooldown(Button)
-	if type(Button) ~= "table" then
+	if type(Button) ~= TYPE_TABLE then
 		return
 	end
 

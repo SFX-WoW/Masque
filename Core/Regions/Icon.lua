@@ -29,7 +29,7 @@ local hooksecurefunc = hooksecurefunc
 ---
 
 -- @ Skins\Defaults
-local SkinBase = Core.SKIN_BASE.Icon
+local SkinRoot = Core.SKIN_BASE
 
 -- @ Core\Utility
 local GetTexCoords, SetSkinPoint = Core.GetTexCoords, Core.SetSkinPoint
@@ -44,20 +44,23 @@ local Update_Normal = Core.Update_Normal
 -- Locals
 ---
 
+local SkinBase = SkinRoot.Icon
+
 -- Skin Defaults
 local BASE_BACKPACK = SkinBase.Backpack -- [[Interface\Icons\INV_Misc_Bag_08]]
 local BASE_LAYER = SkinBase.DrawLayer -- "BACKGROUND"
 local BASE_LEVEL = SkinBase.DrawLevel -- 0
-local BASE_SIZE = SkinBase.Size -- 36
+local BASE_SIZE = SkinRoot.Size -- 36
 
 -- String Constants
-local HOOK_HIDE = "Hide"
-local HOOK_SHOW = "Show"
 local STR_BORDER = "BORDER"
+local STR_HIDE = "Hide"
+local STR_SHOW = "Show"
 
 -- Type Strings
 local TYPE_BACKPACK = "Backpack"
 local TYPE_ITEM = "Item"
+local TYPE_TABLE = "table"
 
 ----------------------------------------
 -- Helpers
@@ -179,8 +182,8 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 
 		-- Hooks
 		if Hook_Icon[bType] and (not Region._MSQ_Hooked) then
-			hooksecurefunc(Region, HOOK_HIDE, Hook_Hide)
-			hooksecurefunc(Region, HOOK_SHOW, Hook_Show)
+			hooksecurefunc(Region, STR_HIDE, Hook_Hide)
+			hooksecurefunc(Region, STR_SHOW, Hook_Show)
 
 			Region._MSQ_Hooked = true
 		end
@@ -193,7 +196,7 @@ end
 
 -- Sets the button's empty status.
 function Core.API:SetEmpty(Button, IsEmpty)
-	if type(Button) ~= "table" then
+	if type(Button) ~= TYPE_TABLE then
 		if Core.Debug then
 			error("Bad argument to API method 'SetEmpty'. 'Button' must be a button object.", 2)
 		end

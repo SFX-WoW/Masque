@@ -27,6 +27,7 @@ local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, C
 ---
 
 local BASE_BLEND = SkinRoot.BlendMode
+local BASE_SIZE = SkinRoot.Size
 local BASE_WRAP = SkinRoot.WrapMode
 
 ----------------------------------------
@@ -39,7 +40,7 @@ local function Skin_AutoCastFrame(Frame, Button, Skin, Default)
 	local SetAllPoints = Skin.SetAllPoints
 
 	if not SetAllPoints then
-		local BaseSize = Default.Size
+		local BaseSize = Default.Size or BASE_SIZE
 
 		local Width = Skin.Width or BaseSize
 		local Height = Skin.Height or BaseSize
@@ -86,7 +87,7 @@ local function Skin_AutoCastTexture(Region, Button, Anchor, Skin, Default, IsMas
 	local SetAllPoints = Skin.SetAllPoints
 
 	if not SetAllPoints then
-		local BaseSize = Default.Size
+		local BaseSize = Default.Size or BASE_SIZE
 
 		local Width = Skin.Width or BaseSize
 		local Height = Skin.Height or BaseSize

@@ -39,7 +39,7 @@ local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_BORDER = SkinBase.Border -- [[Interface\ContainerFrame\UI-Icon-QuestBang]]
 local BASE_LAYER = SkinBase.DrawLayer -- "OVERLAY"
 local BASE_LEVEL = SkinBase.DrawLevel -- 2
-local BASE_SIZE = SkinBase.Size -- 36
+local BASE_SIZE = SkinRoot.Size -- 36
 local BASE_TEXTURE = SkinBase.Texture -- [[Interface\ContainerFrame\UI-Icon-QuestBorder]]
 
 -- String Constants

@@ -38,7 +38,7 @@ local SkinBase = SkinRoot.IconBorder
 local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_LAYER = SkinBase.DrawLayer -- "OVERLAY"
 local BASE_LEVEL = SkinBase.DrawLevel -- 0
-local BASE_SIZE = SkinBase.Size -- 36
+local BASE_SIZE = SkinRoot.Size -- 36
 local BASE_RELIC = SkinBase.RelicTexture -- [[Interface\Artifacts\RelicIconFrame]]
 local BASE_TEXTURE = SkinBase.Texture -- [[Interface\Common\WhiteIconFrame]]
 

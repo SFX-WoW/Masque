@@ -492,7 +492,7 @@ local Skin = {
 			OffsetY = 0,
 			-- SetAllPoints = nil,
 		},
-		Item = {
+		Item = { -- Still necessary for some add-ons.
 			Texture = [[Interface\Common\WhiteIconFrame]],
 			-- TexCoords = {0, 1, 0, 1},
 			-- Color = {1, 1, 1, 1},

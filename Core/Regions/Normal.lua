@@ -28,8 +28,6 @@ local hooksecurefunc, random = hooksecurefunc, random
 -- Internal
 ---
 
-local WOW_RETAIL = Core.WOW_RETAIL
-
 -- @ Skins\Defaults
 local SkinRoot = Core.SKIN_BASE
 
@@ -43,16 +41,15 @@ local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, C
 local SkinBase = SkinRoot.Normal
 
 -- Skin Defaults
-local BASE_ATLAS = SkinBase.Atlas -- "UI-HUD-ActionBar-IconFrame"
 local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_LAYER = SkinBase.DrawLayer -- "ARTWORK"
 local BASE_LEVEL = SkinBase.DrawLevel -- 0
-local BASE_SIZE = SkinBase.Size -- 36
+local BASE_SIZE = SkinRoot.Size -- 36
 local BASE_TEXTURE = SkinBase.Texture -- [[Interface\Buttons\UI-Quickslot2]]
 
 -- String Constants
-local HOOK_ATLAS = "SetNormalAtlas"
-local HOOK_TEXTURE = "SetNormalTexture"
+local STR_SETATLAS = "SetNormalAtlas"
+local STR_SETTEXTURE = "SetNormalTexture"
 
 -- Type Strings
 local TYPE_TABLE = "table"
@@ -87,9 +84,6 @@ local function Update_Normal(Button, IsEmpty)
 			Texture = (UseEmpty and Skin.EmptyTexture) or Texture
 			Coords = (UseEmpty and Skin.EmptyCoords) or Skin.TexCoords
 			Region:SetTexture(Texture)
-
-		elseif WOW_RETAIL then
-			Region:SetAtlas(BASE_ATLAS)
 
 		else
 			Region:SetTexture(BASE_TEXTURE)
@@ -245,8 +239,8 @@ function Core.Skin_Normal(Region, Button, Skin, Color)
 	Region:Show()
 
 	if IsButton and _mcfg.IsEmptyType and (not _mcfg.Normal_Hook) then
-		hooksecurefunc(Button, HOOK_ATLAS, Hook_SetNormal)
-		hooksecurefunc(Button, HOOK_TEXTURE, Hook_SetNormal)
+		hooksecurefunc(Button, STR_SETATLAS, Hook_SetNormal)
+		hooksecurefunc(Button, STR_SETTEXTURE, Hook_SetNormal)
 
 		_mcfg.Normal_Hook = true
 	end

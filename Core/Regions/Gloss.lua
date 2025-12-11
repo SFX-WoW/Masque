@@ -37,8 +37,8 @@ local SkinBase = SkinRoot.Gloss
 -- Skin Defaults
 local BASE_BLEND = SkinRoot.BlendMode -- "BLEND"
 local BASE_LAYER = SkinBase.DrawLayer -- "OVERLAY"
-local BASE_LEVEL = SkinBase.DrawLevel -- 0
-local BASE_SIZE = SkinBase.Size -- 36
+local BASE_LEVEL = SkinBase.DrawLevel -- 1
+local BASE_SIZE = SkinRoot.Size -- 36
 
 -- Type Strings
 local TYPE_TABLE = "table"

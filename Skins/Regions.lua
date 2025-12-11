@@ -185,26 +185,26 @@ local Legacy = {
 		NoColor = true,
 		NoTexture = true,
 	},
-	QuestBorder = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 2 ]
-		Key = (WOW_RETAIL and "IconQuestTexture") or nil,
-		Name = "IconQuestTexture",
-		Type = "Texture",
-	},
 	NewItem = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 2 ]
 		Key = "NewItemTexture",
 		Type = "Texture",
 		NoColor = true,
 	},
-	SearchOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 4 ]
-		Key = "searchOverlay",
-		Name = "SearchOverlay",
+	QuestBorder = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 2 ]
+		Key = (WOW_RETAIL and "IconQuestTexture") or nil,
+		Name = "IconQuestTexture",
+		Type = "Texture",
+	},
+	ContextOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 5 ][ RETAIL_ONLY ]
+		Key = "ItemContextOverlay",
 		Type = "Texture",
 		CanMask = true,
 		Iterate = true,
 		UseColor = true,
 	},
-	ContextOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 5 ][ RETAIL_ONLY ]
-		Key = "ItemContextOverlay",
+	SearchOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 4 ]
+		Key = "searchOverlay",
+		Name = "SearchOverlay",
 		Type = "Texture",
 		CanMask = true,
 		Iterate = true,
@@ -245,13 +245,6 @@ local Legacy = {
 		},
 	},
 	-- [ TextOverlayContainer ]
-	HotKey = { -- [ ActionButtonTemplate ][ OVERLAY / ARTWORK ]
-		Key = "HotKey",
-		Name = "HotKey",
-		Type = "FontString",
-		Iterate = true,
-		NoColor = true,
-	},
 	Count = { -- [ ActionButtonTemplate ][ OVERLAY / ARTWORK ]
 		Key = "Count",
 		Name = "Count",
@@ -272,6 +265,13 @@ local Legacy = {
 			Iterate = true,
 			NoColor = true,
 		},
+	},
+	HotKey = { -- [ ActionButtonTemplate ][ OVERLAY / ARTWORK ]
+		Key = "HotKey",
+		Name = "HotKey",
+		Type = "FontString",
+		Iterate = true,
+		NoColor = true,
 	},
 	-- [ AutoCast (Classic) ]
 	AutoCastable = { -- [ ActionButtonTemplate ][ OVERLAY, 1 ]
