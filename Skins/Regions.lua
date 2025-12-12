@@ -166,11 +166,6 @@ local Legacy = {
 		Type = "Texture",
 		Iterate = true,
 	},
-	UpgradeIcon = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 1 ]
-		Key = "UpgradeIcon",
-		Type = "Texture",
-		Iterate = true,
-	},
 	IconOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 1 ]
 		Key = "IconOverlay",
 		Type = "Texture",
@@ -194,6 +189,11 @@ local Legacy = {
 		Key = (WOW_RETAIL and "IconQuestTexture") or nil,
 		Name = "IconQuestTexture",
 		Type = "Texture",
+	},
+	UpgradeIcon = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 1 ]
+		Key = "UpgradeIcon",
+		Type = "Texture",
+		Iterate = true,
 	},
 	ContextOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 5 ][ RETAIL_ONLY ]
 		Key = "ItemContextOverlay",

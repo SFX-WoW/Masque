@@ -177,15 +177,6 @@ local Defaults = {
 		DrawLevel = 1,
 		Size = 44,
 	},
-	UpgradeIcon = { -- [IT]
-		Atlas = "bags-greenarrow",
-		UseAtlasSize = true,
-		DrawLayer = STR_OVERLAY,
-		DrawLevel = 1,
-		Size = 16,
-		Point = STR_TOPLEFT,
-		RelPoint = STR_TOPLEFT,
-	},
 	IconOverlay = { -- [IT]
 		Atlas = "AzeriteIconFrame",
 		DrawLayer = STR_OVERLAY,
@@ -210,6 +201,15 @@ local Defaults = {
 		Texture = [[Interface\ContainerFrame\UI-Icon-QuestBorder]],
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 2,
+	},
+	UpgradeIcon = { -- [IT]
+		Atlas = "bags-greenarrow",
+		UseAtlasSize = true,
+		DrawLayer = STR_OVERLAY,
+		DrawLevel = 3, -- 1
+		Size = 16,
+		Point = STR_TOPLEFT,
+		RelPoint = STR_TOPLEFT,
 	},
 	ContextOverlay = { -- [IT]
 		Color = {0, 0, 0, 0.8},
