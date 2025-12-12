@@ -833,8 +833,8 @@ local Skin = {
 		Anchor = "Icon",
 		Point = "BOTTOMRIGHT",
 		RelPoint = "BOTTOMRIGHT",
-		OffsetX = -5,
-		OffsetY = 5,
+		OffsetX = -3,
+		OffsetY = 3,
 		Aura = {
 			JustifyH = "RIGHT",
 			JustifyV = "BOTTOM",
@@ -911,10 +911,11 @@ local Skin = {
 		-- SetAllPoints = nil,
 	},
 	AutoCast_Mask = {
-		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
-		UseAtlasSize = false,
-		Width = 28,
-		Height = 28,
+		-- Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
+		-- UseAtlasSize = false,
+		Texture = [[Interface\AddOns\Masque\Textures\Modern\AutoCast-Mask]],
+		Width = 30,
+		Height = 30,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
@@ -928,8 +929,8 @@ local Skin = {
 		BlendMode = "BLEND",
 		DrawLayer = "OVERLAY",
 		DrawLevel = 1,
-		Width = 37,
-		Height = 37,
+		Width = 36,
+		Height = 36,
 		Point = "CENTER",
 		RelPoint = "CENTER",
 		OffsetX = 0,
@@ -939,7 +940,7 @@ local Skin = {
 	-- [ Cooldowns ]
 	Cooldown = {
 		Texture = [[Interface\AddOns\Masque\Textures\Modern\Mask]],
-		EdgeTexture = [[Interface\Cooldown\UI-HUD-ActionBar-SecondaryCooldown]],
+		EdgeTexture = [[Interface\AddOns\Masque\Textures\Modern\Edge]],
 		PulseTexture = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
 		Width = 31,
@@ -955,6 +956,31 @@ local Skin = {
 	-- [ SpellAlerts ]
 	-- SpellAlert = Default.SpellAlert,
 	-- AssistedCombatHighlight = Default.AssistedCombatHighlight,
+	-- [ SpellAlerts ]
+	SpellAlert = {
+		Height = 38,
+		Width = 38,
+		AltGlow = {
+			Height = 45,
+			Width = 45,
+		},
+		Classic = {
+			Height = 30,
+			Width = 30,
+		},
+		Modern = {
+			Height = 32,
+			Width = 32,
+		},
+		["Modern-Lite"] = {
+			Height = 32,
+			Width = 32,
+		},
+	},
+	AssistedCombatHighlight = {
+		Width = 45,
+		Height = 45,
+	},
 }
 
 ----------------------------------------
