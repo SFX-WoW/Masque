@@ -42,6 +42,7 @@ local STR_TOP = "TOP"
 local STR_TOPLEFT = "TOPLEFT"
 local STR_TOPRIGHT = "TOPRIGHT"
 
+-- Skin Defaults
 local Defaults = {
 	-- [ Shared ]
 	-- TexCoords = {0, 1, 0, 1}, -- @ Core/Utility/GetTexCoords

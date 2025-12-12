@@ -32,8 +32,8 @@ local SkinRoot = Core.SKIN_BASE
 -- SetPoint Defaults
 local BASE_POINT = SkinRoot.Point
 local BASE_RELPOINT = SkinRoot.RelPoint
-local BASE_OFFSETX = SkinRoot.OffSetX
-local BASE_OFFSETY = SkinRoot.OffSetY
+local BASE_OFFSETX = SkinRoot.OffsetX
+local BASE_OFFSETY = SkinRoot.OffsetY
 
 -- Misc Strings
 local STR_ANIMKEY = "FlipAnim"
