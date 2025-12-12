@@ -130,7 +130,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 			Resize = not UseSize
 
 			if Set_Color then
-				Region:SetVertexColor(GetColor(Default.Color))
+				Region:SetVertexColor(GetColor(Color))
 			end
 
 		-- Default
