@@ -96,6 +96,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 	if (not Config.NoTexture) then
 		local Atlas = Skin.Atlas
 		local Texture = Skin.Texture
+		local BaseColor = Default.Color
 
 		Color = Color or Skin.Color
 
@@ -112,7 +113,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 		if Skin.UseColor and Use_Color then
 			Region:SetTexture()
 			Region:SetVertexColor(1, 1, 1, 1)
-			Region:SetColorTexture(GetColor(Color))
+			Region:SetColorTexture(GetColor(Color or BaseColor))
 
 		elseif Texture then
 			Skin_Coords = Skin.TexCoords
@@ -144,7 +145,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 				Resize = not UseSize
 
 				if Set_Color then
-					Region:SetVertexColor(GetColor(Default.Color))
+					Region:SetVertexColor(GetColor(BaseColor))
 				end
 
 			elseif Texture then
@@ -152,13 +153,13 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 				Region:SetTexture(Default.Texture)
 
 				if Set_Color then
-					Region:SetVertexColor(GetColor(Default.Color))
+					Region:SetVertexColor(GetColor(BaseColor))
 				end
 
 			elseif Use_Color then
 				Region:SetTexture()
 				Region:SetVertexColor(1, 1, 1, 1)
-				Region:SetColorTexture(GetColor(Default.Color))
+				Region:SetColorTexture(GetColor(BaseColor))
 			end
 		end
 
