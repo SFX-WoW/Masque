@@ -152,12 +152,12 @@ Core.AddSkin("Zoomed", {
 	},
 	-- [ AutoCastOverlay (Retail) ]
 	-- AutoCast_Frame = Template.AutoCast_Frame,
+	-- AutoCast_Shine = Template.AutoCast_Shine,
 	AutoCast_Mask = {
 		Texture = [[Interface\AddOns\Masque\Textures\Square\AutoCast-Mask]],
 		Width = 34,
 		Height = 34,
 	},
-	-- AutoCast_Shine = Template.AutoCast_Shine,
 	AutoCast_Corners = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
 		Width = 38,

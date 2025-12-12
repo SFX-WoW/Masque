@@ -178,12 +178,12 @@ Core.AddSkin("Dream", {
 	},
 	-- [ AutoCastOverlay (Retail) ]
 	-- AutoCast_Frame = Template.AutoCast_Frame,
+	-- AutoCast_Shine = Template.AutoCast_Shine,
 	AutoCast_Mask = {
 		Texture = [[Interface\AddOns\Masque\Textures\Square\AutoCast-Mask]],
 		Width = 28,
 		Height = 28,
 	},
-	-- AutoCast_Shine = Template.AutoCast_Shine,
 	AutoCast_Corners = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
 		Width = 32,

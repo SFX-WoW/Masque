@@ -300,16 +300,16 @@ local Defaults = {
 	AutoCast_Frame = {
 		Size = 37, -- 31
 	},
-	AutoCast_Mask = {
-		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
-		-- UseAtlasSize = false,
-		Size = 28, -- 23
-	},
 	AutoCast_Shine = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 0,
 		Size = 49, -- 41
+	},
+	AutoCast_Mask = {
+		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
+		-- UseAtlasSize = false,
+		Size = 28, -- 23
 	},
 	AutoCast_Corners = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
