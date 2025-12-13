@@ -1,3 +1,15 @@
+## 11.2.8-Beta-3
+
+### Skins
+
+- Added Defaults support to most regions. This allows skin authors to skip redundant skin settings.
+- Cleaned up the non-Blizzard skins.
+
+### Bug Fixes
+
+- Fixed an issue that prevented regions using an atlas from being colored.
+- Fixed an issue in Midnight Beta related to the removal of `StartChargeCooldown`. (#457)
+
 ## 11.2.8-Beta-2
 
 ### General
