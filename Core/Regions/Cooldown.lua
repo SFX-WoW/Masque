@@ -57,7 +57,7 @@ local STR_CIRCLE = "Circle"
 -- Type Strings
 local TYPE_TABLE = "table"
 
--- Defaiult LoC Edge Textures
+-- Default LoC Edge Textures
 local LOC_TEXTURE ={
 	["Interface\\Cooldown\\UI-HUD-ActionBar-SecondaryCooldown"] = true,
 	["Interface\\Cooldown\\edge"] = true,
