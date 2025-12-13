@@ -65,7 +65,7 @@ local Legacy = {
 			NoTexture = true,
 		},
 	},
-	Shadow = { -- [ Custom ][ ARTWORK, -1 ] 
+	Shadow = { -- [ Custom ][ ARTWORK, -1 ]
 		CanHide = true,
 		Ignore = true,
 	},
@@ -152,7 +152,7 @@ local Legacy = {
 		Type = "Texture",
 		NoColor = true,
 	},
-	Gloss = { -- [ Custom ][ OVERLAY, 1 ] 
+	Gloss = { -- [ Custom ][ OVERLAY, 1 ]
 		Ignore = true,
 		CanHide = true,
 	},
