@@ -44,5 +44,5 @@ function Core.Skin_Text(Layer, Region, Button, Skin)
 	Region:SetDrawLayer(Skin.DrawLayer or Default.DrawLayer)
 	Region:SetSize(_mcfg:GetSize(Skin.Width or Default.Width, Skin.Height or Default.Height))
 
-	SetSkinPoint(Region, Button, Skin, SetAllPoints, Button, Default)
+	SetSkinPoint(Region, Button, Skin, nil, Button, Default)
 end
