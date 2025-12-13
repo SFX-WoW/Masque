@@ -184,8 +184,10 @@ local function Update_ChargeCooldown(Button)
 	end
 end
 
--- @ Interface/AddOns/Blizzard_ActionBar/*/ActionButton.lua
-hooksecurefunc("StartChargeCooldown", Update_ChargeCooldown)
+if StartChargeCooldown then
+	-- @ Interface/AddOns/Blizzard_ActionBar/*/ActionButton.lua
+	hooksecurefunc("StartChargeCooldown", Update_ChargeCooldown)
+end
 
 ----------------------------------------
 -- Core
