@@ -39,7 +39,7 @@ L["Advanced"] = "Erweitert "
 L["Advanced Settings"] = "Erweiterte Einstellungen "
 L["Cast Animations"] = "Zauber Animationen "
 L["Cooldown Animations"] = "Abklingzeit Animationen"
-L["Enable animations when action button cooldowns finish."] = "Aktivieren Sie Animationen, wenn die Abklingzeit von Aktionstasten endet."
+-- L["Enable animations when action button cooldowns finish."] = "Enable animations when action button cooldowns finish."
 L["Enable cast animations on action buttons."] = "Aktivieren Sie Cast-Animationen auf Aktionsschaltflächen. "
 L["Enable interrupt animations on action buttons."] = "Aktivieren Sie Unterbrechungsanimationen auf Aktionsschaltflächen. "
 L["Enable targeting reticles on action buttons."] = "Aktivieren Sie Ziel Makierungen auf Aktionstasten."
@@ -51,7 +51,7 @@ L["Select which spell alert animations are enabled."] = "Auswahl welche Zauber W
 -- L["Spell Alert Animations"] = "Spell Alert Animations"
 -- L["Spell Alert Style"] = "Spell Alert Style"
 L["Targeting Reticles"] = "Ziel Makierungen"
-L["This section will allow you to adjust button settings for the default interface."] = "In diesem Abschnitt können Sie die Schaltflächeneinstellungen für die Standart Benutzeroberfläche anpassen."
+L["This section will allow you to adjust button settings for the default interface."] = "In diesem Abschnitt können Sie die Schaltflächeneinstellungen für die Standart Benutzeroberfläche anpassen. "
 
 ----------------------------------------
 -- Blizzard Classic Skin
@@ -110,13 +110,13 @@ L["This section will allow you to adjust Masque's interface and performance sett
 -- Installed Skins
 ---
 
-L["Author"] = "Autor"
-L["Authors"] = "Autoren"
-L["Compatible"] = "Kompatibel"
-L["Description"] = "Beschreibung"
+-- L["Author"] = "Author"
+-- L["Authors"] = "Authors"
+-- L["Compatible"] = "Compatible"
+-- L["Description"] = "Description"
 L["Discord"] = "Discord"
-L["Installed Skins"] = "Installierte Optiken"
-L["No description available."] = "Keine Beschreibung verfügbar."
+-- L["Installed Skins"] = "Installed Skins"
+-- L["No description available."] = "No description available."
 L["Status"] = "Status"
 L["The status of this skin is unknown."] = "Der Status dieser Optik ist unbekannt."
 L["This section provides information on any skins you have installed."] = "In diesem Abschnitt finden Sie Informationen zu den von Ihnen installierten Designs."
@@ -168,7 +168,7 @@ L["An enhanced version of the modern button style."] = "Eine verbesserte Version
 -- Profile Settings
 ---
 
-L["Profile Settings"] = "Profileinstellungen."
+-- L["Profile Settings"] = "Profile Settings"
 
 ----------------------------------------
 -- Skin Settings
@@ -178,9 +178,9 @@ L["Adjust the scale of this group's skin."] = "Einstellung der skalierung des Gr
 L["Backdrop"] = "Hintergrund Einstellungen"
 L["Checked"] = "Ausgewählt"
 L["Color"] = "Farbe"
-L["Colors"] = "Farben"
+-- L["Colors"] = "Colors"
 L["Cooldown"] = "Abklingzeit"
-L["Disable"] = "Deaktivieren"
+-- L["Disable"] = "Disable"
 L["Disable the skinning of this group."] = "Deaktiviert die Aussehensveränderung dieser Gruppe."
 L["Enable"] = "Aktivieren"
 L["Enable skin scaling."] = "Aktivieren Sie die Designskalierung. "
@@ -188,11 +188,11 @@ L["Enable the Backdrop texture."] = "Aktiviert die Hintergrundtextur."
 L["Enable the Gloss texture."] = "Aktiviere die Glanztextur."
 L["Enable the Shadow texture."] = "Schatten Texture aktivieren "
 L["Flash"] = "Leuchten"
-L["Global"] = "Global"
+-- L["Global"] = "Global"
 L["Global Settings"] = "Globale Einstellungen"
 L["Gloss"] = "Glanz"
-L["Highlight"] = "Hervorheben"
-L["Normal"] = "Normal"
+-- L["Highlight"] = "Highlight"
+-- L["Normal"] = "Normal"
 L["Pulse"] = "Pulsieren "
 L["Pushed"] = "Gedrückt"
 L["Reset all skin options to the defaults."] = "Setzt alle Optikoptionen auf Standard zurück."
