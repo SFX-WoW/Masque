@@ -259,14 +259,9 @@ function Core.SetPulse(Button, Pulse)
 	local Regions = _mcfg and _mcfg.Regions
 
 	local Cooldown = Regions and Regions.Cooldown
-	local ChargeCooldown = Regions and Regions.ChargeCooldown
 
 	if Cooldown then
 		Cooldown:SetDrawBling(Pulse)
-	end
-
-	if ChargeCooldown then
-		ChargeCooldown:SetDrawBling(Pulse)
 	end
 end
 
