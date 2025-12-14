@@ -442,15 +442,25 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		Skin_Cooldown(Cooldown, Button, Skin.Cooldown, Colors.Cooldown, Pulse)
 	end
 
+	-- [[ LoC Cooldown ]]
+
+	if IsActionType then
+		local CooldownLoC = Regions.CooldownLoC
+
+		if CooldownLoC then
+			Skin_Cooldown(CooldownLoC, Button, Skin.CooldownLoC, nil, nil, true)
+		end
+	end
+
 	-- [[ ChargeCooldown ]]
 
 	local ChargeCooldown = Regions.ChargeCooldown or Button.chargeCooldown
-	local Skin_ChargeCooldown = Skin.ChargeCooldown
+	local ChargeCooldown_Skin = Skin.ChargeCooldown
 
-	_mcfg.Skin_ChargeCooldown = Skin_ChargeCooldown
+	_mcfg.Skin_ChargeCooldown = ChargeCooldown_Skin
 
 	if ChargeCooldown then
-		Skin_Cooldown(ChargeCooldown, Button, Skin_ChargeCooldown, nil, Pulse)
+		Skin_Cooldown(ChargeCooldown, Button, ChargeCooldown_Skin)
 	end
 
 	-- [[ AutoCast ]]

@@ -321,9 +321,12 @@ local Defaults = {
 		Swipe = PATH_SQUARE.."Mask",
 		SwipeCircle = PATH_BASE..[[Circle\Mask]],
 		Edge = PATH_SQUARE.."Edge",
-		EdgeLoC = PATH_SQUARE.."Edge-LoC",
 		Pulse = [[Interface\Cooldown\star4]],
 		Color = {0, 0, 0, 0.8},
+		LoC = {
+			Edge = PATH_SQUARE.."Edge-LoC",
+			Color = {0.2, 0, 0, 0.8},
+		},
 	},
 }
 

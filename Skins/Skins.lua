@@ -60,6 +60,10 @@ local LegacyLayers = {
 	["AutoCastShine"] = function(Skin)
 		return Skin.AutoCastShine or Skin.Shine or Skin.AutoCast
 	end,
+	-- `CooldownLoC` Undefined
+	["CooldownLoC"] = function(Skin)
+		return Skin.CooldownLoC or Skin.Cooldown
+	end,
 	-- `ChargeCoolDown` Undefined
 	["ChargeCooldown"] = function(Skin)
 		return Skin.ChargeCooldown or Skin.Cooldown

@@ -38,12 +38,15 @@ local GetColor, SetSkinPoint = Core.GetColor, Core.SetSkinPoint
 -- Locals
 ---
 
+local WOW_1201 = Core.WOW_VERSION > 120000
+
 local SkinBase = SkinRoot.Cooldown
 
 -- Skin Defaults
 local BASE_COLOR = SkinBase.Color -- {0, 0, 0, 0.8}
+local BASE_COLOR_LOC = SkinBase.LoC.Color -- {0.2, 0, 0, 0.8}
 local BASE_EDGE = SkinBase.Edge -- [[Interface\AddOns\Masque\Textures\Square\Edge]]
-local BASE_EDGE_LOC = SkinBase.EdgeLoC -- [[Interface\AddOns\Masque\Textures\Square\Edge-LoC]]
+local BASE_EDGE_LOC = SkinBase.LoC.Edge -- [[Interface\AddOns\Masque\Textures\Square\Edge-LoC]]
 local BASE_PULSE = SkinBase.Pulse -- [[Interface\Cooldown\star4]]
 local BASE_SIZE = SkinRoot.Size -- 36
 local BASE_SWIPE = SkinBase.Swipe -- [[Interface\AddOns\Masque\Textures\Square\Mask]]
@@ -77,9 +80,11 @@ local function Hook_SetSwipeColor(Region, r, g, b)
 
 	Region._Swipe_Hook = true
 
-	-- LoC Color
+	-- Loss of Control
 	if r == 0.17 and g == 0 and b == 0 then
-		Region:SetSwipeColor(0.2, 0, 0, 0.8)
+		Region:SetSwipeColor(GetColor(BASE_COLOR_LOC))
+
+	-- Normal
 	else
 		Region:SetSwipeColor(GetColor(Color))
 	end
@@ -89,15 +94,17 @@ end
 
 -- Counters texture changes triggered by LoC events.
 local function Hook_SetEdgeTexture(Region, Texture)
-	if Region._Edge_Hook or (not Region._MSQ_Color) then
+	if Region._Edge_Hook or (not Region._MSQ_Edge) then
 		return
 	end
 
 	Region._Edge_Hook = true
 
-	-- LoC Texture
-	if LOC_TEXTURE[Texture] then
+	-- Loss of Control
+	if (Texture and LOC_TEXTURE[Texture]) then
 		Region:SetEdgeTexture(BASE_EDGE_LOC)
+
+	-- Normal
 	else
 		Region:SetEdgeTexture(Region._MSQ_Edge or BASE_EDGE)
 	end
@@ -110,44 +117,83 @@ end
 ---
 
 -- Skins a `Cooldown` frame.
-local function Skin_Cooldown(Region, Button, Skin, Color, Pulse)
+local function Skin_Cooldown(Region, Button, Skin, Color, Pulse, IsLoC)
 	local _mcfg = Button._MSQ_CFG
 
 	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
+	local Enabled = _mcfg.Enabled
 	local IsRound = (_mcfg.Shape == STR_CIRCLE) or Skin.IsRound
+	local Swipe = (IsRound and BASE_SWIPE_CIRCLE) or BASE_SWIPE
 
-	if _mcfg.Enabled then
-		-- Cooldown
-		if Region:GetDrawSwipe() then
-			Region._MSQ_Color = Color or Skin.Color or BASE_COLOR
-			Region._MSQ_Edge = Skin.EdgeTexture or BASE_EDGE
+	-- 12.0.1 Loss of Control
+	if IsLoC then
+		Region:SetEdgeTexture(BASE_EDGE_LOC)
 
-			Region:SetSwipeTexture(Skin.Texture or (IsRound and BASE_SWIPE_CIRCLE) or BASE_SWIPE)
-
-			Hook_SetSwipeColor(Region)
-			Hook_SetEdgeTexture(Region)
-
-			if not Region._MSQ_Hooked then
-				hooksecurefunc(Region, HOOK_SWIPE, Hook_SetSwipeColor)
-				hooksecurefunc(Region, HOOK_EDGE, Hook_SetEdgeTexture)
-
-				Region._MSQ_Hooked = true
-			end
-
-		-- ChargeCooldown
+		if Enabled then
+			Region:SetSwipeColor(0.2, 0, 0, 0.8)
+			Region:SetSwipeTexture(Swipe)
 		else
-			Region:SetEdgeTexture(Skin.EdgeTexture or BASE_EDGE)
+			Region:SetSwipeTexture("", 0.2, 0, 0, 0.8)
 		end
 
+	-- Skin
 	else
-		Region._MSQ_Color = nil
+		local DrawSwipe = Region:GetDrawSwipe()
 
-		if Region:GetDrawSwipe() then
-			Region:SetSwipeTexture("", 0, 0, 0, 0.8)
+		-- Edge
+		if Region:GetDrawEdge() then
+			local Edge = Skin.EdgeTexture or BASE_EDGE
+
+			-- Charge Cooldowns
+			if not DrawSwipe then
+				Region:SetEdgeTexture(Edge)
+
+			-- Normal Cooldowns
+			else
+				if Enabled then
+					Region._MSQ_Edge = Edge
+
+					Hook_SetEdgeTexture(Region, Edge)
+
+					-- Hook cooldowns that change the edge texture.
+					if (not WOW_1201) and (not Region._MSQ_Edge_Hooked) then
+						hooksecurefunc(Region, HOOK_EDGE, Hook_SetEdgeTexture)
+
+						Region._MSQ_Edge_Hooked = true
+					end
+				else
+					Region._MSQ_Edge = nil
+
+					Region:SetEdgeTexture(BASE_EDGE)
+				end
+			end
 		end
 
-		Region:SetEdgeTexture(BASE_EDGE)
+		-- Swipe
+		if DrawSwipe then
+			if Enabled then
+				Swipe = Skin.Texture or Swipe
+				Color = Color or Skin.Color or BASE_COLOR
+
+				Region._MSQ_Color = Color
+
+				Hook_SetSwipeColor(Region)
+				Region:SetSwipeTexture(Swipe)
+
+				-- Hook cooldowns that change the swipe color.
+				if (not WOW_1201) and (not Region._MSQ_Swipe_Hooked) then
+					hooksecurefunc(Region, HOOK_SWIPE, Hook_SetSwipeColor)
+
+					Region._MSQ_Swipe_Hooked = true
+				end
+
+			else
+				Region._MSQ_Color = nil
+
+				Region:SetSwipeTexture("", 0, 0, 0, 0.8)
+			end
+		end
 	end
 
 	Region:SetBlingTexture(Skin.PulseTexture or BASE_PULSE)

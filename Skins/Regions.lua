@@ -314,6 +314,10 @@ local Legacy = {
 			Type = "Cooldown",
 		},
 	},
+	CooldownLoC = {
+		Key = "lossOfControlCooldown",
+		Type = "Cooldown",
+	},
 	ChargeCooldown = {
 		Key = "chargeCooldown",
 		Type = "Cooldown",
@@ -346,6 +350,7 @@ local Action = {
 	AutoCast_Corners = Legacy.AutoCast_Corners,
 	AutoCastShine = Legacy.AutoCastShine,
 	Cooldown = Legacy.Cooldown,
+	CooldownLoC = Legacy.CooldownLoC,
 	ChargeCooldown = Legacy.ChargeCooldown,
 }
 
