@@ -20,6 +20,17 @@ local _, Core = ...
 local L = Core.Locale
 
 ----------------------------------------
+-- Locals
+---
+
+-- String Constants
+local STR_ADD = "ADD"
+
+-- Texture Constants
+local TEX_DEBUFF = [[Interface\Buttons\UI-Debuff-Overlays]]
+local TEX_ENCHANT = [[Interface\Buttons\UI-TempEnchant-Border]]
+
+----------------------------------------
 -- Dream
 ---
 
@@ -64,24 +75,24 @@ Core.AddSkin("Dream", {
 	},
 	Checked = {
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
-		BlendMode = "ADD",
+		BlendMode = STR_ADD,
 		Width = 32,
 		Height = 32,
 	},
 	SlotHighlight = "Checked",
 	Border = {
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
-		BlendMode = "ADD",
+		BlendMode = STR_ADD,
 		Width = 54,
 		Height = 54,
 		Debuff = {
-			Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
+			Texture = TEX_DEBUFF,
 			TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 			Width = 36,
 			Height = 34,
 		},
 		Enchant = {
-			Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
+			Texture = TEX_ENCHANT,
 		},
 		Item = {
 			Texture = [[Interface\Common\WhiteIconFrame]],
@@ -90,13 +101,13 @@ Core.AddSkin("Dream", {
 		},
 	},
 	DebuffBorder = {
-		Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
+		Texture = TEX_DEBUFF,
 		TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 		Width = 36,
 		Height = 34,
 	},
 	EnchantBorder = {
-		Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
+		Texture = TEX_ENCHANT,
 	},
 	IconBorder = {
 		Texture = [[Interface\Common\WhiteIconFrame]],
@@ -107,7 +118,7 @@ Core.AddSkin("Dream", {
 	-- Gloss = Template.Gloss,
 	NewAction = {
 		Atlas = "bags-newitem",
-		BlendMode = "ADD",
+		BlendMode = STR_ADD,
 		Width = 38,
 		Height = 38,
 	},
@@ -198,6 +209,7 @@ Core.AddSkin("Dream", {
 		Width = 30,
 		Height = 30,
 	},
+	CooldownLoC = "Cooldown",
 	ChargeCooldown = "Cooldown",
 	-- [ SpellAlerts ]
 	SpellAlert = {

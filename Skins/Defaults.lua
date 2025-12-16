@@ -113,7 +113,7 @@ local Defaults = {
 	},
 	SlotHighlight = { -- [IT]
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
-		DrawLayer = STR_ARTWORK,
+		DrawLayer = STR_OVERLAY,
 		DrawLevel = 0,
 	},
 	Border = { -- [IT]
@@ -282,14 +282,14 @@ local Defaults = {
 		RelPoint = STR_TOPRIGHT,
 	},
 	-- [ AutoCast (Classic) ]
-	AutoCastable = {
+	AutoCastable = { -- [IT]
 		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 1,
 		Size = 58,
 	},
 	AutoCastShine = {
-		Size = 34, -- 28
+		Size = 34,
 	},
 	-- [ AutoCast (Retail) ]
 	-- AB (45) / SAB (30) = 1.5
@@ -298,18 +298,18 @@ local Defaults = {
 	-- Masque: 46.5 / 1.25 = 37.2
 	-- Multiplier = 1.2 (1.5 / 1.25)
 	AutoCast_Frame = {
-		Size = 37, -- 31
+		Size = 37,
 	},
 	AutoCast_Shine = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 0,
-		Size = 49, -- 41
+		Size = 49,
 	},
 	AutoCast_Mask = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Mask",
 		-- UseAtlasSize = false,
-		Size = 28, -- 23
+		Size = 30,
 	},
 	AutoCast_Corners = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",

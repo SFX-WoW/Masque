@@ -20,6 +20,20 @@ local _, Core = ...
 local L = Core.Locale
 
 ----------------------------------------
+-- Locals
+---
+
+-- String Constants
+local STR_ADD = "ADD"
+
+-- Texture Constants
+local TEX_BAGSLOT = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]]
+local TEX_CHECKED = [[Interface\Buttons\CheckButtonHilight]]
+local TEX_DEBUFF = [[Interface\Buttons\UI-Debuff-Overlays]]
+local TEX_ENCHANT = [[Interface\Buttons\UI-TempEnchant-Border]]
+local TEX_NORMAL = [[Interface\Buttons\UI-Quickslot2]]
+
+----------------------------------------
 -- Classic Enhanced
 ---
 
@@ -43,11 +57,11 @@ Core.AddSkin("Classic Enhanced", {
 		Width = 64,
 		Height = 64,
 		BagSlot = {
-			Texture = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]],
+			Texture = TEX_BAGSLOT,
 			Color = {1, 1, 1, 0.8},
 		},
 		Item = {
-			Texture = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]],
+			Texture = TEX_BAGSLOT,
 			Color = {1, 1, 1, 0.5},
 		},
 	},
@@ -58,14 +72,14 @@ Core.AddSkin("Classic Enhanced", {
 	},
 	-- Shadow = Template.Shadow,
 	Normal = {
-		Texture = [[Interface\Buttons\UI-Quickslot2]],
+		Texture = TEX_NORMAL,
 		EmptyColor = {1, 1, 1, 0.5},
 		Width = 60,
 		Height = 60,
 		OffsetX = 0.5,
 		OffsetY = -0.5,
 		Pet = {
-			Texture = [[Interface\Buttons\UI-Quickslot2]],
+			Texture = TEX_NORMAL,
 			Width = 58,
 			Height = 58,
 			OffsetX = 0.5,
@@ -84,53 +98,53 @@ Core.AddSkin("Classic Enhanced", {
 		Height = 34,
 	},
 	Checked = {
-		Texture = [[Interface\Buttons\CheckButtonHilight]],
+		Texture = TEX_CHECKED,
 		Color = {1, 1, 1, 0.8},
-		BlendMode = "ADD",
+		BlendMode = STR_ADD,
 		Width = 33,
 		Height = 33,
 		Pet = {
-			Texture = [[Interface\Buttons\CheckButtonHilight]],
+			Texture = TEX_CHECKED,
 			Color = {1, 1, 1, 0.8},
-			BlendMode = "ADD",
+			BlendMode = STR_ADD,
 			Width = 32,
 			Height = 32,
 		},
 	},
 	SlotHighlight = {
-		Texture = [[Interface\Buttons\CheckButtonHilight]],
+		Texture = TEX_CHECKED,
 		Width = 33,
 		Height = 33,
 	},
 	Border = {
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
-		BlendMode = "ADD",
+		BlendMode = STR_ADD,
 		Width = 57,
 		Height = 57,
 		OffsetX = 0.5,
 		OffsetY = 0.5,
 		Debuff = {
-			Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
+			Texture = TEX_DEBUFF,
 			TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 			Width = 40,
 			Height = 38,
 			OffsetY = 1,
 		},
 		Enchant = {
-			Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
+			Texture = TEX_ENCHANT,
 			Width = 40,
 			Height = 40,
 		},
 	},
 	DebuffBorder = {
-		Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
+		Texture = TEX_DEBUFF,
 		TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 		Width = 40,
 		Height = 38,
 		OffsetY = 1,
 	},
 	EnchantBorder = {
-		Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
+		Texture = TEX_ENCHANT,
 		Width = 40,
 		Height = 40,
 	},
@@ -142,7 +156,7 @@ Core.AddSkin("Classic Enhanced", {
 	-- IconOverlay2 = Template.IconOverlay2,
 	NewItem = {
 		Atlas = "bags-newitem",
-		BlendMode = "ADD",
+		BlendMode = STR_ADD,
 	},
 	QuestBorder = {
 		Border = [[Interface\ContainerFrame\UI-Icon-QuestBang]],
@@ -164,6 +178,7 @@ Core.AddSkin("Classic Enhanced", {
 		OffsetX = 1,
 	},
 	-- Duration = Template.Duration,
+	-- Name = Template.Name,
 	Highlight = {
 		Texture = [[Interface\Buttons\ButtonHilight-Square]],
 		Width = 32,
@@ -208,6 +223,7 @@ Core.AddSkin("Classic Enhanced", {
 		Width = 32,
 		Height = 32,
 	},
+	CooldownLoC = "Cooldown",
 	ChargeCooldown = "Cooldown",
 	-- [ SpellAlerts ]
 	SpellAlert = {
