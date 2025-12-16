@@ -548,6 +548,7 @@ local Skin = {
 			OffsetX = -5,
 			OffsetY = 2,
 		},
+	},
 	HotKey = {
 		-- JustifyH = "RIGHT",
 		-- JustifyV = "TOP",
@@ -571,7 +572,6 @@ local Skin = {
 			OffsetX = 4,
 			OffsetY = -2,
 		},
-	},
 	},
 	-- [ AutoCast (Classic) ]
 	AutoCastable = {

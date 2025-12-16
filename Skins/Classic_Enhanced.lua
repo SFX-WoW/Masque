@@ -26,7 +26,7 @@ local L = Core.Locale
 -- String Constants
 local STR_ADD = "ADD"
 
--- Texture Constants
+-- Texture Strings
 local TEX_BAGSLOT = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]]
 local TEX_CHECKED = [[Interface\Buttons\CheckButtonHilight]]
 local TEX_DEBUFF = [[Interface\Buttons\UI-Debuff-Overlays]]
