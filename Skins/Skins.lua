@@ -128,11 +128,8 @@ local function AddSkin(SkinID, SkinData, IsCore, IsBase)
 		end
 	end
 
-	-- [ Mandatory Metadata ]
-
+	-- Mandatory Metadata
 	SkinData.SkinID = SkinID
-	SkinData.Shape = GetShape(SkinData.Shape)
-	SkinData.API_VERSION = (SkinData.API_VERSION or SkinData.Masque_Version) or false
 
 	if not IsBase then
 		-- [ Templates]
@@ -160,6 +157,10 @@ local function AddSkin(SkinID, SkinData, IsCore, IsBase)
 
 			setmetatable(SkinData, Prototype)
 		end
+
+		-- Allow these to be inherited.
+		SkinData.Shape = GetShape(SkinData.Shape)
+		SkinData.API_VERSION = (SkinData.API_VERSION or SkinData.Masque_Version) or false
 
 		-- [ Layer Validation]
 
