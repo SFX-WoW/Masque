@@ -49,6 +49,7 @@ local Prototype
 
 -- Unique Fields
 local UniqueKeys = {
+	API_VERSION = true,
 	Author = true,
 	Description = true,
 	Version = true,
