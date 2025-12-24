@@ -503,7 +503,8 @@ end
 
 -- Hook for Classic spell alerts.
 local function Hook_ShowOverlayGlow(Button)
-	local Region = Button and Button.overlay
+	-- Account for LibCustomGlow.
+	local Region = Button.overlay or Button._ButtonGlow
 
 	if Region and Region.spark then
 		local _mcfg = Button._MSQ_CFG
@@ -532,7 +533,7 @@ end
 
 -- Calls the appropriate update function.
 local function Update_SpellAlert(Button)
-	if Button.overlay then
+	if Button.overlay or Button._ButtonGlow then
 		Hook_ShowOverlayGlow(Button)
 	else
 		Update_SpellActivationAlert(Button)
