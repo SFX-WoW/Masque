@@ -155,7 +155,10 @@ local function Skin_ButtonMask(Button, Skin)
 			SetSkinPoint(Button_Mask, Button, Skin, Skin.SetAllPoints)
 
 		elseif Texture then
-			Button_Mask:SetTexture(Texture, Skin.WrapH, Skin.WrapV)
+			local WrapH = Skin.WrapH or BASE_WRAP
+			local WrapV = Skin.WrapV or BASE_WRAP
+
+			Button_Mask:SetTexture(Texture, WrapH, WrapV)
 			Button_Mask:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
 
 			SetSkinPoint(Button_Mask, Button, Skin, Skin.SetAllPoints)
