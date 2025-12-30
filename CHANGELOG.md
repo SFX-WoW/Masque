@@ -1,16 +1,17 @@
-## 11.2.9
-
-### General
-
-- Cleaned up and optimized the **Blizzard** skins.
+## 11.2.10
 
 ### API
 
-- **Masque** will now check for the `._ButtonGlow` field provided by **LibCustonGlow**.
+- The `UpdateSpellAlert` API method now accepts a second parameter, `Region`, as the frame containing the animatiions.
+  - This should make it easier for add-ons to ensure that **Masque** gets the region properly.
+- Updated the `API_VERSION` to `110210`.
+
+### Localization
+
+- Updated `ptBR`. (Denshi_KRS)(#464)
 
 ### Bug Fixes
 
-- Fixed an issue that prevented a skin from inheriting its template's `Shape` field. (#461)
-- Fixed an issue that prevented the classic spell alerts from having the correct shape applied. (#462)
+- Fixed an issue that prevented a button-level mask from having its clamp mode set correctly. (#463)
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
