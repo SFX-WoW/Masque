@@ -214,29 +214,20 @@ local FlipBook_List = {
 ---
 
 -- Skins a spell alert overlay.
-local function Skin_Overlay(Region, Button, Skin)
-	local _mcfg = Button._MSQ_CFG
+local function Skin_Overlay(Button, Region, Skin, Shape)
+	local Paths = Overlays[Shape] or Overlays.Square
 
-	if not _mcfg then return end
+	local Ants_Texture = (Skin and Skin.Ants) or Paths.Ants
+	local Glow_Texture = (Skin and Skin.Glow) or Paths.Glow
 
-	local Shape = _mcfg.Shape
+	Region.ants:SetTexture(Ants_Texture)
+	Region.innerGlow:SetTexture(Glow_Texture)
+	Region.innerGlowOver:SetTexture(Glow_Texture)
+	Region.outerGlow:SetTexture(Glow_Texture)
+	Region.outerGlowOver:SetTexture(Glow_Texture)
+	Region.spark:SetTexture(Glow_Texture)
 
-	-- Update the skin if the shape has changed.
-	if Region._MSQ_Shape ~= Shape then
-		local Paths = Overlays[Shape] or Overlays.Square
-
-		local Ants_Texture = (Skin and Skin.Ants) or Paths.Ants
-		local Glow_Texture = (Skin and Skin.Glow) or Paths.Glow
-
-		Region.ants:SetTexture(Ants_Texture)
-		Region.innerGlow:SetTexture(Glow_Texture)
-		Region.innerGlowOver:SetTexture(Glow_Texture)
-		Region.outerGlow:SetTexture(Glow_Texture)
-		Region.outerGlowOver:SetTexture(Glow_Texture)
-		Region.spark:SetTexture(Glow_Texture)
-
-		Region._MSQ_Shape = Shape
-	end
+	Region._MSQ_Shape = Shape
 end
 
 -- Updates an animation.
@@ -285,48 +276,53 @@ local function Reset_FlipBooks(Region, Button, Width, Height)
 	-- [ ProcStart ]
 
 	local Start_Group = Region.ProcStartAnim
-	local Start_Animation = Start_Group and GetFlipBookAnimation(Start_Group)
-	local Start_Flipbook = Region.ProcStartFlipbook
 
-	-- Verify there's a start animation.
-	if Start_Flipbook and Start_Animation then
-		Start_Flipbook:SetAtlas(BASE_START)
-		Start_Flipbook:ClearAllPoints()
-		Start_Flipbook:SetPoint(STR_CENTER)
+	if Start_Group then
+		local Start_Animation = GetFlipBookAnimation(Start_Group)
+		local Start_Flipbook = Region.ProcStartFlipbook
 
-		local Button_Width, Button_Height = Button:GetSize()
+		-- Verify there's a start animation.
+		if Start_Flipbook and Start_Animation then
+			Start_Flipbook:SetAtlas(BASE_START)
+			Start_Flipbook:ClearAllPoints()
+			Start_Flipbook:SetPoint(STR_CENTER)
 
-		-- Default + Skin Size
-		if Width and Height then
-			-- Set the frame size relative to the skin.
-			Region:SetSize(Width, Height)
+			local Button_Width, Button_Height = Button:GetSize()
 
-			local Width = 160 * (Width / (Button_Width * 1.4))
-			local Height = 160 * (Height / (Button_Height * 1.4))
+			-- Default + Skin Size
+			if Width and Height then
+				-- Set the frame size relative to the skin.
+				Region:SetSize(Width, Height)
 
-			Start_Flipbook:SetSize(Width, Height)
+				local Width = 160 * (Width / (Button_Width * 1.4))
+				local Height = 160 * (Height / (Button_Height * 1.4))
 
-		-- Default
-		else
-			-- Set the frame size relative to the button.
-			Region:SetSize(Button_Width * 1.4, Button_Height * 1.4)
+				Start_Flipbook:SetSize(Width, Height)
 
-			-- Defaults to 150 x 150, causing visual scaling-up on transition.
-			Start_Flipbook:SetSize(160, 160)
+			-- Default
+			else
+				-- Set the frame size relative to the button.
+				Region:SetSize(Button_Width * 1.4, Button_Height * 1.4)
 
+				-- Defaults to 150 x 150, causing visual scaling-up on transition.
+				Start_Flipbook:SetSize(160, 160)
+			end
+
+			Update_Animation(Start_Animation)
 		end
-
-		Update_Animation(Start_Animation)
 	end
 
 	-- [ ProcLoop ]
 
 	-- Loop Animation
 	local Loop_Group = Region.ProcLoop
-	local Loop_Animation = Loop_Group and GetFlipBookAnimation(Loop_Group)
 
-	Region.ProcLoopFlipbook:SetAtlas(BASE_LOOP)
-	Update_Animation(Loop_Animation)
+	if Loop_Group then
+		local Loop_Animation = GetFlipBookAnimation(Loop_Group)
+
+		Region.ProcLoopFlipbook:SetAtlas(BASE_LOOP)
+		Update_Animation(Loop_Animation)
+	end
 
 	-- [ AltGlow ]
 
@@ -383,34 +379,44 @@ local function Skin_FlipBooks(Region, Button, Skin, UpdateUID)
 			-- [ ProcStart ]
 
 			local Start_Group = Region.ProcStartAnim
-			local Start_Animation = Start_Group and GetFlipBookAnimation(Start_Group)
-			local Start_Flipbook = Region.ProcStartFlipbook
 
-			-- Verify there's a start animation.
-			if Start_Flipbook and Start_Animation then
-				local Start_Texture = Shape_Style.StartTexture
+			if Start_Group then
+				local Start_Animation = GetFlipBookAnimation(Start_Group)
+				local Start_Flipbook = Region.ProcStartFlipbook
 
-				if Start_Texture then
-					Region._Loop_Only = nil
-				else
-					Start_Texture = Loop_Texture
-					Region._Loop_Only = true
+				-- Verify there's a start animation.
+				if Start_Flipbook and Start_Animation then
+					local Start_Texture = Shape_Style.StartTexture
+
+					if Start_Texture then
+						Region._Loop_Only = nil
+					else
+						Start_Texture = Loop_Texture
+						Region._Loop_Only = true
+					end
+
+					Start_Flipbook:SetTexture(Start_Texture)
+					Start_Flipbook:ClearAllPoints()
+					Start_Flipbook:SetAllPoints()
+
+					Update_Animation(Start_Animation, Shape_Style)
 				end
-
-				Start_Flipbook:SetTexture(Start_Texture)
-				Start_Flipbook:ClearAllPoints()
-				Start_Flipbook:SetAllPoints()
-
-				Update_Animation(Start_Animation, Shape_Style)
 			end
 
 			-- [ ProcLoop ]
 
-			local Loop_Group = Region.ProcLoop
-			local Loop_Animation = Loop_Group and GetFlipBookAnimation(Loop_Group)
+			-- Start with the LCG field.
+			local Loop_Group = Region.ProcLoopAnim or Region.ProcLoop
 
-			Region.ProcLoopFlipbook:SetTexture(Loop_Texture)
-			Update_Animation(Loop_Animation, Shape_Style)
+			if Loop_Group then
+				-- Assign for the default UI.
+				Region.ProcLoopAnim = Loop_Group
+
+				local Loop_Animation = GetFlipBookAnimation(Loop_Group)
+
+				Region.ProcLoopFlipbook:SetTexture(Loop_Texture)
+				Update_Animation(Loop_Animation, Shape_Style)
+			end
 
 			-- [ AltGlow ]
 
@@ -445,12 +451,25 @@ local function Skin_FlipBooks(Region, Button, Skin, UpdateUID)
 	end
 end
 
--- Updates spell alert flipbooks.
-local function Update_SpellActivationAlert(Button)
-	local _mcfg = Button._MSQ_CFG
-	local Region = Button.SpellActivationAlert
+-- Updates a spell alert overlay.
+local function Update_Overlay(Button, Region)
+	if Region.spark then
+		local _mcfg = Button._MSQ_CFG
+		local Shape = _mcfg.Shape
 
-	if (not Region) or (not Region.ProcStartAnim) or (not _mcfg) then return end
+		-- Update the skin if the shape has changed.
+		if Region._MSQ_Shape ~= Shape then
+			local bSkin = _mcfg.Skin
+			local Skin = bSkin and bSkin.SpellAlert
+
+			Skin_Overlay(Button, Region, Skin, Shape)
+		end
+	end
+end
+
+-- Updates spell alert flipbooks.
+local function Update_SpellActivationAlert(Button, Region)
+	if not Region.ProcStartAnim then return end
 
 	-- Animation Settings
 	local db = Core.db.profile.SpellAlert
@@ -460,6 +479,7 @@ local function Update_SpellActivationAlert(Button)
 	-- Set before the skin is applied.
 	Region._No_Start = (State == 2 and true) or nil
 
+	local _mcfg = Button._MSQ_CFG
 	local bSkin = _mcfg.Skin
 	local Skin = bSkin and bSkin.SpellAlert
 
@@ -491,28 +511,26 @@ end
 -- Hooks
 ---
 
--- Hook for Retail spell alerts.
+-- Hook for modern spell alerts.
 local function Hook_ShowAlert(Frame, Button)
-	-- Account for API calls.
-	if type(Button) ~= TYPE_TABLE then
-		Button = Frame
-	end
+	if not Button._MSQ_CFG then return end
 
-	Update_SpellActivationAlert(Button)
+	local Region = Button.SpellActivationAlert
+
+	if not Region then return end
+
+	Update_SpellActivationAlert(Button, Region)
 end
 
--- Hook for Classic spell alerts.
+-- Hook for classic spell alerts.
 local function Hook_ShowOverlayGlow(Button)
-	-- Account for LibCustomGlow.
-	local Region = Button.overlay or Button._ButtonGlow
+	if not Button._MSQ_CFG then return end
 
-	if Region and Region.spark then
-		local _mcfg = Button._MSQ_CFG
-		local bSkin = _mcfg and _mcfg.Skin
-		local Skin = bSkin and bSkin.SpellAlert
+	local Region = Button.overlay
 
-		Skin_Overlay(Region, Button, Skin)
-	end
+	if not Region then return end
+
+	Update_Overlay(Button, Region)
 end
 
 -- Retail
@@ -532,11 +550,26 @@ end
 ---
 
 -- Calls the appropriate update function.
-local function Update_SpellAlert(Button)
-	if Button.overlay or Button._ButtonGlow then
-		Hook_ShowOverlayGlow(Button)
+local function Update_SpellAlert(Button, Region)
+	if not Button._MSQ_CFG then return end
+
+	local Overlay, ProcGlow
+
+	if Region then
+		if Region.spark then
+			Overlay = Region
+		else
+			ProcGlow = Region
+		end
 	else
-		Update_SpellActivationAlert(Button)
+		Overlay = Button.overlay or Button._ButtonGlow
+		ProcGlow = Button.SpellActivationAlert --or Button._ProcGlow
+	end
+
+	if Overlay then
+		Update_Overlay(Button, Overlay)
+	elseif ProcGlow then
+		Update_SpellActivationAlert(Button, ProcGlow)
 	end
 end
 
@@ -650,10 +683,12 @@ function API:GetSpellAlertFlipBook(Style, Shape)
 end
 
 -- API wrapper for the Update_SpellAlert function.
-function API:UpdateSpellAlert(Button)
+function API:UpdateSpellAlert(Button, Region)
 	if type(Button) ~= TYPE_TABLE then
 		return
+	elseif type(Region) ~= TYPE_TABLE then
+		Region = nil
 	end
 
-	Update_SpellAlert(Button)
+	Update_SpellAlert(Button, Region)
 end
