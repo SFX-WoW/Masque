@@ -13,6 +13,7 @@
 ## Notes-deDE: Eine Engine, um das Erscheinungsbild von schaltflächenbasierte Add-ons anzupassen.
 ## Notes-esMX: Un sistema de cambio de apariencia para los add-ons de botones.
 ## Notes-esES: Un sistema de cambio de apariencia para los add-ons de botones.
+## Notes-itIT: Un sistema di gestione skin per add-on basati sui pulsanti.
 ## Notes-koKR: 버튼 기반 애드온을 위한 스킨 엔진입니다.
 ## Notes-ptBR: Um motor de aparências para addons baseados em botões.
 ## Notes-ruRU: Основа для аддонов, изменяющих внешний вид кнопок.
