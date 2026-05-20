@@ -66,11 +66,11 @@ local STR_SQUARE = "Square"
 local TYPE_STRING = "string"
 local TYPE_TABLE = "table"
 
+-- Internal Settings
+
 -- Default Masque Textures
 -- Size: 512 x 512
 -- Grid: 6 Rows, 5 Columns, 30 Frames
-
--- Internal Settings
 local SIZE_ALTGLOW = 49
 local SIZE_CLASSIC = 64
 local SIZE_MODERN = 84
@@ -504,7 +504,6 @@ local function Update_SpellActivationAlert(Button, Region)
 		ActionButtonSpellAlertManager:HideAlert(Button)
 		return
 	end
-
 end
 
 ----------------------------------------
