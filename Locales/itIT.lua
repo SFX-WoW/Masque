@@ -39,14 +39,14 @@ L["Advanced"] = "Avanzate"
 L["Advanced Settings"] = "Impostazioni Avanzate"
 L["Cast Animations"] = "Animazioni Lancio"
 L["Cooldown Animations"] = "Animazioni Recupero"
-L["Enable animations when action button cooldowns finish."] = "Abilita le animazioni quando il recupero di una abilità termina."
+L["Enable animations when action button cooldowns finish."] = "Abilita le animazioni quando il recupero di un pulsante termina."
 L["Enable cast animations on action buttons."] = "Abilita le animazioni al lancio sui pulsanti."
 L["Enable interrupt animations on action buttons."] = "Abilita l'interruzione delle animazioni sui pulsanti."
 L["Enable targeting reticles on action buttons."] = "Abilita la selezione del reticolo nei pulsanti."
 L["Flash and Loop"] = "Lampeggio e Ripetizione"
 L["Interrupt Animations"] = "Interrompi Animazioni"
 L["Loop Only"] = "Solo Ripetizione"
-L["Select the spell alert style."] = "Seleziona lo stile dell'avviso incantesimo"
+L["Select the spell alert style."] = "Seleziona lo stile dell'avviso incantesimo."
 L["Select which spell alert animations are enabled."] = "Seleziona quali avvisi per le animazioni abilità sono abilitati."
 L["Spell Alert Animations"] = "ASnimazioni Avviso Incantesimo"
 L["Spell Alert Style"] = "Stile Avviso Incantesimo"
@@ -69,7 +69,7 @@ L["The default modern button style."] = "Lo stile moderno predefinito dei pulsan
 -- Classic Enhanced Skin
 ---
 
-L["An enhanced version of the classic button style."] = "Una versione migliorata dello stile per pulsanti Classico."
+L["An enhanced version of the classic button style."] = "Una versione migliorata dello stile per pulsanti classico."
 
 ----------------------------------------
 -- Core Settings
@@ -82,7 +82,7 @@ L["This section will allow you to view information about Masque and any skins yo
 -- Developer Settings
 ---
 
-L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Forza Masque a visualizzare un errore Lua ogni volta che c'é un problema con un'add-on o una skin."
+L["Causes Masque to throw Lua errors whenever it encounters a problem with an add-on or skin."] = "Forza Masque a visualizzare un errore Lua ogni volta che c'è un problema con un add-on o una skin."
 L["Clean Database"] = "Pulisci Database"
 L["Click to purge the settings of all unused add-ons and groups."] = "Clicca per eliminare le impostazioni di tutti gli add-on e gruppi inutilizzati."
 L["Debug Mode"] = "Modalità Debug"
@@ -97,7 +97,7 @@ L["This section will allow you to adjust settings that affect working with Masqu
 -- Dream Skin
 ---
 
-L["A square skin with trimmed icons and a semi-transparent background."] = "Una skin quadrata con le icone spuntate e uno sfondo semi-trasparente"
+L["A square skin with trimmed icons and a semi-transparent background."] = "Una skin quadrata con icone spuntate e uno sfondo semi-trasparente."
 
 ----------------------------------------
 -- General Settings
@@ -221,4 +221,4 @@ L["This section will allow you to skin the buttons of the add-ons and add-on gro
 -- Zoomed Skin
 ---
 
-L["A square skin with zoomed icons and a semi-transparent background."] = "Una skin quadrata con icone ingrandite e uno sfondo semi-traasparente."
+L["A square skin with zoomed icons and a semi-transparent background."] = "Una skin quadrata con icone ingrandite e uno sfondo semi-trasparente."
