@@ -1,16 +1,12 @@
-## 12.0.5
+## 12.0.7
 
 ### General
 
-- Updated the `Interface` versions: (#483)
-  - **The War Within**: `120005`
-  - **The Burning Crusade Classic**: `20505`
-  - **Wrath of the Lich King Titan**: `38001`
-
-### Localization
-
-- Updated `itIT`. (EliteSparkle)(#484)
-- Updated `koKR`. (Reidin)(#486)
-- Updated `zhCN`. (LvWind)(#485)
+- Updated the `Interface` versions:
+  - **Midnight**: `120007`
+  - **Mists of Pandaria Classic**: `50504`
+  - **Wrath of the Lich King Titan**: `38002`
+  - **The Burning Crusade Classic** Anniversary Edition: `20506`
+  - **Classic Era**: `11509`
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
