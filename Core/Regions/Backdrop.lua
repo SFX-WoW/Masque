@@ -49,9 +49,6 @@ local BASE_TEXTURES = SkinBase.Textures -- [[Interface\AddOns\Masque\Textures\Ba
 -- Type Strings
 local TYPE_TABLE = "table"
 
--- Unused Backdrop Textures
-local Cache = {}
-
 ----------------------------------------
 -- Helpers
 ---
@@ -64,19 +61,10 @@ local function Add_Backdrop(Region, Button, Skin, Color)
 	Region = Region or _mcfg.Backdrop
 
 	if not Region then
-		local i = #Cache
-
-		if i > 0 then
-			Region = Cache[i]
-			Cache[i] = nil
-		else
-			Region = Button:CreateTexture()
-		end
-
+		Region = Button:CreateTexture()
 		_mcfg.Backdrop = Region
 	end
 
-	Region:SetParent(Button)
 	Color = Color or Skin.Color
 
 	local Skin_Atlas = Skin.Atlas
@@ -131,26 +119,17 @@ end
 -- Removes the 'Backdrop' region from a button.
 local function Remove_Backdrop(Region, Button)
 	local _mcfg = Button._MSQ_CFG
-	Region = Region or _mcfg.Backdrop
+	local Backdrop = _mcfg.Backdrop
+
+	Region = Region or Backdrop
 
 	if not Region then return end
 
-	Region:Hide()
-
-	if _mcfg.Backdrop then
-		-- Remove the button mask.
-		local Button_Mask = _mcfg.ButtonMask
-
-		if Button_Mask and Region._MSQ_ButtonMask then
-			Region:RemoveMaskTexture(Button_Mask)
-			Region._MSQ_ButtonMask = nil
-		end
-
+	if Backdrop then
 		Region:SetTexture()
-
-		Cache[#Cache + 1] = Region
-		_mcfg.Backdrop = nil
 	end
+
+	Region:Hide()
 end
 
 ----------------------------------------

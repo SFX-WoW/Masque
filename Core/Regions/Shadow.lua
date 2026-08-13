@@ -43,9 +43,6 @@ local BASE_SIZE = SkinRoot.Size -- 36
 -- Type Strings
 local TYPE_TABLE = "table"
 
--- Unused Shadow Textures
-local Cache = {}
-
 ----------------------------------------
 -- Helpers
 ---
@@ -56,19 +53,10 @@ local function Add_Shadow(Button, Skin, Color)
 	local Region = _mcfg.Shadow
 
 	if not Region then
-		local i = #Cache
-
-		if i > 0 then
-			Region = Cache[i]
-			Cache[i] = nil
-		else
-			Region = Button:CreateTexture()
-		end
-
+		Region = Button:CreateTexture()
 		_mcfg.Shadow = Region
 	end
 
-	Region:SetParent(Button)
 	Region:SetTexture(Skin.Texture)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 	Region:SetBlendMode(Skin.BlendMode or BASE_BLEND)
@@ -98,13 +86,10 @@ local function Remove_Shadow(Button)
 	local _mcfg = Button._MSQ_CFG
 	local Region = _mcfg.Shadow
 
-	if Region then
-		Region:SetTexture()
-		Region:Hide()
+	if not Region then return end
 
-		Cache[#Cache + 1] = Region
-		_mcfg.Shadow = nil
-	end
+	Region:SetTexture()
+	Region:Hide()
 end
 
 ----------------------------------------
