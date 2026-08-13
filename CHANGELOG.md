@@ -1,12 +1,12 @@
-## 12.0.7
+## 12.0.8
 
 ### General
 
-- Updated the `Interface` versions:
-  - **Midnight**: `120007`
-  - **Mists of Pandaria Classic**: `50504`
-  - **Wrath of the Lich King Titan**: `38002`
-  - **The Burning Crusade Classic** Anniversary Edition: `20506`
-  - **Classic Era**: `11509`
+- Added support for the 12.1 PTR.
+
+### API
+
+- Removed calls to `SetParent` due to 12.1 restrictions.
+- Removed texture caching for the `Backdrop`, `Gloss` and `Shadow` regions.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
