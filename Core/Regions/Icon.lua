@@ -151,7 +151,6 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 	-- Skin
 	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
-	Region:SetParent(Button)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 	Region:SetDrawLayer(Layer, BASE_LEVEL)
 
