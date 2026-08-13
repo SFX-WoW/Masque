@@ -178,8 +178,8 @@ local function Skin_Cooldown(Region, Button, Skin, Color, Pulse, IsLoC)
 
 				Region._MSQ_Color = Color
 
-				Hook_SetSwipeColor(Region)
 				Region:SetSwipeTexture(Swipe)
+				Hook_SetSwipeColor(Region)
 
 				-- Hook cooldowns that change the swipe color.
 				if (not WOW_1201) and (not Region._MSQ_Swipe_Hooked) then
