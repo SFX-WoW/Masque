@@ -1,12 +1,12 @@
-## 12.0.8
+## 12.1.0
 
 ### General
 
-- Added support for the 12.1 PTR.
+- Updated the `Interface` versions:
+  - **Midnight**: `120100`
 
 ### API
 
-- Removed calls to `SetParent` due to 12.1 restrictions.
-- Removed texture caching for the `Backdrop`, `Gloss` and `Shadow` regions.
+- Removed the hook for `ActionButton_ShowOverlayGlow`.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
