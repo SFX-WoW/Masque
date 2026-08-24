@@ -521,27 +521,9 @@ local function Hook_ShowAlert(Frame, Button)
 	Update_SpellActivationAlert(Button, Region)
 end
 
--- Hook for classic spell alerts.
-local function Hook_ShowOverlayGlow(Button)
-	if not Button._MSQ_CFG then return end
-
-	local Region = Button.overlay
-
-	if not Region then return end
-
-	Update_Overlay(Button, Region)
-end
-
--- Retail
 if ActionButtonSpellAlertManager then
 	-- @ Interface\AddOns\Blizzard_ActionBar\Mainline\ActionButton.lua
 	hooksecurefunc(ActionButtonSpellAlertManager, "ShowAlert", Hook_ShowAlert)
-end
-
--- Classic
-if ActionButton_ShowOverlayGlow then
-	-- @ Interface\AddOns\Blizzard_ActionBar\Classic\ActionButton.lua
-	hooksecurefunc("ActionButton_ShowOverlayGlow", Hook_ShowOverlayGlow)
 end
 
 ----------------------------------------
