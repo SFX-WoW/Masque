@@ -44,14 +44,6 @@ local TYPE_FUNCTION = "function"
 local TYPE_TABLE = "table"
 
 ----------------------------------------
--- Miscellaneous
----
-
--- An empty function.
-local function NoOp() end
-Core.NoOp = NoOp
-
-----------------------------------------
 -- Animation
 ---
 
@@ -218,9 +210,3 @@ function Core.GetRegion(Button, Info)
 		end
 	end
 end
-
-----------------------------------------
--- API - Deprecated
----
-
-Core.API.Register = NoOp

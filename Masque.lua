@@ -64,6 +64,14 @@ local function UpdateDB()
 end
 
 ----------------------------------------
+-- Miscellaneous
+---
+
+-- An empty function.
+local function NoOp() end
+Core.NoOp = NoOp
+
+----------------------------------------
 -- Core
 ---
 
@@ -253,3 +261,9 @@ end
 function Masque:SetProfile(Name)
 	Core.db:SetProfile(Name)
 end
+
+----------------------------------------
+-- API - Deprecated
+---
+
+Core.API.Register = NoOp
