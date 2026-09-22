@@ -69,7 +69,7 @@ local function Add_Gloss(Button, Skin, Color)
 		local Width = Skin.Width or BASE_SIZE
 		local Height = Skin.Height or BASE_SIZE
 
-		Region:SetSize(_mcfg:GetSize(Width, Height))
+		Region:SetSize(_mcfg:GetScaleSize(Width, Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, SetAllPoints)

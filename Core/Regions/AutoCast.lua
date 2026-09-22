@@ -45,7 +45,7 @@ local function Skin_AutoCastFrame(Frame, Button, Skin, Default)
 		local Width = Skin.Width or BaseSize
 		local Height = Skin.Height or BaseSize
 
-		Frame:SetSize(_mcfg:GetSize(Width, Height))
+		Frame:SetSize(_mcfg:GetScaleSize(Width, Height))
 	end
 
 	SetSkinPoint(Frame, Button, Skin, SetAllPoints)
@@ -92,7 +92,7 @@ local function Skin_AutoCastTexture(Region, Button, Anchor, Skin, Default, IsMas
 		local Width = Skin.Width or BaseSize
 		local Height = Skin.Height or BaseSize
 
-		Region:SetSize(_mcfg:GetSize(Width, Height))
+		Region:SetSize(_mcfg:GetScaleSize(Width, Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, SetAllPoints, Anchor)

@@ -182,7 +182,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 		local Width = Skin.Width or Size
 		local Height = Skin.Height or Size
 
-		Region:SetSize(_mcfg:GetSize(Width, Height))
+		Region:SetSize(_mcfg:GetScaleSize(Width, Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, SetAllPoints, Button, Default)

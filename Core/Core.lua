@@ -128,7 +128,7 @@ end
 ---
 
 -- Returns a height and width relative to scaling.
-local function GetSize(self, Width, Height)
+local function GetScaleSize(self, Width, Height)
 	local ScaleSize = self.ScaleSize
 
 	local w = (Width or ScaleSize) * self.xScale
@@ -276,7 +276,7 @@ function Core.GetMasqueConfig(Button)
 
 			-- Scale
 			GetScale = GetScale,
-			GetSize = GetSize,
+			GetScaleSize = GetScaleSize,
 			GetTypeSkin = GetTypeSkin,
 			UpdateScale = UpdateScale,
 

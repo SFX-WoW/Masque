@@ -118,7 +118,7 @@ local function Reset_AssistedCombatHighlight(Region, Button)
 	local _mcfg = Button._MSQ_CFG
 
 	Region:SetAtlas(BASE_ATLAS)
-	Region:SetSize(_mcfg:GetSize(53, 53))
+	Region:SetSize(_mcfg:GetScaleSize(53, 53))
 
 	local AnimGroup = Region.Anim
 	local Animation = GetFlipBookAnimation(AnimGroup)
@@ -150,7 +150,7 @@ local function Skin_AssistedCombatHighlight(Region, Button, Skin)
 		Height = Skin.Height or Height
 	end
 
-	Region:SetSize(_mcfg:GetSize(Width, Height))
+	Region:SetSize(_mcfg:GetScaleSize(Width, Height))
 
 	local AnimGroup = Region.Anim
 	local Animation = GetFlipBookAnimation(AnimGroup)

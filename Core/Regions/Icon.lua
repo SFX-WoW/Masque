@@ -154,7 +154,7 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 	Region:SetDrawLayer(Layer, BASE_LEVEL)
 
-	Region:SetSize(_mcfg:GetSize(Skin.Width, Skin.Height))
+	Region:SetSize(_mcfg:GetScaleSize(Skin.Width, Skin.Height))
 
 	local SetAllPoints = Skin.SetAllPoints
 
@@ -162,7 +162,7 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 		local Width = Skin.Width or BASE_SIZE
 		local Height = Skin.Height or BASE_SIZE
 
-		Region:SetSize(_mcfg:GetSize(Width, Height))
+		Region:SetSize(_mcfg:GetScaleSize(Width, Height))
 	end
 
 	SetSkinPoint(Region, Button, Skin, SetAllPoints)
