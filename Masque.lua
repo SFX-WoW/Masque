@@ -41,7 +41,7 @@ local L = Core.Locale
 local Masque = LibStub("AceAddon-3.0"):NewAddon(MASQUE)
 
 -- API Version
-local API_VERSION = 110210
+local API_VERSION = 120000
 
 -- Client Version
 local WOW_VERSION = select(4, GetBuildInfo()) or 0
@@ -62,14 +62,6 @@ local function UpdateDB()
 	Core:UpdateIconPosition()
 	Core.Debug = db.Developer.Debug
 end
-
-----------------------------------------
--- Miscellaneous
----
-
--- An empty function.
-local function NoOp() end
-Core.NoOp = NoOp
 
 ----------------------------------------
 -- Core
@@ -261,6 +253,16 @@ end
 function Masque:SetProfile(Name)
 	Core.db:SetProfile(Name)
 end
+
+----------------------------------------
+-- Miscellaneous
+---
+
+-- An empty function.
+local function NoOp() end
+
+Core.NoOp = NoOp
+Core.HasSecrets = _G.hasanysecretvalues or NoOp
 
 ----------------------------------------
 -- API - Deprecated
