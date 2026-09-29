@@ -22,6 +22,9 @@ local error, pairs, select, type = error, pairs, select, type
 -- Internal
 ---
 
+-- @ Masque
+local HasSecrets = Core.HasSecrets
+
 -- @ Skins\Skins
 local Skins = Core.Skins
 
@@ -259,23 +262,53 @@ end
 -- Reskins the group with its current settings.
 function GMT:ReSkin(Button)
 	local db = self.db
+	if db.Disabled then return end
 
-	if not db.Disabled then
-		if type(Button) == "table" then
-			local Regions = self.Buttons[Button]
+	local SkinID, Backdrop, Shadow = db.SkinID, db.Backdrop, db.Shadow
+	local Gloss, Colors, Pulse = db.Gloss, db.Colors, db.Pulse
 
-			if Regions then
-				SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Scale, db.Pulse)
-			end
-		else
-			local SkinID, Backdrop, Shadow = db.SkinID, db.Backdrop, db.Shadow
-			local Gloss, Colors, Pulse = db.Gloss, db.Colors, db.Pulse
+	local Regions = type(Button) == "table" and self.Buttons[Button]
 
-			for Button, Regions in pairs(self.Buttons) do
-				SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Colors, db.Scale, Pulse)
-			end
+	if Regions then
+		SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Scale, db.Pulse)
+
+	else
+		for frame, regions in pairs(self.Buttons) do
+			SkinButton(frame, regions, SkinID, Backdrop, Shadow, Gloss, Colors, db.Scale, Pulse)
 		end
 	end
+end
+
+-- Sets the frame's size values so Masque can use them.
+-- Note: This only needs to be called if the values from Frame:GetSize() are secret.
+function GMT:SetFrameSize(Width, Height, Button, SetOnly)
+	if type(Width) ~= "number" or type(Height) ~= "number" then
+		if Core.Debug then
+			error("Bad argument to group method 'SetFrameSize'. 'Width' and `Height` must be numbers.", 2)
+		end
+		return
+	end
+
+	if HasSecrets(Width, Height) then
+		if Core.Debug then
+			error("Bad argument to group method 'SetFrameSize'. 'Width' and `Height` cannot contain secret values.", 2)
+		end
+		return
+	end
+
+	if type(Button) == "table" and self.Buttons[Button] then
+		Button._mcfg:SetFrameSize(Width, Height)
+
+	else
+		Button = nil
+
+		for frame in pairs(self.Buttons) do
+			frame._mcfg:SetFrameSize(Width, Height)
+		end
+
+	end
+
+	if not SetOnly then self:ReSkin(Button) end
 end
 
 -- Renames the group.

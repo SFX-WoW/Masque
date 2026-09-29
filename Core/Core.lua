@@ -22,6 +22,9 @@ local _G = _G
 -- Internal
 ---
 
+-- @ Masque
+local HasSecrets = Core.HasSecrets
+
 -- @ Skins\Defaults
 local SkinBase = Core.SKIN_BASE
 
@@ -77,6 +80,7 @@ local TYPE_SPECIAL = {
 
 -- Updates the UID for the button to force hooks to update.
 local function ForceUpdate(self)
+	self:SetFrameSize()
 	self._uID = (self._uID or 0) + 1
 end
 
@@ -114,7 +118,7 @@ local function UpdateScale(self, Button, Scale)
 	Scale = Scale or BASE_SCALE
 
 	local ScaleSize = BASE_SIZE / Scale
-	local Width, Height = Button:GetSize()
+	local Width, Height = self:GetFrameSize()
 
 	self.xScale = (Width or ScaleSize) / ScaleSize
 	self.yScale = (Height or ScaleSize) / ScaleSize
@@ -135,6 +139,29 @@ local function GetScaleSize(self, Width, Height)
 	local h = (Height or ScaleSize) * self.yScale
 
 	return w, h
+end
+
+-- Returns the internal width and height of a frame.
+local function GetFrameSize(self)
+	return self.FrameWidth, self.FrameHeight
+end
+
+-- Sets the internal width and height of a frame.
+-- Called in _mcfg:ForceUpdate() without parameters.
+local function SetFrameSize(self, Width, Height)
+	if not Width or not Height then
+		Width, Height = self.Frame:GetSize()
+	end
+
+	if HasSecrets(Width, Height) then
+		Width = self.FrameWidth
+		Height = self.FrameHeight
+
+		self.HasSecrets = true
+	end
+
+	self.FrameWidth = Width
+	self.FrameHeight = Height
 end
 
 ----------------------------------------
@@ -268,6 +295,9 @@ function Core.GetMasqueConfig(Button)
 		_mcfg = {
 			-- _uID is used internally to track updates.
 			_uID = 0,
+			Frame = Button,
+			FrameWidth = BASE_SIZE,
+			FrameHeight = BASE_SIZE,
 
 			-- Internal
 			ForceUpdate = ForceUpdate,
@@ -276,12 +306,16 @@ function Core.GetMasqueConfig(Button)
 
 			-- Scale
 			GetScale = GetScale,
-			GetScaleSize = GetScaleSize,
-			GetTypeSkin = GetTypeSkin,
 			UpdateScale = UpdateScale,
+
+			-- Size
+			GetFrameSize = GetFrameSize,
+			GetScaleSize = GetScaleSize,
+			SetFrameSize = SetFrameSize,
 
 			-- Type
 			GetType = GetType,
+			GetTypeSkin = GetTypeSkin,
 		}
 
 		Button._MSQ_CFG = _mcfg
