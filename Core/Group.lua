@@ -297,13 +297,13 @@ function GMT:SetFrameSize(Width, Height, Button, SetOnly)
 	end
 
 	if type(Button) == "table" and self.Buttons[Button] then
-		Button._mcfg:SetFrameSize(Width, Height)
+		Button._MSQ_CFG:SetFrameSize(Width, Height)
 
 	else
 		Button = nil
 
 		for frame in pairs(self.Buttons) do
-			frame._mcfg:SetFrameSize(Width, Height)
+			frame._MSQ_CFG:SetFrameSize(Width, Height)
 		end
 
 	end

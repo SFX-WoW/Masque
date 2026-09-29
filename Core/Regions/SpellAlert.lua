@@ -287,7 +287,7 @@ local function Reset_FlipBooks(Region, Button, Width, Height)
 			Start_Flipbook:ClearAllPoints()
 			Start_Flipbook:SetPoint(STR_CENTER)
 
-			local Button_Width, Button_Height = Button:GetSize()
+			local Button_Width, Button_Height = Button._MSQ_CFG:GetFrameSize()
 
 			-- Default + Skin Size
 			if Width and Height then
