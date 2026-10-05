@@ -14,3 +14,5 @@ jobs:
   package:
     name: Package Alpha
     uses: SFX-WoW/shared/.github/workflows/build-alpha.yml@main
+    secrets:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
