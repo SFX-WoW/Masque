@@ -34,7 +34,16 @@ Libs\Libs.xml
 Libs\LibDualSpec-1.0\LibDualSpec-1.0.lua
 
 # Locales
-Locales\Locales.xml
+Locales\Locales.lua
+Locales\deDE.lua [AllowLoadTextLocale deDE]
+Locales\esES.lua [AllowLoadTextLocale esES, esMX]
+Locales\frFR.lua [AllowLoadTextLocale frFR]
+Locales\itIT.lua [AllowLoadTextLocale itIT]
+Locales\koKR.lua [AllowLoadTextLocale koKR]
+Locales\ptBR.lua [AllowLoadTextLocale ptBR]
+Locales\ruRU.lua [AllowLoadTextLocale ruRU]
+Locales\zhCN.lua [AllowLoadTextLocale zhCN]
+Locales\zhTW.lua [AllowLoadTextLocale zhTW]
 
 # Add-On
 Masque.lua
