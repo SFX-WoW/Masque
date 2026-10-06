@@ -23,7 +23,7 @@ Core.Locale = setmetatable(L, {
 })
 
 --[===[
---@localization(locale="enUS", format="lua_additive_table", namespace="Info", handle-unlocalized="comment")@
---@localization(locale="enUS", format="lua_additive_table", namespace="Settings", handle-unlocalized="comment")@
---@localization(locale="enUS", format="lua_additive_table", namespace="Skins", handle-unlocalized="comment")@
+--@localization(locale="enUS", format="lua_additive_table", namespace="Info")@
+--@localization(locale="enUS", format="lua_additive_table", namespace="Settings")@
+--@localization(locale="enUS", format="lua_additive_table", namespace="Skins")@
 --]===]
