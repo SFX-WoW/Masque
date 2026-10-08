@@ -148,8 +148,16 @@ end
 
 -- Sets the internal width and height of a frame.
 -- Called in _mcfg:ForceUpdate() without parameters.
+-- A size set explicitly (via Group:SetFrameSize) is kept until it's set again;
+-- otherwise the frame is measured on every call.
 local function SetFrameSize(self, Width, Height)
-	if not Width or not Height then
+	if Width and Height then
+		self.ExplicitSize = true
+
+	elseif self.ExplicitSize then
+		return
+
+	else
 		Width, Height = self.Frame:GetSize()
 	end
 
