@@ -80,8 +80,11 @@ local TYPE_SPECIAL = {
 
 -- Updates the UID for the button to force hooks to update.
 local function ForceUpdate(self)
-	self:SetFrameSize()
 	self._uID = (self._uID or 0) + 1
+
+	if not self.ForceFrameSize then
+		self:UpdateFrameSize()
+	end
 end
 
 -- Checks to see if the region needs to be updated.
@@ -147,17 +150,20 @@ local function GetFrameSize(self)
 end
 
 -- Sets the internal width and height of a frame.
--- Called in _mcfg:ForceUpdate() without parameters.
-local function SetFrameSize(self, Width, Height)
-	if not Width or not Height then
-		Width, Height = self.Frame:GetSize()
-	end
+local function SetFrameSize(self, Width, Height, Mutable)
+	self.FrameWidth = Width
+	self.FrameHeight = Height
+
+	self.ForceFrameSize = (not Mutable) or nil
+end
+
+-- Updates the frame size cache.
+local function UpdateFrameSize(self)
+	local Width, Height = self.Frame:GetSize()
 
 	if HasSecrets(Width, Height) then
-		Width = self.FrameWidth
-		Height = self.FrameHeight
-
 		self.HasSecrets = true
+		return
 	end
 
 	self.FrameWidth = Width
@@ -312,6 +318,7 @@ function Core.GetMasqueConfig(Button)
 			GetFrameSize = GetFrameSize,
 			GetScaleSize = GetScaleSize,
 			SetFrameSize = SetFrameSize,
+			UpdateFrameSize = UpdateFrameSize,
 
 			-- Type
 			GetType = GetType,

@@ -281,7 +281,7 @@ end
 
 -- Sets the frame's size values so Masque can use them.
 -- Note: This only needs to be called if the values from Frame:GetSize() are secret.
-function GMT:SetFrameSize(Width, Height, Button, SetOnly)
+function GMT:SetFrameSize(Width, Height, Button, Mutable, SetOnly)
 	if type(Width) ~= "number" or type(Height) ~= "number" then
 		if Core.Debug then
 			error("Bad argument to group method 'SetFrameSize'. 'Width' and `Height` must be numbers.", 2)
@@ -297,13 +297,13 @@ function GMT:SetFrameSize(Width, Height, Button, SetOnly)
 	end
 
 	if type(Button) == "table" and self.Buttons[Button] then
-		Button._MSQ_CFG:SetFrameSize(Width, Height)
+		Button._MSQ_CFG:SetFrameSize(Width, Height, Mutable)
 
 	else
 		Button = nil
 
 		for frame in pairs(self.Buttons) do
-			frame._MSQ_CFG:SetFrameSize(Width, Height)
+			frame._MSQ_CFG:SetFrameSize(Width, Height, Mutable)
 		end
 
 	end
