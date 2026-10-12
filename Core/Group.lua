@@ -35,7 +35,7 @@ local DEFAULT_SKIN = Core.DEFAULT_SKIN
 local ActionTypes, RegTypes = Core.ActionTypes, Core.RegTypes
 
 -- @ Core\Utility
-local GetColor = Core.GetColor
+local GetColor, GetFrameType = Core.GetColor, Core.GetFrameType
 
 -- @ Core\Core
 local GetMasqueConfig, GetRegion = Core.GetMasqueConfig, Core.GetRegion
@@ -70,52 +70,37 @@ local C_Layers = {
 -- Group Metatable
 ---
 
--- Frame Validation
-local IsFrame = {
-	Button = true,
-	CheckButton = true,
-	Frame = true,
-}
-
 -- Adds or reassigns a button to the group.
 function GMT:AddButton(Button, Regions, Type, Strict)
-	local FrameType
 
-	if type(Button) == "table" then
-		local oType = Button.GetObjectType and Button:GetObjectType()
+	-- Validation
+	local frameType = GetFrameType(Button)
 
-		if oType and IsFrame[oType] then
-			FrameType = oType
-		end
-	end
-
-	if not FrameType then
+	if not frameType then
 		if Core.Debug then
 			error("Bad argument to group method 'AddButton'. 'Button' must be a Button, CheckButton or Frame object.", 2)
 		end
 		return
-
-	elseif FrameType == "Frame" then
-		Strict = true
 	end
 
+	local parent = Group[Button]
+
+	if parent == self then return end
+
+	-- Reassignment
+	if parent then
+		Regions = Regions or parent.Buttons[Button]
+		parent.Buttons[Button] = nil
+	end
+
+	-- Configuration
 	local _mcfg = GetMasqueConfig(Button)
-	_mcfg.oType = FrameType
+
+	_mcfg.oType = frameType
 
 	local bType = _mcfg:GetType(Button, Type)
 
 	Regions = Regions or _mcfg.Regions
-
-	local Parent = Group[Button]
-
-	if Parent then
-		if Parent == self then
-			return
-		else
-			Regions = Regions or Parent.Buttons[Button]
-			Parent.Buttons[Button] = nil
-		end
-	end
 
 	Group[Button] = self
 
@@ -127,7 +112,8 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 		Regions = {}
 	end
 
-	if not Strict then
+	-- Don't iterate layers for generic frames.
+	if not Strict and frameType ~= "Frame" then
 		local Layers = RegTypes[bType]
 
 		for Layer, Info in pairs(Layers) do
@@ -155,7 +141,7 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 	local db = self.db
 
 	if not self.Queued then
-		if Parent and not Parent.db.Disabled and db.Disabled then
+		if parent and not parent.db.Disabled and db.Disabled then
 			SkinButton(Button, Regions, false)
 		elseif not db.Disabled then
 			SkinButton(Button, Regions, db.SkinID, db.Backdrop, db.Shadow, db.Gloss, db.Colors, db.Scale, db.Pulse)

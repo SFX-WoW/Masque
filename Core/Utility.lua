@@ -38,6 +38,13 @@ local BASE_OFFSETY = SkinRoot.OffsetY
 -- Strings
 local STR_ANIMKEY = "FlipAnim"
 
+-- Valid Frame Types
+local isValidFrame = {
+	Button = true,
+	CheckButton = true,
+	Frame = true,
+}
+
 ----------------------------------------
 -- Animation
 ---
@@ -66,6 +73,21 @@ function Core.GetColor(Color, Alpha)
 		return Color[1] or 1, Color[2] or 1, Color[3] or 1, Alpha or Color[4] or 1
 	else
 		return 1, 1, 1, Alpha or 1
+	end
+end
+
+----------------------------------------
+-- Frame Validation
+---
+
+-- Validates a frame.
+function Core.GetFrameType(Frame)
+	if type(Frame) == "table" and Frame.GetObjectType then
+		local frameType = Frame:GetObjectType()
+
+		if isValidFrame[frameType] then
+			return frameType
+		end
 	end
 end
 
