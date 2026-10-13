@@ -98,13 +98,13 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 
 	_mcfg.FrameType = frameType
 
-	local bType = _mcfg:GetType(Button, Type)
+	local subType = _mcfg:GetType(Button, Type)
 
 	Regions = Regions or _mcfg.Regions
 
 	Group[Button] = self
 
-	if ActionTypes[bType] then
+	if ActionTypes[subType] then
 		self.ActionButtons = true
 	end
 
@@ -114,7 +114,7 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 
 	-- Don't iterate layers for generic frames.
 	if not Strict and frameType ~= "Frame" then
-		local Layers = RegTypes[bType]
+		local Layers = RegTypes[subType]
 
 		for Layer, Info in pairs(Layers) do
 			local Region = Regions[Layer]

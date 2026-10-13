@@ -248,7 +248,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	-- Force an update.
 	_mcfg:ForceUpdate()
 
-	local bType = _mcfg.bType
+	local subType = _mcfg.SubType
 	local Enabled = true
 	local Skin
 
@@ -277,13 +277,13 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	_mcfg:UpdateScale(Button, Scale)
 
-	local IsActionType = ActionTypes[bType]
+	local IsActionType = ActionTypes[subType]
 
 	-- Set/remove type flags.
 	_mcfg.IsAction = IsActionType
-	_mcfg.IsAura = AuraTypes[bType]
-	_mcfg.IsItem = ItemTypes[bType]
-	_mcfg.IsEmptyType = EmptyTypes[bType]
+	_mcfg.IsAura = AuraTypes[subType]
+	_mcfg.IsItem = ItemTypes[subType]
+	_mcfg.IsEmptyType = EmptyTypes[subType]
 
 	local Disabled = not Enabled
 
@@ -317,7 +317,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	local Hide_Icon
 
-	if bType == "Backpack" then
+	if subType == "Backpack" then
 		local Normal_Skin = _mcfg:GetTypeSkin(Button, Skin.Normal)
 		local Normal_Atlas = Normal_Skin.Atlas
 
@@ -377,7 +377,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- [[ Iteration ]]
 
-	local Layers = RegTypes[bType] or RegTypes.Legacy
+	local Layers = RegTypes[subType] or RegTypes.Legacy
 
 	for Layer, Info in pairs(Layers) do
 		if Info.Iterate then

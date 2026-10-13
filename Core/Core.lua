@@ -175,34 +175,34 @@ end
 ---
 
 -- Returns a sub-type, if applicable.
-local function GetSubType(Button, bType)
+local function GetSubType(Button, subType)
 	local bName = Button.GetName and Button:GetName()
 
 	-- Action
-	if bType == TYPE_ACTION and bName then
+	if subType == TYPE_ACTION and bName then
 		if bName:find(TYPE_STANCE, 1, true) then return TYPE_STANCE end
 		if bName:find(TYPE_POSSESS, 1, true) then return TYPE_POSSESS end
 		if bName:find(TYPE_PET, 1, true) then return TYPE_PET end
 
-		return bType
+		return subType
 	end
 
 	-- Item
-	if bType == TYPE_ITEM and bName then
+	if subType == TYPE_ITEM and bName then
 		if bName:find(TYPE_BACKPACK, 1, true) then return TYPE_BACKPACK end
 		if bName:find(TYPE_CHARACTERBAG, 1, true) then return TYPE_BAGSLOT end
 		if bName:find(TYPE_KEYRING, 1, true) then return TYPE_KEYRING end
 		if bName:find(TYPE_REAGENTBAG, 1, true) then return TYPE_REAGENTBAG end
 
-		return bType
+		return subType
 	end
 
 	-- Aura
-	if bType == TYPE_AURA then
+	if subType == TYPE_AURA then
 		-- Retail
 		if Button.DebuffBorder then
 			-- Possible Values: "Buff", "DeadlyDebuff", "Debuff" and "TempEnchant"
-			local AuraType = Button.auraType or bType
+			local AuraType = Button.auraType or subType
 
 			if AuraType == TYPE_DEADLYDEBUFF then return TYPE_DEBUFF end
 			if AuraType == TYPE_TEMPENCHANT then return TYPE_ENCHANT end
@@ -217,21 +217,21 @@ local function GetSubType(Button, bType)
 		end
 	end
 
-	return bType
+	return subType
 end
 
 -- Returns a button's internal type.
-local function GetType(self, Button, bType)
+local function GetType(self, Button, subType)
 	local frameType = self.FrameType
 
 	if not frameType then return end
 
-	bType = bType or self.bType
+	subType = subType or self.SubType
 
 	-- Base/Registered Types
-	if bType and RegTypes[bType] then
-		if BaseTypes[bType] then
-			bType = GetSubType(Button, bType)
+	if subType and RegTypes[subType] then
+		if BaseTypes[subType] then
+			subType = GetSubType(Button, subType)
 		end
 
 	-- Invalid/Unspecified
@@ -239,29 +239,29 @@ local function GetType(self, Button, bType)
 		if frameType == TYPE_CHECKBUTTON then
 			-- Action
 			if Button.HotKey then
-				bType = GetSubType(Button, TYPE_ACTION)
+				subType = GetSubType(Button, TYPE_ACTION)
 
 			-- Classic bag buttons are CheckButtons.
 			elseif Button.IconBorder then
-				bType = GetSubType(Button, TYPE_ITEM)
+				subType = GetSubType(Button, TYPE_ITEM)
 			end
 
 		elseif frameType == TYPE_BUTTON then
 			-- Item
 			if Button.IconBorder then
-				bType = GetSubType(Button, TYPE_ITEM)
+				subType = GetSubType(Button, TYPE_ITEM)
 
 			-- Aura
 			elseif Button.duration or Button.Duration then
-				bType = GetSubType(Button, TYPE_AURA)
+				subType = GetSubType(Button, TYPE_AURA)
 			end
 		end
 	end
 
-	bType = bType or TYPE_LEGACY
-	self.bType = bType
+	subType = subType or TYPE_LEGACY
+	self.SubType = subType
 
-	return bType
+	return subType
 end
 
 ----------------------------------------
@@ -270,23 +270,23 @@ end
 
 -- Returns a sub-skin based on the button type, if available.
 local function GetTypeSkin(self, Button, Skin)
-	local bType = self.bType
+	local subType = self.SubType
 
 	if self.IsAura then
-		return Skin[bType] or Skin.Aura or Skin
+		return Skin[subType] or Skin.Aura or Skin
 	end
 
 	if self.IsItem then
-		if TYPE_SPECIAL[bType] then
-			return Skin[bType] or Skin.BagSlot or Skin.Item or Skin
+		if TYPE_SPECIAL[subType] then
+			return Skin[subType] or Skin.BagSlot or Skin.Item or Skin
 
 		else
-			return Skin[bType] or Skin.Item or Skin
+			return Skin[subType] or Skin.Item or Skin
 		end
 
 	end
 
-	return Skin[bType] or Skin
+	return Skin[subType] or Skin
 end
 
 ----------------------------------------

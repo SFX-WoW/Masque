@@ -34,7 +34,7 @@ function Core.Skin_Text(Layer, Region, Button, Skin)
 
 	local Default = SkinRoot[Layer]
 
-	Default = Default[_mcfg.bType] or Default
+	Default = Default[_mcfg.SubType] or Default
 
 	local Skin_Wrap = (Skin.Wrap and true) or false
 

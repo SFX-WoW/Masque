@@ -134,9 +134,9 @@ Core.SetEmpty = SetEmpty
 function Core.Skin_Icon(Region, Button, Skin, Hide)
 	local _mcfg = Button._MSQ_CFG
 
-	local bType = _mcfg.bType
+	local subType = _mcfg.SubType
 
-	if bType == TYPE_BACKPACK then
+	if subType == TYPE_BACKPACK then
 		if Hide then
 			Region:SetTexture()
 		else
@@ -144,7 +144,7 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 		end
 	end
 
-	local Layer = (bType == TYPE_ITEM and STR_BORDER) or BASE_LAYER
+	local Layer = (subType == TYPE_ITEM and STR_BORDER) or BASE_LAYER
 
 	Region._MSQ_Button = Button
 
@@ -180,7 +180,7 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 		SetEmpty(Button, IsEmpty)
 
 		-- Hooks
-		if Hook_Icon[bType] and (not Region._MSQ_Hooked) then
+		if Hook_Icon[subType] and (not Region._MSQ_Hooked) then
 			hooksecurefunc(Region, STR_HIDE, Hook_Hide)
 			hooksecurefunc(Region, STR_SHOW, Hook_Show)
 

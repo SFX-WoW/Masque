@@ -84,9 +84,9 @@ local function Add_Backdrop(Region, Button, Skin, Color)
 			local Texture = Skin.Texture
 
 			if not Texture then
-				local bType = _mcfg.bType
+				local subType = _mcfg.SubType
 
-				Texture = BASE_TEXTURES[bType] or BASE_TEXTURE
+				Texture = BASE_TEXTURES[subType] or BASE_TEXTURE
 			end
 
 			Coords = Skin.TexCoords
