@@ -96,7 +96,7 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 	-- Configuration
 	local _mcfg = GetMasqueConfig(Button)
 
-	_mcfg.oType = frameType
+	_mcfg.FrameType = frameType
 
 	local bType = _mcfg:GetType(Button, Type)
 

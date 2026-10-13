@@ -222,9 +222,9 @@ end
 
 -- Returns a button's internal type.
 local function GetType(self, Button, bType)
-	local oType = self.oType
+	local frameType = self.FrameType
 
-	if not oType then return end
+	if not frameType then return end
 
 	bType = bType or self.bType
 
@@ -236,7 +236,7 @@ local function GetType(self, Button, bType)
 
 	-- Invalid/Unspecified
 	else
-		if oType == TYPE_CHECKBUTTON then
+		if frameType == TYPE_CHECKBUTTON then
 			-- Action
 			if Button.HotKey then
 				bType = GetSubType(Button, TYPE_ACTION)
@@ -246,7 +246,7 @@ local function GetType(self, Button, bType)
 				bType = GetSubType(Button, TYPE_ITEM)
 			end
 
-		elseif oType == TYPE_BUTTON then
+		elseif frameType == TYPE_BUTTON then
 			-- Item
 			if Button.IconBorder then
 				bType = GetSubType(Button, TYPE_ITEM)
