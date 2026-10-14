@@ -496,43 +496,56 @@ Core.ItemTypes = {
 ---
 
 -- Adds a custom button type.
-function Core.API:AddType(Name, List, Type)
+-- * `Name` must be a unique string.
+-- * `List` must be an indexed table of string region names.
+-- * `BaseType` must be "Action", "Aura", "Item" or nil.
+function Core.API:AddType(Name, List, BaseType)
 	if type(Name) ~= "string" or Types[Name] then
 		if Core.Debug then
 			error("Bad argument to API method 'AddType'. 'Name' must be a unique string.", 2)
 		end
 		return
+
 	elseif type(List) ~= "table" or #List < 1 then
 		if Core.Debug then
 			error("Bad argument to API method 'AddType'. 'List' must be an indexed table.", 2)
 		end
 		return
-	elseif Type and type(Type) ~= "string" then
-		if Core.Debug then
-			error("Bad argument to API method 'AddType'. 'Type' must be a string.", 2)
+
+	elseif BaseType then
+		if type(BaseType) ~= "string" then
+			if Core.Debug then
+				error("Bad argument to API method 'AddType'. 'BaseType' must be a string.", 2)
+			end
+			return
+
+		elseif not BaseTypes[BaseType] then
+			if Core.Debug then
+				error("Bad argument to API method 'AddType'. 'BaseType' must be a valid type.", 2)
+			end
+			return
 		end
-		return
 	end
 
-	local Cache = {}
+	local cache = {}
 
 	for i = 1, #List do
-		local Key = List[i]
-		local Root = Legacy[Key]
+		local key = List[i]
+		local base = Legacy[key]
 
-		if Root then
-			Cache[Key] = (Type and Root[Type]) or Root
+		if base then
+			cache[key] = (BaseType and base[BaseType]) or base
 		end
 	end
 
-	Types[Name] = Cache
+	Types[Name] = cache
 
-	if Type then
-		if BaseTypes[Type] then
-			local TypeList = Core[Type.."Types"]
-			TypeList[Name] = true
+	if BaseType then
+		if BaseTypes[BaseType] then
+			local typeList = Core[BaseType.."Types"]
+			typeList[Name] = true
 		end
 
-		EmptyTypes[Name] = EmptyTypes[Type]
+		EmptyTypes[Name] = EmptyTypes[BaseType]
 	end
 end
