@@ -122,8 +122,6 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 			if Region == nil and not Info.Ignore then
 				if Layer == "AutoCastShine" then
 					Region = Regions.Shine or Regions.AutoCast or GetRegion(Button, Info)
-				elseif Layer == "Backdrop" then
-					Region = Regions.FloatingBG or GetRegion(Button, Info)
 				else
 					Region = GetRegion(Button, Info)
 				end

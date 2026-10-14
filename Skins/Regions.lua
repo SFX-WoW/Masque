@@ -34,12 +34,9 @@ local WOW_CLASSIC = not WOW_RETAIL
 ---
 
 local Legacy = {
-	Backdrop = { -- [ ActionButtonTemplate / Custom ][ BACKGROUND, -1 ]
-		Name = "FloatingBG",
-		Type = "Texture",
+	Backdrop = { -- [ Custom ][ BACKGROUND, -1 ]
 		CanHide = true,
-		CanMask = true,
-		UseColor = true,
+		Ignore = true,
 	},
 	Icon = { -- [ ActionButtonTemplate ][ BACKGROUND, 0 ]
 		Key = "icon",

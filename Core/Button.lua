@@ -305,13 +305,8 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- [[ Backdrop ]]
 
-	local FloatingBG = Button.FloatingBG or Regions.Backdrop
-
-	if Disabled then
-		Backdrop = (FloatingBG and true) or false
-	end
-
-	Skin_Backdrop(Backdrop, FloatingBG, Button, Skin.Backdrop, Colors.Backdrop)
+	Backdrop = (Backdrop and Enabled) or nil
+	Skin_Backdrop(Backdrop, Button, Skin.Backdrop, Colors.Backdrop)
 
 	-- [[ Icon ]]
 

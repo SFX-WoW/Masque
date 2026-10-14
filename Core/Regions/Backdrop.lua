@@ -46,19 +46,14 @@ local BASE_SIZE = SkinRoot.Size -- 36
 local BASE_TEXTURE = SkinBase.Texture -- [[Interface\AddOns\Masque\Textures\Backdrop\Slot-Modern]]
 local BASE_TEXTURES = SkinBase.Textures -- [[Interface\AddOns\Masque\Textures\Backdrop\*]]
 
--- Type Strings
-local TYPE_TABLE = "table"
-
 ----------------------------------------
 -- Helpers
 ---
 
 -- Skins or creates the 'Backdrop' region of a button.
-local function Add_Backdrop(Region, Button, Skin, Color)
+local function Add_Backdrop(Button, Skin, Color)
 	local _mcfg = Button._MSQ_CFG
-
-	Button.FloatingBG = Region
-	Region = Region or _mcfg.Backdrop
+	local Region = _mcfg.Gloss
 
 	if not Region then
 		Region = Button:CreateTexture()
@@ -117,18 +112,13 @@ local function Add_Backdrop(Region, Button, Skin, Color)
 end
 
 -- Removes the 'Backdrop' region from a button.
-local function Remove_Backdrop(Region, Button)
+local function Remove_Backdrop(Button)
 	local _mcfg = Button._MSQ_CFG
-	local Backdrop = _mcfg.Backdrop
-
-	Region = Region or Backdrop
+	local Region = _mcfg.Backdrop
 
 	if not Region then return end
 
-	if Backdrop then
-		Region:SetTexture()
-	end
-
+	Region:SetTexture()
 	Region:Hide()
 end
 
@@ -139,7 +129,6 @@ end
 -- Internal color handler for the `Backdrop` region.
 function Core.SetColor_Backdrop(Region, Button, Skin, Color)
 	local _mcfg = Button._MSQ_CFG
-
 	Region = Region or _mcfg.Backdrop
 
 	if Region then
@@ -155,15 +144,15 @@ function Core.SetColor_Backdrop(Region, Button, Skin, Color)
 end
 
 -- Internal skin handler for the `Backdrop` region.
-function Core.Skin_Backdrop(Enabled, Region, Button, Skin, Color)
+function Core.Skin_Backdrop(Enabled, Button, Skin, Color)
 	local _mcfg = Button._MSQ_CFG
 
 	Skin = _mcfg:GetTypeSkin(Button, Skin)
 
 	if Enabled and (not Skin.Hide) then
-		Add_Backdrop(Region, Button, Skin, Color)
+		Add_Backdrop(Button, Skin, Color)
 	else
-		Remove_Backdrop(Region, Button)
+		Remove_Backdrop(Button)
 	end
 end
 
@@ -173,7 +162,7 @@ end
 
 -- Retrieves the 'Backdrop' region of a button.
 function Core.API:GetBackdrop(Button)
-	if type(Button) ~= TYPE_TABLE then
+	if type(Button) ~= "table" then
 		if Core.Debug then
 			error("Bad argument to API method 'GetBackdrop'. 'Button' must be a button object.", 2)
 		end
@@ -181,5 +170,5 @@ function Core.API:GetBackdrop(Button)
 	end
 
 	local _mcfg = Button._MSQ_CFG
-	return Button.FloatingBG or (_mcfg and _mcfg.Backdrop)
+	return _mcfg and _mcfg.Backdrop
 end
