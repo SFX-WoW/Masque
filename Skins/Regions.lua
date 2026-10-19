@@ -34,26 +34,32 @@ local WOW_CLASSIC = not WOW_RETAIL
 ---
 
 local Legacy = {
-	Backdrop = { -- [ Custom ][ BACKGROUND, -1 ]
+	--IconMask = {}, -- [ ActionButtonTemplate ]
+
+	-- [ BACKGROUND, -1 ]
+
+	Backdrop = { -- [ Custom ]
 		CanHide = true,
 		Ignore = true,
 	},
-	Icon = { -- [ ActionButtonTemplate ][ BACKGROUND, 0 ]
+
+	-- [ BACKGROUND, 0 ]
+
+	Icon = { -- [ ActionButtonTemplate ]
 		Key = "icon",
 		Name = "Icon",
 		Type = "Texture",
 		CanMask = true,
 		NoColor = true,
 		NoTexture = true,
-		Aura = { -- [ AuraButtonArtTemplate / AuraButtonTemplate ][ BACKGROUND, 0 ]
-			Key = (WOW_RETAIL and "Icon") or nil, -- Retail Only
-			Name = "Icon",
+		Aura = { -- [ AuraButtonArtTemplate ]
+			Key = "Icon",
 			Type = "Texture",
 			CanMask = true,
 			NoColor = true,
 			NoTexture = true,
 		},
-		Item = { -- [ ItemButtonTemplate ][ BORDER, 0 ]
+		Item = { -- [ ItemButtonTemplate ]
 			Key = "icon",
 			Name = "IconTexture",
 			Type = "Texture",
@@ -62,144 +68,173 @@ local Legacy = {
 			NoTexture = true,
 		},
 	},
-	Shadow = { -- [ Custom ][ ARTWORK, -1 ]
+	--SlotBackground = {} -- [ ActionButtonTemplate ]
+	--SlotArt = {}, -- [ ActionButtonTemplate ][ RETAIL_ONLY ]
+
+	-- [ BACKGROUND, Text ]
+
+	Duration = { -- [ AuraButtonArtTemplate ]
+		Key = "Duration",
+		Type = "FontString",
+		Iterate = true,
+		NoColor = true,
+	},
+
+	-- [ ARTWORK, -1 ]
+
+	Shadow = { -- [ Custom ]
 		CanHide = true,
 		Ignore = true,
 	},
-	Normal = { -- [ Button ][ ARTWORK, 0 ]
+
+	-- [ ARTWORK, 0 ]
+
+	Normal = { -- [ Button, ActionButtonTemplate ]
 		Func = "GetNormalTexture",
 		--Key = "NormalTexture", -- Conflicts with some add-ons and button types.
 		Name = "NormalTexture",
 		Type = "Texture",
 		CanHide = true,
+		Item = { -- [ Button, ItemButtonTemplate ]
+			Func = "GetNormalTexture",
+			Key = (WOW_RETAIL and "NormalTexture") or nil,
+			Name = "NormalTexture",
+			Type = "Texture",
+			CanHide = true,
+		},
 	},
-	Disabled = { -- [ Button ][ ARTWORK, 0 ]
+	Disabled = { -- [ Button ]
 		Func = "GetDisabledTexture",
 		Type = "Texture",
 		CanHide = true,
 		Hide = true,
 		Iterate = true,
 	},
-	Pushed = { -- [ Button ][ ARTWORK, 0 ]
+	Pushed = { -- [ Button, ActionButtonTemplate ]
 		Func = "GetPushedTexture",
-		Key = (WOW_RETAIL and "PushedTexture") or nil,
+		Key = "PushedTexture",
 		Type = "Texture",
 		CanMask = true,
 		Iterate = true,
 		UseColor = true,
+		Item = { -- [ ItemButtonTemplate ]
+			Func = "GetPushedTexture",
+			Key = (WOW_RETAIL and "PushedTexture") or nil,
+			Type = "Texture",
+			CanMask = true,
+			Iterate = true,
+			UseColor = true,
+		},
 	},
-	Flash = { -- [ ActionButtonTemplate ][ ARTWORK, 1 ]
-		-- Key = "Flash", -- Conflicts with item buttons.
+	Checked = { -- [ CheckButton, ActionButtonTemplate ]
+		Func = "GetCheckedTexture",
+		Key = "CheckedTexture",
+		Type = "Texture",
+		Iterate = true,
+	},
+
+	-- [ ARTWORK, 1 ]
+
+	Flash = { -- [ ActionButtonTemplate ]
+		Key = "Flash",
 		Name = "Flash",
 		Type = "Texture",
 		CanMask = true,
 		Iterate = true,
 		UseColor = true,
+		Item = { -- [ ItemButtonTemplate ][TEST]
+			Key = "flash",
+			Type = "Texture",
+			CanMask = true,
+			Iterate = true,
+			UseColor = true,
+		},
 	},
-	Checked = { -- [ CheckButton ][ ARTWORK, 0 ]
-		Func = "GetCheckedTexture",
-		Key = (WOW_RETAIL and "CheckedTexture") or nil,
-		Type = "Texture",
-		Iterate = true,
-	},
-	SlotHighlight = { -- [ BaseBagSlotButtonTemplate ][ OVERLAY, 6 ][ RETAIL_ONLY ]
-		Key = "SlotHighlightTexture",
-		Type = "Texture",
-		Iterate = true,
-	},
-	Border = { -- [ ActionButtonTemplate ][ OVERLAY, 0 ]
+
+	-- [ OVERLAY, 0 ]
+
+	Border = { -- [ ActionButtonTemplate ]
 		Key = "Border",
 		Name = "Border",
 		Type = "Texture",
 		Iterate = true,
 		NoColor = true,
-		Aura = { -- [ Fallback ][ OVERLAY, 0 ]
-			Name = "Border",
-			Type = "Texture",
-			Iterate = true,
-			NoColor = true,
-		},
-		Debuff = { -- [ DebuffButtonTemplate ][ OVERLAY, 0 ][ CLASSIC_ONLY ]
-			Name = "Border",
-			Type = "Texture",
-			Iterate = true,
-			NoColor = true,
-		},
-		Enchant = { -- [ TempEnchantButtonTemplate ][ OVERLAY, 0 ][ CLASSIC_ONLY ]
+		Aura = { -- [ Fallback, Unused Natively ]
+			Key = "Border",
 			Name = "Border",
 			Type = "Texture",
 			Iterate = true,
 			NoColor = true,
 		},
 	},
-	DebuffBorder = { -- [ AuraButtonArtTemplate ][ OVERLAY, 0 ][ RETAIL_ONLY ]
+	DebuffBorder = { -- [ AuraButtonArtTemplate ]
 		Key = "DebuffBorder",
 		Type = "Texture",
 		Iterate = true,
 		NoColor = true,
 	},
-	EnchantBorder = { -- [ AuraButtonArtTemplate ][ OVERLAY, 0 ][ RETAIL_ONLY ]
+	EnchantBorder = { -- [ AuraButtonArtTemplate ]
 		Key = "TempEnchantBorder",
 		Type = "Texture",
 		Iterate = true,
 		NoColor = true,
 	},
-	IconBorder = { -- [ ItemButtonTemplate ][ OVERLAY, 0 ]
+	IconBorder = { -- [ ItemButtonTemplate ]
 		Key = "IconBorder",
 		Type = "Texture",
 		NoColor = true,
 	},
-	Gloss = { -- [ Custom ][ OVERLAY, 1 ]
-		Ignore = true,
-		CanHide = true,
-	},
-	NewAction = { -- [ ActionButtonTemplate ][ OVERLAY, 1 ]
+
+	-- [ OVERLAY, 1 ]
+
+	NewAction = { -- [ ActionButtonTemplate ]
 		Key = "NewActionTexture",
 		Type = "Texture",
 		Iterate = true,
 	},
-	SpellHighlight = { -- [ ActionButtonTemplate ][ OVERLAY, 1 ]
+	SpellHighlight = { -- [ ActionButtonTemplate ]
 		Key = "SpellHighlightTexture",
 		Type = "Texture",
 		Iterate = true,
 	},
-	IconOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 1 ]
+	IconOverlay = { -- [ ItemButtonTemplate ]
 		Key = "IconOverlay",
 		Type = "Texture",
 		Iterate = true,
 		NoColor = true,
 		NoTexture = true,
 	},
-	IconOverlay2 = { -- [ ItemButtonTemplate ][ OVERLAY, 2 ][ RETAIL_ONLY ]
+	UpgradeIcon = { -- [ ContainerFrameItemButtonTemplate ]
+		Key = "UpgradeIcon",
+		Type = "Texture",
+		Iterate = true,
+	},
+	Gloss = { -- [ Custom ]
+		Ignore = true,
+		CanHide = true,
+	},
+
+	IconOverlay2 = { -- [ ItemButtonTemplate ][ RETAIL_ONLY ]
 		Key = "IconOverlay2",
 		Type = "Texture",
 		Iterate = true,
 		NoColor = true,
 		NoTexture = true,
 	},
-	NewItem = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 2 ]
+	NewItem = { -- [ ContainerFrameItemButtonTemplate ]
 		Key = "NewItemTexture",
 		Type = "Texture",
 		NoColor = true,
 	},
-	QuestBorder = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 2 ]
+	QuestBorder = { -- [ ContainerFrameItemButtonTemplate ]
 		Key = (WOW_RETAIL and "IconQuestTexture") or nil,
 		Name = "IconQuestTexture",
 		Type = "Texture",
 	},
-	UpgradeIcon = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 1 ]
-		Key = "UpgradeIcon",
-		Type = "Texture",
-		Iterate = true,
-	},
-	ContextOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 5 ][ RETAIL_ONLY ]
-		Key = "ItemContextOverlay",
-		Type = "Texture",
-		CanMask = true,
-		Iterate = true,
-		UseColor = true,
-	},
-	SearchOverlay = { -- [ ItemButtonTemplate ][ OVERLAY, 4 ]
+
+	-- [ OVERLAY, 4 ]
+
+	SearchOverlay = { -- [ ItemButtonTemplate ]
 		Key = "searchOverlay",
 		Name = "SearchOverlay",
 		Type = "Texture",
@@ -207,55 +242,74 @@ local Legacy = {
 		Iterate = true,
 		UseColor = true,
 	},
-	JunkIcon = { -- [ ContainerFrameItemButtonTemplate ][ OVERLAY, 5/1 ]
+
+	-- [ OVERLAY, 5 ]
+
+	ContextOverlay = { -- [ ItemButtonTemplate ][ RETAIL_ONLY ]
+		Key = "ItemContextOverlay",
+		Type = "Texture",
+		CanMask = true,
+		Iterate = true,
+		UseColor = true,
+	},
+	JunkIcon = { -- [ ContainerFrameItemButtonTemplate ]
 		Key = "JunkIcon",
 		Type = "Texture",
 		Iterate = true,
 	},
-	Duration = { -- [ AuraButtonArtTemplate / AuraButtonTemplate ][ BACKGROUND ]
-		Key = (WOW_RETAIL and "Duration") or "duration",
-		Name = (WOW_CLASSIC and "Duration") or nil,
-		Type = "FontString",
+
+	-- [ OVERLAY, 6 ]
+
+	SlotHighlight = { -- [ ItemButton, BaseBagSlotButtonTemplate ][ RETAIL_ONLY ]
+		Key = "SlotHighlightTexture",
+		Type = "Texture",
 		Iterate = true,
-		NoColor = true,
 	},
-	Name = { -- [ ActionButtonTemplate ][ OVERLAY ]
+
+	-- [ OVERLAY, Text ]
+
+	Name = { -- [ ActionButtonTemplate ]
 		Key = "Name",
 		Name = "Name",
 		Type = "FontString",
 		Iterate = true,
 		NoColor = true,
 	},
-	Highlight = { -- [ Button ][ HIGHLIGHT, 0 ]
-		Key = (WOW_RETAIL and "HighlightTexture") or nil,
+
+	-- [ HIGHLIGHT, 0 ]
+
+	Highlight = { -- [ Button, ActionButtonTemplate ]
 		Func = "GetHighlightTexture",
+		Key = "HighlightTexture",
 		Type = "Texture",
 		CanMask = true,
 		Iterate = true,
 		UseColor = true,
 		Item = {
 			Func = "GetHighlightTexture",
+			Key = (WOW_RETAIL and "HighlightTexture") or nil,
 			Type = "Texture",
 			CanMask = true,
 			Iterate = true,
 			UseColor = true,
 		},
 	},
+
 	-- [ TextOverlayContainer ]
-	Count = { -- [ ActionButtonTemplate ][ OVERLAY / ARTWORK ]
+
+	Count = { -- [ ActionButtonTemplate ]
 		Key = "Count",
 		Name = "Count",
 		Type = "FontString",
 		Iterate = true,
 		NoColor = true,
-		Aura = { -- [ AuraButtonArtTemplate/AuraButtonTemplate ][ BACKGROUND ]
-			Key = (WOW_RETAIL and "Count") or "count",
-			Name = (WOW_CLASSIC and "Count") or nil,
+		Aura = { -- [ AuraButtonArtTemplate ]
+			Key = "Count",
 			Type = "FontString",
 			Iterate = true,
 			NoColor = true,
 		},
-		Item = { -- [ ItemButtonTemplate ][ ARTWORK ]
+		Item = { -- [ ItemButtonTemplate ]
 			Key = "Count",
 			Name = "Count",
 			Type = "FontString",
@@ -263,50 +317,57 @@ local Legacy = {
 			NoColor = true,
 		},
 	},
-	HotKey = { -- [ ActionButtonTemplate ][ OVERLAY / ARTWORK ]
+	HotKey = { -- [ ActionButtonTemplate ]
 		Key = "HotKey",
 		Name = "HotKey",
 		Type = "FontString",
 		Iterate = true,
 		NoColor = true,
 	},
-	-- [ AutoCast (Classic) ]
-	AutoCastable = { -- [ ActionButtonTemplate ][ OVERLAY, 1 ]
+
+	-- [ AutoCastOverlay ]
+
+	-- AutoCast (Classic)
+	AutoCastable = { -- [ ActionButtonTemplate ][DEPRECATED]
 		Key = "AutoCastable",
 		Type = "Texture",
 		Iterate = true,
 	},
-	AutoCastShine = { -- [ ActionButtonTemplate ]
+	AutoCastShine = { -- [ ActionButtonTemplate ][DEPRECATED]
 		--Key = "AutoCastShine", -- Causes issues with Pet bars.
 		Name = "Shine",
 		Type = "Frame",
 	},
-	-- [ AutoCast (Retail) ]
+
+	-- AutoCast (Retail)
 	AutoCast_Frame = { -- [ AutoCastOverlayTemplate ]
 		Key = "AutoCastOverlay",
 		Type = "Frame",
 	},
-	AutoCast_Shine = { -- [ AutoCastOverlayTemplate ][ OVERLAY, 0 ]
+	AutoCast_Shine = { -- [ AutoCastOverlayTemplate ][ RETAIL_ONLY ]
 		Key = "Shine",
 		Parent = "AutoCastOverlay",
 		Type = "Texture",
 	},
-	AutoCast_Mask = { -- [ AutoCastOverlayTemplate ]
+	AutoCast_Mask = { -- [ AutoCastOverlayTemplate ][ RETAIL_ONLY ]
 		Key = "Shine",
 		Parent = "AutoCastOverlay",
 		Type = "Texture",
 	},
-	AutoCast_Corners = { -- [ AutoCastOverlayTemplate ][ OVERLAY, 1 ]
+	AutoCast_Corners = { -- [ AutoCastOverlayTemplate ]
 		Key = "Shine",
 		Parent = "AutoCastOverlay",
 		Type = "Texture",
 	},
+
 	-- [ Cooldowns ]
+
 	Cooldown = {
 		Key = "cooldown",
 		Name = "Cooldown",
 		Type = "Cooldown",
 		Item = {
+			Key = (WOW_RETAIL and "Cooldown") or nil,
 			Name = "Cooldown",
 			Type = "Cooldown",
 		},
