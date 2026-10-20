@@ -33,7 +33,11 @@ local WOW_CLASSIC = not WOW_RETAIL
 -- * Iterate - Include in iteration. @ Core\Button
 ---
 
-local Legacy = {
+----------------------------------------
+-- Base Configuration
+---
+
+local baseConfig = {
 	--IconMask = {}, -- [ ActionButtonTemplate ]
 
 	-- [ BACKGROUND, -1 ]
@@ -297,7 +301,7 @@ local Legacy = {
 
 	-- [ TextOverlayContainer ]
 
-	Count = { -- [ ActionButtonTemplate ]
+	Count = { -- [ ActionButtonTemplate, ItemButtonTemplate ]
 		Key = "Count",
 		Name = "Count",
 		Type = "FontString",
@@ -305,13 +309,6 @@ local Legacy = {
 		NoColor = true,
 		Aura = { -- [ AuraButtonArtTemplate ]
 			Key = "Count",
-			Type = "FontString",
-			Iterate = true,
-			NoColor = true,
-		},
-		Item = { -- [ ItemButtonTemplate ]
-			Key = "Count",
-			Name = "Count",
 			Type = "FontString",
 			Iterate = true,
 			NoColor = true,
@@ -383,137 +380,116 @@ local Legacy = {
 }
 
 ----------------------------------------
--- "Action" Types
+-- Action Button Configuration
 ---
 
-local Action = {
-	Backdrop = Legacy.Backdrop,
-	Icon = Legacy.Icon,
-	Normal = Legacy.Normal,
-	Disabled = Legacy.Disabled, -- Unused
-	Pushed = Legacy.Pushed,
-	Flash = Legacy.Flash,
-	HotKey = Legacy.HotKey,
-	Count = Legacy.Count,
-	Checked = Legacy.Checked,
-	Border = Legacy.Border,
-	AutoCastable = Legacy.AutoCastable,
-	NewAction = Legacy.NewAction,
-	SpellHighlight = Legacy.SpellHighlight,
-	Name = Legacy.Name,
-	Highlight = Legacy.Highlight,
-	AutoCast_Frame = Legacy.AutoCast_Frame,
-	AutoCast_Shine = Legacy.AutoCast_Shine,
-	AutoCast_Mask = Legacy.AutoCast_Mask,
-	AutoCast_Corners = Legacy.AutoCast_Corners,
-	AutoCastShine = Legacy.AutoCastShine,
-	Cooldown = Legacy.Cooldown,
-	CooldownLoC = Legacy.CooldownLoC,
-	ChargeCooldown = Legacy.ChargeCooldown,
+local actionConfig = {
+	Backdrop = baseConfig.Backdrop,
+	Icon = baseConfig.Icon,
+	Normal = baseConfig.Normal,
+	Disabled = baseConfig.Disabled, -- Unused
+	Pushed = baseConfig.Pushed,
+	Checked = baseConfig.Checked,
+	Flash = baseConfig.Flash,
+	Border = baseConfig.Border,
+	NewAction = baseConfig.NewAction,
+	SpellHighlight = baseConfig.SpellHighlight,
+	Name = baseConfig.Name,
+	Highlight = baseConfig.Highlight,
+	Count = baseConfig.Count,
+	HotKey = baseConfig.HotKey,
+	AutoCastable = baseConfig.AutoCastable,
+	AutoCastShine = baseConfig.AutoCastShine,
+	AutoCast_Frame = baseConfig.AutoCast_Frame,
+	AutoCast_Shine = baseConfig.AutoCast_Shine,
+	AutoCast_Mask = baseConfig.AutoCast_Mask,
+	AutoCast_Corners = baseConfig.AutoCast_Corners,
+	Cooldown = baseConfig.Cooldown,
+	CooldownLoC = baseConfig.CooldownLoC,
+	ChargeCooldown = baseConfig.ChargeCooldown,
 }
 
 ----------------------------------------
--- "Aura" Types
+-- Aura Button Configuration
 ---
 
-local Aura = {
-	Icon = Legacy.Icon.Aura,
-	Normal = Legacy.Normal, -- Unused
-	Disabled = Legacy.Disabled, -- Unused
-	Pushed = Legacy.Pushed, -- Unused
-	Count = Legacy.Count.Aura,
-	Duration = Legacy.Duration,
-	Border = Legacy.Border.Aura,
-	DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- Retail Only
-	EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- Retail Only
-	Highlight = Legacy.Highlight, -- Unused
-	Cooldown = Legacy.Cooldown,
-	ChargeCooldown = Legacy.ChargeCooldown,
-}
-
-local Debuff = {
-	Icon = Legacy.Icon.Aura,
-	Normal = Legacy.Normal, -- Unused
-	Disabled = Legacy.Disabled, -- Unused
-	Pushed = Legacy.Pushed, -- Unused
-	Count = Legacy.Count.Aura,
-	Duration = Legacy.Duration,
-	Border = Legacy.Border.Debuff,
-	DebuffBorder = (WOW_RETAIL and Legacy.DebuffBorder) or nil, -- Retail Only
-	Highlight = Legacy.Highlight, -- Unused
-	Cooldown = Legacy.Cooldown,
-	ChargeCooldown = Legacy.ChargeCooldown,
-}
-
-local Enchant = {
-	Icon = Legacy.Icon.Aura,
-	Normal = Legacy.Normal, -- Unused
-	Disabled = Legacy.Disabled, -- Unused
-	Pushed = Legacy.Pushed, -- Unused
-	Count = Legacy.Count.Aura,
-	Duration = Legacy.Duration,
-	Border = Legacy.Border.Enchant,
-	EnchantBorder = (WOW_RETAIL and Legacy.EnchantBorder) or nil, -- Retail Only
-	Highlight = Legacy.Highlight, -- Unused
-	Cooldown = Legacy.Cooldown,
-	ChargeCooldown = Legacy.ChargeCooldown,
+local auraConfig = {
+	Icon = baseConfig.Icon.Aura,
+	Duration = baseConfig.Duration,
+	Normal = baseConfig.Normal, -- Unused
+	Disabled = baseConfig.Disabled, -- Unused
+	Pushed = baseConfig.Pushed, -- Unused
+	Border = baseConfig.Border.Aura,
+	DebuffBorder = baseConfig.DebuffBorder,
+	EnchantBorder = baseConfig.EnchantBorder,
+	Highlight = baseConfig.Highlight, -- Unused
+	Count = baseConfig.Count.Aura,
+	Cooldown = baseConfig.Cooldown,
+	ChargeCooldown = baseConfig.ChargeCooldown,
 }
 
 ----------------------------------------
--- "Item" Types
+-- Item Button Configuration
 ---
 
-local Item = {
-	Icon = Legacy.Icon,
-	Normal = Legacy.Normal,
-	Disabled = Legacy.Disabled,
-	Pushed = Legacy.Pushed,
-	Count = Legacy.Count,
-	Checked = Legacy.Checked, -- Some ItemButtons are CheckButtons
-	Border = Legacy.Border, -- Backwards-Compatibility
-	IconBorder = Legacy.IconBorder,
-	SlotHighlight = (WOW_RETAIL and Legacy.SlotHighlight) or nil, -- Retail Only
-	UpgradeIcon = Legacy.UpgradeIcon,
-	IconOverlay = Legacy.IconOverlay,
-	IconOverlay2 = (WOW_RETAIL and Legacy.IconOverlay2) or nil, -- Retail Only
-	QuestBorder = Legacy.QuestBorder,
-	NewItem = Legacy.NewItem,
-	SearchOverlay = Legacy.SearchOverlay,
-	ContextOverlay = (WOW_RETAIL and Legacy.ContextOverlay) or nil, -- Retail Only
-	JunkIcon = Legacy.JunkIcon,
-	Highlight = Legacy.Highlight.Item,
-	Cooldown = Legacy.Cooldown.Item,
-	ChargeCooldown = Legacy.ChargeCooldown,
+local itemConfig = {
+	Icon = baseConfig.Icon,
+	Normal = baseConfig.Normal.Item,
+	Disabled = baseConfig.Disabled,
+	Pushed = baseConfig.Pushed.Item,
+	Checked = baseConfig.Checked, -- Classic Bag Buttons
+	Border = baseConfig.Border, -- Backwards-Compatibility
+	IconBorder = baseConfig.IconBorder,
+	IconOverlay = baseConfig.IconOverlay,
+	UpgradeIcon = baseConfig.UpgradeIcon,
+	IconOverlay2 = (WOW_RETAIL and baseConfig.IconOverlay2) or nil, -- Retail Only
+	NewItem = baseConfig.NewItem,
+	QuestBorder = baseConfig.QuestBorder,
+	SearchOverlay = baseConfig.SearchOverlay,
+	ContextOverlay = (WOW_RETAIL and baseConfig.ContextOverlay) or nil, -- Retail Only
+	JunkIcon = baseConfig.JunkIcon,
+	SlotHighlight = (WOW_RETAIL and baseConfig.SlotHighlight) or nil, -- Retail Only
+	Highlight = baseConfig.Highlight.Item,
+	Count = baseConfig.Count,
+	Cooldown = baseConfig.Cooldown.Item,
+	ChargeCooldown = baseConfig.ChargeCooldown,
 }
 
 ----------------------------------------
 -- Types Tables
 ---
 
-local Types = {
-	Legacy = Legacy,
-	Action = Action,
-	Aura = Aura,
-	Backpack = Item,
-	BagSlot = Item,
-	Buff = Aura,
-	Debuff = Debuff,
-	Enchant = Enchant,
-	Item = Item,
-	KeyRing = Item,
-	Pet = Action,
-	Possess = Action,
-	ReagentBag = Item,
-	Stance = Action,
+-- All registered types
+local regTypes = {
+	-- Base
+	Legacy = baseConfig,
+	-- Action
+	Action = actionConfig,
+	Pet = actionConfig,
+	Possess = actionConfig,
+	Stance = actionConfig,
+	-- Aura
+	Aura = auraConfig,
+	Buff = auraConfig,
+	Debuff = auraConfig,
+	Enchant = auraConfig,
+	-- Item
+	Backpack = itemConfig,
+	BagSlot = itemConfig,
+	Item = itemConfig,
+	KeyRing = itemConfig,
+	ReagentBag = itemConfig,
 }
 
-local BaseTypes = {
+-- Core Types
+local isBaseType = {
 	Action = true,
 	Aura = true,
 	Item = true,
 }
 
-local EmptyTypes = {
+-- Types that can be empty.
+local isEmptyType = {
 	Action = true,
 	BagSlot = true,
 	Item = true,
@@ -525,9 +501,9 @@ local EmptyTypes = {
 -- Core
 ---
 
-Core.RegTypes = Types
-Core.BaseTypes = BaseTypes
-Core.EmptyTypes = EmptyTypes
+Core.RegTypes = regTypes
+Core.BaseTypes = isBaseType
+Core.EmptyTypes = isEmptyType
 
 Core.ActionTypes = {
 	Action = true,
@@ -558,7 +534,7 @@ Core.ItemTypes = {
 -- * `List` must be an indexed table of string region names.
 -- * `BaseType` must be "Action", "Aura", "Item" or nil.
 function Core.API:AddType(Name, List, BaseType)
-	if type(Name) ~= "string" or Types[Name] then
+	if type(Name) ~= "string" or regTypes[Name] then
 		if Core.Debug then
 			error("Bad argument to API method 'AddType'. 'Name' must be a unique string.", 2)
 		end
@@ -577,7 +553,7 @@ function Core.API:AddType(Name, List, BaseType)
 			end
 			return
 
-		elseif not BaseTypes[BaseType] then
+		elseif not isBaseType[BaseType] then
 			if Core.Debug then
 				error("Bad argument to API method 'AddType'. 'BaseType' must be a valid type.", 2)
 			end
@@ -589,21 +565,21 @@ function Core.API:AddType(Name, List, BaseType)
 
 	for i = 1, #List do
 		local key = List[i]
-		local base = Legacy[key]
+		local base = baseConfig[key]
 
 		if base then
 			cache[key] = (BaseType and base[BaseType]) or base
 		end
 	end
 
-	Types[Name] = cache
+	regTypes[Name] = cache
 
 	if BaseType then
-		if BaseTypes[BaseType] then
+		if isBaseType[BaseType] then
 			local typeList = Core[BaseType.."Types"]
 			typeList[Name] = true
 		end
 
-		EmptyTypes[Name] = EmptyTypes[BaseType]
+		isEmptyType[Name] = isEmptyType[BaseType]
 	end
 end
