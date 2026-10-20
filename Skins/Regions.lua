@@ -459,7 +459,7 @@ local itemConfig = {
 -- Types Tables
 ---
 
--- All registered types
+-- Registered Types
 local regTypes = {
 	-- Base
 	Legacy = baseConfig,
@@ -481,20 +481,49 @@ local regTypes = {
 	ReagentBag = itemConfig,
 }
 
--- Core Types
+-- Base Types
 local isBaseType = {
 	Action = true,
 	Aura = true,
 	Item = true,
 }
 
--- Types that can be empty.
+-- Empty Types
 local isEmptyType = {
 	Action = true,
 	BagSlot = true,
 	Item = true,
 	Pet = true,
 	ReagentBag = true,
+}
+
+-- Custom Types
+local isCustomType = {}
+
+-- Unspecified Base Types
+local isDefaultType = {}
+
+-- Type Validation
+local isType = {
+	Action = {
+		Action = true,
+		Pet = true,
+		Possess = true,
+		Stance = true,
+	},
+	Aura = {
+		Aura = true,
+		Buff = true,
+		Debuff = true,
+		Enchant = true,
+	},
+	Item = {
+		Backpack = true,
+		BagSlot = true,
+		Item = true,
+		KeyRing = true,
+		ReagentBag = true,
+	},
 }
 
 ----------------------------------------
@@ -505,25 +534,12 @@ Core.RegTypes = regTypes
 Core.BaseTypes = isBaseType
 Core.EmptyTypes = isEmptyType
 
-Core.ActionTypes = {
-	Action = true,
-	Pet = true,
-	Possess = true,
-	Stance = true,
-}
-Core.AuraTypes = {
-	Aura = true,
-	Buff = true,
-	Debuff = true,
-	Enchant = true,
-}
-Core.ItemTypes = {
-	Backpack = true,
-	BagSlot = true,
-	Item = true,
-	KeyRing = true,
-	ReagentBag = true,
-}
+Core.isCustomType = isCustomType
+Core.isDefaultType = isDefaultType
+
+Core.ActionTypes = isType.Action
+Core.AuraTypes = isType.Aura
+Core.ItemTypes = isType.Item
 
 ----------------------------------------
 -- API
@@ -573,13 +589,14 @@ function Core.API:AddType(Name, List, BaseType)
 	end
 
 	regTypes[Name] = cache
+	isCustomType[Name] = true
 
 	if BaseType then
-		if isBaseType[BaseType] then
-			local typeList = Core[BaseType.."Types"]
-			typeList[Name] = true
-		end
+		local typeList = isType[BaseType]
 
+		typeList[Name] = true
 		isEmptyType[Name] = isEmptyType[BaseType]
+	else
+		isDefaultType[Name] = true
 	end
 end
