@@ -500,9 +500,6 @@ local isEmptyType = {
 -- Custom Types
 local isCustomType = {}
 
--- Unspecified Base Types
-local isDefaultType = {}
-
 -- Type Validation
 local isType = {
 	Action = {
@@ -536,10 +533,8 @@ Core.isBaseType = isBaseType
 Core.isActionType = isType.Action
 Core.isAuraType = isType.Aura
 Core.isItemType = isType.Item
-
 Core.isEmptyType = isEmptyType
 Core.isCustomType = isCustomType
-Core.isDefaultType = isDefaultType
 
 ----------------------------------------
 -- API
@@ -596,7 +591,5 @@ function Core.API:AddType(Name, List, BaseType)
 
 		typeList[Name] = true
 		isEmptyType[Name] = isEmptyType[BaseType]
-	else
-		isDefaultType[Name] = true
 	end
 end

@@ -174,7 +174,7 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 		Region._MSQ_Button = nil
 	end
 
-	if _mcfg.IsEmptyType then
+	if _mcfg.isEmptyType then
 		local IsEmpty = (not Region:IsShown()) or (Region:GetAlpha() == 0)
 
 		SetEmpty(Button, IsEmpty)

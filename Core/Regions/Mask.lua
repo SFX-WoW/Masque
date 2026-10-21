@@ -180,7 +180,7 @@ function Core.Skin_Mask(Button, Skin, Region)
 	local _mcfg = Button._MSQ_CFG
 	local CircleMask = Button.CircleMask
 
-	if CircleMask and _mcfg.IsItem then
+	if CircleMask and _mcfg.isItemType then
 		if Region then
 			Region:RemoveMaskTexture(CircleMask)
 		end

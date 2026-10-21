@@ -36,8 +36,7 @@ local DEF_SKIN = Core.DEFAULT_SKIN
 local Skin_Data = Core.Skins
 
 -- @ Skins\Regions
-local isActionType, isAuraType, isEmptyType = Core.isActionType, Core.isAuraType, Core.isEmptyType
-local isItemType, TypeConfig = Core.isItemType, Core.TypeConfig
+local TypeConfig = Core.TypeConfig
 
 -- @ Core\Core
 local GetMasqueConfig = Core.GetMasqueConfig
@@ -277,14 +276,6 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	_mcfg:UpdateScale(Button, Scale)
 
-	local IsActionType = isActionType[subType]
-
-	-- Set/remove type flags.
-	_mcfg.IsAction = IsActionType
-	_mcfg.IsAura = isAuraType[subType]
-	_mcfg.IsItem = isItemType[subType]
-	_mcfg.IsEmptyType = isEmptyType[subType]
-
 	local Disabled = not Enabled
 
 	if Disabled or type(Colors) ~= "table" then
@@ -437,14 +428,19 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 		Skin_Cooldown(Cooldown, Button, Skin.Cooldown, Colors.Cooldown, Pulse)
 	end
 
-	-- [[ LoC Cooldown ]]
+	if _mcfg.isActionType then
 
-	if IsActionType then
+		-- [[ LoC Cooldown ]]
+
 		local CooldownLoC = Regions.CooldownLoC
 
 		if CooldownLoC then
 			Skin_Cooldown(CooldownLoC, Button, Skin.CooldownLoC, nil, nil, true)
 		end
+
+		-- [[ AutoCast ]]
+
+		Skin_AutoCast(Button, Skin)
 	end
 
 	-- [[ ChargeCooldown ]]
@@ -456,12 +452,6 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	if ChargeCooldown then
 		Skin_Cooldown(ChargeCooldown, Button, ChargeCooldown_Skin)
-	end
-
-	-- [[ AutoCast ]]
-
-	if IsActionType then
-		Skin_AutoCast(Button, Skin)
 	end
 
 	-- [[ SpellAlert ]]

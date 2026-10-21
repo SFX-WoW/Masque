@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local _G = _G
+local _G, type, string_find = _G, type, string.find
 
 ----------------------------------------
 -- Internal
@@ -29,7 +29,9 @@ local HasSecrets = Core.HasSecrets
 local SkinBase = Core.SKIN_BASE
 
 -- @ Skins\Regions
-local isBaseType, TypeConfig = Core.isBaseType, Core.TypeConfig
+local isBaseType, isCustomType = Core.isBaseType, Core.isCustomType
+local isEmptyType, isRegisteredType = Core.isEmptyType, Core.TypeConfig
+local isActionType, isAuraType, isItemType = Core.isActionType, Core.isAuraType, Core.isItemType
 
 ----------------------------------------
 -- Locals
@@ -167,112 +169,176 @@ local function UpdateFrameSize(self)
 end
 
 ----------------------------------------
--- Type (Frame)
+-- Type
 ---
 
--- Returns a sub-type, if applicable.
-local function GetSubType(Button, subType)
-	local bName = Button.GetName and Button:GetName()
+-- Returns a button's base type.
+local function GetBaseType(self, SetType)
+	local baseType = self.BaseType
+
+	if baseType then return baseType end
+
+	if SetType then
+		-- Set as a base type.
+		if isBaseType[SetType] then
+			self.BaseType = SetType
+			self["is"..SetType.."Type"] = true
+
+			return SetType
+
+		-- Get the base type if it's a custom type.
+		elseif isCustomType[SetType] then
+			baseType = STR_DEFAULT
+			self.isCustomType = true
+
+			if isActionType[SetType] then
+				baseType = STR_ACTION
+
+			elseif isAuraType[SetType] then
+				baseType = STR_AURA
+
+			elseif isItemType[SetType] then
+				baseType = STR_ITEM
+			end
+
+			self.BaseType = baseType
+			self["is"..baseType.."Type"] = true
+
+			return baseType
+		end
+	end
+
+	local frame = self.Frame
+	local frameType = self.FrameType
+
+	baseType = STR_DEFAULT
+
+	if frameType == "CheckButton" then
+		if frame.HotKey then
+			baseType = STR_ACTION
+
+		-- Classic bag buttons are CheckButtons.
+		elseif frame.IconBorder then
+			baseType = STR_ITEM
+		end
+
+	elseif frameType == "Button" then
+		if frame.IconBorder then
+			baseType = STR_ITEM
+
+		elseif frame.Duration then
+			baseType = STR_AURA
+		end
+	end
+
+	self.BaseType = baseType
+	self["is"..baseType.."Type"] = true
+
+	return baseType
+end
+
+-- Returns a button's sub-type.
+local function GetSubType(self, SetType)
+	local subType = self.SubType
+
+	if subType then return subType end
+
+	-- Allows the sub-type to be a base type and handles custom types.
+	if SetType and isRegisteredType[SetType] then
+		self.SubType = SetType
+
+		return SetType
+	end
+
+	local baseType = self.BaseType
+	local frame = self.Frame
 
 	-- Action
-	if subType == STR_ACTION and bName then
-		if bName:find(STR_STANCE, 1, true) then return STR_STANCE end
-		if bName:find(STR_POSSESS, 1, true) then return STR_POSSESS end
-		if bName:find(STR_PET, 1, true) then return STR_PET end
+	if baseType == STR_ACTION then
+		subType = baseType
 
+		local name = frame.GetName and frame:GetName()
+
+		if name then
+			if string_find(name, STR_PET, 1, true) then
+				subType = STR_PET
+			elseif string_find(name, STR_STANCE, 1, true) then
+				subType = STR_STANCE
+			elseif string_find(name, STR_POSSESS, 1, true) then
+				subType = STR_POSSESS
+			end
+		end
+
+		self.SubType = subType
 		return subType
 	end
 
 	-- Item
-	if subType == STR_ITEM and bName then
-		if bName:find(STR_BACKPACK, 1, true) then return STR_BACKPACK end
-		if bName:find(STR_CHARACTERBAG, 1, true) then return STR_BAGSLOT end
-		if bName:find(STR_KEYRING, 1, true) then return STR_KEYRING end
-		if bName:find(STR_REAGENTBAG, 1, true) then return STR_REAGENTBAG end
+	if baseType == STR_ITEM then
+		subType = baseType
 
+		local name = frame.GetName and frame:GetName()
+
+		if name then
+			if string_find(name, STR_BACKPACK, 1, true) then
+				subType = STR_BACKPACK
+			elseif string_find(name, STR_CHARACTERBAG, 1, true) then
+				subType = STR_BAGSLOT
+			elseif string_find(name, STR_REAGENTBAG, 1, true) then
+				subType = STR_REAGENTBAG
+			elseif string_find(name, STR_KEYRING, 1, true) then
+				subType = STR_KEYRING
+			end
+		end
+
+		self.SubType = subType
 		return subType
 	end
 
 	-- Aura
-	if subType == STR_AURA then
-		-- Retail
-		if Button.DebuffBorder then
-			-- Possible Values: "Buff", "DeadlyDebuff", "Debuff" and "TempEnchant"
-			local AuraType = Button.auraType or subType
+	if baseType == STR_AURA then
+		subType = baseType
 
-			if AuraType == STR_DEADLYDEBUFF then return STR_DEBUFF end
-			if AuraType == STR_TEMPENCHANT then return STR_ENCHANT end
+		-- Possible values: 'Buff', `Debuff`, `DeadlyDebuff`, `TempEnchant`
+		local auraType = frame.auraType
 
-			return AuraType
+		if auraType == STR_DEADLYDEBUFF then
+			subType = STR_DEBUFF
+		elseif auraType == STR_TEMPENCHANT then
+			subType = STR_ENCHANT
 		end
 
-		-- Classic
-		-- Button.Border isn't used in Classic but add-ons may be using it.
-		if Button.Border or (bName and _G[bName..STR_BORDER]) then
-			return (Button.symbol and STR_DEBUFF) or STR_ENCHANT
-		end
-	end
-
-	return subType
-end
-
--- Returns a button's internal type.
-local function GetType(self, Button, subType)
-	local frameType = self.FrameType
-
-	if not frameType then return end
-
-	subType = subType or self.SubType
-
-	-- Base/Registered Types
-	if subType and TypeConfig[subType] then
-		if isBaseType[subType] then
-			subType = GetSubType(Button, subType)
-		end
-
-	-- Invalid/Unspecified
-	else
-		if frameType == "CheckButton" then
-			-- Action
-			if Button.HotKey then
-				subType = GetSubType(Button, STR_ACTION)
-
-			-- Classic bag buttons are CheckButtons.
-			elseif Button.IconBorder then
-				subType = GetSubType(Button, STR_ITEM)
-			end
-
-		elseif frameType == "Button" then
-			-- Item
-			if Button.IconBorder then
-				subType = GetSubType(Button, STR_ITEM)
-
-			-- Aura
-			elseif Button.duration or Button.Duration then
-				subType = GetSubType(Button, STR_AURA)
-			end
-		end
+		self.SubType = subType
+		return subType
 	end
 
 	subType = subType or STR_DEFAULT
+
+	self.isEmptyType = isEmptyType[subType]
 	self.SubType = subType
 
 	return subType
 end
 
+-- Returns the config types, performing an update if necessary.
+local function GetConfigTypes(self, SetType)
+	SetType = (type(SetType) == "string") and SetType or nil
+	return self:GetBaseType(SetType), self:GetSubType(SetType)
+end
+
 ----------------------------------------
--- Type Skin
+-- Skin
 ---
 
 -- Returns a sub-skin based on the button type, if available.
 local function GetTypeSkin(self, Button, Skin)
 	local subType = self.SubType
 
-	if self.IsAura then
+	if self.isAuraType then
 		return Skin[subType] or Skin.Aura or Skin
 	end
 
-	if self.IsItem then
+	if self.isItemType then
 		if TYPE_SPECIAL[subType] then
 			return Skin[subType] or Skin.BagSlot or Skin.Item or Skin
 
@@ -316,9 +382,13 @@ function Core.GetMasqueConfig(Button)
 			SetFrameSize = SetFrameSize,
 			UpdateFrameSize = UpdateFrameSize,
 
-			-- Type
-			GetType = GetType,
+			-- Skin
 			GetTypeSkin = GetTypeSkin,
+
+			-- Type
+			GetBaseType = GetBaseType,
+			GetSubType = GetSubType,
+			GetConfigTypes = GetConfigTypes,
 		}
 
 		Button._MSQ_CFG = _mcfg

@@ -98,7 +98,7 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 
 	_mcfg.FrameType = frameType
 
-	local subType = _mcfg:GetType(Button, Type)
+	local _, subType = _mcfg:GetConfigTypes(Type)
 
 	Regions = Regions or _mcfg.Regions
 
