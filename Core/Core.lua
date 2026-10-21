@@ -39,39 +39,35 @@ local BaseTypes, RegTypes = Core.BaseTypes, Core.RegTypes
 local BASE_SCALE = SkinBase.Scale
 local BASE_SIZE = SkinBase.Size
 
--- Misc Strings
-local STR_BORDER = "Border"
-local TYPE_LEGACY = "Legacy"
-
--- Object Type Strings
-local TYPE_BUTTON = "Button"
-local TYPE_CHECKBUTTON = "CheckButton"
-
 -- Action Type Strings
-local TYPE_ACTION = "Action"
-local TYPE_PET = "Pet"
-local TYPE_POSSESS = "Possess"
-local TYPE_STANCE = "Stance"
+local STR_ACTION = "Action"
+local STR_PET = "Pet"
+local STR_POSSESS = "Possess"
+local STR_STANCE = "Stance"
 
 -- Aura Type Strings
-local TYPE_AURA = "Aura"
-local TYPE_DEADLYDEBUFF = "DeadlyDebuff"
-local TYPE_DEBUFF = "Debuff"
-local TYPE_ENCHANT = "Enchant"
-local TYPE_TEMPENCHANT = "TempEnchant"
+local STR_AURA = "Aura"
+local STR_DEADLYDEBUFF = "DeadlyDebuff"
+local STR_DEBUFF = "Debuff"
+local STR_ENCHANT = "Enchant"
+local STR_TEMPENCHANT = "TempEnchant"
 
 -- Item Type Strings
-local TYPE_BACKPACK = "Backpack"
-local TYPE_BAGSLOT = "BagSlot"
-local TYPE_CHARACTERBAG = "CharacterBag"
-local TYPE_ITEM = "Item"
-local TYPE_KEYRING = "KeyRing"
-local TYPE_REAGENTBAG = "ReagentBag"
+local STR_BACKPACK = "Backpack"
+local STR_BAGSLOT = "BagSlot"
+local STR_CHARACTERBAG = "CharacterBag"
+local STR_ITEM = "Item"
+local STR_KEYRING = "KeyRing"
+local STR_REAGENTBAG = "ReagentBag"
+
+-- Misc Strings
+local STR_BORDER = "Border"
+local STR_DEFAULT = "Default"
 
 -- Special Bags
 local TYPE_SPECIAL = {
-	[TYPE_KEYRING] = true,
-	[TYPE_REAGENTBAG] = true,
+	[STR_KEYRING] = true,
+	[STR_REAGENTBAG] = true,
 }
 
 ----------------------------------------
@@ -179,33 +175,33 @@ local function GetSubType(Button, subType)
 	local bName = Button.GetName and Button:GetName()
 
 	-- Action
-	if subType == TYPE_ACTION and bName then
-		if bName:find(TYPE_STANCE, 1, true) then return TYPE_STANCE end
-		if bName:find(TYPE_POSSESS, 1, true) then return TYPE_POSSESS end
-		if bName:find(TYPE_PET, 1, true) then return TYPE_PET end
+	if subType == STR_ACTION and bName then
+		if bName:find(STR_STANCE, 1, true) then return STR_STANCE end
+		if bName:find(STR_POSSESS, 1, true) then return STR_POSSESS end
+		if bName:find(STR_PET, 1, true) then return STR_PET end
 
 		return subType
 	end
 
 	-- Item
-	if subType == TYPE_ITEM and bName then
-		if bName:find(TYPE_BACKPACK, 1, true) then return TYPE_BACKPACK end
-		if bName:find(TYPE_CHARACTERBAG, 1, true) then return TYPE_BAGSLOT end
-		if bName:find(TYPE_KEYRING, 1, true) then return TYPE_KEYRING end
-		if bName:find(TYPE_REAGENTBAG, 1, true) then return TYPE_REAGENTBAG end
+	if subType == STR_ITEM and bName then
+		if bName:find(STR_BACKPACK, 1, true) then return STR_BACKPACK end
+		if bName:find(STR_CHARACTERBAG, 1, true) then return STR_BAGSLOT end
+		if bName:find(STR_KEYRING, 1, true) then return STR_KEYRING end
+		if bName:find(STR_REAGENTBAG, 1, true) then return STR_REAGENTBAG end
 
 		return subType
 	end
 
 	-- Aura
-	if subType == TYPE_AURA then
+	if subType == STR_AURA then
 		-- Retail
 		if Button.DebuffBorder then
 			-- Possible Values: "Buff", "DeadlyDebuff", "Debuff" and "TempEnchant"
 			local AuraType = Button.auraType or subType
 
-			if AuraType == TYPE_DEADLYDEBUFF then return TYPE_DEBUFF end
-			if AuraType == TYPE_TEMPENCHANT then return TYPE_ENCHANT end
+			if AuraType == STR_DEADLYDEBUFF then return STR_DEBUFF end
+			if AuraType == STR_TEMPENCHANT then return STR_ENCHANT end
 
 			return AuraType
 		end
@@ -213,7 +209,7 @@ local function GetSubType(Button, subType)
 		-- Classic
 		-- Button.Border isn't used in Classic but add-ons may be using it.
 		if Button.Border or (bName and _G[bName..STR_BORDER]) then
-			return (Button.symbol and TYPE_DEBUFF) or TYPE_ENCHANT
+			return (Button.symbol and STR_DEBUFF) or STR_ENCHANT
 		end
 	end
 
@@ -236,29 +232,29 @@ local function GetType(self, Button, subType)
 
 	-- Invalid/Unspecified
 	else
-		if frameType == TYPE_CHECKBUTTON then
+		if frameType == "CheckButton" then
 			-- Action
 			if Button.HotKey then
-				subType = GetSubType(Button, TYPE_ACTION)
+				subType = GetSubType(Button, STR_ACTION)
 
 			-- Classic bag buttons are CheckButtons.
 			elseif Button.IconBorder then
-				subType = GetSubType(Button, TYPE_ITEM)
+				subType = GetSubType(Button, STR_ITEM)
 			end
 
-		elseif frameType == TYPE_BUTTON then
+		elseif frameType == "Button" then
 			-- Item
 			if Button.IconBorder then
-				subType = GetSubType(Button, TYPE_ITEM)
+				subType = GetSubType(Button, STR_ITEM)
 
 			-- Aura
 			elseif Button.duration or Button.Duration then
-				subType = GetSubType(Button, TYPE_AURA)
+				subType = GetSubType(Button, STR_AURA)
 			end
 		end
 	end
 
-	subType = subType or TYPE_LEGACY
+	subType = subType or STR_DEFAULT
 	self.SubType = subType
 
 	return subType
