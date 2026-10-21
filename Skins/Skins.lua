@@ -27,7 +27,7 @@ local table_insert, table_sort, type = table.insert, table.sort, type
 local Hidden = Core._Hidden
 
 -- @ Skins\Regions
-local Layers = Core.RegTypes.Default
+local Layers = Core.TypeConfig.Default
 
 ----------------------------------------
 -- Locals

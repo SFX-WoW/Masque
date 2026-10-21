@@ -20,7 +20,7 @@ local _, Core = ...
 local SkinRoot = Core.SKIN_BASE
 
 -- @ Skins\Regions
-local Settings = Core.RegTypes.Default
+local Settings = Core.TypeConfig.Default
 
 -- @ Core\Utility
 local GetColor, GetTexCoords, SetSkinPoint = Core.GetColor, Core.GetTexCoords, Core.SetSkinPoint

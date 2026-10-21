@@ -36,8 +36,8 @@ local DEF_SKIN = Core.DEFAULT_SKIN
 local Skin_Data = Core.Skins
 
 -- @ Skins\Regions
-local ActionTypes, AuraTypes, EmptyTypes = Core.ActionTypes, Core.AuraTypes, Core.EmptyTypes
-local ItemTypes, RegTypes = Core.ItemTypes, Core.RegTypes
+local isActionType, isAuraType, isEmptyType = Core.isActionType, Core.isAuraType, Core.isEmptyType
+local isItemType, TypeConfig = Core.isItemType, Core.TypeConfig
 
 -- @ Core\Core
 local GetMasqueConfig = Core.GetMasqueConfig
@@ -277,13 +277,13 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	_mcfg:UpdateScale(Button, Scale)
 
-	local IsActionType = ActionTypes[subType]
+	local IsActionType = isActionType[subType]
 
 	-- Set/remove type flags.
 	_mcfg.IsAction = IsActionType
-	_mcfg.IsAura = AuraTypes[subType]
-	_mcfg.IsItem = ItemTypes[subType]
-	_mcfg.IsEmptyType = EmptyTypes[subType]
+	_mcfg.IsAura = isAuraType[subType]
+	_mcfg.IsItem = isItemType[subType]
+	_mcfg.IsEmptyType = isEmptyType[subType]
 
 	local Disabled = not Enabled
 
@@ -372,20 +372,20 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- [[ Iteration ]]
 
-	local Layers = RegTypes[subType] or RegTypes.Default
+	local typeConfig = TypeConfig[subType] or TypeConfig.Default
 
-	for Layer, Info in pairs(Layers) do
-		if Info.Iterate then
-			local Region = Regions[Layer]
+	for layer, config in pairs(typeConfig) do
+		if config.Iterate then
+			local region = Regions[layer]
 
-			if Region then
+			if region then
 				-- Text
-				if Info.Type == "FontString" then
-					Skin_Text(Layer, Region, Button, Skin[Layer])
+				if config.Type == "FontString" then
+					Skin_Text(layer, region, Button, Skin[layer])
 
 				-- Texture
 				else
-					Skin_Texture(Layer, Region, Button, Skin[Layer], Colors[Layer])
+					Skin_Texture(layer, region, Button, Skin[layer], Colors[layer])
 				end
 			end
 		end

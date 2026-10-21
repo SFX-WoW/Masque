@@ -460,7 +460,7 @@ local itemConfig = {
 ---
 
 -- Registered Types
-local regTypes = {
+local typeConfig = {
 	-- Base
 	Default = baseConfig,
 	-- Action
@@ -530,16 +530,16 @@ local isType = {
 -- Core
 ---
 
-Core.RegTypes = regTypes
-Core.BaseTypes = isBaseType
-Core.EmptyTypes = isEmptyType
+Core.TypeConfig = typeConfig
 
+Core.isBaseType = isBaseType
+Core.isActionType = isType.Action
+Core.isAuraType = isType.Aura
+Core.isItemType = isType.Item
+
+Core.isEmptyType = isEmptyType
 Core.isCustomType = isCustomType
 Core.isDefaultType = isDefaultType
-
-Core.ActionTypes = isType.Action
-Core.AuraTypes = isType.Aura
-Core.ItemTypes = isType.Item
 
 ----------------------------------------
 -- API
@@ -550,7 +550,7 @@ Core.ItemTypes = isType.Item
 -- * `List` must be an indexed table of string region names.
 -- * `BaseType` must be "Action", "Aura", "Item" or nil.
 function Core.API:AddType(Name, List, BaseType)
-	if type(Name) ~= "string" or regTypes[Name] then
+	if type(Name) ~= "string" or typeConfig[Name] then
 		if Core.Debug then
 			error("Bad argument to API method 'AddType'. 'Name' must be a unique string.", 2)
 		end
@@ -588,7 +588,7 @@ function Core.API:AddType(Name, List, BaseType)
 		end
 	end
 
-	regTypes[Name] = cache
+	typeConfig[Name] = cache
 	isCustomType[Name] = true
 
 	if BaseType then

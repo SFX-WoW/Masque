@@ -32,7 +32,7 @@ local Skins = Core.Skins
 local DEFAULT_SKIN = Core.DEFAULT_SKIN
 
 -- @ Skins\Regions
-local ActionTypes, RegTypes = Core.ActionTypes, Core.RegTypes
+local TypeConfig = Core.TypeConfig
 
 -- @ Core\Utility
 local GetColor, GetFrameType = Core.GetColor, Core.GetFrameType
@@ -104,17 +104,13 @@ function GMT:AddButton(Button, Regions, Type, Strict)
 
 	Group[Button] = self
 
-	if ActionTypes[subType] then
-		self.ActionButtons = true
-	end
-
 	if type(Regions) ~= "table" then
 		Regions = {}
 	end
 
 	-- Don't iterate layers for generic frames.
 	if not Strict and frameType ~= "Frame" then
-		local Layers = RegTypes[subType]
+		local Layers = TypeConfig[subType]
 
 		for Layer, Info in pairs(Layers) do
 			local Region = Regions[Layer]

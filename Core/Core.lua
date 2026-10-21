@@ -29,7 +29,7 @@ local HasSecrets = Core.HasSecrets
 local SkinBase = Core.SKIN_BASE
 
 -- @ Skins\Regions
-local BaseTypes, RegTypes = Core.BaseTypes, Core.RegTypes
+local isBaseType, TypeConfig = Core.isBaseType, Core.TypeConfig
 
 ----------------------------------------
 -- Locals
@@ -225,8 +225,8 @@ local function GetType(self, Button, subType)
 	subType = subType or self.SubType
 
 	-- Base/Registered Types
-	if subType and RegTypes[subType] then
-		if BaseTypes[subType] then
+	if subType and TypeConfig[subType] then
+		if isBaseType[subType] then
 			subType = GetSubType(Button, subType)
 		end
 
