@@ -1,9 +1,10 @@
-## 12.1.1-Beta
+## 12.1.5-Beta
 
 ### General
 
 - Enabled automated localization via the packager.
 - Updated the `Interface` version:
+  - **Midnight**: `120105`
   - **Forever**: `16001`
 
 ### API
@@ -16,5 +17,7 @@
   - If `SetOnly` is true, it will **not** call `ReSkin()`.
 - Removed references to `FloatingBG`. `Backdrop` is now fully a custom region.
 - Updated the `API_VERSION` to `120001`.
+- Updated the region configuration to account for UI changes.
+- Updated the type logic to account for for UI changes.
 
 [Release History](https://github.com/SFX-WoW/Masque/wiki/History)
