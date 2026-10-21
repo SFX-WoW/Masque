@@ -462,7 +462,7 @@ local itemConfig = {
 -- Registered Types
 local regTypes = {
 	-- Base
-	Legacy = baseConfig,
+	Default = baseConfig,
 	-- Action
 	Action = actionConfig,
 	Pet = actionConfig,

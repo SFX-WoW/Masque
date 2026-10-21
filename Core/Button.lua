@@ -372,7 +372,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	-- [[ Iteration ]]
 
-	local Layers = RegTypes[subType] or RegTypes.Legacy
+	local Layers = RegTypes[subType] or RegTypes.Default
 
 	for Layer, Info in pairs(Layers) do
 		if Info.Iterate then
