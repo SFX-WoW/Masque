@@ -132,7 +132,7 @@ function Core.SetColor_Backdrop(Region, Button, Skin, Color)
 	Region = Region or _mcfg.Backdrop
 
 	if Region then
-		Skin = _mcfg:GetTypeSkin(Button, Skin)
+		Skin = _mcfg:GetTypeSkin(Skin)
 		Color = Color or Skin.Color
 
 		if Skin.UseColor then
@@ -147,7 +147,7 @@ end
 function Core.Skin_Backdrop(Enabled, Button, Skin, Color)
 	local _mcfg = Button._MSQ_CFG
 
-	Skin = _mcfg:GetTypeSkin(Button, Skin)
+	Skin = _mcfg:GetTypeSkin(Skin)
 
 	if Enabled and (not Skin.Hide) then
 		Add_Backdrop(Button, Skin, Color)

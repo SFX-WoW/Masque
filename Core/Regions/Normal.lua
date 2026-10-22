@@ -140,7 +140,7 @@ function Core.SetColor_Normal(Region, Button, Skin, Color)
 	Region = Region or _mcfg.Normal
 
 	if Region then
-		Skin = _mcfg:GetTypeSkin(Button, Skin)
+		Skin = _mcfg:GetTypeSkin(Skin)
 		_mcfg.Color_Normal = Color or Skin.Color
 
 		Update_Normal(Button)
@@ -164,7 +164,7 @@ function Core.Skin_Normal(Region, Button, Skin, Color)
 		Region = Region or Old_Normal
 	end
 
-	Skin = _mcfg:GetTypeSkin(Button, Skin)
+	Skin = _mcfg:GetTypeSkin(Skin)
 
 	-- States Enabled
 	if Skin.UseStates then

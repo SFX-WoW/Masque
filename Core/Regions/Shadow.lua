@@ -103,7 +103,7 @@ function Core.SetColor_Shadow(Region, Button, Skin, Color)
 	Region = Region or _mcfg.Shadow
 
 	if Region then
-		Skin = _mcfg:GetTypeSkin(Button, Skin)
+		Skin = _mcfg:GetTypeSkin(Skin)
 		Region:SetVertexColor(GetColor(Color or Skin.Color))
 	end
 end
@@ -112,7 +112,7 @@ end
 function Core.Skin_Shadow(Enabled, Button, Skin, Color)
 	local _mcfg = Button._MSQ_CFG
 
-	Skin = _mcfg:GetTypeSkin(Button, Skin)
+	Skin = _mcfg:GetTypeSkin(Skin)
 
 	if Enabled and (not Skin.Hide) and Skin.Texture then
 		Add_Shadow(Button, Skin, Color)

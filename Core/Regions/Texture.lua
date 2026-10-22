@@ -58,7 +58,7 @@ function Core.SetColor_Texture(Layer, Region, Button, Skin, Color)
 		local subType = _mcfg.SubType
 		local Config = Settings[Layer]
 
-		Skin = _mcfg:GetTypeSkin(Button, Skin)
+		Skin = _mcfg:GetTypeSkin(Skin)
 
 		Config = Config[subType] or Config
 		Color = Color or Skin.Color
@@ -79,7 +79,7 @@ function Core.Skin_Texture(Layer, Region, Button, Skin, Color)
 
 	local Config = Settings[Layer]
 
-	Skin = _mcfg:GetTypeSkin(Button, Skin)
+	Skin = _mcfg:GetTypeSkin(Skin)
 	Config = Config[subType] or Config
 
 	if Config.CanHide and Skin.Hide then

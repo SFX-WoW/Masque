@@ -16,7 +16,7 @@ local _, Core = ...
 -- Lua API
 ---
 
-local _G, type, string_find = _G, type, string.find
+local type, string_find = type, string.find
 
 ----------------------------------------
 -- Internal
@@ -132,6 +132,11 @@ end
 -- Size
 ---
 
+-- Returns the internal width and height of a frame.
+local function GetFrameSize(self)
+	return self.FrameWidth, self.FrameHeight
+end
+
 -- Returns a height and width relative to scaling.
 local function GetScaleSize(self, Width, Height)
 	local ScaleSize = self.ScaleSize
@@ -140,11 +145,6 @@ local function GetScaleSize(self, Width, Height)
 	local h = (Height or ScaleSize) * self.yScale
 
 	return w, h
-end
-
--- Returns the internal width and height of a frame.
-local function GetFrameSize(self)
-	return self.FrameWidth, self.FrameHeight
 end
 
 -- Sets the internal width and height of a frame.
@@ -169,6 +169,31 @@ local function UpdateFrameSize(self)
 end
 
 ----------------------------------------
+-- Skin
+---
+
+-- Returns a sub-skin based on the type, if available.
+local function GetTypeSkin(self, Skin)
+	local subType = self.SubType
+
+	if self.isAuraType then
+		return Skin[subType] or Skin.Aura or Skin
+	end
+
+	if self.isItemType then
+		if TYPE_SPECIAL[subType] then
+			return Skin[subType] or Skin.BagSlot or Skin.Item or Skin
+
+		else
+			return Skin[subType] or Skin.Item or Skin
+		end
+
+	end
+
+	return Skin[subType] or Skin
+end
+
+----------------------------------------
 -- Type
 ---
 
@@ -179,15 +204,16 @@ local function GetBaseType(self, SetType)
 	if baseType then return baseType end
 
 	if SetType then
-		-- Set as a base type.
+		-- Base Type
 		if isBaseType[SetType] then
 			self.BaseType = SetType
 			self["is"..SetType.."Type"] = true
 
 			return SetType
+		end
 
-		-- Get the base type if it's a custom type.
-		elseif isCustomType[SetType] then
+		-- Determine the base type of custom types.
+		if isCustomType[SetType] then
 			baseType = STR_DEFAULT
 			self.isCustomType = true
 
@@ -312,7 +338,7 @@ local function GetSubType(self, SetType)
 		return subType
 	end
 
-	subType = subType or STR_DEFAULT
+	subType = subType or baseType or STR_DEFAULT
 
 	self.isEmptyType = isEmptyType[subType]
 	self.SubType = subType
@@ -324,31 +350,6 @@ end
 local function GetConfigTypes(self, SetType)
 	SetType = (type(SetType) == "string") and SetType or nil
 	return self:GetBaseType(SetType), self:GetSubType(SetType)
-end
-
-----------------------------------------
--- Skin
----
-
--- Returns a sub-skin based on the button type, if available.
-local function GetTypeSkin(self, Button, Skin)
-	local subType = self.SubType
-
-	if self.isAuraType then
-		return Skin[subType] or Skin.Aura or Skin
-	end
-
-	if self.isItemType then
-		if TYPE_SPECIAL[subType] then
-			return Skin[subType] or Skin.BagSlot or Skin.Item or Skin
-
-		else
-			return Skin[subType] or Skin.Item or Skin
-		end
-
-	end
-
-	return Skin[subType] or Skin
 end
 
 ----------------------------------------

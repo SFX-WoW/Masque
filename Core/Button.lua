@@ -288,7 +288,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 
 	if Mask_Skin then
 		if type(Mask_Skin) == "table" then
-			Mask_Skin = _mcfg:GetTypeSkin(Button, Mask_Skin)
+			Mask_Skin = _mcfg:GetTypeSkin(Mask_Skin)
 		end
 
 		Skin_Mask(Button, Mask_Skin)
@@ -304,7 +304,7 @@ function Core.SkinButton(Button, Regions, SkinID, Backdrop, Shadow, Gloss, Color
 	local Hide_Icon
 
 	if subType == "Backpack" then
-		local Normal_Skin = _mcfg:GetTypeSkin(Button, Skin.Normal)
+		local Normal_Skin = _mcfg:GetTypeSkin(Skin.Normal)
 		local Normal_Atlas = Normal_Skin.Atlas
 
 		if (type(Normal_Atlas) == "string") and (Normal_Atlas:lower() == "bag-main") then

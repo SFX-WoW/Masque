@@ -81,7 +81,7 @@ end
 function Core.Skin_QuestBorder(Region, Button, Skin)
 	local _mcfg = Button._MSQ_CFG
 
-	Skin = _mcfg:GetTypeSkin(Button, Skin)
+	Skin = _mcfg:GetTypeSkin(Skin)
 
 	local Texture = Region._MSQ_Texture or Region:GetTexture()
 

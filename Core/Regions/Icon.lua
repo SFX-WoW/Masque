@@ -149,7 +149,7 @@ function Core.Skin_Icon(Region, Button, Skin, Hide)
 	Region._MSQ_Button = Button
 
 	-- Skin
-	Skin = _mcfg:GetTypeSkin(Button, Skin)
+	Skin = _mcfg:GetTypeSkin(Skin)
 
 	Region:SetTexCoord(GetTexCoords(Skin.TexCoords))
 	Region:SetDrawLayer(Layer, BASE_LEVEL)

@@ -30,7 +30,7 @@ local SetSkinPoint = Core.SetSkinPoint
 function Core.Skin_Text(Layer, Region, Button, Skin)
 	local _mcfg = Button._MSQ_CFG
 
-	Skin = _mcfg:GetTypeSkin(Button, Skin)
+	Skin = _mcfg:GetTypeSkin(Skin)
 
 	local Default = SkinRoot[Layer]
 
