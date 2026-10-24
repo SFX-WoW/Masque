@@ -53,7 +53,7 @@ local BASE_TEXTURES = SkinBase.Textures -- [[Interface\AddOns\Masque\Textures\Ba
 -- Skins or creates the 'Backdrop' region of a button.
 local function Add_Backdrop(Button, Skin, Color)
 	local _mcfg = Button._MSQ_CFG
-	local Region = _mcfg.Gloss
+	local Region = _mcfg.Backdrop
 
 	if not Region then
 		Region = Button:CreateTexture()
