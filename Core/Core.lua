@@ -258,6 +258,7 @@ local function GetBaseType(self, SetType)
 	end
 
 	self.BaseType = baseType
+	self.isEmptyType = isEmptyType[baseType]
 	self["is"..baseType.."Type"] = true
 
 	return baseType
@@ -339,8 +340,6 @@ local function GetSubType(self, SetType)
 	end
 
 	subType = subType or baseType or STR_DEFAULT
-
-	self.isEmptyType = isEmptyType[subType]
 	self.SubType = subType
 
 	return subType
