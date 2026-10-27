@@ -36,10 +36,6 @@ local Layers = Core.TypeConfig.Default
 -- String Constants
 local STR_SQUARE = "Square"
 
--- Type Strings
-local TYPE_STRING = "string"
-local TYPE_TABLE = "table"
-
 -- Skin Storage
 local AddedSkins, CoreSkins = {}, {}
 local Skins, SkinList, SkinOrder = {}, {}, {}
@@ -55,53 +51,13 @@ local UniqueKeys = {
 	Version = true,
 }
 
--- Legacy Layer Names
-local LegacyLayers = {
-	-- Using `Shine` or `AutoCast`
-	["AutoCastShine"] = function(Skin)
-		return Skin.AutoCastShine or Skin.Shine or Skin.AutoCast
-	end,
-	-- `CooldownLoC` Undefined
-	["CooldownLoC"] = function(Skin)
-		return Skin.CooldownLoC or Skin.Cooldown
-	end,
-	-- `ChargeCoolDown` Undefined
-	["ChargeCooldown"] = function(Skin)
-		return Skin.ChargeCooldown or Skin.Cooldown
-	end,
-	-- Using `Border.Debuff` / `DebuffBorder` Undefined
-	["DebuffBorder"] = function(Skin)
-		local Border = Skin.Border
-		if type(Border) == TYPE_TABLE then
-			Border = Border.Debuff or Border
-		end
-		return Border
-	end,
-	-- Using `Border.Enchant` / `EnchantBorder` Undefined
-	["EnchantBorder"] = function(Skin)
-		local Border = Skin.Border
-		if type(Border) == TYPE_TABLE then
-			Border = Border.Enchant or Border
-		end
-		return Border
-	end,
-	-- Using `Border.Item` / `IconBorder` Undefined
-	["IconBorder"] = function(Skin)
-		local Border = Skin.Border
-		if type(Border) == TYPE_TABLE then
-			Border = Border.Item or Border
-		end
-		return Border
-	end,
-}
-
 ----------------------------------------
 -- Helpers
 ---
 
 -- Returns a valid shape.
 local function GetShape(Shape)
-	if type(Shape) ~= TYPE_STRING then
+	if type(Shape) ~= "string" then
 		Shape = STR_SQUARE
 	end
 	return Shape
@@ -118,15 +74,45 @@ local function SortSkins()
 	end
 end
 
+-- Updates outdated skins.
+-- * Do not set the root tables or it'll break inheritance from the default skin.
+local function UpdateSubSkins(Skin)
+	-- [ AutoCast Frame ][*]
+	local frame = Skin.AutoCast_Frame
+
+	if type(frame) == "table" then
+		frame.Classic = frame.Classic or Skin.AutoCastShine or Skin.Shine or Skin.AutoCast
+	end
+
+	-- [ AutoCast Corners ][*]
+	local corners = Skin.AutoCast_Corners
+
+	if type(corners) == "table" then
+		corners.Classic = corners.Classic or Skin.AutoCastable
+	end
+
+	-- [ Borders ]
+	local border = Skin.Border
+
+	if type(border) ~= "table" then border = nil end
+
+	local debuff = border and border.Debuff
+	local enchant = border and border.Enchant
+	local item = border and border.Item
+
+	Skin.DebuffBorder = Skin.DebuffBorder or debuff or border
+	Skin.EnchantBorder = Skin.EnchantBorder or enchant or border
+	Skin.IconBorder = Skin.IconBorder or item or border
+
+	-- [ Cooldowns ]
+	Skin.ChargeCooldown = Skin.ChargeCooldown or Skin.Cooldown
+	Skin.CooldownLoC = Skin.CooldownLoC or Skin.Cooldown
+end
+
 -- Adds data to the skin tables.
 local function AddSkin(SkinID, SkinData, IsCore, IsBase)
-	-- [ Legacy Layers ]
-
-	for Layer, GetLayer in pairs(LegacyLayers) do
-		if not SkinData[Layer] then
-			SkinData[Layer] = GetLayer(SkinData)
-		end
-	end
+	-- Update older skins.
+	UpdateSubSkins(SkinData)
 
 	-- Mandatory Metadata
 	SkinData.SkinID = SkinID
@@ -169,7 +155,7 @@ local function AddSkin(SkinID, SkinData, IsCore, IsBase)
 			local sType = type(Skin)
 
 			-- String reference to another layer.
-			if sType == TYPE_STRING then
+			if sType == "string" then
 				SkinData[Layer] = SkinData[Skin]
 
 			-- Hide unused regions.
@@ -177,7 +163,7 @@ local function AddSkin(SkinID, SkinData, IsCore, IsBase)
 				SkinData[Layer] = Hidden
 
 			-- Hide layers if allowed.
-			elseif (sType == TYPE_TABLE) then
+			elseif (sType == "table") then
 				if Skin.Hide then
 					SkinData[Layer] = (Info.CanHide and Hidden) or nil
 				end
@@ -225,7 +211,7 @@ local API = Core.API
 function API:AddSkin(SkinID, SkinData)
 	local Debug = Core.Debug
 
-	if type(SkinID) ~= TYPE_STRING then
+	if type(SkinID) ~= "string" then
 		if Debug then
 			error("Bad argument to API method 'AddSkin'. 'SkinID' must be a string.", 2)
 		end
@@ -234,7 +220,7 @@ function API:AddSkin(SkinID, SkinData)
 
 	if Skins[SkinID] then return end
 
-	if type(SkinData) ~= TYPE_TABLE then
+	if type(SkinData) ~= "table" then
 		if Debug then
 			error("Bad argument to API method 'AddSkin'. 'SkinData' must be a table.", 2)
 		end
@@ -244,7 +230,7 @@ function API:AddSkin(SkinID, SkinData)
 	local Template = SkinData.Template
 
 	if Template then
-		if type(Template) ~= TYPE_STRING then
+		if type(Template) ~= "string" then
 			if Debug then
 				error(("Invalid template reference by skin '%s'. 'Template' must be a string."):format(SkinID), 2)
 			end
@@ -253,7 +239,7 @@ function API:AddSkin(SkinID, SkinData)
 
 		local Parent = Skins[Template]
 
-		if type(Parent) ~= TYPE_TABLE  then
+		if type(Parent) ~= "table"  then
 			if Debug then
 				error(("Invalid template reference by skin '%s'. Template '%s' does not exist or is not a table."):format(SkinID, Template), 2)
 			end
