@@ -426,7 +426,7 @@ function GMT:__Set(Option, Value)
 
 				if Option == "Backdrop" then
 					for Button, Regions in pairs(self.Buttons) do
-						func(Value, Regions.Backdrop, Button, Skin.Backdrop, db.Colors.Backdrop)
+						func(Value, Button, Skin.Backdrop, db.Colors.Backdrop)
 					end
 				else
 					for Button in pairs(self.Buttons) do
