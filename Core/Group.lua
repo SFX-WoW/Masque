@@ -424,14 +424,8 @@ function GMT:__Set(Option, Value)
 			if func then
 				local Skin = Skins[db.SkinID] or DEFAULT_SKIN
 
-				if Option == "Backdrop" then
-					for Button, Regions in pairs(self.Buttons) do
-						func(Value, Regions.Backdrop, Button, Skin.Backdrop, db.Colors.Backdrop)
-					end
-				else
-					for Button in pairs(self.Buttons) do
-						func(Value, Button, Skin[Option], db.Colors[Option])
-					end
+				for Button in pairs(self.Buttons) do
+					func(Value, Button, Skin[Option], db.Colors[Option])
 				end
 			end
 		end
