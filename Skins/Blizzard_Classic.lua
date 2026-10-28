@@ -524,7 +524,7 @@ local Skin = {
 		-- SetAllPoints = nil,
 		-- UseColor = nil,
 	},
-	-- [ TextOverlayContainer (Retail) ]
+	-- [ TextOverlayContainer ]
 	Count = {
 		-- JustifyH = "RIGHT",
 		-- JustifyV = "BOTTOM",
@@ -573,32 +573,7 @@ local Skin = {
 			OffsetY = -2,
 		},
 	},
-	-- [ AutoCast (Classic) ]
-	AutoCastable = {
-		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-		-- TexCoords = {0, 1, 0, 1},
-		-- Color = {1, 1, 1, 1},
-		-- BlendMode = "BLEND",
-		-- DrawLayer = "OVERLAY",
-		-- DrawLevel = 1,
-		Width = 58,
-		Height = 58,
-		-- Point = "CENTER",
-		-- RelPoint = "CENTER",
-		-- OffsetX = 0,
-		-- OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
-	AutoCastShine = {
-		Width = 34,
-		Height = 34,
-		-- Point = "CENTER",
-		-- RelPoint = "CENTER",
-		-- OffsetX = 0,
-		-- OffsetY = 0,
-		-- SetAllPoints = nil,
-	},
-	-- [ AutoCast (Retail) ]
+	-- [ AutoCastOverlay ]
 	AutoCast_Frame = {
 		Width = 37,
 		Height = 37,
@@ -607,6 +582,15 @@ local Skin = {
 		-- OffsetX = 0,
 		-- OffsetY = 0,
 		-- SetAllPoints = nil,
+		Classic = {
+			Width = 26,
+			Height = 26,
+			-- Point = "CENTER",
+			-- RelPoint = "CENTER",
+			-- OffsetX = 0,
+			-- OffsetY = 0,
+			-- SetAllPoints = nil,
+		},
 	},
 	AutoCast_Shine = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
@@ -649,8 +633,23 @@ local Skin = {
 		-- OffsetX = 0,
 		-- OffsetY = 0,
 		SetAllPoints = true,
+		Classic = {
+			Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
+			-- TexCoords = {0, 1, 0, 1},
+			-- Color = {1, 1, 1, 1},
+			-- BlendMode = "BLEND",
+			-- DrawLayer = "OVERLAY",
+			-- DrawLevel = 1,
+			Width = 60,
+			Height = 60,
+			-- Point = "CENTER",
+			-- RelPoint = "CENTER",
+			-- OffsetX = 0,
+			-- OffsetY = 0,
+			-- SetAllPoints = nil,
+		},
 	},
-	-- [ Cooldowns ]
+	-- [ Cooldown ]
 	Cooldown = {
 		Texture = [[Interface\AddOns\Masque\Textures\Modern\Mask]],
 		EdgeTexture = [[Interface\AddOns\Masque\Textures\Modern\Edge]],

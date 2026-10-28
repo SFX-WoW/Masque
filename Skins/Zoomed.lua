@@ -20,17 +20,6 @@ local _, Core = ...
 local L = Core.Locale
 
 ----------------------------------------
--- Locals
----
-
--- String Constants
-local STR_ADD = "ADD"
-
--- Texture Strings
-local TEX_DEBUFF = [[Interface\Buttons\UI-Debuff-Overlays]]
-local TEX_ENCHANT = [[Interface\Buttons\UI-TempEnchant-Border]]
-
-----------------------------------------
 -- Zoomed
 ---
 
@@ -67,26 +56,26 @@ Core.AddSkin("Zoomed", {
 	-- Flash = Template.Flash,
 	Checked = {
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
-		BlendMode = STR_ADD,
+		BlendMode = "ADD",
 		Width = 38,
 		Height = 38,
 	},
 	SlotHighlight = "Checked",
 	Border = {
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
-		BlendMode = STR_ADD,
+		BlendMode = "ADD",
 		Width = 66,
 		Height = 66,
 		OffsetX = 0.5,
 		OffsetY = 0.5,
 		Debuff = {
-			Texture = TEX_DEBUFF,
+			Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
 			TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 			Width = 40,
 			Height = 38,
 		},
 		Enchant = {
-			Texture = TEX_ENCHANT,
+			Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
 			Width = 40,
 			Height = 40,
 		},
@@ -97,13 +86,13 @@ Core.AddSkin("Zoomed", {
 		},
 	},
 	DebuffBorder = {
-		Texture = TEX_DEBUFF,
+		Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
 		TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 		Width = 40,
 		Height = 38,
 	},
 	EnchantBorder = {
-		Texture = TEX_ENCHANT,
+		Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
 		Width = 40,
 		Height = 40,
 	},
@@ -147,22 +136,25 @@ Core.AddSkin("Zoomed", {
 	-- [ TextOverlayContainer (Retail) ]
 	-- Count = Template.Count,
 	-- HotKey = Template.HotKey,
-	-- [ AutoCastShine (Classic) ]
-	AutoCastable = {
-		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-		Width = 66,
-		Height = 66,
-		OffsetX = 0.5,
-		OffsetY = -0.5,
+	-- [ AutoCastOverlay ]
+	AutoCast_Frame = {
+		Width = 37,
+		Height = 37,
+		-- Point = "CENTER",
+		-- RelPoint = "CENTER",
+		-- OffsetX = 0,
+		-- OffsetY = 0,
+		-- SetAllPoints = nil,
+		Classic = {
+			Width = 30,
+			Height = 30,
+			-- Point = "CENTER",
+			-- RelPoint = "CENTER",
+			OffsetX = 0.5,
+			-- OffsetY = 0,
+			-- SetAllPoints = nil,
+		},
 	},
-	AutoCastShine = {
-		Width = 36,
-		Height = 36,
-		OffsetX = 0.5,
-		OffsetY = -0.5
-	},
-	-- [ AutoCastOverlay (Retail) ]
-	-- AutoCast_Frame = Template.AutoCast_Frame,
 	-- AutoCast_Shine = Template.AutoCast_Shine,
 	AutoCast_Mask = {
 		Texture = [[Interface\AddOns\Masque\Textures\Square\AutoCast-Mask]],
@@ -173,6 +165,13 @@ Core.AddSkin("Zoomed", {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
 		Width = 38,
 		Height = 38,
+		Classic = {
+			Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
+			Width = 66,
+			Height = 66,
+			-- OffsetX = 0,
+			-- OffsetY = 0,
+		},
 	},
 	-- [ Cooldowns ]
 	-- Cooldown = Template.Cooldown,

@@ -217,7 +217,6 @@ local baseConfig = {
 		Ignore = true,
 		CanHide = true,
 	},
-
 	IconOverlay2 = { -- [ ItemButtonTemplate ][ RETAIL_ONLY ]
 		Key = "IconOverlay2",
 		Type = "Texture",

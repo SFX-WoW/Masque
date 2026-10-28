@@ -101,11 +101,6 @@ local Defaults = {
 		DrawLayer = STR_ARTWORK,
 		DrawLevel = 0,
 	},
-	Flash = { -- [IT]
-		Texture = [[Interface\Buttons\UI-QuickslotRed]],
-		DrawLayer = STR_ARTWORK,
-		DrawLevel = 1,
-	},
 	Checked = { -- [IT]
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 		DrawLayer = STR_OVERLAY,
@@ -116,24 +111,16 @@ local Defaults = {
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 0,
 	},
+	Flash = { -- [IT]
+		Texture = [[Interface\Buttons\UI-QuickslotRed]],
+		DrawLayer = STR_ARTWORK,
+		DrawLevel = 1,
+	},
 	Border = { -- [IT]
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 0,
 		Size = 62,
-		Debuff = {
-			Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
-			TexCoords = {0.296875, 0.5703125, 0, 0.515625},
-			DrawLayer = STR_OVERLAY,
-			DrawLevel = 0,
-			Size = 38,
-		},
-		Enchant = {
-			Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
-			DrawLayer = STR_OVERLAY,
-			DrawLevel = 0,
-			Size = 38,
-		},
 		Item = { -- Still necessary for some add-ons.
 			Texture = [[Interface\Common\WhiteIconFrame]],
 			DrawLayer = STR_OVERLAY,
@@ -164,14 +151,14 @@ local Defaults = {
 		DrawLevel = 1,
 	},
 	NewAction = { -- [IT]
-		Atlas = "bags-newitem",
+		Atlas = "Bags-NewItem",
 		BlendMode = STR_ADD,
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 1,
 		Size = 44,
 	},
 	SpellHighlight = { -- [IT]
-		Atlas = "bags-newitem",
+		Atlas = "Bags-NewItem",
 		BlendMode = STR_ADD,
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 1,
@@ -190,7 +177,7 @@ local Defaults = {
 		Size = 36,
 	},
 	NewItem = {
-		Atlas = "bags-glow-white",
+		Atlas = "Bags-Glow-White",
 		BlendMode = STR_ADD,
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 2,
@@ -203,7 +190,7 @@ local Defaults = {
 		DrawLevel = 2,
 	},
 	UpgradeIcon = { -- [IT]
-		Atlas = "bags-greenarrow",
+		Atlas = "Bags-GreenArrow",
 		UseAtlasSize = true,
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 3, -- 1
@@ -226,7 +213,7 @@ local Defaults = {
 		UseColor = true,
 	},
 	JunkIcon = { -- [IT]
-		Atlas = "bags-junkcoin",
+		Atlas = "Bags-JunkCoin",
 		UseAtlasSize = true,
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 5,
@@ -281,17 +268,7 @@ local Defaults = {
 		Point = STR_TOPRIGHT,
 		RelPoint = STR_TOPRIGHT,
 	},
-	-- [ AutoCast (Classic) ]
-	AutoCastable = { -- [IT]
-		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-		DrawLayer = STR_OVERLAY,
-		DrawLevel = 1,
-		Size = 58,
-	},
-	AutoCastShine = {
-		Size = 34,
-	},
-	-- [ AutoCast (Retail) ]
+	-- [ AutoCast]
 	-- AB (45) / SAB (30) = 1.5
 	-- Lua @ SAB: 31 * 1.5 = 46.5
 	-- AB (45) / 36 = 1.25
@@ -299,6 +276,9 @@ local Defaults = {
 	-- Multiplier = 1.2 (1.5 / 1.25)
 	AutoCast_Frame = {
 		Size = 37,
+		Classic = {
+			Size = 34,
+		},
 	},
 	AutoCast_Shine = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Ants",
@@ -315,6 +295,13 @@ local Defaults = {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
 		DrawLayer = STR_OVERLAY,
 		DrawLevel = 1,
+		Size = 45,
+		Classic = {
+			Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
+			DrawLayer = STR_OVERLAY,
+			DrawLevel = 1,
+			Size = 58,
+		},
 	},
 	-- [ Cooldown ]
 	Cooldown = {

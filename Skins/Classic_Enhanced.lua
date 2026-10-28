@@ -20,20 +20,6 @@ local _, Core = ...
 local L = Core.Locale
 
 ----------------------------------------
--- Locals
----
-
--- String Constants
-local STR_ADD = "ADD"
-
--- Texture Strings
-local TEX_BAGSLOT = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]]
-local TEX_CHECKED = [[Interface\Buttons\CheckButtonHilight]]
-local TEX_DEBUFF = [[Interface\Buttons\UI-Debuff-Overlays]]
-local TEX_ENCHANT = [[Interface\Buttons\UI-TempEnchant-Border]]
-local TEX_NORMAL = [[Interface\Buttons\UI-Quickslot2]]
-
-----------------------------------------
 -- Classic Enhanced
 ---
 
@@ -57,11 +43,11 @@ Core.AddSkin("Classic Enhanced", {
 		Width = 64,
 		Height = 64,
 		BagSlot = {
-			Texture = TEX_BAGSLOT,
+			Texture = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]],
 			Color = {1, 1, 1, 0.8},
 		},
 		Item = {
-			Texture = TEX_BAGSLOT,
+			Texture = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]],
 			Color = {1, 1, 1, 0.5},
 		},
 	},
@@ -72,14 +58,14 @@ Core.AddSkin("Classic Enhanced", {
 	},
 	-- Shadow = Template.Shadow,
 	Normal = {
-		Texture = TEX_NORMAL,
+		Texture = [[Interface\Buttons\UI-Quickslot2]],
 		EmptyColor = {1, 1, 1, 0.5},
 		Width = 60,
 		Height = 60,
 		OffsetX = 0.5,
 		OffsetY = -0.5,
 		Pet = {
-			Texture = TEX_NORMAL,
+			Texture = [[Interface\Buttons\UI-Quickslot2]],
 			Width = 58,
 			Height = 58,
 			OffsetX = 0.5,
@@ -98,53 +84,53 @@ Core.AddSkin("Classic Enhanced", {
 		Height = 34,
 	},
 	Checked = {
-		Texture = TEX_CHECKED,
+		Texture = [[Interface\Buttons\CheckButtonHilight]],
 		Color = {1, 1, 1, 0.8},
-		BlendMode = STR_ADD,
+		BlendMode = "ADD",
 		Width = 33,
 		Height = 33,
 		Pet = {
-			Texture = TEX_CHECKED,
+			Texture = [[Interface\Buttons\CheckButtonHilight]],
 			Color = {1, 1, 1, 0.8},
-			BlendMode = STR_ADD,
+			BlendMode = "ADD",
 			Width = 32,
 			Height = 32,
 		},
 	},
 	SlotHighlight = {
-		Texture = TEX_CHECKED,
+		Texture = [[Interface\Buttons\CheckButtonHilight]],
 		Width = 33,
 		Height = 33,
 	},
 	Border = {
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
-		BlendMode = STR_ADD,
+		BlendMode = "ADD",
 		Width = 57,
 		Height = 57,
 		OffsetX = 0.5,
 		OffsetY = 0.5,
 		Debuff = {
-			Texture = TEX_DEBUFF,
+			Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
 			TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 			Width = 40,
 			Height = 38,
 			OffsetY = 1,
 		},
 		Enchant = {
-			Texture = TEX_ENCHANT,
+			Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
 			Width = 40,
 			Height = 40,
 		},
 	},
 	DebuffBorder = {
-		Texture = TEX_DEBUFF,
+		Texture = [[Interface\Buttons\UI-Debuff-Overlays]],
 		TexCoords = {0.296875, 0.5703125, 0, 0.515625},
 		Width = 40,
 		Height = 38,
 		OffsetY = 1,
 	},
 	EnchantBorder = {
-		Texture = TEX_ENCHANT,
+		Texture = [[Interface\Buttons\UI-TempEnchant-Border]],
 		Width = 40,
 		Height = 40,
 	},
@@ -156,7 +142,7 @@ Core.AddSkin("Classic Enhanced", {
 	-- IconOverlay2 = Template.IconOverlay2,
 	NewItem = {
 		Atlas = "bags-newitem",
-		BlendMode = STR_ADD,
+		BlendMode = "ADD",
 	},
 	QuestBorder = {
 		Border = [[Interface\ContainerFrame\UI-Icon-QuestBang]],
@@ -187,22 +173,25 @@ Core.AddSkin("Classic Enhanced", {
 	-- [ TextOverlayContainer (Retail) ]
 	-- Count = Template.Count,
 	-- HotKey = Template.HotKey,
-	-- [ AutoCastShine (Classic) ]
-	AutoCastable = {
-		Texture = [[Interface\Buttons\UI-AutoCastableOverlay]],
-		Width = 66,
-		Height = 66,
-		OffsetX = 0.5,
-		OffsetY = -0.5,
+	-- [ AutoCastOverlay ]
+	AutoCast_Frame = {
+		Width = 37,
+		Height = 37,
+		-- Point = "CENTER",
+		-- RelPoint = "CENTER",
+		-- OffsetX = 0,
+		-- OffsetY = 0,
+		-- SetAllPoints = nil,
+		Classic = {
+			Width = 28,
+			Height = 28,
+			-- Point = "CENTER",
+			-- RelPoint = "CENTER",
+			OffsetX = 0.5,
+			OffsetY = -0.5,
+			-- SetAllPoints = nil,
+		},
 	},
-	AutoCastShine = {
-		Width = 32,
-		Height = 32,
-		OffsetX = 0.5,
-		OffsetY = -0.5,
-	},
-	-- [ AutoCastOverlay (Retail) ]
-	-- AutoCast_Frame = Template.AutoCast_Frame,
 	-- AutoCast_Shine = Template.AutoCast_Shine,
 	AutoCast_Mask = {
 		Texture = [[Interface\AddOns\Masque\Textures\Modern\AutoCast-Mask]],
@@ -213,6 +202,13 @@ Core.AddSkin("Classic Enhanced", {
 		Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
 		Width = 36,
 		Height = 36,
+		Classic = {
+			Atlas = "UI-HUD-ActionBar-PetAutoCast-Corners",
+			Width = 64,
+			Height = 64,
+			-- OffsetX = 0,
+			-- OffsetY = 0,
+		},
 	},
 	-- [ Cooldowns ]
 	Cooldown = {
